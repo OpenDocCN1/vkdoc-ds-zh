@@ -1,0 +1,1 @@
+# from the standard normal distribution `N(0, 1)`, evenly distributed

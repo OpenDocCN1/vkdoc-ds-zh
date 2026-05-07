@@ -1,0 +1,4692 @@
+- "\n![](img/978-1-4842-8005-8_CoverFigure.jpg)\n\nISBN 978-1-4842-8004-1  \ne-ISBN\
+  \ 978-1-4842-8005-8  \n[`doi.org/10.1007/978-1-4842-8005-8`](https://doi.org/10.1007/978-1-4842-8005-8)\
+  \  \n© Sayan Mukhopadhyay, Pratip Samanta 2018, 2023  \nApress 标准出版社  \n\n本出版物中使用的通用描述性名称、注册商标、商标、服务标记等，即使未作特别声明，也不意味着这些名称不受相关保护性法律和法规的约束，因此可自由使用。出版商、作者和编辑认为，本书中的建议和信息在出版之日是真实准确的。出版商、作者或编辑均不对本书所含材料或可能存在的任何错误或遗漏提供明示或暗示的担保。\n\
+  \n本 Apress 印记由注册公司 APress Media, LLC（Springer Nature 的一部分）出版。  \n注册公司地址为：1 New York\
+  \ Plaza, New York, NY 10004, U.S.A.\n\n*本书成功的秘诀在于其原创性研究，因此我将此书献给教会我如何做研究的人：印度科学研究所的\
+  \ Debnath Pal 博士。*  \n*——Sayan Mukhopadhyay*\n\n## 引言\n\n我们正生活在数据科学/人工智能时代。在这个数据驱动着从商业到政府、体育到娱乐等一切决策的环境中，要想蓬勃发展，你需要掌握管理和分析海量数据的技能。我们可以共同利用这些数据，让世界变得更美好。事实上，人类尚未发掘出利用这些数据所能做到的一切。那么，让我们开始探索吧！\n\
+  \n本书的目标是让你成为这个数据变革时代的领导者。通过本书，你将学习开发人工智能应用的技能，并对世界产生影响。\n\n本书面向高级用户，因为我们融入了一些高级分析主题。重要的机器学习模型和深度学习模型均配有编程练习和实际案例进行讲解。\n\
+  \n本书中使用的所有源代码均可从 [`https://github.com/apress/advanced-data-analytics-python-2e`](https://github.com/apress/advanced-data-analytics-python-2e)\
+  \ 下载。\n\n祝阅读愉快！\n\n## 致谢\n\n感谢 Labonic Chakraborty (Ripa) 和 Soumili Chakraborty。\n\
+  \n## 关于作者  \n## 关于技术审校\n\n"
+- '# 1. 人工智能系统概览
+
+
+  在本书中，我们假设你熟悉 Python 编程。在本介绍性章节中，我们将解释为什么数据科学家应该选择 Python 作为编程语言。然后，我们将指出一些 Python
+  可能并非理想选择的情况。最后，我们将描述一些应用程序开发的最佳实践，并给出数据科学家在日常工作中可能需要的代码示例。
+
+
+  ## Python 中的面向对象编程
+
+
+  在本节中，我们将解释 Python 语境下面向对象编程（OOP）的一些特性。
+
+
+  任何现代应用程序最基本的元素都是*对象*。对于程序员或架构师而言，世界就是对象的集合。对象由两类成员组成：*属性*和*方法*。成员可以是私有的、公有的或受保护的。*类*是对象的数据类型。每个对象都是某个类的一个实例。一个类可以被子类继承。两个类可以通过*组合*进行关联。
+
+
+  Python 没有用于表示 public、private 或 protected 的关键字，因此*封装*（对外部世界隐藏成员）在 Python 中并非隐式实现。与
+  C++ 类似，它支持多级继承和多重继承。与 Java 类似，它有一个 `abstract` 关键字。类和方法都可以是抽象的。
+
+
+  在以下代码中，我们描述了一个不依赖任何机器学习的面向对象问答系统。程序的输入是 `input.txt` 中的一组对话，如下所示：
+
+
+  ```
+
+  glob is I
+
+  prok is V
+
+  pish is X
+
+  tegj is L
+
+  glob glob Silver is 34 Credits
+
+  glob prok Gold is 57800 Credits
+
+  pish pish Iron is 3910 Credits
+
+  how much is pish tegj glob glob ?
+
+  how many Credits is glob prok Silver ?
+
+  how many Credits is glob prok Gold ?
+
+  how many Credits is glob prok Iron ?
+
+  how much wood could a woodchuck chuck if a woodchuck could chuck wood?
+
+  ```
+
+
+  程序在 `config.txt` 中有一个知识库。
+
+
+  ```
+
+  I,1,roman
+
+  V,5,roman
+
+  X,10,roman
+
+  L,50,roman
+
+  C,100,roman
+
+  D,500,roman
+
+  M,1000,roman
+
+  ```
+
+
+  基于此输入和配置程序，对 `input.txt` 中问题的答案将在标准输出中给出，如下所示：
+
+
+  ```
+
+  pish tegj glob glob is 42
+
+  glob prok Silver is 68 Credits
+
+  glob prok Gold is 57800 Credits
+
+  glob prok Iron is 782 Credits
+
+  I have no idea what you are talking about
+
+  ```
+
+
+  解析逻辑位于 `Observer` 类中。
+
+
+  ```
+
+  import operator
+
+  #此类别验证输入的有效性
+
+  class Observer(object):
+
+  #存储符号的频率
+
+  length = {}
+
+  #最频繁出现的符号
+
+  symbol = ''''
+
+  #最频繁出现符号的计数
+
+  count = 0
+
+  #调用类
+
+  compiler = None
+
+  def __init__(self,cmpiler):
+
+  self.compiler = cmpiler
+
+  def initialize(self, arr):
+
+  for i in range(len(arr)):
+
+  self.length[arr[i]] = 0
+
+  #每次符号出现时增加计数
+
+  def increment(self,symbol):
+
+  self.length[symbol] = self.length[symbol] + 1
+
+  #计算最频繁出现的符号及其计数
+
+  def calculate(self):
+
+  self.symbol,self.count = max(self.length.items(), key=operator.itemgetter(1))
+
+  #验证是否减去了错误的符号，例如 (V, ..
+
+  def verifySubstract(self, current):
+
+  while current % 10 != 0:
+
+  current = current / 10
+
+  if current == 5:
+
+  raise Exception("Wrong Substraction")
+
+  def evaluate(self):
+
+  #检查最大重复次数是否超过限制
+
+  if self.count > 3:
+
+  raise Exception("Repeat more than 3")
+
+  #符号是否正确
+
+  if self.symbol not in self.compiler.symbol_map:
+
+  raise Exception("Wrong Symbol")
+
+  #检查是否重复了错误的符号，例如 (V, ..
+
+  self.symbol,unit = self.compiler.evaluateSymbol(self.symbol)
+
+  while self.symbol % 10 != 0:
+
+  self.symbol = self.symbol / 10
+
+  if self.count > 1 and  self.symbol == 5:
+
+  raise Exception("Wrong Symbol repeated")
+
+  #检查输入句子是否正确
+
+  def evaluateSentence(self, line):
+
+  if "is" not in line:
+
+  return "I have no idea what you are talking about"
+
+  ```
+
+
+  编译逻辑位于 `compiler` 类中，如下所示：
+
+
+
+  ```python
+
+  import sys
+
+  from observer import Observer
+
+  class compilerTrader(object):
+
+  #存储符号与分数和单位的映射
+
+  symbol_map = {}
+
+  #存储有效符号的列表
+
+  valid_values = []
+
+  #读取配置并初始化类成员
+
+  def __init__(self, config_path):
+
+  with open(config_path) as f:
+
+  for line in f:
+
+  if '','' in line :
+
+  symbol, value, type = line.strip().split('','')
+
+  self.symbol_map[symbol] = float(value), type
+
+  self.valid_values.append(float(value))
+
+  f.close()
+
+  #评估某个符号的最终数值分数（含单位）
+
+  def evaluateSymbol(self, symbol):
+
+  while symbol not in self.valid_values:
+
+  symbol,unit = self.symbol_map[symbol]
+
+  return float(symbol), unit
+
+  #编译行中的信息
+
+  def compile_super(self, line):
+
+  obs = Observer(self)
+
+  if ''is'' in line:
+
+  fields = line.split('' is '')
+
+  value = fields[-1]
+
+  var = fields[0]
+
+  #如果是一个符号和一个值
+
+  if '' '' not in var:
+
+  if value in self.symbol_map:
+
+  self.symbol_map[var] = int(self.symbol_map[value][0]) ,''roman''
+
+  else:
+
+  #处理带单位的值
+
+  if '' '' in value:
+
+  fields = value.split('' '')
+
+  user_unit = fields[-1]
+
+  if '' '' not in var:
+
+  self.symbol_map[var] = int(fields[0]), user_unit
+
+  else:
+
+  #处理输入中的多个符号
+
+  total = int(fields[0])
+
+  factor = 0
+
+  arr = var.split('' '')
+
+  obs.initialize(arr)
+
+  for i in range(len(arr)):
+
+  obs.increment(arr[i])
+
+  if arr[i] in self.symbol_map and arr[i+1] in self.symbol_map and i = next:
+
+  factor =  factor + current
+
+  else:
+
+  obs.verifySubstract(current)
+
+  factor = factor - current
+
+  else:
+
+  if arr[i] in self.symbol_map:
+
+  current, current_unit = self.evaluateSymbol([arr[i]][0])
+
+  factor = factor + current
+
+  else:
+
+  self.symbol_map[arr[i]] = total/factor, user_unit
+
+  self.valid_values.append(total/factor)
+
+  obs.calculate()
+
+  obs.evaluate()
+
+  ```
+
+
+  回答逻辑位于回答层，该层调用 `Observer` 和 `compiler`。`answering` 类继承自 `compiler` 类。
+
+
+  ```python
+
+  import sys
+
+  from observer import Observer
+
+  from compiler import compilerTrader
+
+  class answeringTrader(compilerTrader):
+
+  def __init__(self, config_path):
+
+  super().__init__(config_path)
+
+  #编译行中的信息
+
+  def compile(self, line):
+
+  super().compile_super(line)
+
+  #回答行中的查询
+
+  def answer(self, line):
+
+  obs = Observer(super())
+
+  if ''is'' in line:
+
+  values = line.split('' is '')[-1]
+
+  ans = 0
+
+  arr = values.split('' '')
+
+  unit = ''''
+
+  obs.initialize(arr)
+
+  for i in range(len(arr)):
+
+  if arr[i] in "?.,!;":
+
+  continue
+
+  obs.increment(arr[i])
+
+  if i = next:
+
+  ans = ans + current
+
+  else:
+
+  if next_unit == ''roman'':
+
+  obs.verifySubstract(current)
+
+  ans = ans - current
+
+  else:
+
+  ans = ans + current
+
+  else:
+
+  if arr[i] in super().symbol_map:
+
+  current,unit = super().evaluateSymbol([arr[i]][0])
+
+  if  unit != ''roman'':
+
+  ans = ans * current
+
+  else:
+
+  ans = ans + current
+
+  obs.calculate()
+
+  obs.evaluate()
+
+  values = values.replace("?" , "is ")
+
+  if unit == ''roman'':
+
+  unit = ''''
+
+  return(values + str(ans) + '' '' + unit)
+
+  ```
+
+
+  最后，主程序调用 `answering` 类和 `observer`，然后执行任务并对逻辑进行单元测试。
+
+
+  ```python
+
+  import sys
+
+  import unittest
+
+  sys.path.append(''./answerLayer'')
+
+  sys.path.append(''./compilerLayer'')
+
+  sys.path.append(''./utilityLayer'')
+
+  from answer import answeringTrader
+
+  from observer import Observer
+
+  #框架的客户端接口
+
+  class ClientTrader(object):
+
+  trader = None
+
+  def __init__(self, config_path):
+
+  self.trader = answeringTrader(config_path)
+
+  #处理输入字符串
+
+  def process(self, input_string):
+
+  obs = Observer(self.trader)
+
+  valid = obs.evaluateSentence(input_string)
+
+  if valid is not None:
+
+  return valid
+
+  if input_string.strip()[-1] == ''?'' :
+
+  return self.trader.answer(input_string)
+
+  else:
+
+  return self.trader.compile(input_string)
+
+  #单元测试用例
+
+  class TestTrader(unittest.TestCase):
+
+  trader = None
+
+  def setUp(self):
+
+  pass
+
+  #测试非罗马符号（单位非罗马）的用例
+
+  def test_answer_unit(self):
+
+  ans = self.trader.process("how many Credits is glob prok Silver ?")
+
+  self.assertEqual(ans.strip(), "glob prok Silver is 68.0 Credits")
+
+  #测试仅含罗马符号（单位）的用例
+
+  def test_answer_roman(self):
+
+  ans = self.trader.process("how much is pish tegj glob glob ?")
+
+  self.assertEqual(ans.strip(), "pish tegj glob glob is 42.0")
+
+  #测试符号重复超过最大限制（3）的用例
+
+  def test_exception_over_repeat(self):
+
+  with self.assertRaises(Exception) as context:
+
+  ans = self.trader.process("how much is pish tegj glob glob glob glob ?")
+
+  self.assertTrue("Repeat more than 3" in context.exception)
+
+  #测试错误符号重复（例如 V...）的用例
+
+  def test_exception_unproper_repeat(self):
+
+  with self.assertRaises(Exception) as context:
+
+  ans = self.trader.process("how much is pish tegj D D ?")
+
+  self.assertTrue("Repeat more than 3" in context.exception)
+
+  #测试错误符号相减（例如 V...）的用例
+
+  def test_wrong_substraction(self):
+
+  with self.assertRaises(Exception) as context:
+
+  ans = self.trader.process("how much is V X ?")
+
+  self.assertTrue("Wrong Substraction" in context.exception)
+
+  #测试查询格式不正确的用例
+
+  def test_wrong_format_query(self):
+
+  ans = self.trader.process("how much wood could a woodchuck chuck if a woodchuck
+  could chuck wood ?")
+
+  self.assertEqual(ans.strip(), "I have no idea what you are talking about")
+
+  if __name__ == ''__main__'':
+
+  if len(sys.argv) != 3:
+
+  print("Usage is : " + sys.argv[0] + "   ")
+
+  exit(0)
+
+  tr = ClientTrader(sys.argv[2])
+
+  f = open(sys.argv[1])
+
+  for line in f:
+
+  response = tr.process(line.strip())
+
+  if response is not None:
+
+  print(response)
+
+  TestTrader.trader = tr
+
+  unittest.main(argv = [sys.argv[0]], exit = False)
+
+  ```
+
+
+  你可以使用以下命令运行此程序：
+
+
+  ```
+
+  python client.py input.txt config.txt
+
+  ```
+
+
+
+  ## 在 Python 中调用其他语言
+
+
+  现在我们将介绍如何在 Python 中使用其他语言。这里有两个示例。第一个是从 Python 调用 R 代码。某些用例需要用到 R 代码。例如，如果你需要一个现成的函数来实现时间序列中的
+  Holt-Winters 方法，这在 Python 中很难实现，但在 R 中却可以。因此，你可以使用 `rpy2` 模块从 Python 调用 R 代码，如下所示：
+
+
+  ```
+
+  import rpy2.robjects as ro
+
+  ro.r(''data(input)'')
+
+  ro.r(''x <-HoltWinters(input data frame)'')
+
+  ```
+
+
+  （你可以使用时间序列章节中给出的示例数据。）
+
+
+  有时你需要从 Python 调用 Java 代码。例如，假设你正在处理自然语言处理（NLP）领域的命名实体识别问题；给定一些文本作为输入，你需要识别文本中的名称。Python
+  的 `NLTK` 包确实有命名实体识别功能，但其准确性不高。此时，Stanford NLP 是更好的选择，但它是用 Java 编写的。你可以通过两种方式解决这个问题。
+
+
+  - 你可以使用 Python 代码在命令行调用 Java。在调用之前，你需要使用 `yum/at-get install java` 命令安装 Java。
+
+  - 对于 Windows，建议你从 [`https://adoptium.net/temurin/releases/?version=8`](https://adoptium.net/temurin/releases/%253Fversion%253D8)
+  安装 JRE。你也可以从其他发行版安装 JRE。安装过程会自动创建 `JAVA_HOME`。如果没有，你需要将 `JAVA_HOME` 设置为系统变量，其值应为
+  Java 安装文件夹的位置，例如 `JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-8.0.345.1-hotspot\`。
+
+  - 你可以将 Stanford NLP 暴露为 Web 服务，并将其作为服务调用。（在运行此代码之前，你需要下载本书源代码中提供的 Stanford `nlp`
+  JAR 文件。）
+
+
+  ```
+
+  import subprocess
+
+  subprocess.call([''java'',''-cp'',''*'',''edu.stanford.nlp.sentiment.SentimentPipeline'',''-file'',''foo.txt''])
+
+  请将 foo.txt 放在运行 Python 代码的同一文件夹中。
+
+  ```
+
+
+  ```
+
+  nlp = StanfordCoreNLP(''http://127.0.0.1:9000'')
+
+  output = nlp.annotate(sentence, properties={
+
+  "annotators": "tokenize,ssplit,parse,sentiment",
+
+  "outputFormat": "json",
+
+  ## 仅在行末拆分句子。我们假设此方法只接收单个句子。
+
+  "ssplit.eolonly": "true",
+
+  ## 设置 enforceRequirements 以跳过某些注释器，加快处理速度
+
+  "enforceRequirements": "false"
+
+  })
+
+  ```
+
+
+  你将在第 2 章中看到更详细的 Stanford NLP 示例。
+
+
+  ## 将 Python 模型暴露为微服务
+
+
+  你可以将 Python 模型暴露为微服务，就像你的 Python 模型可以被其他人用来编写自己的代码一样。最好的方法是把你的模型暴露为一个 Web 服务。例如，以下代码使用
+  Flask 暴露了一个深度学习模型：
+
+
+  ```
+
+  from flask import Flask, request, g
+
+  from flask_cors import CORS
+
+  import tensorflow as tf
+
+  from sqlalchemy import *
+
+  from sqlalchemy.orm import sessionmaker
+
+  import pygeoip
+
+  from pymongo import MongoClient
+
+  import json
+
+  import datetime as dt
+
+  import ipaddress
+
+  import math
+
+  app = Flask(__name__)
+
+  CORS(app)
+
+  @app.before_request
+
+  def before():
+
+  db = create_engine(''sqlite:///score.db'')
+
+  metadata = MetaData(db)
+
+  g.scores = Table(''scores'', metadata, autoload=True)
+
+  Session = sessionmaker(bind=db)
+
+  g.session = Session()
+
+  client = MongoClient()
+
+  g.db = client.frequency
+
+  g.gi = pygeoip.GeoIP(''GeoIP.dat'')
+
+  sess = tf.Session()
+
+  new_saver = tf.train.import_meta_graph(''model.obj.meta'')
+
+  new_saver.restore(sess, tf.train.latest_checkpoint(''./''))
+
+  all_vars = tf.get_collection(''vars'')
+
+  g.dropped_features = str(sess.run(all_vars[0]))
+
+  g.b = sess.run(all_vars[1])[0]
+
+  return
+
+  def get_hour(timestamp):
+
+  return dt.datetime.utcfromtimestamp(timestamp / 1e3).hour
+
+  def get_value(session, scores, feature_name, feature_value):
+
+  s = scores.select((scores.c.feature_name == feature_name) & (scores.c.feature_value
+  == feature_value))
+
+  rs = s.execute()
+
+  row = rs.fetchone()
+
+  if row is not None:
+
+  return float(row[''score''])
+
+  else:
+
+  return 0.0
+
+  @app.route(''/predict'', methods=[''POST''])
+
+  def predict():
+
+  input_json = request.get_json(force=True)
+
+  features = [''size'',''domain'',''client_time'',''device'',''ad_position'',''client_size'',
+  ''ip'',''root'']
+
+  predicted = 0
+
+  feature_value = ''''
+
+  for f in features:
+
+  if f not in g.dropped_features:
+
+  if f == ''ip'':
+
+  feature_value = str(ipaddress.IPv4Address(ipaddress.ip_address(unicode(request.remote_addr))))
+
+  else:
+
+  feature_value = input_json.get(f)
+
+  if f == ''ip'':
+
+  if ''geo'' not in g.dropped_features:
+
+  geo = g.gi.country_name_by_addr(feature_value)
+
+  predicted = predicted + get_value(g.session, g.scores, ''geo'', geo)
+
+  return str(math.exp(predicted + g.b)-1)
+
+  app.run(debug = True, host =''0.0.0.0'')
+
+  ```
+
+
+  这段代码将一个深度学习模型暴露为 Flask Web 服务。JavaScript 客户端将发送包含 Web 用户参数（如 IP 地址、广告尺寸、广告位置等）的请求，并返回广告价格作为响应。这些特征是分类变量。你将在第
+  3 章中学习如何将它们转换为数值分数。这些分数存储在内存数据库中。服务从数据库中获取分数，求和结果，然后回复给客户端。该分数将在深度学习模型的每次训练迭代中实时更新。它使用
+  MongoDB 来存储该 IP 地址在该网站上的访问频率。这是一个重要的参数，因为第一次访问网站的用户通常是在真正搜索某些内容，而对于访问频率大于 5 的用户则并非如此。IP
+  地址数量巨大，因此它们存储在分布式 MongoDB 数据库中。
+
+
+
+
+  ## 高性能 API 与并发编程
+
+
+  当您构建一个同时包含图形用户界面（GUI）的通用解决方案时，Flask 是一个不错的选择。但如果高性能是应用程序最关键的需求，那么 Falcon 是最佳选择。以下代码是之前展示的相同模型通过
+  Falcon 框架暴露的示例。我们在该代码中做出的另一项改进是实现了多线程，因此代码将并行执行。除了 Falcon 特有的更改外，您还应注意使用线程池类并行化调用
+  `get_score` 函数的主要变化。
+
+
+  ```python
+
+  import falcon
+
+  from falcon_cors import CORS
+
+  import json
+
+  from sqlalchemy import *
+
+  from sqlalchemy.orm import sessionmaker
+
+  import pygeoip
+
+  from pymongo import MongoClient
+
+  import json
+
+  import datetime as dt
+
+  import ipaddress
+
+  import math
+
+  from concurrent.futures import *
+
+  from sqlalchemy.engine import Engine
+
+  from sqlalchemy import event
+
+  import sqlite3
+
+  @event.listens_for(Engine, "connect")
+
+  def set_sqlite_pragma(dbapi_connection, connection_record):
+
+  cursor = dbapi_connection.cursor()
+
+  cursor.execute("PRAGMA cache_size=100000")
+
+  cursor.close()
+
+  class Predictor(object):
+
+  def __init__(self,domain):
+
+  db1 = create_engine(''sqlite:///score_'' + domain + ''0test.db'')
+
+  metadata1 = MetaData(db1)
+
+  self.scores = Table(''scores'', metadata1, autoload=True)
+
+  client = MongoClient(connect=False,maxPoolSize=1)
+
+  self.db = client.frequency
+
+  self.gi = pygeoip.GeoIP(''GeoIP.dat'')
+
+  self.high = 1.2
+
+  self.low = .8
+
+  def get_hour(self,timestamp):
+
+  return dt.datetime.utcfromtimestamp(timestamp / 1e3).hour
+
+  def get_score(self, featurename, featurevalue):
+
+  pred = 0
+
+  s = self.scores.select((self.scores.c.feature_name == featurename) & (self.scores.c.feature_value
+  == featurevalue))
+
+  rs = s.execute()
+
+  row = rs.fetchone()
+
+  if row is not None:
+
+  pred = pred + float(row[''score''])
+
+  res = self.db.frequency.find_one({"ip" : ip})
+
+  freq = 1
+
+  if res is not None:
+
+  freq = res[''frequency'']
+
+  pred2, prob2 = self.get_score(''frequency'', str(freq))
+
+  return (pred1 + pred2), (prob1 + prob2)
+
+  conn = sqlite3.connect(''multiplier.db'')
+
+  cursor = conn.execute("SELECT high,low from multiplier where domain=''" + value
+  + "''")
+
+  row = cursor.fetchone()
+
+  if row is not None:
+
+  self.high = row[0]
+
+  self.low = row[1]
+
+  return self.get_score(f, value)
+
+  def on_post(self, req, resp):
+
+  input_json = json.loads(req.stream.read(),encoding=''utf-8'')
+
+  input_json[''ip''] = unicode(req.remote_addr)
+
+  pred = 1
+
+  prob = 1
+
+  with ThreadPoolExecutor(max_workers=8) as pool:
+
+  future_array = { pool.submit(self.get_value,f,input_json[f]) : f for f in input_json}
+
+  for future in as_completed(future_array):
+
+  pred1, prob1 = future.result()
+
+  pred = pred + pred1
+
+  prob = prob - prob1
+
+  resp.status = falcon.HTTP_200
+
+  res = math.exp(pred)-1
+
+  if res = .9):
+
+  prob = .9
+
+  multiplier = self.low + (self.high -self.low)*prob
+
+  pred = multiplier*pred
+
+  resp.body = str(pred)
+
+  cors = CORS(allow_all_origins=True,allow_all_methods=True,allow_all_headers=True)
+
+  wsgi_app = api = falcon.API(middleware=[cors.middleware])
+
+  f = open(''publishers1.list'')
+
+  for domain in f:
+
+  domain = domain.strip()
+
+  p = Predictor(domain)
+
+  url = ''/predict/'' + domain
+
+  api.add_route(url, p)
+
+  ```
+
+
+  在简要介绍了 Python 中的设计模式之后，现在让我们来看看一些对数据科学家至关重要的架构模式。
+
+
+  ## 选择合适的数据库
+
+
+  在结束之前，我们将为管理者留下一份关于哪种数据库最适合哪种情况的说明。
+
+
+  - 当数据结构化程度高且实体间存在清晰严格的关系时，关系型数据库（MySQL、Oracle、SQL Server）是首选。另一方面，当数据非结构化且无组织时，Mongo
+  是更好的选择。
+
+  - 当数据包含较长的文本字段，并且您需要在该文本字段的子字符串中执行大量搜索时，Elastic Search 或 Solr 是更好的选择。使用 Elastic
+  Search，您可以免费获得名为 Kibana 的数据可视化工具以及名为 Logstash 的 ETL 工具，全栈数据分析解决方案非常流行。
+
+  - 数据有时必须以图形形式表示。在这种情况下，需要使用图数据库。Neo4j 是一种流行的图数据库，它以较低的价格提供了许多实用工具。
+
+  - 我们偶尔需要一个快速的应用程序。在这种情况下，可以使用像 SQLite 这样的内存数据库。但是，SQLite 不支持从远程主机更新数据库。
+
+
+  您将在第 2 章中了解更多关于数据库的知识。
+
+
+  ## 总结
+
+
+  在本章中，我们讨论了数据科学家的基本工程原则，这些原则将在后续各章中分别介绍。问答示例可以帮助您理解如何组织代码。基本规则是不要将所有内容都放入一个类中。将代码划分为多个类别，并在存在父子关系的地方使用它们。然后，您学习了如何使用
+  Python 调用其他语言的代码。我们提供了两个调用 R 和 Java 代码的实例。接着，我们展示了如何将模型作为 REST API 暴露，并通过使用并发编程使其性能良好。之后，我们介绍了数据科学家的重要架构模式。
+
+
+  '
+- '# 2. 使用 Python 进行 ETL
+
+
+  每位数据科学专业人士都必须从不同的数据源提取、转换和加载（ETL）数据。在本章中，我们将讨论如何使用 Python 对一系列流行的数据库执行 ETL。对于关系型数据库，我们将介绍
+  MySQL。作为文档数据库的示例，我们将介绍 Elasticsearch。对于图数据库，我们将介绍 Neo4j，对于 NoSQL，我们将介绍 MongoDB。我们还将讨论受
+  R 语言数据框概念启发的 Pandas 框架。
+
+
+  ETL 基于一个过程，其中数据从多个来源提取，转换为涉及清洗和丰富化的特定格式，最后加载到目标位置。以下是每个过程的详细信息：
+
+
+  1. *提取*：在数据提取过程中，从各种来源拉取源数据并将其移动到临时区域，使数据可用于 ETL 过程的后续阶段。之后，数据进入清洗和丰富化阶段，也称为数据清洗。
+
+  2. *转换*：在此阶段，源数据与目标系统的格式进行匹配。这包括更改数据类型、合并字段、拆分字段等步骤。
+
+  3. *加载*：此阶段是 ETL 的最后阶段。在这里，数据以自动化方式加载到数据仓库中，并且可以定期更新。完成后，数据即可用于数据分析。
+
+
+  上述过程在任何数据分析工作中都至关重要。一旦数据经过 ETL 过程，就可以分析数据、发现见解等。
+
+
+  我们将在本章中讨论各种类型的 ETL。我们在第 1 章中讨论过，数据不是孤立的事物。我们需要从某个地方加载数据，这个地方就是数据库。我们需要从某个应用程序获取数据，这就是提取。在本章和下一章中，我们将讨论将数据从一种形式转换为另一种形式的各种特征工程。
+
+
+  ## MySQL
+
+
+  `MySQLdb` 是 Python 中开发的一个 API，用于在 MySQL C 接口之上工作。
+
+
+
+
+  ### 如何安装 MySQLdb？
+
+
+  首先，你需要在你的机器上安装 Python 的 `MySQLdb` 模块。然后运行以下脚本：
+
+
+  ```
+
+  #!/usr/bin/python
+
+  import MySQLdb
+
+  ```
+
+
+  如果出现导入错误异常，说明该模块未正确安装。
+
+
+  以下是安装 MySQL Python 模块的说明：
+
+
+  ```
+
+  $ gunzip MySQL-python-1.2.2.tar.gz
+
+  $ tar -xvf MySQL-python-1.2.2.tar
+
+  $ cd MySQL-python-1.2.2
+
+  $ python setup.py build
+
+  $ python setup.py install
+
+  ```
+
+
+  你可以从 [`https://dev.mysql.com/downloads/connector/python/`](https://dev.mysql.com/downloads/connector/python/)
+  下载 `tar.gz` 文件。你需要将其下载到你的工作文件夹中。
+
+
+  对于 Windows 系统，请从 [`https://dev.mysql.com/downloads/installer/`](https://dev.mysql.com/downloads/installer/)
+  选择 MySQL 安装程序文件。下载完成后，双击该文件进行安装，并选择 MySQL Connector/Python 作为要安装的产品之一。详情请访问 [`https://dev.mysql.com/doc/connector-python/en/connector-python-installation-binary.xhtml`](https://dev.mysql.com/doc/connector-python/en/connector-python-installation-binary.xhtml)。
+
+
+  ### 数据库连接
+
+
+  在连接到 MySQL 数据库之前，请确保完成以下操作：
+
+
+  1.  你需要使用 `sql "use test"` 命令访问一个名为 `TEST` 的数据库。
+
+  2.  在 `TEST` 数据库中，你需要一个名为 `STUDENT` 的表；使用命令 `sql "create table student(name varchar(20),
+  sur_name varchar(20),roll_no int");`。
+
+  3.  `STUDENT` 表需要三个字段：`NAME`、`SUR_NAME` 和 `ROLL_NO`。
+
+  4.  `TEST` 数据库中需要有一个对该数据库拥有完全访问权限的用户。
+
+
+  如果这些步骤没有正确完成，你将在接下来的 Python 代码中遇到异常。
+
+
+  ### INSERT 操作
+
+
+  以下代码执行 SQL `INSERT` 语句，用于在 `STUDENT` 表中创建一条记录：
+
+
+  ```
+
+  #!/usr/bin/python
+
+  import MySQLdb
+
+  #### 打开数据库连接
+
+  db = MySQLdb.connect("localhost","user","passwd","TEST" )
+
+  #### 使用 cursor() 方法创建一个游标对象
+
+  cursor = db.cursor()
+
+  #### 准备 SQL 查询以向数据库中插入一条记录
+
+  sql = """INSERT INTO STUDENT(NAME,
+
+  SUR_NAME, ROLL_NO)
+
+  VALUES (''Sayan'', ''Mukhopadhyay'', 1)"""
+
+  try:
+
+  #### 执行 SQL 命令
+
+  cursor.execute(sql)
+
+  #### 提交你的更改到数据库
+
+  db.commit()
+
+  except:
+
+  #### 如果出现任何错误，则回滚
+
+  db.rollback()
+
+  #### 断开与服务器的连接
+
+  db.close()
+
+  ```
+
+
+  ### READ 操作
+
+
+  以下代码从 `STUDENT` 表中获取数据并打印出来：
+
+
+  ```
+
+  #!/usr/bin/python
+
+  import MySQLdb
+
+  #### 准备 SQL 查询以向数据库中插入一条记录
+
+  sql = "SELECT * FROM STUDENT "
+
+  try:
+
+  #### 执行 SQL 命令
+
+  cursor.execute(sql)
+
+  #### 获取所有行，结果为一个列表的列表
+
+  results = cursor.fetchall()
+
+  for row in results:
+
+  fname = row[0]
+
+  lname = row[1]
+
+  id = row[2]
+
+  #### 现在打印获取的结果
+
+  Print( "name=%s,surname=%s,id=%d" % \
+
+  (fname, lname, id ))
+
+  except:
+
+  print "Error: unable to fecth data"
+
+  ```
+
+
+  ### DELETE 操作
+
+
+  以下代码从 `TEST` 表中删除 `id=1` 的行：
+
+
+  ```
+
+  #!/usr/bin/python
+
+  import MySQLdb
+
+  #### 准备 SQL 查询以删除所需记录
+
+  sql = "DELETE FROM STUDENT WHERE ROLL_NO =1"
+
+  try:
+
+  #### 执行 SQL 命令
+
+  cursor.execute(sql)
+
+  #### 提交你的更改到数据库
+
+  db.commit()
+
+  except:
+
+  #### 如果出现任何错误，则回滚
+
+  db.rollback()
+
+  ```
+
+
+  ### UPDATE 操作
+
+
+  以下代码将 `lastname` 变量从 Mukhopadhyay 更改为 Mukherjee：
+
+
+  ```
+
+  #!/usr/bin/python
+
+  import MySQLdb
+
+  #### 准备 SQL 查询以更新所需记录
+
+  sql = "UPDATE STUDENT SET SUR_NAME="Mukherjee"
+
+  WHERE SUR_NAME="Mukhopadhyay"
+
+  try:
+
+  #### 执行 SQL 命令
+
+  cursor.execute(sql)
+
+  #### 提交你的更改到数据库
+
+  db.commit()
+
+  except:
+
+  #### 如果出现任何错误，则回滚
+
+  db.rollback()
+
+  ```
+
+
+  ### COMMIT 操作
+
+
+  提交操作向数据库确认最终确定修改，此操作之后，这些修改将无法撤销。
+
+
+  ### ROLL-BACK 操作
+
+
+  如果你对任何修改不完全满意并希望撤销它们，那么你可以使用 `roll-back()` 方法。
+
+
+  以下是通过 Python 访问 MySQL 数据的完整示例。它将给出存储在 CSV 文件或 MySQL 数据库中数据的完整描述。
+
+
+  此代码会询问数据源类型，是 MySQL 还是文本。例如，如果选择 MySQL，它会询问 IP 地址、凭据和数据库名称，并显示数据库中的所有表，一旦选择了表，就会提供其字段。类似地，文本文件会询问路径，并在其指向的文件中，向用户显示所有列。
+
+
+  ```
+
+  #### 导入文件并读取配置文件
+
+  import MySQLdb
+
+  import sys
+
+  out = open(''Config1.txt'',''w'')
+
+  print ("输入数据源类型：")
+
+  print( "1\. MySql")
+
+  print ("2\. 退出")
+
+  while(1):
+
+  data1 = sys.stdin.readline().strip()
+
+  if(int(data1) == 1):
+
+  out.write("source begin"+"\n"+"type=mysql\n")
+
+  #### 从用户处获取输入
+
+  print ("输入 IP 地址：")
+
+  ip = sys.stdin.readline().strip()
+
+  out.write("host=" + ip + "\n")
+
+  print ("输入数据库名称：")
+
+  db = sys.stdin.readline().strip()
+
+  out.write("database=" + db + "\n")
+
+  print ("输入用户名：")
+
+  usr = sys.stdin.readline().strip()
+
+  out.write("user=" + usr + "\n")
+
+  print ("输入密码：")
+
+  passwd = sys.stdin.readline().strip()
+
+  out.write("password=" + passwd + "\n")
+
+  #### 建立连接并执行查询
+
+  connection = MySQLdb.connect(ip, usr, passwd, db)
+
+  cursor = connection.cursor()
+
+  query = ("show tables")
+
+  cursor.execute(query)
+
+  data = cursor.fetchall()
+
+  tables = []
+
+  #### 将数据追加到表中
+
+  for row in data:
+
+  for field in row:
+
+  tables.append(field.strip())
+
+  for i in range(len(tables)):
+
+  print( i, tables[i])
+
+  tb = tables[int(sys.stdin.readline().strip())]
+
+  out.write("table=" + tb + "\n")
+
+  query = ("describe " + tb)
+
+  cursor.execute(query)
+
+  data = cursor.fetchall()
+
+  columns = []
+
+  for row in data:
+
+  columns.append(row[0].strip())
+
+  for i in range(len(columns)):
+
+  print( columns[i])
+
+  print "不是索引，请选择确切的列名，用逗号分隔"
+
+  cols = sys.stdin.readline().strip()
+
+  out.write("columns=" + cols + "\n")
+
+  cursor.close()
+
+  connection.close()
+
+  out.write("source end"+"\n")
+
+  print ("输入数据源类型：")
+
+  print ("1\. MySql")             print ("2\. 退出")
+
+  out.close()
+
+  sys.exit()
+
+  ```
+
+
+  在我们进入关系数据库的主题之前，先来谈谈数据库规范化。
+
+
+  ## 范式
+
+
+  数据库范式是以最佳方式组织数据的原则。
+
+
+  数据库中的每个表都可以处于我们接下来要介绍的某种范式中。对于主键（PK）和外键（FK），我们希望尽可能减少重复。其余信息应从其他表中获取。
+
+
+  *   第一范式（1NF）
+
+  *   第二范式（2NF）
+
+  *   第三范式（3NF）
+
+
+
+
+  ### 第一范式
+
+
+  *第一范式*要求每个行列交叉点只允许存放单个值，因此不存在重复组。
+
+
+  要达到第一范式，需要移除重复组，并建立两个新关系来规范化包含重复组的连接。
+
+
+  为了实现唯一标识，新连接的`PK`由旧关系的`PK`和新形成关系的某个特征组合而成。
+
+
+  为了演示`1NF`的规范化过程，我们将使用来自`School`数据库的`Student_Grade_Report`表。
+
+
+  1. `Student_Grade_Report`表中的重复组包含课程信息。一个学生可以选修多门课程。
+
+  2. 移除重复出现的组。在此例中，即每个学生的课程信息。
+
+  3. 确定新表的`PK`。
+
+  4. 属性值必须能被`PK`（`StudentNo`和`CourseNo`）唯一标识。
+
+
+  ```
+
+  Student_Grade_Report (StudentNo, StudentName, Major, CourseNo, CourseName, InstructorNo,
+  InstructorName, InstructorLocation, Grade)
+
+  ```
+
+
+  ```
+
+  Student (StudentNo, StudentName, Major)
+
+  StudentCourse (StudentNo, CourseNo, CourseName, InstructorNo, InstructorName, InstructorLocation,
+  Grade)
+
+  ```
+
+
+  ### 第二范式
+
+
+  *第二范式*要求关系必须首先满足`1NF`。当且仅当`PK`包含单个特征时，该关系自动满足`2NF`。
+
+
+  如果连接包含复合`PK`，那么每个非键属性必须完全依赖于整个`PK`，而不是仅依赖于其中一部分（即，不能存在任何部分依赖或部分增强）。
+
+
+  一个表在进入`2NF`之前必须首先满足`1NF`。
+
+
+  1. `Student`表因其`PK`为单列，所以已经满足`2NF`。
+
+  2. 观察`StudentCourse`表，你会发现并非所有属性（尤其是课程详细信息）都完全依赖于`PK`。成绩是唯一完全依赖于`xxx`的属性。
+
+  3. 找到包含课程详细信息的新表。
+
+  4. 确定新表的`PK`。
+
+
+  三个新表如下：
+
+
+  **Student** `(StudentNo, StudentName, Major)`
+
+
+  **CourseGrade** `(StudentNo, CourseNo, Grade)`
+
+
+  **CourseInstructor** `(CourseNo, CourseName, InstructorNo, InstructorName, InstructorLocation)`
+
+
+  ### 第三范式
+
+
+  要满足*第三范式*，关系必须处于第二范式。同时，必须消除所有传递依赖；一个非键属性不能函数依赖于另一个非键属性。
+
+
+  以下是实现`3NF`的步骤：
+
+
+  1. 从每个存在传递关系的表中，移除所有处于传递依赖关系中的属性。
+
+  2. 创建一个包含被移除依赖项的新表。
+
+  3. 检查新表和更新后的表，确保每个表都有一个决定因素，并且没有表存在不恰当的依赖关系。
+
+
+  查看这四个新表：
+
+
+  ```
+
+  Student (StudentNo, StudentName, Major)
+
+  CourseGrade (StudentNo, CourseNo, Grade)
+
+  Course (CourseNo, CourseName, InstructorNo)
+
+  Instructor (InstructorNo, InstructorName, InstructorLocation)
+
+  ```
+
+
+  此时，第三范式应不存在异常。对于此示例，请参考图 2-1 中的依赖关系图。如前所述，第一步是消除重复分组。
+
+
+  ![](img/458833_2_En_2_Fig1_HTML.jpg)
+
+
+  堆栈图展示了学号、课程号、课程名、教师编号、教师姓名、教师位置和成绩这些字段如何通过`PD`、`TD`和`FD`相关联。
+
+
+  **图 2-1** 依赖关系图
+
+
+  ```
+
+  Student (StudentNo, StudentName, Major)
+
+  StudentCourse (StudentNo, CourseNo, CourseName, InstructorNo, InstructorName, InstructorLocation,
+  Grade)
+
+  ```
+
+
+  回顾图 2-1 中的依赖关系，该图总结了`School`数据库的规范化过程。
+
+
+  图 2-1 中使用的缩写如下：
+
+
+  - `PD` 代表部分依赖（partially dependent）。
+
+  - `TD` 代表传递依赖（transitive dependence）。
+
+  - `FD` 代表完全依赖（full dependency）。（在大多数情况下，`FD`代表函数依赖。仅在图 2-1 中，`FD`用作完全依赖的缩写形式。）
+
+
+  当数据是结构化的并且字段之间保持严格关系时，关系型数据库非常有价值。但是，如果你没有结构化的数据，且字段之间没有保持严格关系，该怎么办？这时就需要用到 Elasticsearch。
+
+
+  ## Elasticsearch
+
+
+  你会发现数据通常是非结构化的。这意味着你最终可能会得到图像数据、传感器数据和其他形式数据的混合体。要分析这些数据，我们首先需要存储它。基于 MySQL 或 SQL
+  的数据库不擅长存储非结构化数据。因此，这里我们介绍一种不同类型的存储，主要用于处理非结构化的文本数据。
+
+
+  Elasticsearch 是一个基于 Lucene 的数据库，这使得存储和搜索文本数据变得容易。它的查询接口是一个 REST API 端点。Elasticsearch（`ES`）低级客户端提供了从
+  Python 到 `ES` REST 端点的直接映射。Elasticsearch 的一大优势是它在一个地方为数据分析提供了全栈解决方案。Elasticsearch
+  是数据库。它有一个可配置的前端叫 Kibana，一个数据收集工具叫 Logstash，以及一个企业级安全功能叫 Shield。
+
+
+  此示例包含名为 `cat`、`cluster`、`indices`、`ingest`、`nodes`、`snapshot` 和 `tasks` 的特性，它们分别对应
+  `CatClient`、`ClusterClient`、`IndicesClient`、`CatClient`、`ClusterClient`、`IndicesClient`、`IngestClient`、`NodesClient`、`SnapshotClient`、`NodesClient`、`SnapshotClient`
+  和 `TasksClient` 的实例。这些实例是访问这些类及其方法的唯一受支持方式。
+
+
+  你可以指定自己的连接类，通过提供 `connection_class` 参数来使用它。
+
+
+  ```
+
+  #### 使用 ThriftConnection 创建到本地主机的连接
+
+  Es1=Elasticsearch(connection_class=ThriftConnection)
+
+  ```
+
+
+  Elastic Search 的安装命令如下：
+
+
+  ```
+
+  curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add
+  -
+
+  echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee
+  -a /etc/apt/sources.list.d/elastic-7.x.list
+
+  sudo apt update
+
+  sudo apt install elasticsearch
+
+  ```
+
+
+  你可以在 Ubuntu 中使用以下命令启动 Elasticsearch：
+
+
+  ```
+
+  service elasticsearch start
+
+  service elasticsearch stop
+
+  ```
+
+
+  你可以使用以下命令检查状态：
+
+
+  ```
+
+  service elasticsearch status
+
+  ```
+
+
+  ```
+
+  # 创建连接，该连接将自动检查集群以获取
+
+  # 活动节点列表。从运行在 ''esnode1'' 和
+
+  # ''esnode2'' 上的节点开始
+
+  Es1=Elasticsearch(
+
+  [''esnode1'', ''esnode2''],
+
+  #### 在开始任何操作前嗅探
+
+  sniff_on_start=True,
+
+  # 在节点无响应后刷新节点列表
+
+  sniff_on_connection_fail=True,
+
+  # 并且每 30 秒刷新一次
+
+  sniffer_timeout=30
+
+  )
+
+  ```
+
+
+  不同的主机可以有不同的参数（主机名、端口号、SSL 选项）；你可以为每个节点使用一个字典来指定它们。
+
+
+  ```
+
+  # 直接连接到本地主机，并使用 SSL 连接到
+
+  # 另一个节点（端口 443）
+
+  # 以及一个 url_prefix。注意 ``port`` 需要是整数。
+
+  Es1=Elasticsearch([
+
+  {''host'':''localhost''},
+
+  {''host'':''othernode'',''port'':443,''url_prefix'':''es'',''use_ssl'':True},
+
+  ])
+
+  ```
+
+
+  也支持 SSL 客户端认证（有关选项的详细说明，请参见 `Urllib3HttpConnection`）；示例如下：
+
+
+  ```
+
+  Es1=Elasticsearch(
+
+  [''localhost:443'',''other_host:443''],
+
+  #### 开启 SSL
+
+  use_ssl=True,
+
+  #### 确保验证 SSL 证书（默认关闭）
+
+  verify_certs=True,
+
+  #### 提供磁盘上 CA 证书的路径
+
+  ca_certs=''path to CA_certs'',
+
+  #### PEM 格式的 SSL 客户端证书
+
+  client_cert=''path to clientcert.pem'',
+
+  #### PEM 格式的 SSL 客户端密钥
+
+  client_key=''path to clientkey.pem''
+
+  )
+
+  ```
+
+
+
+
+  ### 连接层 API
+
+
+  许多类负责与 Elasticsearch 集群交互。这里，通过将参数传递给 `Elasticsearch` 类，可以忽略正在使用的默认子类。所有属于客户端的参数都会被添加到
+  `Transport`、`ConnectionPool` 和 `Connection` 上。
+
+
+  例如，如果你想使用自己定制的 `ConnectionSelector` 类，只需传入 `selector_class` 参数即可。
+
+
+  整个 API 以高精度封装了原始 REST API，包括对调用中必需参数和可选参数的区分。这意味着代码区分了位置参数和关键字参数；我建议你在所有调用中使用关键字参数，以保持一致性和安全性。如果
+  Elasticsearch 返回 2XX 响应，则 API 调用成功（并将返回一个响应）。否则，将引发 `TransportError`（或其更具体的子类）实例。你可以在
+  exceptions 中查看其他异常和错误状态。如果你不希望引发异常，可以始终传入一个 `ignore` 参数，该参数可以是一个应被忽略的单个状态码，也可以是一个状态码列表。
+
+
+  ```
+
+  from elasticsearch import Elasticsearch
+
+  es=Elasticsearch()
+
+  #### 忽略创建索引时由 IndexAlreadyExistsException 引起的 400 错误
+
+  es.indices.create(index=''test-index'',ignore=400)
+
+  #### 忽略 404 和 400 错误
+
+  es.indices.delete(index=''test-index'',ignore=[400,404])
+
+  ```
+
+
+  ## Neo4j Python 驱动
+
+
+  有许多系统，例如网络拓扑和社交网络。然而，当困难以图形形式呈现时，它们很快就能被解决。Neo4j 是一个以图形形式存储数据并通过图形界面执行查询的数据库。Neo4j
+  Python 驱动由 Neo4j 支持，并通过二进制协议与数据库连接。它力求保持极简，同时符合 Python 的惯用风格。
+
+
+  ```
+
+  pip install neo4j-driver
+
+  from neo4j.v1 import GraphDatabase, basic_auth
+
+  driver11 = GraphDatabase.driver("bolt://localhost", auth=basic_auth("neo4j", "neo4j"))
+
+  session11 = driver11.session()
+
+  session11.run("CREATE (a:Person {name:''Sayan'', title:''Mukhopadhyay''})")
+
+  result 11= session11.run("MATCH (a:Person) WHERE a.name = ''Sayan'' RETURN a.name
+  AS name, a.title AS title")
+
+  for recordi n resul11t:
+
+  print("%s %s"% (record["title"], record["name"]))
+
+  session.close()
+
+  ```
+
+
+  ## neo4j-rest-client
+
+
+  `neo4j-rest-client` 的主要目标是确保已经通过 `python-embedded` 在本地使用 Neo4j 的 Python 程序员也能够访问
+  Neo4j REST 服务器。因此，`neo4j-rest-client` API 的结构与 `python-embedded` 完全同步。但是，为了达到更 Pythonic
+  的风格，并利用 Neo4j 团队引入的新特性来增强 API，引入了一种新的结构。
+
+
+  ## 内存数据库
+
+
+  另一类重要的数据库是内存数据库。这种类型在 RAM 中存储和处理数据。因此，对数据库的操作很快，但数据是易失的。SQLite 是一个流行的内存数据库示例。在 Python
+  中，你需要使用 `sqlalchemy` 库来操作 SQLite。在第 1 章的 Flask 和 Falcon 示例中，我向你展示了如何从 SQLite 中选择数据。这里我将展示如何将
+  Pandas 数据帧存储到 SQLite 中：
+
+
+  ```
+
+  from sqlalchemy import create_engine
+
+  import sqlite3
+
+  conn = sqlite3.connect(''multiplier.db'')
+
+  conn.execute(''''''CREATE TABLE if not exists multiplier
+
+  (domain        CHAR(50),
+
+  low        REAL,
+
+  high        REAL);'''''')
+
+  conn.close()
+
+  db_name = "your db name ""
+
+  disk_engine = create_engine(db_name)
+
+  df.to_sql(''scores'', disk_engine, if_exists=''replace'')
+
+  ```
+
+
+  ## MongoDB（Python 版）
+
+
+  MongoDB 是一个开源的*文档数据库*，专为卓越性能、易于可用性和自动扩展而设计。MongoDB 确保不需要对象关系映射（ORM）来促进开发。包含由字段和值对组成的数据结构的文档在
+  MongoDB 中被称为*记录*。这些记录类似于 JSON 对象。字段的值可以包含其他文档、数组和文档数组。
+
+
+  ```
+
+  {
+
+  "_id":ObjectId("01"),
+
+  "address": {
+
+  "street":"Siraj Mondal Lane",
+
+  "pincode":"743145",
+
+  "building":"129",
+
+  "coord": [ -24.97, 48.68 ]
+
+  },
+
+  "borough":"Manhattan",
+
+  ```
+
+
+  ### 将数据导入集合
+
+
+  可以在系统 shell 或命令提示符中使用 `mongoimport` 将文档放入数据库的集合中。如果该集合已存在于数据库中，该操作将首先丢弃原始集合。
+
+
+  ```
+
+  mongoimport --DB test --collection restaurants --drop --file ~/downloads/primer-dataset.json
+
+  ```
+
+
+  `mongoimport` 命令连接到在 localhost 的 27017 端口上运行的 MongoDB 实例。`--file` 选项提供了一种导入数据的方式；这里它是
+  `~/downloads/primer-dataset.json`。
+
+
+  要将数据导入到在不同主机或端口上运行的 MongoDB 实例，需要在 `mongoimport` 命令中通过包含 `--host` 或 `--port` 选项来明确指定主机名或端口。
+
+
+  MySQL 中有一个类似的 `load` 命令。
+
+
+  ### 使用 pymongo 创建连接
+
+
+  要创建连接，请执行以下操作：
+
+
+  ```
+
+  import MongoClient from pymongo.
+
+  Client11 = MongoClient()
+
+  ```
+
+
+  如果没有向 `MongoClient` 传递任何参数，则它将默认连接到在 localhost 接口的 27017 端口上运行的 MongoDB 实例。
+
+
+  可以指定一个完整的 MongoDB URL 来定义连接，其中包括主机和端口号。让我们看一个例子。
+
+
+  首先，使用此命令安装 Mongo：`yum/apt install mongo`。
+
+
+  然后，使用此命令启动 MongoDB：`service mongo start`。
+
+
+  以下代码创建了一个到运行在 `mongodb0.example.net` 和端口 27017 上的 MongoDB 实例的连接：
+
+
+  ```
+
+  Client11 = MongoClient("mongodb://myhostname:27017")
+
+  ```
+
+
+  ### 访问数据库对象
+
+
+  要将名为 `primer` 的数据库赋值给局部变量 `DB`，可以使用以下任意一行代码：
+
+
+  ```
+
+  Db11 = client11.primer
+
+  db11 = client11[''primer'']
+
+  ```
+
+
+  集合对象可以通过使用字典风格或从数据库对象进行属性访问来直接访问，如下面两个示例所示：
+
+
+  ```
+
+  Coll11 = db11.dataset
+
+  coll = db11[''dataset'']
+
+  ```
+
+
+  ### 插入数据
+
+
+  你可以将一个文档放入一个不存在的集合中，以下操作将创建该集合：
+
+
+  ```
+
+  result=db.addrss.insert_one({>)
+
+  ```
+
+
+  ### 更新数据
+
+
+  以下是更新数据的方法：
+
+
+  ```
+
+  result=db.address.update_one(
+
+  {"building": "129",
+
+  {"$set": {"address.street": "MG Road"}}
+
+  )
+
+  ```
+
+
+  ### 删除数据
+
+
+  要从集合中删除所有文档，请使用以下命令：
+
+
+  ```
+
+  result=db.restaurants.delete_many({})
+
+  ```
+
+
+  ## 云数据库
+
+
+  尽管云有自己专门的章节，但我们想为你提供云数据库的概述，特别是用于大数据的数据库。当人们希望系统自动扩展时，他们更倾向于使用云数据库。Google Big Query
+  是搜索数据的最佳工具。Azure Synapsys 具有类似的功能；然而，它要昂贵得多。你可以将数据存储在 S3 上，但如果你想运行查询，则需要 Athena，这很昂贵。因此，在现代实践中，数据作为
+  blob 存储在 S3 中，所有操作都在 Python 应用程序中完成。如果在数据查找中出现错误，这种方法会花费很长时间。Amazon Redish 也可以处理相当数量的大数据，并附带一个内置的
+  BI 工具。
+
+
+
+
+  ## Pandas
+
+
+  本节旨在通过一些示例帮助您开始使用 Pandas。这些示例取自真实世界的数据，其中包含了固有的错误和异常情况。Pandas 是一个受 R 语言数据框概念启发的框架。
+
+
+  请在以下链接找到 CSV 文件：
+
+
+  ```
+
+  https://github.com/Apress/advanced-data-analytics-python-2e
+
+  ```
+
+
+  要从 CSV 文件读取数据，请使用以下代码：
+
+
+  ```python
+
+  import pandas as pd
+
+  broken_df=pd.read_csv(''fetaure_engineering_data.csv'')
+
+  ```
+
+
+  要查看前三行，请使用以下代码：
+
+
+  ```python
+
+  broken_df[:3]
+
+  ```
+
+
+  要选择某一列，请使用以下代码：
+
+
+  ```python
+
+  broken_df['' MSSubClass '']
+
+  ```
+
+
+  要绘制某一列的图表，请使用以下代码：
+
+
+  ```python
+
+  broken_df['' MSSubClass’ ''].plot()
+
+  ```
+
+
+  要获取数据集中的最大值，请使用以下代码：
+
+
+  ```python
+
+  MaxValue= broken_df['' MSSubClass’].max() where MSSubClass is the column header
+
+  ```
+
+
+  Pandas 中还有许多其他方法，例如 `sort`、`groupby` 和 `orderby`，它们在处理结构化数据时非常有用。此外，Pandas 还为 MongoDB、Google
+  Big Query 等流行数据库提供了现成的适配器。
+
+
+  接下来展示一个使用 Pandas 的复杂示例。在 `X` 数据框中，对于每个不同的列值，根据 `root` 列分组，计算 `floor` 列的平均值。
+
+
+  ```python
+
+  for col in X.columns:
+
+  if col != ''root'':
+
+  avgs = df.groupby([col,''root''],as_index=False)[''floor''].aggregate(np.mean)
+
+  for i,row in avgs.iterrows():
+
+  k = row[col]
+
+  v = row[''floor'']
+
+  r = row[''root'']
+
+  X.loc[(X[col] == k) & (X[''root''] == r), col] = v2.
+
+  ```
+
+
+  您可以使用给定的分类和回归问题数据，在 Pandas 框架中进行任何实验。
+
+
+  ## 使用 Python 进行 ETL（非结构化数据）
+
+
+  处理非结构化数据是现代数据分析中的一项重要任务。在本节中，我将介绍如何解析电子邮件，并引入一个名为*主题爬取*的高级研究课题。
+
+
+  ### 电子邮件解析
+
+
+  有关使用 Python 进行网络爬取的完整示例，请参见第 1 章。
+
+
+  与 Beautiful Soup 类似，Python 也有一个用于电子邮件解析的库。以下是解析存储在邮件服务器上的电子邮件数据的示例代码。配置中的输入是用户名和要解析的邮件数量。
+
+
+  在这段代码中，您需要在配置中指定电子邮件用户、邮件文件夹和邮件索引；代码将从地址中提取信息，并将邮件的主题和日期写入 CSV 文件。
+
+
+  ```python
+
+  from email.parser import Parser
+
+  import os
+
+  import sys
+
+  conf = open(sys.argv[1])
+
+  config={}
+
+  users={}
+
+  #### parsing the config file
+
+  for line in conf:
+
+  if ("," in line):
+
+  fields = line.split(",")
+
+  key = fields[0].strip().split("=")[1].strip()
+
+  val = fields[1].strip().split("=")[1].strip()
+
+  users[key] = val
+
+  else:
+
+  if ("=" in line):
+
+  words = line.strip().split(''='')
+
+  config[words[0].strip()] = words[1].strip()
+
+  conf.close()
+
+  #### extracting information from user email
+
+  for usr in users.keys():
+
+  path = config["path"]+"/"+usr+"/"+config["folder"]
+
+  files = os.listdir(path)
+
+  for f in sorted(files):
+
+  if(int(f) > int(users[usr])):
+
+  users[usr] = f
+
+  path1 = path + "/" + f
+
+  data = ""
+
+  with open (path1) as myfile:
+
+  data=myfile.read()
+
+  if data != "" :
+
+  parser = Parser()
+
+  email = parser.parsestr(data)
+
+  out = ""
+
+  out = out + str(email.get(''From'')) + "," + str(email.get(''To'')) + "," + str(email.get(''Subject''))
+  + "," + str(email.get(''Date'')).replace(","," ")
+
+  if email.is_multipart():
+
+  for part in email.get_payload():
+
+  out = out + "," + str(part.get_payload()).replace("\n"," ").replace(","," ")
+
+  else:
+
+  out = out + "," + str(email.get_payload()).replace("\n"," ").replace(","," ")
+
+  print out,"\n"
+
+  #updating the output file
+
+  conf = open(sys.argv[1],''w'')
+
+  conf.write("path=" + config["path"] + "\n")
+
+  conf.write("folder=" + config["folder"] + "\n")
+
+  for usr in users.keys():
+
+  conf.write("name="+ usr +",value=" + users[usr] + "\n")
+
+  conf.close()
+
+  ```
+
+
+  上述代码的示例配置文件。
+
+
+  ```
+
+  path=/cygdrive/c/share/enron_mail_20110402/enron_mail_20110402/maildir
+
+  folder=Inbox
+
+  name=storey-g,value=142
+
+  name=ybarbo-p,value=775
+
+  name=tycholiz-b,value=602
+
+  ```
+
+
+  ### 主题爬取
+
+
+  主题爬虫是一种智能爬虫，可以从网络上的任何地方检索信息。它们从一个 URL 开始，然后查找该页面下的链接；接着，它们会查看新的 URL，从而绕过通用搜索引擎的可扩展性限制。这是通过将爬取过程分布到用户、查询甚至客户端计算机上来实现的。爬虫可以利用上下文环境，以系统定位高度相关、聚焦的页面为目标，无限循环地遍历链接。
+
+
+  网络搜索是一项复杂的任务。大量的机器学习工作被应用于查找页面之间的相似性，例如获取或访问的最大 URL 数量。
+
+
+  #### 爬取算法
+
+
+  图 2-2 描述了主题爬取算法及其主要组件的工作原理。
+
+
+  ![](img/458833_2_En_2_Fig2_HTML.jpg)
+
+
+  两张图展示了网页如何通过链接和链接估计器与 FIFO 队列和优先级队列相关联。它们列出了各自的程序。
+
+
+  图 2-2
+
+
+  主题爬取描述
+
+
+  主题爬虫的起始 URL 被称为*种子 URL*。还有另一组 URL 被称为*目标 URL*，它们是期望输出的示例。
+
+
+  爬取的另一个有趣应用是，一家初创公司想要为每个 IP 地址发现关键关键词。在 HTTP 数据包头部，他们从互联网服务提供商那里获取用户的浏览历史。在爬取该 IP
+  访问的 URL 后，他们使用命名实体识别（Stanford NLP）对文本中的词语进行分类，这可以通过第 5 章中解释的 RNN 轻松实现。所有命名实体及其类型，例如人名、地点和组织，都会被推荐给用户。
+
+
+  ```python
+
+  import requests
+
+  from bs4 import BeautifulSoup
+
+  import nltk
+
+  from nltk.tokenize import word_tokenize
+
+  from nltk.corpus import stopwords
+
+  from nltk.tag import StanfordNERTagger
+
+  import re
+
+  import json
+
+  import os
+
+  import socket
+
+  import struct
+
+  def ip2int(addr):
+
+  return struct.unpack("!I", socket.inet_aton(addr))[0]
+
+  def int2ip(addr):
+
+  return socket.inet_ntoa(struct.pack("!I", addr))
+
+  java_path = ''/usr/bin/java''
+
+  os.environ[''JAVAHOME''] = java_path
+
+  os.environ[''STANFORD_MODELS''] = ''/home/ec2-user/stanford-ner.jar''
+
+  nltk.internals.config_java(java_path)
+
+  f = open("/home/ec2-user/data.csv")
+
+  res = []
+
+  stop_words = set(stopwords.words(''english''))
+
+  for line in f:
+
+  fields = line.strip().split(",")
+
+  url = fields[1]
+
+  ip = fields[-1]
+
+  print(ip)
+
+  print(url)
+
+  tags_del = None
+
+  if True:
+
+  try:
+
+  ip = ip2int(ip)
+
+  except:
+
+  continue
+
+  print(ip)
+
+  tagged = None
+
+  try:
+
+  code = requests.get(url)
+
+  plain = code.text
+
+  s = BeautifulSoup(plain)
+
+  tags_del = s.get_text()
+
+  if tags_del is None:
+
+  continue
+
+  no_html = re.sub('']*>'', '''', tags_del)
+
+  st = StanfordNERTagger(''/home/ec2-user/english.all.3class.distsim.crf.ser.gz'',
+
+  ''/home/ec2-user/stanford-ner.jar'')
+
+  tokenized = word_tokenize(no_html)
+
+  tagged = st.tag(tokenized)
+
+  except:
+
+  pass
+
+  if tagged is None:
+
+  continue
+
+  for t in tagged:
+
+  t = list(t)
+
+  t[0] = t[0].replace('' '', '''')
+
+  t[-1] = t[-1].replace('' '', '''')
+
+  print(t)
+
+  if t[0] in stop_words:
+
+  continue
+
+  unit = {}
+
+  unit["ip"] = ip
+
+  unit["word"] = t[0]
+
+  unit["name_entity"] = t[-1]
+
+  res.append(unit)
+
+  res_final = {}
+
+  res_final["result"] = res
+
+  #except:
+
+  ##### pass
+
+  #except:
+
+  ##### pass
+
+  with open(''result.json'', ''w'') as fp:
+
+  json.dump(res, fp)
+
+  ```
+
+
+  ## 总结
+
+
+  在本章中，我们讨论了不同类型的数据库及其用例，并讨论了从网络收集文本数据以及从不同类型的非结构化数据（如电子邮件和网页）中提取信息的方法。
+
+
+
+
+  '
+- '# 3. 特征工程与监督学习
+
+
+  监督学习，也称为监督式机器学习，是机器学习和人工智能的一个子类别，它将帮助我们利用模型解决各种现实世界的问题。在本章中，我们将介绍监督式机器学习的以下三个基本组成部分（聚类将在后续关于无监督学习的章节中介绍），以及对于为模型获取准确信息至关重要的特征工程：
+
+
+  -   *降维* 讲述如何从一组特征中选择最重要的特征。
+
+  -   *分类* 讲述如何借助给定的训练/示例数据集将数据归类到一组目标类别中。
+
+  -   *回归* 讲述如何将一个变量表示为一组自变量的线性或非线性多项式。
+
+
+  这些内容是构建任何预测模型的基础模块。
+
+
+  ## 使用 Python 进行降维
+
+
+  降维是数据分析的一个重要方面。数值数据和分类数据都需要它。调查或因子分析是降维最流行的应用之一。例如，假设一个组织想要找出哪些因素对影响或改变其运营最为重要。它收集组织内不同员工的意见，并基于这些调查数据进行因子分析，最终得出一组较少的因素。
+
+
+  在投资银行业务中，不同的指数是作为工具的加权平均值来计算的。因此，当指数上涨时，可以预期指数中权重为正的工具也会上涨，而权重为负的工具则会下跌。交易员据此进行交易。通常，指数由大量工具（超过十个）组成。在高频算法交易中，要在几分之一秒内发送如此多的订单是很困难的。通过使用主成分分析，交易员可以将指数实现为一组较少的工具来开始交易。奇异值分解是一种流行的算法，既用于主成分分析，也用于因子分析。在本章中，我将详细讨论它。分类数据也需要降维。假设一个零售商想知道某个城市是否是销售额的重要贡献者；这可以通过使用互信息来衡量，本章也将涵盖这一点。在此之前，我将介绍皮尔逊相关性，它使用简单。这就是为什么它是一种流行的特征工程方法，更准确地说，是特征选择方法。
+
+
+  ### 相关性分析
+
+
+  相关性有不同的度量方法。我将只讨论皮尔逊相关性。对于两个变量 `x` 和 `y`，皮尔逊相关性如下所示：
+
+
+  ![$$ r=\frac{\sum \limits_i\left({x}_i-\overline{x}\right)\left({y}_i-\overline{y}\right)}{\sqrt{\sum
+  \limits_i{\left({x}_i-\overline{x}\right)}²}\sqrt{\sum \limits_i{\left({y}_i-\overline{y}\right)}²}}
+  $$](img/458833_2_En_3_Chapter_TeX_Equa.png)
+
+
+  `r` 的值将在 -1 到 +1 之间变化。该公式清楚地表明，当 `x` 大于其平均值时，`y` 也更大，因此 `r` 值更大。换句话说，如果 `x` 增加，那么
+  `y` 也增加，那么 `r` 就更大。所以，如果 `r` 接近 1，意味着 `x` 和 `y` 正相关。类似地，如果 `r` 接近 -1，意味着 `x` 和 `y`
+  负相关。同样，如果 `r` 接近 0，意味着 `x` 和 `y` 不相关。这里展示了一个计算 `r` 的简化公式：
+
+
+  ![$$ \textrm{r}=\frac{\textrm{n}\left(\sum xy\right)-\left(\sum \textrm{x}\right)\left(\sum
+  \textrm{y}\right)}{\sqrt{\left[\textrm{n}\sum {\textrm{x}}²-{\left(\sum \textrm{x}\right)}²\right]}\left[\textrm{n}\sum
+  {\textrm{y}}²-{\left(\sum \textrm{y}\right)}²\right]} $$](images/458833_2_En_3_Chapter/458833_2_En_3_Chapter_TeX_Equb.png)
+
+
+  你可以轻松地使用相关性进行特征选择或剔除相似特征。假设 `Y` 是一个变量，它是 `n` 个变量 `X1, X2, ... Xn` 的加权和。你想将这组 `X`
+  缩减为一组更少的变量。为此，你需要计算每个 `X` 对之间的相关系数。现在，如果 `Xi` 和 `Xj` 高度相关，那么你将研究 `Y` 与 `Xi` 和 `Xj`
+  的相关性。如果 `Xi` 的相关性大于 `Xj`，那么你就从集合中移除 `Xj`，反之亦然。以下是查找两个变量之间相关性的代码：
+
+
+  ```
+
+  import numpy as np
+
+  import matplotlib.pyplot as plt
+
+  x = np.array([-4, -1, 0, 1, 3])
+
+  y = np.array([4, 1, -2, 1, 2])
+
+  corrcoef = np.corrcoef(x, y)
+
+  print(corrcoef)
+
+  ```
+
+
+  在输出中，对角线上的 1 表示与自身的相关性，例如，`x` 与 `x`，`y` 与 `y`。
+
+
+  现在的问题是，之前所说的 `X` 和 `Y` 相关的阈值应该是多少？常见的做法是假设如果 `r` > 0.5，则表示变量相关；如果 `r` < 0.5，则表示不相关。这种方法的一个很大局限性是它没有考虑数据的长度。例如，一组
+  20 个数据点中的 0.5 相关性，不应与一组 10,000 个数据点中的 0.5 相关性具有相同的权重。为了克服这个问题，引入了概差概念，如下所示：
+
+
+  ![$$ \textrm{PEr}=.674\times \frac{1-{r}²}{\sqrt{n}} $$](img/458833_2_En_3_Chapter_TeX_Equc.png)
+
+
+  `r` 是相关系数，`n` 是样本量。
+
+
+  这里，`r` > 6PEr 意味着 `X` 和 `Y` 高度相关；如果 `r` < PEr，则意味着 `X` 和 `Y` 相互独立。使用这种方法，你可以看到，当数据量巨大时，即使
+  `r` = 0.1 也意味着高度相关。
+
+
+  相关性在电子商务网站的产品推荐中有一个有趣的应用。如果你计算用户对相同产品的共同评分之间的相关性，推荐系统可以识别出相似的用户。类似地，你也可以通过计算同一用户对产品的共同评分之间的相关性来找到相似的产品。这种方法被称为*协同过滤*。
+
+
+
+
+  ### 主成分分析
+
+
+  从理论上讲，相关性对于具有高斯分布（即独立变量）的变量效果良好。对于其他情况，则必须使用主成分分析。假设你想降低 *N* 个变量：`X1`、`X2`、... `Xn`
+  的维度。让我们构建一个 *N*×*N* 维的矩阵，其中第 i 列代表观测值 `Xi`，并假设所有变量都有 *N* 个观测值。现在，如果 *k* 个变量是冗余的，为简单起见，假设这
+  *k* 列相同或互为线性组合。那么该矩阵的秩将为 *N*-*k*。因此，该矩阵的秩是衡量独立变量数量的指标，而特征值则表示该变量的强度。这一概念被用于主成分分析和因子分析。为了使矩阵成为方阵，我们选择协方差矩阵。奇异值分解用于求解特征值。
+
+
+  设 *Y* 为大小为 *p*×*q* 的输入矩阵，其中 *p* 是数据行数，*q* 是参数数量。
+
+
+  那么 *q*×*q* 的协方差矩阵 `Co` 由下式给出：
+
+
+  ![$$ \textbf{Co}=\textbf{YTY}/\left(\textbf{q}-\textbf{1}\right) $$](img/458833_2_En_3_Chapter_TeX_Equd.png)
+
+
+  这是一个对称矩阵，因此可以按如下方式对角化：
+
+
+  ![$$ \textbf{Co}={\textbf{UDU}}^{\textbf{T}} $$](img/458833_2_En_3_Chapter_TeX_Eque.png)
+
+
+  `U` 的每一列都是一个特征向量，`D` 是一个对角矩阵，其对角线上的特征值 λi 按降序排列。这些特征向量被称为数据的*主轴*或*主方向*。数据在主轴上的投影称为主成分，也被称为
+  *PC 得分*；这些可以被视为新的、变换后的变量。第 j 个主成分由 `YU` 的第 j 列给出。新 PC 空间中第 i 个数据点的坐标由 `YU` 的第 i
+  行给出。
+
+
+  以下代码是使用 Python 进行 PCA 的示例。输入数据文件可从以下链接下载：
+
+
+  [`https://canvas.uw.edu/courses/1546077/files/92110986`](https://canvas.uw.edu/courses/1546077/files/92110986)
+
+
+  ```
+
+  import pandas as pd
+
+  from sklearn.preprocessing import StandardScaler, normalize
+
+  from sklearn.decomposition import PCA
+
+  #### 加载 CSV 文件
+
+  df = pd.read_csv("book\\ch4\\CC_GENERAL.csv")
+
+  #### 预处理
+
+  df = df.drop(''CUST_ID'', axis = 1)
+
+  df.fillna(method =''ffill'', inplace = True)
+
+  #### 缩放和归一化
+
+  ss = StandardScaler()
+
+  scaled_df = ss.fit_transform(df)
+
+  normalized_df= normalize(scaled_df)
+
+  #### 将维度降至 3
+
+  pca = PCA(n_components=3)
+
+  df_pca = pca.fit_transform(normalized_df)
+
+  df_pca = pd.DataFrame(df_pca)
+
+  df_pca.columns = [''P1'', ''P2'', ''P3'']
+
+  ```
+
+
+  如果向 `PCA` 构造函数提供一个整数，则会检查主成分的数量；如果传递一个小数，则会考虑在成分内保留的变异比例。更多信息请参见第 5 章。主成分或特征向量的物理意义在以下示例中进行了说明。
+
+
+  **示例：** 弹性膜的拉伸
+
+
+  在边界圆为 ![$$ {x}_1²+{x}_2²=1 $$](img/458833_2_En_3_Chapter_TeX_IEq1.png) 的 *x*[1]*x*[2]
+  平面中，一张弹性膜被拉伸，使得点 *P*(*x*[1], *x*[2]) 移动到点 *Q*(*y*[1], *y*[2])，如下所示：
+
+
+  ![$$ \left[y\right]=\left[\begin{array}{c}{y}_1\\ {}{y}_2\end{array}\right]=\left[\begin{array}{cc}5&amp;
+  3\\ {}3&amp; 5\end{array}\right]\left[\begin{array}{c}{x}_1\\ {}{x}_2\end{array}\right]=\left[A\right]\left[x\right]
+  $$](images/458833_2_En_3_Chapter/458833_2_En_3_Chapter_TeX_Equf.png)
+
+
+  需要找到主方向，即点 P 仅径向延伸至点 Q 的方向。这意味着需要一些特定的向量 `[x]` 和 `[y]`，使得：
+
+
+  ![$$ \left[y\right]=\left[A\right]\left[x\right]=\lambda \left[x\right] $$](images/458833_2_En_3_Chapter/458833_2_En_3_Chapter_TeX_Equg.png)
+
+
+  以下是给出特征值的特征方程：
+
+
+  ![$$ \left|\left[A\right]-\lambda \left[I\right]\right|=0 $$](images/458833_2_En_3_Chapter/458833_2_En_3_Chapter_TeX_Equh.png)
+
+
+  ![$$ \left|\begin{array}{cc}5-\lambda &amp; 3\\ {}3&amp; 5-\lambda \end{array}\right|=0
+  $$](img/458833_2_En_3_Chapter_TeX_Equi.png)
+
+
+  ![$$ {\left(5-\lambda \right)}²-9=0 $$](img/458833_2_En_3_Chapter_TeX_Equj.png)
+
+
+  ![$$ \left(\lambda -8\right)\left(\lambda -2\right)=0 $$](img/458833_2_En_3_Chapter_TeX_Equk.png)
+
+
+  因此，λ = 8 或 2。当 *λ*[1] = 8 时，`[[A] − 8[I]][x][1] = 0`。
+
+
+  第一个特征向量为：
+
+
+  ![$$ {\left[x\right]}_1={\left[\begin{array}{c}{x}_1\\ {}{x}_2\end{array}\right]}_1=\left[\begin{array}{c}1\\
+  {}1\end{array}\right] $$](images/458833_2_En_3_Chapter/458833_2_En_3_Chapter_TeX_Equl.png)
+
+
+  这意味着 *x*[1] = *x*[2]。当 *λ*[2] = 2 时，`[[A] − 2[I]][x][2] = 0`。
+
+
+  第二个特征向量为：
+
+
+  ![$$ {\left[x\right]}_2={\left[\begin{array}{c}{x}_1\\ {}{x}_2\end{array}\right]}_2=\left[\begin{array}{c}1\\
+  {}-1\end{array}\right] $$](images/458833_2_En_3_Chapter/458833_2_En_3_Chapter_TeX_Equm.png)
+
+
+  这意味着 *x*[1] = −*x*[2]。根据特征值，该膜在主方向上分别被拉伸了 8 倍和 2 倍。拉伸后，圆形膜的边界变为椭圆形，其长轴和短轴位于特征向量方向上，如图
+  3-1 所示。
+
+
+  ![](img/458833_2_En_3_Fig1_HTML.png)
+
+
+  一个以 x 下标 2 和 x 下标 1 为坐标轴的笛卡尔平面中有一个灰度椭圆体。其中心有一个深色正方形，并带有拉伸和未拉伸的边界。
+
+
+  图 3-1
+
+
+  拉伸膜的主成分
+
+
+
+
+  ### 互信息
+
+
+  两个随机变量的互信息（`MI`）是衡量两者之间相互依赖程度的指标。它也被用作两个变量分布的相似性度量。互信息值越高，表明两个变量的分布越相似。
+
+
+  ![$$ I\left(X;Y\right)=\sum \limits_{x,y}p\left(x,y\right)\log \frac{p\left(x,y\right)}{p(x)p(y)}
+  $$](img/458833_2_En_3_Chapter_TeX_Equn.png)
+
+
+  假设某零售商想调查特定城市是否是其销量的决定性因素。那么，零售商可以查看不同城市的销量分布情况。如果所有城市的销量分布都相同，那么就销量而言，特定城市就不是一个重要因素。为了计算两个概率分布之间的差异，这里应用了互信息。
+
+
+  以下是计算互信息的示例 Python 代码：
+
+
+  ```
+
+  from sklearn import metrics
+
+  y_true = [0, 1, 0, 1, 2, 1]
+
+  y_pred = [0, 0, 1, 1, 1, 2]
+
+  print(metrics.mutual_info_score(y_true, y_pred))
+
+  ```
+
+
+  让读者拥有一个包含特征工程的完整代码。它采用了一个深度学习模型。本节涵盖了特征工程的所有方面。
+
+
+  请在以下链接中查找 CSV 文件：
+
+
+  [`https://github.com/Apress/advanced-data-analytics-python-2e`](https://github.com/Apress/advanced-data-analytics-python-2e)
+
+
+  ```
+
+  import pandas as pd
+
+  import numpy as np
+
+  from scipy.stats.stats import pearsonr
+
+  from keras.models import Sequential
+
+  from keras.layers import Dense
+
+  #Reading input data
+
+  df = pd.read_csv(''book\\ch3\\fetaure_engineering_data.csv'')
+
+  df_back = pd.read_csv(''book\\ch3\\fetaure_engineering_data.csv'')
+
+  print(df.shape)
+
+  ```
+
+
+  以下代码片段对数值列进行归一化处理：
+
+
+  ```
+
+  #normalize numeric columns
+
+  mean_map = {}
+
+  std_map = {}
+
+  for col in df.columns:
+
+  if np.issubdtype(df[col].dtype, np.number):
+
+  avg = df[col].mean()
+
+  st_d = df[col].std()
+
+  df[col] = (df[col] - avg)/st_d
+
+  mean_map[str(col)] = avg
+
+  std_map[str(col)] = st_d
+
+  ```
+
+
+  这部分用于将分类值转换为数值：
+
+
+  ```
+
+  #convert the categorical columns to numeric and store it
+
+  df_score = pd.DataFrame()
+
+  started = False
+
+  for col in df.columns:
+
+  if not np.issubdtype(df[col].dtype, np.number):
+
+  avgs = df.groupby(col, as_index=False)[''SalePrice''].aggregate(np.mean)
+
+  for index,row in avgs.iterrows():
+
+  k = row[col]
+
+  v = row[''SalePrice'']
+
+  df.loc[df[col] == k, col] = v
+
+  df_temp = pd.DataFrame()
+
+  df_temp[''feature_value''] = df_back[col]
+
+  df_temp[''score''] = df[col]
+
+  df_temp[''feature_name''] = str(col)
+
+  df_temp = df_temp.drop_duplicates()
+
+  if started:
+
+  df_score = df_score.append(df_temp)
+
+  else:
+
+  df_score = df_temp
+
+  started = True
+
+  df = df.fillna(df.mean())
+
+  df_score = df_score.fillna(0)
+
+  ```
+
+
+  这里我们删除通常冗余且在模型构建中价值不大的相关列。
+
+
+  ```
+
+  #drop the column which are correlated to each other
+
+  while(1):
+
+  flag = True
+
+  for I in range(df.shape[1]-2):
+
+  for j in range(i+1,df.shape[1]-1):
+
+  corr = pearsonr(df.iloc[:,i], df.iloc[:,j])
+
+  pEr= .674 * (1- corr[0]*corr[0])/ (len(df.iloc[:,i])**(1/2.0))
+
+  if corr[0] > 6*pEr:
+
+  corr1 = pearsonr(df.iloc[:,i], df‘''SalePric’''])
+
+  corr2 = pearsonr(df.iloc[:,j], df‘''SalePric’''])
+
+  stay = i
+
+  if corr1[0]  < corr2[0]:
+
+  stay = j
+
+  df.drop(df.columns[stay],inplace=True, axis=1)
+
+  flag = False
+
+  break
+
+  if flag:
+
+  break
+
+  print(df.shape)
+
+  ```
+
+
+  最后，我们可以看到数据框中有 25 列，而最初我们有 81 列。通过前面的代码，我们转换了数据并移除了不必要的列。
+
+
+  现在我们将讨论监督学习的分类问题。
+
+
+  ## 使用 Python 进行分类
+
+
+  分类是机器学习中一个广为人知的例子。它有一组目标类别和训练数据。每个训练数据都由一个特定的目标类别标记。分类模型通过训练数据进行训练，并预测测试数据的目标类别。分类的一个常见应用是在信用卡或贷款审批过程中的欺诈识别。它根据数据将申请人分类为欺诈或非欺诈。许多未受过教育的店主无需任何计算就能对商品进行分类。他们不会购买上周销售不佳的产品。这是一种某种形式的贝叶斯分类器。广告行业会屏蔽上周平均价格低于某个阈值的展示。分类也广泛应用于图像识别。从一组图像中，如果你识别出计算机的图像，那就是将计算机的图像与不属于计算机的类别进行分类。
+
+
+  情感分析是文本分类的一个流行应用。假设一家航空公司想要分析其客户的文本反馈。然后，每条反馈会根据情感（正面/负面/中性）以及上下文（关于员工/时间/食物/价格）进行分类。一旦完成，航空公司就能轻松找出其员工的优势、准点率或成本效益，甚至其弱点。广义上讲，分类有三种方法。
+
+
+  *   *基于规则的方法*：我将讨论决策树和随机森林算法。
+
+  *   *概率方法*：我将讨论朴素贝叶斯算法。
+
+  *   *基于距离的方法*：我将讨论支持向量机。
+
+
+  ## 半监督学习
+
+
+  分类和回归是监督学习的类型。在这种学习类型中，你有一组训练数据来训练模型。然后，该模型用于预测测试数据。例如，假设你想根据情感对文本进行分类。有三个目标类别：正面、负面和中性。为了训练你的模型，你必须选择一些样本文本，并将其标记为正面、负面和中性。你使用这些训练数据来训练模型。一旦模型训练完成，你就可以将模型应用于测试数据。例如，你可以使用朴素贝叶斯分类器进行文本分类，并尝试预测句子“食物很好”的情感。在训练阶段，程序会分别计算单词*Food*、*is*和*good*出现时句子为正面、负面或中性的概率，并将其存储在模型中；在测试阶段，当*Food*、*is*和*good*同时出现时，它会计算联合概率。
+
+
+  相反，聚类是无监督学习的一个例子，其中没有可用的训练数据或目标类别。程序一次性从数据中学习。也存在半监督学习的实例。假设你将文本分类为正面和负面情感，但你的训练数据只有正面数据。非正面的训练数据是未标记的。在这种情况下，作为第一步，你假设所有未标记的数据都是负面的来训练模型，并将训练好的模型应用于训练数据。在输出中，结果为负面的数据应被标记为负面。最后，使用新标记的数据训练你的模型。最近邻分类器也被认为是半监督学习。它有训练数据，但没有模型的训练阶段。
+
+
+  ## 决策树
+
+
+  *决策树*是一种规则树。树的每一层代表一个参数，该层的每个节点验证该层参数的一个约束条件，每个分支表示父节点参数的一个可能值。图 3-2 展示了一个决策树的示例。
+
+
+  ![](img/458833_2_En_3_Fig2_HTML.png)
+
+
+  一个以父节点“天气”开头的树形图，根据晴天、阴天和雨天列出了湿度和风力。
+
+
+  图 3-2
+
+
+  用于判断好天气的决策树示例
+
+
+
+
+  ### 哪个属性优先？
+
+
+  决策树的一个重要方面是决定特征的顺序。基于熵的信息增益度量决定了这一顺序。
+
+
+  `熵`是衡量系统随机性的指标。
+
+
+  ![$$ Entropy(S)\equiv \sum \limits_{i=1}^c-{p}_i{\log}_2{p}_i $$](img/458833_2_En_3_Chapter_TeX_Equo.png)
+
+
+  例如，对于任何确定的事件，如太阳从东方升起，熵为零，`P`=1，且`log(p)`=0。熵越大，意味着系统中的不确定性或随机性越大。
+
+
+  `信息增益`，即根据该属性划分示例所导致的熵的预期减少量，是这种情况下使用的度量标准。
+
+
+  具体来说，属性`A`相对于示例集合`S`的信息增益`Gain(S,A)`定义如下：
+
+
+  ![$$ Gain\left(S,A\right)\equiv Entropy(S)-\sum \limits_{\upsilon \in Values(A)}\frac{\left|{S}_{\upsilon}\right|}{\left|S\right|}
+  Entropy\left({S}_{\upsilon}\right) $$](img/458833_2_En_3_Chapter_TeX_Equp.png)
+
+
+  因此，信息增益更高的属性将在决策树中优先出现。
+
+
+  ```
+
+  from sklearn.datasets import load_iris
+
+  from sklearn.tree import DecisionTreeClassifier
+
+  iris_data = load_iris()
+
+  data, labels = iris_data.data, iris_data.target
+
+  model = DecisionTreeClassifier()
+
+  model = model.fit(data, labels)
+
+  print(model.predict(data[[10]]))
+
+  ```
+
+
+  ### 随机森林分类器
+
+
+  `随机森林分类器`是决策树的一种扩展，该算法创建`N`棵决策树，每棵树随机选择`M`个特征。现在，测试数据将由所有决策树进行分类，并归类到多数决策树输出的目标类别中。
+
+
+  ```
+
+  from sklearn.datasets import load_iris
+
+  from sklearn.ensemble import RandomForestClassifier
+
+  iris_data = load_iris()
+
+  data, labels = iris_data.data, iris_data.target
+
+  model = RandomForestClassifier()
+
+  model = model.fit(data, labels)
+
+  print(model.predict(data[[10]]))
+
+  ```
+
+
+  ## 朴素贝叶斯分类器
+
+
+  `X = (x1, x2, x3, ..., xn)` 是一个`n`维向量。贝叶斯分类器将每个`X`分配到集合`{C1, C2, …, Cm}`中的一个目标类别。这种分配基于`X`属于目标类别`Ci`的概率。也就是说，当且仅当对于所有满足`1
+  ≤ j ≤ m`的`j`，有`P(Ci |X) > P(Cj |X)`时，`X`被分配到类别`Ci`。
+
+
+  ![$$ P\left({C}_i\left|X\right.\right)=\frac{P\left(X\left|{C}_i\right.\right)P\left({C}_i\right)}{P(X)}
+  $$](img/458833_2_En_3_Chapter_TeX_Equq.png)
+
+
+  通常，计算`P(X|Ci)`的计算成本可能很高。如果`X`的每个分量`x[k]`可以取`r`个值之一，那么对于`m`个类别中的每一个，需要考虑`r^n`种组合。为了简化计算，做出了条件类别独立性的假设，这意味着对于每个类别，假设属性是独立的。基于此假设发展而来的分类器被称为朴素贝叶斯分类器。该假设允许你写出以下公式：
+
+
+  ![$$ P\left(X\left|{C}_i\right.\right)=\vdash \prod \limits_{k=1}^nP\left({x}_k\left|{C}_i\right.\right)
+  $$](img/458833_2_En_3_Chapter_TeX_Equr.png)
+
+
+  以下代码是数值数据朴素贝叶斯分类的一个示例：
+
+
+  ```
+
+  from sklearn.naïve_bayes import GaussianNB
+
+  from sklearn.datasets import load_iris
+
+  iris_data = load_iris()
+
+  data, labels = iris_data.data, iris_data.target
+
+  model = GaussianNB()
+
+  model = model.fit(data, labels)
+
+  print(model.predict(data[[50]]))
+
+  ```
+
+
+  注意
+
+
+  你将在“情感分析”部分看到朴素贝叶斯分类器的另一个示例。
+
+
+  ## 支持向量机
+
+
+  如果你查看图 3-3，可以很容易地理解，圆形和方形点在二维空间（`x1`, `x2`）中是线性可分的。但它们在`x1`或`x2`任一维度上都不是线性可分的。支持向量机算法正是基于这一理论。它增加数据的维度，直到点变得线性可分。一旦完成，你需要找到两个平行的超平面来分隔数据。这些平面被称为`间隔`。算法选择间隔的方式是使它们之间的距离最大。这就是为什么它被称为最大间隔。位于这两个间隔中间或与它们等距的平面被称为`最优超平面`，用于对测试数据进行分类（见图
+  3-2）。分隔面也可以是非线性的。
+
+
+  ![](img/458833_2_En_3_Fig3_HTML.png)
+
+
+  一个 X 下标 2 与 X 下标 1 的关系图。它在最大间隔处有一个负斜率的最优超平面，并且在其上下方有簇。
+
+
+  图 3-3
+
+
+  支持向量机
+
+
+  以下代码是使用 Python 进行支持向量机分类的示例：
+
+
+  ```
+
+  from sklearn.svm import SVC
+
+  from sklearn.datasets import load_iris
+
+  iris_data = load_iris()
+
+  data, labels = iris_data.data, iris_data.target
+
+  model = SVC()
+
+  model = model.fit(data, labels)
+
+  print(model.predict(data[[50]]))
+
+  ```
+
+
+  ## 最近邻分类器
+
+
+  最近邻分类器是一种简单的基于距离的分类器。它计算测试数据与训练数据的距离，并根据目标类别对距离进行分组。与测试实例平均距离最小的目标类别被选为测试数据的类别。这里展示了一个
+  Python 示例：
+
+
+  ```
+
+  from sklearn.neighbors import KNeighborsClassifier
+
+  from sklearn.datasets import load_iris
+
+  iris_data = load_iris()
+
+  data, labels = iris_data.data, iris_data.target
+
+  model = KNeighborsClassifier()
+
+  model = model.fit(data, labels)
+
+  print(model.predict(data[[50]]))
+
+  ```
+
+
+
+
+  ## 情感分析
+
+
+  情感分析是文本分类的一个有趣应用。例如，假设一家航空公司想要分析其客户反馈。它根据情感（正面/负面）以及方面（食物/员工/准点率）对反馈进行分类。之后，它可以轻松了解其业务优势（获得最多正面反馈的方面）和劣势（获得最多负面反馈的方面）。该航空公司还可以将此结果与竞争对手进行比较。与竞争对手进行比较的一个有趣优势是，它消除了模型准确性的影响，因为相同的准确性适用于所有竞争对手。使用
+  `textblob` 库在 Python 中实现这一点很简单，如下所示：
+
+
+  ```
+
+  from textblob.classifiers import NaïveBayesClassifier
+
+  train = [(''I love this sandwich.'', ''pos''),  (''this is an amazing place!'',
+  ''pos''),(''I feel very good about these beers.'', ''pos''),(''this is my best work.'',
+  ''pos''),("what an awesome view", ''pos''),(''I do not like this restaurant'', ''neg''),(''I
+  am tired of this stuff.'', ''neg''),("I can''t deal with this", ''neg''),(''he is
+  my sworn enemy!'', ''neg''),(''my boss is horrible.'', ''neg'')]
+
+  cl = NaïveBayesClassifier(train)
+
+  print (cl.classify("This is an amazing library!"))
+
+  ```
+
+
+  *输出 : pos*
+
+
+  ```
+
+  from textblob.classifiers import NaïveBayesClassifier
+
+  train = [(''Air India did a poor job of queue management both times.'', ''staff
+  service''),  ("The ''cleaning'' by flight attendants involved regularly spraying
+  air freshener in the lavatories.", ''staff''),(''The food tasted decent.'', ''food''),(''Flew
+  Air India direct from New York to Delhi round trip.'', ''route''),(''Colombo to
+  Moscow via Delhi.'', ''route''),(''Flew Birmingham to Delhi with Air India.'', ''route''),(''Without
+  toilet, food or anything!'', ''food''),(''Cabin crew announcements included a sincere
+  apology for the delay.'', ''cabin flown'')]
+
+  cl = NaïveBayesClassifier(train)
+
+  tests = [''Food is good.'']
+
+  for c in tests:
+
+  print(cl.classify(c))
+
+  ```
+
+
+  `textblob` 库还支持随机森林分类器，该分类器在处理以规范英语（例如正式信函）撰写的文本时效果最佳。对于通常语法不规范的文本（例如客户反馈），朴素贝叶斯效果更好。朴素贝叶斯在实时分析中还有另一个优势：你可以在不丢失先前训练结果的情况下更新模型。
+
+
+  ## 图像识别
+
+
+  图像识别是图像分类的一个常见示例。通过应用 `opencv` 库，在 Python 中很容易实现。
+
+
+  请从 OpenCV GitHub ([`https://github.com/opencv/opencv/tree/master/data/haarcascades`](https://github.com/opencv/opencv/tree/master/data/haarcascades))
+  下载模型文件 (`haarcascade_frontalface_default.xml`)，并从 [`https://en.wikipedia.org/wiki/File:Lenna_(test_image).png`](https://en.wikipedia.org/wiki/File:Lenna_%2528test_image%2529.png)
+  下载示例 Lenna 图像。
+
+
+  以下是示例代码：
+
+
+  ```
+
+  import cv2
+
+  #### 加载级联分类器
+
+  face_model = cv2.CascadeClassifier(''haarcascade_frontalface_default.xml'')
+
+  #### 读取图像
+
+  img = cv2.imread(''lena.jpg'')
+
+  #### 转换为灰度图
+
+  gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+  #### 检测人脸
+
+  faces_detected = face_model.detectMultiScale(gray_img, 1.1, 4)
+
+  #### 在人脸周围绘制矩形
+
+  for (x, y, w, h) in faces_detected:
+
+  cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+
+  #### 显示输出
+
+  cv2.imshow(''img'', img)
+
+  cv2.waitKey()
+
+  使用以下命令安装 opencv：
+
+  sudo pip3 install opencv-contrib-python
+
+  现在我们将讨论另一种监督学习问题：回归。
+
+  ```
+
+
+  ## 使用 Python 进行回归
+
+
+  回归将一个变量实现为一组自变量的线性或非线性多项式。
+
+
+  这里有一个有趣的用例：使产品利润最大化的销售价格是多少？对于任何商家来说，这都是一个价值百万美元的问题。这个问题并不简单。最大化销售价格可能不会导致利润最大化，因为提高销售价格有时会降低销售量，从而降低总利润。因此，会存在一个最优的销售价格值，使得利润达到最大。
+
+
+  有 *N* 条交易记录，包含 *M* 个特征，称为 F1、F2、... Fm（销售价格、购买价格、返现、SKU、订单日期等）。你需要找到一个由 K (K<M)
+  个特征组成的子集，这些特征对商家的利润有影响，并为这 K 个特征建议一个最优值 V1、V2、... Vk，以最大化收入。
+
+
+  你可以使用以下公式计算商家的利润：
+
+
+  ![$$ \textrm{Profit}={\left( SP\hbox{-} TCB\hbox{-} BP\right)}^{\ast }\ SV $$](img/458833_2_En_3_Chapter_TeX_Equ1.png)
+
+
+  (1)
+
+
+  对于此公式，变量如下：
+
+
+  *   SP = 销售价格
+
+  *   TCB = 总返现金额
+
+  *   BP = 购买价格
+
+  *   SV = 销售量
+
+
+  现在，使用回归，你可以将 SV 表示如下：
+
+
+  ![$$ SV=\textrm{a}+{\textrm{b}}^{\ast } SP+{\textrm{c}}^{\ast } TCB+{\textrm{d}}^{\ast
+  } BP $$](img/458833_2_En_3_Chapter_TeX_Equs.png)
+
+
+  现在，你可以将利润表示为 SP、TCB 和 BP 的函数，并使用数学优化方法。通过约束所有参数值，你可以获得使利润最大化的参数最优值。
+
+
+  这是回归的一个有趣用例。在许多场景中，一个变量必须实现为其他变量的线性或多项式函数。
+
+
+  ### 最小二乘估计
+
+
+  最小二乘估计是进行回归的最简单、最古老的方法。它也被称为*曲线拟合方法*。普通最小二乘（OLS）回归是最常用的技术，由卡尔·弗里德里希·高斯和阿德里安-马里·勒让德在
+  18 世纪发明。以下是普通最小二乘估计中系数计算的推导过程：
+
+
+  ![$$ {\displaystyle \begin{array}{c}Y= X\beta +\in \\ {}{X}^{\prime }Y={X}^{\prime
+  } X\beta +{X}^{\prime}\in \\ {}{X}^{\prime }Y={X}^{\prime } X\beta +0\\ {}{\left({X}^{\prime
+  }X\right)}^{-1}{X}^{\prime }Y=\beta +0\\ {}\beta ={\left({X}^{\prime }X\right)}^{-1}{X}^{\prime
+  }Y\end{array}} $$](img/458833_2_En_3_Chapter_TeX_Equt.png)
+
+
+  以下代码是 OLS 回归的一个简单示例：
+
+
+  请在以下链接找到 CSV 文件：
+
+
+  [`https://github.com/Apress/advanced-data-analytics-python-2e`](https://github.com/Apress/advanced-data-analytics-python-2e)
+
+
+  ```
+
+  import pandas as pd
+
+  import statsmodels.api as sm
+
+  df = pd.read_csv(''book\\ch3\\fetaure_engineering_data.csv'')
+
+  #### df = pandas.read_csv("restaurants.csv")
+
+  X = df[''LotArea'']
+
+  Y = df[''SalePrice'']
+
+  X = sm.add_constant(X)
+
+  model = sm.OLS(Y, X).fit()
+
+  summary = model.summary()
+
+  print(summary)
+
+  ```
+
+
+  ### 逻辑回归
+
+
+  逻辑回归是回归的一个有趣应用，它计算事件发生的概率。它引入了一个中间变量，该变量是线性变量的线性回归。然后，它通过逻辑函数传递该中间变量，将中间变量映射到 0
+  到 1 之间。该变量被视为事件发生的概率。
+
+
+  以下代码是对数值数据进行逻辑回归的示例：
+
+
+  ```
+
+  from sklearn.preprocessing import StandardScaler
+
+  from sklearn.linear_model import LogisticRegression
+
+  from sklearn.datasets import load_iris
+
+  data, labels = load_iris(return_X_y=True)
+
+  scaler = StandardScaler()
+
+  data = scaler.fit_transform(data)
+
+  model = LogisticRegression(random_state=0)
+
+  model = model.fit(data, labels)
+
+  print(model.predict(data[[50]]))
+
+  ```
+
+
+
+
+  #### 分类与回归
+
+
+  分类与回归可应用于同一问题。例如，银行在审批信用卡或贷款时，会通过回归方法基于多个参数计算申请人的信用评分，并设定一个阈值。信用评分高于阈值的申请人被归类为潜在非欺诈用户，其余则被视为潜在欺诈用户。同样，任何二分类问题都可以通过对回归结果应用阈值来解决。在第
+  4 章中，我详细讨论了如何从任意参数的分布中选择阈值。类似地，某些二分类方法也可替代逻辑回归使用。例如，假设某电商网站希望预测订单转化为成功发票的概率，该网站可以轻松通过逻辑回归实现。朴素贝叶斯分类器可直接应用于该问题，因为它在将订单分类为成功或失败类别时会计算概率。随机森林算法同样适用于此问题。在这种情况下，在*N*棵决策树中，如果有*M*棵决策树判定订单将成功，则*M*/*N*即为订单成功的概率。
+
+
+  ## 有意使模型过拟合或欠拟合
+
+
+  有时你需要有意进行过高或过低的预测。在拍卖中，当你从买方角度预测时，出价略低于原价总是有利的。同样，从卖方角度，你希望将价格设定得略高于原价。有两种方法可以实现这一点。在回归中，当你使用相关性选择特征时，有意过高预测会剔除某些负相关变量；类似地，过低预测则会剔除某些正相关变量。另一种处理方式是：在预测数值时，同时预测误差值。若要过高预测，当发现预测误差为正时，将预测值减去误差量；若要过低预测，当误差为正时，将预测值加上误差量。
+
+
+  分类中的另一个问题是训练数据偏差。假设你有两个目标类别 A 和 B，大部分（例如 90%）训练数据属于 A 类。因此，当你用这些数据训练模型时，所有预测结果都会偏向
+  A 类。一种解决方案是对训练数据进行有偏采样，即有意移除训练数据中的 A 类样本。另一种方法可用于二分类：由于 B 类在样本预测概率中属于少数，其概率始终低于
+  0.5。接着计算所有归入 B 类的点的平均概率。对于任意点，如果其 B 类概率大于平均概率，则标记为 B 类，否则标记为 A 类。
+
+
+  ## 处理分类数据
+
+
+  对于支持向量机或回归等算法，输入数据必须是数值型。因此，处理分类数据时需要将其转换为数值型数据。一种转换策略是使用序数作为数值评分。另一种流行技术是使用*独热编码*。在第一种方法中，我们为每个类别分配数字。如果某列有五个类别，则对应五个数字（例如
+  0 到 4）。而在独热编码中，会为每个类别创建一个新的二进制列，并根据类别标记为真或假。请运行以下代码以更好地理解：
+
+
+  请通过以下链接查找 CSV 文件：
+
+
+  [`https://github.com/Apress/advanced-data-analytics-python-2e`](https://github.com/Apress/advanced-data-analytics-python-2e)
+
+
+  ```
+
+  import pandas as pd
+
+  from sklearn.preprocessing import OneHotEncoder
+
+  from sklearn.preprocessing import OrdinalEncoder
+
+  df = pd.read_csv(''book\\ch3\\fetaure_engineering_data.csv'')
+
+  oe = OrdinalEncoder()
+
+  df["Functional_code"] = oe.fit_transform(df[["Functional"]])
+
+  print(df[["Functional", "Functional_code"]]. head(20))
+
+  ohe = OneHotEncoder()
+
+  ohe_results = ohe.fit_transform(df[["Functional"]])
+
+  print(pd.DataFrame(ohe_results.toarray(), columns=ohe.categories).head(20))
+
+  ```
+
+
+  ## 总结
+
+
+  本章讨论了特征工程，这是获得模型高精度的关键。随后我们详细描述了监督学习技术，如分类与回归。
+
+
+  '
+- "# 无监督学习：聚类\n\n在第 3 章中，我们讨论了如何利用训练数据根据情感（正面、负面、中性）以及上下文对客户评论进行分类。例如，在航空业中，上下文可能涉及准点率、餐饮、舒适度、娱乐等方面。通过这种分析，企业主可以确定业务需要重点关注的领域。例如，如果发现负面评论中占比最高的是餐饮问题，那么优先事项就是提升提供给客户的餐饮质量。然而，在某些场景下，企业主并不清楚具体的上下文。也存在训练数据不可用的情况。此外，参考框架可能随时间变化。当目标类别未知时，分类算法无法应用。此时需要使用聚类算法。聚类在酿酒业中有典型应用：每个聚类代表一种葡萄酒品牌，葡萄酒根据其成分比例进行聚类。在第\
+  \ 3 章中，你了解到分类可用于识别图像类型，但有些场景下图像包含多种形状，需要算法来分离图形。聚类算法正适用于此类用例。\n\n聚类基于相似度或距离度量将对象分组。这是无监督学习的一个示例。聚类与分类的主要区别在于，后者具有明确定义的目标类别。目标类别的特征由训练数据及其学习到的模型定义，因此分类本质上是监督学习。相比之下，聚类试图基于数据及其相似度或距离来定义有意义的类别。图\
+  \ 4-1 展示了文档聚类过程。\n\n![](img/458833_2_En_4_Fig1_HTML.jpg)\n\n散点图展示了三个不同的文档聚类如何通过聚类被归入三个圆形区域。\n\
+  \n**图 4-1** 文档聚类\n\n\n\n## K-Means 聚类\n\n假设一家零售分销商有一个在线系统，本地代理在其中手动输入交易信息。他们必须填写的字段之一是城市。但由于此数据输入过程是手动的，人们通常容易犯很多拼写错误。例如，人们可能会输入\
+  \ `Dehi`、`Dehli`、`Delly` 等，而不是 Delhi。你可以尝试使用聚类来解决这个问题，因为聚类的数量是已知的；换句话说，零售商知道代理在多少个城市运营。这是\
+  \ *K-means 聚类*的一个例子。\n\nK-means 算法有两个输入。第一个是数据 `X`，它是一组 `N` 个向量；第二个是 `K`，它表示需要创建的聚类数量。输出是每个聚类中的一组\
+  \ `K` 个质心，以及 `X` 中每个向量的一个标签，该标签指示分配给相应聚类的点。一个聚类内的所有点与其质心的距离都比与其他任何质心的距离更近。`K` 个聚类\
+  \ `C[k]` 和 `K` 个质心 `μ[k]` 的条件可以表示如下：\n\n![$$ \\operatorname{minimize}\\sum \\limits_{k=1}^K\\\
+  sum \\limits_{{\\textrm{x}}_n\\in {C}_k}{\\left\\Vert {\\textrm{X}}_n-{\\mu}_k\\\
+  right\\Vert}²\\textrm{with}\\ \\textrm{respect}\\ \\textrm{to}\\ {C}_k,{\\mu}_k.\
+  \ $$](img/458833_2_En_4_Chapter_TeX_Equa.png)\n\n然而，这个优化问题无法在多项式时间内解决。但 Lloyd 提出了一种迭代方法作为解决方案。它包含两个步骤，迭代进行直到程序收敛到解。\n\
+  \n1.  它有一组 `K` 个质心，每个点被分配到一个唯一的聚类或质心，其中相关质心到该特定点的距离是最小的。\n\n2.  它使用以下公式重新计算每个聚类的质心：\n\
+  \n![$$ {C}_k=\\left\\{ Xn:\\left\\Vert Xn-\\mu k\\right\\Vert \\le \\textrm{all}\\\
+  left\\Vert Xn-\\mu l\\right\\Vert \\right\\} $$](img/458833_2_En_4_Chapter_TeX_Equ1.png)\n\
+  \n(1)\n\n![$$ {\\upmu}_{\\textrm{k}}=\\frac{1}{Ck}{\\sum}_{Xn\\in Ck} Xn $$](img/458833_2_En_4_Chapter_TeX_Equ2.png)\n\
+  \n(2)\n\n这个两步过程会持续进行，直到聚类点不再重新排列。该算法的收敛性是有保证的，但它可能会收敛到局部最小值。\n\n以下是在 Python 中执行\
+  \ K-means 聚类的 Lloyd 算法的简单实现：\n\n```python\nimport random\ndef ED(source, target):\n\
+  if source == \"\":\nreturn len(target)\nif target == \"\":\nreturn len(source)\n\
+  if source[-1] == target[-1]:\ncost = 0\nelse:\ncost = 1\nres = min([ED(source[:-1],\
+  \ target)+1,ED(source, target[:-1])+1,ED(source[:-1], target[:-1]) + cost])\nReturn(res)\n\
+  def find_centre(x, X, mu):\nmin = 100\ncent = 0\nfor c in mu:\ndist = ED(x, X[c])\n\
+  if dist< min:\nmin = dist\ncent = c\nreturn(cent)\ndef cluster_arrange(X, cent):\n\
+  clusters  = {}\nfor x in X:\nbestcent = find_centre(x, X, cent)\ntry:\nclusters[bestcent].append(x)\n\
+  exceptKeyError:\nclusters[bestcent] = [x]\nreturn( clusters)\ndef rearrange_centers(cent,\
+  \ clusters):\nnewcent = []\nkeys = sorted(clusters.keys())\nfor k in keys:\nnewcent.append(k)\n\
+  return(newcent)\ndef has_converged(cent, oldcent):\nreturn (sorted(cent) == sorted(oldcent))\n\
+  def locate_centers(X, K):\noldcent = random.sample(range(0,5), K)\ncent = random.sample(range(0,5),\
+  \ K)\nwhile not has_converged(cent, oldcent):\noldcent = cent\n#### Assign all points\
+  \ in X to clusters\nclusters = cluster_arrange(X, cent)\n#### Reevaluate centers\n\
+  cent = rearrange_centers(oldcent, clusters)\nreturn(cent, clusters)\nX = ['Delhi','Dehli',\
+  \ 'Delli','Kolkata','Kalkata','Kalkota']\nprint(locate_centers(X,2))\n```\n\n然而，K-means\
+  \ 聚类有一个局限性。例如，假设你所有的数据点都位于印度东部。对于 `K=4` 聚类，初始步骤是你随机选择德里、孟买、金奈和加尔各答中的一个中心。你所有的点都在印度东部，因此所有点都离加尔各答最近，并且总是被分配给加尔各答。因此，程序将一步收敛。为了避免这个问题，该算法会运行多次并取平均值。程序员可以使用各种技巧来初始化第一步中的质心。\n\
+  \n## 选择 K：肘部法则\n\n在某些情况下，你必须确定 K-means 聚类中的 `K`。为此，你必须使用肘部法则，该法则使用方差百分比作为依赖于聚类数量的变量。最初，选择几个聚类。然后添加另一个聚类，但这并不会使数据建模变得更好。此时选择聚类数量，这就是*肘部准则*。这个“肘部”并不总是能被明确识别。方差百分比被实现为各个聚类的组间方差与总方差的比率。假设在前面的例子中，零售商有四个城市：德里、加尔各答、孟买和金奈。程序员不知道这一点，因此使用\
+  \ `K=2` 到 `K=9` 进行聚类，并绘制方差百分比。程序员将得到一条肘形曲线，该曲线清楚地表明 `K=4` 是 `K` 的正确数量。\n\n## 轮廓分析\n\
+  \n轮廓分析是选择 `K` 值的另一种方法。它衡量一个对象与其自身聚类（内聚性）相比与其他聚类（分离度）的相似程度。轮廓值的范围是 −1 到 +1；值越高，对象与其自身聚类的匹配度越高。对于大多数数据点来说，拥有高值是理想的。如果许多点的值较低或为负，则聚类配置不正确。\n\
+  \n轮廓可以使用任何距离度量来计算，例如欧几里得距离，这将在后面讨论。\n\n每个数据点 `i` 的轮廓分数 `s(i)` 定义如下：\n\n![$$ {\\\
+  displaystyle \\begin{array}{l}s(i)=\\frac{b(i)-a(i)}{\\max \\left\\{a(i),b(i)\\\
+  right\\}},\\textrm{if}\\;\\left|{C}_i\\right|&gt;1\\\\ {}\\textrm{and}\\\\ {}s(i)=0,\\\
+  textrm{if}\\;\\left|{C}_i\\right|=1\\end{array}} $$](img/458833_2_En_4_Chapter_TeX_Equb.png)\n\
+  \n来源：维基百科\n\n这里，`a(i)` 是点 `i` 与其自身聚类的相似性度量，`b(i)` 是点 `i` 与其他聚类中点的相异性度量，如果 `i` 是聚类中唯一的点，则\
+  \ `s(i)` 定义为等于零。\n\n请参考以下代码了解轮廓评分的示例：\n\n```python\nfrom sklearn.datasets import\
+  \ make_blobs\nfrom sklearn.cluster import KMeans\nimport matplotlib.pyplot as fig\n\
+  from sklearn.metrics import silhouette_score\n#### Create dataset with 4 random\
+  \ cluster centers and 1000 datapoints\nx, y = make_blobs(n_samples = 1000, centers\
+  \ = 4, n_features=2, shuffle=True, random_state=31)\nsil_score = []\nkmax = 10\n\
+  #### number of clusters should be greater or equal to 2\nfor k in range(2, kmax+1):\n\
+  kmeans = KMeans(n_clusters = k).fit(x)\nlabels = kmeans.labels_\nsil_score.append(silhouette_score(x,\
+  \ labels, metric = 'euclidean'))\nfig.plot([i for i in range(2,11)], sil_score)\n\
+  fig.xlabel(\"K value\")\nfig.ylabel(\"silhouette_score\")\nfig.show()\n```\n\n图\
+  \ 4-2 由代码生成。这清楚地表明，对于 `k` 值 4，轮廓分数最大。因此，我们需要选择四个聚类。\n\n![](img/458833_2_En_4_Fig2_HTML.png)\n\
+  \n轮廓分数与 K 值的折线图。该线呈波动趋势，分别在 K 值为 4 和 8 处出现上升和下降。\n\n图 4-2\n\n轮廓分数与 k 值\n\n## 距离或相似性度量\n\
+  \n距离或相似性的度量是聚类的关键因素之一。在本节中，我们将描述不同类型的距离和相似性度量。在此之前，我们将解释这里的*距离*实际含义。\n\n\n\n###\
+  \ 性质\n\n距离是满足以下性质的度量：\n\n- 当且仅当 `x = y` 时，`dist(x, y) = 0`。\n- 当 `x ≠ y` 时，`dist(x,\
+  \ y) > 0`。\n- `dist(x, y) = dist(y, x)`。\n- 对于所有 `x`、`y` 和 `z`，`dist(x, y) + dist(y,\
+  \ z) >= dist(z, x)`。\n\n### 一般距离与欧几里得距离\n\n点 `p` 和 `q` 之间的距离是它们之间几何线段的长度：(![$$ \\\
+  overline{pq} $$](img/458833_2_En_4_Chapter_TeX_IEq1.png))。这被称为*欧几里得距离*。\n\n根据笛卡尔坐标，如果\
+  \ `p = (p[1], p[2], …, p[n])` 和 `q = (q[1], q[2], …, q[n])` 是欧几里得 `n` 维空间中的两个点，那么从\
+  \ `q` 到 `p` 或从 `p` 到 `q` 的距离 (`d`) 可由勾股定理推导得出，如下所示：\n\n![$$ {\\displaystyle \\begin{array}{c}d\\\
+  left(p,q\\right)=d\\left(q,p\\right)=\\sqrt{{\\left({q}_1-{p}_1\\right)}²+{\\left({q}_2-{p}_2\\\
+  right)}²+\\dots +{\\left({q}_n-{p}_n\\right)}²}\\\\ {}=\\sqrt{\\sum \\limits_{i=1}^n{\\\
+  left({q}_i-{p}_i\\right)}²}.\\end{array}} $$](img/458833_2_En_4_Chapter_TeX_Equc.png)\n\
+  \n欧几里得向量是欧几里得 `n` 维空间中一个点的位置。向量的大小是一种度量。其长度由以下公式计算：\n\n![$$ \\left\\Vert p\\right\\\
+  Vert =\\sqrt{p_1²+{p}_2²+\\cdots +{p}_n²}=\\sqrt{p\\cdot p}, $$](img/458833_2_En_4_Chapter_TeX_Equd.png)\n\
+  \n向量具有方向以及距离。两点 `p` 和 `q` 之间的距离可能具有方向，因此，它可以用另一个向量表示，如下所示：\n\n![$$ q-p=\\left({q}_1-{p}_1,{q}_2-{p}_2,\\\
+  dots, {q}_n-{p}_n\\right) $$](img/458833_2_En_4_Chapter_TeX_Eque.png)\n\n`p` 和 `q`\
+  \ 之间的欧几里得距离就是该距离（或位移）向量的欧几里得长度。\n\n![$$ {\\displaystyle \\begin{array}{c}\\left\\\
+  Vert q-p\\right\\Vert =\\sqrt{\\left(q-p\\right)\\cdot \\left(q-p\\right)}\\\\ {}\\\
+  left\\Vert q-p\\right\\Vert =\\sqrt{{\\left\\Vert p\\right\\Vert}²+{\\left\\Vert\
+  \ q\\right\\Vert}²-2p\\cdot q}\\end{array}} $$](img/458833_2_En_4_Chapter_TeX_Equf.png)\n\
+  \n**在一维空间中：**\n\n![$$ \\sqrt{{\\left(x-y\\right)}²}=\\left|x-y\\right|. $$](img/458833_2_En_4_Chapter_TeX_Equg.png)\n\
+  \n**在二维空间中：**\n\n在欧几里得平面中，如果 `p = (p[1], p[2])` 且 `q = (q[1], q[2])`，则距离由下式给出：\n\
+  \n![$$ d\\left(p,q\\right)=\\surd \\left({q}_1-{p}_1\\right)\\hat{\\mkern6mu} 2+\\\
+  left({q}_2-{p}_2\\right)\\hat{\\mkern6mu} 2 $$](img/458833_2_En_4_Chapter_TeX_Equh.png)\n\
+  \n或者，根据该等式，如果点 `p` 的极坐标为 (`r[1]`, `θ[1]`)，点 `q` 的极坐标为 (`r[2]`, `θ[2]`)，则两点之间的距离如下：\n\
+  \n![$$ \\surd {r}_1\\hat{\\mkern6mu} 2+{r}_2\\hat{\\mkern6mu} 2-2{r}_1{r}_2\\cos\
+  \ \\left({{}^{\\uptheta}}_1{-^{\\uptheta}}_2\\right) $$](img/458833_2_En_4_Chapter_TeX_Equi.png)\n\
+  \n**在 `n` 维空间中：**\n\n在一般情况下，距离如下：\n\n![$$ {D}²\\left(p,q\\right)=\\vdash {\\left({p}_1-{q}_1\\\
+  right)}²+{\\left({p}_2-{q}_2\\right)}²+\\dots +{\\left({p}_i-{q}_i\\right)}²+\\\
+  dots +{\\left({p}_n-{q}_n\\right)}²\\. $$](img/458833_2_En_4_Chapter_TeX_Equj.png)\n\
+  \n在第 3 章中，你将在最近邻分类器示例中找到一个欧几里得距离的示例。\n\n### 平方欧几里得距离\n\n标准欧几里得距离可以平方，以便对相距更远的对象赋予逐渐增大的权重。在这种情况下，等式变为：\n\
+  \n![$$ {d}²\\left(p,q\\right)=\\vdash {\\left({p}_1-{q}_1\\right)}²+{\\left({p}_2-{q}_2\\\
+  right)}²+\\dots +{\\left({p}_i-{q}_i\\right)}²+\\dots +{\\left({p}_n-{q}_n\\right)}²\\\
+  . $$](img/458833_2_En_4_Chapter_TeX_Equk.png)\n\n平方欧几里得距离不是度量，因为它不满足三角不等式。然而，它经常用于仅需比较距离的优化问题中。\n\
+  \n### 字符串编辑距离\n\n*编辑距离*是衡量两个字符串之间差异程度的一种度量。它计算使两个字符串相同所需的最少操作次数。编辑距离在自然语言处理中有应用，其中自动拼写纠正可以为拼写错误的单词指出候选纠正项。编辑距离有两种类型。\n\
+  \n- 莱文斯坦编辑距离\n- 尼德曼编辑距离\n\n#### 莱文斯坦距离\n\n两个单词之间的莱文斯坦距离是将一个单词更改为另一个单词所需的最少插入、删除或替换次数。1965\
+  \ 年，弗拉基米尔·莱文斯坦提出了这种距离。\n\n莱文斯坦距离也称为*编辑距离*，尽管该术语也可能指代更大一类距离度量。它与成对字符串对齐有关。\n\n例如，`Calcutta`\
+  \ 和 `Kolkata` 之间的莱文斯坦距离是 5，因为以下五次编辑将一个单词更改为另一个：\n\n- `Calcutta` → `Kalcutta`（将 `C`\
+  \ 替换为 `K`）\n- `Kalcutta` → `Kolcutta`（将 `a` 替换为 `o`）\n- `Kolcutta` → `Kolkutta`（将\
+  \ `c` 替换为 `k`）\n- `Kolkutta` → `Kolkatta`（将 `u` 替换为 `a`）\n- `Kolkatta` → `Kolkata`（删除\
+  \ `t`）\n\n当字符串相同时，莱文斯坦距离有几个简单的上界（即较长字符串的长度）和下界（零）。莱文斯坦距离的代码示例在 K 均值聚类代码中给出。\n\n\
+  #### 尼德曼-翁施算法\n\n尼德曼-翁施算法用于生物信息学中，以比对蛋白质或核苷酸序列。它是最早将动态规划应用于比较生物序列的算法之一。它使用动态规划工作。首先，它创建一个矩阵，其中行和列是字母。矩阵的每个单元格是该行和列中对应字母的相似性得分。得分有三种类型：匹配、不匹配，或带插入或删除的匹配。矩阵填充完毕后，算法从右下角单元格到左上角单元格执行回溯操作，并找到邻居得分距离最小的路径。回溯路径的得分总和就是两个字符串的尼德曼-翁施距离。\n\
+  \n`Pyopa` 是一个 Python 模块，它提供了两个字符串之间现成的尼德曼-翁施距离。\n\n```\nimport pyopa\ndata = {'gap_open':\
+  \ -20.56,\n'gap_ext': -3.37,\n'pam_distance': 150.87,\n'scores': [[10.0]],\n'column_order':\
+  \ 'A',\n'threshold': 50.0}\nenv = pyopa.create_environment(**data)\ns1 = pyopa.Sequence('AAA')\n\
+  s2 = pyopa.Sequence('TTT')\nprint(pyopa.align_double(s1, s1, env))\nprint(env.estimate_pam(aligned_strings[0],\
+  \ aligned_strings[1]))\n```\n\n尽管莱文斯坦距离实现简单且计算成本较低，但如果你想在字符串匹配中引入间隙（例如，`New Delhi`\
+  \ 和 `NewDelhi`），那么尼德曼-翁施算法是更好的选择。\n\n## 文档上下文中的相似性\n\n文档之间的相似性度量表示两个文档的相同程度。通常，相似性度量的范围限定在\
+  \ `[-1,1]` 或 `[0,1]` 内，其中相似性得分为 1 表示最大相似性。\n\n\n\n### 相似度类型\n\n为了衡量相似度，文档被表示为去除停用词后的词项向量。假设\
+  \ `A` 和 `B` 是代表两个文档的向量。在这种情况下，不同的相似度度量如下所示：\n\n*   **Dice（戴斯系数）**\n\n    Dice 系数由下式表示：\n\
+  \n    ![$$ sim\\left(\\textrm{q},{\\textrm{d}}_{\\textrm{j}}\\right)=\\textrm{D}\\\
+  left(\\textrm{A},\\textrm{B}\\right)=\\frac{\\left|A\\cap B\\right|}{\\alpha \\\
+  left|A\\right|+\\left(1-\\alpha \\right)\\left|B\\right|} $$](img/458833_2_En_4_Chapter_TeX_Equl.png)\n\
+  \n    同时，`α` ∈ [0, 1]，并令 ![$$ \\alpha =\\frac{1}{2} $$](img/458833_2_En_4_Chapter_TeX_IEq2.png)\n\
+  \n*   **Overlap（重叠系数）**\n\n    重叠系数的计算方式如下：\n\n    ![$$ Sim\\left(\\textrm{q},{\\\
+  textrm{d}}_{\\textrm{j}}\\right)=\\textrm{O}\\left(\\textrm{A},\\textrm{B}\\right)=\\\
+  frac{\\left|A\\cap B\\right|}{\\min \\left(\\left|A\\right|,\\left|B\\right|\\right)}\
+  \ $$](img/458833_2_En_4_Chapter_TeX_Equm.png)\n\n    重叠系数使用 max 运算符而非 min 进行计算。\n\
+  \n*   **Jaccard（杰卡德系数）**\n\n    杰卡德系数由下式给出：\n\n    ![$$ Sim\\left(\\textrm{q},{\\\
+  textrm{d}}_{\\textrm{j}}\\right)=\\textrm{J}\\left(\\textrm{A},\\textrm{B}\\right)=\\\
+  frac{\\left|A\\cap B\\right|}{\\left|A\\cup B\\right|\\vdash } $$](img/458833_2_En_4_Chapter_TeX_Equn.png)\n\
+  \n    杰卡德度量表示相关程度。\n\n*   **Cosine（余弦相似度）**\n\n    两个向量之间夹角的余弦值由下式给出：\n\n    ![$$\
+  \ Sim\\left(\\textrm{q},{\\textrm{d}}_{\\textrm{j}}\\right)=\\textrm{C}\\left(\\\
+  textrm{A},\\textrm{B}\\right)=\\frac{\\left|A\\cap B\\right|}{\\sqrt{\\left|A\\\
+  right|\\left|B\\right|}} $$](img/458833_2_En_4_Chapter_TeX_Equo.png)\n\n距离和相似度是两个相反的度量。例如，数值数据相关性是一种相似度度量，而欧几里得距离是一种距离度量。通常，相似度度量的值限制在\
+  \ 0 到 1 之间，但距离没有这样的上限。相似度可以为负，但根据定义，距离不能为负。聚类算法几乎与该领域诞生之初时相同，但研究人员正在不断为各种应用寻找新的距离度量。\n\
+  \n在下一节中，既然我们已经了解了该技术的基础知识，我们将使用 K-means 算法对图像中的颜色阴影进行聚类。\n\n## 图像中的 K-Means 示例\n\
+  \n首先，我们会得到一个包含色块的画布，每个色块是红色、绿色或蓝色的不同色调（图 4-3）。\n\n![](img/458833_2_En_4_Fig3_HTML.png)\n\
+  \n一个画布窗口的截图。它绘制了几个不同颜色和大小的点。\n\n图 4-3\n\n一个包含红色、绿色和蓝色色块的画布\n\n目标是根据色块的色调将其分为三类。然后我们将使用\
+  \ K-means 将红色、绿色和蓝色的色块分别分组，同时将它们彼此分离。图 4-4 显示了一个示例输出图像，其中红色色块已与所有其他色块分离。\n\n![](img/458833_2_En_4_Fig4_HTML.png)\n\
+  \n一个包含多个不同大小彩色点的画布窗口，展示了红色点是如何被分离出来的，并叠加在一个深色窗口上。\n\n图 4-4\n\n将红色色块与绿色和蓝色色块分离\n\n\
+  ### 准备聚类\n\n第一步是创建一个看起来类似于图 4-2 的图片，以便我们可以按如下方式进行聚类：\n\n```\n#### 导入必要的包\nfrom sklearn.cluster\
+  \ import KMeans\nimport numpy as np\nimport random\nimport cv2\nimport imutils\n\
+  #### 初始化色调选择列表\nhues = [\n#### 红色、绿色和蓝色的色调\n(138, 8, 8), (180, 4, 4), (223, 1, 1),\
+  \ (255, 0, 0), (250, 88, 88),\n(8, 138, 8), (4, 180, 4), (1, 223, 1), (0, 255, 0),\
+  \ (46, 254, 46),\n(11, 11, 97), (8, 8, 138), (4, 4, 180), (0, 0, 255), (46, 46,\
+  \ 254)]\n#### 初始化画布\ncanvas = np.ones((400, 600, 3), datatype=\"uint8\") * 255\n\
+  #### 遍历画布\nfor y in range(0, 400, 20):\nfor x in range(0, 600, 20):\n#### 为圆形生成随机的\
+  \ (x, y) 坐标、半径和色调\n(dx, dy) = np.random.randint(5, 10, size=(2,))\nr = np.random.randint(5,\
+  \ 8)\nhue = random.choice(hues)[::-1]\n#### 在画布上绘制圆形\ncv2.circle(canvas, (x + dx,\
+  \ y + dy), r, hue, -1)\n#### 为图像添加边框\ncanvas = cv2.copyMakeBorder(canvas, 5, 5,\
+  \ 5, 5, cv2.BORDER_CONSTANT,\nvalue=(255, 255, 255))\n```\n\n前面代码的第 9-13 行设置了红色、绿色和蓝色的五种不同颜色。当我们在第\
+  \ 16 行的画布上绘制颜色时，我们将从此列表中随机抽取样本。第 19-28 行处理绘制随机色块的实际过程。我们首先以 20 像素的步长遍历整个图像。然后，在第\
+  \ 23 和 24 行，我们为色块中心生成一个随机的 `(x, y)` 坐标（第 23 行），为色块选择一个随机半径（第 24 行），并在第 25 行从我们的颜色列表中采样。色调列表是\
+  \ RGB 顺序；我们将其反转成 BGR 顺序，以便 OpenCV 能够正确绘制。最后，我们使用随机生成的值在画布上绘制一个圆形。图 4-2 显示了此代码的输出。\n\
+  \n## 阈值处理\n\n现在我们已经有了人工生成的色块图像，我们需要识别每个色块并提取颜色特征来描述它们。以下是一个使用阈值处理的示例：\n\n```\n####\
+  \ 将画布转换为灰度图，进行阈值处理，并检测图像中的轮廓\ngray = cv2.cvtHue(canvas, cv2.HUE_BGR2GRAY)\ngray\
+  \ = cv2.bitwise_not(gray)\nthresh = cv2.threshold(gray, 10, 255, cv2.THRESH_BINARY)[1]\n\
+  cnts = cv2.findContours(gray.copy(), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)\ncnts\
+  \ = imutils.grab_contours(cnts)\n#### 初始化数据矩阵\ndata = []\n#### 遍历轮廓\nfor c in cnts:\n\
+  #### 从轮廓构建掩膜\nmask = np.zeros(canvas.shape[:2], datatype=\"uint8\")\ncv2.drawContours(mask,\
+  \ [c], -1, 255, -1)\nfeatures = cv2.mean(canvas, mask=mask)[:3]\ndata.append(features)\n\
+  ```\n\n第 36-38 行仅对我们的图像进行阈值处理，得到色块的二值表示，如图 4-5 所示。\n\n![](img/458833_2_En_4_Fig5_HTML.jpg)\n\
+  \n一个标记为“thresh”的窗口截图。它有一个深色屏幕，上面重叠着几个不同大小的浅色点。\n\n图 4-5\n\n使用阈值处理将背景和前景分离，以对图像进行二值化\n\
+  \n在第 39 行，我们捕获圆形的轮廓，创建我们的数据矩阵（该矩阵将保存从每个色块提取的特征），并从上述代码的第 46 行开始遍历每个单独的轮廓。我们为每个轮廓创建一个掩膜，并提取平均\
+  \ RGB 值；我们将使用这三个平均值来描述圆形的颜色。\n\n\n\n### 聚类时刻\n\n现在，我们可以使用 scikit-learn 实现的 K-means\
+  \ 算法进行实际的聚类操作。\n\n```python\n#### 对色调特征进行聚类\nclt = KMeans(n_clusters=3)\nclt.fit(data)\n\
+  cv2.imshow(\"Canvas\", canvas)\n#### 遍历唯一的聚类标识符\nfor i in np.unique(clt.labels_):\n\
+  #### 为当前聚类构建掩码\nmask = np.zeros(canvas.shape[:2], datatype=\"uint8\")\n#### 遍历当前聚类的索引并绘制轮廓\n\
+  for j in np.where(clt.labels_ == i)[0]:\ncv2.sketchContours(mask, [cnts[j]], -1,\
+  \ 255, -1)\n#### 显示该聚类的输出图像\ncv2.imshow(\"Cluster\", cv2.bitwise_and(canvas, canvas,\
+  \ mask=mask))\ncv2.waitKey(0)\n```\n\n在第 54 行，我们声明了 K-means 类，并将 *n* 个聚类参数设置为 3，表示我们需要三个不同的聚类——分别对应红色、绿色和蓝色。然后使用\
+  \ `fit` 方法对我们的数据矩阵进行聚类。\n\n现在我们已经得到了三个聚类，需要一种机制来检索属于每个聚类的斑点。由于我们已经有了存储斑点轮廓的 `cnts`\
+  \ 变量，这个方法比看起来要简单得多。要完成这个示例，我们只需要巧妙地运用 NumPy 函数即可。\n\n从第 59 行开始，我们遍历每个唯一的聚类标签。然后，对于每个聚类，我们使用\
+  \ `np.where` 函数创建一个掩码，并收集所有与当前聚类对应的标签索引（第 64 行）。有了这些索引，我们就可以利用它们来绘制仅属于当前聚类的轮廓（第\
+  \ 65 行）。\n\n### 揭示当前聚类\n\n最后，我们将使用按位运算来仅显示属于当前聚类的斑点，同时隐藏所有其他斑点。\n\n只需使用以下命令运行我们的脚本：\n\
+  \n```bash\n$ python cluster_hues.py\n```\n\n通过 K-means 方法，我们可以观察到我们的斑点已自动按红、绿、蓝三种颜色分类。在图\
+  \ 4-6 中，我们可以看到只有红色调被分离出来。\n\n![](img/458833_2_En_4_Fig6_HTML.png)\n\n一个包含多个不同大小彩色圆点的画布窗口展示了红色圆点是如何被分离出来的，该窗口叠加在一个深色窗口之上。\n\
+  \n图 4-6\n\n红色斑点正从蓝色和绿色斑点中分离出来\n\n图 4-7 仅描绘了绿色调。\n\n![](img/458833_2_En_4_Fig7_HTML.png)\n\
+  \n一个包含多个不同大小彩色圆点的画布窗口展示了绿色圆点是如何被分离出来的，该窗口叠加在一个深色窗口之上。\n\n图 4-7\n\n仅提取出绿色圆形\n\n最后，我们仅得到蓝色调，如图\
+  \ 4-8 所示。\n\n![](img/458833_2_En_4_Fig8_HTML.png)\n\n一个包含多个不同大小彩色圆点的画布窗口展示了蓝色圆点是如何被分离出来的，该窗口叠加在一个深色窗口之上。\n\
+  \n图 4-8\n\n仅查看“蓝色斑点”聚类\n\n现在我们将讨论另一种类型的聚类算法。\n\n## 层次聚类\n\n层次聚类是一种对数据对象进行迭代聚类的方法。它有两种类型。\n\
+  \n*   凝聚层次算法，即自底向上方法\n*   分裂层次算法，即自顶向下方法\n\n### 自底向上方法\n\n自底向上的聚类方法称为*凝聚层次聚类*。在这种方法中，每个输入对象被视为一个单独的聚类。在每次迭代中，算法将两个最相似的聚类合并为一个聚类。该过程持续进行，直到所有聚类合并成一个单一的聚类。该算法的复杂度为\
+  \ `O(n³)`。\n\n在该算法中，给定一组输入对象 `I = {I[1], I[2], …, I[n]}`。一组有序三元组为 `<D, K, S>`，其中\
+  \ `D` 是阈值距离，`K` 是聚类数量，`S` 是聚类集合。\n\n该算法的一些变体可能允许在一次迭代中合并多个具有相同距离的聚类。算法如下：\n\n**输入：**\
+  \ `I = {I[1], I[2], …, I[n]}`\n\n**输出：** `O`\n\n```pseudocode\nfor i = 1 to n do\n\
+  Ci ← {Ii};\nend for\nD ← 0;\nK ← n;\nS ← {C1, ....., Cn};\nO ← ;\nrepeat\nDist ←\
+  \ CalcultedMinimumDistance(S);\nD ← ∞;\nFor i = 1 to K–1 do\nFor j = i+1 to K do\n\
+  if Dist(i, j) < D then\nD ← Dist(i, j);\nend if\nend for\nend for\nUntil K = 1;\n\
+  ```\n\n本章稍后会给出一个层次聚类的 Python 示例。\n\n### 聚类间的距离\n\n在层次聚类中，计算两个聚类之间的距离是一个关键步骤。有三种计算方法。\n\
+  \n*   单链接法\n*   全链接法\n*   平均链接法\n\n#### 单链接法\n\n在单链接法中，两个聚类之间的距离是两个聚类中所有对象对之间距离的最小值。由于距离是最小值，因此会存在一对对象，其距离小于或等于两个聚类之间的距离。因此，单链接法可以表示如下：\n\
+  \n![$$ {\\displaystyle \\begin{array}{c}\\textrm{Dist}\\left({\\textrm{C}}_{\\textrm{i}},{\\\
+  textrm{C}}_{\\textrm{j}}\\right)=\\min \\textrm{dist}\\left(\\textrm{X},\\textrm{Y}\\\
+  right)\\\\ {}\\textrm{X}\\text{\\EUR} {\\textrm{C}}_{\\textrm{i}},\\textrm{Y}\\\
+  text{\\EUR} {\\textrm{C}}_{\\textrm{j}}\\end{array}} $$](img/458833_2_En_4_Chapter_TeX_Equp.png)\n\
+  \n#### 全链接法\n\n在全链接法中，两个聚类之间的距离是两个聚类中所有对象对之间距离的最大值。由于距离是最大值，因此所有对象对的距离都小于或等于两个聚类之间的距离。因此，全链接法可以表示如下：\n\
+  \n![$$ {\\displaystyle \\begin{array}{c}\\textrm{Dist}\\left({\\textrm{C}}_{\\textrm{i}},{\\\
+  textrm{C}}_{\\textrm{j}}\\right)=\\max \\textrm{dist}\\left(\\textrm{X},\\textrm{Y}\\\
+  right)\\\\ {}\\textrm{X}\\text{\\EUR} {\\textrm{C}}_{\\textrm{i}},\\textrm{Y}\\\
+  text{\\EUR} {\\textrm{C}}_{\\textrm{j}}\\end{array}} $$](img/458833_2_En_4_Chapter_TeX_Equq.png)\n\
+  \n#### 平均链接法\n\n平均链接法是前两种链接法之间的折衷方案。它避免了形成过大或过紧密聚类的极端情况。聚类 `C[i]` 和 `C[j]` 之间的距离定义如下：\n\
+  \n![$$ \\textrm{Dist}\\left({\\textrm{C}}_{\\textrm{i}},{\\textrm{C}}_{\\textrm{j}}\\\
+  right)=\\frac{\\sum_{\\textrm{X}\\text{\\EUR} \\textrm{Ci}}{\\sum}_{\\textrm{Y}\\\
+  text{\\EUR} {\\textrm{C}}_{\\textrm{j}}\\vdash}\\textrm{dist}\\left(\\textrm{X},\\\
+  textrm{Y}\\right)}{\\left|{\\textrm{C}}_{\\textrm{i}}\\right|\\times \\left|{\\\
+  textrm{C}}_{\\textrm{j}}\\right|} $$](img/458833_2_En_4_Chapter_TeX_Equr.png)\n\n\
+  `|C[k]|` 是聚类 `C[k]` 中的数据对象数量。\n\n质心链接法与平均链接法类似，但这里的两个聚类之间的距离实际上是质心之间的距离。聚类 `C[i]`\
+  \ 的质心定义如下：\n\n![$$ {\\displaystyle \\begin{array}{c}{\\textrm{X}}_{\\textrm{c}}=\\\
+  vdash \\left({\\textrm{c}}_1,\\dots .,{\\textrm{c}}_{\\textrm{m}}\\right),\\textrm{with}\\\
+  \\ {}{\\textrm{c}}_{\\textrm{j}}=1/\\textrm{m}\\sum {\\textrm{X}}_{kj},\\end{array}}\
+  \ $$](img/458833_2_En_4_Chapter_TeX_Equs.png)\n\n`X[kj]` 是聚类 `C[i]` 中第 k 个数据对象的第\
+  \ j 维。\n\n\n\n### 自顶向下方法\n\n自顶向下聚类方法也称为*分裂层次聚类*。它是自底向上聚类的逆过程。该方法从一个包含所有输入对象的单一簇开始。每次迭代后，它会将簇分裂为距离最大的两个部分。算法如下：\n\
+  \n**输入：** `I = {I1, I2, … , In}`\n\n**输出：** `O`\n\n```\nD ← ∞;\nK ← 1;\nS ← {I1,I2\
+  \ , ... , In};\nO ← ;\nrepeat\nX ← 包含距离最远的两个数据对象 dist;\nY ← ∅;\nS ← S – X;\nXi ←\
+  \ 在 A 中与 X 距离最大的数据对象 D (Xi, X);\nX ← X − {Xi};\nY ← Y ∪ {Xi};\nrepeat\nfor all data\
+  \ object Xj in X do\n```\n\n`e(j) ←←` ![$$ \\overline{D} $$](img/458833_2_En_4_Chapter_TeX_IEq3.png)\
+  \ `(X[j], X)` ![$$ \\overline{D} $$](img/458833_2_En_4_Chapter_TeX_IEq4.png) `(X[j],\
+  \ Y);`\n\n```\nend for\nif∃e(j) > 0 then\nXk ←← 在 X 中 e(j) 最大的数据对象;\nX ← X  {Xk};\n\
+  Y ←← Y ∪∪ {Xk};\nsplit ←← TRUTH;\nelse\nsplit← FALSE;\nend if\nuntil split == FALSE;\n\
+  D ← dist;\nK ← K+1;\nS ← S∪∪ X ∪ Y\nO ← 0 ∪ ;\nUntil  K = n;\n```\n\n树状图 `O` 是任何层次聚类的输出。图\
+  \ 4-9 展示了一个树状图。\n\n![](img/458833_2_En_4_Fig9_HTML.jpg)\n\n一个簇树状图描绘了多个美国州的高度，例如罗德岛州、爱达荷州、南卡罗来纳州、阿肯色州、密苏里州、康涅狄格州等。\n\
+  \n**图 4-9** 树状图\n\n要从树状图中创建一个簇，你需要一个距离或相似度的阈值。一个简单的方法是绘制距离或相似度的分布图，并找到曲线的拐点。对于高斯分布数据，拐点位于\
+  \ `x = mean + n*std` 和 `x = mean – n*std` 处，如图 4-10 所示。\n\n![](img/458833_2_En_4_Fig10_HTML.jpg)\n\
+  \n直方图绘制出一个钟形结构。它在两个正焦弦上各有一个拐点。可以观察到投影。\n\n**图 4-10** 拐点\n\n以下代码使用 Python 创建了一个层次聚类。输入数据文件可以从\
+  \ [`https://canvas.uw.edu/courses/1546077/files/92110986`](https://canvas.uw.edu/courses/1546077/files/92110986)\
+  \ 下载。\n\n```\nimport numpy as np\nimport pandas as pd\nfrom sklearn.preprocessing\
+  \ import StandardScaler, normalize\nfrom sklearn.decomposition import PCA\nimport\
+  \ scipy.cluster.hierarchy as hc\nimport matplotlib.pyplot as plt\nfrom sklearn.cluster\
+  \ import AgglomerativeClustering\n#### Load the CSV file\ndf = pd.read_csv(\"book\\\
+  \\ch4\\\\CC_GENERAL.csv\")\n#### preprocessing\ndf = df.drop('CUST_ID', axis = 1)\n\
+  df.fillna(method ='ffill', inplace = True)\n#### Scale and normalize\nss = StandardScaler()\n\
+  scaled_df = ss.fit_transform(df)\nnormalized_df= normalize(scaled_df)\n#### Reduce\
+  \ the dimensionality to 3\npca = PCA(n_components=3)\ndf_pca = pca.fit_transform(normalized_df)\n\
+  df_pca = pd.DataFrame(df_pca)\ndf_pca.columns = ['P1', 'P2', 'P3']\n#### Dendogram\
+  \ plot\nplt.figure(figsize =(10, 10))\nplt.title('Visualising the data')\ndendrogram\
+  \ = hc.dendrogram((hc.linkage(df_pca, method ='ward')))\n#### create 3 clusters\
+  \ using Agglomerative hierarchical clustering\nhrc= AgglomerativeClustering(n_clusters\
+  \ = 3)\nplt.figure(figsize =(10, 10))\nplt.scatter(df_pca['P1'], df_pca['P2'], df_pca['P3'],\
+  \ c = hrc.fit_predict(df_pca), cmap ='rainbow')\nplt.title(\"Agglomerative Hierarchical\
+  \ Clusters - Scatter Plot\", fontsize=18)\nplt.show()\n```\n\n### 图论方法\n\n聚类问题可以映射到一个图，其中图中的每个节点都是一个输入数据点。如果两个图之间的距离小于阈值，则相应的节点被连接起来。现在，使用图划分算法，你可以对图进行聚类。聚类在投资银行中的一个行业示例是，聚类工具取决于其价格时间序列的相关性以及每个聚类一起进行的表现交易。这在算法交易中被称为*篮子交易*。因此，通过使用相似性度量，你可以构建一个图，其中节点是工具，节点之间的边表示这些工具是相关的。要创建篮子，你需要一组彼此都相关的工具。在图中，这是一个节点集或子图，其中子图中的所有节点都相互连接。这种子图被称为*团*。寻找最大规模的团是一个\
+  \ NP 完全问题。人们使用启发式解决方案来解决这个聚类问题。\n\n### 如何判断聚类结果是否良好？\n\n应用聚类算法后，验证结果的好坏是聚类分析中的关键步骤。有三个参数用于衡量聚类的质量，即质心、半径和直径。\n\
+  \n![$$ \\textrm{Centroid}={\\textrm{C}}_{\\textrm{m}}=\\frac{{\\sum_{\\textrm{i}=1}}^{\\\
+  textrm{N}}{\\textrm{t}}_{mi}}{\\textrm{N}} $$](img/458833_2_En_4_Chapter_TeX_Equt.png)\n\
+  \n![$$ \\textrm{Radius}={\\textrm{R}}_{\\textrm{m}}=\\sqrt{\\frac{{\\sum_{\\textrm{i}=1}}^{\\\
+  textrm{N}}{\\left({\\textrm{t}}_{mi}-{\\textrm{C}}_{\\textrm{m}}\\right)}²}{\\textrm{N}}}\
+  \ $$](img/458833_2_En_4_Chapter_TeX_Equu.png)\n\n![$$ \\textrm{Diameter}={\\textrm{D}}_{\\\
+  textrm{m}}=\\sqrt{\\frac{{\\sum_{\\textrm{i}=1}}^{\\textrm{N}}{\\sum_{\\textrm{j}=1}}^{\\\
+  textrm{N}}{\\left({\\textrm{t}}_{mi}-{\\textrm{C}}_{\\textrm{m}}\\right)}²}{\\left(\\\
+  textrm{N}\\right)\\left(\\textrm{N}-1\\right)}} $$](img/458833_2_En_4_Chapter_TeX_Equv.png)\n\
+  \n如果你将簇视为一个包围该簇中所有成员点的空间中的圆，那么你可以将质心视为圆心。类似地，簇的半径和直径就是该圆的半径和直径。任何簇都可以用这三个参数来表示。良好聚类的一个衡量标准是，中心之间的距离应大于半径之和。\n\
+  \n以下来自先前脚本的代码片段可用于可视化输出，其中来自同一簇的数据点应被视为聚集在一起。\n\n```\n#### create 3 clusters using\
+  \ Agglomerative hierarchical clustering\nhrc= AgglomerativeClustering(n_clusters\
+  \ = 3)\nplt.figure(figsize =(10, 10))\nplt.scatter(df_pca['P1'], df_pca['P2'], df_pca['P3'],\
+  \ c = hrc.fit_predict(df_pca), cmap ='rainbow')\nplt.title(\"Agglomerative Hierarchical\
+  \ Clusters - Scatter Plot\", fontsize=18)\nplt.show()\n```\n\n## 总结\n\n除了这些章节外，其他每一章都将包含我们将用于标记模型训练的数据。然后会有一组没有标签的新数据。模型会对这些数据进行标记。这被称为*监督学习*。\n\
+  \n然而，本章中没有数据标签。算法根据它们的相似性对它们进行分组或标记。在一个非英语国家，孩子们在学校里在老师的监督下学习英语。然而，在观看 YouTube 视频两三年后，孩子们开始在没有指导的情况下说一些简单的英语。这被称为无监督学习。\n\
+  \n\n\n"
+- "# 5. 深度学习与神经网络\n\n神经网络，特指*人工神经网络*（ANNs），由最早神经计算机的发明者之一罗伯特·赫克特-尼尔森博士提出。他将神经网络定义为：“……一个由大量简单、高度互联的处理单元组成的计算系统，这些单元通过对外部输入的动态状态响应来处理信息。”\n\
+  \n通常，神经网络按多层结构排列。这些层由多个包含激活函数的互联节点组成。输入层与隐藏层通信，描绘出模式特征。隐藏层则连接到输出层。\n\n神经网络用途广泛。例如，在航空领域的乘客负载预测中，`t`月的乘客负载高度依赖于`t`-12\
+  \ 个月的数据，而非`t`-1 或`t`-2 的数据。因此，神经网络通常能比时间序列模型甚至图像分类产生更好的结果。在聊天机器人系统中，记忆网络（实际上是一种基于先前对话词袋的神经网络）是一种流行的方法。实现神经网络的方式有很多种。\n\
+  \n![](img/458833_2_En_5_Fig1_HTML.png)\n\n该图展示了多个输入节点如何连接到隐藏层中的层级节点，并最终预测输出节点。\n\
+  \n**图 5-1** 神经网络架构\n\n## 反向传播\n\n*反向传播*通常替代梯度下降等优化方法，是训练人工神经网络的常用方法。该方法计算最外层的误差，并将其反向传播至输入层，然后根据该误差、输入和学习率更新权重。最终目标是尽可能最小化误差。\n\
+  \n### 反向传播方法\n\n将输入向量 `X[p] = (x[p1], x[p2], …, x[pN])^(t)` 应用于输入单元。\n\n计算隐藏层单元的净输入值。\n\
+  \n![$$ {net}_{pj}^h=\\sum \\limits_{i=1}^N{\\omega}_{ji}^h{x}_{pi}+{\\theta}_j^h\
+  \ $$](img/458833_2_En_5_Chapter_TeX_Equa.png)\n\n计算隐藏层的输出。\n\n![$$ {i}_{pj}={f}_j^h\\\
+  left({net}_{pj}^h\\right) $$](img/458833_2_En_5_Chapter_TeX_Equb.png)\n\n计算每个单元的净输入值。\n\
+  \n![$$ {net}_{pk}^o=\\sum \\limits_{j=1}^L{\\omega}_{kj}^o{i}_{pj}+{\\theta}_k^o\
+  \ $$](img/458833_2_En_5_Chapter_TeX_Equc.png)\n\n计算输出。\n\n![$$ {o}_{pk}={f}_k^o\\\
+  left({net}_{pk}^o\\right) $$](img/458833_2_En_5_Chapter_TeX_Equd.png)\n\n计算输出单元的误差项。\n\
+  \n![$$ {\\delta}_{pk}^o=\\left({y}_{pk}-{o}_{pk}\\right){f_k^o}^{,}\\left({net}_{pk}^o\\\
+  right) $$](img/458833_2_En_5_Chapter_TeX_Eque.png)\n\n计算隐藏单元的误差项。\n\n![$$ {\\delta}_{pj}^h={f_j^h}^{,}\\\
+  left({net}_{pj}^h\\right)\\sum \\limits_k{\\delta}_{pk}^o{\\omega}_{kj}^o $$](img/458833_2_En_5_Chapter_TeX_Equf.png)\n\
+  \n更新输出层的权重。\n\n![$$ {\\omega}_{kj}^o\\left(t+1\\right)={\\omega}_{kj}^o(t)+{\\eta\
+  \ \\delta}_{pk}^o{i}_{pj} $$](img/458833_2_En_5_Chapter_TeX_Equg.png)\n\n更新隐藏层的权重。\n\
+  \n![$$ {\\omega}_{ji}^h\\left(t+1\\right)={\\omega}_{ji}^h(t)+{\\eta \\delta}_{pj}^h{x}_i\
+  \ $$](img/458833_2_En_5_Chapter_TeX_Equh.png)\n\n让我们看一些代码：\n\n```python\nfrom numpy\
+  \ import exp, dot, array, random\nclass SimpleNN():\ndef __init__(self):\nrandom.seed(2)\n\
+  self.weights = random.random((3, 1))\n#### 激活函数\ndef __sigmoid(self, x):\nreturn\
+  \ 1 / (1 + exp(-x))\n#### Sigmoid 函数的导数\ndef __sigmoid_derivative(self, x):\nreturn\
+  \ x * (1 - x)\n#### 训练神经网络并调整权重\ndef train(self, training_set_inputs, training_set_outputs,\
+  \ number_of_training_iterations):\nfor iteration in range(number_of_training_iterations):\n\
+  output = self.predict(training_set_inputs)\nerror = training_set_outputs - output\n\
+  adjustment = dot(training_set_inputs.T, error * self.__sigmoid_derivative(output))\n\
+  self.weights += adjustment\n#### 预测\ndef predict(self, inputs):\nreturn self.__sigmoid(dot(inputs,\
+  \ self.weights))\nif __name__ == \"__main__\":\nneural_network = SimpleNN()\nprint(\"\
+  随机初始权重: \")\nprint(neural_network.weights)\n# 训练集。我们有 4 个样本，每个样本包含 3 个输入值\n# 和 1\
+  \ 个输出值。\ntraining_set_inputs = array([[0, 0, 1], [1, 1, 1], [1, 0, 1], [0, 1, 1]])\n\
+  training_set_outputs = array([[0, 1, 1, 0]]).T\nneural_network.train(training_set_inputs,\
+  \ training_set_outputs, 10000)\nprint(\"训练后的新权重: \")\nprint(neural_network.weights)\n\
+  #### 用新情况测试神经网络。\nprint(neural_network.predict(array([1, 0, 0])))\n```\n\n## 其他算法\n\
+  \n除了反向传播，还有许多技术可用于训练神经网络。其中一种方法是使用常见的优化算法，如梯度下降、Adam 优化器等。简单的感知机方法也经常被应用。赫布假说是另一种流行的方法。在赫布学习中，不是使用误差，而是使用输入和输出的乘积作为反馈来修正权重。\n\
+  \n![$$ {w}_{ij}\\left(t+1\\right)={w}_{ij}(t)+\\eta {y}_j(t){x}_i(t) $$](img/458833_2_En_5_Chapter_TeX_Equi.png)\n\
+  \n## TensorFlow\n\nTensorFlow 是 Python 中一个流行的深度学习库。它是原始库的 Python 封装。它支持基于 CUDA 的\
+  \ GPU 平台上的并行计算。以下代码是使用 TensorFlow 进行 MNIST 数字分类的示例：\n\n```python\nimport tensorflow\
+  \ as tf\n#### 获取 mnist 数据集\nmnist = tf.keras.datasets.mnist\n#### 加载数据并分割为训练集和测试集\n\
+  (x_train, y_train), (x_test, y_test) = mnist.load_data()\nx_train, x_test = x_train\
+  \ / 255.0, x_test / 255.0\n#### 模型\nmodel = tf.keras.models.Sequential([\ntf.keras.layers.Flatten(input_shape=(28,\
+  \ 28)),\ntf.keras.layers.Dense(128, activation='relu'),\ntf.keras.layers.Dropout(0.2),\n\
+  tf.keras.layers.Dense(10, activation=\"softmax\")\n])\n#### 损失函数\nloss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)\n\
+  #### 模型编译\nmodel.compile(optimizer='adam',\nloss=loss_fn,\nmetrics=['accuracy'])\n\
+  #### 模型拟合\nmodel.fit(x_train, y_train, epochs=5)\n#### 模型评估\nmodel.evaluate(x_test,\
+  \  y_test, verbose=2)\n```\n\n如今人们不再直接使用原始的 TensorFlow 代码。他们使用 Keras 封装，这是一种利用多个家庭调查数据来确定分娩风险的代码。\n\
+  \n你可以在本书 Git 仓库的 `deep_learning_keras_1st_example` 文件夹中找到相关数据。请参考 [`https://github.com/Apress/advanced-data-analytics-python-2e/tree/main/deep_learning_keras_1st_example`](https://github.com/Apress/advanced-data-analytics-python-2e/tree/main/deep_learning_keras_1st_example)。\n\
+  \n\n\n```python\n#### 导入模块\nimport pandas as pd\nimport numpy as np\nimport csv\n\
+  from keras.layers.core import Dense, Activation, Dropout\nfrom keras.layers.recurrent\
+  \ import LSTM\nfrom keras.models import Sequential\nimport sys\nfrom keras.preprocessing.sequence\
+  \ import TimeseriesGenerator\nfrom sklearn.preprocessing import StandardScaler\n\
+  from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay\n\
+  import keras\nimport keras\nfrom sklearn.decomposition import PCA\nfrom sklearn.model_selection\
+  \ import train_test_split\nfrom plot_keras_history import plot_history\nimport matplotlib.pyplot\
+  \ as plt\nfrom sklearn.ensemble import RandomForestClassifier\nfrom keras.utils\
+  \ import np_utils\nimport pandas as pd\nPATH_TO_FOLDER = ''\ndf_delivery = pd.read_csv(PATH_TO_FOLDER+\"\
+  delivery (1).csv\")\nprint(df_delivery.head())\ndf_family_survey = pd.read_csv(PATH_TO_FOLDER+\"\
+  family_survey (1).csv\")\nprint(df_family_survey.head())\ndf_merged = pd.merge(df_delivery,\
+  \ df_family_survey, how=\"left\", left_on=  ['hh_id'], right_on= ['hh_id'])\nprint(df_merged.columns)\n\
+  print(df_merged.head())\nprint(df_merged.danger_signs_at_delivery.value_counts())\n\
+  #### 删除不必要的列并进行类型转换\ncolumns = ['delivery_id', 'patient_id', 'hh_id', 'delivery_date_time_submitted']\n\
+  df_merged.drop(columns, inplace=True, axis=1)\nprint(df_merged.columns)\ndf_merged\
+  \ = pd.get_dummies(df_merged, columns = ['facility_delivery',  'first_visit_on_time',\
+  \ 'hand_washing_facilities', 'electricity', 'floor',\n'highest_education_achieved'])\n\
+  print(df_merged.head())\nprint(df_merged.columns)\ny = pd.Categorical(df_merged.danger_signs_at_delivery).codes\n\
+  print(y[:10])\n#### 缩放和 PCA\nX = df_merged\nX.fillna(0,inplace=True)\nnp.nan_to_num(X)\n\
+  #### scaled_X = X\nXscaler = StandardScaler()\nXscaler.fit(X)\nscaled_X = Xscaler.transform(X)\n\
+  np.nan_to_num(scaled_X)\npca = PCA(.95)\npca.fit(scaled_X)\nscaled_X = pca.transform(scaled_X)\n\
+  print(scaled_X.shape)\n#### 训练集、测试集划分\ntrain_x, test_x, train_y, test_y = train_test_split(\
+  \ scaled_X, np.array(y), test_size=1/7.0, random_state=0)\ntrain_y=np_utils.to_categorical(train_y,num_classes=2)\n\
+  test_y=np_utils.to_categorical(test_y,num_classes=2)\nprint(\"Shape of y_train\"\
+  ,train_y.shape)\nprint(\"Shape of y_test\",test_y.shape)\n#### 模型架构\nmodel=Sequential()\n\
+  model.add(Dense(500,input_dim=scaled_X.shape[1],activation='relu'))\nmodel.add(Dense(200,activation='relu'))\n\
+  model.add(Dense(100,activation='relu'))\nmodel.add(Dropout(0.1))\nmodel.add(Dense(2,activation='sigmoid'))\n\
+  model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy',keras.metrics.Recall()])\n\
+  print(model.summary())\nhistory = model.fit(train_x,train_y,validation_data=(test_x,test_y),batch_size=500,epochs=4,verbose=1)\n\
+  plot_history(history.history, path=\"standard.png\")\nplt.show()\nprediction=model.predict(test_x)\n\
+  y_label=np.argmax(test_y,axis=1)\npredict_label=np.argmax(prediction,axis=1)\n####\
+  \ accuracy=np.sum(y_label==predict_label)/length * 100\n#### print(\"Accuracy of\
+  \ the dataset\",accuracy )\nprint(classification_report(y_label, predict_label))\n\
+  ```\n\n### 网络架构与正则化技术\n\n在进入下一节之前，请注意，随着网络中隐藏层数量的增加，准确率会提高，但应用程序会消耗更多内存。通常，人们会使用两到三个隐藏层。\n\
+  \n`Adam` 优化器是常见的选择，因为它结合了梯度下降和随机梯度下降。人们可能会在损失函数中加入结果方程的系数，因为较大的系数表明存在过拟合。另一种选择是使用丢弃层，它在训练过程中会随机忽略一定比例的神经元。对于分类问题，损失函数中应使用熵函数，它是系统混乱程度的度量。对于二分类和多分类问题，存在多个版本。\n\
+  \n请注意，第 3 章中介绍的 PCA 在此处使用，方差保留 95%。这是标准做法。\n\n### 可更新模型与迁移学习\n\n在深度学习中，如第 3 章所述，声明模型可训练是创建可更新机器学习模型的全部要求。以下代码是一个异常检测系统的示例。每个云服务都提供网络数据包信息，任何工具（例如\
+  \ `Suricata`）都可以发送安全警报。以下预处理代码处理数据，并根据警报类型将网络数据包标记为警报或非警报。\n\n您可以在本书的 Git 仓库中找到\
+  \ `frame_packet_june_14.csv` 文件中的数据。请参考以下链接：\n\n[`https://github.com/Apress/advanced-data-analytics-python-2e/blob/main/eve.json`](https://github.com/Apress/advanced-data-analytics-python-2e/blob/main/eve.json)\n\
+  \n[`https://github.com/Apress/advanced-data-analytics-python-2e/blob/main/frame_packet_June14.csv`](https://github.com/Apress/advanced-data-analytics-python-2e/blob/main/frame_packet_June14.csv)\n\
+  \n```python\n#### 导入模块\nimport pandas as pd\nimport json\nimport gzip\nimport glob\n\
+  import sys, codecs\n#### 读取数据包文件并构建数据框\nPATH_TO_FOLDER = \"\"\n#### PATH_TO_FOLDER\
+  \ = \"/home/ubuntu/AWS/\"\ndf = pd.read_json(codecs.open(PATH_TO_FOLDER+'new-data\\\
+  sample-1.json','r','utf-8').read().replace(\"\\\\\",\"/\"), lines=True)\nprint(df.columns)\n\
+  #### 添加警报类型并进行必要的类型转换\ndf['class_label'] = 0\ndf['alert_type'] = \"\"\n#### df['StartTime']\
+  \ = pd.to_datetime(df['StartTime'])\ndf['src_port'] = df['src_port'].astype(int,errors\
+  \ = 'ignore')\ndf['dst_port'] = df['dst_port'].astype(int,errors = 'ignore')\ndf['source']\
+  \ = df['source'].str.strip()\ndf['destination'] = df['destination'].str.strip()\n\
+  print(df.head())\n#### 处理事件 txt 文件，如果发现警报则更新 df\nwith open(PATH_TO_FOLDER+'new-data\\\
+  eve.json','r') as fjson:\nfor line in fjson:\ndata = json.loads(line)#.decode('utf-8'))\n\
+  if data['event_type'] == 'alert':\nsrc_ip = data['src_ip'].strip()\nsrc_port = int(data['src_port'])\n\
+  dest_ip = data['dest_ip'].strip()\ndest_port = int(data['dest_port'])\ndf.loc[(df.source\
+  \ == src_ip) & (df.destination == dest_ip) & (df.src_port == src_port) & (df.dst_port\
+  \ == dest_port),['class_label','alert_type']] = [1, data['alert']['category']]\n\
+  #### 保存到训练文件 csv\ndf_label = df[df.class_label == 1]\nprint(df_label)\ndf.to_csv('frame_packet_June14.csv')\n\
+  ```\n\n以下是第一次迭代的代码（构建模型并保存）：\n\n\n\n```python\n#### 文件名: predict_type_packet.py\n\
+  #### 目的/描述: 主要分类代码\n#### 作者: Sayan Mukhopadhyay\n''' 用于预测数据包类型并生成分类报告的模块 '''\n####\
+  \ 导入模块\nimport pandas as pd\nimport numpy as np\nimport csv\nfrom keras.layers.core\
+  \ import Dense, Activation, Dropout\nfrom keras.layers.recurrent import LSTM\nfrom\
+  \ keras.models import Sequential\nimport sys\nfrom keras.preprocessing.sequence\
+  \ import TimeseriesGenerator\nfrom sklearn.preprocessing import StandardScaler\n\
+  from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay\n\
+  import keras\nimport keras\nfrom sklearn.decomposition import PCA\nfrom sklearn.model_selection\
+  \ import train_test_split\nfrom plot_keras_history import plot_history\nimport matplotlib.pyplot\
+  \ as plt\nfrom sklearn.ensemble import RandomForestClassifier\nfrom keras.utils\
+  \ import np_utils\n'''全局变量/参数'''\nUNITS1 = 1000\nUNITS2 = 500\nUNITS3 = 300\nEPOCHS\
+  \ = 4\nDROPOUT_RATE = 0.2\nBATCH_SIZE = 500\n'''读取训练 CSV 文件'''\ndf = pd.read_csv('frame_packet_June14.csv',\
+  \ nrows=49000)\n'''删除不必要的列并进行类型转换'''\ncolumns = ['id', 'conn_flag', 'pckt_info',\
+  \ 'TSval', 'TSecr', 'SLE', 'SRE']#, 'time']\ndf.drop(columns, inplace=True, axis=1)\n\
+  columns2 = ['Unnamed: 0', 'class_label']\ndf.drop(columns2, inplace=True, axis=1)\n\
+  print(len(df.columns))\ndf = df.replace('-',0.0)\ndf = pd.get_dummies(df, columns\
+  \ = ['src_port', 'dst_port', 'source', 'destination', 'protocol'])\nprint(len(df.columns))\n\
+  print(df.columns)\ndf['time'] = pd.to_datetime(df['time'])\ndf = df.sort_values(by=\"\
+  time\")\ndf.set_index('time', inplace=True)\nprint(df.head())\ndf.alert_type = df.alert_type.fillna('NonAlert')\n\
+  df['alert_type'] = df['alert_type'].astype('category')\n'''将分类列转换为编码'''\ndf['alert_type']\
+  \ = pd.Categorical(df.alert_type).codes\ny = df['alert_type'].tolist()\nprint(y[:10])\n\
+  labels = df['alert_type'].unique()\nprint(labels)\ncount = len(df['alert_type'].unique())\n\
+  print(\"alert_type 数量 \",count)\ncolumns3 = ['alert_type']\ndf.drop(columns3, inplace=True,\
+  \ axis=1)\n'''标准化转换和 PCA，选择重要列'''\nX = df\nX.fillna(0,inplace=True)\nnp.nan_to_num(X)\n\
+  #### scaled_X = X\nXscaler = StandardScaler()\nXscaler.fit(X)\nscaled_X = Xscaler.transform(X)\n\
+  np.nan_to_num(scaled_X)\npca = PCA(400)\npca.fit(scaled_X)\nscaled_X = pca.transform(scaled_X)\n\
+  print(scaled_X.shape)\n'''训练集、测试集划分及标签编码'''\ntrain_x, test_x, train_y, test_y =\
+  \ train_test_split( scaled_X, np.array(y), test_size=1/7.0, random_state=0)\ntrain_y=np_utils.to_categorical(train_y,num_classes=5)\n\
+  test_y=np_utils.to_categorical(test_y,num_classes=5)\nprint(\"y_train 的形状\",train_y.shape)\n\
+  print(\"y_test 的形状\",test_y.shape)\n''' DNN 模型架构 '''\nmodel=Sequential()\nmodel.add(Dense(UNITS1,input_dim=scaled_X.shape[1],activation='relu'))\n\
+  model.add(Dense(UNITS2,activation='relu'))\nmodel.add(Dense(UNITS3,activation='relu'))\n\
+  model.add(Dropout(DROPOUT_RATE))\nmodel.add(Dense(count,activation='softmax'))\n\
+  model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy',\
+  \ keras.metrics.Recall()])\n''' 模型拟合 '''\nhistory = model.fit(train_x,train_y,validation_data=(test_x,test_y),batch_size=BATCH_SIZE,epochs=EPOCHS,verbose=1)\n\
+  model.save('my_model_400.h5')\nprediction=model.predict(train_x)\nlength=len(prediction)\n\
+  y_label=np.argmax(train_y,axis=1)\npredict_label=np.argmax(prediction,axis=1)\n\
+  print(classification_report(y_label, predict_label))\nmatrix = confusion_matrix(y_label,\
+  \ predict_label)\nprint(matrix)\n```\n\n以下是全迭代模型（加载模型、训练并保存）：\n\n```python\n'''\
+  \ 导入模块 '''\nimport pandas as pd\nimport numpy as np\nimport csv\nfrom keras.layers.core\
+  \ import Dense, Activation, Dropout\nfrom keras.layers.recurrent import LSTM\nfrom\
+  \ keras.models import Sequential\nimport sys\nfrom keras.preprocessing.sequence\
+  \ import TimeseriesGenerator\nfrom sklearn.preprocessing import StandardScaler\n\
+  from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay\n\
+  import keras\nimport keras\nfrom sklearn.decomposition import PCA\nfrom sklearn.model_selection\
+  \ import train_test_split\nfrom plot_keras_history import plot_history\nimport matplotlib.pyplot\
+  \ as plt\nfrom sklearn.ensemble import RandomForestClassifier\nfrom keras.utils\
+  \ import np_utils\nfrom keras.models import load_model\n'''全局变量/参数'''\n'''读取训练 CSV\
+  \ 文件'''\ndf = pd.read_csv(' frame_packet_June14.csv')#, nrows=5000)\ncols = ['time_x',\
+  \ 'source_x', 'destination_x', 'protocol_x', 'length_x', 'src_port',\n'dst_port_x',\
+  \ 'Seq_x', 'Ack_x', 'Win_x', 'Len_x', 'MSS_x', 'WS_x', 'SACK_PERM_x',\n'alert_type']\n\
+  df = df[cols]\nprint(df.head())\n'''删除不必要的列并进行类型转换'''\ndf = df.replace('-',0.0)\n\
+  df = pd.get_dummies(df, columns = ['src_port', 'dst_port_x', 'source_x', 'destination_x',\
+  \ 'protocol_x'])\nprint(len(df.columns))\nprint(df.columns)\nprint(df.loc[0,'time_x'])\n\
+  df['time_x'] = pd.to_datetime(df['time_x'])\ndf = df.sort_values(by=\"time_x\")\n\
+  df.set_index('time_x', inplace=True)\ndf.alert_type = df.alert_type.fillna('NonAlert')\n\
+  df['alert_type'] = df['alert_type'].astype('category')\n'''将分类列转换为编码'''\ncodes =\
+  \ pd.Categorical(df.alert_type).codes\ny = codes\nprint(y[:10])\ncount = len(df['alert_type'].unique())\n\
+  print(\"alert_type 数量 \",count)\ncolumns3 = ['alert_type']\ndf.drop(columns3, inplace=True,\
+  \ axis=1)\n'''标准化转换和 PCA，选择重要列'''\nX = df\nX.fillna(0,inplace=True)\nnp.nan_to_num(X)\n\
+  Xscaler = StandardScaler()\nXscaler.fit(X)\nscaled_X = Xscaler.transform(X)\nnp.nan_to_num(scaled_X)\n\
+  pca = PCA(400)\npca.fit(scaled_X)\nscaled_X = pca.transform(scaled_X)\nprint(scaled_X.shape)\n\
+  '''训练集、测试集划分及时间序列生成器'''\ntrain_x, test_x, train_y, test_y = train_test_split( scaled_X,\
+  \ np.array(y), test_size=1/7.0, random_state=0)\ntrain_y=np_utils.to_categorical(train_y,num_classes=5)\n\
+  test_y=np_utils.to_categorical(test_y,num_classes=5)\nprint(\"y_train 的形状\",train_y.shape)\n\
+  print(\"y_test 的形状\",test_y.shape)\nmodel = load_model('my_model_400.h5')\nfor i\
+  \ in range(3):\nmodel.layers[i].trainable = True\nhistory = model.fit(train_x,train_y,validation_data=(test_x,test_y),batch_size=500,epochs=4,verbose=1)\n\
+  plot_history(history.history, path=\"standard.png\")\nplt.show()\n'''模型准确率'''\n\
+  prediction=model.predict(test_x)\ny_label=np.argmax(test_y,axis=1)\npredict_label=np.argmax(prediction,axis=1)\n\
+  print(classification_report(y_label, predict_label))\nlabels = [i for i in range(0,count)]\n\
+  matrix = confusion_matrix(y_label, predict_label)\nprint(matrix)\nprediction=model.predict(train_x)\n\
+  length=len(prediction)\ny_label=np.argmax(train_y,axis=1)\npredict_label=np.argmax(prediction,axis=1)\n\
+  print(classification_report(y_label, predict_label))\nmatrix = confusion_matrix(y_label,\
+  \ predict_label)\nprint(matrix)\n```\n\n请注意，`PCA` 并未以 95% 的方差进行初始化，因为每次迭代需要相同数量的参数；因此，我们选择\
+  \ 15 作为参数数量，因为网络数据包总共有 22 个输入参数。`PCA` 不是一个可更新的模型。开发可更新的特征选择模型仍是一个研究领域。\n\n这类系统对于想要预测用户是否会流失的电视频道非常有用。由于用户对频道没有成瘾性，*流失*被定义为在计划到期后\
+  \ 24 小时内未续订的用户。然而，由于黑客不断尝试新方法，网络入侵检测模型总是会出现新型警报。因此，系统应首先对数据进行聚类，每个组代表一种不同类型的警报。对于每个类别，我们都有一个分类器模型，用于判断警报是否属于该类型。\n\
+  \n\n\n## 循环神经网络\n\n*循环神经网络*是一种极为流行的网络类型，其前一步的输出会反馈至隐藏层或作为其输入。对于序列化算法或时间序列预测这类问题，它是一种非常有效的解决方案。序列化算法的一个常见应用是搜索引擎的自动补全功能。\n\
+  \n### LSTM\n\n在 RNN 中，网络会接收来自过去的反馈。`X[(t)] = K × X[(t − 1)] = K² × X[(t − 2)] =\
+  \ K^(N) × X[(t − N)]`。此时，如果 `K > 1`，则 `K^(N)` 会非常大；反之，如果 `K < 1`，则 `K^(N)` 会非常小。为避免此问题，网络会通过编程方式遗忘部分过去的状态。LSTM\
+  \ 正是为此而生。\n\n这样一来，它就能在任意时间间隔内记住数值。LSTM 在处理具有未知时长时滞的时间序列分类、处理和预测任务时表现优异。对间隔长度相对不敏感的特性，使得\
+  \ LSTM 相比其他 RNN、隐马尔可夫模型及其他序列学习方法更具优势。\n\nRNN 和 HMM 依赖于发射/序列之前的隐藏状态。如果我们想预测 500 个间隔后的序列（而非\
+  \ 5 个），LSTM 能够记住这些状态并进行准确预测。\n\n简单来说，假设一个人会遗忘旧记忆，只记得近期的事情。但未来执行某些任务时，他们又需要这些过去的记忆。这就是传统\
+  \ RNN 面临的问题。而另一个人则能同时记住过去的重要记忆和近期记忆，并删除无用的旧记忆。这样，他们就能更高效地利用这些信息来完成任务。这正是 LSTM 的工作方式。\n\
+  \n每个 LSTM 单元有三个输入：`h[{t − 1}]`、`c[{t − 1}]` 和 `x[t]`，以及两个输出：`h[t]` 和 `c[t]`。对于给定时间\
+  \ `t`，`h[t]` 是隐藏状态，`c[t]` 是单元状态或记忆，`x[t]` 是当前数据点或输入。第一个 Sigmoid 层有两个输入：`h[{t − 1}]`\
+  \ 和 `x[t]`，其中 `h[{t − 1}]` 是前一个单元的隐藏状态。该层被称为*遗忘门*，其输出用于选择前一个单元信息被保留的比例。输出是 `[0,1]`\
+  \ 范围内的一个数值，该数值与前一个单元状态 `c[{t − 1}]` 进行逐元素相乘。\n\n网络数据包是一个序列，因此 RNN 可以方便地应用于异常检测系统。一个区别在于，我们将数据存储在云数据库中，并按\
+  \ IP 地址和端口进行排序。这种排序至关重要，因为如果没有合适的序列，就无法获得良好的结果。第 3 章讨论的自相关函数可用于判断序列是否正确。\n\n```\n\
+  #### 导入模块\nimport pandas as pd\nimport numpy as np\nimport csv\nfrom keras.layers.core\
+  \ import Dense, Activation, Dropout\nfrom keras.layers.recurrent import LSTM\nfrom\
+  \ keras.models import Sequential\nimport sys\nfrom keras.preprocessing.sequence\
+  \ import TimeseriesGenerator\nfrom sklearn.preprocessing import StandardScaler\n\
+  from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay\n\
+  import keras\nimport keras\nfrom sklearn.decomposition import PCA\nfrom sklearn.model_selection\
+  \ import train_test_split\nfrom plot_keras_history import plot_history\nimport matplotlib.pyplot\
+  \ as plt\nsys.path.append('../resource')\nfrom MSSqlDb import MSSqlDbWrapper\nmssql_instance\
+  \ = MSSqlDbWrapper(\"../config/config1.txt\")\ncon = mssql_instance.get_connect()\n\
+  df = pd.read_sql(\"SELECT * from packet_table order by IP, PORT;\",con)\n#全局变量/参数\n\
+  LSTM_UNITS1 = 150\nLSTM_UNITS2 = 100\nLSTM_UNITS3 = 50\nEPOCHS = 3\nDROPOUT_RATE\
+  \ = 0.2\nTIMESERIESLEN = 50\n#读取训练 CSV\ndf = pd.get_dummies(df, columns = ['src_port',\
+  \ 'dst_port', 'source', 'destination', 'protocol'])\ndf['time'] = pd.to_datetime(df['time'])\n\
+  df = df.sort_values(by=\"time\")\ndf.set_index('time', inplace=True)\nprint(df.head())\n\
+  df['alert_type'] = df['alert_type'].astype('category')\n#将分类列转换为编码\ndf['alert_type']\
+  \ = pd.Categorical(df.alert_type).codes\ny = df['alert_type'].tolist()\nlabels =\
+  \ df['alert_type'].unique()\ncount = len(df['alert_type'].unique())\nprint(\"alert_type\
+  \ count \",count)\ncolumns3 = ['alert_type']\ndf.drop(columns3, inplace=True, axis=1)\n\
+  #标准化转换和 PCA，选择重要列\nX = df\nX.fillna(0,inplace=True)\nnp.nan_to_num(X)\nXscaler =\
+  \ StandardScaler()\nXscaler.fit(X)\nscaled_X = Xscaler.transform(X)\nnp.nan_to_num(scaled_X)\n\
+  #更改类别标签格式\ny_intermediate = [[0 for i in range(count)] for j in range(len(y))]\n\
+  for i in range(len(y)):\ny_intermediate[i][y[i]] = 1\ny_final = np.array(y_intermediate)\n\
+  #### sys.exit()\n#训练集、测试集划分和时间序列生成器\ntrain_x, test_x, train_y, test_y = train_test_split(\
+  \ scaled_X, y_final, test_size=1/7.0, random_state=0)\ntrain_generator = TimeseriesGenerator(train_x,train_y,\
+  \ length=TIMESERIESLEN)\ntest_generator = TimeseriesGenerator(test_x, test_y, length=TIMESERIESLEN)\n\
+  print(len(test_generator))\nfor i in range(len(test_generator)):\nx, y = test_generator[i]\n\
+  print(len(y))\nprint(len(test_y))\nprint(\"train generator\")\nfor i in range(len(train_generator)):\n\
+  x, y = train_generator[i]\nprint(len(y))\nprint(len(train_y))\n#LSTM 模型训练\nmodel\
+  \ =  Sequential()\nmodel.add(LSTM(LSTM_UNITS1, activation='relu', input_shape=(TIMESERIESLEN,scaled_X.shape[1]),return_sequences=True))\n\
+  model.add(Dropout(DROPOUT_RATE))\nmodel.add(LSTM(LSTM_UNITS2,return_sequences=True))\n\
+  model.add(Dropout(DROPOUT_RATE))\nmodel.add(LSTM(LSTM_UNITS3,return_sequences=False))\n\
+  model.add(Dropout(DROPOUT_RATE))\nmodel.add(Dense(count, activation='softmax'))\n\
+  model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=[keras.metrics.Recall(),\
+  \ 'accuracy'])\nhistory= model.fit_generator(train_generator,epochs=EPOCHS)\n#模型准确率\n\
+  plot_history(history.history, path=\"standard.png\")\nplt.show()\nscores = model.evaluate(test_generator)\n\
+  print(\"Final Score\")\nprint(scores)\n```\n\n## 强化学习\n\n本节我们将讨论强化学习。从反馈中学习被称为*强化学习*。强化学习是机器学习三大主要方法之一，另外两种是监督学习和无监督学习。它通过在给定环境中执行特定任务来学习模型。程序与环境交互，执行动作以在不同状态之间移动。随后，动作会通过奖励或惩罚被赋予正面或负面评价。成功的动作得到强化，不成功的动作则受到惩罚。模型会经历多次迭代，以找到实现给定目标的最佳动作序列。以下是其背后的算法。\n\
+  \n### TD0\n\n**算法** 此函数实现了 TD(0)表格算法。每次状态转换后都必须调用此函数。\n\n**函数** `TD0(X,R,Y,V)`:\n\
+  \n*   `X =` 上一个状态\n*   `Y =` 下一个状态\n*   `R =` 与此转换相关的即时奖励\n*   `V =` 估计值数组\n\n`δ\
+  \ = R + γ [V(Y) - V(X)]`\n\n`V[Y] = V[X] + α ∙ δ`\n\n其中 `α` 是步长。\n\n**返回** `V`\n\
+  \n运行此函数时，请在命令提示符中传入以下文件：\n\n[`https://github.com/Apress/advanced-data-analytics-python-2e/blob/main/reinforcement_learning_td0_reduce_dat.csv`](https://github.com/Apress/advanced-data-analytics-python-2e/blob/main/reinforcement_learning_td0_reduce_dat.csv)\n\
+  \n以下是一个 alpha 和 gamma 均为 1 的四步 TD0 示例：\n\n\n\n```python\nimport pandas as pd\nimport\
+  \ numpy as np\nimport sys\nfrom sklearn.model_selection import train_test_split\n\
+  import tensorflow as tf\nfrom keras.models import Sequential\nfrom keras.layers.core\
+  \ import Dense\nfrom scipy.stats.stats import pearsonr\nfrom math import sqrt\n\
+  if len(sys.argv)         \")\nexit(0)\n#读取输入数据\ndf = pd.read_csv(sys.argv[1])\n\
+  split = int(sys.argv[3])\nout = open(sys.argv[2],'w')\nfinal_error = []\nsize =\
+  \ int(df.shape[0]/split)\nmatched = 0\nrelaxed_matched = 0\ncount = 0\nsquare_sum\
+  \ = 0\nsum = 0\n#对每个数据分片运行代码\nfor i in range(split):\nX = df.loc[i*size: (i+1)*size]\n\
+  X = X.astype(float)\n#用列平均值填充缺失值\nX.fillna(X.mean(), inplace=True)\ny = X['y']\n\
+  X.drop('y', inplace=True, axis=1)\nX_back = X\nX = X.as_matrix()\ny = y.as_matrix()\n\
+  #将数据拆分为测试集和训练集\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=\
+  \ 0.4, random_state=42)\n#数据标准化\nwhile(1):\nflag = True\nfor i in range(X_train.shape[1]):\n\
+  if X_train[:,i].std() != 0:\nX_train[:,i] = (X_train[:,i]- X_train[:,i].mean())/X_train[:,i].std()\n\
+  X_test[:,i] = (X_test[:,i]- X_test[:,i].mean())/X_test[:,i].std()\nelse:\nX_train\
+  \ = np.delete(X_train,i,1)\nX_test = np.delete(X_test,i,1)\nflag = False\nbreak\n\
+  if flag:\nbreak\nav = y_train.mean()\nst = y_train.std()\ny_train = (y_train- y_train.mean())/y_train.std()\n\
+  index = []\ni1 = 0\nprocessed = 0\n#选择与 y 相关的列\nwhile(1):\nflag = True\nfor i in\
+  \ range(X_train.shape[1]):\nif i > processed :\ni1 = i1 + 1\ncorr = pearsonr(X_train[:,i],\
+  \ y_train)\nPEr= .674 * (1- corr[0]*corr[0])/ (len(X_train[:,i])**(1/2.0))\nif abs(corr[0])\
+  \  6*PEr:\nX_train = np.delete(X_train,j,1)\nX_test = np.delete(X_test,j,1)\nflag\
+  \ = False\nbreak\nbreak\nif flag:\nbreak\n#构建模型预测 y\nlearning_rate = 0.0001\nmodel\
+  \ = Sequential([\nDense(64, activation=tf.nn.relu, input_shape=[X_train.shape[1]]),\n\
+  Dense(64, activation=tf.nn.relu),\nDense(1)\n])\noptimizer = tf.train.RMSPropOptimizer(learning_rate)\n\
+  model.compile(loss='mse',\noptimizer=optimizer,\nmetrics=['mae', 'mse'])\nmodel.fit(\n\
+  X_train, y_train,\nepochs=int(X_train.shape[1]/2), validation_split = 0.2, verbose=0)\n\
+  predict = model.predict(X_train)\n#构建模型预测预测误差\nerror = []\nfor i in range(len(predict)):\n\
+  error.append(y_train[i] - predict[i][0])\nerror = np.array(error)\nmodel_e = Sequential([\n\
+  Dense(64, activation=tf.nn.relu, input_shape=[X_train.shape[1]]),\nDense(64, activation=tf.nn.relu),\n\
+  Dense(1)\n])\nmodel_e.compile(loss='mse',\noptimizer=optimizer,\nmetrics=['mae',\
+  \ 'mse'])\nmodel_e.fit(\nX_train, error,\nepochs=int(X_train.shape[1]/2), validation_split\
+  \ = 0.2, verbose=0)\n#使用训练好的模型预测测试数据\npredict = model.predict(X_test)\nerr_p = model_e.predict(X_test)\n\
+  predict = predict + err_p\npredict = predict*st + av\nfor i in range(len(predict)):\n\
+  error = y_test[i] - predict[i][0]\nif abs(error) <= 3:\nmatched = matched + 1\n\
+  if abs(error/y_test[i]) <= 0.1:\nrelaxed_matched = relaxed_matched + 1\nsquare_sum\
+  \ = square_sum + error*error\nsum = sum + error\ncount = count + 1\nout.write(\"\
+  RMSE=\"+str(sqrt(square_sum/count))+'\\n')\nout.write(\"matched count=\"+ str(matched)\
+  \ +'\\t Total count=' + str(count) +'\\n')\nout.write(\"ME=\"+str(sqrt(abs(sum)/count))+'\\\
+  n')\nout.write(\"relaxed matched count=\"+ str(relaxed_matched) +'\\t Total count='\
+  \ + str(count) +'\\n')\nout.close()\nprint(\"RMSE=\",str(sqrt(square_sum/count)),'\\\
+  n')\nprint(\"matched count=\", str(matched),'\\t', \"Total count=\", str(count),'\\\
+  n')\nprint(\"ME=\",str(sqrt(abs(sum)/count)),'\\n')\nprint(\"relaxed matched count=\"\
+  , str(relaxed_matched),'\\t', \"Total count=\", str(count),'\\n')\n```\n\n你可以通过预测误差来提升任何回归问题的准确率，但对于分类问题来说，这种方法会稍微复杂一些。\n\
+  \n#### TDλ\n\n**算法** 该函数使用替换迹（replacing traces）来执行表格形式的 `TD(λ)` 算法。每次状态转换后，都必须调用此函数。\n\
+  \n**函数** `TDLambda` (*X*, *R*, *Y*, *V*, *z*)\n\n*   *X* = 上一个状态\n*   *Y* = 下一个状态\n\
+  *   *R* = 与该转换相关的即时奖励\n*   *V* = 估计值的数组\n*   *z* = 资格迹的数组\n\n    `δ = R + γ · V[Y]\
+  \ - V[X]`\n\n对于所有 `x ∈ X` 执行：\n\n`z[x] = γ · λ · z[x]`\n\n```\nif X = x then\nz[x]\
+  \ = 1\nend if\nV[X] = V[x] + α · δ · z[x]\nend for\nreturn (V, z)\n```\n\n#### 辩证学习的示例\n\
+  \n一位算法交易员现在希望将股票价格分为三个目标类别：`same`（持平）、`up`（上涨）和 `down`（下跌）。类别 `same` 表示股票价格保持不变。类别\
+  \ `up` 表示股票价格正在上涨。类别 `down` 表示股票价格正在下跌。\n\n百分之九十七的数据被归类为 `same` 类别。时间序列大约有 20,000\
+  \ 个数据点。对于这类问题，大多数人会使用有偏采样。而我们则采用了不同的方法。我们将数据分成每批 1,000 个点，每次迭代使用 1,000 个数据点训练模型，以预测接下来的\
+  \ 100 个点。在 Keras 中，我们使用带有序列长度为 100 的 RNN 的 SoftMax 回归。现在，我们计算每次迭代中属于 `up`、`down`\
+  \ 或 `same` 的概率。我们还计算了概率分布的均值和标准差。现在我们使用以下公式来确定每个类别的得分：\n\n`inc = (prob_increasing[j]\
+  \ - increasing_mean + k_inc*increasing_std)`\n\n`dec = (prob_decreasing[j] - decreasing_mean\
+  \ + k_dec*decreasing_std)`\n\n`same = (prob_same[j] - same_mean + k_same*same_std)`\n\
+  \n其中 `k_inc`、`k_dec` 和 `k_same` 是初始化为 1 的常数。\n\n然后我们使用以下逻辑对数据进行分类：\n\n```\nif same\
+  \ > 0:\npr_status = 0\nelse:\nif inc > dec:\npr_status = 100\nelse:\npr_status =\
+  \ -100\n```\n\n因此，大部分数据被分类为 `same`，其余数据则归入其他类别。\n\n然后我们在每次迭代中计算以下参数：\n\n```\nif\
+  \ acc_status == 0:\nif pr_status == 0:\nwrong_count_pos_same = wrong_count_pos_same\
+  \ + 1\ntotal_count_acc_same = total_count_acc_same + 1\nelse:\nif pr_status != 0:\n\
+  wrong_count_neg_same = wrong_count_neg_same + 1\ntotal_count_acc_not_same = total_count_acc_not_same\
+  \ + 1\n```\n\n其中\n\n*   `wrong_count_pos_same` = 被错误分类为 `same` 类别的点数\n*   `total_count_acc_same`\
+  \ = 实际属于 `same` 类别的点数\n*   `wrong_count_neg_same` = 未被正确分类为 `same` 类别的点数\n*   `total_count_acc_not_same`\
+  \ = 实际不属于 `same` 类别的点数\n\n对于 `up` 和 `down` 类别，也计算相同的参数，考虑那些不属于 `same` 类别的点，然后在每次迭代后，使用以下逻辑调整常数：\n\
+  \n```\nif total_count_acc_same != 0:\nif wrong_count_neg_same/total_count_acc_same\
+  \ > .5:\nk_same = 1.2 * k_same\nif total_count_acc_not_same !=0:\nif wrong_count_pos_same/total_count_acc_not_same\
+  \ > .5:\nk_same = 0.9 * k_same\n```\n\n因此，在所有候选类别之间建立了一种辩证关系，并且根据基于前 1,000 个点预测的局部\
+  \ 100 个点趋势来调整这些点。这种模式可以提高任何模型在股票点预测中的分类准确率。原始代码如下所示。\n\n请从 `https://github.com/Apress/advanced-data-analytics-python-2e`\
+  \ 复制 CSV 文件。\n\n\n\n```python\nimport matplotlib.pyplot as plt\nimport numpy as\
+  \ np\nimport csv\nfrom keras.layers.core import Dense, Activation, Dropout\nfrom\
+  \ keras.layers.recurrent import LSTM\nfrom keras.models import Sequential\nimport\
+  \ sys\n\ndef read_data(path_to_dataset, path_to_target, sequence_length=50, ratio=1.0):\n\
+  \    max_values = ratio * 2049280\n    with open(path_to_dataset) as f:\n      \
+  \  data = csv.reader(f, delimiter=\",\")\n        power = []\n        nb_of_values\
+  \ = 0\n        for line in data:\n            try:\n                power.append([float(line[1]),\
+  \ float(line[4]), float(line[7])])\n                nb_of_values += 1\n        \
+  \    except ValueError:\n                pass\n            if nb_of_values >= max_values:\n\
+  \                break\n    with open(path_to_target) as f:\n        data = csv.reader(f,\
+  \ delimiter=\",\")\n        target = []\n        nb_of_values = 0\n        for line\
+  \ in data:\n            try:\n                target.append(float(line[0].strip()))\n\
+  \                nb_of_values += 1\n            except ValueError:\n           \
+  \     pass\n            if nb_of_values >= max_values:\n                break\n\
+  \    return power, target\n\ndef create_matrix(y_train):\n    y = [[0 for i in range(3)]\
+  \ for j in range(len(y_train))]\n    for i in range(len(y_train)):\n        if y_train[i]\
+  \ == -100:\n            y[i][0] = 1\n        else:\n            if y_train[i] ==\
+  \ 100:\n                y[i][1] = 1\n            else:\n                if y_train[i]\
+  \ == 0:\n                    y[i][2] = 1\n    return y\n\ndef process_data(power,\
+  \ target, sequence_length):\n    result = []\n    for index in range(len(power)\
+  \ - sequence_length - 1):\n        result.append(power[index: index + sequence_length])\n\
+  \    result = np.array(result)\n    row = int(round(0.9 * result.shape[0]))\n  \
+  \  X_train = result[:row, :]\n    y_train = np.array(create_matrix(target))\n  \
+  \  X_test = result[row:, :]\n    y_test = y_train[row:]\n    y_train = y_train[:row]\n\
+  \    X_train = np.reshape(X_train, (X_train.shape[0], X_train.shape[1], 3))\n  \
+  \  X_test = np.reshape(X_test, (X_test.shape[0], X_test.shape[1], 3))\n    return\
+  \ [X_train, y_train, X_test, y_test]\n\ndef build_model():\n    model = Sequential()\n\
+  \    layers = [3, 100, 50, 3]\n    model.add(LSTM(layers[1], input_shape=(None,\
+  \ layers[0]), return_sequences=True))\n    model.add(Dropout(0.2))\n    model.add(LSTM(layers[2],\
+  \ return_sequences=False))\n    model.add(Dropout(0.2))\n    model.add(Dense(layers[3]))\n\
+  \    model.add(Activation('softmax'))\n    model.compile(loss=\"categorical_crossentropy\"\
+  , optimizer=\"adam\")\n    return model\n\ndef run_network(data=None, target=None):\n\
+  \    epochs = 2\n    ratio = 0.5\n    sequence_length = 50\n    X_train, y_train,\
+  \ X_test, y_test = process_data(data, target, sequence_length)\n    model = build_model()\n\
+  \    try:\n        model.fit(X_train, y_train, batch_size=512, nb_epoch=epochs,\
+  \ validation_split=0.05, verbose=0)\n        predicted = model.predict(X_test)\n\
+  \    except KeyboardInterrupt:\n        exit(0)\n    return y_test, predicted\n\n\
+  def convert(x):\n    if x[0] == 1:\n        return -100\n    if x[1] == 1:\n   \
+  \     return 100\n    if x[2] == 1:\n        return 0\n\nif __name__ == '__main__':\n\
+  \    path_to_dataset = 'dialectic_learnign_data.csv'\n    path_to_target = 'dialectic_learning_label.csv'\n\
+  \    data, target = read_data(path_to_dataset, path_to_target)\n    k_inc = 1\n\
+  \    k_dec = 1\n    k_same = 1\n    for i in range(0, len(data) - 1000, 89):\n \
+  \       d = data[i:i + 1001]\n        t = target[i:i + 1001]\n        y_test, predicted\
+  \ = run_network(d, t)\n        prob_increasing = predicted[:, 1]\n        increasing_mean\
+  \ = prob_increasing.mean()\n        increasing_std = prob_increasing.std()\n   \
+  \     prob_decreasing = predicted[:, 0]\n        decreasing_mean = prob_decreasing.mean()\n\
+  \        decreasing_std = prob_decreasing.std()\n        prob_same = predicted[:,\
+  \ 2]\n        same_mean = prob_same.mean()\n        same_std = prob_same.std()\n\
+  \        wrong_count_pos_same = 0\n        total_count_acc_not_same = 0\n      \
+  \  wrong_count_neg_same = 0\n        total_count_acc_same = 0\n        wrong_count_pos_up\
+  \ = 0\n        total_count_acc_not_up = 0\n        wrong_count_neg_up = 0\n    \
+  \    total_count_acc_up = 0\n        wrong_count_pos_down = 0\n        total_count_acc_not_down\
+  \ = 0\n        wrong_count_neg_down = 0\n        total_count_acc_down = 0\n    \
+  \    for j in range(len(predicted) - 1):\n            inc = (prob_increasing[j]\
+  \ - increasing_mean + k_inc * increasing_std)\n            dec = (prob_decreasing[j]\
+  \ - decreasing_mean + k_dec * decreasing_std)\n            same = (prob_same[j]\
+  \ - same_mean + k_same * same_std)\n            acc_status = convert(y_test[j])\n\
+  \            if same > 0:\n                pr_status = 0\n            else:\n  \
+  \              if inc > dec:\n                    pr_status = 100\n            \
+  \    else:\n                    pr_status = -100\n            if acc_status == 0:\n\
+  \                if pr_status == 0:\n                    wrong_count_pos_same =\
+  \ wrong_count_pos_same + 1\n                    total_count_acc_same = total_count_acc_same\
+  \ + 1\n                else:\n                    if pr_status != 0:\n         \
+  \               wrong_count_neg_same = wrong_count_neg_same + 1\n              \
+  \          total_count_acc_not_same = total_count_acc_not_same + 1\n           \
+  \ if acc_status == 100:\n                if pr_status != 100:\n                \
+  \    wrong_count_pos_up = wrong_count_pos_up + 1\n                    total_count_acc_up\
+  \ = total_count_acc_up + 1\n                else:\n                    if pr_status\
+  \ == 100:\n                        wrong_count_neg_up = wrong_count_neg_up + 1\n\
+  \                        total_count_acc_not_up = total_count_acc_not_up + 1\n \
+  \           if acc_status == -100:\n                if pr_status != -100:\n    \
+  \                wrong_count_pos_down = wrong_count_pos_down + 1\n             \
+  \       total_count_acc_down = total_count_acc_down + 1\n                else:\n\
+  \                    if pr_status == -100:\n                        wrong_count_neg_down\
+  \ = wrong_count_neg_down + 1\n                        total_count_acc_not_down =\
+  \ total_count_acc_not_down + 1\n            print(acc_status, ',', pr_status)\n\
+  \        if total_count_acc_same != 0:\n            if wrong_count_neg_same / total_count_acc_same\
+  \ > 0.5:\n                k_same = 1.2 * k_same\n        if total_count_acc_not_same\
+  \ != 0:\n            if wrong_count_pos_same / total_count_acc_not_same > 0.5:\n\
+  \                k_same = 0.9 * k_same\n        if total_count_acc_up != 0:\n  \
+  \          if wrong_count_neg_up / total_count_acc_up > 0.5:\n                k_inc\
+  \ = 1.2 * k_inc\n        if total_count_acc_not_up != 0:\n            if wrong_count_pos_up\
+  \ / total_count_acc_not_up > 0.5:\n                k_inc = 0.9 * k_inc\n       \
+  \ if total_count_acc_down != 0:\n            if wrong_count_neg_down / total_count_acc_down\
+  \ > 0.5:\n                k_dec = 1.2 * k_dec\n        if total_count_acc_not_down\
+  \ != 0:\n            if wrong_count_pos_down / total_count_acc_not_down > 0.5:\n\
+  \                k_dec = 0.9 * k_dec\n```\n\n你可以在本书的 Git 仓库中的 `dialectic_learning_data.csv`\
+  \ 和 `dialectic_learning_label.csv` 文件中找到这些数据。\n\n\n\n## 卷积神经网络\n\n现在我们将讨论另一种神经网络：卷积神经网络。\n\
+  \n在经典的前馈神经网络（如本书前面研究过的那些）中，输入层的每个神经元都与下一层的每个输出神经元相连，形成全连接层。然而，在卷积神经网络中，全连接层仅在网络的最后一层（或最后几层）才被使用。\n\
+  \n![](img/458833_2_En_5_Fig2_HTML.png)\n\n该图展示了输入帧如何被卷积，以及特征如何被提取、池化，并通过全连接层进行分类，最终预测输出。\n\
+  \n**图 5-2** 卷积神经网络架构\n\n相反，我们使用应用于输入层的卷积滤波器来计算输出。当你使用这些卷积时，你会得到局部连接，这意味着输入的每个部分都与输出的一个部分相连（我们将在本章后面解释这一点）。在卷积神经网络中，每一层都应用一组独立的滤波器，通常有数百或数千个，然后将结果合并。\n\
+  \n在训练过程中，卷积神经网络会自动学习这些滤波器的值。在图像分类任务中，我们的卷积神经网络可以学习执行以下操作：\n\n-   在第一层，使用原始像素数据检测边缘。\n\
+  -   在第二层，利用这些边缘来识别形状（例如，斑点）。\n-   在网络的高层，利用这些形状来检测更高级别的特征，比如面部结构。\n-   最后一层是分类器，它根据这些高级别特征对图像内容进行预测。\n\
+  \n如果你有一系列图像，例如视频，那么循环神经网络或卷积神经网络都是合适的选择。在以下代码中，我们对一系列图像进行分类：\n\n```python\nimport\
+  \ numpy as np\nfrom keras.models import Sequential\nfrom keras.layers import Conv2D,\
+  \ MaxPooling2D, Dense, Flatten\nfrom keras.utils import to_categorical\nimport tensorflow\
+  \ as tf\nmnist = tf.keras.datasets.mnist\n#### loads data and splits into train\
+  \ and test set\n(x_train, y_train), (x_test, y_test) = mnist.load_data()\nx_train,\
+  \ x_test = x_train / 255.0, x_test / 255.0\n#### # Reshape the images.\ntrain_images\
+  \ = np.expand_dims(x_train, axis=3)\ntest_images = np.expand_dims(x_test, axis=3)\n\
+  num_filters = 4\nfilter_size = 2\npool_size = 2\n#### Build the model.\nmodel =\
+  \ Sequential([\nConv2D(num_filters, filter_size, input_shape=(28, 28, 1)),\nMaxPooling2D(pool_size=pool_size),\n\
+  Flatten(),\nDense(10, activation='softmax'),\n])\n#### Compile the model.\nmodel.compile(\n\
+  'adam',\nloss='categorical_crossentropy',\nmetrics=['accuracy'],\n)\n#### Train\
+  \ the model.\nmodel.fit(\ntrain_images,\nto_categorical(y_train),\nepochs=3,\nvalidation_data=(test_images,\
+  \ to_categorical(y_test)),\n)\n#### Predict on the first 10 test images.\npredictions\
+  \ = model.predict(test_images[:10])\nprint(np.argmax(predictions, axis=1))\n####\
+  \ Check our predictions against the ground truths.\nprint(x_test[:10])\n```\n\n\
+  ## 本章小结\n\n本章是本书的核心。我们讨论了诸如循环神经网络和卷积神经网络等神经网络，并结合强化学习使用了真实示例。在下一章中，我们将讨论一些用于分析时间序列数据的经典统计方法，而最后一章则全部关于如何扩展你的分析应用。\n\
+  \n"
+- "# 6. 时间序列\n\n*时间序列*是按时间顺序排列的一系列数据点。最常见的情况是，这些时间点是等间隔的。例如，过去两年中每月记录的航空公司乘客量，或过去一年中每天记录的股票市场工具价格。时间序列分析的主要目的是根据参数的过去数据来预测其未来值。\n\
+  \n## 变异的分类\n\n传统上，时间序列分析将变异分为三个主要组成部分，即趋势、季节性变化和其他周期性变化。剩余的变异则归因于“不规则”波动或误差项。当变异主要由趋势和季节性构成时，这种方法尤其有价值。\n\
+  \n## 分析包含趋势的序列\n\n*趋势*是均值水平的长期性变化。例如，如果你有一个像 2, 4, 6, 8 这样的序列，有人问你下一个值是什么，显而易见的答案是\
+  \ 10。你可以通过使用简单最小二乘估计或任何其他回归方法对数据拟合一条直线来证明你的答案。趋势也可以是非线性的。图 6-1 展示了一个带有趋势的时间序列示例。\n\
+  \n![](img/458833_2_En_6_Fig1_HTML.jpg)\n\n该图绘制了以千为单位的国际航空公司乘客数据。它显示了一个从 1949 年 1\
+  \ 月的大约 100 增长到 1960 年 1 月的大约 600 的上升趋势。\n\n**图 6-1** 带有趋势的时间序列\n\n最简单的时间序列类型是常见的“线性趋势加噪声”，其中在时间\
+  \ *t* 的观测值是一个随机变量 `X[t]`，如下所示：\n\n![$$ {\\textrm{X}}_{\\textrm{t}}=\\alpha +\\beta\
+  \ t+{\\varepsilon}_t $$](img/458833_2_En_6_Chapter_TeX_Equa.png)\n\n这里，`α`、`β` 是常数，`ε[t]`\
+  \ 表示均值为 0 的随机误差项。在时间 *t* 的平均水平由 `m[t] = (α + βt)` 给出。这有时被称为*趋势项*。\n\n### 曲线拟合\n\n\
+  *拟合*一个简单的时间函数，例如多项式曲线（线性、二次等）、冈珀茨曲线或逻辑曲线，是处理包含趋势的非季节性数据（特别是年度数据）的一种众所周知的方法。全局线性趋势是最简单的多项式曲线类型。冈珀茨曲线可以写成以下格式，其中\
+  \ `α`、`β` 和 `γ` 是参数，且 `0 < r < 1`：\n\n![$$ {\\textrm{X}}_{\\textrm{t}}=\\alpha \\\
+  exp \\left[\\beta \\exp \\left(-\\gamma \\textrm{t}\\right)\\right] $$](images/458833_2_En_6_Chapter/458833_2_En_6_Chapter_TeX_Equb.png)\n\
+  \n这看起来相当不同，但只要 `t > 0`，实际上是等价的。逻辑曲线如下所示：\n\n![$$ {\\textrm{X}}_{\\textrm{t}}=\\\
+  textrm{a}/\\left(1+{\\textrm{be}}^{\\hbox{-} ct}\\right) $$](img/458833_2_En_6_Chapter_TeX_Equc.png)\n\
+  \n这两条曲线都是 S 形的，并且当 `t → ∞` 时趋近于一个渐近值，其中冈珀茨曲线通常比逻辑曲线收敛得慢。将曲线拟合到数据可能会导致非线性联立方程。\n\n\
+  对于所有此类性质的曲线，拟合函数提供了趋势的度量，而残差则提供了局部波动的估计，其中残差是观测值与拟合曲线对应值之间的差值。\n\n\n\n### 从时间序列中移除趋势\n\
+  \n对给定的时间序列进行差分，直至其变得平稳，是一种特殊的滤波方法，对于移除趋势特别有用。你会看到，这是 Box-Jenkins 方法中不可或缺的一部分。对于具有线性趋势的数据，一阶差分通常足以移除趋势。\n\
+  \n数学上，其形式如下：\n\n![$$ {\\displaystyle \\begin{array}{c}\\textrm{y}\\left(\\textrm{t}\\\
+  right)={\\textrm{a}}^{\\ast}\\textrm{t}+\\textrm{c}\\\\ {}\\textrm{y}\\left(\\textrm{t}+1\\\
+  right)={\\textrm{a}}^{\\ast}\\left(\\textrm{t}+1\\right)+\\textrm{c}\\\\ {}\\textrm{z}\\\
+  left(\\textrm{t}\\right)=\\textrm{y}\\left(\\textrm{t}+1\\right)-\\textrm{y}\\left(\\\
+  textrm{t}\\right)=\\textrm{a}+\\textrm{c};\\textrm{no}\\ \\textrm{t}\\textrm{rend}\\\
+  \ \\textrm{present}\\ \\textrm{in}\\ \\textrm{z}\\left(\\textrm{t}\\right)\\end{array}}\
+  \ $$](img/458833_2_En_6_Chapter_TeX_Equd.png)\n\n趋势也可能是指数型的。在这种情况下，你需要进行对数变换，将指数趋势转换为线性趋势。\n\
+  \n数学上，其形式如下：\n\n![$$ {\\displaystyle \\begin{array}{c}\\textrm{y}\\left(\\textrm{t}\\\
+  right)={\\textrm{a}}^{\\ast}\\exp \\left(\\textrm{t}\\right)\\\\ {}z\\left(\\textrm{t}\\\
+  right)=\\log \\left(\\textrm{y}\\left(\\textrm{t}\\right)\\right)={\\textrm{t}}^{\\\
+  ast}\\log \\left(\\textrm{a}\\right);\\textrm{z}\\left(\\textrm{t}\\right)\\textrm{is}\\\
+  \ \\textrm{a}\\ \\textrm{linear}\\ \\textrm{function}\\ \\textrm{of}\\ \\textrm{t}\\\
+  end{array}} $$](img/458833_2_En_6_Chapter_TeX_Eque.png)\n\n## 分析包含季节性的序列\n\n许多时间序列，例如航空公司的乘客负载量或天气读数，会显示出在特定时间段后重复的变动。例如，在印度，排灯节假期期间航空公司的乘客负载量总是会增加。这种年度变化很容易理解，如果对季节性有直接兴趣，也可以进行估计。同样，类似于趋势，如果你有一个像\
+  \ 1, 2, 1, 2, 1, 2 这样的序列，那么你对序列下一个值的明显选择将是 1 和 2。\n\nHolt-Winters 模型是实现具有季节性的时间序列的流行模型，也被称为*指数平滑法*。Holt-Winters\
+  \ 模型有两种变体：加法模型和乘法模型。在具有单一指数平滑时间序列的加法模型中，季节性的实现方式如下：\n\n![$$ \\textrm{X}\\left(\\\
+  textrm{t}+1\\right)={\\upalpha}^{\\ast } Xt+\\left(1-\\upalpha \\right)\\ast \\\
+  textrm{St}-1 $$](img/458833_2_En_6_Chapter_TeX_Equf.png)\n\n在这个模型中，每个点都被实现为前一个点和季节性的加权平均值。因此，`X(t+1)`\
+  \ 将作为 `X(t-1)` 和 `S(t-2)` 以及 `α` 的平方的函数来计算。这样，随着过程的进行，`α` 的值会呈指数增长。这就是它被称为指数平滑法的原因。`St`\
+  \ 的起始值在此方法中至关重要。通常，这个值从 1 开始，或者取前四个观测值的平均值。\n\n乘法季节性模型的时间序列如下：\n\n![$$ \\textrm{X}\\\
+  left(\\textrm{t}+1\\right)=\\left(\\textrm{b}1+\\textrm{b}{2}^{\\ast}\\textrm{t}\\\
+  right)\\textrm{St}+\\textrm{noise}, $$](img/458833_2_En_6_Chapter_TeX_Equg.png)\n\
+  \n这里，`b1`（通常被称为*永久成分*）是季节性的初始权重；`b2` 代表趋势，在此情况下是线性的。\n\n然而，Python 中没有 Holt-Winters\
+  \ 模型的标准实现。它在 R 中可用（关于如何从 Python 代码中调用 R 的 Holt-Winters 模型，请参见第 1 章）。\n\n## 从时间序列中移除季节性\n\
+  \n从时间序列中移除季节性有两种方法。\n\n*   通过滤波\n*   通过差分\n\n### 通过滤波\n\n序列 `{x[t]}` 通过如下所示的线性运算转换为另一个称为\
+  \ `{y[t]}` 的序列，其中 `{a[r]}` 是一组权重：\n\n![$$ {\\textrm{Y}}_{\\textrm{t}}={\\sum^{+\\\
+  textrm{s}}}_{\\textrm{r}=\\hbox{-} \\textrm{q}}{\\textrm{a}}_{\\textrm{r}}{\\textrm{X}}_{\\\
+  textrm{t}+\\textrm{r}} $$](img/458833_2_En_6_Chapter_TeX_Equh.png)\n\n为了平滑局部波动并估计局部均值，你应明确选择权重，使得\
+  \ `∑a[r] = 1`；那么该运算通常被称为*移动平均*。它们通常是对称的，即 `s = q` 且 `a[j] = a[-j]`。对称平滑滤波器最简单的例子是简单移动平均，其中对于\
+  \ `r = -q, …, + q`，有 `a[r] = 1 / (2q+1)`。\n\n`x[t]` 的平滑值由下式给出：\n\n![$$ Sm\\left({\\\
+  textrm{x}}_{\\textrm{t}}\\right)=\\frac{1}{2q+1}{\\sum^{+\\textrm{q}}}_{\\textrm{r}=\\\
+  hbox{-} \\textrm{q}}{\\textrm{X}}_{\\textrm{t}+\\textrm{r}} $$](img/458833_2_En_6_Chapter_TeX_Equi.png)\n\
+  \n简单移动平均对于移除季节性变化很有用，但无法很好地处理趋势。\n\n### 通过差分\n\n差分被广泛使用，并且通常效果良好。季节性差分可以移除季节性变化。\n\
+  \n数学上，如果时间序列 `y(t)` 包含周期为 `T` 的加法季节性 `S(t)`，那么：\n\n![$$ {\\displaystyle \\begin{array}{c}\\\
+  textrm{y}\\left(\\textrm{t}\\right)={\\textrm{a}}^{\\ast}\\textrm{S}\\left(\\textrm{t}\\\
+  right)={\\textrm{b}}^{\\ast}\\textrm{t}+\\textrm{c}\\\\ {}\\textrm{y}\\left(\\textrm{t}+\\\
+  textrm{T}\\right)= aS\\left(\\textrm{t}+\\textrm{T}\\right)+{\\textrm{b}}^{\\ast}\\\
+  left(\\textrm{t}+\\textrm{T}\\right)+\\textrm{c}\\\\ {}\\textrm{z}\\left(\\textrm{t}\\\
+  right)=\\textrm{y}\\left(\\textrm{t}+\\textrm{T}\\right)-\\textrm{y}\\left(\\textrm{t}\\\
+  right)={\\textrm{b}}^{\\ast}\\textrm{T}+\\textrm{noise}\\ \\textrm{term}\\end{array}}\
+  \ $$](img/458833_2_En_6_Chapter_TeX_Equj.png)\n\n与趋势类似，你可以通过对数变换将乘法季节性转换为加法季节性。\n\
+  \n现在，在时间序列中找到周期 `T` 是关键部分。可以通过两种方式实现：在时域中使用自相关函数，或者在频域中使用傅里叶变换。在这两种情况下，你都会在图中看到一个尖峰。对于自相关，图上的尖峰将出现在滞后\
+  \ `T` 处，而对于傅里叶变换分布，尖峰将出现在频率 `1/T` 处。\n\n## 变换\n\n到目前为止，我已经讨论了时间序列中各种类型的变换。进行变换的三个主要原因将在接下来的章节中介绍。\n\
+  \n### 稳定方差\n\n标准的做法是对序列进行对数变换；它可以使空间中分散较远的点彼此靠近。\n\n### 使季节性效应变为加法\n\n如果序列存在趋势，并且季节性效应的幅度似乎随均值上升，那么修改数据以使季节性效应逐年保持恒定可能是可取的。这种季节性效应被称为加法效应。然而，如果季节性效应的幅度与均值成正比，那么该季节性效应被称为乘法效应，并且需要进行对数变换才能使其再次变为加法效应。\n\
+  \n\n\n### 使数据分布正态化\n\n在大多数概率模型中，都假设数据分布是高斯分布或正态分布。例如，趋势中可能存在偏态证据，导致时间图中出现方向一致的“尖峰”。\n\
+  \n要将数据转换为正态分布，最常见的变换是减去均值，然后除以标准差。我在第 5 章的 RNN 示例中给出了这种变换的例子；在本章的最后一个示例中，我将再给出一个。这种变换背后的逻辑是，它使均值为\
+  \ 0，标准差为 1，这是正态分布的一个特征。另一种流行的变换是使用对数。对数的主要优点是它能减少变异，并且高斯分布数据的对数仍然是高斯分布。变换可能是特定于问题或特定于领域的。例如，在航空公司的乘客载客量时间序列中，可以通过除以该月的天数或该月的假期数来对序列进行归一化。\n\
+  \n#### 循环变动\n\n在某些时间序列中，季节性并非恒定，而是一个随机变量。这被称为*循环变动*。在这种情况下，首先需要预测周期性，然后以与处理季节性变动相同的方式将其移除。\n\
+  \n#### 不规则波动\n\n没有趋势和循环变动的时间序列可以被视为弱平稳时间序列。在下一节中，你将研究各种概率模型来实现弱平稳时间序列。\n\n## 平稳时间序列\n\
+  \n通常，如果时间序列的均值和方差没有系统性变化，并且严格的周期性变化已被消除，则称该时间序列是平稳的。在现实生活中，不存在平稳的时间序列。无论你通过变换获得什么数据，你都可以尝试使其在某种程度上更接近平稳序列。\n\
+  \n### 平稳过程\n\n如果对于所有 `t[1],…,t[k],τ`，`X(t[1]),...,X(t[k])` 的联合分布与 `X(t[1] + τ),...,X(t[k]\
+  \ + τ)` 的联合分布相同，则该时间序列是严格平稳的。如果 `k=1`，严格平稳意味着 `X(t)` 的分布对于所有 `t` 都是相同的，因此，假设前两阶矩是有限的，则有：\n\
+  \n![$$ \\mu \\left(\\textrm{t}\\right)=\\mu $$](img/458833_2_En_6_Chapter_TeX_Equk.png)\n\
+  \n![$$ {\\sigma}²\\left(\\textrm{t}\\right)={\\sigma}² $$](img/458833_2_En_6_Chapter_TeX_Equl.png)\n\
+  \n两者都是常数，不依赖于 `t` 的值。\n\n弱平稳时间序列是一个随机过程，其均值是常数，自协方差是时间滞后的函数。\n\n### 自相关与相关图\n\n\
+  称为*样本自相关系数*的量是了解时间序列性质的重要指南。它们评估不同距离的观测值之间是否存在相关性，并提供有价值的描述性信息。你将看到，它们也是模型构建中的重要工具，并且通常为给定数据集选择合适的概率模型提供有价值的线索。该系数的取值范围为\
+  \ `[-1,1]`，衡量两个变量之间线性关联的强度。可以很容易地证明，该值不依赖于两个变量的测量单位；如果变量是独立的，那么理想的相关性为零。\n\n在解释一组自相关系数时，一个有用的辅助工具是称为*相关图*的图形。相关图也可以称为*样本自相关函数*。\n\
+  \n假设一个平稳随机过程 `X(t)` 具有均值 `μ`、方差 `σ²`、自协方差函数 (acv.f.) `γ(t)` 和自相关函数 (ac.f.) `ρ(τ)`。\n\
+  \n![$$ \\rho \\left(\\tau \\right)=\\frac{\\gamma \\left(\\tau \\right)}{\\gamma\
+  \ (0)}=\\gamma \\left(\\tau \\right)/{\\sigma}² $$](img/458833_2_En_6_Chapter_TeX_Equm.png)\n\
+  \n### 估计自协方差和自相关函数\n\n在随机过程中，自协方差是过程自身在成对时间点上的协方差。自协方差的计算如下：\n\n![$$ \\gamma (h)=\\\
+  frac{1}{n}\\sum \\limits_{t=1}^{n-\\left|h\\right|}\\left({x}_{t+\\left|h\\right|}-\\\
+  overline{x}\\right)\\left({x}_t-\\overline{x}\\right),-n&lt;h&lt;n $$](img/458833_2_En_6_Chapter_TeX_Equn.png)\n\
+  \n图 6-2 显示了一个样本自相关分布。\n\n![](img/458833_2_En_6_Fig2_HTML.jpg)\n\n一对用于自相关和偏自相关的模拟离散时间序列。两个图在点\
+  \ 0 处都有最高峰值为 0。\n\n图 6-2\n\n样本自相关\n\n## 使用 Python 进行时间序列分析\n\n`Statsmodels` 是一个\
+  \ Python 包，它为包括描述性统计和统计模型估计在内的统计计算提供了对 `SciPy` 的补充。除了早期的模型、线性回归、稳健线性模型、广义线性模型和离散数据模型之外，`scikits.statsmodels`\
+  \ 的最新版本还包含了一些用于时间序列分析的基本工具和模型，例如描述性统计、统计检验以及几个线性模型类。这些线性模型类包括自回归 (AR)、自回归移动平均 (ARMA)\
+  \ 和向量自回归模型 (VAR)。\n\n### 有用的方法\n\n让我们从移动平均开始。\n\n#### 移动平均过程\n\n假设 `{Z[t]}` 是一个均值为\
+  \ 0、方差为 `σ[z]²` 的纯随机过程。那么，过程 `{X[t]}` 被称为 `q` 阶移动平均过程。\n\n![$$ {X}_t={\\beta}_0{Z}_t+{\\\
+  beta}_1{Z}_{t-1}+\\dots +{\\beta}_{\\textrm{q}}{Z}_{t-q} $$](img/458833_2_En_6_Chapter_TeX_Equo.png)\n\
+  \n这里，`{β[i]}` 是常数。`Zs` 通常被缩放，使得 `β[0] = 1`。\n\n![$$ {\\displaystyle \\begin{array}{l}E\\\
+  left({X}_t\\right)=0\\\\ {} Var\\left({X}_t\\right)={\\sigma}_Z²\\sum \\limits_{i=0}^q{\\\
+  beta}_i²\\end{array}} $$](img/458833_2_En_6_Chapter_TeX_Equp.png)\n\n`Zs` 是独立的。\n\
+  \n![$$ {\\displaystyle \\begin{array}{c}\\gamma (k)= Cov\\ \\left({X}_t,{X}_{t+k}\\\
+  right)\\\\ {}= Cov\\left({\\beta}_0{Z}_t+\\dots +{\\beta}_q{Z}_{t-q},{\\beta}_0{Z}_{t+k}+\\\
+  dots +{\\beta}_q{Z}_{t+k-q}\\right)\\\\ {}=\\left\\{\\vdash \\begin{array}{cc}0&amp;\
+  \ k&gt;q\\\\ {}{\\sigma}_Z²\\sum \\limits_{i=0}^{q-k}{\\beta}_i{\\beta}_{i+k}&amp;\
+  \ k=0,1,\\dots, q\\\\ {}\\gamma \\left(-k\\right)&amp; k&lt;0\\end{array}\\right.\\\
+  end{array}} $$](img/458833_2_En_6_Chapter_TeX_Equq.png)\n\n![$$ Cov\\ \\left({\\\
+  textrm{Z}}_s,{Z}_t\\right)=\\left\\{\\begin{array}{cc}{\\sigma}_Z²&amp; s=t\\\\\
+  \ {}0&amp; s\\ne t\\end{array}\\right. $$](img/458833_2_En_6_Chapter_TeX_Equr.png)\n\
+  \n由于 `γ(k)` 不依赖于 `t` 且均值是常数，因此对于所有 `{β[i]}` 的值，该过程都是二阶平稳的。\n\n![$$ \\rho (k)=\\\
+  left\\{\\begin{array}{cc}1&amp; k=0\\\\ {}\\sum \\limits_{i=0}^{q-k}{\\beta}_i{\\\
+  beta}_{i+k}/\\sum \\limits_{i=0}^q{\\beta}_i²&amp; k=1,\\dots, q\\\\ {}0&amp; k&gt;q\\\
+  \\ {}\\rho \\left(-k\\right)&amp; k&lt;0\\end{array}\\right. $$](img/458833_2_En_6_Chapter_TeX_Equs.png)\n\
+  \n\n\n#### 拟合移动平均过程\n\n移动平均（MA）模型是实现单变量周平稳时间序列的著名方法（见图 6-3）。移动平均模型规定，输出变量线性依赖于其自身过去的误差项以及一个随机项。AR\
+  \ 模型被称为*移动平均模型*，它是时间序列 ARMA 和 ARIMA 模型的一个特例和关键组成部分。\n\n![$$ {X}_t={\\varepsilon}_t+\\\
+  sum \\limits_{i=1}^p{\\varphi}_i{X}_{t-i}+\\sum \\limits_{i=1}^q{\\theta}_i{\\varepsilon}_{t-i}+\\\
+  sum \\limits_{i=1}^b{\\eta}_i{d}_{t-i} $$](img/458833_2_En_6_Chapter_TeX_Equt.png)\n\
+  \n![](img/458833_2_En_6_Fig3_HTML.jpg)\n\n价格与周期的关系图。它绘制了实际值和区间值在 6 处的移动平均线的两条上升趋势。实际值的峰值最高，达到\
+  \ 9。\n\n图 6-3\n\n移动平均示例\n\n以下是移动平均模型的示例代码：\n\n```\n请通过以下命令安装 numpy：\npip install\
+  \ numpy\nimport numpy as np\ndef moving_average(x, w):\nreturn np.convolve(x, np.ones(w),\
+  \ 'valid') / w\ndata = np.array([10,5,8,9,15,22,26,11,15,16,18,7])\nprint(moving_average(data,4))\n\
+  ```\n\n### 自回归过程\n\n假设 `{Z[t]}` 是一个均值为 0、方差为 `σ[z]²` 的纯随机过程。那么，如果满足以下条件，则称过程 `{X[t]}`\
+  \ 为 `p` 阶自回归过程：\n\n![$$ {\\displaystyle \\begin{array}{l}{x}_t={\\alpha}_1{x}_{t-1}+\\\
+  dots {\\alpha}_p{x}_{t-p}+{z}_t, or\\\\ {}{x}_t=\\sum \\limits_{i=1}^p{\\alpha}_i{x}_{i-1}+{z}_t\\\
+  end{array}} $$](img/458833_2_En_6_Chapter_TeX_Equu.png)\n\n自协方差函数由下式给出：\n\n![$$\
+  \ \\gamma (k)=\\frac{\\alpha^k{\\sigma}_z²}{\\left(1-{\\alpha}²\\right)},k=0,1,2\\\
+  dots, \\textrm{hence} $$](img/458833_2_En_6_Chapter_TeX_Equv.png)\n\n![$$ {\\rho}_k=\\\
+  frac{\\gamma (k)}{\\gamma (0)}={\\alpha}^k $$](img/458833_2_En_6_Chapter_TeX_Equw.png)\n\
+  \n图 6-4 显示了一个时间序列及其 AR 模型的自相关图。\n\n![](img/458833_2_En_6_Fig4_HTML.jpg)\n\n时间序列和\
+  \ AR 模型的模拟图。它绘制了具有多个波峰和波谷的波动趋势。\n\n图 6-4\n\n时间序列与 AR 模型\n\n### 估计 AR 过程的参数\n\n如果一个过程的均值恒定，且自协方差函数仅依赖于时间滞后，则该过程称为*弱平稳*。虽然不存在绝对的弱平稳过程，但为了进行随机分析，通常会对时间序列数据施加此假设。假设\
+  \ `Z(t)` 是一个均值为 0、方差恒定的弱平稳过程。那么，如果满足以下条件，则 `X(t)` 是一个 `p` 阶自回归过程：\n\n![$$ {\\displaystyle\
+  \ \\begin{array}{l}\\textrm{X}\\left(\\textrm{t}\\right)=\\textrm{a}1\\ \\textrm{x}\\\
+  \ \\textrm{X}\\left(\\textrm{t}\\hbox{-} 1\\right)+\\textrm{a}2\\ \\textrm{x}\\\
+  \ \\textrm{X}\\left(\\textrm{t}\\hbox{-} 2\\right)+\\dots + ap\\ \\textrm{x}\\ \\\
+  textrm{X}\\left(\\textrm{t}\\hbox{-} \\textrm{p}\\right)+\\textrm{Z}\\left(\\textrm{t}\\\
+  right),\\textrm{where}\\ \\textrm{a}\\in \\textrm{R}\\ \\textrm{a}\\textrm{nd}\\\
+  \ \\textrm{p}\\in \\textrm{I}\\\\ {}\\ \\textrm{I}\\end{array}} $$](img/458833_2_En_6_Chapter_TeX_Equx.png)\n\
+  \n现在，`E[X(t)]` 是 `X(t)` 的期望值。\n\n![$$ {\\displaystyle \\begin{array}{c}\\textrm{Covariance}\\\
+  left(\\textrm{X}\\left(\\textrm{t}\\right),\\textrm{X}\\left(\\textrm{t}+\\textrm{h}\\\
+  right)\\right)=\\textrm{E}\\left[{\\left(\\textrm{X}\\left(\\textrm{t}\\right)\\\
+  hbox{-} \\textrm{E}\\left[\\textrm{X}\\left(\\textrm{t}\\right)\\right]\\right)}^{\\\
+  ast }\\ \\left(\\textrm{X}\\left(\\textrm{t}+\\textrm{h}\\right)\\hbox{-} \\textrm{E}\\\
+  left[\\textrm{X}\\left(\\textrm{t}+\\textrm{h}\\right)\\right]\\right)\\right]\\\
+  \\ {}=\\textrm{E}\\left[{\\left(\\textrm{X}\\left(\\textrm{t}\\right)\\hbox{-} \\\
+  textrm{m}\\right)}^{\\ast }\\ \\left(\\textrm{X}\\left(\\textrm{t}+\\textrm{h}\\\
+  right)\\hbox{-} \\textrm{m}\\right)\\right]\\end{array}} $$](images/458833_2_En_6_Chapter/458833_2_En_6_Chapter_TeX_Equy.png)\n\
+  \n如果 `X(t)` 是一个弱平稳过程，那么：\n\n![$$ {\\displaystyle \\begin{array}{c}\\textrm{E}\\\
+  left[\\textrm{X}\\left(\\textrm{t}\\right)\\right]=\\textrm{E}\\left[\\textrm{X}\\\
+  left(\\textrm{t}+\\textrm{h}\\right)\\right]=\\textrm{m}\\ \\left(\\textrm{constant}\\\
+  right)\\\\ {}=\\textrm{E}\\left[\\textrm{X}{\\left(\\textrm{t}\\right)}^{\\ast }\\\
+  \ \\textrm{X}\\left(\\textrm{t}+\\textrm{h}\\right)\\right]-{\\textrm{m}}²=\\textrm{c}\\\
+  left(\\textrm{h}\\right)\\end{array}} $$](images/458833_2_En_6_Chapter/458833_2_En_6_Chapter_TeX_Equz.png)\n\
+  \n这里，`m` 是常数，对于弱平稳过程，`cov[X(t),X(t+h)]` 仅是 `h(c(h))` 的函数。`c(h)` 被称为自协方差。\n\n类似地，相关性\
+  \ `(X(t),X(t+h) = ρ(h) = r(h) = c(h) = c(0)` 被称为*自相关*。\n\n如果 `X(t)` 是一个实现为自回归模型的平稳过程，那么：\n\
+  \n![$$ \\textrm{X}\\left(\\textrm{t}\\right)=\\textrm{a}{1}^{\\ast }\\ \\textrm{X}\\\
+  left(\\textrm{t}\\hbox{-} 1\\right)+\\textrm{a}{2}^{\\ast }\\ \\textrm{X}\\left(\\\
+  textrm{t}\\hbox{-} 2\\right)+\\dots +{ap}^{\\ast }\\ \\textrm{X}\\left(\\textrm{t}\\\
+  hbox{-} \\textrm{p}\\right)+\\textrm{Z}\\left(\\textrm{t}\\right) $$](img/458833_2_En_6_Chapter_TeX_Equaa.png)\n\
+  \n`相关性(X(t),X(t)) = a1 * 相关性 (X(t),X(t-1)) + …. + ap * 相关性 (X(t),X(t-p))+0`\n\n\
+  由于协方差 `(X(t),X(t+h))` 仅依赖于 `h`，因此：\n\n![$$ \\textrm{r}0=\\textrm{a}{1}^{\\ast }\\\
+  \ \\textrm{r}1+\\textrm{a}{2}^{\\ast }\\ \\textrm{r}2+\\dots +{ap}^{\\ast }\\ rp\
+  \ $$](img/458833_2_En_6_Chapter_TeX_Equab.png)\n\n![$$ \\textrm{r}1=\\textrm{a}{1}^{\\\
+  ast }\\ \\textrm{r}0+\\textrm{a}{2}^{\\ast }\\ \\textrm{r}1+\\dots .+{ap}^{\\ast\
+  \ }\\ \\textrm{r}\\left(\\textrm{p}\\hbox{-} 1\\right) $$](img/458833_2_En_6_Chapter_TeX_Equac.png)\n\
+  \n因此，对于一个 `n` 阶模型，你可以轻松生成 `n` 个方程，并通过求解这 `n` 个方程组来找到 `n` 个系数。\n\n在这种情况下，仅在一阶和二阶自回归模型中实现数据集，并选择残差均值较小的模型。为此，简化公式如下：\n\
+  \n*   *一阶*：`a1 = r1`\n*   *二阶*：`a1 = r1(1 - r2) / (1 - r1²)`, `a2 = (r2 - r1²) /\
+  \ (1 - r1²)`\n\n以下是自回归模型的一些示例代码：\n\n```\n请从 https://github.com/pratips/book-Advanced-Data-Analytics-Using-Python\
+  \ 下载所需的 CSC 文件，并使用 pip 命令安装 Python 库。\nfrom pandas import read_csv\nfrom matplotlib\
+  \ import pyplot\nfrom statsmodels.tsa.ar_model import AutoReg\nfrom sklearn.metrics\
+  \ import mean_squared_error\nfrom math import sqrt\n#### 加载数据集\nseries = read_csv('temperatures.csv',\
+  \ header=0, index_col=0, parse_dates=True, squeeze=True)\n#### 拆分数据集\nX = series.values\n\
+  train, test = X[1:len(X)-7], X[len(X)-7:]\n#### 训练自回归模型\nmodel = AutoReg(train,\
+  \ lags=29)\nmodel_fit = model.fit()\nprint('系数: %s' % model_fit.params)\n#### 进行预测\n\
+  predictions = model_fit.predict(start=len(train), end=len(train)+len(test)-1, dynamic=False)\n\
+  for i in range(len(predictions)):\nprint('预测值=%f, 期望值=%f' % (predictions[i], test[i]))\n\
+  rmse = sqrt(mean_squared_error(test, predictions))\nprint('测试 RMSE: %.3f' % rmse)\n\
+  #### 绘制结果\npyplot.plot(test)\npyplot.plot(predictions, color='red')\npyplot.show()\n\
+  ```\n\n\n\n## 混合 ARMA 模型\n\n混合 ARMA 模型是 MA 和 AR 过程的组合。一个包含`p`个 AR 项和`q`个 MA 项的混合自回归/移动平均过程，被称为阶数为`(p,q)`的\
+  \ ARMA 过程。其定义如下：\n\n![$$ {X}_t={\\alpha}_1{X}_{t-1}+\\dots +{\\alpha}_p{X}_{t-p}+{Z}_t+{\\\
+  beta}_1{Z}_{t-1}+\\dots {\\beta}_q{Z}_{t-q} $$](img/458833_2_En_6_Chapter_TeX_Equad.png)\n\
+  \n以下示例代码取自 stat model 网站，用于将时间序列数据实现为 ARMA 模型。\n\n请在运行代码前，使用`pip`命令安装`matplotlib`、`statsmodels`和`numpy`。\n\
+  \n```\nimport matplotlib.pyplot as plt\nimport numpy as np\nfrom statsmodels.tsa.arima_process\
+  \ import ArmaProcess\nimport statsmodels.api as sm\nnp.random.seed(1234)\ndata =\
+  \ np.array([1, .85, -.43, -.63, .8])\nparameter = np.array([1, .41])\nmodel = ArmaProcess(data,\
+  \ parameter)\nfig = plt.figure(figsize=(12, 8))\nax = fig.add_subplot(111)\nax.plot(model.generate_sample(nsample=50))\n\
+  plt.show()\n```\n\n以下是估计 ARMA 模型参数的方法：\n\n1. 在指定平稳 ARMA 过程的阶数后，你需要估计参数。\n2. 假设如下：\n\
+  \   - 模型阶数（`p`和`q`）已知。\n   - 数据具有零均值。\n3. 如果步骤 2 的假设不合理，你可以减去样本均值`Y`，并拟合一个零均值的 ARMA\
+  \ 模型，如`Ø(B)X[t] = θ(B)a[t]`所示，其中`X[t] = Y[t] – Y`。然后使用`X[t] + Y`作为`Y[t]`的模型。\n\n\
+  ## 集成 ARMA 模型\n\n为了拟合像前面讨论的平稳模型，必须消除非平稳的变异来源。差分法广泛应用于计量经济学数据。如果将`X[t]`替换为`∇^dX[t]`，那么你就拥有了一个能够描述某些类型非平稳序列的模型。\n\
+  \n![$$ {Y}_t={\\left(1-L\\right)}^d{X}_t $$](img/458833_2_En_6_Chapter_TeX_Equae.png)\n\
+  \n以下是 ARIMA 模型的估计参数：\n\n- ARIMA 模型通过自回归、差分和移动平均的阶数来指定。\n- 该方法不假设任何模式，而是采用迭代方法来识别模型。\n\
+  - 如果残差通常较小、随机分布，并且总体上不包含有用信息，则模型“拟合良好”。\n\n以下是 ARIMA 模型的示例代码。\n\n请从`https://github.com/pratips/book-Advanced-Data-Analytics-Using-Python`下载所需的\
+  \ CSV 文件，并使用`pip`命令安装 Python 库。\n\n```\n#### 导入库\nfrom pandas import read_csv\n\
+  from matplotlib import pyplot\nfrom statsmodels.tsa.arima.model import ARIMA\nfrom\
+  \ sklearn.metrics import mean_squared_error\n#### 读取 CSV 文件\nseries = read_csv('temperatures.csv',\
+  \ header=0, index_col=0, parse_dates=True, squeeze=True)\nP = series.values\nsize\
+  \ = int(len(P) * 0.9)\n#### 分割为训练集和测试集\ntrain, test = P[0:size], P[size:len(P)]\n\
+  history = [p for p in train]\npredictions = list()\nfor t in range(len(test)):\n\
+  #### 拟合模型\nmodel = ARIMA(history, order=(5,1,0))\nmodel_fit = model.fit()\noutput\
+  \ = model_fit.forecast()\nyhat = output[0]\npredictions.append(yhat)\nobs = test[t]\n\
+  history.append(obs)\nprint('预测值=%f, 期望值=%f' % (yhat, obs))\nerror = mean_squared_error(test,\
+  \ predictions)\nprint('测试集 MSE: %.3f' % error)\n#### 绘制结果\npyplot.plot(test)\npyplot.plot(predictions,\
+  \ color='red')\npyplot.show()\n```\n\n## 傅里叶变换\n\n非周期信号可以通过一个简单的极限过程用永续指数信号来表示，我将说明非周期信号可以表示为永续指数信号的连续和（积分）。假设你想表示非周期信号`g(t)`。将任何非周期信号视为具有无限时间周期的周期信号，你会得到以下结果：\n\
+  \n![$$ g(t)=\\frac{1}{2\\pi}\\int_{-\\infty}^{\\infty }G\\left(\\omega \\right){e}^{j\\\
+  omega t} d\\omega $$](img/458833_2_En_6_Chapter_TeX_Equaf.png)\n\n![$$ G\\left(n\\\
+  Delta \\omega \\right)=\\underset{T\\to \\infty }{\\lim}\\int_{-{T}_0/2}^{T_0/2}{g}_p(t){e}^{-\
+  \ jn\\Delta \\omega t} dt $$](img/458833_2_En_6_Chapter_TeX_Equag.png)\n\n因此：\n\n\
+  ![$$ G\\left(\\omega \\right)=\\int_{-\\infty}^{\\infty }g(t){e}^{- j\\omega t}\
+  \ dt $$](img/458833_2_En_6_Chapter_TeX_Equah.png)\n\n`G(w)`被称为`g(t)`的傅里叶变换。\n\n\
+  以下是自协方差与傅里叶变换之间的关系：\n\n![$$ \\gamma (0)={\\sigma}_X²=\\int_0^{\\pi } dF\\left(\\\
+  omega \\right)=F\\left(\\pi \\right) $$](img/458833_2_En_6_Chapter_TeX_Equai.png)\n\
+  \n## 一个特殊场景\n\n在航空或酒店领域，第`t`个月的乘客量与`t-1`或`t-2`个月的数据相关性较低，但与`t-12`个月的数据相关性更高。例如，排灯节（十月）的乘客量与去年排灯节的数据相关性高于同年八月和九月的数据。历史上，拾取模型用于预测这类数据。拾取模型有两种变体。\n\
+  \n在加法拾取模型中，\n\n![$$ \\textrm{X}\\left(\\textrm{t}\\right)=\\textrm{X}\\left(\\textrm{t}\\\
+  hbox{-} 1\\right)+\\left[\\textrm{X}\\left(\\textrm{t}\\hbox{-} 12\\right)\\hbox{-}\
+  \ \\textrm{X}\\left(\\textrm{t}\\hbox{-} 13\\right)\\right] $$](images/458833_2_En_6_Chapter/458833_2_En_6_Chapter_TeX_Equaj.png)\n\
+  \n在乘法拾取模型中，\n\n![$$ \\textrm{X}\\left(\\textrm{t}\\right)=\\textrm{X}{\\left(\\\
+  textrm{t}\\hbox{-} 1\\right)}^{\\ast }\\ \\left[\\textrm{X}\\left(\\textrm{t}\\\
+  hbox{-} 12\\right)/\\textrm{X}\\left(\\textrm{t}\\hbox{-} 13\\right)\\right] $$](images/458833_2_En_6_Chapter/458833_2_En_6_Chapter_TeX_Equak.png)\n\
+  \n研究表明，对于这类数据，基于神经网络的预测器比时间序列模型具有更高的准确性。\n\n在投资银行的高频交易中，时间序列模型过于耗时，无法捕捉工具的最新模式。因此，他们实时计算`dX/dt`和`d2X/dt2`，其中`X`是工具的价格。如果两者均为正，他们盲目地发出买入该工具的订单。如果两者均为负，并且投资组合中持有该工具，他们则盲目卖出。但如果符号相反，他们会利用时间序列数据进行更详细的分析。\n\
+  \n正如我之前所说，在时间序列分析中有许多场景下，R 比 Python 是更好的选择。因此，这里有一个使用 R 进行时间序列预测的示例。`auto.arima`模型的优点在于它能自动找到数据的阶数、趋势和季节性，并拟合模型。在预测中，我们只打印均值，但该模型在预测时提供了预测的上限和下限。\n\
+  \n请使用以下命令安装`pmdarima`库：\n\n```\npip install pmdarima\n```\n\n安装完成后，你可以尝试运行基于`pmdarima`手册的以下代码。它会加载包中可用的数据集，然后尝试拟合自动\
+  \ ARIMA 并进行预测。\n\n```\nimport numpy as np\nimport pmdarima as pm\nfrom pmdarima.datasets\
+  \ import load_wineind\n#### 加载数据集\nwineind = load_wineind().astype(np.float64)\n\
+  #### 拟合逐步模型：\nstepwise_fit = pm.auto_arima(wineind, start_p=1, start_q=1, max_p=3,\
+  \ max_q=3, m=12, start_P=0, seasonal=True, d=1, D=1, trace=True, error_action='ignore',\
+  \ suppress_warnings=True, stepwise=True)\nstepwise_fit.summary()\npredicted_15 =\
+  \ stepwise_fit.predict(n_periods=15)\nprint(predicted_15)\n```\n\n## 缺失数据\n\n时间序列和许多其他数据分析工作中的一个重要方面是弄清楚如何处理缺失数据。在前面的代码中，你用平均值填充了缺失的记录。当缺失数据实例的数量不是很高时，这没问题。但如果数量很高，那么最高值和最低值的平均值是一个更好的替代方案。\n\
+  \n\n\n## 总结\n\n在特征工程之后，我们将介绍一些基础统计学知识，特别是时间序列模型。需要记住的一点是，如果你将特征向量（`1xn`）转换为矩阵（`kxn`），其中每行的每个`k`元素是第一列最新的`k`个观测值，那么你就可以在时间序列数据上应用任何监督式机器学习模型。\n\
+  \n"
+- "# 7. 大规模分析\n\n近几十年来，由于大数据的发展，分析技术领域发生了革命性的变化。数据正从各种来源被收集，因此，即使在分布式环境中，甚至实时地分析这些数据的技术也得到了发展。\n\
+  \n## Hadoop\n\n这场革命始于 Hadoop 框架的开发，该框架有两个主要组件，即 MapReduce 编程和 HDFS 文件系统。\n\n###\
+  \ MapReduce 编程\n\nMapReduce 是一种受函数式编程启发的编程风格，用于处理大量数据。程序员可以使用 MapReduce 代码处理大数据，而无需了解分布式环境的内部细节。在\
+  \ MapReduce 之前，像 Condor 这样的框架在分布式数据上进行并行计算。但 MapReduce 的主要优势在于它基于 RPC（远程过程调用）。数据不会移动；相反，代码会跳转到不同的机器上来处理数据。在处理大数据时，这极大地节省了网络带宽和计算时间。\n\
+  \n一个 MapReduce 程序有两个主要组件：映射器（mapper）和归约器（reducer）。在映射器中，输入被分割成小单元。通常，输入文件的每一行都成为每个映射任务的输入。映射器处理输入并向归约器发出一个键值对。归约器接收特定键的所有值作为输入，并处理数据以生成最终输出。\n\
+  \n以下伪代码是统计文档中单词频率的一个示例：\n\n```\nmap(String key, String value):\n// key: 文档名称\n//\
+  \ value: 文档内容\nfor each word w in value:\nEmitIntermediate(w, \"1\");\nreduce(String\
+  \ key, Iterator values):\n// key: 一个单词\n// values: 计数列表\nint result = 0;\nfor each\
+  \ v in values:\nresult += ParseInt(v);\nEmit(AsString(result));\n```\n\n### 分区函数\n\
+  \n有时需要将特定的数据集发送到特定的归约任务。分区函数就是为了解决这个目的。例如，在前面的 MapReduce 示例中，假设用户希望输出按排序顺序存储。那么他指定归约任务的数量为\
+  \ 32（对应 32 个字母），并在分区函数中，对于以`a`开头的键返回 1，以`b`开头的键返回 2，依此类推。那么所有以相同字母开头的单词都会进入同一个归约任务。输出将存储在同一个输出文件中，并且由于\
+  \ MapReduce 保证中间键值对会按键的递增顺序处理，因此在给定的分区内，输出将按排序顺序存储。\n\n### 组合器函数\n\n组合器是 MapReduce\
+  \ 中的一个功能，在映射阶段进行部分聚合。它不仅提高了性能，而且当数据集非常大以至于归约器抛出堆栈溢出异常时，有时必须使用它。通常，归约器和组合器的逻辑是相同的，但这可能取决于\
+  \ MapReduce 如何处理输出。\n\n为了实现这个单词计数示例，我们将遵循一个特定的设计模式。将有一个根类`RootBDAS`（BDAS 代表大数据分析系统），它有两个抽象方法：一个映射器任务和一个归约器任务。所有子类都实现这些映射器和归约器任务。主类将使用反射创建子类的实例，并在\
+  \ MapReduce 的 map 函数中调用该实例的映射器任务，在 reduce 函数中调用归约器任务。这种模式的主要优点是你可以对 MapReduce 功能进行单元测试，并且它具有适应性。添加任何新的子类都不需要对主类或单元测试进行任何更改。你只需要更改配置。某些代码可能需要实现组合器或分区器逻辑。它们必须继承`ICombiner`或`IPartitioner`接口。\n\
+  \n图 7-1 展示了该系统的类图。\n\n![](img/458833_2_En_7_Fig1_HTML.jpg)\n\n一个流程图说明了主类、单元测试器以及子类\
+  \ 1 和 2 如何与抽象类和接口的类相连接。\n\n**图 7-1** 类图\n\n以下是`RootBDAS`类：\n\n```\nimport java.util.ArrayList;\n\
+  import java.util.HashMap;\n/**\n*\n*/\n/**\n* @author SayanM\n*\n*/\npublic abstract\
+  \ class RootBDAS {\nabstract  HashMap>  mapper_task(String line);\nabstract  HashMap>\
+  \  reducer_task(String key, ArrayList values);\n}\n```\n\n以下是子类：\n\n```\nimport\
+  \ java.util.ArrayList;\nimport java.util.HashMap;\n/**\n*\n*/\n/**\n* @author SayanM\n\
+  *\n*/\npublic final class WordCounterBDAS extends RootBDAS{\n@Override\nHashMap>\
+  \ mapper_task(String line) {\n// TODO Auto-generated method stub\nString[] words\
+  \ = line.split(\" \");\nHashMap> result = new HashMap>();\nfor(String w : words)\n\
+  {\nif(result.containsKey(w))\n{\nArrayList vals = result.get(w);\nvals.add(\"1\"\
+  );\nresult.put(w, vals);\n}\nelse\n{\nArrayList vals = new ArrayList();\nvals.add(\"\
+  1\");\nresult.put(w, vals);\n}\n}\nreturn result;\n}\n@Override\nHashMap> reducer_task(String\
+  \ key, ArrayList values) {\n// TODO Auto-generated method stub\nHashMap> result\
+  \ = new HashMap>();\nArrayList tempres = new ArrayList();\ntempres.add(values.size()+\
+  \ \"\");\nresult.put(key, tempres);\nreturn result;\n}\n}\n```\n\n以下是`WordCounterBDAS`工具类：\n\
+  \n```\nimport java.util.ArrayList;\nimport java.util.HashMap;\n/**\n*\n*/\n/**\n\
+  * @author SayanM\n*\n*/\npublic final class WordCounterBDAS extends RootBDAS{\n\
+  @Override\nHashMap> mapper_task(String line) {\n// TODO Auto-generated method stub\n\
+  String[] words = line.split(\" \");\nHashMap> result = new HashMap>();\nfor(String\
+  \ w : words)\n{\nif(result.containsKey(w))\n{\nArrayList vals = result.get(w);\n\
+  vals.add(\"1\");\nresult.put(w, vals);\n}\nelse\n{\nArrayList vals = new ArrayList();\n\
+  vals.add(\"1\");\nresult.put(w, vals);\n}\n}\nreturn result;\n}\n@Override\nHashMap>\
+  \ reducer_task(String key, ArrayList values) {\n// TODO Auto-generated method stub\n\
+  HashMap> result = new HashMap>();\nArrayList tempres = new ArrayList();\ntempres.add(values.size()+\
+  \ \"\");\nresult.put(key, tempres);\nreturn result;\n}\n}\n```\n\n以下是`MainBDAS`类：\n\
+  \n\n\n```java\nimport java.io.IOException;\nimport java.util.ArrayList;\nimport\
+  \ java.util.HashMap;\nimport org.apache.hadoop.conf.Configuration;\nimport org.apache.hadoop.fs.Path;\n\
+  import org.apache.hadoop.io.LongWritable;\nimport org.apache.hadoop.io.Text;\nimport\
+  \ org.apache.hadoop.mapreduce.Job;\nimport org.apache.hadoop.mapreduce.Mapper;\n\
+  import org.apache.hadoop.mapreduce.Reducer;\nimport org.apache.hadoop.mapreduce.lib.input.FileInputFormat;\n\
+  import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;\nimport org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;\n\
+  import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;\n/**\n*\n*/\n/**\n\
+  * @author SayanM\n*\n*/\npublic class MainBDAS {\npublic static class MapperBDAS\
+  \ extends Mapper {\nprotected void map(LongWritable key, Text value, Context context)\n\
+  throws IOException, InterruptedException {\nString classname = context.getConfiguration().get(\"\
+  classname\");\ntry {\nRootBDAS instance = (RootBDAS) Class.forName(classname).getConstructor().newInstance();\n\
+  String line = value.toString();\nHashMap> result = instance.mapper_task(line);\n\
+  for(String k : result.keySet())\n{\nfor(String v : result.get(k))\n{\ncontext.write(new\
+  \ Text(k), new Text(v));\n}\n}\n} catch (Exception e) {\n// TODO Auto-generated\
+  \ catch block\ne.printStackTrace();\n}\n}\n}\npublic static class ReducerBDAS extendsReducer\
+  \ {\nprotected void reduce(Text key, Iterable values,\nContext context) throws IOException,\
+  \ InterruptedException {\nString classname = context.getConfiguration().get(\"classname\"\
+  );\ntry {\nRootBDAS instance = (RootBDAS) Class.forName(classname).getConstructor().newInstance();\n\
+  ArrayList vals = new ArrayList();\nfor(Text v : values)\n{\nvals.add(v.toString());\n\
+  }\nHashMap> result = instance.reducer_task(key.toString(), vals);\nfor(String k\
+  \ : result.keySet())\n{\nfor(String v : result.get(k))\n{\ncontext.write(new Text(k),\
+  \ new Text(v));\n}\n}\n} catch (Exception e) {\n// TODO Auto-generated catch block\n\
+  e.printStackTrace();\n}\n}\n}\npublic static void main(String[] args) throws Exception\
+  \ {\n// TODO Auto-generated method stub\nString classname = Utility.getClassName(Utility.configpath);\n\
+  Configuration con = new Configuration();\ncon.set(\"classname\", classname);\nJob\
+  \ job = new Job(con);\njob.setJarByClass(MainBDAS.class);\njob.setJobName(\"MapReduceBDAS\"\
+  );\njob.setOutputKeyClass(Text.class);\njob.setOutputValueClass(Text.class);\njob.setInputFormatClass(TextInputFormat.class);\n\
+  job.setOutputFormatClass(TextOutputFormat.class);\nFileInputFormat.setInputPaths(job,\
+  \ new Path(args[0]));\nFileOutputFormat.setOutputPath(job, new Path(args[1]));\n\
+  job.setMapperClass(MapperBDAS.class);\njob.setReducerClass(ReducerBDAS.class);\n\
+  System.out.println(job.waitForCompletion(true));\n}\n}\n```\n\n要测试该示例，你可以使用这个单元测试类：\n\
+  \n```java\nimport static org.junit.Assert.*;\nimport java.util.ArrayList;\nimport\
+  \ java.util.HashMap;\nimport org.junit.Test;\npublic class testBDAS {\n@Test\npublic\
+  \ void testMapper() throws Exception{\nString classname = Utility.getClassName(Utility.testconfigpath);\n\
+  RootBDAS instance = (RootBDAS) Class.forName(classname).getConstructor().newInstance();\n\
+  String line = Utility.getMapperInput(Utility.testconfigpath);\nHashMap> actualresult\
+  \ = instance.mapper_task(line);\nHashMap> expectedresult = Utility.getMapOutput(Utility.testconfigpath);\n\
+  for(String key : actualresult.keySet())\n{\nboolean haskey = expectedresult.containsKey(key);\n\
+  assertEquals(true, haskey);\nArrayList actvals = actualresult.get(key);\nfor(String\
+  \ v : actvals)\n{\nboolean hasval = expectedresult.get(key).contains(v);\nassertEquals(true,\
+  \ hasval);\n}\n}\n}\n@Test\npublic void testReducer(){\nfail();\n}\n}\n```\n\n最后，这里是接口：\n\
+  \n```java\nimport java.util.ArrayList;\nimport java.util.HashMap;\npublic interface\
+  \ ICombiner {\nHashMap>  combiner_task(String key, ArrayList values);\n}\npublic\
+  \ interface IPartitioner {\npublic int  partitioner_task(String line);\n}\n```\n\
+  \n## HDFS 文件系统\n\n除了 MapReduce，HDFS 是 Hadoop 框架中的第二个组件。它旨在分布式环境中，使用通用的低成本硬件来处理大数据。HDFS\
+  \ 建立在 Unix POSIX 文件系统之上，并做了一些修改，其目标是处理流式数据。\n\nHadoop 集群由两种类型的主机组成：名称节点和数据节点。名称节点存储元数据，控制执行，并充当集群的主节点。数据节点执行实际工作；它充当从节点，执行名称节点发送的指令。\n\
+  \n## MapReduce 设计模式\n\nMapReduce 是一种用于处理分布在数百台计算机上的数据的原型。在 MapReduce 编程中有一些常见的设计模式。\n\
+  \n### 汇总模式\n\n简而言之，reducer 为每个键创建汇总（见图 7-2）。如果你想对数据进行排序或用于其他目的，可以使用该实践。单词计数是汇总器模式的一个例子。此模式可用于查找数据的最小值、最大值和计数，或查找平均值、中位数和标准差。\n\
+  \n![](img/458833_2_En_7_Fig2_HTML.png)\n\n一个流程图说明了 mapper、partitioner 和 reducer\
+  \ 如何通过键、汇总字段、分组和汇总连接起来。\n\n图 7-2\n\n汇总模式的详细信息\n\n### 过滤模式\n\n在 MapReduce 中，过滤是以分而治之的方式完成的（图\
+  \ 7-3）。每个 mapper 任务过滤一个数据子集，reducer 聚合过滤后的子集并生成最终输出。生成前 N 条记录、搜索数据和采样数据是过滤模式的常见用例。\n\
+  \n![](img/458833_2_En_7_Fig3_HTML.png)\n\n一个流程图说明了四个输入分片如何通过过滤 mapper 连接到它们各自的输出分片。\n\
+  \n图 7-3\n\n过滤模式的详细信息\n\n### 连接模式\n\n在 MapReduce 中，连接（图 7-4）可以在 map 端或 reduce 端完成。对于\
+  \ map 端，要连接的数据集应存在于同一个集群中；否则，需要使用 reduce 端连接。连接可以是外连接、内连接或反连接。\n\n![](img/458833_2_En_7_Fig4_HTML.jpg)\n\
+  \n一个流程图说明了 mapper 1 和 mapper 2 如何连接到一个共同的 reducer，以预测键以及值 1 和值 2 的输出。\n\n图 7-4\n\
+  \n连接模式的详细信息\n\n以下代码是 reducer 端连接的示例：\n\n\n\n```java\npackage MapreduceJoin;\nimport\
+  \ java.io.IOException;\nimport java.util.ArrayList;\nimport java.util.Iterator;\n\
+  import org.apache.hadoop.fs.Path;\nimport org.apache.hadoop.io.LongWritable;\nimport\
+  \ org.apache.hadoop.io.Text;\nimport org.apache.hadoop.mapred.JobConf;\nimport org.apache.hadoop.mapred.MapReduceBase;\n\
+  import org.apache.hadoop.mapred.OutputCollector;\nimport org.apache.hadoop.mapred.Reporter;\n\
+  import org.apache.hadoop.mapred.lib.MultipleInputs;\nimport org.apache.hadoop.mapreduce.Job;\n\
+  import org.apache.hadoop.mapred.Mapper;\nimport org.apache.hadoop.mapred.Reducer;\n\
+  import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;\nimport org.apache.hadoop.mapred.TextInputFormat;\n\
+  @SuppressWarnings(\"deprecation\")\npublic class MapreduceJoin {\n////////////////////////////////////////////////////////\n\
+  @SuppressWarnings(\"deprecation\")\npublic static class JoinReducer extends MapReduceBase\
+  \ implements Reducer\n{\npublic void reduce(Text key, Iterator values, OutputCollector\
+  \ output, Reporter reporter) throws IOException\n{\nArrayList translist = new ArrayList();\n\
+  String secondvalue = \"\";\nwhile (values.hasNext())\n{\nString currValue = values.next().toString().trim();\n\
+  if(currValue.contains(\"trans:\")){\nString[] temp = currValue.split(\"trans:\"\
+  );\nif(temp.length > 1)\ntranslist.add(temp[1]);\n}\nif(currValue.contains(\"sec:\"\
+  ))\n{\nString[] temp = currValue.split(\"sec:\");\nif(temp.length > 1)\nsecondvalue\
+  \ = temp[1];\n}\n}\nfor(String trans : translist)\n{\noutput.collect(key, new Text(trans\
+  \ +'\\t' + secondvalue));\n}\n}\n}\n////////////////////////////////////////////////////////\n\
+  @SuppressWarnings(\"deprecation\")\npublic static class TransactionMapper extends\
+  \ MapReduceBase implements Mapper\n{\nint index1 = 0;\npublic void configure(JobConf\
+  \ job) {\nindex1 = Integer.parseInt(job.get(\"index1\"));\n}\npublic void map(LongWritable\
+  \ key, Text value, OutputCollector output, Reporter reporter) throws IOException\n\
+  {\nString line = value.toString().trim();\nif(line==\"\") return;\nString splitarray[]\
+  \ = line.split(\"\\t\");\nString id = splitarray[index1].trim();\nString ids = \"\
+  trans:\" + line;\noutput.collect(new Text(id), new Text(ids));\n}\n}\n////////////////////////////////////////////////////////\n\
+  @SuppressWarnings(\"deprecation\")\npublic static class SecondaryMapper extends\
+  \ MapReduceBase implements Mapper\n{\nint index2 = 0;\npublic void configure(JobConf\
+  \ job) {\nindex2 = Integer.parseInt(job.get(\"index2\"));\n}\npublic void map(LongWritable\
+  \ key, Text value, OutputCollector output, Reporter reporter) throws IOException\n\
+  {\nString line = value.toString().trim();\nif(line==\"\") return;\nString splitarray[]\
+  \ = line.split(\"\\t\");\nString id = splitarray[index2].trim();\nString ids = \"\
+  sec:\" + line;\noutput.collect(new Text(id), new Text(ids));\n}\n}\n////////////////////////////////////////////////////////////\n\
+  @SuppressWarnings({ \"deprecation\", \"rawtypes\", \"unchecked\" })\npublic static\
+  \ void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException\
+  \ {\n// TODO Auto-generated method stub\nJobConf conf = new JobConf();\nconf.set(\"\
+  index1\", args[3]);\nconf.set(\"index2\", args[4]);\nconf.setReducerClass(JoinReducer.class);\n\
+  MultipleInputs.addInputPath(conf, new Path(args[0]), TextInputFormat.class, (Class)\
+  \ TransactionMapper.class);\nMultipleInputs.addInputPath(conf, new Path(args[1]),\
+  \ TextInputFormat.class, (Class) SecondaryMapper.class);\nJob job = new Job(conf);\n\
+  job.setJarByClass(MapreduceJoin.class);\njob.setJobName(\"MapReduceJoin\");\njob.setOutputKeyClass(Text.class);\n\
+  job.setOutputValueClass(Text.class);\nFileOutputFormat.setOutputPath(job, new Path(args[2]));\n\
+  System.out.println(job.waitForCompletion(true));\n}\n}\n```\n\n## 关于函数式编程的说明\n\n\
+  `MapReduce` 是函数式编程。函数式编程是一种所有变量都不可变的编程方式，这使得并行化变得容易，并避免了竞态条件。普通的 Python 也支持函数式编程。\n\
+  \n以下是一个示例：\n\n```python\nemployees = [{\n'name': 'Jane',\n'salary': 90000,\n'job_title':\
+  \ 'developer'\n}, {\n'name': 'Bill',\n'salary': 50000,\n'job_title': 'writer'\n\
+  }, {\n'name': 'Kathy',\n'salary': 120000,\n'job_title': 'executive'\n}, {\n'name':\
+  \ 'Anna',\n'salary': 100000,\n'job_title': 'developer'\n}, {\n'name': 'Dennis',\n\
+  'salary': 95000,\n'job_title': 'developer'\n}, {\n'name': 'Albert',\n'salary': 70000,\n\
+  'job_title': 'marketing specialist'\n}]\n#计算开发人员的平均薪资\ndevelopers = mean(map( lambda\
+  \ e: e.salary if e.job_title =='developer'))\n```\n\n\n\n## Spark\n\n继 Hadoop 之后，Spark\
+  \ 是大数据技术的下一次革命性演进。Spark 的主要优势在于它为整个大数据技术栈提供了统一接口。过去，如果你需要类似 SQL 的大数据接口，你会使用 Hive；如果需要实时数据处理，你会使用\
+  \ Storm；如果想构建机器学习模型，你会使用 Mahout。而 Spark 将所有功能整合到一个框架之下。此外，它支持大数据的内存计算，这使得处理速度非常快。图\
+  \ 7-5 描述了 Spark 的所有组件。\n\n![](img/458833_2_En_7_Fig5_HTML.jpg)\n\n一个框图列出了 Spark\
+  \ Core 的组件，包括：Spark SQL 结构化数据、Spark Streaming 实时处理、MLib 机器学习、GraphX、调度器、YARN 和 Mesos。\n\
+  \n**图 7-5** Spark 的组件\n\n`Spark Core` 是 Spark 的基础组件。它可以运行在 Hadoop 之上，也可以独立运行。它将数据集抽象为弹性分布式数据集（RDD）。RDD\
+  \ 是一个只读对象的集合。由于它是只读的，因此在与多个并行操作共享时不会出现任何同步问题。对 RDD 的操作是惰性的。RDD 上的操作分为两种类型：转换（transformation）和动作（action）。在转换中，数据集上不会执行任何操作。Spark\
+  \ 仅将操作序列存储为一个称为*血统（lineage）*的有向无环图。当调用动作时，才会执行实际计算。首次执行后，结果会缓存在内存中。因此，当调用新的执行时，Spark\
+  \ 会遍历血统图，最大限度地重用之前的计算结果，从而使新操作的计算量降至最低。这使得数据处理速度非常快，并且也使数据具有容错性。如果任何节点发生故障，Spark\
+  \ 会查看该节点数据的血统图，并轻松地重新生成它。\n\nHadoop 框架的一个局限性是它在并行计算中没有消息传递接口。但有许多用例需要并行作业之间相互通信。Spark\
+  \ 通过使用两种共享变量来实现这一点：广播变量（broadcast variable）和累加器（accumulator）。当一个作业需要向所有其他作业发送消息时，该作业使用广播变量；而当多个作业想要将结果聚合到一个地方时，它们使用累加器。RDD\
+  \ 将其数据集分割成称为*分区（partition）*的单元。Spark 提供了一个接口来指定数据的分区，这对于未来的操作（如 `join` 或 `find`）非常有效。用户可以在\
+  \ Spark 中指定分区的存储类型。Spark 提供了 Python、Java 和 Scala 的编程接口。以下是在 Spark 中实现单词计数程序的示例代码：\n\
+  \n```\nval conf = new SparkConf().setAppName(\"wiki_test\") // 创建一个 Spark 配置对象\n\
+  val sc = new SparkContext(conf) // 创建一个 Spark 上下文\nval data = sc.textFile(\"/path/to/somedir\"\
+  ) // 从 \"somedir\" 读取文件到 RDD 中，RDD 包含 (文件名, 内容) 对。\nval tokens = data.flatMap(_.split(\"\
+  \ \")) // 将每个文件拆分为一个 token（单词）列表。\nval wordFreq = tokens.map((_, 1)).reduceByKey(_\
+  \ + _) // 为每个 token 添加计数 1，然后按单词类型求和。\nwordFreq.sortBy(s => -s._2).map(x => (x._2,\
+  \ x._1)).top(10) // 获取前 10 个单词。交换单词和计数以便按计数排序。\n```\n\n在 `Spark Core` 之上，Spark 提供了以下功能：\n\
+  \n*   Spark SQL，通过命令行或数据库连接器接口提供 SQL 接口。它还为 Spark 数据帧对象提供了 SQL 接口。\n*   Spark Streaming，使您能够实时处理流式数据。\n\
+  *   MLib，一个机器学习库，用于在 Spark 数据上构建分析模型。\n*   GraphX，一个分布式图处理框架。\n\n## PySpark\n\n\
+  PySpark 是 Apache Spark 的 Python 接口。使用简单的 Python API，我们可以编写 Spark 应用程序。Spark 的所有主要特性，即\
+  \ Spark SQL、MLib 和数据帧，都受 PySpark 支持。以下是安装步骤：\n\n1.  首先，我们需要 Java 运行时环境（JRE）来运行 Spark。建议从以下链接安装\
+  \ JRE：[`https://adoptium.net/temurin/releases/?version=8`](https://adoptium.net/temurin/releases/%253Fversion%253D8)。此外，您也可以从其他发行版安装\
+  \ JRE。\n\n    安装过程会自动创建 `JAVA_HOME`。如果没有，我们需要将 `JAVA_HOME` 设置为系统变量；其值应为 Java 安装文件夹的位置，例如\
+  \ `JAVA_HOME=C:\\Program Files\\Eclipse Adoptium\\jdk-8.0.345.1-hotspot\\`。\n\n\
+  2.  然后，我们需要使用命令 `pip install pyspark` 安装 PySpark。\n\n    为此，我们需要安装 Python 3.7 或更高版本。之后，我们需要将\
+  \ `env PYSPARK_PYTHON` 设置为 Python 的位置。示例如下：`C:\\Users\\...\\Programs\\Python\\Python39\\\
+  python.exe`。\n\n3.  此外，通过使用 `pip install pyarrow` 安装 PyArrow，以便在 PySpark 中使用 Pandas\
+  \ API。\n\n现在，我们可以开始用 PySpark 编写代码了。CSV 文件与我们之前使用的相同。\n\n```\nfrom pyspark.sql import\
+  \ SparkSession\nfrom datetime import datetime, date\nimport pandas as pd\nfrom pyspark.sql\
+  \ import Row\nimport pyspark.pandas as ps\nimport numpy as np\n#### 创建 Spark 会话\n\
+  spark = SparkSession.builder.getOrCreate()\nprint(spark)\n#### 创建序列\ns = ps.Series([11,\
+  \ np.nan, 51, 16, 82])\nprint(s)\n#### 创建数据帧\npandas_df = pd.DataFrame({\n'C1':\
+  \ [11, 22, 31],\n'C2': [12., 13., 14.],\n'C3': ['text1', 'text2', 'text3'],\n'C4':\
+  \ [date(2010, 1, 1), date(2011, 2, 1), date (2012, 3, 1)]\n})\ndf = spark.createDataFrame(pandas_df)\n\
+  df.show()\ndf.printSchema()\n#### 使用 Spark 读取 CSV 文件\ndf = spark.read.csv ('book\\\
+  \\ch4\\\\CC_GENERAL.csv', header=True)\ndf.show()\npsdf = df.pandas_api()\nprint(psdf.describe())\n\
+  ```\n\n\n\n## 可更新机器学习与 Spark 内存模型\n\n在本节中，我们将探讨一个新的机器学习主题：如何开发一个可更新的机器学习模型，这是模型实现可扩展性的基本要求。\n\
+  \n在机器学习中训练模型时，我们是从零开始用数据训练模型，这意味着之前训练迭代中的所有信息都会被替换掉。例如，如果我们用某月第一周的数据训练模型，它将基于第一周的数据进行预测；如果用第二周的数据训练同一个模型对象，它将基于第二周的数据进行预测。模型开始仅根据该月第二周的数据进行预测，其中没有留下第一周数据的痕迹。然而，在现实世界中，有许多场景要求模型在训练后能基于第一周和第二周的数据进行预测，这意味着每次训练迭代都应更新模型，而不是抹去之前的训练信息。\n\
+  \n当模型是 `X` 的函数，且对于任意两个数据集 `N1` 和 `N2` 满足以下条件时，这种模型是可行的：\n\n`X(N1) + X(N2) = X(N1+N2)`\n\
+  \n这类函数的例子包括 `count`、`max`、`min` 和 `sum`。任何基于概率的模型都可以分解为 `sum` 和 `count`，从而转化为可更新模型。在我们的应用中，贝叶斯分类器被用作模型，接下来的\
+  \ Spark 代码是我们对该分类器的自主实现。\n\n该算法的目标是确定在特定特征值下观察到某个 `节点（视频或内容）` 的条件概率。\n\n假设我们正在计算节点\
+  \ `10033207` 的得分，其特征标识符（设备 ID）为 `49`（你可以根据实际情况选择任意设备 ID）。\n\n- 特征计数 = 该设备 ID（`49`）出现的记录数\n\
+  - 条件计数 = `is_completed` 等于 `1`、`identifier` 等于 `49` 且 `node` 等于 `10033207` 的记录数\n\
+  \n条件计数与特征计数的比值将代表实际概率，但我们在此阶段不进行除法运算，因为这样模型将无法更新。\n\n在以下代码的每次执行中，会发生以下步骤：\n\n1.\
+  \ 创建一个用户自定义函数，将 IP 地址转换为地理位置。\n2. 从配置文件中读取目标频道的名称。\n3. 在数据框中加载应用服务器日志中的行，但排除包含 `newlog`\
+  \ 的行。\n4. 筛选出包含频道名称的日志行。\n5. 从配置文件中读取重要的列名，并从数据框中选择这些列。\n6. 连接到 MySQL，并从 `threshold`\
+  \ 表中读取阈值时间戳。\n7. 在 MySQL 中，筛选数据框中时间戳大于阈值的列，从选中的日志行中获取最大时间戳，并将其设置为下一次迭代的新阈值。\n8.\
+  \ 被点击的内容或节点 ID 随后被保存到数据库中。\n9. 将热门内容或节点存储到数据库中。\n10. 每一行包含用户的下一个观看节点，这是通过自连接用户的上一个观看节点获得的。\n\
+  11. 然后计算观看时间与视频时长的比值作为得分。\n12. 如果得分大于配置中定义的频道阈值，则标记为 `1`；否则标记为 `0`。\n13. 然后，如第 3\
+  \ 章所述，以计数的形式计算用户观看时长超过阈值的视频的条件概率。\n\n\n\n```python\nfrom pyspark.sql import SQLContext\n\
+  from pyspark import SparkConf, SparkContext\nfrom pyspark.sql.functions import col\n\
+  import pyspark.sql.functions as F\nfrom pyspark.sql.functions import when\nfrom\
+  \ pyspark.sql.functions import lit\nfrom pyspark.sql.functions import trim\nfrom\
+  \ pyspark.sql.functions import udf\nfrom pyspark.sql.types import *\nimport pyspark.sql\n\
+  import GeoIP\n\ndef ip_to_geo(ip):\n    gi = GeoIP.open(\"/home/hadoop/GeoLiteCity.dat\"\
+  , GeoIP.GEOIP_STANDARD)\n    gir = gi.record_by_name(ip)\n    del gi\n    if gir\
+  \ is not None:\n        if gir['city'] is None:\n            gir['city']=' '\n \
+  \       if gir['region_name'] is None:\n            gir['region_name']=' '\n   \
+  \     if gir['country_name'] is None:\n            gir['country_name']=' '\n   \
+  \     return gir['city'] + ',' + gir['region_name'] + ',' +  gir['country_name']\n\
+  \    else:\n        return \" , , \"\n\ngeo_udf = udf(ip_to_geo,StringType())\n\
+  sc = SparkContext(appName=\"BuildModelContent\")\nsqlContext = SQLContext(sc)\n\n\
+  channel_config = sqlContext.read.json('/tmp/config_channels.json')\nchannels_list\
+  \ = channel_config.select(\"channels\").collect()\nchannels = [(row.channels) for\
+  \ row in channels_list]\n\nlines = sc.textFile(\"/tmp/log2.txt\")\nrows = lines.filter(lambda\
+  \ line: 'newlog' not in line)\n\nconfig = sqlContext.read.json('/tmp/config.json',\
+  \ multiLine=True)\nlim = config.select('limit').collect()[0]['limit']\n\nrows =\
+  \ rows.filter(lambda row: any(c in row for c in channels))\nrdd = rows.map(lambda\
+  \ x: x.split('|'))\n#r_f = rdd.first()\ndf_log = rdd.toDF()     #filter(lambda row:\
+  \ len(row) == len(r_f)).toDF()\nrdd.unpersist()\nsqlContext.clearCache()\ndf_log.show()\n\
+  \nparameter_config = sqlContext.read.json('/tmp/config_parameters.json')\nparameter_config.show()\n\
+  column_index_list = parameter_config.select(\"Index\").collect()\ncolumn_name_list\
+  \ = parameter_config.select(\"Name\").collect()\ncolumn_index =  [col(row.Index)\
+  \ for row in column_index_list]\ncolumn_name =  [(row.Name) for row in column_name_list]\n\
+  print column_index\nprint column_name\n\ndf_log_reduced = df_log.select(column_index)\n\
+  df_log.unpersist()\nsqlContext.clearCache()\n\noldColumns = df_log_reduced.schema.names\n\
+  newColumns = column_name\ndf_log_reduced = reduce(lambda df_log_reduced, idx: df_log_reduced.withColumnRenamed(oldColumns[idx],\
+  \ newColumns[idx]), xrange(len(oldColumns)), df_log_reduced)\ndf_log_reduced.show()\n\
+  \ndf_log_reduced = df_log_reduced.filter(df_log_reduced.timestamp.isNotNull())\n\
+  df_log_reduced.show()\nprint df_log_reduced.count()\n\ndf_log_reduced = df_log_reduced.withColumn(\"\
+  timestamp\",trim(col(\"timestamp\")))\ndf_log_reduced = df_log_reduced.filter(df_log_reduced.timestamp.isNotNull())\n\
+  df_log_reduced = df_log_reduced.withColumn(\"timestamp\", df_log_reduced[\"timestamp\"\
+  ].cast(LongType()))\ndf_log_reduced.show()\nprint df_log_reduced.count()\n\ndb_config\
+  \ = sqlContext.read.format('csv').options(delimiter=' ').load(\"/tmp/dbconfig.txt\"\
+  )\ndb_config.show()\nhostname = db_config.where(db_config._c0 == \"hostname\").select(\"\
+  _c1\").rdd.flatMap(list).first()\nusername = db_config.where(db_config._c0 == \"\
+  username\").select(\"_c1\").rdd.flatMap(list).first()\npasswd = db_config.where(db_config._c0\
+  \ == \"passwd\").select(\"_c1\").rdd.flatMap(list).first()\ndbname = db_config.where(db_config._c0\
+  \ == \"dbname\").select(\"_c1\").rdd.flatMap(list).first()\n\ntime_threshold = sqlContext.read.format('jdbc').options(url=\"\
+  jdbc:mysql://\"+ hostname + '/' + dbname,driver='com.mysql.jdbc.Driver',dbtable='threshold',user=username,password=passwd).load()\n\
+  time_threshold = time_threshold.withColumn(\"threshold\", time_threshold[\"threshold\"\
+  ].cast(LongType()))\nthreshold = time_threshold.where(time_threshold.job == \"BuildModelContent\"\
+  ).select(\"threshold\").rdd.flatMap(list).first()\nprint threshold\nprint lim\n\n\
+  df_log_reduced = df_log_reduced[df_log_reduced.timestamp > threshold].limit(lim)\n\
+  df_log_reduced.show()\nprint df_log_reduced.count()\n\nstatus = \"Regular job is\
+  \ continued\"\nif df_log_reduced.count()  row.threshold) ,F.lit(str(1))).otherwise(F.lit(str(0))))\n\
+  df_log = df_log.drop('watch_time')\ndf_log = df_log.drop(\"Duration\")\ndf_log =\
+  \ df_log.drop(\"score\")\ndf_log = df_log.withColumn(\"ip\",geo_udf(df_log[\"ip\"\
+  ]))\n\nsplit_col = pyspark.sql.functions.split(df_log['ip'], ',')\ndf_log = df_log.withColumn('city',\
+  \ split_col.getItem(0))\ndf_log = df_log.withColumn('region', split_col.getItem(1))\n\
+  df_log = df_log.withColumn('country', split_col.getItem(2))\ndf_log = df_log.drop('ip')\n\
+  df_log.show()\nsqlContext.clearCache()\n\nfor co in df_log.columns:\n    if str(co)\
+  \ != 'is_watched' and str(co) != 'Node':\n        feature_prob = df_log.groupby(co).count()\n\
+  \        feature_prob = feature_prob.withColumn('featureCount', col('count'))\n\
+  \        feature_prob.show()\n        cond_prob = df_log.groupby(['is_watched',\
+  \ str(co),'Node']).count()\n        cond_prob = cond_prob.withColumn('jointCount',\
+  \ col('count'))\n        cond_prob_joined = cond_prob.join(feature_prob,str(co))\n\
+  \        cond_prob.unpersist()\n        feature_prob.unpersist()\n        sqlContext.clearCache()\n\
+  \        cond_prob = cond_prob_joined[cond_prob_joined.is_watched != str(0)]\n \
+  \       cond_prob_joined.unpersist()\n        sqlContext.clearCache()\n        cond_prob\
+  \ = cond_prob.drop('is_watched')\n        cond_prob = cond_prob.withColumn('featurevalue',\
+  \ col(str(co)))\n        cond_prob = cond_prob.drop(str(co))\n        cond_prob\
+  \ = cond_prob.drop('count')\n        cond_prob = cond_prob.withColumn('featurename',\
+  \ lit(str(co)))\n        cond_prob.show()\n        cond_prob.write.format('jdbc').options(url=\"\
+  jdbc:mysql://\"+ hostname + '/' + dbname,driver='com.mysql.jdbc.Driver',dbtable='score_rec',user=username,password=passwd).mode('append').save()\n\
+  \        cond_prob.unpersist()\n        sqlContext.clearCache()\n\ndf_log.unpersist()\n\
+  sqlContext.clearCache()\nsc.stop()\n\nf = open('/home/hadoop/status.txt','w')\n\
+  f.write(status)\nf.close()\n```\n\n以下是 HDFS 中的配置文件：\n\n```\nConfig_channel.jsoin\n\
+  {\"channels\" :  \"moviesbyfawesome\"}\n{\"channels\" : \"gousa\"}\nConfig_drop.json\n\
+  {\"drop\" : \"watch_time\"}\n{\"drop\" : \"ip\"}\n{\"drop\" : \"timestamp\"}\nConfig_parameters.json\n\
+  {\"Name\": \"Identifier\", \"Index\" : \"_1\"}\n{\"Name\": \"NextNode\", \"Index\"\
+  \ : \"_4\"}\n{\"Name\": \"timestamp\", \"Index\" : \"_6\"}\n{\"Name\": \"Node\"\
+  , \"Index\" : \"_20\"}\n{\"Name\": \"ContentType\", \"Index\" : \"_21\"}\n{\"Name\"\
+  : \"Author\", \"Index\" : \"_24\"}\n{\"Name\": \"Platform-Channelname\", \"Index\"\
+  \ : \"_7\"}\n{\"Name\": \"ip\", \"Index\" : \"_9\"}\n{\"Name\": \"watch_time\",\
+  \ \"Index\" : \"_26\"}\n{\"Name\": \"Duration\", \"Index\" : \"_25\"}\n{\"Name\"\
+  : \"channel_id\", \"Index\" : \"_8\"}\nConfig_threshold.json\n{\"channel\" : \"\
+  all\", \"threshold\" : 0.5 }\n{\"channel\" : \"236\", \"threshold\" : 0.2}\n{\"\
+  channel\" : \"922\", \"threshold\" : 0.6}\nDbconfig.txt\nhostname 10.10.10.10\n\
+  username hadoop\npasswd sayan123\ndbname model\n```\n\n以下命令将运行代码：\n\n```\nspark-submit\
+  \ --packages mysql:mysql-connector-java:5.1.39 build_model_first.py --driver-memory\
+  \ 5g --executor-memory 10g --spark.driver.maxResultSize 5g  --spark.executor.extraJavaOptions\
+  \ -XX:+UseG1GC --spark.python.worker.memory 5g --spark.shuffle.memoryFraction .5\
+  \ --packages com.databricks:spark-csv_2.10:1.1.0\n```\n\n现在我们将讨论关于 Spark 内存模型的一些关键点。Spark\
+  \ 在内存中执行操作。通过命令行参数，我们可以更改执行内存的默认大小。Spark 可以处理大于其 RAM 的文件，但必须使用磁盘内存来完成。例如，输入的日志文件大于\
+  \ Spark 内存大小，但程序成功地从其中过滤出了重要行。然而，有一个例外。如果你决定执行 join 操作，Spark 需要两个数据帧的内存。我们在这里使用\
+  \ join，并通过 `unpersist` 函数手动调用 Spark 垃圾回收器，以使代码尽可能内存优化。但这会降低代码速度。如果去掉这段代码，程序运行会更快，但会消耗更多内存。\n\
+  \n\n\n## 云端分析\n\n与其他许多领域一样，分析领域也正受到云计算的冲击。这种影响体现在两个方面。大型云服务商持续推出机器学习 API，因此开发者无需关注底层算法，就能轻松编写机器学习应用。例如，谷歌提供了计算机视觉、自然语言处理、语音处理等众多\
+  \ API。用户只需编写两三行代码，就能分析人脸图像或语音的情感倾向。\n\n云计算的第二个方面体现在数据工程领域。在第 1 章中，我们举例说明了如何使用`Falcon`将模型封装为高性能\
+  \ REST API。现在，如果有一百万用户要使用该 API，且负载波动较大，那么自动扩缩容就成为该应用的必备功能。若将应用部署在 Google App Engine\
+  \ 或 AWS Lambda 上，只需 15 分钟即可实现自动扩缩容。应用实现自动扩缩容后，就需要考虑数据库问题。亚马逊的`DynamoDB`和谷歌的`Cloud\
+  \ Datastore`都是云端自动扩缩容的数据库。使用其中任何一种，你的应用都将具备高性能和自动扩缩容能力。但由于全球用户都会访问，地理距离会造成额外延迟，对性能产生负面影响。你还必须确保应用始终可用。此外，你需要将应用部署在三个区域：欧洲、亚洲和美国（如果预算允许，可以选择更多区域）。如果使用带有地理负载均衡路由规则的弹性负载均衡器，将各区域的流量路由到该区域的\
+  \ App Engine，那么应用就能在全球范围内可用。在地理负载均衡中，你可以为每条规则指定一个辅助 App Engine，这能实现应用的高可用性。当主 App\
+  \ Engine 宕机时，辅助 App Engine 会接管服务。\n\n图 7-6 描述了该系统。\n\n![](img/458833_2_En_7_Fig6_HTML.png)\n\
+  \n流程图列出了弹性负载均衡器。它包含系统实例 1、2 和 3，主区域分别为亚洲、美国和欧洲，辅助区域分别为美国、欧洲和亚洲。\n\n图 7-6\n\n系统架构\n\
+  \n在第 1 章中，我展示了一些将深度学习模型发布为 REST API 的示例代码。以下代码是在云环境中实现相同逻辑的代码，其中其他存储被替换为谷歌数据存储：\n\
+  \n```\n#### 导入库\nimport falcon\nfrom falcon_cors import CORS\nimport json\nimport\
+  \ pygeoip\nimport json\nimport datetime as dt\nimport ipaddress\nimport math\nfrom\
+  \ concurrent.futures import *\nimport numpy as np\nfrom google.cloud import datastore\n\
+  #### logistic 函数\ndef logit(x):\nreturn (np.exp(x) / (1 + np.exp(x)))\ndef is_visible(client_size,\
+  \ ad_position):\ny=height=0\ntry:\nheight  = int(client_size.split(',')[1])\ny =\
+  \ int(ad_position.split(',')[1])\nexcept:\npass\nif y  .65:\npred, prob = pred_big,\
+  \ prob_big\nresp.status = falcon.HTTP_200\nres = math.exp(pred)-1\nif res  0.9:\n\
+  prob = 0.9\nif self.big:\nhigh, low, high_big, low_big = thread.result()\nif howbig\
+  \ > 0.6:\nhigh = high_big\nlow = low_big\nelse:\nhigh, low = thread.result()\nmultiplier\
+  \ = low + (high -low)*prob\nres = multiplier*res\nresp.body = str(res)\n#except\
+  \ Exception,e:\n#### print(str(e))\n#### resp.status = falcon.HTTP_200\n#### resp.body\
+  \ = str(\"0.1\")\ncors = CORS(allow_all_origins=True,allow_all_methods=True,allow_all_headers=True)\n\
+  wsgi_app = api = falcon.API(middleware=[cors.middleware])\nf = open('publishers2.list_test')\n\
+  for line in f:\nif \"#\" not in line:\nfields = line.strip().split('\\t')\ndomain\
+  \ = fields[0].strip()\nbig = (fields[1].strip() == '1')\np = Predictor(domain, big)\n\
+  url = '/predict/' + domain\napi.add_route(url, p)\nf.close()\n```\n\n你可以使用以下命令将此应用部署到\
+  \ Google App Engine：\n\n```\ngcloud app deploy --prject   --version \n```\n\n函数的流程如下：\n\
+  \n1. 广告服务器请求进行曝光预测。\n2. 当主线程接收到请求预测器时，它会为每个特征创建一个新线程。\n3. 每个线程通过向数据存储发送并发请求，计算每个特征的`is\
+  \ big`、`floor`、`floor big`、`probability`和`probability big`。如果在数据存储中未找到该特征或值，则返回\
+  \ 0。\n4. 如果`is big`指示为高价值曝光，则使用高分值；否则，使用一般分值。\n5. 预测得分 = 每个特征的得分之和。\n6. 使用从数据存储获取的乘数范围计算最终的预测底价。\n\
+  7. 在响应中将预测的底价值返回给广告服务器。\n\n## 物联网\n\n物联网简单来说就是由嵌入传感器、软件、网络连接和必要电子元件的互联设备组成的网络，这些设备能够收集和交换数据，使其具备响应能力。随着大数据、实时分析框架、移动通信和智能可编程设备等技术的兴起，这一领域正在蓬勃发展。在物联网中，你可以使用本书中介绍的技术在服务器端分析数据；你也可以使用树莓派（一种基于\
+  \ Python 的嵌入式系统）在设备端部署逻辑。\n\n### 数据科学家必备的架构模式\n\n数据并非孤立实体。它必须从某个应用或系统收集数据，然后准确地存储在特定的存储中，再在该模型之上构建模型，最后必须将该模型作为\
+  \ API 提供，以便与其他系统连接。这个 API 有时需要以一定的延迟在全球范围内提供服务。因此，创建一个成功的智能系统需要大量的工程投入。在当今的初创企业环境中，这是一个价值数十亿美元的行业，一个组织无法负担雇佣大量专家来为其产品创造独特功能。在初创企业世界中，数据科学家必须是全栈分析专家。因此，在接下来的章节中，我们将通过虚构人物汤姆的不同场景，来说明任何数据科学家都应了解的几种关键架构模式。\n\
+  \n\n\n### 场景一：烫手山芋反模式\n\n汤姆受聘为一家在线公司的数据科学家，负责开发实时分析产品。因此，第一步是从其组织的应用程序中收集数据。他们使用云来自动扩展存储，并将数据直接从应用程序推送到数据库。在测试环境中，一切似乎都井然有序。为了确保没有数据丢失，他们使用了\
+  \ TCP 连接。然而，当系统上线时，他们没有对主应用程序做任何更改，但它却崩溃了。公司在半小时内遭受了巨大损失，而汤姆也为他实时分析系统的第一步收到了实时反馈：他被解雇了。\n\
+  \n现在的问题是，为什么在没有任何改变的情况下，主应用程序会崩溃。从经典计算机科学的角度来看，这被称为*忙碌消费者问题*。这里，主应用程序是数据的发送方，而数据库是消费者。当消费者忙碌时（这在任何运行大量查询的数据库中都很常见），它很难处理传入的数据。此外，由于\
+  \ TCP 连接保证了数据的送达，发送方会重新发送数据，这导致发送方再次负载，而发送方正是主应用程序。这种情况类似于将烫手山芋从一个人传给另一个人，而接收者反复将烫手山芋送回给发送者。这就是为什么它被称为烫手山芋反模式。图\
+  \ 7-7 直观地解释了这一序列。\n\n![](img/458833_2_En_7_Fig7_HTML.png)\n\n一张图表说明了发送方如何将数据发送给接收方，而接收方又循环地将无法处理的确认信息返回给发送方。\n\
+  \n**图 7-7** 描述烫手山芋反模式的序列图\n\n这种情况包含两个要素。如果发送方和接收方之间传递的数据不是必需的，我们可以使用 UDP 协议，它会丢弃无法送达的数据。这也是为什么\
+  \ UDP 被用于所有网络监控协议（如 SNMP 和 NetFlow）的原因之一。它不需要设备为了监控而负载。然而，如果数据是关键的，例如在金融行业，我们必须在发送方和接收方之间创建一个消息队列。当接收方无法处理数据时，它充当一个缓冲区。如果队列内存已满，数据会丢失，或者负载会转移到发送方。`ZMQ`\
+  \ 代表“零消息队列”，它本质上不过是一个 UDP 套接字。\n\n在云平台中，有许多现成的解决方案；我们在第 2 章中深入探讨了它们。以下 Node.js 代码展示了一个收集器的示例，该收集器使用\
+  \ Rabit-MQ 并将其作为 REST API 暴露给发送方，并使用 Google Big Query 作为接收方。\n\n#### 代码：数据收集模块\n\
+  \n```javascript\nvar https = require(\"https\");\nvar express = require('express');\n\
+  var router = express.Router();\nvar _ = require('underscore');\nvar moment = require('moment-timezone');\n\
+  var RedisSMQ = require('rsmq');\nvar RSMQWorker = require('rsmq-worker');\nvar rsmq_h\
+  \ = new RedisSMQ({host: '127.0.0.1', port: 6379, ns: 'rsmq'});\nrsmq_h.createQueue({qname:\
+  \ 'hadoopqueue'}, function (err, resp) {\nif (err) {\nconsole.log(err.message);\n\
+  }\nif (resp === 1) {\nconsole.log('✔ Message Queue created');\n}\n});\nvar worker_h\
+  \ = new RSMQWorker('hadoopqueue');\nworker_h.on('message', function(data, next,\
+  \ id) {\nconst BigQuery = require('@google-cloud/bigquery');\nconst bigquery = BigQuery({\n\
+  projectId: 'sayantest1979'\n});\nconst dataset = bigquery.dataset('adlog');\nconst\
+  \ table = dataset.table('day1');\nrows = JSON.parse(data);\ntable.insert(rows)\n\
+  .then((insertErrors) => {\nconsole.log('Inserted:');\nrows.forEach((row) => console.log(row));\n\
+  });\nnext();\n});\nworker_h.on('error', function(err, msg) {\nconsole.log('ERROR',\
+  \ err, msg.id);\n});\nworker_h.start();\nrouter.post('/collect', function(req, res,\
+  \ next) {\nres.setHeader('Access-Control-Allow-Origin', '*');\nvar data = req.body,\n\
+  dataArray = [],\nfor (k in data) {\nvar kv = data[k].split('|');\nvar dataObj =\
+  \ {};\nfor (i=0; i < kv.length; i++) {\nvar d = kv[i].split(':');\ndataObj[d[0]]\
+  \ = decodeURIComponent(d[1]);\n}\ndataObj['server_time'] = moment().toDate().valueOf();\n\
+  dataObj['ip'] = require('ipware')().get_ip(req).clientIp;\nvar str = JSON.stringify(dataObj,\
+  \ require('json-decycle').decycle());\ndataArray.push(str);\n}\nvar dataString =\
+  \ dataArray.join(',\\n');\ndataString = \"[ \" + dataString + \" ]\";\nrsmq_h.sendMessage({qname:\
+  \ 'hadoopqueue', message: dataString + '\\n'}, function (err, resp) {\nresp && console.log('Message\
+  \ sent. ID:', resp);\n});\nres.end('OK');\n});\nmodule.exports = router;\n```\n\n\
+  现在，让我们探讨其他重要的架构模式：代理模式和分层模式。\n\n### 场景二：代理与分层模式\n\n汤姆开始在一家新公司工作。由于公司规模很大，没有失业风险。在这种情况下，他不再冒险去收集数据。数据存储在一个\
+  \ MySQL 服务器上。汤姆之前对数据库一无所知。他热衷于学习 MySQL。在他的代码中，他编写了大量的查询语句。数据库由另一个团队拥有，他们的经理喜欢研发。所以每周一，汤姆都会接到电话，通知他数据库从\
+  \ MySQL 换成了 Mongo，随后又从 Mongo 换成了 SQL Server，这要求他修改整个代码。汤姆不再失业，但他每天午夜才能下班回家。\n\n\
+  似乎所有人都同意解决方案是合理地组织代码。然而，理解代理模式和分层模式会很有帮助。在代理模式中，不要在代码中使用原始的 MySQL 或 Mongo 连接，而是使用一个包装类作为代理。使用分层技术，将代码分成多个层，每一层只使用其下一层的方法。在这种情况下，数据库配置应该在最低层，即核心层完成。其上是数据库工具层，包含数据库查询语句。再往上是业务实体层，它使用数据库查询。下面的\
+  \ Python 代码将帮助你更清晰地理解这一点。汤姆现在知道，如果数据库层面有任何变化，他需要检查核心层；如果查询有任何变化，他需要检查数据库工具层；如果业务参与者有任何变化，他需要检查实体层。因此，他的生活现在变得简单了。\n\
+  \n\n\n#### 数据库核心层\n\n```\nimport MySQLdb\n\nclass MysqlDbWrapper(object):\n    connection\
+  \ = None\n    cursor = None\n\n    def __init__(self, configpath):\n        f =\
+  \ open(configpath)\n        config = {}\n        for line in f:\n            fields\
+  \ = line.strip().split(' ')\n            config[fields[0]] = fields[1].strip()\n\
+  \        f.close()\n        self.connection = MySQLdb.connect(host=config['hostname'],\
+  \ user=config['username'], passwd=config['passwd'], db=config['dbname'])\n     \
+  \   self.cursor = self.connection.cursor()\n\n    def close_mysql(self):\n     \
+  \   self.cursor.close()\n        self.connection.close()\n\n    def get_data(self,\
+  \ query):\n        self.cursor.execute(query)\n        return self.cursor.fetchall()\n\
+  \nfrom pymongo import MongoClient\n\nclass MongoDbWrapper(object):\n    collection\
+  \ = None\n    client = None\n    db = None\n\n    def __init__(self, configpath):\n\
+  \        f = open(configpath)\n        mongoconfig = {}\n        for line in f:\n\
+  \            fields = line.strip().split('=')\n            mongoconfig[fields[0]]\
+  \ = fields[1].strip()\n        f.close()\n        self.client = MongoClient('mongodb://'\
+  \ + mongoconfig['usr'] + ':' + mongoconfig['pswd'] + '@' + mongoconfig['host'] +\
+  \ '/' + mongoconfig['db'])\n        self.db = self.client[mongoconfig['db']]\n \
+  \       self.collection = self.db[mongoconfig['collection']]\n\n    def close_mongo(self):\n\
+  \        self.client.close()\n\n    def get_data(self):\n        return self.collection.find({\"\
+  _type\": \"node\", \"status\": 1})\n```\n\n#### 数据库工具层\n\n```\nfrom mongo import\
+  \ MongoDbWrapper\nimport collections\nimport time\n\nclass MongoUtility(object):\n\
+  \    mongo_instance = None\n    res = None\n\n    def __init__(self, configpath):\n\
+  \        self.mongo_instance = MongoDbWrapper(configpath)\n\n    def load_data(self):\n\
+  \        self.res = self.mongo_instance.get_data()\n        # print self.res\n\n\
+  \    def shutdown(self):\n        self.mongo_instance.close_mongo()\n\nfrom mysql\
+  \ import MysqlDbWrapper\n\nclass MysqlUtility(object):\n    mysql_instance = None\n\
+  \n    def __init__(self, configpath):\n        self.mysql_instance = MysqlDbWrapper(configpath)\n\
+  \n    def load_score(self):\n        scores = {}\n        data = self.mysql_instance.get_data(\"\
+  select * from category_score\")\n        for row in data:\n            feature_name\
+  \ = row[1].strip()\n            provider = row[0].strip()\n            feature_value\
+  \ = row[2].strip()\n            score = row[4] / row[3]\n            # print feature_name,\
+  \ feature_value, provider, score\n        return scores\n\n    def shutdown(self):\n\
+  \        self.mysql_instance.close_mysql()\n```\n\n最后一层将是一个推荐系统的抽象，以 JSON 代码形式呈现，如下所示：\n\
+  \n```\n{\n    \"all\": {\n        \"block_categories\": [916105, 1011724, 1011726,\
+  \ 1011727],\n        \"no_of_category\": 8,\n        \"no_of_node\": 40,\n     \
+  \   \"no_of_match\": 2,\n        \"favourite_weight\": 0.5,\n        \"default_category\"\
+  : [10037913, 10037914, 10053952],\n        \"conditional_block_categories\": {\n\
+  \            \"rule\": [\n                {\n                    \"if\": {\n   \
+  \                     \"categories\": [10244361],\n                        \"relation\"\
+  : \"or\"\n                    },\n                    \"then\": {\n            \
+  \            \"categories\": [10244361, 10057506],\n                        \"relation\"\
+  : \"or\",\n                        \"blockOrallow\": false\n                   \
+  \ }\n                }\n            ]\n        },\n        \"category_weightedge\"\
+  : {\n            \"rule\": [\n                {\n                    \"origin\"\
+  : \"Identifier\",\n                    \"weight\": 0.5\n                },\n   \
+  \             {\n                    \"origin\": \"previousnode\",\n           \
+  \         \"weight\": 0.5\n                }\n            ]\n        }\n    },\n\
+  \    \"250\": {}\n}\n```\n\n## 致谢\n\n感谢您阅读本书。我们希望您和我们撰写本书时一样享受阅读的乐趣。我们希望本书能帮助您在机器学习领域留下足迹。我们鼓励您持续在不同的数据集上实践，并为开源社区做出贡献。您随时可以通过出版社与我们联系。再次感谢您，并致以最美好的祝愿！\n\
+  \n\n\n"
+- "# 索引\n\n## A\n\n- `Adam 优化器`\n- `凝聚层次聚类`\n- `分析学`，云方面\n- `自动扩缩容数据库`\n- `计算分数`\n\
+  - `部署`\n- `弹性负载均衡器`\n- `获取分数`\n- `函数`的流程\n- `库`\n- `逻辑函数`\n- `回传给广告服务器`\n- `预测器类`\n\
+  - `系统`\n- `人工神经网络 (ANN)`\n- `自相关`\n- `自相关函数`\n- `自协方差`\n- `自回归 (AR) 模型`\n- `自回归滑动平均\
+  \ (ARMA) 模型`\n- `集成混合`\n- `自回归过程`\n- `Azure Synapsys`\n\n## B\n\n- `反向传播`\n- `篮子交易`\n\
+  - `贝叶斯分类器`\n- `大型云服务提供商`\n- `大数据分析系统 (BDAS)`\n\n## C\n\n- `分类数据`\n- `分类`\n- `云数据库`\n\
+  - `聚类分析`\n- `聚类`\n- `卷积神经网络 (CNN)`\n  - 架构\n  - 卷积滤波器\n  - 全连接 (FC) 层\n  - 神经元\n\
+  \  - 图片分类\n  - 图像序列\n- `相关分析`\n- `相关图`\n- 基于 `CUDA` 的 GPU 平台\n- `曲线拟合方法`\n- `周期变动`\n\
+  \n## D\n\n- `数据库`\n- `数据科学家`\n  - `热土豆反模式`\n  - `繁忙消费者问题`\n  - `云平台`\n  - `数据收集器模块`\n\
+  \  - `图表元素`\n  - `TCP 连接测试环境`\n  - `UDP 代理与分层模式`\n  - `业务实体层`\n  - `数据库核心层`\n  -\
+  \ `JSON 代码`\n  - `Mongo`\n  - `MySQL`\n- `决策树`\n  - `属性`\n  - `随机森林分类器`\n  - `天气`\n\
+  - `辩证学习`\n- `降维`\n  - `相关分析`\n  - `主成分分析`\n  - `调查/因子分析`\n- `距离/相似度度量`\n  - `欧几里得距离`\n\
+  \  - `通用距离属性`\n  - `平方欧几里得距离`\n  - `字符串编辑距离定义`\n  - `莱文斯坦距离`\n  - `尼德曼-翁施算法`\n-\
+  \ `分裂层次聚类`\n- `文档数据库`\n\n## E\n\n- `Elasticsearch (ES)`\n  - `优势`\n  - `连接类`\n \
+  \ - `ConnectionSelector 类`\n  - `特性`\n  - `主机`\n  - `ignore 参数`\n  - `安装命令`\n  -\
+  \ `实例`\n  - `SSL 客户端认证状态`\n  - `Ubuntu`\n- `肘部法则`\n- `封装`\n- `熵`\n- `指数平滑`\n- `提取、转换、加载\
+  \ (ETL)`\n  - `邮件解析过程详情`\n  - `主题爬虫组件`\n  - `爬虫`\n  - `实体/类型`\n  - `IP 地址`\n  -\
+  \ `URL`\n\n## F\n\n- `Falcon`\n- `Flask`\n- `傅里叶变换`\n- `函数式编程`\n\n## G\n\n- `高斯分布`\n\
+  - `地理均衡`\n- `get_score 函数`\n- `Google`\n- `Google Big Query`\n- `梯度下降`\n- `图数据库`\n\
+  - `图形用户界面 (GUI)`\n\n## H\n\n- `Hadoop 框架`\n  - `合并函数`\n  - `子类`\n  - `类图`\n  - `接口`\n\
+  \  - `MainBDAS 类`\n  - `MapReduce 功能`\n  - `RootBDAS 类`\n  - `单元测试类`\n  - `WordCounterBDAS\
+  \ 工具类`\n- `HDFS 文件系统`\n  - `主机`\n  - `MapReduce 编程`，（参见 `MapReduce 编程`）\n  - `分区函数`\n\
+  - `赫布假说`\n- `层次聚类`\n  - `平均连接法`\n  - `自底向上方法`\n  - `全连接法`\n  - `图论方法`\n  - `单连接法`\n\
+  \  - `自顶向下方法`\n  - `类型`\n- `Holt-Winters 模型`\n\n## I\n\n- `图像识别`\n  - `代码`\n  -\
+  \ `最小二乘估计`\n  - `逻辑回归模型文件`\n  - `opencv 库`\n  - `回归用例`\n- `信息增益`\n- `内存数据库`\n- `物联网\
+  \ (IoT)`\n- `投资银行`\n\n## J\n\n- `Java 代码`\n\n## K\n\n- `K 均值聚类`\n  - `斑点画布`\n  -\
+  \ `质心`\n  - `聚类准备`\n  - `输入`\n  - `迭代方法`\n  - `局限性`\n  - `劳埃德算法`\n  - `输出`\n  -\
+  \ `随机斑点`\n  - `分离`\n\n## L\n\n- `逻辑回归`\n\n## M\n\n- `机器学习`\n  - `算法`的目标\n  - `代码执行命令`\n\
+  \  - `配置文件`，`HDFS`\n  - `数据集`\n  - `节点分数`\n  - `Spark`\n  - `训练模型`\n- `MapReduce\
+  \ 编程`\n  - `优势`\n  - `组件定义`\n  - `过滤模式`\n  - `词频`\n  - `连接模式详情`\n  - `函数式编程`\n \
+  \ - `Reducer 端连接`\n  - `汇总模式`\n- `内存数据库`\n- `微服务`\n- `Mongo`\n- `MongoDB`\n  - `创建连接`\n\
+  \  - `数据插入`\n  - `删除`\n  - `更新`\n  - `数据库对象`\n  - `mongoimport 记录`\n- `滑动平均 (MA)\
+  \ 模型`\n- `滑动平均过程`\n- `互信息 (MI)`\n  - `计算`\n  - `分类值到数值`\n  - `相关列`\n  - `CSV 定义`\n\
+  \  - `特征工程`\n  - `数值列`\n  - `销量用途`\n- `MySQL`\n  - `COMMIT 操作`\n  - `数据库连接`\n  -\
+  \ `DELETE 操作`\n  - `INSERT 操作`\n  - `MySQLdb`\n  - `READ 操作`\n  - `ROLL-BACK 操作`\n\
+  \  - `UPDATE 操作`\n\n## N\n\n- `朴素贝叶斯分类器`\n- `自然语言处理 (NLP)`\n- `最近邻分类器`\n- `尼德曼-翁施算法`\n\
+  - `Neo4j`\n  - `Python 驱动`\n  - `neo4j-rest-client`\n- `网络入侵检测模型`\n- `网络监控协议`\n\
+  - `神经网络`\n- `NLTK 包`\n- `范式`\n  - `第一范式 (1NF)`\n  - `键`\n  - `第二范式 (2NF)`\n  - `第三范式\
+  \ (3NF)`\n\n## O\n\n- `面向对象编程 (OOP)`\n  - `回答类`\n  - `命令编译器类`\n  - `input.txt`\n\
+  \  - `观察者类`\n  - `单元测试`\n- `对象关系映射 (ORM)`\n- `对象`\n- `优化方法`\n- `普通最小二乘法 (OLS)`\n\
+  - `过/欠预测`\n\n## P, Q\n\n- `Pandas`\n- `分区函数`\n- `皮尔逊相关系数`\n- `主成分分析`\n  - `维度`，降维\n\
+  \  - `特征向量`\n  - `输入数据文件`\n  - `矩阵`\n  - `膜`，拉伸\n  - `PCA 投影`\n  - `Pyopa`\n  -\
+  \ `PySpark`\n\n## R\n\n- `随机森林分类器`\n- `R 代码`\n- `循环神经网络 (RNN)`\n  - `HMM`\n  - `LSTM`\n\
+  \  - `网络数据包用途`\n- `回归`\n- `强化学习`\n  - `动作`\n  - `TD0`\n  - `TDλ`\n  - `常量`\n  -\
+  \ `CSV 文件`\n  - `数据分类`\n  - `辩证`\n  - `Keras`\n  - `参数`\n  - `同类分数`，类别\n  - `上/下类别用途`\n\
+  - `关系数据库`\n- `弹性分布式数据集 (RDD)`\n\n## S\n\n- `半监督学习`\n- `情感分析`\n- `轮廓分析`\n- `相似度度量`\n\
+  - `奇异值分解`\n- `Solr`\n- `Spark`\n- `Spark 内存模型`\n- `SQLite`\n- `随机过程`\n- `监督学习`\n\
+  - `支持向量机`\n\n## T\n\n- `TensorFlow`\n  - `流失`\n  - `deep_learning_keras_1st_example`\n\
+  \  - `frame_packet_june_14.csv 文件`\n  - `MNIST 数字分类`\n  - `网络架构`\n  - `PCA`\n  -\
+  \ `正则化技术`\n  - `迁移学习`\n  - `可更新模型`\n  - `包装器`\n- `阈值处理`\n  - `二进制表示`\n  - `当前聚类数据矩阵`\n\
+  \  - `K 均值聚类掩码`\n- `时间序列`\n  - `定义`\n  - `异常场景`\n  - `缺失数据`\n  - `乘法季节模型`\n  - `季节性`\n\
+  \  - `指数平滑`\n  - `Holt-Winters 模型`\n  - `去除平稳性`\n  - `自相关`\n  - `自相关函数`\n  - `自协方差`\n\
+  \  - `相关图量`\n  - `变换`\n  - `趋势`\n  - `曲线拟合`\n  - `线性趋势加噪声`\n  - `去除变动`\n- `主题爬取`\n\
+  - `交易员`\n- `训练数据`\n\n## U\n\n- `非结构化数据`\n\n## V\n\n- `向量自回归 (VAR) 模型`\n\n## W, X,\
+  \ Y\n\n- `弱平稳过程`\n- `网络搜索`\n\n## Z\n\n- `零消息队列 (ZMQ)`\n"
