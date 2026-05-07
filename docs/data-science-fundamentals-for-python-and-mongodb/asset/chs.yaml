@@ -1,0 +1,1558 @@
+- '
+
+  ![](img/978-1-4842-3597-3_CoverFigure.jpg)
+
+
+  ISBN 978-1-4842-3596-6 e-ISBN 978-1-4842-3597-3 [`doi.org/10.1007/978-1-4842-3597-3`](https://doi.org/10.1007/978-1-4842-3597-3)
+  美国国会图书馆控制号：2018941864 © David Paper 2018 本作品受版权保护。出版商保留所有权利，无论是涉及材料的全部或部分，特别是翻译、重印、重用插图、朗诵、广播、以缩微胶片或任何其他物理方式复制，以及传输或信息存储与检索、电子改编、计算机软件，或采用目前已知或未来开发的类似或不同方法进行使用的权利。本书中可能出现商标名称、标识和图像。我们仅在编辑性场合使用这些名称、标识和图像，以维护商标所有者的权益，并无意侵犯商标权。本书中使用的商品名称、商标、服务标志及类似术语，即使未明确标识，也不应被视为对其是否受专有权利保护的立场表达。尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑和出版商均不对可能存在的任何错误或疏漏承担法律责任。出版商对本书所含内容不作任何明示或暗示的担保。本书由
+  Springer Science+Business Media New York 在全球范围内发行，地址：233 Spring Street, 6th Floor,
+  New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：orders-ny@springer-sbm.com，或访问
+  www.springeronline.com。Apress Media, LLC 是一家加利福尼亚有限责任公司，其唯一成员（所有者）是 Springer Science
+  + Business Media Finance Inc (SSBM Finance Inc)。SSBM Finance Inc 是一家特拉华州公司。
+
+
+  *献给 Lady、Sam、Bruce、Malik、John、Moonshadow 和 Moonbeam，他们的支持与爱始终是无条件的。献给 Apress 的工作人员，感谢你们为促成此项目所付出的所有支持与辛勤工作。最后，特别感谢
+  Jonathan 在亚马逊上找到了我，感谢 Jill 容忍一位强迫症作者，以及感谢 Mark 进行了全面且富有建设性的技术审阅。*
+
+
+  ## 致谢
+
+
+  我进入数据分析领域的起点是探索 Wes McKinney 所著的 *Python for Data Analysis*，我强烈推荐给所有人。我进入数据科学领域的起点是探索
+  Joel Grus 所著的 *Data Science from Scratch*。Joel 的书可能不适合胆小的人，但这绝对是一个我很庆幸自己接受了的挑战！最后，我要感谢
+  *stackoverflow* 的所有贡献者，他们的编程解决方案不可或缺。
+
+
+  ### 关于作者与关于技术审阅者
+
+
+  ### 关于作者
+
+
+  ### 关于技术审阅者
+
+
+  '
+- "# 1. 引言\n\n数据科学是一个跨学科领域，涵盖科学方法、流程和系统，旨在从各种形式（结构化或非结构化）的数据中提取知识或洞见。它借鉴了数学、统计学、信息科学、计算机科学、机器学习、可视化、数据挖掘和预测分析等学科的原理。然而，其根本基础在于数学。\n\
+  \n本书解释并应用了数据科学的基础知识，这对于数据库管理员和开发人员等正在向数据科学实践方向进行职业转型的技术专业人士至关重要。本书以示例驱动，提供完整的 Python\
+  \ 编码示例，以补充和阐明数据科学概念，并丰富学习体验。编码示例在适当情况下包含可视化。本书是应用和实现机器学习算法的必要前导，因为它向读者介绍了数据科学的基础原理。\n\
+  \n本书内容自成体系。掌握本书内容所需的所有数学、统计学、随机过程和编程技能均在书中涵盖。无需深入了解面向对象编程，因为书中提供并解释了完整可用的示例。示例在必要时会深入且复杂，以确保获得适当的数据科学敏锐度。本书帮助您构建处理和理解复杂数据科学算法所需的基础技能。\n\
+  \n*《数据科学基础：示例驱动》* 是那些有志于从事数据科学职业的人的绝佳起点。与任何科学一样，数据科学的基础知识是胜任工作的前提。如果没有扎实的数学、统计学、数据处理和编码能力，成功之路充其量也只能是“崎岖不平”。本书中的编码示例简洁、准确且完整，完美地补充了所介绍的数据科学概念。\n\
+  \n本书共分为六章。第 1 章介绍了使用 `Python` 处理、转换和加工数据以用于数据科学应用所需的编程基础。第 2 章介绍了用于决策的蒙特卡洛模拟，以及用于统计处理的数据分布。第\
+  \ 3 章介绍了应用于向量和矩阵的线性代数。第 4 章介绍了用于最小化（或最大化）函数的梯度下降算法，这非常重要，因为大多数数据科学问题都是优化问题。第 5 章侧重于为解决数据科学问题而进行的数据整理、清洗和转换。第\
+  \ 6 章侧重于通过降维、网络爬取和高效处理大型数据集来探索数据。\n\n所有编码示例和数据文件的 Python 编程代码均可通过 Apress 在 [`www.apress.com/9781484235966`](http://www.apress.com/9781484235966)\
+  \ 上查看和下载。具体的链接说明包含在本书的版权页中。\n\n要安装 Python 模块，`pip` 是首选的安装程序。因此，要从 Anaconda 提示符安装\
+  \ `matplotlib` 模块：`pip install matplotlib`。Anaconda 是一个广泛流行的 Python（和 R）开源发行版，专为大规模数据处理、预测分析和科学计算而设计，可简化包管理和部署。我曾使用过其他发行版，但效果不尽如人意，因此我强烈推荐\
+  \ Anaconda。\n\n## Python 基础\n\nPython 具有多项特性，使其非常适合学习和实践数据科学。它是免费的，编码相对简单，易于理解，并且拥有许多有用的库来促进数据科学问题的解决。它还允许快速原型化几乎任何数据科学场景，并以清晰、易于理解的方式演示数据科学概念。\n\
+  \n本章的目标*不是*全面教授 Python，而是介绍、解释和阐明该语言的基础特性（如逻辑、数据结构和库），这些特性有助于原型化、应用和/或解决数据科学问题。\n\
+  \nPython 基础知识通过一系列广泛的活动及相关编码示例来涵盖，具体如下：\n\n1.  函数与字符串\n2.  列表、元组与字典\n3.  数据读写\n\
+  4.  列表推导式\n5.  生成器\n6.  数据随机化\n7.  MongoDB 与 JSON\n8.  可视化\n\n\n\n### 函数与字符串\n\n\
+  Python 函数是一等公民，这意味着它们可以作为参数、返回值使用，可以赋值给变量，也可以存储在数据结构中。简单来说，函数就像典型的变量一样。函数既可以是自定义的，也可以是内置的。自定义函数由程序员创建，而内置函数则是语言本身的一部分。字符串是非常流行的类型，用单引号或双引号括起来。\n\
+  \n以下代码示例定义了自定义函数并使用了内置函数：\n\n```\ndef num_to_str(n):\nreturn str(n)\ndef str_to_int(s):\n\
+  return int(s)\ndef str_to_float(f):\nreturn float(f)\nif __name__ == \"__main__\"\
+  :\n### 井号用于单行注释\n'''\n三个引号用于多行注释\n'''\nfloat_num = 999.01\nint_num = 87\nfloat_str\
+  \ = '23.09'\nint_str = '19'\nstring = 'how now brown cow'\ns_float = num_to_str(float_num)\n\
+  s_int = num_to_str(int_num)\ni_str = str_to_int(int_str)\nf_str = str_to_float(float_str)\n\
+  print (s_float, 'is', type(s_float))\nprint (s_int, 'is', type(s_int))\nprint (f_str,\
+  \ 'is', type(f_str))\nprint (i_str, 'is', type(i_str))\nprint ('\\nstring', '\"\
+  ' + string + '\" has', len(string), 'characters')\nstr_ls = string.split()\nprint\
+  \ ('split string:', str_ls)\nprint ('joined list:', ' '.join(str_ls))\n```\n\n输出：\n\
+  \n![../images/462931_1_En_1_Chapter/462931_1_En_1_Figa_HTML.jpg](img/462931_1_En_1_Figa_HTML.jpg)\n\
+  \n一种流行的编码风格是首先展示库导入和函数，然后是主代码块。代码示例以三个自定义函数开头，这些函数分别将数字转换为字符串、将字符串转换为数字以及将字符串转换为浮点数。每个自定义函数都返回一个内置函数，让\
+  \ Python 执行转换。主代码块以注释开头。单行注释用 `#`（井号）表示。多行注释用三个连续的单引号表示。接下来的五行代码为变量赋值。接下来的四行代码将每个变量类型转换为另一种类型。例如，函数\
+  \ `num_to_str()` 将变量 `float_num` 转换为字符串类型。接下来的五行代码打印变量及其关联的 Python 数据类型。内置函数 `type()`\
+  \ 返回给定对象的类型。剩下的四行代码打印并操作一个字符串变量。\n\n### 列表、元组和字典\n\n列表是有序集合，其中的值用逗号分隔，并放在方括号内。索引从\
+  \ 0（零）开始。列表项不必是同一类型，并且可以通过多种方式进行切片、连接和操作。\n\n以下代码示例创建了一个列表，对其进行操作和切片，从另一个列表创建新列表并向其中添加元素，以及从两个列表创建矩阵：\n\
+  \n```\nimport numpy as np\nif __name__ == \"__main__\":\nls = ['orange', 'banana',\
+  \ 10, 'leaf', 77.009, 'tree', 'cat']\nprint ('list length:', len(ls), 'items')\n\
+  print ('cat count:', ls.count('cat'), ',', 'cat index:', ls.index('cat'))\nprint\
+  \ ('\\nmanipulate list:')\ncat = ls.pop(6)\nprint ('cat:', cat, ', list:', ls)\n\
+  ls.insert(0, 'cat')\nls.append(99)\nprint (ls)\nls[7] = '11'\nprint (ls)\nls.pop(1)\n\
+  print (ls)\nls.pop()\nprint (ls)\nprint ('\\nslice list:')\nprint ('1st 3 elements:',\
+  \ ls[:3])\nprint ('last 3 elements:', ls[3:])\nprint ('start at 2nd to index 5:',\
+  \ ls[1:5])\nprint ('start 3 from end to end of list:', ls[-3:])\nprint ('start from\
+  \ 2nd to next to end of list:', ls[1:-1])\nprint ('\\ncreate new list from another\
+  \ list:')\nprint ('list:', ls)\nfruit = ['orange']\nmore_fruit = ['apple', 'kiwi',\
+  \ 'pear']\nfruit.append(more_fruit)\nprint ('appended:', fruit)\nfruit.pop(1)\n\
+  fruit.extend(more_fruit)\nprint ('extended:', fruit)\na, b = fruit[2], fruit[1]\n\
+  print ('slices:', a, b)\nprint ('\\ncreate matrix from two lists:')\nmatrix = np.array([ls,\
+  \ fruit])\nprint (matrix)\nprint ('1st row:', matrix[0])\nprint ('2nd row:', matrix[1])\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_1_Chapter/462931_1_En_1_Figb_HTML.jpg](img/462931_1_En_1_Figb_HTML.jpg)\n\
+  \n代码示例首先导入 NumPy，这是用于科学计算的基础包（库、模块）。它对于线性代数非常有用，而线性代数是数据科学的基础。可以把 Python 库想象成包含许多方法的巨型类。主代码块首先创建列表\
+  \ `ls`，打印其长度、元素（项）数量、`cat` 元素的数量以及 `cat` 元素的索引。代码继续操作 `ls`。首先，弹出第 7 个元素（索引 6）并将其赋值给变量\
+  \ `cat`。请记住，列表索引从 0 开始。函数 `pop()` 从 `ls` 中移除 `cat`。其次，将 `cat` 添加回 `ls` 的第一个位置（索引\
+  \ 0），并将 `99` 追加到列表末尾。函数 `append()` 将一个对象添加到列表末尾。第三，将字符串 `'11'` 替换为第 8 个元素（索引 7）。最后，从\
+  \ `ls` 中弹出第二个元素和最后一个元素。代码继续对 `ls` 进行切片。首先，使用 `ls[:3]` 打印前三个元素。其次，使用 `ls[3:]` 打印最后三个元素。第三，使用\
+  \ `ls[1:5]` 打印从第二个元素开始到索引为 5 的元素。第四，使用 `ls[-3:]` 打印从末尾倒数第三个元素到末尾。第五，使用 `ls[1:-1]`\
+  \ 打印从第二个元素开始到倒数第二个元素。代码继续从另一个列表创建新列表。首先，创建一个包含一个元素的 `fruit`。其次，将列表 `more_fruit`\
+  \ 追加到 `fruit`。请注意，`append` 将列表 `more_fruit` 作为 `fruit` 的第二个元素添加，这可能不是你想要的。因此，第三步，弹出\
+  \ `fruit` 的第二个元素，并将 `more_fruit` 扩展到 `fruit`。函数 `extend()` 在添加列表之前会将其展开。这样，`fruit`\
+  \ 现在有四个元素。第四，将第三个元素赋值给 `a`，第二个元素赋值给 `b`，并打印切片。Python 允许在一行中给多个变量赋值，这非常方便和简洁。代码最后从两个列表——`ls`\
+  \ 和 `fruit`——创建一个矩阵并打印它。Python 矩阵是一个二维（2-D）数组，由行和列组成，其中每一行都是一个列表。\n\n元组是由圆括号括起来的不可变\
+  \ Python 对象序列。与列表不同，元组不能被更改。元组对于返回多个值的函数非常方便。\n\n以下代码示例创建了一个元组，对其进行了切片，创建了一个列表，并从元组和列表创建了一个矩阵：\n\
+  \n\n\n```python\nimport numpy as np\nif __name__ == \"__main__\":\ntup = ('orange',\
+  \ 'banana', 'grape', 'apple', 'grape')\nprint ('tuple length:', len(tup))\nprint\
+  \ ('grape count:', tup.count('grape'))\nprint ('\\nslice tuple:')\nprint ('1st 3\
+  \ elements:', tup[:3])\nprint ('last 3 elements', tup[3:])\nprint ('start at 2nd\
+  \ to index 5', tup[1:5])\nprint ('start 3 from end to end of tuple:', tup[-3:])\n\
+  print ('start from 2nd to next to end of tuple:', tup[1:-1])\nprint ('\\ncreate\
+  \ list and create matrix from it and tuple:')\nfruit = ['pear', 'grapefruit', 'cantaloupe',\
+  \ 'kiwi', 'plum']\nmatrix = np.array([tup, fruit])\nprint (matrix)\n```\n\n输出：\n\
+  \n![../images/462931_1_En_1_Chapter/462931_1_En_1_Figc_HTML.jpg](img/462931_1_En_1_Figc_HTML.jpg)\n\
+  \n代码首先导入 NumPy。主程序块首先创建元组 `tup`，打印其长度、元素（项）数量、`grape` 元素的数量以及 `grape` 的索引。代码继续对\
+  \ `tup` 进行切片。首先，使用 `tup[:3]` 打印前三个元素。其次，使用 `tup[3:]` 打印最后三个元素。第三，使用 `tup[1:5]` 打印从第二个元素开始到索引为\
+  \ 5 的元素。第四，使用 `tup[-3:]` 打印从末尾倒数三个元素到末尾。第五，使用 `tup[1:-1]` 打印从第二个元素到倒数第二个元素。代码继续创建一个新的\
+  \ `fruit` 列表，并从 `tup` 和 `fruit` 创建一个矩阵。\n\n字典是一个由键/值对标识的无序元素集合。它是处理数据时极其重要的数据结构。下面的示例非常简单，但下一节将基于数据集给出一个更复杂的示例。\n\
+  \n以下代码示例创建了一个字典，删除一个元素，添加一个元素，创建一个字典元素列表，并遍历该列表：\n\n```python\nif __name__ == \"\
+  __main__\":\naudio = {'amp':'Linn', 'preamp':'Luxman', 'speakers':'Energy',\n'ic':'Crystal\
+  \ Ultra', 'pc':'JPS', 'power':'Equi-Tech',\n'sp':'Crystal Ultra', 'cdp':'Nagra',\
+  \ 'up':'Esoteric'}\ndel audio['up']\nprint ('dict \"deleted\" element;')\nprint\
+  \ (audio, '\\n')\nprint ('dict \"added\" element;')\naudio['up'] = 'Oppo'\nprint\
+  \ (audio, '\\n')\nprint ('universal player:', audio['up'], '\\n')\ndict_ls = [audio]\n\
+  video = {'tv':'LG 65C7 OLED', 'stp':'DISH', 'HDMI':'DH Labs',\n'cable' : 'coax'}\n\
+  print ('list of dict elements;')\ndict_ls.append(video)\nfor i, row in enumerate(dict_ls):\n\
+  print ('row', i, ':')\nprint (row)\n```\n\n输出：\n\n![../images/462931_1_En_1_Chapter/462931_1_En_1_Figd_HTML.jpg](img/462931_1_En_1_Figd_HTML.jpg)\n\
+  \n主程序块首先创建包含多个元素的字典 `audio`。接着删除键为 `up`、值为 `Esoteric` 的元素，并显示结果。然后，重新添加一个键为 `up`、值为\
+  \ `Oppo` 的新元素并显示。下一步创建一个包含字典 `audio` 的列表，创建字典 `video`，并将新字典添加到列表中。最后一部分使用 `for`\
+  \ 循环遍历字典列表并显示这两个字典。一个可与循环语句配合使用的非常有用的函数是 `enumerate()`。它为一个可迭代对象添加一个计数器。可迭代对象是可以被迭代的对象。`enumerate()`\
+  \ 函数非常有用，因为计数器会自动创建并递增，这意味着代码更少。\n\n## 读写数据\n\n读写数据的能力是任何数据科学工作的基础。所有数据文件均可在网站上获取。最基本的数据类型是文本和\
+  \ CSV（逗号分隔值）。因此，我们将从这里开始。\n\n以下代码示例读取一个文本文件并对其进行清理以便处理。然后读取清理后的文本文件，将其保存为 CSV 文件，读取该\
+  \ CSV 文件，将其转换为 `OrderedDict` 元素列表，并将此列表转换为常规字典元素列表。\n\n```python\nimport csv\ndef\
+  \ read_txt(f):\nwith open(f, 'r') as f:\nd = f.readlines()\nreturn [x.strip() for\
+  \ x in d]\ndef conv_csv(t, c):\ndata = read_txt(t)\nwith open(c, 'w', newline='')\
+  \ as csv_file:\nwriter = csv.writer(csv_file)\nfor line in data:\nls = line.split()\n\
+  writer.writerow(ls)\ndef read_csv(f):\ncontents = ''\nwith open(f, 'r') as f:\n\
+  reader = csv.reader(f)\nreturn list(reader)\ndef read_dict(f, h):\ninput_file =\
+  \ csv.DictReader(open(f), fieldnames=h)\nreturn input_file\ndef od_to_d(od):\nreturn\
+  \ dict(od)\nif __name__ == \"__main__\":\nf = 'data/names.txt'\ndata = read_txt(f)\n\
+  print ('text file data sample:')\nfor i, row in enumerate(data):\nif i < 3:\nprint\
+  \ (row)\ncsv_f = 'data/names.csv'\nconv_csv(f, csv_f)\nr_csv = read_csv(csv_f)\n\
+  print ('\\ntext to csv sample:')\nfor i, row in enumerate(r_csv):\nif i < 3:\nprint\
+  \ (row)\nheaders = ['first', 'last']\nr_dict = read_dict(csv_f, headers)\ndict_ls\
+  \ = []\nprint ('\\ncsv to ordered dict sample:')\nfor i, row in enumerate(r_dict):\n\
+  r = od_to_d(row)\ndict_ls.append(r)\nif i < 3:\nprint (row)\nprint ('\\nlist of\
+  \ dictionary elements sample:')\nfor i, row in enumerate(dict_ls):\nif i < 3:\n\
+  print (row)\n```\n\n输出：\n\n![../images/462931_1_En_1_Chapter/462931_1_En_1_Fige_HTML.jpg](img/462931_1_En_1_Fige_HTML.jpg)\n\
+  \n代码首先导入 `csv` 库，该库实现了用于读写 CSV 格式表格数据的类。接着定义了五个函数。函数 `read_txt()` 读取文本（`.txt`）文件，并使用列表推导式去除多余字符，列表推导式是在\
+  \ Python 中定义和创建列表的一种优雅方式。列表推导式将在下一节中详细介绍。函数 `conv_csv()` 将文本转换为 CSV 文件并保存到磁盘。函数\
+  \ `read_csv()` 读取 CSV 文件并将其作为列表返回。函数 `read_dict()` 读取 CSV 文件并返回一个 `OrderedDict`\
+  \ 元素列表。`OrderedDict` 是字典的一个子类，它会记住其内容被添加的顺序，而常规字典不跟踪插入顺序。最后，函数 `od_to_d()` 将一个 `OrderedDict`\
+  \ 元素转换为一个常规字典元素。在我看来，使用常规字典元素要直观得多。主程序块首先读取一个文本文件并对其进行清理以便处理。然而，代码中并未对该清理后的文件进行任何处理。包含此步骤只是为了让你了解如何完成此任务。代码继续将文本文件转换为\
+  \ CSV 并保存到磁盘。然后从磁盘读取 CSV 文件并显示几条记录。接下来，创建一个 `headers` 列表，用于存储即将创建的字典的键。创建列表 `dict_ls`\
+  \ 用于存放字典元素。代码继续创建一个 `OrderedDict` 列表 `r_dict`。然后迭代 `OrderedDict` 列表，以便将每个元素转换为常规字典元素并追加到\
+  \ `dict_ls` 中。在迭代过程中会显示几条记录。最后，迭代 `dict_ls` 并显示几条记录。我强烈建议你花些时间熟悉这些数据结构，因为它们在数据科学应用中广泛使用。\n\
+  \n\n\n### 列表推导式\n\n列表推导式提供了一种创建列表的简洁方法。其逻辑被封装在方括号内，包含一个表达式，后跟一个`for`子句，并且可以通过添加更多的`for`或`if`子句来增强。\n\
+  \n上一节中的`read_txt()`函数包含了以下列表推导式：\n\n```\n[x.strip() for x in d]\n```\n\n该逻辑从可迭代对象`d`中的字符串里去除多余字符。在这个例子中，`d`是一个字符串列表。\n\
+  \n以下代码示例使用列表推导式将英里转换为公里、处理宠物名称以及计算奖金：\n\n```\nif __name__ == \"__main__\":\n   \
+  \ miles = [100, 10, 9.5, 1000, 30]\n    kilometers = [x * 1.60934 for x in miles]\n\
+  \    print ('英里转公里:')\n    for i, row in enumerate(kilometers):\n        print ('{:>4}\
+  \ {:>8}{:>8} {:>2}'.\n               format(miles[i],'英里等于', round(row,2), '公里'))\n\
+  \    print ('\\n 宠物:')\n    pet = ['猫', '狗', '兔子', '鹦鹉', '豚鼠', '鱼']\n    print (pet)\n\
+  \    print ('\\n 宠物们:')\n    pets = [x + '们' if x != '鱼' else x for x in pet]\n\
+  \    print (pets)\n    subset = [x for x in pets if x != '鱼' and x != '兔子们'\n  \
+  \            and x != '鹦鹉们' and x != '豚鼠们']\n    print ('\\n 最常见的宠物:')\n    print\
+  \ (subset[1], '和', subset[0])\n    sales = [9000, 20000, 50000, 100000]\n    print\
+  \ ('\\n 奖金:')\n    bonus = [0 if x < 10000 else x * 0.02 if x >= 10000 and x <=\
+  \ 20000 else x * 0.03 for x in sales]\n    people = ['约翰', '玛丽', '马克', '戴安娜']\n\
+  \    print ('\\n 人员:')\n    print (people)\n    print ('\\n 每人奖金:')\n    bonus_dict\
+  \ = {k: y for k, y in zip(people, bonus)}\n    for k, y in bonus_dict.items():\n\
+  \        print ('{:<5} {:>6}'.format(k, y))\n```\n\n输出：\n\n![../images/462931_1_En_1_Chapter/462931_1_En_1_Figf_HTML.jpg](img/462931_1_En_1_Figf_HTML.jpg)\n\
+  \n主程序块首先创建了两个列表——`miles`和`kilometers`。`kilometers`列表是通过列表推导式创建的，它将每个英里值乘以`1.60934`。起初，列表推导式可能看起来令人困惑，但熟能生巧，随着时间的推移会变得更容易。主程序块接着打印英里和对应的公里。`format()`函数提供了复杂的格式化选项。每个英里值（`{:>4}`）最多右对齐四个字符。每个表示英里和公里的字符串最多右对齐八个字符（`{:>8}`）。最后，每个表示公里的字符串最多右对齐两个字符（`{:>2}`）。起初这看起来可能有点复杂，但一旦你习惯了，它实际上非常合乎逻辑（而且优雅）。主程序块接着创建了`pet`和`pets`列表。`pets`列表是通过列表推导式创建的，如果不是鱼，则使宠物名称变为复数形式。我建议你在继续之前先研究一下这个列表推导式，因为它们会变得越来越复杂。代码接着使用列表推导式创建了一个`subset`列表，其中只包含狗和猫。下一部分创建了两个列表——`sales`和`bonus`。`Bonus`是通过列表推导式创建的，它为每个销售额值计算奖金。如果销售额低于`10,000`，则不支付奖金。如果销售额在`10,000`到`20,000`之间（含），则奖金为销售额的`2%`。最后，如果销售额大于`20,000`，则奖金为销售额的`3%`。起初我对这个列表推导式感到困惑，但现在我理解了。所以，尝试自己写一些，你就会掌握它的要领。最后一部分创建了一个`people`列表来关联每个销售额值，接着创建一个字典来保存每个人的奖金，最后通过迭代字典元素结束。格式化非常优雅。表头正确地将`emp`和`bonus`左对齐。每个项目都经过格式化，使得人员名称最多左对齐五个字符（`{:<5}`），奖金最多右对齐六个字符（`{:>6}`）。\n\
+  \n### 生成器\n\n生成器是一种特殊类型的迭代器，但速度更快，因为值只在需要时才生成。这个过程被称为惰性（或延迟）求值。典型的迭代器要慢得多，因为它们会完整地构建在内存中。常规函数返回值，而生成器则产出值。遍历和访问生成器值的最佳方式是使用循环。最后，可以通过将方括号替换为圆括号来将列表推导式转换为生成器。\n\
+  \n以下代码示例读取一个 CSV 文件并创建一个`OrderedDict`元素列表。然后它将列表元素转换为常规字典元素。代码接着模拟了列表推导式、生成器推导式和生成器的执行时间。在模拟过程中，会为每种方式创建一个时间列表。模拟是对现实世界过程或系统随时间的模仿，它在数据科学中被广泛使用。\n\
+  \n```\nimport csv, time, numpy as np\n\ndef read_dict(f, h):\n    input_file = csv.DictReader(open(f),\
+  \ fieldnames=h)\n    return (input_file)\n\ndef conv_reg_dict(d):\n    return [dict(x)\
+  \ for x in d]\n\ndef sim_times(d, n):\n    i = 0\n    lsd, lsgc = [], []\n    while\
+  \ i < n:\n        start = time.clock()\n        [x for x in d]\n        time_d =\
+  \ time.clock() - start\n        lsd.append(time_d)\n        start = time.clock()\n\
+  \        (x for x in d)\n        time_gc = time.clock() - start\n        lsgc.append(time_gc)\n\
+  \        i += 1\n    return (lsd, lsgc)\n\ndef gen(d):\n    yield (x for x in d)\n\
+  \ndef sim_gen(d, n):\n    i = 0\n    lsg = []\n    generator = gen(d)\n    while\
+  \ i < n:\n        start = time.clock()\n        for row in generator:\n        \
+  \    None\n        time_g = time.clock() - start\n        lsg.append(time_g)\n \
+  \       i += 1\n        generator = gen(d)\n    return lsg\n\ndef avg_ls(ls):\n\
+  \    return np.mean(ls)\n\nif __name__ == '__main__':\n    f = 'data/names.csv'\n\
+  \    headers = ['first', 'last']\n    r_dict = read_dict(f, headers)\n    dict_ls\
+  \ = conv_reg_dict(r_dict)\n    n = 1000\n    ls_times, gc_times = sim_times(dict_ls,\
+  \ n)\n    g_times = sim_gen(dict_ls, n)\n    avg_ls = np.mean(ls_times)\n    avg_gc\
+  \ = np.mean(gc_times)\n    avg_g = np.mean(g_times)\n    gc_ls = round((avg_ls /\
+  \ avg_gc), 2)\n    g_ls = round((avg_ls / avg_g), 2)\n    print ('生成器推导式:')\n  \
+  \  print (gc_ls, '倍快于列表推导式\\n')\n    print ('生成器:')\n    print (g_ls, '倍快于列表推导式')\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_1_Chapter/462931_1_En_1_Figg_HTML.jpg](img/462931_1_En_1_Figg_HTML.jpg)\n\
+  \n\n\n代码首先导入了`csv`、`time`和`numpy`库。函数`read_dict()`将一个 CSV（`.csv`）文件转换为一个`OrderedDict`元素列表。函数`conv_reg_dict()`将一个`OrderedDict`元素列表转换为一个普通字典元素列表（以便于处理）。函数`sim_times()`运行一个模拟，创建两个列表——`lsd`和`lsgc`。列表`lsd`包含`n`次列表推导的运行时间，列表`lsgc`包含`n`次生成器推导的运行时间。通过反复运行这些过程（`n`次），使用模拟可以更准确地了解这两种过程实际所需的时间。在本例中，模拟运行了\
+  \ 1000 次（`n = 1000`）。当然，你可以根据需要运行任意多次或少量次数的模拟。函数`gen()`和`sim_gen()`协同工作。函数`gen()`创建一个生成器。函数`sim_gen()`模拟该生成器`n`次。我必须创建这两个函数，因为生成一个生成器（使用`yield`）需要与创建生成器推导不同的过程。函数`avg_ls()`返回一个数字列表的均值（平均值）。主程序块首先将一个\
+  \ CSV 文件（我们在本章前面创建的那个）读取到一个`OrderedDict`元素列表中，并将其转换为一个普通字典元素列表。代码接着模拟列表推导和生成器推导的运行时间\
+  \ 1000 次（`n = 1000`）。第一次模拟计算了遍历之前创建的字典列表时，列表推导和生成器推导各自的 1000 次运行时间，并分别返回一个包含这些运行时间的列表。第二次模拟通过遍历字典列表来为一个生成器计算\
+  \ 1000 次运行时间，并返回一个包含这些运行时间的列表。代码最后计算了三种技术——列表推导、生成器推导和生成器——各自的平均运行时间，并对这些平均值进行了比较。\n\
+  \n模拟验证了生成器推导比列表推导快十倍以上，而生成器比列表推导快八倍以上（运行时间会因你的电脑而异）。这是合理的，因为列表推导将所有数据存储在内存中，而生成器则是在需要数据时才（惰性地）进行求值。自然，生成器的速度优势在处理大数据集时变得更加重要。如果没有模拟，运行时间**无法**被验证，因为我们获取的是随机的内部系统时钟时间。\n\
+  \n## 数据随机化\n\n一个随机过程是从某个概率空间到状态空间的一系列随机变量（呼！）。简单来说，它是一个随时间变化的随机过程。数据随机化是以不可预测的方式从样本中选择值的过程，目的是模拟现实。模拟使得数据随机化可以在数据科学中得到应用。上一节演示了如何使用模拟来现实地比较可迭代对象（列表推导、生成器推导和生成器）。\n\
+  \n在 Python 中，使用伪随机数来模拟数据随机性（现实）。它们并非真正的随机数，因为第一代随机数没有前一个数。我们必须提供一个种子（或随机种子）来初始化一个伪随机数生成器。`random`库为各种数据分布实现了伪随机数生成器，而`random.seed()`用于生成初始的（第一代）种子数。\n\
+  \n以下代码示例读取一个 CSV 文件并将其转换为一个普通字典元素列表。代码接着创建一个随机数，用于从列表中检索一个随机元素。接下来，创建一个包含三个随机选择元素的生成器并显示它。代码继续显示从列表中随机打乱顺序的三个元素。下一段代码确定性地为随机数生成器设置种子，这意味着所有生成的随机数都将基于该种子而相同。因此，除非更改种子，否则显示的元素将始终相同。然后，代码使用系统时间来非确定性地生成随机数并显示这三个元素。接着，通过另一种方法生成非确定性随机数并显示这三个元素。最后一部分创建一个名字列表，以便可以使用随机选择和抽样方法来显示元素。\n\
+  \n```\nimport csv, random, time\ndef read_dict(f, h):\ninput_file = csv.DictReader(open(f),\
+  \ fieldnames=h)\nreturn (input_file)\ndef conv_reg_dict(d):\nreturn [dict(x) for\
+  \ x in d]\ndef r_inds(ls, n):\nlength = len(ls) - 1\nyield [random.randrange(length)\
+  \ for _ in range(n)]\ndef get_slice(ls, n):\nreturn ls[:n]\ndef p_line():\nprint\
+  \ ()\nif __name__ == '__main__':\nf = 'data/names.csv'\nheaders = ['first', 'last']\n\
+  r_dict = read_dict(f, headers)\ndict_ls = conv_reg_dict(r_dict)\nn = len(dict_ls)\n\
+  r = random.randrange(0, n-1)\nprint ('randomly selected index:', r)\nprint ('randomly\
+  \ selected element:', dict_ls[r])\nelements = 3\ngenerator = next(r_inds(dict_ls,\
+  \ elements))\np_line()\nprint (elements, 'randomly generated indicies:', generator)\n\
+  print (elements, 'elements based on indicies:')\nfor row in generator:\nprint (dict_ls[row])\n\
+  x = [[i] for i in range(n-1)]\nrandom.shuffle(x)\np_line()\nprint ('1st', elements,\
+  \ 'shuffled elements:')\nind = get_slice(x, elements)\nfor row in ind:\nprint (dict_ls[row[0]])\n\
+  seed = 1\nrandom_seed = random.seed(seed)\nrs1 = random.randrange(0, n-1)\np_line()\n\
+  print ('deterministic seed', str(seed) + ':', rs1)\nprint ('corresponding element:',\
+  \ dict_ls[rs1])\nt = time.time()\nrandom_seed = random.seed(t)\nrs2 = random.randrange(0,\
+  \ n-1)\np_line()\nprint ('non-deterministic time seed', str(t) + ' index:', rs2)\n\
+  print ('corresponding element:', dict_ls[rs2], '\\n')\nprint (elements, 'random\
+  \ elements seeded with time:')\nfor i in range(elements):\nr = random.randint(0,\
+  \ n-1)\nprint (dict_ls[r], r)\nrandom_seed = random.seed()\nrs3 = random.randrange(0,\
+  \ n-1)\np_line()\nprint ('non-deterministic auto seed:', rs3)\nprint ('corresponding\
+  \ element:', dict_ls[rs3], '\\n')\nprint (elements, 'random elements auto seed:')\n\
+  for i in range(elements):\nr = random.randint(0, n-1)\nprint (dict_ls[r], r)\nnames\
+  \ = []\nfor row in dict_ls:\nname = row['last'] + ', ' + row['first']\nnames.append(name)\n\
+  p_line()\nprint (elements, 'names with \"random.choice()\":')\nfor row in range(elements):\n\
+  print (random.choice(names))\np_line()\nprint (elements, 'names with \"random.sample()\"\
+  :')\nprint (random.sample(names, elements))\n```\n\n输出：\n\n\n\n![../images/462931_1_En_1_Chapter/462931_1_En_1_Figh_HTML.jpg](img/462931_1_En_1_Figh_HTML.jpg)\n\
+  \n代码首先导入 `csv`、`random` 和 `time` 库。函数 `read_dict()` 和 `conv_reg_dict()` 已在前文解释过。函数\
+  \ `r_inds()` 从字典列表中生成一个包含 `n` 个元素的随机列表。为了获得正确的长度，需要减一，因为 Python 列表的索引从零开始。函数 `get_slice()`\
+  \ 从字典列表中创建一个随机打乱顺序的 `n` 元素列表。函数 `p_line()` 打印一个空行。主程序块首先读取一个 CSV 文件，并将其转换为常规字典元素列表。接着，代码使用\
+  \ `random.randrange()` 基于字典列表的索引数量生成一个随机数，并显示该索引及其对应的字典元素。然后，创建一个生成器，并用三个随机确定的元素填充它。从生成器中打印出索引及其对应的元素。代码的下一部分随机打乱索引，并将其放入列表\
+  \ `x` 中。通过基于存储在列表 `x` 中的打乱索引切片三个随机元素，创建一个索引值。随后显示这三个元素。代码继续，在函数中使用一个固定数字（`seed`）创建一个确定性的随机种子。因此，每次运行程序时，由该种子生成的随机数都是相同的。这意味着显示的字典元素也将相同。接下来，介绍了两种生成非确定性随机数的方法——`random.seed(t)`\
+  \ 和 `random.seed()`——其中 `t` 随系统时间变化，而不使用参数则会自动改变随机数。每种方法都会显示随机生成的元素。代码的最后一部分创建一个仅包含名字和姓氏的名称列表，以便可以使用\
+  \ `random.choice()` 和 `random.sample()`。\n\n## MongoDB 与 JSON\n\nMongoDB 是一种基于文档的数据库，属于\
+  \ NoSQL 类别。NoSQL（不仅仅是 SQL 数据库）是一种数据库设计方法，可以容纳多种数据模型，包括键值、文档、列式和图形格式。它使用类似 JSON 的文档并带有模式。它与\
+  \ Python 的集成非常出色。MongoDB 中的集合在概念上类似于关系数据库中的表，而文档在概念上类似于行。JSON 是一种轻量级的数据交换格式，易于人类读写，也易于机器解析和生成。\n\
+  \n来自 MongoDB 的数据库查询由 PyMongo 处理。PyMongo 是一个 Python 发行版，包含用于处理 MongoDB 的工具。它是使用 Python\
+  \ 工具处理 MongoDB 最高效的方式。创建 PyMongo 是为了利用 Python 作为编程语言和 MongoDB 作为数据库的优势。`pymongo`\
+  \ 库是 MongoDB 的原生驱动程序，这意味着它内置于 Python 语言中。由于是原生的，`pymongo` 库会自动可用（无需导入到代码中）。\n\n\
+  以下代码示例读取一个 CSV 文件并将其转换为常规字典元素列表。代码接着从字典列表创建一个 JSON 文件并将其保存到磁盘。然后，代码连接到 MongoDB 并插入\
+  \ JSON 数据。代码的最后一部分操作 MongoDB 数据库中的数据。首先，查询数据库中的所有数据并显示几条记录。其次，倒回数据库。倒回将指针设置回第一个数据库记录。最后，执行各种查询。\n\
+  \n```python\nimport json, csv, sys, os\nsys.path.append(os.getcwd()+'/classes')\n\
+  import conn\ndef read_dict(f, h):\n    input_file = csv.DictReader(open(f), fieldnames=h)\n\
+  \    return (input_file)\ndef conv_reg_dict(d):\n    return [dict(x) for x in d]\n\
+  def dump_json(f, d):\n    with open(f, 'w') as f:\n        json.dump(d, f)\ndef\
+  \ read_json(f):\n    with open(f) as f:\n        return json.load(f)\nif __name__\
+  \ == '__main__':\n    f = 'data/names.csv'\n    headers = ['first', 'last']\n  \
+  \  r_dict = read_dict(f, headers)\n    dict_ls = conv_reg_dict(r_dict)\n    json_file\
+  \ = 'data/names.json'\n    dump_json(json_file, dict_ls)\n    data = read_json(json_file)\n\
+  \    obj = conn.conn('test')\n    db = obj.getDB()\n    names = db.names\n    names.drop()\n\
+  \    for i, row in enumerate(data):\n        row['_id'] = i\n        names.insert_one(row)\n\
+  \    n = 3\n    print('前', n, '个名字：')\n    people = names.find()\n    for i, row\
+  \ in enumerate(people):\n        if i < n:\n            print (row)\n    people.rewind()\n\
+  \    print('\\n 倒回后前', n, '个名字：')\n    for i, row in enumerate(people):\n      \
+  \  if i < n:\n            print (row)\n    print ('\\n 查询前', n, '个名字')\n    first_n\
+  \ = names.find().limit(n)\n    for row in first_n:\n        print (row)\n    print\
+  \ ('\\n 查询后', n, '个名字')\n    length = names.find().count()\n    last_n = names.find().skip(length\
+  \ - n)\n    for row in last_n:\n        print (row)\n    fnames = ['Ella', 'Lou']\n\
+  \    lnames = ['Vader', 'Pole']\n    print ('\\n 查询 Ella：')\n    query_1st_in_list\
+  \ = names.find( {'first':{'$in':[fnames[0]]}})\n    for row in query_1st_in_list:\n\
+  \        print (row)\n    print ('\\n 查询 Ella 或 Lou：')\n    query_1st = names.find(\
+  \ {'first':{'$in':fnames}} )\n    for row in query_1st:\n        print (row)\n \
+  \   print ('\\n 查询 Lou Pole：')\n    query_and = names.find( {'first':fnames[1],\
+  \ 'last':lnames[1]} )\n    for row in query_and:\n        print (row)\n    print\
+  \ ('\\n 查询名字为 Ella 或姓氏为 Pole：')\n    query_or = names.find( {'$or':[{'first':fnames[0]},\
+  \ {'last':lnames[1]}]} )\n    for row in query_or:\n        print (row)\n    pattern\
+  \ = '^Sch'\n    print ('\\n 正则表达式查询：')\n    query_like = names.find( {'last':{'$regex':pattern}}\
+  \ )\n    for row in query_like:\n        print (row)\n    pid = names.count()\n\
+  \    doc = {'_id':pid, 'first':'Wendy', 'last':'Day'}\n    names.insert_one(doc)\n\
+  \    print ('\\n 显示添加的文档：')\n    q_added = names.find({'first':'Wendy'})\n    print\
+  \ (q_added.next())\n    print ('\\n 查询最后 n 个文档：')\n    q_n = names.find().skip((pid-n)+1)\n\
+  \    for _ in range(n):\n        print (q_n.next())\n```\n\n类 `conn`：\n\n\n\n```\n\
+  class conn:\nfrom pymongo import MongoClient\nclient = MongoClient('localhost',\
+  \ port=27017)\ndef __init__(self, dbname):\nself.db = conn.client[dbname]\ndef getDB(self):\n\
+  return self.db\n```\n\n输出：\n\n![../images/462931_1_En_1_Chapter/462931_1_En_1_Figi_HTML.jpg](img/462931_1_En_1_Figi_HTML.jpg)\n\
+  \n代码首先导入 `json`、`csv`、`sys` 和 `os` 库。接着，建立指向类 `conn` 的路径（`sys.path.append`）。方法 `getcwd()`（来自\
+  \ `os` 库）获取当前工作目录，用于定位类。然后导入类 `conn`。我构建这个类是为了简化从任何程序到数据库的连接。代码继续包含四个函数。函数 `read_dict()`\
+  \ 和 `conv_reg_dict()` 已在前面解释过。函数 `dump_json()` 将 JSON 数据写入磁盘。函数 `read_json()` 从磁盘读取\
+  \ JSON 数据。主程序块首先读取一个 CSV 文件，并将其转换为常规字典元素列表。接着，将该列表以 JSON 格式转储到磁盘。代码继续创建一个 PyMongo\
+  \ 连接实例 `test` 作为对象，并将其赋值给变量 `obj`。你可以创建任何你想要的实例，但 `test` 是默认值。接下来，通过 `obj` 的方法 `getDB()`\
+  \ 将数据库实例赋值给 `db`。然后在 MongoDB 中创建集合 `names`，并赋值给变量 `names`。在原型设计时，我总是在操作集合之前先删除它。这可以消除重复键错误。代码继续将\
+  \ JSON 数据插入到集合中。对于 MongoDB 集合中的每个文档，我通过为 `_id` 分配顺序编号来显式创建主键值。MongoDB 专门使用 `_id`\
+  \ 作为集合中每个文档的主键标识符。如果你不自行命名，系统会自动创建一个标识符，在我看来这会使操作变得混乱。代码继续执行 PyMongo 查询 `names.find()`，该查询从\
+  \ `names` 集合中检索所有文档。显示三条记录，以验证查询是否正常工作。要重用已经访问过的查询，必须发出 `rewind()`。下一个 PyMongo 查询访问并显示三个（`n\
+  \ = 3`）文档。再下一个查询访问并显示最后三个文档。接下来，我们进入更复杂的查询。首先，访问名字为 `Ella` 的文档。其次，访问名字为 `Ella` 或\
+  \ `Lou` 的文档。第三，访问文档 `Lou Pole`。第四，访问名字为 `Ella` 或姓氏为 `Pole` 的文档。最后，使用正则表达式访问姓氏以 `Sch`\
+  \ 开头的文档。正则表达式是定义搜索模式的字符序列。最后，添加一个新文档，显示它，并显示集合中的最后三个文档。\n\n## 可视化\n\n可视化是将数据以图形方式表示，并利用这些表示来深入了解数据的过程。可视化是数据科学中最重要的技能之一，因为它有助于我们处理大量复杂数据的方式。\n\
+  \n以下代码示例创建并绘制一组正态分布的数据。然后，将数据向左移动（并绘图）和向右移动（并绘图）。正态分布是一种关于均值对称的概率分布，它对数据科学非常重要，因为它很好地模拟了事件在现实中自然发生的方式。\n\
+  \n```\nimport matplotlib.pyplot as plt\nfrom scipy.stats import norm\nimport numpy\
+  \ as np\nif __name__ == '__main__':\nx = np.linspace(norm.ppf(0.01), norm.ppf(0.99),\
+  \ num=100)\nx_left = x - 1\nx_right = x + 1\ny = norm.pdf(x)\nplt.ylim(0.02, 0.41)\n\
+  plt.scatter(x, y, color=\"crimson\")\nplt.fill_between(x, y, color=\"crimson\")\n\
+  plt.scatter(x_left, y, color=\"chartreuse\")\nplt.scatter(x_right, y, color=\"cyan\"\
+  )\nplt.show()\n```\n\n输出：\n\n![../images/462931_1_En_1_Chapter/462931_1_En_1_Fig1_HTML.jpg](img/462931_1_En_1_Fig1_HTML.jpg)\n\
+  \n图 1-1\n\n正态分布数据\n\n代码示例（图 1-1）首先导入 `matplotlib`、`scipy` 和 `numpy` 库。`matplotlib`\
+  \ 库是一个二维绘图模块，能够在各种硬拷贝格式和跨平台的交互式环境中生成出版质量的图形。`SciPy` 库为数值积分和优化提供了用户友好且高效的数值例程。主程序块首先创建\
+  \ 0.01 到 0.99 之间的 100 个数字序列。原因是正态分布基于概率，而概率必须在 0 和 1 之间。代码继续将该序列向左移动一个单位，向右移动一个单位，以便后续绘图。`ylim()`\
+  \ 方法用于将图表拉到底部（x 轴）。为原始数据、向左移动一个单位和向右移动一个单位的数据创建散点图，并使用不同颜色以增强效果。\n\n在主程序块 `linespace()`\
+  \ 函数的第一行，将数据点数量从 `num = 100` 增加到 `num = 1000`，看看会发生什么。结果是正态分布曲线变得平滑，因为更多的数据提供了更真实的自然世界图景。\n\
+  \n输出：\n\n![../images/462931_1_En_1_Chapter/462931_1_En_1_Fig2_HTML.jpg](img/462931_1_En_1_Fig2_HTML.jpg)\n\
+  \n图 1-2\n\n平滑正态分布数据\n\n平滑之所以有效（图 1-2），是因为正态分布由连续随机变量组成。连续随机变量是具有无限且不可数取值集合的随机变量。因此，更多的数据能带来更强的预测真实性。由于我们无法添加无限的数据，我们只能尽可能多地使用数据。其权衡是，更多的数据会增加计算机处理资源和执行时间。因此，数据科学家在进行其技艺时必须权衡这一取舍。\n\
+  \n"
+- "# 2. 蒙特卡洛模拟与密度函数\n\n蒙特卡洛模拟（MCS）应用重复随机抽样（随机性）来获得确定性问题求解的数值结果。它广泛应用于优化、数值积分和基于风险的决策。概率密度函数和累积密度函数是应用随机变量概率分布的统计度量，可与\
+  \ MCS 结合使用来解决确定性问题。\n\n### 注\n\n读者可参考下载的源代码文件查看本章中的彩色图片。\n\n\n\n### 股票模拟\n\n第一个示例是假设性的且较为简单，但有助于演示数据随机化。它从一个虚构的、价格为\
+  \ 20 美元的股票开始。然后，它预测了 200 天后的价格并绘制了图表。\n\n```\nimport matplotlib.pyplot as plt, numpy\
+  \ as np\nfrom scipy import stats\ndef cum_price(p, d, m, s):\ndata = []\nfor d in\
+  \ range(d):\nprob = stats.norm.rvs(loc=m, scale=s)\nprice = (p * prob)\ndata.append(price)\n\
+  p = price\nreturn data\nif __name__ == \"__main__\":\nstk_price, days, mean, s =\
+  \ 20, 200, 1.001, 0.005\ndata = cum_price(stk_price, days, mean, s)\nplt.plot(data,\
+  \ color=\"lime\")\nplt.ylabel('Price')\nplt.xlabel('days')\nplt.title('stock closing\
+  \ prices')\nplt.show()\n```\n\n输出：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig1_HTML.jpg](img/462931_1_En_2_Fig1_HTML.jpg)\n\
+  \n图 2-1\n\n简单随机图\n\n代码首先导入了 `matplotlib`、`numpy` 和 `scipy` 库。接着定义了函数 `cum_price()`，该函数使用\
+  \ `norm_rvs()` 生成了 200 个正态分布的随机数（每天一个）。数据的随机性至关重要。主程序块创建了变量。`Mean` 设置为略高于 1，标准差（`s`）设置为一个非常小的数值，以生成一个缓慢增长的股票价格。`Mean`（`mu`）是价值的平均变化量。标准差是数据的变异或离散程度。当\
+  \ `s` 为 0.005 时，我们的数据变异非常小。也就是说，数据集中的数值彼此非常接近。请记住，这不是一个真实场景！代码继续绘制结果，如图 2-1 所示。\n\
+  \n下一个示例将 MCS 与一个迭代 100 次的 `while` 循环结合了起来：\n\n```\nimport matplotlib.pyplot as plt,\
+  \ numpy as np\nfrom scipy import stats\ndef cum_price(p, d, m, s):\ndata = []\n\
+  for d in range(d):\nprob = stats.norm.rvs(loc=m, scale=s)\nprice = (p * prob)\n\
+  data.append(price)\np = price\nreturn data\nif __name__ == \"__main__\":\nstk_price,\
+  \ days, mu, sigma = 20, 200, 1.001, 0.005\nx = 0\nwhile x < 100:\ndata = cum_price(stk_price,\
+  \ days, mu, sigma)\nplt.plot(data)\nx += 1\nplt.ylabel('Price')\nplt.xlabel('day')\n\
+  plt.title('Stock closing price')\nplt.show()\n```\n\n输出：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig2_HTML.jpg](img/462931_1_En_2_Fig2_HTML.jpg)\n\
+  \n图 2-2\n\n蒙特卡洛模拟增强图\n\n`while` 循环使我们能够可视化（如图 2-2 所示）200 天内 100 种可能的股票价格结果。请注意，这里使用了\
+  \ `mu`（均值）和 `sigma`（标准差）。这个示例展示了 MCS 在决策制定中的强大功能。\n\n## 假设分析\n\n假设分析会改变算法中的值，以观察它们对结果的影响。请务必一次只改变一个变量，否则你将无法知道是哪个变量导致了变化。在前一个示例中，如果我们将\
+  \ `days` 改为 500，同时保持其他所有变量不变，结果会怎样？绘制这一变化的结果如下（图 2-3）：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig3_HTML.jpg](img/462931_1_En_2_Fig3_HTML.jpg)\n\
+  \n图 2-3\n\n500 天的假设分析\n\n注意，价格变化变慢了。将 `mu`（均值）改为 1.002（别忘了将 `days` 改回 200）会导致变化加快（平均值更大），结果如下（图\
+  \ 2-4）：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig4_HTML.jpg](img/462931_1_En_2_Fig4_HTML.jpg)\n\
+  \n图 2-4\n\n`mu` = 1.002 的假设分析\n\n将 `sigma` 改为 0.02 会导致更大的变异，结果如下（图 2-5）：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig5_HTML.jpg](img/462931_1_En_2_Fig5_HTML.jpg)\n\
+  \n图 2-5\n\n`sigma` = 0.02 的假设分析\n\n## 产品需求模拟\n\n离散概率是指样本空间或总体中每个离散随机值发生的概率。随机变量根据机会取不同的值。离散随机变量只能取可数个值。相比之下，连续随机变量可以在一个区间（如正态分布）内取不可数个值。\n\
+  \n在代码示例中，对一种虚构产品的需求通过四个离散概率结果进行预测：随机变量为 10,000 单位的概率是 10%，为 20,000 单位的概率是 35%，为\
+  \ 40,000 单位的概率是 30%，为 60,000 单位的概率是 25%。简单来说，10%的情况下需求是 10,000，35%的情况下需求是 20,000，30%的情况下需求是\
+  \ 40,000，25%的情况下需求是 60,000。离散结果的总和必须为 100%。该代码在一个生产算法上运行 MCS，该算法确定每个离散结果的利润，并绘制结果。\n\
+  \n```\nimport matplotlib.pyplot as plt, numpy as np\ndef demand():\np = np.random.uniform(0,1)\n\
+  if p = 0.10 and p = 0.45 and p  0:\ndisposal_cost = disposal * units_not_sold\n\
+  else:\ndisposal_cost = 0\nprofit = revenue - total_cost - disposal_cost\nreturn\
+  \ profit\ndef mcs(x, n, units, price, unit_cost, disposal):\nprofit = []\nwhile\
+  \ x <= n:\nd = demand()\nv = production(d, units, price, unit_cost, disposal)\n\
+  profit.append(v)\nx += 1\nreturn profit\ndef max_bar(ls):\ntup = max(enumerate(ls))\n\
+  return tup[0] - 1\nif __name__ == \"__main__\":\nunits = [10000, 20000, 40000, 60000]\n\
+  price, unit_cost, disposal = 4, 1.5, 0.2\navg_p = []\nx, n = 1, 10000\nprofit_10\
+  \ = mcs(x, n, units[0], price, unit_cost, disposal)\navg_p.append(np.mean(profit_10))\n\
+  print ('Profit for {:,.0f}'.format(units[0]),\n'units: ${:,.2f}'.format(np.mean(profit_10)))\n\
+  profit_20 = mcs(x, n, units[1], price, unit_cost, disposal)\navg_p.append(np.mean(np.mean(profit_20)))\n\
+  print ('Profit for {:,.0f}'.format(units[1]),\n'units: ${:,.2f}'.format(np.mean(profit_20)))\n\
+  profit_40 = mcs(x, n, units[2], price, unit_cost, disposal)\navg_p.append(np.mean(profit_40))\n\
+  print ('Profit for {:,.0f}'.format(units[2]),\n'units: ${:,.2f}'.format(np.mean(profit_40)))\n\
+  profit_60 = mcs(x, n, units[3], price, unit_cost, disposal)\navg_p.append(np.mean(profit_60))\n\
+  print ('Profit for {:,.0f}'.format(units[3]),\n'units: ${:,.2f}'.format(np.mean(profit_60)))\n\
+  labels = ['10000','20000','40000','60000']\npos = np.arange(len(labels))\nwidth\
+  \ = 0.75 # set less than 1.0 for spaces between bins\nplt.figure(2)\nax = plt.axes()\n\
+  ax.set_xticks(pos + (width / 2))\nax.set_xticklabels(labels)\nbarlist = plt.bar(pos,\
+  \ avg_p, width, color=\"aquamarine\")\nbarlist[max_bar(avg_p)].set_color('orchid')\n\
+  plt.ylabel('Profit')\nplt.xlabel('Production Quantity')\nplt.title('Production Quantity\
+  \ by Demand')\nplt.show()\n```\n\n输出：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig6_HTML.jpg](img/462931_1_En_2_Fig6_HTML.jpg)\n\
+  \n图 2-6\n\n生产数量可视化\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Figa_HTML.jpg](img/462931_1_En_2_Figa_HTML.jpg)\n\
+  \n\n\n### 排版后的内容\n\n代码首先导入 `matplotlib` 和 `numpy` 库，随后定义了四个函数。函数 `demand()` 首先生成一个均匀分布的随机概率，然后根据待解决问题所设定的四种离散概率结果之一进行返回。函数\
+  \ `production()` 基于我设计的算法返回利润值。请注意，任何基于利润的算法都可以替换，这充分体现了蒙特卡洛模拟（MCS）的惊人灵活性。函数 `mcs()`\
+  \ 将模拟运行 10,000 次。增加运行次数可提高预测精度，但代价是需要更多的计算机处理资源和运行时间。函数 `max_bar()` 用于确定柱状图中的最高柱形，以便更清晰地展示。主程序块首先模拟每种离散概率结果下的利润，然后打印并可视化结果。MCS\
+  \ 预测，生产 40,000 个单位的产品可获得最高利润，如图 2-6 所示。\n\n增加 MCS 模拟次数能够更准确地预测现实情况，因为其基于随机推理（数据随机化）。你也可以根据解决问题的需要，用此代码结构替换任何离散概率分布。如前所述，你可以使用任何算法与\
+  \ MCS 结合进行预测，这使其成为数据科学家手中极其灵活的工具。\n\n我们还可以通过在 MCS 上运行 MCS 来进一步提高精度。以下代码示例使用了与之前相同的算法和流程，但在原始\
+  \ MCS 的基础上增加了一层 MCS，以获得更准确的预测：\n\n```\nimport matplotlib.pyplot as plt, numpy as\
+  \ np\ndef demand():\np = np.random.uniform(0,1)\nif p = 0.10 and p = 0.45 and p\
+  \  0:\ndisposal_cost = disposal * units_not_sold\nelse:\ndisposal_cost = 0\nprofit\
+  \ = revenue - total_cost - disposal_cost\nreturn profit\ndef mcs(x, n, units, price,\
+  \ unit_cost, disposal):\nprofit = []\nwhile x <= n:\nd = demand()\nv = production(d,\
+  \ units, price, unit_cost, disposal)\nprofit.append(v)\nx += 1\nreturn profit\n\
+  def display(p, i):\nprint ('Profit for {:,.0f}'.format(units[i]),\n'units: ${:,.2f}'.format(np.mean(p)))\n\
+  if __name__ == \"__main__\":\nunits = [10000, 20000, 40000, 60000]\nprice, unit_cost,\
+  \ disposal = 4, 1.5, 0.2\navg_ls = []\nx, n, y, z = 1, 10000, 1, 1000\nwhile y <=\
+  \ z:\nprofit_10 = mcs(x, n, units[0], price, unit_cost, disposal)\nprofit_20 = mcs(x,\
+  \ n, units[1], price, unit_cost, disposal)\navg_profit = np.mean(profit_20)\nprofit_40\
+  \ = mcs(x, n, units[2], price, unit_cost, disposal)\navg_profit = np.mean(profit_40)\n\
+  profit_60 = mcs(x, n, units[3], price, unit_cost, disposal)\navg_profit = np.mean(profit_60)\n\
+  avg_ls.append({'p10':np.mean(profit_10),\n'p20':np.mean(profit_20),\n'p40':np.mean(profit_40),\n\
+  'p60':np.mean(profit_60)})\ny += 1\nmcs_p10, mcs_p20, mcs_p40, mcs_p60 = [], [],\
+  \ [], []\nfor row in avg_ls:\nmcs_p10.append(row['p10'])\nmcs_p20.append(row['p20'])\n\
+  mcs_p40.append(row['p40'])\nmcs_p60.append(row['p60'])\ndisplay(np.mean(mcs_p10),\
+  \ 0)\ndisplay(np.mean(mcs_p20), 1)\ndisplay(np.mean(mcs_p40), 2)\ndisplay(np.mean(mcs_p60),\
+  \ 3)\n```\n\n输出：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Figb_HTML.jpg](img/462931_1_En_2_Figb_HTML.jpg)\n\
+  \n此示例的代码与上一个相同，唯一的区别在于 MCS 的 `while` 循环（`while y <= z`）。在此循环中，利润的计算方式与之前相同，均使用函数\
+  \ `mcs()`，但每次模拟的结果都会被追加到列表 `avg_ls` 中。因此，`avg_ls` 包含了原始模拟结果的 1,000 次（`z = 1000`）模拟结果。精度提高了，但需要更多的计算机资源和运行时间。在原始\
+  \ MCS 上运行 1,000 次模拟需要一分多钟，这需要大量的处理时间！\n\n## 使用概率密度函数和累积分布函数实现随机性\n\n在数据科学中，随机性伪装成现实（自然世界），因为未来无法预测。也就是说，随机化是数据科学家模拟现实的方式。更多的数据意味着更高的精度和预测能力（更逼真）。它在离散事件模拟和确定性问题求解中扮演着关键角色。随机化广泛应用于统计学、MCS、密码学、统计学、医学和科学等多个领域。\n\
+  \n连续随机变量的密度是其概率密度函数（PDF）。PDF 是指随机变量取值为 `x` 的概率，其中 `x` 是样本区间内的一个点。该概率由随机变量的 PDF 在样本范围（区间）上的积分确定。也就是说，概率由密度函数曲线下方、水平轴上方以及范围最小值与最大值之间的面积给出。积分（或求积）是一个数学对象，可以解释为正态分布曲线下的面积。累积分布函数（CDF）是指随机变量取值小于或等于\
+  \ `x` 的概率。也就是说，CDF 累积了所有小于或等于 `x` 的概率。百分点函数（PPF）是 CDF 的反函数。它通常被称为逆累积分布函数（ICDF）。ICDF\
+  \ 在数据科学中非常有用，因为它代表了 PDF 曲线下某个面积所对应的实际值。关于密度函数的精彩解释，请参考 [`www.itl.nist.gov/div898/handbook/eda/section3/eda362.htm`](http://www.itl.nist.gov/div898/handbook/eda/section3/eda362.htm)。\n\
+  \n如前所述，概率由随机变量的 PDF 在样本区间上的积分确定。也就是说，积分用于确定某个随机变量落在特定范围（样本）内的概率。在微积分中，积分代表一类函数（原函数），其导数为被积函数。积分符号代表积分运算，而被积函数则是在定积分或不定积分中被积分的函数。微积分基本定理将定积分的计算与不定积分联系起来。我在此处包含这些信息，唯一目的是强调微积分对数据科学的重要性。微积分中另一个对数据科学很重要的概念——“梯度下降”，将在后面的第\
+  \ 4 章中介绍。\n\n尽管理论解释非常宝贵，但它们可能不够直观。更好地理解这些概念的一个好方法是看一个例子。\n\n在代码示例中，为 PDF、CDF 和 ICDF（PPF）创建了二维图表。示例中还包含了颜色映射表的概念。颜色映射表是一个查找表，用于指定渲染调色板图像时要使用的颜色。调色板图像是一种通过将其像素映射到仅包含图像中实际存在的颜色的调色板来进行高效编码的图像。`matplotlib`\
+  \ 库包含了大量的颜色映射表。有关可用的颜色映射表，请参考 [`https://matplotlib.org/examples/color/colormaps_reference.html`](https://matplotlib.org/examples/color/colormaps_reference.html)。\n\
+  \n\n\n```python\nimport matplotlib.pyplot as plt\nfrom scipy.stats import norm\n\
+  import numpy as np\nif __name__ == '__main__':\n    x = np.linspace(norm.ppf(0.01),\
+  \ norm.ppf(0.99), num=1000)\n    y1 = norm.pdf(x)\n    plt.figure('PDF')\n    plt.xlim(x.min()-.1,\
+  \ x.max()+0.1)\n    plt.ylim(y1.min(), y1.max()+0.01)\n    plt.xlabel('x')\n   \
+  \ plt.ylabel('Probability Density')\n    plt.title('Normal PDF')\n    plt.scatter(x,\
+  \ y1, c=x, cmap=\"jet\")\n    plt.fill_between(x, y1, color=\"thistle\")\n    plt.show()\n\
+  \    plt.close('PDF')\n    plt.figure('CDF')\n    plt.xlabel('x')\n    plt.ylabel('Probability')\n\
+  \    plt.title('Normal CDF')\n    y2 = norm.cdf(x)\n    plt.scatter(x, y2, c=x,\
+  \ cmap=\"jet\")\n    plt.show()\n    plt.close('CDF')\n    plt.figure('ICDF')\n\
+  \    plt.xlabel('Probability')\n    plt.ylabel('x')\n    plt.title('Normal ICDF\
+  \ (PPF)')\n    y3 = norm.ppf(x)\n    plt.scatter(x, y3, c=x, cmap=\"jet\")\n   \
+  \ plt.show()\n    plt.close('ICDF')\n```\n\n输出：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig9_HTML.jpg](img/462931_1_En_2_Fig9_HTML.jpg)\n\
+  \n**图 2-9** 正态逆累积分布函数可视化\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig8_HTML.jpg](img/462931_1_En_2_Fig8_HTML.jpg)\n\
+  \n**图 2-8** 正态累积分布函数可视化\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig7_HTML.jpg](img/462931_1_En_2_Fig7_HTML.jpg)\n\
+  \n**图 2-7** 正态概率密度函数可视化\n\n代码首先导入三个库——`matplotlib`、`scipy` 和 `numpy`。主程序块首先在 0.01\
+  \ 到 0.99 之间创建了 1000 个 `x` 值的序列（因为概率必须介于 0 和 1 之间）。接着，基于这些 `x` 值创建了一个 PDF `y` 值的序列。代码继续绘制生成的\
+  \ PDF，如图 2-7 所示。接下来，创建并绘制了 CDF（图 2-8）和 ICDF（图 2-9）的序列。从可视化结果中可以更容易地看出，PDF 代表了正态分布下所有可能的\
+  \ `x` 值（概率）。同时，CDF 也更易于可视化，因为它代表了所有可能概率的累积。最后，通过可视化（见图 2-9）更容易理解 ICDF，因为 x 轴代表概率，而\
+  \ y 轴代表与这些概率相关的实际值。\n\n让我们应用 ICDF。假设你是苹果公司的数据科学家，你的老板要求你确定苹果 iPhone 8 的故障率，以便她为上级制作一份演示文稿。在这个假设的例子中，你的老板期望得到四个计算结果：5%\
+  \ 的手机发生故障所需的时间、95% 的手机发生故障的时间区间（范围）、5% 的手机存活（未发生故障）的时间，以及 95% 的手机存活的时间区间。所有情况均以小时为单位报告时间。通过数据探索，你确定平均（`mu`）故障时间为\
+  \ 1000 小时，标准差（`sigma`）为 300 小时。\n\n以下代码示例计算了四种场景下的 ICDF，并以易于理解的格式向你的老板展示结果：\n\n\
+  ```python\nfrom scipy.stats import norm\nimport numpy as np\ndef np_rstrip(v):\n\
+  \    return np.char.rstrip(v.astype(str), '.0')\ndef transform(t):\n    one, two\
+  \ = round(t[0]), round(t[1])\n    return (np_rstrip(one), np_rstrip(two))\nif __name__\
+  \ == \"__main__\":\n    mu, sigma = 1000, 300\n    print ('预期故障率：')\n    fail =\
+  \ np_rstrip(round(norm.ppf(0.05, loc=mu, scale=sigma)))\n    print ('5% 在', fail,\
+  \ '小时内发生故障')\n    fail_range = norm.interval(0.95, loc=mu, scale=sigma)\n    lo,\
+  \ hi = transform(fail_range)\n    print ('95% 在', lo, '到', hi, end=' ')\n    print\
+  \ ('小时的使用时间内发生故障')\n    print ('\\n 预期存活率：')\n    last = np_rstrip(round(norm.ppf(0.95,\
+  \ loc=mu, scale=sigma)))\n    print ('5% 存活至', last, '小时的使用时间')\n    last_range\
+  \ = norm.interval(0.05, loc=mu, scale=sigma)\n    lo, hi = transform(last_range)\n\
+  \    print ('95% 在', lo, '到', hi, '小时的使用时间内存活')\n```\n\n输出：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Figc_HTML.jpg](img/462931_1_En_2_Figc_HTML.jpg)\n\
+  \n代码示例首先导入 `scipy` 和 `numpy` 库。接着定义了两个函数。函数 `np_rstrip()` 将 numpy 浮点数转换为字符串并移除多余字符。函数\
+  \ `transform()` 对数字进行四舍五入并返回一个元组。这两个函数都用于将数字四舍五入到无小数位，以便于你虚构的老板理解。主程序块首先将 `mu` 和\
+  \ `sigma` 初始化为 1000（故障）和 300（变异）。也就是说，平均而言，我们的智能手机在 1000 小时内发生故障，故障时间在 700 到 1300\
+  \ 小时之间变化。接下来，使用 `norm.ppf()` 查找 5% 故障率的 ICDF 值以及 95% 发生故障的区间。因此，预计所有手机中有 5% 会在 507\
+  \ 小时内发生故障，而 95% 会在 412 到 1588 小时的使用时间内发生故障。接着，查找 5% 存活率的 ICDF 值以及 95% 存活的区间。因此，所有手机中有\
+  \ 5% 能存活至 1493 小时，而 95% 能在 981 到 1019 小时的使用时间内存活。\n\n简单来说，ICDF 允许你从已知概率反向推导，找到对应的\
+  \ `x` 值！更多信息请参考 [`http://support.minitab.com/en-us/minitab-express/1/help-and-how-to/basic-statistics/probability-distributions/supporting-topics/basics/using-the-inverse-cumulative-distribution-function-icdf/#what-is-an-inverse-cumulative-distribution-function-icdf`](http://support.minitab.com/en-us/minitab-express/1/help-and-how-to/basic-statistics/probability-distributions/supporting-topics/basics/using-the-inverse-cumulative-distribution-function-icdf/#what-is-an-inverse-cumulative-distribution-function-icdf)。\n\
+  \n让我们尝试假设分析。如果我们将错误率（`sigma`）从 300 降低到 30 会怎样？\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Figd_HTML.jpg](img/462931_1_En_2_Figd_HTML.jpg)\n\
+  \n现在，预计所有手机中有 5% 会在 951 小时内发生故障，而 95% 会在 941 到 1059 小时的使用时间内发生故障。并且，所有手机中有 5% 能存活至\
+  \ 1049 小时，而 95% 能在 998 到 1002 小时的使用时间内存活。这意味着什么？更小的变异（误差）表明，故障率和存活率的值都更接近平均值。这很合理，因为变异是基于平均值\
+  \ 1000 计算得出的。\n\n让我们转向一个模拟示例。假设你的老板要求你确定某款汽车的最佳月订购量，假设需求服从正态分布（必须如此，因为 PDF 基于此假设），平均需求（`mu`）为\
+  \ 200，变异（`sigma`）为 30。每辆汽车成本为 25,000 美元，售价为 45,000 美元，未按全价售出的汽车中有一半可以 30,000 美元的价格售出。与其他\
+  \ MCS 实验一样，你可以修改利润算法以增强现实性。根据供应商的限制，你的订购量可选为 160、180、200、220、240、260 或 280。\n\n\
+  MCS 用于根据所提供的信息计算每个订购量对应的利润。在模拟的每次迭代中，需求都是随机生成的。通过对每个订购量运行 MCS，可以自动计算各订购量下的利润。\n\n\
+  \n\n```python\nimport numpy as np\nimport matplotlib.pyplot as plt\ndef str_int(s):\n\
+  \    val = \"%.2f\" % profit\n    return float(val)\nif __name__ == \"__main__\"\
+  :\n    orders = [180, 200, 220, 240, 260, 280, 300]\n    mu, sigma, n = 200, 30,\
+  \ 10000\n    cost, price, discount = 25000, 45000, 30000\n    profit_ls = []\n \
+  \   for order in orders:\n        x = 1\n        profit_val = []\n        inv_cost\
+  \ = order * cost\n        while x  0:\n                damt = round(abs(diff) /\
+  \ 2) * discount\n                profit = (demand * price) - inv_cost + damt\n \
+  \           else:\n                profit = (order * price) - inv_cost\n       \
+  \ else:\n            profit = (order * price) - inv_cost\n        profit = str_int(profit)\n\
+  \        profit_val.append(profit)\n        x += 1\n        avg_profit = np.mean(profit_val)\n\
+  \        profit_ls.append(avg_profit)\n        print ('${0:,.2f}'.format(avg_profit),\
+  \ '(profit)',\n               'for order:', order)\n    max_profit = max(profit_ls)\n\
+  \    profit_np = np.array(profit_ls)\n    max_ind = np.where(profit_np == profit_np.max())\n\
+  \    print ('\\nMaximum profit', '${0:,.2f}'.format(max_profit),\n           'for\
+  \ order', orders[int(max_ind[0])])\n    barlist = plt.bar(orders, profit_ls, width=15,\
+  \ color=\"thistle\")\n    barlist[int(max_ind[0])].set_color('lime')\n    plt.title('Profits\
+  \ by Order Quantity')\n    plt.xlabel('orders')\n    plt.ylabel('profit')\n    plt.tight_layout()\n\
+  \    plt.show()\n```\n\n输出：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig10_HTML.jpg](img/462931_1_En_2_Fig10_HTML.jpg)\n\
+  \n**图 2-10** 按订单数量可视化利润\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fige_HTML.jpg](img/462931_1_En_2_Fige_HTML.jpg)\n\
+  \n代码首先导入 `numpy` 和 `matplotlib`。接着定义了一个函数（`str_int()`），用于将字符串转换为浮点数。主程序块首先初始化 `orders`、`mu`、`sigma`、`n`、`cost`、`price`、`discount`\
+  \ 以及按订单分类的利润列表。然后，它遍历每个订单数量，并运行包含 10,000 次迭代的 MCS。每次模拟迭代中，使用随机生成的需求概率来计算利润。计算利润的技术相当简单，但你可以替换为自己的算法。你也可以根据自己的数据修改任何给定的信息。通过\
+  \ MCS 计算每个订单的利润后，代码继续寻找利润最高的订单数量。最后，代码生成一个条形图，通过可视化来阐明结果，如图 2-10 所示。\n\n最后一个代码示例创建了一个\
+  \ PDF 可视化：\n\n```python\nimport matplotlib.pyplot as plt, numpy as np\nfrom scipy.stats\
+  \ import norm\nif __name__ == '__main__':\n    n = 100\n    x = np.linspace(norm.ppf(0.01),\
+  \ norm.ppf(0.99), num=n)\n    y = norm.pdf(x)\n    dic = {}\n    for i, row in enumerate(y):\n\
+  \        dic[x[i]] = [np.random.uniform(0, row) for _ in range(n)]\n    xs = []\n\
+  \    ys = []\n    for key, vals in dic.items():\n        for y in vals:\n      \
+  \      xs.append(key)\n            ys.append(y)\n    plt.xlim(min(xs), max(xs))\n\
+  \    plt.ylim(0, max(ys)+0.02)\n    plt.title('Normal PDF')\n    plt.xlabel('x')\n\
+  \    plt.ylabel('Probability Density')\n    plt.scatter(xs, ys, c=xs, cmap=\"rainbow\"\
+  )\n    plt.show()\n```\n\n输出：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig11_HTML.jpg](img/462931_1_En_2_Fig11_HTML.jpg)\n\
+  \n**图 2-11** 100 次模拟下的所有 PDF 概率\n\n代码首先导入 `matplotlib`、`numpy` 和 `scipy` 库。主程序块首先初始化你想要绘制的点数、PDF\
+  \ 的 `x` 和 `y` 值以及一个字典。为了绘制所有 PDF 概率，为 x 轴上的每个点创建了一组随机生成的值。为了完成此任务，代码将 100（`n = 100`）个值从\
+  \ 0.01 到 0.99 分配给 `x`。接着，它将 100 个 PDF 值分配给 `y`。然后，字典元素由一个（键，值）对填充，该对由每个 `x` 值作为键，以及一个包含\
+  \ 100（`n = 100`）个介于 0 和 `pdf(x)` 之间的随机生成数字的列表作为与 `x` 关联的值。尽管创建字典的代码很简单，但请仔细思考其背后的逻辑，因为它相当抽象。代码接着从字典中构建（`x`，`y`）对。结果是\
+  \ 10,000（100 X 100）个（`x`，`y`）对，其中每 100 个 `x` 值都有 100 个关联的 `y` 值，如图 2-11 所示。\n\n\
+  为了使可视化更平滑，在主程序块的开头将 `n` 增加到 1,000（`n = 1000`）：\n\n![../images/462931_1_En_2_Chapter/462931_1_En_2_Fig12_HTML.jpg](img/462931_1_En_2_Fig12_HTML.jpg)\n\
+  \n**图 2-12** 1,000 次模拟下的所有 PDF 概率\n\n通过将 `n` 增加到 1000，将绘制出 1,000,000（1,000 X 1,000）个（`x`，`y`）对，如图\
+  \ 2-12 所示！\n\n"
+- "# 3. 线性代数\n\n线性代数是数学的一个分支，涉及向量空间以及这些空间之间的线性映射。简单来说，它探索的是类似线性的关系。现代科学的几乎每个领域都使用线性代数来近似建模方程。特别是，数据科学在机器学习、数学建模和维度分布问题求解方面依赖于线性代数。\n\
+  \n## 向量空间\n\n向量空间是向量的集合。向量是任何具有大小和方向的量，它决定了空间中一个点相对于另一个点的位置。大小是通过运动、长度和/或速度来衡量的物体的尺寸。向量可以相加和（通过标量）相乘，以形成新的向量。标量是任何具有大小（尺寸）的量。在实际应用中，向量是有限空间中的点。\n\
+  \n向量的例子包括呼吸、行走和位移。呼吸需要膈肌施加一个具有大小和方向的力。行走需要朝某个方向移动。位移衡量一个物体在某个方向上移动了多远。\n\n\n\n###\
+  \ 向量数学\n\n在向量数学中，向量被描绘为一条有向线段，其长度代表向量的大小，箭头指示从起点（尾）到终点（头）的方向。起点是线段开始的地方，终点是线段结束的地方（箭头）。如果两个向量的大小和方向相同，则它们相等。\n\
+  \n要将两个向量 `a` 和 `b` 相加，从 `a` 的终点开始绘制 `b`，并构成一个三角形。直观地说，从某个原点开始，绘制 `a`（图 3-1），从 `a`\
+  \ 的终点开始绘制 `b`（图 3-2），结果 `c`（图 3-3）就是从 `a` 的起点到 `b` 的终点的线段。第一个示例展示了向量加法以及该过程的图形化描述：\n\
+  \n```\nimport matplotlib.pyplot as plt, numpy as np\ndef vector_add(a, b):\nreturn\
+  \ np.add(a, b)\ndef set_up():\nplt.figure()\nplt.xlim(-.05, add_vectors[0]+0.4)\n\
+  plt.ylim(-1.1, add_vectors[1]+0.4)\nif __name__ == \"__main__\":\nv1, v2 = np.array([3,\
+  \ -1]), np.array([2, 3])\nadd_vectors = vector_add(v1, v2)\nset_up()\nax = plt.axes()\n\
+  ax.arrow(0, 0, 3, -1, head_width=0.1, fc=\"b\", ec=\"b\")\nax.text(1.5, -0.35, 'a')\n\
+  ax.set_facecolor('honeydew')\nset_up()\nax = plt.axes()\nax.arrow(0, 0, 3, -1, head_width=0.1,\
+  \ fc=\"b\", ec=\"b\")\nax.arrow(3, -1, 2, 3, head_width=0.1, fc=\"crimson\", ec=\"\
+  crimson\")\nax.text(1.5, -0.35, 'a')\nax.text(4, -0.1, 'b')\nax.set_facecolor('honeydew')\n\
+  set_up()\nax = plt.axes()\nax.arrow(0, 0, 3, -1, head_width=0.1, fc=\"b\", ec=\"\
+  b\")\nax.arrow(3, -1, 2, 3, head_width=0.1, fc=\"crimson\", ec=\"crimson\")\nax.arrow(0,\
+  \ 0, 5, 2, head_width=0.1, fc=\"springgreen\", ec=\"springgreen\")\nax.text(1.5,\
+  \ -0.35, 'a')\nax.text(4, -0.1, 'b')\nax.text(2.3, 1.2, 'a + b')\nax.text(4.5, 2.08,\
+  \ add_vectors, color=\"fuchsia\")\nax.set_facecolor('honeydew')\nplt.show()\n```\n\
+  \n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Fig3_HTML.jpg](img/462931_1_En_3_Fig3_HTML.jpg)\n\
+  \n图 3-3\n\n从 (0, 0) 到 (5, 2) 的向量 `c`\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Fig2_HTML.jpg](img/462931_1_En_3_Fig2_HTML.jpg)\n\
+  \n图 3-2\n\n从 (3, -1) 到 (5, 2) 的向量 `b`\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Fig1_HTML.jpg](img/462931_1_En_3_Fig1_HTML.jpg)\n\
+  \n图 3-1\n\n从原点 (0, 0) 到 (3, -1) 的向量 `a`\n\n代码首先导入 `matplotlib` 和 `numpy` 库。`matplotlib`\
+  \ 库是一个用于高质量可视化的绘图库。`numpy` 库是科学计算的基础包，是处理向量和矩阵的绝佳库。代码接着定义了两个函数——`vector_add()` 和\
+  \ `set_up()`。函数 `vector_add()` 用于将两个向量相加。函数 `set_up()` 用于设置绘图图形。主程序块首先创建两个向量并将它们相加。代码的其余部分以图形方式演示了向量加法的工作原理。首先，它创建一个\
+  \ `axes()` 对象，其中包含一个表示向量 `a` 的箭头，该箭头从原点 (0, 0) 开始，到 (3, -1) 结束。接着添加文本和背景颜色。然后，它创建第二个\
+  \ `axes()` 对象，其中包含相同的箭头 `a`，但添加了从 (3, -1) 开始并延伸到 (2, 3) 的箭头 `b`（向量 `b`）。最后，它创建第三个\
+  \ `axes()` 对象，其中包含相同的箭头 `a` 和 `b`，但添加了从 (0, 0) 开始到 (5, 2) 结束的箭头 `c`（`a + b`）。\n\n\
+  第二个示例通过使用子图（图 3-4）修改了前一个示例。子图将图形划分为一个 m × n 的网格，以提供不同的可视化体验。\n\n```\nimport matplotlib.pyplot\
+  \ as plt, numpy as np\ndef vector_add(a, b):\nreturn np.add(a, b)\nif __name__ ==\
+  \ \"__main__\":\nv1, v2 = np.array([3, -1]), np.array([2, 3])\nadd_vectors = vector_add(v1,\
+  \ v2)\nf, ax = plt.subplots(3)\nx, y = [0, 3], [0, -1]\nax[0].set_xlim([-0.05, 3.1])\n\
+  ax[0].set_ylim([-1.1, 0.1])\nax[0].scatter(x,y,s=1)\nax[0].arrow(0, 0, 3, -1, head_width=0.1,\
+  \ head_length=0.07,\nfc='b', ec=\"b\")\nax[0].text(1.5, -0.35, 'a')\nax[0].set_facecolor('honeydew')\n\
+  x, y = ([0, 3, 5]), ([0, -1, 2])\nax[1].set_xlim([-0.05, 5.1])\nax[1].set_ylim([-1.2,\
+  \ 2.2])\nax[1].scatter(x,y,s=0.5)\nax[1].arrow(0, 0, 3, -1, head_width=0.2, head_length=0.1,\n\
+  fc='b', ec=\"b\")\nax[1].arrow(3, -1, 2, 3, head_width=0.16, head_length=0.1,\n\
+  fc='crimson', ec=\"crimson\")\nax[1].text(1.5, -0.35, 'a')\nax[1].text(4, -0.1,\
+  \ 'b')\nax[1].set_facecolor('honeydew')\nx, y = ([0, 3, 5]), ([0, -1, 2])\nax[2].set_xlim([-0.05,\
+  \ 5.25])\nax[2].set_ylim([-1.2, 2.3])\nax[2].scatter(x,y,s=0.5)\nax[2].arrow(0,\
+  \ 0, 3, -1, head_width=0.15, head_length=0.1,\nfc='b', ec=\"b\")\nax[2].arrow(3,\
+  \ -1, 2, 3, head_width=0.15, head_length=0.1,\nfc='crimson', ec=\"crimson\")\nax[2].arrow(0,\
+  \ 0, 5, 2, head_width=0.1, head_length=0.1,\nfc='springgreen', ec=\"springgreen\"\
+  )\nax[2].text(1.5, -0.35, 'a')\nax[2].text(4, -0.1, 'b')\nax[2].text(2.3, 1.2, 'a\
+  \ + b')\nax[2].text(4.9, 1.4, add_vectors, color=\"fuchsia\")\nax[2].set_facecolor('honeydew')\n\
+  plt.tight_layout()\nplt.show()\n```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Fig4_HTML.jpg](img/462931_1_En_3_Fig4_HTML.jpg)\n\
+  \n图 3-4\n\n向量加法的子图可视化\n\n代码首先导入 `matplotlib` 和 `numpy` 库。接着使用与之前相同的 `vector_add()`\
+  \ 函数。主程序块使用 `plt.subplots(3)` 创建三个子图，并赋值给 `f` 和 `ax`，其中 `f` 代表图形，`ax` 代表每个子图（`ax[0]`、`ax[1]`\
+  \ 和 `ax[2]`）。代码不是操作单个图形，而是通过索引 `ax` 来构建每个子图。代码使用 `plt.tight_layout()` 自动对齐每个子图。\n\
+  \n第三个示例增加了向量减法。减去两个向量相当于加上一个向量的相反数（取反）。因此，向量 `a` 减去向量 `b` 等同于 `a + (-b)`。该代码示例演示了二维和三维向量的加法和减法：\n\
+  \n```\nimport numpy as np\ndef vector_add(a, b):\nreturn np.add(a, b)\ndef vector_sub(a,\
+  \ b):\nreturn np.subtract(a, b)\nif __name__ == \"__main__\":\nv1, v2 = np.array([3,\
+  \ -1]), np.array([2, 3])\nadd = vector_add(v1, v2)\nsub = vector_sub(v1, v2)\nprint\
+  \ ('2D vectors:')\nprint (v1, '+', v2, '=', add)\nprint (v1, '-', v2, '=', sub)\n\
+  v1 = np.array([1, 3, -5])\nv2 = np.array([2, -1, 3])\nadd = vector_add(v1, v2)\n\
+  sub = vector_sub(v1, v2)\nprint ('\\n3D vectors:')\nprint (v1, '+', v2, '=', add)\n\
+  print (v1, '-', v2, '=', sub)\n```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figa_HTML.jpg](img/462931_1_En_3_Figa_HTML.jpg)\n\
+  \n代码首先导入 `numpy` 库。接着定义函数 `vector_add()` 和 `vector_subtract()`，分别用于向量的加法和减法。主程序块首先创建两个二维向量，并对它们进行加法和减法运算。接着对两个三维向量进行加法和减法运算。任何\
+  \ n 维向量都可以用同样的方式进行加法和减法运算。\n\n向量的大小通过距离公式来度量。单个向量的大小是从原点 (0, 0) 到该向量的距离。两个向量之间的大小是从第一个向量到第二个向量的距离。距离公式是（第二个向量的第一个值减去第一个向量的第一个值的平方）加上（第二个向量的第二个值减去第一个向量的第二个值的平方）之和的平方根。\n\
+  \n\n\n### 矩阵数学\n\n矩阵是一个由数字组成的数组。可以对矩阵执行多种运算，例如加法、减法、取反、乘法和除法。矩阵的维度是指其行数和列数，按此顺序表示。也就是说，一个\
+  \ 2 × 3 的矩阵有两行三列。通常，一个 m × n 的矩阵有 m 行和 n 列。元素是矩阵中的一个条目。具体来说，矩阵 `A` 中位于 `row[i]`\
+  \ 和 `column[j]` 的元素表示为 `a[i,j]`。最后，矩阵中的向量通常被视为列向量。因此，一个 2 × 3 的矩阵有三个向量（列），每个向量包含两个元素。在执行矩阵乘法或在数据科学算法中使用矩阵时，这是一个需要理解的重要概念。\n\
+  \n第一个代码示例创建了一个 numpy 矩阵，将其乘以一个标量，计算了按行和按列的均值，从 numpy 数组创建了一个 numpy 矩阵，并按行和元素显示它：\n\
+  \n```python\nimport numpy as np\ndef mult_scalar(m, s):\n    matrix = np.empty(m.shape)\n\
+  \    m_shape = m.shape\n    for i, v in enumerate(range(m_shape[0])):\n        result\
+  \ = [x * s for x in m[v]]\n        x = np.array(result[0])\n        matrix[i] =\
+  \ x\n    return matrix\ndef display(m):\n    s = np.shape(m)\n    cols = s[1]\n\
+  \    for i, row in enumerate(m):\n        print ('row', str(i) + ':', row, 'elements:',\
+  \ end=' ')\n        for col in range(cols):\n            print (row[col], end='\
+  \ ')\n        print ()\nif __name__ == \"__main__\":\n    v1, v2, v3 = [1, 7, -4],\
+  \ [2, -3, 10], [3, 5, 6]\n    A = np.matrix([v1, v2, v3])\n    print ('matrix A:\\\
+  n', A)\n    scalar = 0.5\n    B = mult_scalar(A, scalar)\n    print ('\\nmatrix\
+  \ B:\\n', B)\n    mu_col = np.mean(A, axis=0, dtype=np.float64)\n    print ('\\\
+  nmean A (column-wise):\\n', mu_col)\n    mu_row = np.mean(A, axis=1, dtype=np.float64)\n\
+  \    print ('\\nmean A (row-wise):\\n', mu_row)\n    print ('\\nmatrix C:')\n  \
+  \  C = np.array([[2, 14, -8], [4, -6, 20], [6, 10, 12]])\n    print (C)\n    print\
+  \ ('\\ndisplay each row and element:')\n    display(C)\n```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figb_HTML.jpg](img/462931_1_En_3_Figb_HTML.jpg)\n\
+  \n代码首先导入 `numpy`。接着是两个函数——`mult_scalar()` 和 `display()`。函数 `mult_scalar()` 将矩阵乘以一个标量。函数\
+  \ `display()` 按行和行中的每个元素显示矩阵。主程序块创建了三个向量，并将它们添加到 numpy 矩阵 `A` 中。通过将标量 `0.5` 乘以 `A`\
+  \ 来创建 `B`。接下来，按列和按行计算 `A` 的均值。最后，从三个 numpy 数组创建 numpy 矩阵 `C`，并按行和元素显示。\n\n第二个代码示例创建了一个\
+  \ numpy 矩阵 `A`，对其列和行求和，计算了两个向量的点积，并计算了两个矩阵的点积。点积将两个向量相乘，得到一个可用于计算向量长度和向量之间夹角的大小。具体来说，两个向量\
+  \ `a` 和 `b` 的点积是 `a[x] × b[x] + a[y] × b[y]`。\n\n对于矩阵乘法，点积从两个矩阵 `A` 和 `B` 生成矩阵 `C`。然而，当两个向量都被视为列矩阵时，它们不能相乘。为了解决这个问题，将\
+  \ `A` 中的第一个向量转置，将其变成一个 1 × n 的行矩阵，这样它就可以与 `B` 中的第一个向量相乘并求和。现在乘积是良定义的，因为一个 1 × n\
+  \ 矩阵与一个 n × 1 矩阵的乘积是一个 1 × 1 矩阵（一个标量）。要得到点积，对 `A` 和 `B` 中剩余的向量重复此过程。Numpy 包含一个方便的函数，可以为你计算点积，这大大简化了矩阵乘法。\n\
+  \n```python\nimport numpy as np\ndef sum_cols(matrix):\n    return np.sum(matrix,\
+  \ axis=0)\ndef sum_rows(matrix):\n    return np.sum(matrix, axis=1)\ndef dot(v,\
+  \ w):\n    return np.dot(v, w)\nif __name__ == \"__main__\":\n    v1, v2, v3 = [1,\
+  \ 7, -4], [2, -3, 10], [3, 5, 6]\n    A = np.matrix([v1, v2, v3])\n    print ('matrix\
+  \ A:\\n', A)\n    v_cols = sum_cols(A)\n    print ('\\nsum A by column:\\n', v_cols)\n\
+  \    v_rows = sum_rows(A)\n    print ('\\nsum A by row:\\n', v_rows)\n    dot_product\
+  \ = dot(v1, v2)\n    print ('\\nvector 1:', v1)\n    print ('vector 2:', v2)\n \
+  \   print ('\\ndot product v1 and v2:')\n    print (dot_product)\n    v1, v2, v3\
+  \ = [-2, 5, 4], [1, 2, 9], [10, -9, 3]\n    B = np.matrix([v1, v2, v3])\n    print\
+  \ ('\\nmatrix B:\\n', B)\n    C = A.dot(B)\n    print ('\\nmatrix C (dot product\
+  \ A and B):\\n', C)\n    print ('\\nC by row:')\n    for i, row in enumerate(C):\n\
+  \        print ('row', str(i) + ': ', end='')\n        for v in np.nditer(row):\n\
+  \            print (v, end=' ')\n        print()\n```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figc_HTML.jpg](img/462931_1_En_3_Figc_HTML.jpg)\n\
+  \n代码首先导入 `numpy`。接着是三个函数——`sum_cols()`、`sum_rows()` 和 `dot()`。函数 `sum_cols()` 对每一列求和，并返回一个包含这些值的行。函数\
+  \ `sum_rows()` 对每一行求和，并返回一个包含这些值的列。函数 `dot()` 计算点积。主程序块首先创建三个向量，然后用它们创建矩阵 `A`。对\
+  \ `A` 的列和行进行求和。然后计算两个向量（`v1` 和 `v2`）的点积。接下来，创建三个新向量，然后用它们创建矩阵 `B`。通过计算 `A` 和 `B`\
+  \ 的点积来创建矩阵 `C`。最后，显示 `C` 的每一行。\n\n第三个代码示例展示了一个实际场景。假设一家公司销售三种馅饼——牛肉馅饼、鸡肉馅饼和蔬菜馅饼。牛肉馅饼每个售价\
+  \ 3 美元，鸡肉馅饼每个售价 4 美元，蔬菜馅饼每个售价 2 美元。馅饼成本的向量表示为 `[3, 4, 2]`。你还知道周一至周四每种馅饼的销量。牛肉销量周一为\
+  \ 13，周二为 9，周三为 7，周四为 15。因此牛肉销量的向量为 `[13, 9, 7, 15]`。使用同样的逻辑，鸡肉销量的向量为 `[8, 7, 4,\
+  \ 6]`，蔬菜销量的向量为 `[6, 4, 0, 3]`。目标是计算四天（周一至周四）的总销售额。\n\n```python\nimport numpy as\
+  \ np\ndef dot(v, w):\n    return np.dot(v, w)\ndef display(m):\n    for i, row in\
+  \ enumerate(m):\n        print ('total sales by day:\\n', end='')\n        for v\
+  \ in np.nditer(row):\n            print (v, end=' ')\n        print()\nif __name__\
+  \ == \"__main__\":\n    a = [3, 4, 2]\n    A = np.matrix([a])\n    print ('cost\
+  \ matrix A:\\n', A)\n    v1, v2, v3 = [13, 9, 7, 15], [8, 7, 4, 6], [6, 4, 0, 3]\n\
+  \    B = np.matrix([v1, v2, v3])\n    print ('\\ndaily sales by item matrix B:\\\
+  n', B)\n    C = A.dot(B)\n    print ('\\ndot product matrix C:\\n', C, '\\n')\n\
+  \    display(C)\n```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figd_HTML.jpg](img/462931_1_En_3_Figd_HTML.jpg)\n\
+  \n代码首先导入 `numpy`。接着是函数 `dot()`，它计算点积，以及函数 `display()`，它逐行显示矩阵的元素。主程序块首先创建一个包含每种馅饼成本的向量。然后将其转换为矩阵\
+  \ `A`。接下来，创建三个向量，分别代表周一至周五每种馅饼的销量。代码继续将这三个向量转换为矩阵 `B`。通过求 `A` 和 `B` 的点积来创建矩阵 `C`。这个场景演示了点积如何用于解决商业问题。\n\
+  \n第四个代码示例计算单个向量以及两个向量之间的模（距离）和方向（角度）：\n\n\n\n```python\nimport math, numpy as np\n\
+  def sqrt_sum_squares(ls):\nreturn math.sqrt(sum(map(lambda x:x*x,ls)))\ndef mag(v):\n\
+  return np.linalg.norm(v)\ndef a_tang(v):\nreturn math.degrees(math.atan(v[1]/v[0]))\n\
+  def dist(v, w):\nreturn math.sqrt(((w[0]-v[0])** 2) + ((w[1]-v[1])** 2))\ndef mags(v,\
+  \ w):\nreturn np.linalg.norm(v - w)\ndef a_tangs(v, w):\nval = (w[1] - v[1]) / (w[0]\
+  \ - v[0])\nreturn math.degrees(math.atan(val))\nif __name__ == \"__main__\":\nv\
+  \ = np.array([3, 4])\nprint ('single vector', str(v) + ':')\nprint ('magnitude:',\
+  \ sqrt_sum_squares(v))\nprint ('NumPY magnitude:', mag(v))\nprint ('direction:',\
+  \ round(a_tang(v)), 'degrees\\n')\nv1, v2 = np.array([2, 3]), np.array([5, 8])\n\
+  print ('two vectors', str(v1) + ' and ' + str(v2) + ':')\nprint ('magnitude', round(dist(v1,\
+  \ v2),2))\nprint ('NumPY magnitude:', round(mags(v1, v2),2))\nprint ('direction:',\
+  \ round(a_tangs(v1, v2)), 'degrees\\n')\nv1, v2 = np.array([0, 0]), np.array([3,\
+  \ 4])\nprint ('use origin (0,0) as 1st vector:')\nprint ('\"two vectors', str(v1)\
+  \ + ' and ' + str(v2) + '\"')\nprint ('magnitude:', round(mags(v1, v2),2))\nprint\
+  \ ('direction:', round(a_tangs(v1, v2)), 'degrees')\n```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Fige_HTML.jpg](img/462931_1_En_3_Fige_HTML.jpg)\n\
+  \n代码首先导入`math`和`numpy`库。接着定义了六个函数。函数`sqrt_sum_squares()`从零开始计算单个向量的模。函数`mag()`功能相同，但使用了`numpy`。函数`a_tang()`计算向量的反正切，即向量从原点`(0,0)`出发的方向（角度）。函数`dist()`从零开始计算两个向量之间的模。函数`mags()`功能相同，但使用了`numpy`。函数`a_tangs()`计算两个向量的反正切。主程序块创建一个向量，计算其模和方向，并显示结果。接着，计算并显示两个向量的模和方向。最后，使用两个向量的公式计算单个向量的模和方向。这是通过将原点`(0,0)`作为第一个向量来实现的。因此，不需要为单个向量计算模和方向的函数，因为任何单个向量总是从原点`(0,0)`出发。所以，一个向量就是空间中的一个点，要么从原点`(0,0)`测量，要么通过模和方向相对于另一个向量来测量。\n\
+  \n## 基本矩阵变换\n\n第一个代码示例介绍了单位矩阵，它是一个主对角线元素为 1、其余元素为 0 的方阵。矩阵`A`与其单位矩阵的乘积是`A`，这在数学上很重要，因为乘法的单位元性质指出，任何数乘以\
+  \ 1 都等于其本身。\n\n```python\nimport numpy as np\ndef slice_row(M, i):\nreturn M[i,:]\n\
+  def slice_col(M, j):\nreturn M[:, j]\ndef to_int(M):\nreturn M.astype(np.int64)\n\
+  if __name__ == \"__main__\":\nA = [[1, 9, 3, 6, 7],\n[4, 8, 6, 2, 1],\n[9, 8, 7,\
+  \ 1, 2],\n[1, 1, 9, 2, 4],\n[9, 1, 1, 3, 5]]\nA = np.matrix(A)\nprint ('A:\\n',\
+  \ A)\nprint ('\\n1st row: ', slice_row(A, 0))\nprint ('\\n3rd column:\\n', slice_col(A,\
+  \ 2))\nshapeA = np.shape(A)\nI = np.identity(np.shape(A)[0])\nI = to_int(I)\nprint\
+  \ ('\\nI:\\n', I)\ndot_product = np.dot(A, I)\nprint ('\\nA * I = A:\\n', dot_product)\n\
+  print ('\\nA\\':\\n', A.I)\nA_by_Ainv = np.round(np.dot(A, A.I), decimals=0, out=None)\n\
+  A_by_Ainv = to_int(A_by_Ainv)\nprint ('\\nA * A\\':\\n', A_by_Ainv)\n```\n\n输出：\n\
+  \n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figf_HTML.jpg](img/462931_1_En_3_Figf_HTML.jpg)\n\
+  \n代码首先导入`numpy`。接着定义了三个函数。函数`slice_row()`从矩阵中切取一行。函数`slice_col()`从矩阵中切取一列。函数`to_int()`将矩阵元素转换为整数。主程序块首先创建矩阵`A`。接着为`A`创建单位矩阵。最后，通过使用`A`与`A'`（`A`的逆矩阵）的点积，为`A`创建单位矩阵。\n\
+  \n第二个代码示例将一个列表的列表转换为`numpy`矩阵并遍历它：\n\n```python\nimport numpy as np\nif __name__\
+  \ == \"__main__\":\ndata = [\n[41, 72, 180], [27, 66, 140],\n[18, 59, 101], [57,\
+  \ 72, 160],\n[21, 59, 112], [29, 77, 250],\n[55, 60, 120], [28, 72, 110],\n[19,\
+  \ 59, 99], [32, 68, 125],\n[31, 79, 322], [36, 69, 111]\n]\nA = np.matrix(data)\n\
+  print ('manual traversal:')\nfor p in range(A.shape[0]):\nfor q in range(A.shape[1]):\n\
+  print (A[p,q], end=' ')\nprint ()\n```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figg_HTML.jpg](img/462931_1_En_3_Figg_HTML.jpg)\n\
+  \n代码首先导入`numpy`。主程序块首先创建一个列表的列表，将其转换为`numpy`矩阵`A`，并遍历`A`。虽然我演示了几种遍历`numpy`矩阵的方法，但这是我最喜欢的方法。\n\
+  \n第三个代码示例将一个列表的列表转换为`numpy`矩阵`A`。然后对`A`进行切片操作：\n\n```python\nimport numpy as np\n\
+  if __name__ == \"__main__\":\npoints_3D_space = [\n[0, 0, 0],\n[1, 2, 3],\n[2, 2,\
+  \ 2],\n[9, 9, 9] ]\nA = np.matrix(points_3D_space)\nprint ('slice entire A:')\n\
+  print (A[:])\nprint ('\\nslice 2nd column:')\nprint (A[0:4, 1])\nprint ('\\nslice\
+  \ 2nd column (alt method):')\nprint (A[:, 1])\nprint ('\\nslice 2nd & 3rd value\
+  \ 3rd column:')\nprint (A[1:3, 2])\nprint ('\\nslice last row:')\nprint (A[-1])\n\
+  print ('\\nslice last row (alt method):')\nprint (A[3])\nprint ('\\nslice 1st row:')\n\
+  print (A[0, :])\nprint ('\\nslice 2nd row; 2nd & 3rd value:')\nprint (A[1, 1:3])\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figh_HTML.jpg](img/462931_1_En_3_Figh_HTML.jpg)\n\
+  \n代码首先导入`numpy`。主程序块首先创建一个列表的列表，并将其转换为`numpy`矩阵`A`。代码接着对矩阵进行切片操作。\n\n\n\n### Pandas\
+  \ 矩阵应用\n\nPandas 库提供了高性能、易于使用的数据结构和分析工具。最常用的 Pandas 对象是 `DataFrame`（`df`）。`df` 是一个二维结构，具有可能不同类型的带标签轴（行和列）。数学运算会在行和列标签上对齐。`df`\
+  \ 可以按列或按行来理解。要按列查看，请使用 `axis = 0` 或 `axis = 'index'`。要按行查看，请使用 `axis = 1` 或 `axis\
+  \ = 'columns'`。在处理行时，这可能会显得违反直觉，但 Pandas 就是这样实现此功能的。\n\nPandas 的 `df` 比 NumPy 矩阵更容易使用，但效率也较低。也就是说，处理\
+  \ Pandas 的 `df` 需要更多的资源。NumPy 库针对处理大量数据和数值计算进行了优化。\n\n第一个示例创建了一个列表的列表，将其放入 Pandas\
+  \ 的 `df` 中，并显示一些数据：\n\n```\nimport pandas as pd\nif __name__ == \"__main__\":\n\
+  data = [\n[41, 72, 180], [27, 66, 140],\n[18, 59, 101], [57, 72, 160],\n[21, 59,\
+  \ 112], [29, 77, 250],\n[55, 60, 120], [28, 72, 110],\n[19, 59, 99], [32, 68, 125],\n\
+  [31, 79, 322], [36, 69, 111]\n]\nheaders = ['age', 'height', 'weight']\ndf = pd.DataFrame(data,\
+  \ columns=headers)\nn = 3\nprint ('First', n, '\"df\" rows:\\n', df.head(n))\nprint\
+  \ ('\\nFirst \"df\" row:')\nprint (df[0:1])\nprint ('\\nRows 2 through 4')\nprint\
+  \ (df[2:5])\nprint ('\\nFirst', n, 'rows \"age\" column')\nprint (df[['age']].head(n))\n\
+  print ('\\nLast', n, 'rows \"weight\" and \"age\" columns')\nprint (df[['weight',\
+  \ 'age']].tail(n))\nprint ('\\nRows 3 through 6 \"weight\" and \"age\" columns')\n\
+  print (df.ix[3:6, ['weight', 'age']])\n```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figi_HTML.jpg](img/462931_1_En_3_Figi_HTML.jpg)\n\
+  \n代码首先导入 Pandas。主块首先创建一个列表的列表，并将其添加到 Pandas 的 `df` 中。像我们在这里做的那样，创建自己的列标题是一个好主意。方法\
+  \ `head()` 和 `tail()` 会自动显示前五条记录和最后五条记录，除非指定了数值。在本例中，我们显示前三条和最后三条记录。使用 `head()`\
+  \ 和 `tail()` 非常有用，尤其是在处理大型 `df` 时。请注意，对 `df` 进行切片和切块是多么容易。同时，请注意显示你选择的列数据是多么容易。\n\
+  \n第二个示例创建了一个列表的列表，将其放入 NumPy 矩阵 `A` 中，并将 `A` 放入 Pandas 的 `df` 中。这种能力非常重要，因为它展示了从\
+  \ NumPy 矩阵创建 `df` 是多么容易。因此，你可以先使用 NumPy 矩阵进行精确和高效的计算，然后转换为 Pandas 进行切片、切块和其他操作。\n\
+  \n```\nimport pandas as pd, numpy as np\nif __name__ == \"__main__\":\ndata = [\n\
+  [41, 72, 180], [27, 66, 140],\n[18, 59, 101], [57, 72, 160],\n[21, 59, 112], [29,\
+  \ 77, 250],\n[55, 60, 120], [28, 72, 110],\n[19, 59, 99], [32, 68, 125],\n[31, 79,\
+  \ 322], [36, 69, 111]\n]\nA = np.matrix(data)\nheaders = ['age', 'height', 'weight']\n\
+  df = pd.DataFrame(A, columns=headers)\nprint ('Entire \"df\":')\nprint (df, '\\\
+  n')\nprint ('Sliced by \"age\" and \"height\":')\nprint (df[['age', 'height']])\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figj_HTML.jpg](img/462931_1_En_3_Figj_HTML.jpg)\n\
+  \n代码首先导入 Pandas 和 NumPy。主块首先创建一个列表的列表，将其转换为 NumPy 矩阵 `A`，然后将 `A` 添加到 Pandas 的 `df`\
+  \ 中。\n\n第三个示例创建了一个列表的列表，将其放入一个字典元素列表中，然后放入 Pandas 的 `df` 中。这种能力也非常重要，因为在处理数据科学应用时，字典是非常高效的数据结构。\n\
+  \n```\nimport pandas as pd\nif __name__ == \"__main__\":\ndata = [\n[41, 72, 180],\
+  \ [27, 66, 140],\n[18, 59, 101], [57, 72, 160],\n[21, 59, 112], [29, 77, 250],\n\
+  [55, 60, 120], [28, 72, 110],\n[19, 59, 99], [32, 68, 125],\n[31, 79, 322], [36,\
+  \ 69, 111]\n]\nd = {}\ndls = []\nkey = ['age', 'height', 'weight']\nfor row in data:\n\
+  for i, num in enumerate(row):\nd[key[i]] = num\ndls.append(d)\nd = {}\ndf = pd.DataFrame(dls)\n\
+  print ('dict elements from list:')\nfor row in dls:\nprint (row)\nprint ('\\nheight\
+  \ from 1st dict element is:', end=' ')\nprint (dls[0]['height'])\nprint ('\\n\"\
+  df\" converted from dict list:\\n', df)\nprint ('\\nheight 1st df element:\\n',\
+  \ df[['height']].head(1))\n```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figk_HTML.jpg](img/462931_1_En_3_Figk_HTML.jpg)\n\
+  \n第四个代码示例创建了两个列表的列表——`data` 和 `scores`。`data` 列表保存了 12 名运动员的年龄、身高和体重。`scores` 列表保存了\
+  \ 12 名学生的三次考试成绩。`data` 列表直接放入 `df1`，`scores` 列表直接放入 `df2`。计算并显示平均值。\n\n```\nimport\
+  \ pandas as pd, numpy as np\nif __name__ == \"__main__\":\ndata = [\n[41, 72, 180],\
+  \ [27, 66, 140],\n[18, 59, 101], [57, 72, 160],\n[21, 59, 112], [29, 77, 250],\n\
+  [55, 60, 120], [28, 72, 110],\n[19, 59, 99], [32, 68, 125],\n[31, 79, 322], [36,\
+  \ 69, 111]\n]\nscores = [\n[99, 90, 88], [77, 66, 81], [78, 77, 83],\n[75, 72, 79],\
+  \ [88, 77, 93], [88, 77, 94],\n[100, 99, 93], [94, 74, 90], [98, 97, 99],\n[73,\
+  \ 68, 77], [55, 50, 68], [36, 77, 90]\n]\nn = 3\nkey1 = ['age', 'height', 'weight']\n\
+  df1 = pd.DataFrame(data, columns=key1)\nprint ('df1 slice:\\n', df1.head(n))\navg_cols\
+  \ = df1.apply(np.mean, axis=0)\nprint ('\\naverage by columns:')\nprint (avg_cols)\n\
+  avg_wt = df1[['weight']].apply(np.mean, axis=\"index\")\nprint ('\\naverage weight')\n\
+  print (avg_wt)\nkey2 = ['exam1', 'exam2', 'exam3']\ndf2 = pd.DataFrame(scores, columns=key2)\n\
+  print ('\\ndf2 slice:\\n', df2.head(n))\navg_scores = df2.apply(np.mean, axis=1)\n\
+  print ('\\naverage scores for 1st', n, 'students (rows):')\nprint (avg_scores.head(n))\n\
+  avg_slice = df2[['exam1','exam3']].apply(np.mean, axis=\"columns\")\nprint ('\\\
+  naverage \"exam1\" & \"exam3\" 1st', n, 'students (rows):')\nprint (avg_slice[0:n])\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_3_Chapter/462931_1_En_3_Figl_HTML.jpg](img/462931_1_En_3_Figl_HTML.jpg)\n\
+  \n代码首先导入 Pandas 和 NumPy。主块创建了 `data` 和 `scores` 列表，并分别将它们放入 `df1` 和 `df2` 中。对于 `df1`（数据），我们按列求平均值，因为我们的目标是返回所有运动员的平均年龄、身高和体重。对于\
+  \ `df2`（成绩），我们按行求平均值，因为我们的目标是返回每个学生的平均总考试成绩。如果目标是计算某次考试的平均总分，我们可以对 `df2` 按列求平均值。如果你愿意，可以尝试一下。\n\
+  \n### 梯度下降\n\n梯度下降（GD）是一种最小化（或最大化）函数的算法。应用时，从一组函数参数的初始值开始，迭代地向一组使函数最小化的参数值移动。迭代最小化是通过微积分实现的，即沿着函数梯度的负方向迈出步长。GD\
+  \ 很重要，因为优化是机器学习的重要组成部分。此外，GD 易于实现、通用且高效（快速）。\n\n\n\n### 简单函数的最小化（与最大化）\n\n梯度下降法是一种一阶迭代优化算法，用于寻找函数\
+  \ `f` 的最小值。一个函数可以表示为 `f` 或 `f(x)`。简单来说，梯度下降法通过最小化（或最大化）一个代价函数来找到最小误差。代价函数是你想要最小化的东西。\n\
+  \n让我们从一个最小化的例子开始。为了找到 `f` 的局部最小值，需要沿着当前点 `f` 的负梯度方向，按比例迈出步长。梯度就是 `f` 的导数（变化率）。梯度下降法唯一的缺点是它找到的是局部最小值，而不是整个函数的最小值。\n\
+  \n幂法则用于对形如 `f(x) = x^r` 的函数求导：\n\n![$$ \\frac{d}{dx}\\kern0.125em {\\mathrm{x}}^{\\\
+  mathrm{n}}={\\mathrm{n}\\mathrm{x}}^{\\mathrm{n}-1} $$](img/462931_1_En_4_Chapter_TeX_Equa.png)\n\
+  \n所以，`x^n` 的导数等于 `nx^(n−1)`。简单来说，导数就是指数乘以 `x`，且指数减 1。为了最小化 `f(x) = x⁴ – 3x³ + 2`，需要找到它的导数，即\
+  \ `f'(x) = 4x³ – 9x²`。因此，第一步总是找到导数 `f'(x)`。第二步是绘制原始函数图像，以了解其形状。第三步是运行梯度下降法。第四步是绘制局部最小值。\n\
+  \n第一个例子找到了 `f(x)` 的局部最小值，并在子图中显示了 `f(x)`、`f'(x)` 和最小值，如图 4-1 所示：\n\n```\nimport\
+  \ matplotlib.pyplot as plt, numpy as np\ndef f(x):\nreturn x**4 - 3 * x**3 + 2\n\
+  def df(x):\nreturn 4 * x**3 - 9 * x**2\nif __name__ == \"__main__\":\nx = np.arange(-5,\
+  \ 5, 0.2)\ny, y_dx = f(x), df(x)\nf, axarr = plt.subplots(3, sharex=True)\naxarr[0].plot(x,\
+  \ y, color=\"mediumspringgreen\")\naxarr[0].set_xlabel('x')\naxarr[0].set_ylabel('f(x)')\n\
+  axarr[0].set_title('f(x)')\naxarr[1].plot(x, y_dx, color=\"coral\")\naxarr[1].set_xlabel('x')\n\
+  axarr[1].set_ylabel('dy/dx(x)')\naxarr[1].set_title('derivative of f(x)')\naxarr[2].set_xlabel('x')\n\
+  axarr[2].set_ylabel('GD')\naxarr[2].set_title('local minimum')\niterations, cur_x,\
+  \ gamma, precision = 0, 6, 0.01, 0.00001\nprevious_step_size = cur_x\nwhile previous_step_size\
+  \ > precision:\nprev_x = cur_x\ncur_x += -gamma * df(prev_x)\nprevious_step_size\
+  \ = abs(cur_x - prev_x)\niterations += 1\naxarr[2].plot(prev_x, cur_x, \"o\")\n\
+  f.subplots_adjust(hspace=0.3)\nf.tight_layout()\nplt.show()\nprint ('minimum:',\
+  \ cur_x, '\\niterations:', iterations)\n```\n\n输出：\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figa_HTML.jpg](img/462931_1_En_4_Figa_HTML.jpg)\n\
+  \n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig1_HTML.jpg](img/462931_1_En_4_Fig1_HTML.jpg)\n\
+  \n图 4-1\n\n`f(x)`、`f'(x)` 和局部最小值的子图可视化\n\n代码示例首先导入 `matplotlib` 和 `numpy`。接着定义了用于绘制原始函数的函数\
+  \ `f(x)` 和用于绘制导数的函数 `df(x)`。主程序块首先为 `f(x)` 创建数值。接着创建一个子图。梯度下降法从初始化变量开始。变量 `cur_x`\
+  \ 是模拟的起始点。变量 `gamma` 是步长。变量 `precision` 是容差。容差越小，精度越高，但需要更多的迭代次数（资源）。模拟持续进行，直到 `previous_step_size`\
+  \ 大于 `precision`。每次迭代都将 `-gamma`（步长）乘以当前点的梯度（导数），以将其移向局部最小值。然后，变量 `previous_step_size`\
+  \ 被赋值为 `cur_x` 和 `prev_x` 之间的差值。每个点都被绘制出来。求解 `x` 得到的 `f(x)` 最小值约为 2.25。我知道这个结果是正确的，因为我手动计算过。关于如何手动计算的精彩课程，请查看\
+  \ [`http://www.dummies.com/education/math/calculus/how-to-find-local-extrema-with-the-first-derivative-test/`](http://www.dummies.com/education/math/calculus/how-to-find-local-extrema-with-the-first-derivative-test/)。\n\
+  \n第二个例子找到了 `f(x) = x³ – 6x² + 9x + 15` 的局部最小值和最大值。首先找到 `f'(x)`，即 `3x² – 12x + 9`。接着，找到局部最小值、绘图、局部最大值、绘图。在这种情况下我没有使用子图，因为可视化效果不够丰富。也就是说，通过观察\
+  \ `f(x)` 的图形更容易看出近似的局部最小值和最大值，也更容易理解梯度下降法是如何发挥其魔力的。\n\n```\nimport matplotlib.pyplot\
+  \ as plt, numpy as np\ndef f(x):\nreturn x**3 - 6 * x**2 + 9 * x + 15\ndef df(x):\n\
+  return 3 * x**2 - 12 * x + 9\nif __name__ == \"__main__\":\nx = np.arange(-0.5,\
+  \ 5, 0.2)\ny = f(x)\nplt.figure('f(x)')\nplt.xlabel('x')\nplt.ylabel('f(x)')\nplt.title('f(x)')\n\
+  plt.plot(x, y, color=\"blueviolet\")\nplt.figure('local minimum')\nplt.xlabel('x')\n\
+  plt.ylabel('GD')\nplt.title('local minimum')\niterations, cur_x, gamma, precision\
+  \ = 0, 6, 0.01, 0.00001\nprevious_step_size = cur_x\nwhile previous_step_size >\
+  \ precision:\nprev_x = cur_x\ncur_x += -gamma * df(prev_x)\nprevious_step_size =\
+  \ abs(cur_x - prev_x)\niterations += 1\nplt.plot(prev_x, cur_x, \"o\")\nlocal_min\
+  \ = cur_x\nprint ('minimum:', local_min, 'iterations:', iterations)\nplt.figure('local\
+  \ maximum')\nplt.xlabel('x')\nplt.ylabel('GD')\nplt.title('local maximum')\niterations,\
+  \ cur_x, gamma, precision = 0, 0.5, 0.01, 0.00001\nprevious_step_size = cur_x\n\
+  while previous_step_size > precision:\nprev_x = cur_x\ncur_x += -gamma * -df(prev_x)\n\
+  previous_step_size = abs(cur_x - prev_x)\niterations += 1\nplt.plot(prev_x, cur_x,\
+  \ \"o\")\nlocal_max = cur_x\nprint ('maximum:', local_max, 'iterations:', iterations)\n\
+  plt.show()\n```\n\n输出：\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig4_HTML.jpg](img/462931_1_En_4_Fig4_HTML.jpg)\n\
+  \n图 4-4\n\n函数 `f(x)` 的局部最大值\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig3_HTML.jpg](img/462931_1_En_4_Fig3_HTML.jpg)\n\
+  \n图 4-3\n\n函数 `f(x)` 的局部最小值\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig2_HTML.jpg](img/462931_1_En_4_Fig2_HTML.jpg)\n\
+  \n图 4-2\n\n函数 `f(x)`\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figb_HTML.jpg](img/462931_1_En_4_Figb_HTML.jpg)\n\
+  \n代码首先导入 `matplotlib` 和 `numpy` 库。接着定义了函数 `f(x)` 和 `df(x)`，它们分别用算法表示了原始函数及其导数。主程序块首先为\
+  \ `f(x)` 创建数据并绘制其图形。接着找到局部最小值和最大值，并绘制它们。注意，用于局部最小值的 `cur_x`（起始点）是 6，而用于局部最大值的则是\
+  \ 0.5。这就是数据科学与其说是科学，不如说是艺术的地方，因为这些点是我通过反复试验找到的。还要注意，用于局部最大值的梯度下降法是导数的相反数。同样，我知道结果是正确的，因为我手动计算了局部最小值和最大值。在这个例子中，我使用单独的图形而不是子图的主要原因是，为了说明绘制\
+  \ `f(x)` 图形是多么重要。仅通过观察图形，你就能看出 `f(x)` 的 `x` 的局部最大值接近 1，而 `f(x)` 的 `x` 的局部最小值接近 3。此外，从这个图形中你可以看到，该函数有一个大于\
+  \ 1 的全局最大值。图 4-2、4-3 和 4-4 提供了这些可视化结果。\n\n\n\n### Sigmoid 函数的最小化（与最大化）\n\nSigmoid\
+  \ 函数是一种数学函数，其曲线呈 S 形或 sigmoid 曲线。它在数据科学中非常重要，原因如下。首先，它相对于网络参数易于求导，这对于训练神经网络至关重要。其次，许多常见概率分布的累积分布函数都是\
+  \ sigmoid 形的。第三，许多自然过程（例如，复杂的学习曲线）随时间推移会遵循 sigmoid 曲线。因此，在没有特定数学模型可用时，通常会使用 sigmoid\
+  \ 函数。\n\n第一个示例寻找 sigmoid 函数的局部最小值：\n\n```python\nimport matplotlib.pyplot as plt,\
+  \ numpy as np\ndef sigmoid(x):\nreturn 1 / (1 + np.exp(-x))\ndef df(x):\nreturn\
+  \ x * (1-x)\nif __name__ == \"__main__\":\nx = np.arange(-10., 10., 0.2)\ny, y_dx\
+  \ = sigmoid(x), df(x)\nf, axarr = plt.subplots(3, sharex=True)\naxarr[0].plot(x,\
+  \ y, color=\"lime\")\naxarr[0].set_xlabel('x')\naxarr[0].set_ylabel('f(x)')\naxarr[0].set_title('Sigmoid\
+  \ Function')\naxarr[1].plot(x, y_dx, color=\"coral\")\naxarr[1].set_xlabel('x')\n\
+  axarr[1].set_ylabel('dy/dx(x)')\naxarr[1].set_title('Derivative of f(x)')\naxarr[2].set_xlabel('x')\n\
+  axarr[2].set_ylabel('GD')\naxarr[2].set_title('local minimum')\niterations, cur_x,\
+  \ gamma, precision = 0, 0.01, 0.01, 0.00001\nprevious_step_size = cur_x\nwhile previous_step_size\
+  \ > precision:\nprev_x = cur_x\ncur_x += -gamma * df(prev_x)\nprevious_step_size\
+  \ = abs(cur_x - prev_x)\niterations += 1\nplt.plot(prev_x, cur_x, \"o\")\nf.subplots_adjust(hspace=0.3)\n\
+  f.tight_layout()\nprint ('minimum:', cur_x, '\\niterations:', iterations)\nplt.show()\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig5_HTML.jpg](img/462931_1_En_4_Fig5_HTML.jpg)\n\
+  \n图 4-5\n\n`f(x)`、`f'(x)` 和局部最小值的子图\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figc_HTML.jpg](img/462931_1_En_4_Figc_HTML.jpg)\n\
+  \n代码首先导入 `matplotlib` 和 `numpy`。接着定义了函数 `sigmoid(x)` 和 `df(x)`，它们分别用算法表示了 sigmoid\
+  \ 函数及其导数。主程序块首先为 `f(x)` 和 `f'(x)` 创建数据。然后为 `f(x)`、`f'(x)` 和局部最小值创建子图。在此例中，使用子图进行可视化效果良好。从\
+  \ `f(x)` 和 `f'(x)` 的图（图 4-5）中可以很容易看出局部最小值接近 0。接下来，代码运行梯度下降法来寻找局部最小值并绘制它。同样，梯度下降法的起始点\
+  \ `cur_x` 是通过试错法找到的。如果你将 `cur_x` 起始点设得离局部最小值更远（你可以通过查看 `f'(x)` 的子图来估计），迭代次数会增加，因为梯度下降法算法需要更长时间才能收敛到局部最小值。正如预期，局部最小值大约为\
+  \ 0。\n\n第二个示例寻找 sigmoid 函数的局部最大值：\n\n```python\nimport matplotlib.pyplot as plt,\
+  \ numpy as np\ndef sigmoid(x):\nreturn 1 / (1 + np.exp(-x))\ndef df(x):\nreturn\
+  \ x * (1-x)\nif __name__ == \"__main__\":\nx = np.arange(-10., 10., 0.2)\ny, y_dx\
+  \ = sigmoid(x), df(x)\nf, axarr = plt.subplots(3, sharex=True)\naxarr[0].plot(x,\
+  \ y, color=\"lime\")\naxarr[0].set_xlabel('x')\naxarr[0].set_ylabel('f(x)')\naxarr[0].set_title('Sigmoid\
+  \ Function')\naxarr[1].plot(x, y_dx, color=\"coral\")\naxarr[1].set_xlabel('x')\n\
+  axarr[1].set_ylabel('dy/dx(x)')\naxarr[1].set_title('Derivative of f(x)')\naxarr[2].set_xlabel('x')\n\
+  axarr[2].set_ylabel('GD')\naxarr[2].set_title('local maximum')\niterations, cur_x,\
+  \ gamma, precision = 0, 0.01, 0.01, 0.00001\nprevious_step_size = cur_x\nwhile previous_step_size\
+  \ > precision:\nprev_x = cur_x\ncur_x += -gamma * -df(prev_x)\nprevious_step_size\
+  \ = abs(cur_x - prev_x)\niterations += 1\nplt.plot(prev_x, cur_x, \"o\")\nf.subplots_adjust(hspace=0.3)\n\
+  f.tight_layout()\nprint ('maximum:', cur_x, '\\niterations:', iterations)\nplt.show()\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig6_HTML.jpg](img/462931_1_En_4_Fig6_HTML.jpg)\n\
+  \n图 4-6\n\n`f(x)`、`f'(x)` 和局部最大值的子图\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figd_HTML.jpg](img/462931_1_En_4_Figd_HTML.jpg)\n\
+  \n代码首先导入 `matplotlib` 和 `numpy`。接着定义了函数 `sigmoid(x)` 和 `df(x)`，它们分别用算法表示了 sigmoid\
+  \ 函数及其导数。主程序块首先为 `f(x)` 和 `f'(x)` 创建数据。然后为 `f(x)`、`f'(x)` 和局部最大值（图 4-6）创建子图。从 `f(x)`\
+  \ 的图中可以很容易看出局部最大值接近 1。接下来，代码运行梯度下降法来寻找局部最大值并绘制它。同样，梯度下降法的起始点 `cur_x` 是通过试错法找到的。如果你将\
+  \ `cur_x` 起始点设得离局部最大值更远（你可以通过查看 `f(x)` 的子图来估计），迭代次数会增加，因为梯度下降法算法需要更长时间才能收敛到局部最大值。正如预期，局部最大值大约为\
+  \ 1。\n\n\n\n### 控制步长的欧几里得距离最小化\n\n欧几里得距离是欧几里得空间中两点之间的普通直线距离。借助这种距离，欧几里得空间便成为一个度量空间。与之相关的范数是欧几里得范数（EN）。欧几里得范数为每个向量赋予其箭头长度，因此，欧几里得范数实际上就是向量的大小。定义了范数的向量空间称为赋范向量空间。\n\
+  \n要在三维空间中寻找 `f(x)` 的局部最小值，第一步是找到所有三维向量的最小值。第二步是创建一个随机的三维向量 `[x, y, z]`。第三步是选取一个随机起点，然后沿着梯度\
+  \ `f'(x)` 的反方向迈出微小步长，直到到达一个梯度非常小的点。每一步微小步长（从当前向量到下一个向量）都使用欧几里得距离度量来衡量。欧几里得距离度量是欧几里得空间中两点之间的距离。之所以需要这个度量，是因为我们需要知道每一步微小步长该如何移动。因此，欧几里得距离度量补充了梯度下降法，以在三维空间中寻找局部最小值。\n\
+  \n以下代码示例展示了如何在三维空间中寻找 sigmoid 函数的局部最小值：\n\n```\nimport matplotlib.pyplot as plt\n\
+  from mpl_toolkits.mplot3d import Axes3D\nimport random, numpy as np\nfrom scipy.spatial\
+  \ import distance\ndef step(v, direction, step_size):\nreturn [v_i + step_size *\
+  \ direction_i\nfor v_i, direction_i in zip(v, direction)]\ndef sigmoid_gradient(v):\n\
+  return [v_i * (1-v_i) for v_i in v]\ndef mod_vector(v):\nfor i, v_i in enumerate(v):\n\
+  if v_i == float(\"inf\") or v_i == float(\"-inf\"):\nv[i] = random.randint(-1, 1)\n\
+  return v\nif __name__ == \"__main__\":\nv = [random.randint(-10, 10) for i in range(3)]\n\
+  tolerance = 0.0000001\niterations = 1\nfig = plt.figure('Euclidean')\nax = fig.add_subplot(111,\
+  \ projection=\"3d\")\nwhile True:\ngradient = sigmoid_gradient(v)\nnext_v = step(v,\
+  \ gradient, -0.01)\nxs = gradient[0]\nys = gradient[1]\nzs = gradient[2]\nax.scatter(xs,\
+  \ ys, zs, c=\"lime\", marker=\"o\")\nv = mod_vector(v)\nnext_v = mod_vector(next_v)\n\
+  test_v = distance.euclidean(v, next_v)\nif test_v < tolerance:\nbreak\nv = next_v\n\
+  iterations += 1\nprint ('minimum:', test_v, '\\niterations:', iterations)\nax.set_xlabel('X\
+  \ axis')\nax.set_ylabel('Y axis')\nax.set_zlabel('Z axis')\nplt.tight_layout()\n\
+  plt.show()\n```\n\n输出：\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig7_HTML.jpg](img/462931_1_En_4_Fig7_HTML.jpg)\n\
+  \n图 4-7\n\n局部最小值的三维渲染图\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fige_HTML.jpg](img/462931_1_En_4_Fige_HTML.jpg)\n\
+  \n代码首先导入了 `matplotlib`、`mpl_toolkits`、`random`、`numpy` 和 `scipy` 库。函数 `step()` 根据梯度，按指定步长将向量沿某个方向移动。函数\
+  \ `sigmoid_gradient()` 返回 `f'(sigmoid)` 在三维空间中的一个点。函数 `mod_vector()` 确保模拟过程中产生的错误向量能被妥善处理。主程序块首先创建一个随机生成的三维向量\
+  \ `[x, y, z]` 作为模拟的起点，然后设定一个容差（精度）。容差越小，结果越精确。接着创建一个子图，用于显示局部最小值的三维渲染图（图 4-7）。梯度下降模拟会生成一组受\
+  \ sigmoid 梯度影响的三维向量，直到梯度变得非常小。梯度的大小（模）通过欧几里得距离度量来计算。正如预期，局部最小值接近 0。\n\n## 使用蒙特卡洛模拟稳定欧几里得距离最小化\n\
+  \n前一个示例中的欧几里得距离实验基于一个随机过程。具体来说，起始向量 `v` 是通过 `randomint()` 随机生成的。因此，每次运行梯度下降实验时，迭代次数都会产生不同的结果。从第\
+  \ 2 章我们已经知道，蒙特卡洛模拟（MCS）能高效地对随机过程进行建模。然而，MCS 也能稳定随机实验。\n\n以下代码示例首先将梯度下降实验包装在一个循环中，该循环运行\
+  \ `n` 次模拟。通过 `n` 次模拟，计算出平均迭代次数。然后将结果代码再包装在另一个循环中，该循环运行 `m` 次试验。通过 `m` 次试验，计算出每次平均迭代次数之间的平均差距。差距是通过从最大平均迭代次数中减去最小平均迭代次数得到的。差距越小，结果越稳定（精确）。要提高精度，可以增加模拟次数（`n`）。唯一的限制是计算能力。也就是说，运行\
+  \ 1000 次模拟比运行 100 次需要更多的计算能力。稳定（精确）的结果允许与其他实验进行比较。\n\n```\nimport random, numpy\
+  \ as np\nfrom scipy.spatial import distance\ndef step(v, direction, step_size):\n\
+  return [v_i + step_size * direction_i\nfor v_i, direction_i in zip(v, direction)]\n\
+  def sigmoid_gradient(v):\nreturn [v_i * (1-v_i) for v_i in v]\ndef mod_vector(v):\n\
+  for i, v_i in enumerate(v):\nif v_i == float(\"inf\") or v_i == float(\"-inf\"):\n\
+  v[i] = random.randint(-1, 1)\nreturn v\nif __name__ == \"__main__\":\ntrials= 10\n\
+  sims = 10\navg_its = []\nfor _ in range(trials):\nits = []\nfor _ in range(sims):\n\
+  v = [random.randint(-10, 10) for i in range(3)]\ntolerance = 0.0000001\niterations\
+  \ = 0\nwhile True:\ngradient = sigmoid_gradient(v)\nnext_v = step(v, gradient, -0.01)\n\
+  v = mod_vector(v)\nnext_v = mod_vector(next_v)\ntest_v = distance.euclidean(v, next_v)\n\
+  if test_v < tolerance:\nbreak\nv = next_v\niterations += 1\nits.append(iterations)\n\
+  a = round(np.mean(its))\navg_its.append(a)\ngap = np.max(avg_its) - np.min(avg_its)\n\
+  print (trials, 'trials with', sims, 'simulations each:')\nprint ('gap', gap)\nprint\
+  \ ('avg iterations', round(np.mean(avg_its)))\n```\n\n输出：\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figh_HTML.jpg](img/462931_1_En_4_Figh_HTML.jpg)\n\
+  \n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figg_HTML.jpg](img/462931_1_En_4_Figg_HTML.jpg)\n\
+  \n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figf_HTML.jpg](img/462931_1_En_4_Figf_HTML.jpg)\n\
+  \n输出结果分别对应 10 次、100 次和 1000 次模拟。通过运行 10 次（试验）各包含 1000 次模拟，差距缩小到了 13。因此，我们有很高的置信度认为，最小化该函数所需的迭代次数接近\
+  \ 1089。我们可以通过将代码再包装在一个循环中来进一步稳定结果，以减少差距和迭代次数的波动。然而，计算机处理时间会成为一个问题。对于这类实验，利用 MCS\
+  \ 为云计算提供了强有力的理由。理解 MCS 的这种应用可能有些困难，但它是处理并解决数据科学问题的一个非常强大的工具。\n\n\n\n### 使用 NumPy\
+  \ 方法加速欧几里得距离最小化\n\n由于 `numpy` 数组比 Python 列表更快，因此使用 `numpy` 方法计算欧几里得距离会更高效。以下代码示例使用\
+  \ `np.linalg.norm()` 替代 `distance.euclidean()` 来计算 GD 实验中的欧几里得距离。\n\n```python\n\
+  import matplotlib.pyplot as plt\nfrom mpl_toolkits.mplot3d import Axes3D\nimport\
+  \ random, numpy as np\ndef step(v, direction, step_size):\nreturn [v_i + step_size\
+  \ * direction_i\nfor v_i, direction_i in zip(v, direction)]\ndef sigmoid_gradient(v):\n\
+  return [v_i * (1-v_i) for v_i in v]\ndef round_v(v):\nreturn np.round(v, decimals=3)\n\
+  if __name__ == \"__main__\":\nv = [random.randint(-10, 10) for i in range(3)]\n\
+  tolerance = 0.0000001\niterations = 1\nfig = plt.figure('norm')\nax = fig.add_subplot(111,\
+  \ projection=\"3d\")\nwhile True:\ngradient = sigmoid_gradient(v)\nnext_v = step(v,\
+  \ gradient, -0.01)\nround_gradient = round_v(gradient)\nxs = round_gradient[0]\n\
+  ys = round_gradient[1]\nzs = round_gradient[2]\nax.scatter(xs, ys, zs, c=\"lime\"\
+  , marker=\"o\")\nnorm_v = np.linalg.norm(v)\nnorm_next_v = np.linalg.norm(next_v)\n\
+  test_v = norm_v - norm_next_v\nif test_v < tolerance:\nbreak\nv = next_v\niterations\
+  \ += 1\nprint ('minimum:', test_v, '\\niterations:', iterations)\nax.set_xlabel('X\
+  \ axis')\nax.set_ylabel('Y axis')\nax.set_zlabel('Z axis')\nplt.show()\n```\n\n\
+  输出：\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig8_HTML.jpg](img/462931_1_En_4_Fig8_HTML.jpg)\n\
+  \n图 4-8\n\n局部最小值的 NumPy 3D 渲染\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figi_HTML.jpg](img/462931_1_En_4_Figi_HTML.jpg)\n\
+  \n迭代次数大幅降低至 31 次（图 4-8）。然而，由于 GD 实验是随机的，我们可以使用 MCS 进行客观比较。\n\n使用相同的 MCS 方法，代码示例首先将\
+  \ GD 实验包装在一个运行 `n` 次模拟的循环中。然后将生成的代码再包装在另一个运行 `m` 次试验的循环中。\n\n```python\nimport random,\
+  \ numpy as np\ndef step(v, direction, step_size):\nreturn [v_i + step_size * direction_i\n\
+  for v_i, direction_i in zip(v, direction)]\ndef sigmoid_gradient(v):\nreturn [v_i\
+  \ * (1-v_i) for v_i in v]\ndef round_v(v):\nreturn np.round(v, decimals=3)\nif __name__\
+  \ == \"__main__\":\ntrials= 10\nsims = 10\navg_its = []\nfor _ in range(trials):\n\
+  its = []\nfor _ in range(sims):\nv = [random.randint(-10, 10) for i in range(3)]\n\
+  tolerance = 0.0000001\niterations = 0\nwhile True:\ngradient = sigmoid_gradient(v)\n\
+  next_v = step(v, gradient, -0.01)\nnorm_v = np.linalg.norm(v)\nnorm_next_v = np.linalg.norm(next_v)\n\
+  test_v = norm_v - norm_next_v\nif test_v < tolerance:\nbreak\nv = next_v\niterations\
+  \ += 1\nits.append(iterations)\na = round(np.mean(its))\navg_its.append(a)\ngap\
+  \ = np.max(avg_its) - np.min(avg_its)\nprint (trials, 'trials with', sims, 'simulations\
+  \ each:')\nprint ('gap', gap)\nprint ('avg iterations', round(np.mean(avg_its)))\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figl_HTML.jpg](img/462931_1_En_4_Figl_HTML.jpg)\n\
+  \n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figk_HTML.jpg](img/462931_1_En_4_Figk_HTML.jpg)\n\
+  \n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figj_HTML.jpg](img/462931_1_En_4_Figj_HTML.jpg)\n\
+  \n使用 `numpy` 处理速度要快得多。平均迭代次数接近 193。因此，使用 `numpy` 替代方案计算欧几里得距离的速度提高了五倍以上！\n\n## 随机梯度下降的最小化与最大化\n\
+  \n在本章中，到目前为止的优化实验都使用了批量梯度下降。批量梯度下降使用整个数据集计算梯度。随机梯度下降则使用单个样本计算梯度，因此计算速度要快得多。之所以称为随机梯度下降，是因为梯度是随机确定的。然而，与批量梯度下降不同，随机梯度下降是一种近似方法。如果需要精确梯度，随机梯度下降并非最优选择。随机梯度下降的另一个问题是，它可能会在最小值附近徘徊，而实际上无法收敛。因此，绘制模拟过程的进度图以观察情况非常重要。\n\
+  \n现在让我们改变方向，优化另一个重要函数——残差平方和（RSS）。RSS 函数是一种统计技术，用于衡量回归函数与数据集之间剩余的误差（方差）量。回归分析是一种估计变量之间关系的算法。它广泛用于预测和预报。它也是数据科学应用中一种流行的建模和预测算法。\n\
+  \n第一个代码示例生成一个样本，运行 GD 实验 `n` 次，并随机处理样本：\n\n```python\nimport matplotlib.pyplot as\
+  \ plt\nimport random, numpy as np\ndef rnd():\nreturn [random.randint(-10,10) for\
+  \ i in range(3)]\ndef random_vectors(n):\nls = []\nfor v in range(n):\nls.append(rnd())\n\
+  return ls\ndef sos(v):\nreturn sum(v_i ** 2 for v_i in v)\ndef sos_gradient(v):\n\
+  return [2 * v_i for v_i in v]\ndef in_random_order(data):\nindexes = [i for i, _\
+  \ in enumerate(data)]\nrandom.shuffle(indexes)\nfor i in indexes:\nyield data[i]\n\
+  if __name__ == \"__main__\":\nv, x, y = rnd(), random_vectors(3), random_vectors(3)\n\
+  data = list(zip(x, y))\ntheta = v\nalpha, value = 0.01, 0\nmin_theta, min_value\
+  \ = None, float(\"inf\")\niterations_with_no_improvement = 0\nn, x = 30, 1\nfor\
+  \ i, _ in enumerate(range(n)):\ny = np.linalg.norm(theta)\nplt.scatter(x, y, c=\"\
+  r\")\nx = x + 1\ns = []\nfor x_i, y_i in data:\ns.extend([sos(theta), sos(x_i),\
+  \ sos(y_i)])\nvalue = sum(s)\nif value < min_value:\nmin_theta, min_value = theta,\
+  \ value\niterations_with_no_improvement = 0\nalpha = 0.01\nelse:\niterations_with_no_improvement\
+  \ += 1\nalpha *= 0.9\ng = []\nfor x_i, y_i in in_random_order(data):\ng.extend([sos_gradient(theta),\
+  \ sos_gradient(x_i),\nsos_gradient(y_i)])\nfor v in g:\ntheta = np.around(np.subtract(theta,alpha*np.array(v)),3)\n\
+  g = []\nprint ('minimum:', np.around(min_theta, 4),\n'with', i+1, 'iterations')\n\
+  print ('iterations with no improvement:',\niterations_with_no_improvement)\nprint\
+  \ ('magnitude of min vector:', np.linalg.norm(min_theta))\nplt.show()\n```\n\n输出：\n\
+  \n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig9_HTML.jpg](img/462931_1_En_4_Fig9_HTML.jpg)\n\
+  \n图 4-9\n\nRSS 最小化\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figm_HTML.jpg](img/462931_1_En_4_Figm_HTML.jpg)\n\
+  \n代码首先导入 `matplotlib`、`random` 和 `numpy`。接着是函数 `rnd()`，它返回一个从 -10 到 10 的随机整数列表。函数\
+  \ `random_vectors()` 生成一个包含 `n` 个数字的列表（随机样本）。函数 `sos()` 返回向量的 RSS。函数 `sos_gradient()`\
+  \ 返回向量 RSS 的导数（梯度）。函数 `in_random_order()` 生成一个随机打乱索引的列表。该函数为 GD 算法增添了随机性。主程序块首先生成一个随机向量\
+  \ `v` 作为模拟的起点。接着创建一个大小为 3 的 `x` 和 `y` 向量样本。然后，将该向量赋值给 `theta`，这是某个通用概率分布向量的常见名称。我们可以随意命名该向量，但一个常见的数据科学问题是找到\
+  \ `theta` 的值。代码继续设置固定步长 `alpha`、最小 `theta` 值、最小结束值、无改进迭代次数、模拟次数 `n`，以及 x 坐标的绘图值（图\
+  \ 4-9）。\n\n\n\n### 随机梯度下降与数据工作\n\n模拟开始时，将`theta`的幅度赋值给`y`。接着，绘制当前的`x`和`y`坐标。`x`坐标递增\
+  \ 1，以绘制每个`y`坐标向最小值收敛的过程。下一段代码计算每个`theta`以及`x`和`y`样本的 RSS。该值用于判断模拟是否在局部最小值附近徘徊，而非收敛。代码的最后部分以随机（随机梯度）顺序遍历样本数据点，计算`theta`、`x`和`y`的梯度，将这三个值放入列表`g`中，并遍历该向量以找到下一个`theta`值。\n\
+  \n哇！这并不简单，但这就是随机梯度下降（SGD）的工作原理。请注意，生成的最小值为 2.87，并非真实最小值 0。因此，随机梯度下降所需的迭代次数较少，但无法产生真实最小值。\n\
+  \n可以通过调整寻找下一个`theta`的算法来优化之前的模拟。在前一个示例中，下一个`theta`是根据每个样本的当前`theta`、`x`值和`y`值计算的梯度来计算的。然而，实际的新`theta`是基于样本中的第三个数据点。因此，第二个示例通过取整个样本中的最小`theta`（而非第三个数据点）进行了优化：\n\
+  \n```python\nimport matplotlib.pyplot as plt\nimport random, numpy as np\ndef rnd():\n\
+  return [random.randint(-10,10) for i in range(3)]\ndef random_vectors(n):\nls =\
+  \ []\nfor v in range(n):\nls.append([random.randint(-10,10) for i in range(3)])\n\
+  return ls\ndef sos(v):\nreturn sum(v_i ** 2 for v_i in v)\ndef sos_gradient(v):\n\
+  return [2 * v_i for v_i in v]\ndef in_random_order(data):\nindexes = [i for i, _\
+  \ in enumerate(data)]\nrandom.shuffle(indexes)\nfor i in indexes:\nyield data[i]\n\
+  if __name__ == \"__main__\":\nv, x, y = rnd(), random_vectors(3), random_vectors(3)\n\
+  data = list(zip(x, y))\ntheta = v\nalpha, value = 0.01, 0\nmin_theta, min_value\
+  \ = None, float(\"inf\")\niterations_with_no_improvement = 0\nn, x = 60, 1\nfor\
+  \ i, _ in enumerate(range(n)):\ny = np.linalg.norm(theta)\nplt.scatter(x, y, c=\"\
+  r\")\nx = x + 1\ns = []\nfor x_i, y_i in data:\ns.extend([sos(theta), sos(x_i),\
+  \ sos(y_i)])\nvalue = sum(s)\nif value < min_value:\nmin_theta, min_value = theta,\
+  \ value\niterations_with_no_improvement = 0\nalpha = 0.01\nelse:\niterations_with_no_improvement\
+  \ += 1\nalpha *= 0.9\ng, t, m = [], [], []\nfor x_i, y_i in in_random_order(data):\n\
+  g.extend([sos_gradient(theta), sos_gradient(x_i),\nsos_gradient(y_i)])\nm = np.around([np.linalg.norm(x)\
+  \ for x in g], 2)\nfor v in g:\ntheta = np.around(np.subtract(theta,alpha*np.array(v)),3)\n\
+  t.append(np.around(theta,2))\nmm = np.argmin(m)\ntheta = t[mm]\ng, m, t = [], [],\
+  \ []\nprint ('minimum:', np.around(min_theta, 4),\n'with', i+1, 'iterations')\n\
+  print ('iterations with no improvement:',\niterations_with_no_improvement)\nprint\
+  \ ('magnitude of min vector:', np.linalg.norm(min_theta))\nplt.show()\n```\n\n输出：\n\
+  \n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig10_HTML.jpg](img/462931_1_En_4_Fig10_HTML.jpg)\n\
+  \n**图 4-10** 改进的 RSS 最小化\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Fign_HTML.jpg](img/462931_1_En_4_Fign_HTML.jpg)\n\
+  \n代码中唯一的区别在于底部计算最小`theta`的部分（图 4-10）。虽然进行了 60 次迭代，但最小值更接近 0，且更加稳定。也就是说，前一个示例在每次运行时偏差都更大。\n\
+  \n第三个示例用于寻找最大值：\n\n```python\nimport matplotlib.pyplot as plt\nimport random, numpy\
+  \ as np\ndef rnd():\nreturn [random.randint(-10,10) for i in range(3)]\ndef random_vectors(n):\n\
+  ls = []\nfor v in range(n):\nls.append([random.randint(-10,10) for i in range(3)])\n\
+  return ls\ndef sos_gradient(v):\nreturn [2 * v_i for v_i in v]\ndef negate(function):\n\
+  def new_function(*args, **kwargs):\nreturn np.negative(function(*args, **kwargs))\n\
+  return new_function\ndef in_random_order(data):\nindexes = [i for i, _ in enumerate(data)]\n\
+  random.shuffle(indexes)\nfor i in indexes:\nyield data[i]\nif __name__ == \"__main__\"\
+  :\nv, x, y = rnd(), random_vectors(3), random_vectors(3)\ndata = list(zip(x, y))\n\
+  theta, alpha = v, 0.01\nneg_gradient = negate(sos_gradient)\nn, x = 100, 1\nfor\
+  \ i, row in enumerate(range(n)):\ny = np.linalg.norm(theta)\nplt.scatter(x, y, c=\"\
+  r\")\nx = x + 1\ng = []\nfor x_i, y_i in in_random_order(data):\ng.extend([neg_gradient(theta),\
+  \ neg_gradient(x_i),\nneg_gradient(y_i)])\nfor v in g:\ntheta = np.around(np.subtract(theta,alpha*np.array(v)),3)\n\
+  g = []\nprint ('maximum:', np.around(theta, 4),\n'with', i+1, 'iterations')\nprint\
+  \ ('magnitude of max vector:', np.linalg.norm(theta))\nplt.show()\n```\n\n输出：\n\n\
+  ![../images/462931_1_En_4_Chapter/462931_1_En_4_Fig11_HTML.jpg](img/462931_1_En_4_Fig11_HTML.jpg)\n\
+  \n**图 4-11** RSS 最大化\n\n![../images/462931_1_En_4_Chapter/462931_1_En_4_Figo_HTML.jpg](img/462931_1_En_4_Figo_HTML.jpg)\n\
+  \n与第一个示例相比，代码中唯一的区别是`negate()`函数，它通过取反梯度来寻找最大值。由于 RSS 的最大值是无穷大（我们可以通过图 4-11 的可视化看出），我们可以在\
+  \ 100 次迭代后停止。尝试 1000 次迭代，看看会发生什么。\n\n"
+- "# 5. 数据工作\n\n数据工作详细介绍了数据科学问题解决的最早过程。第一步是识别问题，这决定了后续所有需要完成的工作。第二步是收集数据。第三步是整理（清洗）数据，这一步至关重要。数据整理是将数据转换为对机器学习和其他数据科学问题有用的形式。当然，整理后的数据可能还需要进行清洗。第四步是数据可视化。可视化有助于你了解数据，并有望识别出模式。\n\
+  \n## 一维数据示例\n\n以下代码示例生成了两种非常常见的数据分布——均匀分布和正态分布的可视化。均匀分布具有恒定的概率。也就是说，属于该分布的所有事件概率相等。正态分布关于中心对称，这意味着其\
+  \ 50%的值小于均值，50%的值大于均值。其形状类似于钟形曲线。正态分布极其重要，因为它为许多自然发生的事件建模。\n\n```python\nimport\
+  \ matplotlib.pyplot as plt\nimport numpy as np\nif __name__ == \"__main__\":\nplt.figure('Uniform\
+  \ Distribution')\nuniform = np.random.uniform(-3, 3, 1000)\ncount, bins, ignored\
+  \ = plt.hist(uniform, 20, facecolor=\"lime\")\nplt.xlabel('Interval: [-3, 3]')\n\
+  plt.ylabel('Frequency')\nplt.title('Uniform Distribution')\nplt.axis([-3,3,0,100])\n\
+  plt.grid(True)\nplt.figure('Normal Distribution')\nnormal = np.random.normal(0,\
+  \ 1, 1000)\ncount, bins, ignored = plt.hist(normal, 20, facecolor=\"fuchsia\")\n\
+  plt.xlabel('Interval: [-3, 3]')\nplt.ylabel('Frequency')\nplt.title('Normal Distribution')\n\
+  plt.axis([-3,3,0,140])\nplt.grid(True)\nplt.show()\n```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig2_HTML.jpg](img/462931_1_En_5_Fig2_HTML.jpg)\n\
+  \n**图 5-2** 正态分布\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig1_HTML.jpg](img/462931_1_En_5_Fig1_HTML.jpg)\n\
+  \n**图 5-1** 均匀分布\n\n代码示例首先导入`matplotlib`和`numpy`。主块首先创建一个图形和用于均匀分布的数据。接着，基于这些数据创建并绘制直方图。然后创建并绘制正态分布的图形。参见图\
+  \ 5-1 和图 5-2。\n\n\n\n### 二维数据示例\n\n对二维数据进行建模能更真实地呈现自然发生的事件。以下代码示例比较了两个具有相同均值和标准差（`SD`）的正态分布随机生成数据集。`SD`衡量一组数据值的变异（离散）程度。尽管两个数据集均呈正态分布且具有相同的均值和`SD`，但它们的联合分布（相关性）却截然不同。相关性是指两个变量之间的相互依存关系。\n\
+  \n```\nimport matplotlib.pyplot as plt\nimport matplotlib.gridspec as gridspec\n\
+  import numpy as np, random\nfrom scipy.special import ndtri\ndef inverse_normal_cdf(r):\n\
+  return ndtri(r)\ndef random_normal():\nreturn inverse_normal_cdf(random.random())\n\
+  def scatter(loc):\nplt.scatter(xs, ys1, marker='.', color=\"black\", label=\"ys1\"\
+  )\nplt.scatter(xs, ys2, marker='.', color=\"gray\",  label='ys2')\nplt.xlabel('xs')\n\
+  plt.ylabel('ys')\nplt.legend(loc=loc)\nplt.tight_layout()\nif __name__ == \"__main__\"\
+  :\nxs = [random_normal() for _ in range(1000)]\nys1 = [ x + random_normal() / 2\
+  \ for x in xs]\nys2 = [-x + random_normal() / 2 for x in xs]\ngs = gridspec.GridSpec(2,\
+  \ 2)\nfig = plt.figure()\nax1 = fig.add_subplot(gs[0,0])\nplt.title('ys1 data')\n\
+  n, bins, ignored = plt.hist(ys1, 50, normed=1,\nfacecolor='chartreuse', alpha=0.75)\n\
+  ax2 = fig.add_subplot(gs[0,1])\nplt.title('ys2 data')\nn, bins, ignored = plt.hist(ys2,\
+  \ 50, normed=1,\nfacecolor='fuchsia', alpha=0.75)\nax3 = fig.add_subplot(gs[1,:])\n\
+  plt.title('Correlation')\nscatter(6)\nprint (np.corrcoef(xs, ys1)[0, 1])\nprint\
+  \ (np.corrcoef(xs, ys2)[0, 1])\nplt.show()\n```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig3_HTML.jpg](img/462931_1_En_5_Fig3_HTML.jpg)\n\
+  \n图 5-3\n\n正态分布与相关性的子图\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Figa_HTML.jpg](img/462931_1_En_5_Figa_HTML.jpg)\n\
+  \n代码示例首先导入了`matplotlib`、`numpy`、`random`和`scipy`库。方法`gridspec`用于指定放置子图的网格几何结构。方法`ndtri`返回标准正态累积分布函数（`CDF`）。`CDF`是指随机变量`X`取值小于或等于`x`的概率，其中`x`代表正态分布曲线下的面积。代码接着定义了三个函数。函数`inverse_normal_cdf()`基于一个随机变量返回`CDF`。函数`random_normal()`调用函数`inverse_normal_cdf()`，传入一个随机生成的值`X`，并返回`CDF`。函数`scatter()`用于创建散点图。主程序块首先创建随机生成的`x`和`y`值`xs`、`ys1`和`ys2`。然后创建一个`gridspec()`来容纳这些分布。接着分别为`xs`、`ys1`数据和`xs`、`ys2`数据创建直方图。随后，为两个分布创建相关性图。最后，生成两个分布的相关性系数。图\
+  \ 5-3 展示了这些图形。\n\n该代码示例揭示了两个重要启示。第一，使用`ndtri()`创建一组随机生成的数字会生成一个正态分布的数据集。也就是说，函数`ndtri()`返回的是随机生成值的`CDF`。第二，两个正态分布的数据集即使看起来相似，也未必真正相似。在本例中，它们的相关性是相反的。因此，需要通过可视化和相关性分析来展示数据集之间的差异。\n\
+  \n## 数据相关性与基础统计\n\n相关性是指两个或多个变量共同波动（变化）的程度。相关矩阵是一个展示变量集之间相关系数的表格。相关系数衡量两个或多个变量之间关联的强度。\n\
+  \n以下代码示例创建了三个具有`x`和`y`坐标的数据集，计算相关性并绘制图形。第一个数据集代表正相关；第二个代表负相关；第三个代表弱相关。\n\n```\n\
+  import random, numpy as np\nimport matplotlib.pyplot as plt\nimport matplotlib.gridspec\
+  \ as gridspec\nif __name__ == \"__main__\":\nnp.random.seed(0)\nx = np.random.randint(0,\
+  \ 50, 1000)\ny = x + np.random.normal(0, 10, 1000)\nprint ('高度正相关:\\n', np.corrcoef(x,\
+  \ y))\ngs = gridspec.GridSpec(2, 2)\nfig = plt.figure()\nax1 = fig.add_subplot(gs[0,0])\n\
+  plt.title('正相关')\nplt.scatter(x, y, color=\"springgreen\")\ny = 100 - x + np.random.normal(0,\
+  \ 10, 1000)\nprint ('\\n 高度负相关:\\n', np.corrcoef(x, y))\nax2 = fig.add_subplot(gs[0,1])\n\
+  plt.title('负相关')\nplt.scatter(x, y, color=\"crimson\")\ny = np.random.normal(0,\
+  \ 10, 1000)\nprint ('\\n 无/弱相关:\\n', np.corrcoef(x, y))\nax3 = fig.add_subplot(gs[1,:])\n\
+  plt.title('弱相关')\nplt.scatter(x, y, color=\"peachpuff\")\nplt.tight_layout()\nplt.show()\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig4_HTML.jpg](img/462931_1_En_5_Fig4_HTML.jpg)\n\
+  \n图 5-4\n\n相关性子图\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Figb_HTML.jpg](img/462931_1_En_5_Figb_HTML.jpg)\n\
+  \n代码示例首先导入了`random`、`numpy`和`matplotlib`库。主程序块首先生成具有正相关关系的`x`和`y`坐标，并显示相关矩阵。接着创建一个网格来容纳子图，即第一个子图网格，并绘制散点图。然后，生成具有负相关关系的`x`和`y`坐标，并显示相关矩阵。创建并绘制第二个子图网格。最后，生成具有弱相关关系的`x`和`y`坐标，并显示相关矩阵。创建并绘制第三个子图网格，并显示所有三个散点图。图\
+  \ 5-4 展示了这些图形。\n\n\n\n### Pandas 相关性分析与热力图示例\n\n`Pandas` 是一个 Python 包，它提供快速、灵活且富有表现力的数据结构，使得在实际数据分析中处理几乎任何类型的数据都变得简单、直观且实用。`DataFrame`（`df`）是一种二维标签化数据结构，也是\
+  \ `pandas` 中最常用的对象。\n\n第一个代码示例创建了一个相关性矩阵及其可视化图表：\n\n```python\nimport random, numpy\
+  \ as np, pandas as pd\nimport matplotlib.pyplot as plt\nimport matplotlib.cm as\
+  \ cm\nimport matplotlib.colors as colors\nif __name__ == \"__main__\":\nnp.random.seed(0)\n\
+  df = pd.DataFrame({'a': np.random.randint(0, 50, 1000)})\ndf['b'] = df['a'] + np.random.normal(0,\
+  \ 10, 1000)\ndf['c'] = 100 - df['a'] + np.random.normal(0, 5, 1000)\ndf['d'] = np.random.randint(0,\
+  \ 50, 1000)\ncolormap = cm.viridis\ncolorlist = [colors.rgb2hex(colormap(i))\nfor\
+  \ i in np.linspace(0, 1, len(df['a']))]\ndf['colors'] = colorlist\nprint (df.corr())\n\
+  pd.plotting.scatter_matrix(df, c=df['colors'], diagonal=\"d\",\nfigsize=(10, 6))\n\
+  plt.show()\n```\n\n输出结果：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig5_HTML.jpg](img/462931_1_En_5_Fig5_HTML.jpg)\n\
+  \n**图 5-5** 相关性矩阵可视化\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Figc_HTML.jpg](img/462931_1_En_5_Figc_HTML.jpg)\n\
+  \n该代码示例首先导入了 `random`、`numpy`、`pandas` 和 `matplotlib` 库。`main` 块首先创建了一个包含四列数据的 `df`，这些列由各种随机数填充。接着，它为各列之间的相关性创建了一个颜色映射，打印出相关性矩阵，并绘制了该颜色映射图（图\
+  \ 5-5）。\n\n从相关性矩阵中，我们可以看到相关性最强的变量是 `a` 和 `b`（0.83）、`a` 和 `c`（–0.95）以及 `b` 和 `c`（–0.79）。从颜色映射图中，我们可以看到\
+  \ `a` 和 `b` 呈正相关，`a` 和 `c` 呈负相关，`b` 和 `c` 也呈负相关。然而，实际的相关性数值从该可视化图中并不明显。\n\n热力图是一种数据的图形化表示方式，其中矩阵中的各个数值以颜色来表示。它是数据科学中一种流行的可视化技术。使用\
+  \ `pandas`，热力图可以提供一种精细的相关性可视化，其中每个变量都由其自身的颜色表示。\n\n第二个代码示例使用热力图来可视化变量间的相关性。如果你的电脑上尚未安装\
+  \ `seaborn` 库，则需要先进行安装（例如，`pip install seaborn`）。\n\n```python\nimport random, numpy\
+  \ as np, pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\
+  if __name__ == \"__main__\":\nnp.random.seed(0)\ndf = pd.DataFrame({'a': np.random.randint(0,\
+  \ 50, 1000)})\ndf['b'] = df['a'] + np.random.normal(0, 10, 1000)\ndf['c'] = 100\
+  \ - df['a'] + np.random.normal(0, 5, 1000)\ndf['d'] = np.random.randint(0, 50, 1000)\n\
+  plt.figure()\nsns.heatmap(df.corr(), annot=True, cmap=\"OrRd\")\nplt.show()\n```\n\
+  \n输出结果：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig6_HTML.jpg](img/462931_1_En_5_Fig6_HTML.jpg)\n\
+  \n**图 5-6** 热力图\n\n该代码首先导入了 `random`、`numpy`、`pandas`、`matplotlib` 和 `seaborn` 库。`Seaborn`\
+  \ 是一个基于 `matplotlib` 的 Python 可视化库。`main` 块首先生成了四列数据（变量），并绘制了一张热力图（图 5-6）。属性 `cmap`\
+  \ 用于指定颜色映射。`matplotlib` 的颜色映射列表可以在以下网址找到：[`https://matplotlib.org/examples/color/colormaps_reference.html`](https://matplotlib.org/examples/color/colormaps_reference.html)。\n\
+  \n## 多种可视化示例\n\n第一个代码示例介绍了安德鲁斯曲线，这是一种可视化高维数据结构的方法。本示例使用的数据是鸢尾花数据集，它是模式识别文献中最著名的数据集之一。鸢尾花数据集包含三种不同类型的鸢尾花（Setosa、Versicolour\
+  \ 和 Virginica）的花瓣和花萼长度。\n\n安德鲁斯曲线允许将多变量数据绘制成大量曲线，这些曲线使用样本的属性（变量）作为系数。通过为每个类别使用不同的颜色绘制曲线，可以可视化数据聚类。属于同一类别的样本的曲线通常会靠得更近，并形成更大的结构。鸢尾花数据集的原始数据位于以下\
+  \ URL：\n\n[`https://raw.githubusercontent.com/pandas-dev/pandas/master/pandas/tests/data/iris.csv`](https://raw.githubusercontent.com/pandas-dev/pandas/master/pandas/tests/data/iris.csv)\n\
+  \n```python\nimport matplotlib.pyplot as plt\nimport pandas as pd\nfrom pandas.plotting\
+  \ import andrews_curves\nif __name__ == \"__main__\":\ndata = pd.read_csv('data/iris.csv')\n\
+  plt.figure()\nandrews_curves(data, 'Name',\ncolor=['b','mediumspringgreen','r'])\n\
+  plt.show()\n```\n\n输出结果：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig7_HTML.jpg](img/462931_1_En_5_Fig7_HTML.jpg)\n\
+  \n**图 5-7** 安德鲁斯曲线\n\n该代码示例首先导入了 `matplotlib` 和 `pandas`。`main` 块首先将鸢尾花数据集读入 pandas\
+  \ 的 `df` 数据中。接着，为每个类别——Iris-setosa、Iris-versicolor 和 Iris-virginica——绘制了安德鲁斯曲线（图\
+  \ 5-7）。从该可视化图中，很难看出哪些属性能够清晰地区分每个类别。\n\n第二个代码示例介绍了平行坐标：\n\n```python\nimport matplotlib.pyplot\
+  \ as plt\nimport pandas as pd\nfrom pandas.plotting import parallel_coordinates\n\
+  if __name__ == \"__main__\":\ndata = pd.read_csv('data/iris.csv')\nplt.figure()\n\
+  parallel_coordinates(data, 'Name',\ncolor=['b','mediumspringgreen','r'])\nplt.show()\n\
+  ```\n\n输出结果：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig8_HTML.jpg](img/462931_1_En_5_Fig8_HTML.jpg)\n\
+  \n**图 5-8** 平行坐标\n\n平行坐标是另一种绘制多变量数据的技术。它允许可视化数据中的聚类，并直观地估计其他统计量。数据点表示为相连的线段。每条垂直线代表一个属性。一组相连的线段代表一个数据点。倾向于聚类的点会显得更靠近。\n\
+  \n该代码示例首先导入了 `matplotlib` 和 `pandas`。`main` 块首先将鸢尾花数据集读入 pandas 的 `df` 数据中。接着，为每个类别绘制了平行坐标图（图\
+  \ 5-8）。从该可视化图中，属性 `PetalLength` 和 `PetalWidth` 对于这三个物种（鸢尾花的类别）来说区分度最高。因此，`PetalLength`\
+  \ 和 `PetalWidth` 是区分鸢尾花物种的最佳分类器。而安德鲁斯曲线则未能清晰地提供这一重要信息。\n\n这里有一个有用的 URL：\n\n[`http://wilkelab.org/classes/SDS348/2016_spring/worksheets/class9.html`](http://wilkelab.org/classes/SDS348/2016_spring/worksheets/class9.html)\n\
+  \n第三个代码示例介绍了 RadViz：\n\n```python\nimport matplotlib.pyplot as plt\nimport pandas\
+  \ as pd\nfrom pandas.plotting import radviz\nif __name__ == \"__main__\":\ndata\
+  \ = pd.read_csv('data/iris.csv')\nplt.figure()\nradviz(data, 'Name',\ncolor=['b','mediumspringgreen','r'])\n\
+  plt.show()\n```\n\n输出结果：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig9_HTML.jpg](img/462931_1_En_5_Fig9_HTML.jpg)\n\
+  \n**图 5-9** RadVis\n\nRadVis 是另一种用于可视化多变量数据的技术。该代码示例首先导入了 `matplotlib` 和 `pandas`。`main`\
+  \ 块首先将鸢尾花数据集读入 pandas 的 `df` 数据中。接着，为每个类别绘制了 RadVis 坐标图（图 5-9）。使用这种可视化方法，很难看出任何区别。因此，就识别变异的能力而言（对于本例），平行坐标技术似乎是这三种方法中最好的。\n\
+  \n\n\n### 使用 Pandas 和 JSON 清洗 CSV 文件\n\n以下代码示例将一个脏数据 CSV 文件加载到 Pandas 的 `df` 中并显示，以定位错误数据。接着，它将同一个\
+  \ CSV 文件加载到一个字典元素列表中进行清洗。最后，清洗后的数据被保存为 JSON 格式。\n\n```\nimport csv, pandas as pd,\
+  \ json\ndef to_dict(d):\nreturn [dict(row) for row in d]\ndef dump_json(f, d):\n\
+  with open(f, 'w') as f:\njson.dump(d, f)\ndef read_json(f):\nwith open(f) as f:\n\
+  return json.load(f)\nif __name__ == \"__main__\":\ndf = pd.read_csv(\"data/audio.csv\"\
+  )\nprint (df, '\\n')\ndata = csv.DictReader(open('data/audio.csv'))\nd = to_dict(data)\n\
+  for row in d:\nif (row['pno'][0] not in ['a', 'c', 'p', 's']):\nif (row['pno'][0]\
+  \ == '8'):\nrow['pno'] = 'a' + row['pno']\nelif (row['pno'][0] == '7'):\nrow['pno']\
+  \ = 'p' + row['pno']\nelif (row['pno'][0] == '5'):\nrow['pno'] = 's' + row['pno']\n\
+  if (row['color']) == '-':\nrow['color'] = 'silver'\nif row['model'] == '-':\nrow['model']\
+  \ = 'S1'\nif (row['mfg']) == '100':\nrow['mfg'] = 'Linn'\nif (row['desc'] == '0')\
+  \ and row['pno'][0] == 'p':\nrow['desc'] = 'preamplifier'\nelif (row['desc'] ==\
+  \ '-') and row['pno'][0] == 's':\nrow['desc'] = 'speakers'\nif (row['price'][0]\
+  \ == '$'):\nrow['price'] =\\\nrow['price'].translate({ord(i): None for i in '$,.'})\n\
+  json_file = 'data/audio.json'\ndump_json(json_file, d)\ndata = read_json(json_file)\n\
+  for i, row in enumerate(data):\nif i < 5:\nprint (row)\n```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Figd_HTML.jpg](img/462931_1_En_5_Figd_HTML.jpg)\n\
+  \n代码示例首先导入了 `csv`、`pandas` 和 `json` 库。函数 `to_dict()` 将 `OrderedDict` 元素列表转换为常规字典元素列表，以便于处理。函数\
+  \ `dump_json()` 将数据保存到 JSON 文件。函数 `read_json()` 将 JSON 数据读取到 Python 列表中。主程序块首先将\
+  \ CSV 文件加载到 Pandas 的 `df` 中并显示，以便可视化脏数据。接着，它将同一个 CSV 文件加载到一个字典元素列表中，以便于清洗。然后，所有脏数据被清洗。代码继续将清洗后的数据保存到\
+  \ JSON 文件 `audio.json` 中。最后，加载 `audio.json` 并显示几条记录，以确保一切正常。\n\n## 切片与切块\n\n切片与切块是将数据分解成更小的部分或视图，以便更好地理解数据，并以各种不同且有用的方式将其呈现为信息。在多维数组中，切片是对应于感兴趣维度的一个或多个成员的单个值的数据列。切片是在特定属性上进行过滤，而切块则类似于缩放功能，它选择所有维度的子集，但仅针对维度的特定值。\n\
+  \n以下代码示例将 `audio.json` 加载到 Pandas 的 `df` 中，按列和行对数据进行切片，并显示结果：\n\n```\nimport pandas\
+  \ as pd\nif __name__ == \"__main__\":\ndf = pd.read_json(\"data/audio.json\")\n\
+  amps = df[df.desc == 'amplifier']\nprint (amps, '\\n')\nprice = df.query('price\
+  \ >= 40000')\nprint (price, '\\n')\nbetween = df.query('4999 < price < 6000')\n\
+  print (between, '\\n')\nrow = df.loc[[0, 10, 19]]\nprint (row)\n```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fige_HTML.jpg](img/462931_1_En_5_Fige_HTML.jpg)\n\
+  \n代码示例首先导入了 Pandas。主程序块首先将 `audio.json` 加载到 Pandas 的 `df` 中。接着，从 `desc` 列中按放大器对\
+  \ `df` 进行切片。代码继续按 `price` 列对价格超过 40,000 美元的设备进行切片。下一个切片是按 `price` 列对价格在 5,000 美元到\
+  \ 6,000 美元之间的设备进行切片。最后一个切片是按第 0、10 和 19 行进行切片。\n\n## 数据立方体\n\n数据立方体是一个 n 维的值数组。由于\
+  \ n 维立方体难以概念化，实践中大多数是三维的。\n\n让我们构建一个包含三只股票——`GOOGL`、`AMZ` 和 `MKL` 的立方体。每只股票包含五天的数据。每天的数据包括\
+  \ `open`（开盘价）、`high`（最高价）、`low`（最低价）、`close`（收盘价）、`adj close`（调整收盘价）和 `volume`（成交量）的值。因此，三个维度是股票、天数和值。数据来源于实际的股票报价。\n\
+  \n以下代码示例创建了一个立方体，将其保存到 JSON 文件，读取该 JSON，并显示一些信息：\n\n```\nimport json\ndef dump_json(f,\
+  \ d):\nwith open(f, 'w') as f:\njson.dump(d, f)\ndef read_json(f):\nwith open(f)\
+  \ as f:\nreturn json.load(f)\ndef rnd(n):\nreturn '{:.2f}'.format(n)\nif __name__\
+  \ == \"__main__\":\nd = dict()\ngoogl = dict()\ngoogl['2017-09-25'] =\\\n{'Open':939.450012,\
+  \ 'High':939.750000, 'Low':924.510010,\n'Close':934.280029, 'Adj Close':934.280029,\
+  \ 'Volume':1873400}\ngoogl['2017-09-26'] =\\\n{'Open':936.690002, 'High':944.080017,\
+  \ 'Low':935.119995,\n'Close':937.429993, 'Adj Close':937.429993, 'Volume':1672700}\n\
+  googl['2017-09-27'] =\\\n{'Open':942.739990, 'High':965.429993, 'Low':941.950012,\n\
+  'Close':959.900024, 'Adj Close':959.900024, 'Volume':2334600}\ngoogl['2017-09-28']\
+  \ =\\\n{'Open':956.250000, 'High':966.179993, 'Low':955.549988,\n'Close':964.809998,\
+  \ 'Adj Close':964.809998, 'Volume':1400900}\ngoogl['2017-09-29'] =\\\n{'Open':966.000000,\
+  \ 'High':975.809998, 'Low':966.000000,\n'Close':973.719971, 'Adj Close':973.719971,\
+  \ 'Volume':2031100}\namzn = dict()\namzn['2017-09-25'] =\\\n{'Open':949.309998,\
+  \ 'High':949.419983, 'Low':932.890015,\n'Close':939.789978, 'Adj Close':939.789978,\
+  \ 'Volume':5124000}\namzn['2017-09-26'] =\\\n{'Open':945.489990, 'High':948.630005,\
+  \ 'Low':931.750000,\n'Close':937.429993, 'Adj Close':938.599976, 'Volume':3564800}\n\
+  amzn['2017-09-27'] =\\\n{'Open':948.000000, 'High':955.299988, 'Low':943.299988,\n\
+  'Close':950.869995, 'Adj Close':950.869995, 'Volume':3148900}\namzn['2017-09-28']\
+  \ =\\\n{'Open':951.859985, 'High':959.700012, 'Low':950.099976,\n'Close':956.400024,\
+  \ 'Adj Close':956.400024, 'Volume':2522600}\namzn['2017-09-29'] =\\\n{'Open':960.109985,\
+  \ 'High':964.830017, 'Low':958.380005,\n'Close':961.349976, 'Adj Close':961.349976,\
+  \ 'Volume':2543800}\nmkl = dict()\nmkl['2017-09-25'] =\\\n{'Open':1056.199951, 'High':1060.089966,\
+  \ 'Low':1047.930054,\n'Close':1050.250000, 'Adj Close':1050.250000, 'Volume':23300}\n\
+  mkl['2017-09-26'] =\\\n{'Open':1052.729980, 'High':1058.520020, 'Low':1045.000000,\n\
+  'Close':1045.130005, 'Adj Close':1045.130005, 'Volume':25800}\nmkl['2017-09-27']\
+  \ =\\\n{'Open':1047.560059, 'High':1069.099976, 'Low':1047.010010,\n'Close':1064.040039,\
+  \ 'Adj Close':1064.040039, 'Volume':21100}\nmkl['2017-09-28'] =\\\n{'Open':1064.130005,\
+  \ 'High':1073.000000, 'Low':1058.079956,\n'Close':1070.550049, 'Adj Close':1070.550049,\
+  \ 'Volume':23500}\nmkl['2017-09-29'] =\\\n{'Open':1068.439941, 'High':1073.000000,\
+  \ 'Low':1060.069946,\n'Close':1067.979980, 'Adj Close':1067.979980 , 'Volume':20700}\n\
+  d['GOOGL'], d['AMZN'], d['MKL'] = googl, amzn, mkl\njson_file = 'data/cube.json'\n\
+  dump_json(json_file, d)\nd = read_json(json_file)\ns = ' '\nprint ('\\'Adj Close\\\
+  ' 切片:')\nprint (10*s, 'AMZN', s, 'GOOGL', s, 'MKL')\nprint ('日期')\nprint ('2017-09-25',\
+  \ rnd(d['AMZN']['2017-09-25']['Adj Close']),\nrnd(d['GOOGL']['2017-09-25']['Adj\
+  \ Close']),\nrnd(d['MKL']['2017-09-25']['Adj Close']))\nprint ('2017-09-26', rnd(d['AMZN']['2017-09-26']['Adj\
+  \ Close']),\nrnd(d['GOOGL']['2017-09-26']['Adj Close']),\nrnd(d['MKL']['2017-09-26']['Adj\
+  \ Close']))\nprint ('2017-09-27', rnd(d['AMZN']['2017-09-27']['Adj Close']),\nrnd(d['GOOGL']['2017-09-27']['Adj\
+  \ Close']),\nrnd(d['MKL']['2017-09-27']['Adj Close']))\nprint ('2017-09-28', rnd(d['AMZN']['2017-09-28']['Adj\
+  \ Close']),\nrnd(d['GOOGL']['2017-09-28']['Adj Close']),\nrnd(d['MKL']['2017-09-28']['Adj\
+  \ Close']))\nprint ('2017-09-29', rnd(d['AMZN']['2017-09-29']['Adj Close']),\nrnd(d['GOOGL']['2017-09-29']['Adj\
+  \ Close']),\nrnd(d['MKL']['2017-09-29']['Adj Close']))\n```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Figf_HTML.jpg](img/462931_1_En_5_Figf_HTML.jpg)\n\
+  \n代码示例首先导入了 `json`。函数 `dump_json()` 和 `read_json()` 分别用于保存和读取 JSON 数据。主程序块通过创建一个字典\
+  \ `d`、为每只股票创建字典，并按天和属性向每只股票的字典添加数据，从而创建了一个立方体。代码继续将立方体保存到 JSON 文件 `cube.json` 中。最后，代码读取\
+  \ `cube.json` 并显示立方体的一个切片。\n\n\n\n### 数据缩放与整理\n\n数据缩放是指改变数据的类型、离散程度和/或位置，以便比较原本无法比较的数据。数据缩放在数据科学中非常常见。第一种技术是**均值中心化**，它通过减去均值来转换数据。第二种技术是**归一化**，它将数据转换到\
+  \ 0 到 1 的范围内。第三种技术是**标准化**，它将数据转换为均值为 0、方差为 1（标准差 = 1）的形式，通常称为标准正态分布。\n\n第一个代码示例生成一个正态分布并对其进行中心化：\n\
+  \n```\nimport numpy as np\nimport matplotlib.pyplot as plt\ndef rnd_nrml(m, s, n):\n\
+  return np.random.normal(m, s, n)\ndef ctr(d):\nreturn [x-np.mean(d) for x in d]\n\
+  if __name__ == \"__main__\":\nmu, sigma, n, c1, c2, b = 10, 15, 100, 'pink',\\\n\
+  'springgreen', True\ns = rnd_nrml(mu, sigma, n)\nplt.figure()\nax = plt.subplot(211)\n\
+  ax.set_title('normal distribution')\ncount, bins, ignored = plt.hist(s, 30, color=c1,\
+  \ normed=b)\nsc = ctr(s)\nax = plt.subplot(212)\nax.set_title('normal distribution\
+  \ \"centered\"')\ncount, bins, ignored = plt.hist(sc, 30, color=c2, normed=b)\n\
+  plt.tight_layout()\nplt.show()\n```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig10_HTML.jpg](img/462931_1_En_5_Fig10_HTML.jpg)\n\
+  \n图 5-10\n\n数据中心化的子图\n\n代码示例首先导入 `numpy` 和 `matplotlib`。函数 `rnd_nrml()` 根据均值 (`mu`)、标准差\
+  \ (`sigma`) 和数据点数量 (`n`) 生成一个正态分布。函数 `ctr()` 从每个数据点中减去均值。主程序块首先创建正态分布，然后绘制原始分布和中心化后的分布（图\
+  \ 5-10）。请注意，两个分布的形状完全相同，但第二个分布的中心化均值为 0。\n\n第二个代码示例生成一个正态分布并对其进行归一化：\n\n```\nimport\
+  \ numpy as np\nimport matplotlib.pyplot as plt\ndef rnd_nrml(m, s, n):\nreturn np.random.normal(m,\
+  \ s, n)\ndef nrml(d):\nreturn [(x-np.amin(d))/(np.amax(d)-np.amin(d)) for x in d]\n\
+  if __name__ == \"__main__\":\nmu, sigma, n, c1, c2, b = 10, 15, 100, 'orchid',\\\
+  \n'royalblue', True\ns = rnd_nrml(mu, sigma, n)\nplt.figure()\nax = plt.subplot(211)\n\
+  ax.set_title('normal distribution')\ncount, bins, ignored = plt.hist(s, 30, color=c1,\
+  \ normed=b)\nsn = nrml(s)\nax = plt.subplot(212)\nax.set_title('normal distribution\
+  \ \"normalized\"')\ncount, bins, ignored = plt.hist(sn, 30, color=c2, normed=b)\n\
+  plt.tight_layout()\nplt.show()\n```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig11_HTML.jpg](img/462931_1_En_5_Fig11_HTML.jpg)\n\
+  \n图 5-11\n\n数据归一化的子图\n\n代码示例首先导入 `numpy` 和 `matplotlib`。函数 `rnd_nrml()` 根据均值 (`mu`)、标准差\
+  \ (`sigma`) 和数据点数量 (`n`) 生成一个正态分布。函数 `nrml()` 将数据转换到 0 到 1 的范围内。主程序块首先创建正态分布，然后绘制原始分布和归一化后的分布（图\
+  \ 5-11）。请注意，两个分布的形状完全相同，但第二个分布被归一化到了 0 到 1 之间。\n\n第三个代码示例将数据转换为均值为 0、方差为 1 的形式（标准正态分布）：\n\
+  \n```\nimport numpy as np, csv\nimport matplotlib.pyplot as plt\ndef rnd_nrml(m,\
+  \ s, n):\nreturn np.random.normal(m, s, n)\ndef std_nrml(d, m, s):\nreturn [(x-m)/s\
+  \ for x in d]\nif __name__ == \"__main__\":\nmu, sigma, n, b = 0, 1, 1000, True\n\
+  c1, c2 = 'peachpuff', 'lime'\ns = rnd_nrml(mu, sigma, n)\nplt.figure(1)\nplt.title('standard\
+  \ normal distribution')\ncount, bins, ignored = plt.hist(s, 30, color=c1, normed=b)\n\
+  plt.plot(bins, 1/(sigma * np.sqrt(2 * np.pi)) *\nnp.exp( - (bins - mu)**2 / (2 *\
+  \ sigma**2) ),\nlinewidth=2, color=c2)\nstart1, start2 = 5, 600\nmu1, sigma1, n,\
+  \ b = 10, 15, 500, True\nx1 = np.arange(start1, n+start1, 1)\ny1 = rnd_nrml(mu1,\
+  \ sigma1, n)\nmu2, sigma2, n, b = 25, 5, 500, True\nx2 = np.arange(start2, n+start2,\
+  \ 1)\ny2 = rnd_nrml(mu2, sigma2, n)\nplt.figure(2)\nax = plt.subplot(211)\nax.set_title('dataset1\
+  \ (mu=10, sigma=15)')\ncount, bins, ignored = plt.hist(y1, 30, color=\"r\", normed=b)\n\
+  ax = plt.subplot(212)\nax.set_title('dataset2 (mu=5, sigma=5)')\ncount, bins, ignored\
+  \ = plt.hist(y2, 30, color=\"g\", normed=b)\nplt.tight_layout()\nplt.figure(3)\n\
+  ax = plt.subplot(211)\nax.set_title('Normal Distributions')\ng1, g2 = (x1, y1),\
+  \ (x2, y2)\ndata = (g1, g2)\ncolors = ('red', 'green')\ngroups = ('dataset1', 'dataset2')\n\
+  for data, color, group in zip(data, colors, groups):\nx, y = data\nax.scatter(x,\
+  \ y, alpha=0.8, c=color, edgecolors=\"none\",\ns=30, label=group)\nplt.legend(loc=4)\n\
+  ax = plt.subplot(212)\nax.set_title('Standard Normal Distributions')\nds1 = (x1,\
+  \ std_nrml(y1, mu1, sigma1))\ny1_sn = ds1[1]\nds2 = (x2, std_nrml(y2, mu2, sigma2))\n\
+  y2_sn = ds2[1]\ng1, g2 = (x1, y1_sn), (x2, y2_sn)\ndata = (g1, g2)\nfor data, color,\
+  \ group in zip(data, colors, groups):\nx, y = data\nax.scatter(x, y, alpha=0.8,\
+  \ c=color, edgecolors=\"none\",\ns=30, label=group)\nplt.tight_layout()\nplt.show()\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig12_HTML.jpg](img/462931_1_En_5_Fig12_HTML.jpg)\n\
+  \n图 5-12\n\n标准正态分布\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig13_HTML.jpg](img/462931_1_En_5_Fig13_HTML.jpg)\n\
+  \n图 5-13\n\n正态分布\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Fig14_HTML.jpg](img/462931_1_En_5_Fig14_HTML.jpg)\n\
+  \n图 5-14\n\n正态分布与标准正态分布\n\n代码示例首先导入 `numpy` 和 `matplotlib`。函数 `rnd_nrml()` 根据均值\
+  \ (`mu`)、标准差 (`sigma`) 和数据点数量 (`n`) 生成一个正态分布。函数 `std_nrml()` 将数据转换为标准正态分布。主程序块首先创建一个标准正态分布，并以直方图和曲线图的形式展示（图\
+  \ 5-12）。接着，代码创建并绘制了两个不同的正态分布数据集（图 5-13）。然后，将这两个数据集重新缩放为标准正态分布并绘制出来（图 5-14）。现在，这些数据集就可以相互比较了。尽管数据集的原始图看起来差异很大，但实际上它们的分布非常相似。\n\
+  \n第四个代码示例读取一个 CSV 数据集，将其保存为 JSON 格式，进行数据整理，并打印几条记录。数据的 URL 是：[`https://community.tableau.com/docs/DOC-1236`](https://community.tableau.com/docs/DOC-1236)。但是，该网站上的数据会发生变化，因此请使用我们网站上的数据来操作此示例。\n\
+  \n\n\n```python\nimport csv, json\ndef read_dict(f):\n    return csv.DictReader(open(f))\n\
+  def to_dict(d):\n    return [dict(row) for row in d]\ndef dump_json(f, d):\n   \
+  \ with open(f, 'w') as fout:\n        json.dump(d, fout)\ndef read_json(f):\n  \
+  \  with open(f) as f:\n        return json.load(f)\ndef mk_data(d):\n    for i,\
+  \ row in enumerate(d):\n        e = {}\n        e['_id'] = i\n        e['cust']\
+  \ = row['Customer Name']\n        e['item'] = row['Sub-Category']\n        e['sale']\
+  \ = rnd(row['Sales'])\n        e['quan'] = row['Quantity']\n        e['disc'] =\
+  \ row['Discount']\n        e['prof'] = rnd(row['Profit'])\n        e['segm'] = row['Segment']\n\
+  \        yield e\ndef rnd(v):\n    return str(round(float(v),2))\nif __name__ ==\
+  \ \"__main__\":\n    f= 'data/superstore.csv'\n    d = read_dict(f)\n    data =\
+  \ to_dict(d)\n    jsonf = 'data/superstore.json'\n    dump_json(jsonf, data)\n \
+  \   print ('\"superstore\" data added to JSON\\n')\n    json_data = read_json(jsonf)\n\
+  \    print (\"{:20s} {:15s} {:10s} {:3s} {:5s} {:12s} {:10s}\".\n        format('CUSTOMER',\
+  \ 'ITEM', 'SALES', 'Q', 'DISC',\n            'PROFIT', 'SEGMENT'))\n    generator\
+  \ = mk_data(json_data)\n    for i, row in enumerate(generator):\n        if i <\
+  \ 10:\n            print (\"{:20s} {:15s}\".format(row['cust'], row['item']),\n\
+  \                \"{:10s} {:3s}\".format(row['sale'], row['quan']),\n          \
+  \      \"{:5s} {:12s}\".format(row['disc'], row['prof']),\n                \"{:10s}\"\
+  .format(row['segm']))\n        else:\n            break\n```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Figg_HTML.jpg](img/462931_1_En_5_Figg_HTML.jpg)\n\
+  \n代码示例首先导入 `csv` 和 `json` 库。函数 `read_dict()` 将 CSV 文件读取为 `OrderedDict`。函数 `to_dict()`\
+  \ 将 `OrderedDict` 转换为常规字典。函数 `dump_json()` 将文件保存为 JSON 格式。函数 `read_json()` 读取 JSON\
+  \ 文件。函数 `mk_data()` 创建一个生成器对象，该对象由来自 JSON 文件的经过整理的数据组成。函数 `rnd()` 将数字四舍五入到小数点后两位。主程序块首先读取一个\
+  \ CSV 文件并将其转换为 JSON。代码接着读取新创建的 JSON 数据。然后，从 JSON 数据创建一个生成器对象。生成器对象至关重要，因为它比列表的处理速度快数个数量级。由于数据集接近\
+  \ 10,000 条记录，速度非常重要。为了验证数据创建是否正确，生成器对象被迭代几次以打印一些经过整理的记录。\n\n第五个也是最后一个代码示例读取前一个示例中创建的\
+  \ JSON 文件，对其进行整理，并将整理后的数据集保存为 JSON：\n\n```python\nimport json\ndef read_json(f):\n\
+  \    with open(f) as f:\n        return json.load(f)\ndef mk_data(d):\n    for i,\
+  \ row in enumerate(d):\n        e = {}\n        e['_id'] = i\n        e['cust']\
+  \ = row['Customer Name']\n        e['item'] = row['Sub-Category']\n        e['sale']\
+  \ = rnd(row['Sales'])\n        e['quan'] = row['Quantity']\n        e['disc'] =\
+  \ row['Discount']\n        e['prof'] = rnd(row['Profit'])\n        e['segm'] = row['Segment']\n\
+  \        yield e\ndef rnd(v):\n    return str(round(float(v),2))\nif __name__ ==\
+  \ \"__main__\":\n    jsonf = 'data/superstore.json'\n    json_data = read_json(jsonf)\n\
+  \    l = len(list(mk_data(json_data)))\n    generator = mk_data(json_data)\n   \
+  \ jsonf= 'data/wrangled.json'\n    with open(jsonf, 'w') as f:\n        f.write('[')\n\
+  \    for i, row in enumerate(generator):\n        j = json.dumps(row)\n        if\
+  \ i < l - 1:\n            with open(jsonf, 'a') as f:\n                f.write(j)\n\
+  \                f.write(',')\n        else:\n            with open(jsonf, 'a')\
+  \ as f:\n                f.write(j)\n                f.write(']')\n    json_data\
+  \ = read_json(jsonf)\n    for i, row in enumerate(json_data):\n        if i < 5:\n\
+  \            print (row['cust'], row['item'], row['sale'])\n        else:\n    \
+  \        break\n```\n\n输出：\n\n![../images/462931_1_En_5_Chapter/462931_1_En_5_Figh_HTML.jpg](img/462931_1_En_5_Figh_HTML.jpg)\n\
+  \n代码示例导入 `json`。函数 `read_json()` 读取 JSON 文件。函数 `mk_data()` 创建一个生成器对象，该对象由来自 JSON\
+  \ 文件的经过整理的数据组成。函数 `rnd()` 将数字四舍五入到小数点后两位。主程序块首先读取一个 JSON 文件。必须创建两次生成器对象。第一个生成器允许我们找到\
+  \ JSON 文件的长度。第二个生成器由来自 JSON 文件的经过整理的数据组成。接下来，遍历生成器，以便我们可以创建一个包含整理后数据的 JSON 文件。尽管生成器对象创建和遍历速度非常快，但创建一个包含近\
+  \ 10,000 条整理后记录的 JSON 文件仍需一些时间。在我的机器上，这花了 33 秒多一点，所以请耐心等待。\n\n"
+- "# 6. 探索数据\n\n探索深入数据的领域。数据科学中的一个重要主题是降维。本章借用第 5 章中整理过的数据来演示其工作原理。另一个主题是速度模拟。处理大型数据集时，速度至关重要。大数据通过学术界和工业界广泛使用的一个流行数据集进行探索。最后，Twitter\
+  \ 和网络爬虫是两个重要的数据探索来源。\n\n## 热力图\n\n热力图在第 5 章中介绍过，但当时没有为整理后的数据集创建热力图。因此，我们首先为 `wrangled.json`\
+  \ 数据创建一个热力图可视化。\n\n```python\nimport json, pandas as pd\nimport matplotlib.pyplot\
+  \ as plt\nimport seaborn as sns\ndef read_json(f):\n    with open(f) as f:\n   \
+  \     return json.load(f)\ndef verify_keys(d, **kwargs):\n    data = d[0].items()\n\
+  \    k1 = set([tup[0] for tup in data])\n    s = kwargs.items()\n    k2 = set([tup[1]\
+  \ for tup in s])\n    return list(k1.intersection(k2))\ndef build_ls(k, d):\n  \
+  \  return [{k: row[k] for k in (keys)} for row in d]\ndef get_rows(d, n):\n    [print(row)\
+  \ for i, row in enumerate(d) if i < n]\ndef conv_float(d):\n    return [dict([k,\
+  \ float(v)] for k, v in row.items()) for row in d]\nif __name__ == \"__main__\"\
+  :\n    f= 'data/wrangled.json'\n    data = read_json(f)\n    keys = verify_keys(data,\
+  \ c1=\"sale\", c2=\"quan\", c3=\"disc\", c4=\"prof\")\n    heat = build_ls(keys,\
+  \ data)\n    print ('\"heat\" 中的第一行：')\n    get_rows(heat, 1)\n    heat = conv_float(heat)\n\
+  \    print ('\\n 转换为浮点数后的 \"heat\" 第一行：')\n    get_rows(heat, 1)\n    df = pd.DataFrame(heat)\n\
+  \    plt.figure()\n    sns.heatmap(df.corr(), annot=True, cmap=\"OrRd\")\n    plt.show()\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Fig1_HTML.jpg](img/462931_1_En_6_Fig1_HTML.jpg)\n\
+  \n图 6-1\n\n热力图\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figa_HTML.jpg](img/462931_1_En_6_Figa_HTML.jpg)\n\
+  \n代码示例首先导入 `json`、`pandas`、`matplotlib` 和 `seaborn` 库。函数 `read_json()` 读取 JSON 文件。函数\
+  \ `verify_keys()` 确保感兴趣的键存在于 JSON 文件中。这一点很重要，因为我们只能基于数值变量创建热力图，而 JSON 文件中唯一的候选变量是销售额、数量、折扣和利润。函数\
+  \ `build_ls()` 基于数值变量构建一个字典元素列表。函数 `get_rows()` 从列表中返回 `n` 行。函数 `conv_float()` 将字典元素转换为浮点数。主程序块首先读取\
+  \ JSON 文件 `wrangled.json`。接着，它仅获取数值变量的键。然后，它基于相应的键构建一个字典元素列表（`heat`）。代码显示 `heat`\
+  \ 中的第一行以验证所有值是否为浮点数。由于它们不是，代码将它们转换为浮点数。然后，代码从 `heat` 创建一个 `df` 并绘制热力图（图 6-1）。\n\n\
+  \n\n### 主成分分析\n\n主成分分析（PCA）用于寻找数据的主成分。主成分代表了数据中的潜在结构，因为它们揭示了数据方差最大（即数据最分散）的方向。PCA\
+  \ 利用特征向量和特征值来揭示数据方差。特征向量代表一个方向，而特征值则是一个数值，表示数据在该特征向量方向上的方差。具有最高特征值的特征向量就是主成分。一个数据集可以分解为特征向量和特征值。数据集中特征向量（及特征值）的数量等于其维度数。由于`wrangled.json`数据集有四个维度（变量），因此它包含四个特征向量/特征值。\n\
+  \n第一个代码示例对`wrangled.json`数据集执行了 PCA。然而，PCA 仅适用于数值型数据，因此数据集被精简为仅包含这些数值特征。\n\n```python\n\
+  import matplotlib.pyplot as plt, pandas as pd\nimport numpy as np, json, random\
+  \ as rnd\nfrom sklearn.preprocessing import StandardScaler\nfrom pandas.plotting\
+  \ import parallel_coordinates\ndef read_json(f):\nwith open(f) as f:\nreturn json.load(f)\n\
+  def unique_features(k, d):\nreturn list(set([dic[k] for dic in d]))\ndef sire_features(k,\
+  \ d):\nreturn [{k: row[k] for k in (k)} for row in d]\ndef sire_numeric(k, d):\n\
+  s = conv_float(sire_features(k, d))\nreturn s\ndef sire_sample(k, v, d, m):\nindices\
+  \ = np.arange(0, len(d), 1)\ns = [d[i] for i in indices if d[i][k] == v]\nn = len(s)\n\
+  num_keys = ['sale', 'quan', 'disc', 'prof']\nfor i, row in enumerate(s):\nfor k\
+  \ in num_keys:\nrow[k] = float(row[k])\ns = rnd_sample(m, len(s), s)\nreturn (s,\
+  \ n)\ndef rnd_sample(m, n, d):\nindices = sorted(rnd.sample(range(n), m))\nreturn\
+  \ [d[i] for i in indices]\ndef conv_float(d):\nreturn [dict([k, float(v)] for k,\
+  \ v in row.items()) for row in d]\nif __name__ == \"__main__\":\nf = 'data/wrangled.json'\n\
+  data = read_json(f)\nsegm = unique_features('segm', data)\nprint ('classes in \"\
+  segm\" feature:')\nprint (segm)\nkeys = ['sale', 'quan', 'disc', 'prof', 'segm']\n\
+  features = sire_features(keys, data)\nnum_keys = ['sale', 'quan', 'disc', 'prof']\n\
+  numeric_data = sire_numeric(num_keys, features)\nk, v = \"segm\", \"Home Office\"\
+  \nm = 100\ns_home = sire_sample(k, v, features, m)\nv = \"Consumer\"\ns_cons = sire_sample(k,\
+  \ v, features, m)\nv = \"Corporate\"\ns_corp = sire_sample(k, v, features, m)\n\
+  print ('\\nHome Office slice:', s_home[1])\nprint('Consumer slice:', s_cons[1])\n\
+  print ('Coporate slice:', s_corp[1])\nprint ('sample size:', m)\ndf_home = pd.DataFrame(s_home[0])\n\
+  df_cons = pd.DataFrame(s_cons[0])\ndf_corp = pd.DataFrame(s_corp[0])\nframes = [df_home,\
+  \ df_cons, df_corp]\nresult = pd.concat(frames)\nplt.figure()\nparallel_coordinates(result,\
+  \ 'segm', color=\n['orange','lime','fuchsia'])\ndf = pd.DataFrame(numeric_data)\n\
+  X = df.ix[:].values\nX_std = StandardScaler().fit_transform(X)\nmean_vec = np.mean(X_std,\
+  \ axis=0)\ncov_mat = np.cov(X_std.T)\nprint ('\\ncovariance matrix:\\n', cov_mat)\n\
+  eig_vals, eig_vecs = np.linalg.eig(cov_mat)\nprint ('\\nEigenvectors:\\n', eig_vecs)\n\
+  print ('\\nEigenvalues:\\n', np.sort(eig_vals)[::-1])\ntot = sum(eig_vals)\nvar_exp\
+  \ = [(i / tot)*100 for i in sorted(eig_vals, reverse=True)]\nprint ('\\nvariance\
+  \ explained:\\n', var_exp)\ncorr_mat = np.corrcoef(X.T)\nprint ('\\ncorrelation\
+  \ matrix:\\n', corr_mat)\neig_vals, eig_vecs = np.linalg.eig(corr_mat)\nprint ('\\\
+  nEigenvectors:\\n', eig_vecs)\nprint ('\\nEigenvalues:\\n', np.sort(eig_vals)[::-1])\n\
+  tot = sum(eig_vals)\nvar_exp = [(i / tot)*100 for i in sorted(eig_vals, reverse=True)]\n\
+  print ('\\nvariance explained:\\n', var_exp)\ncum_var_exp = np.cumsum(var_exp)\n\
+  fig, ax = plt.subplots()\nlabels = ['PC1', 'PC2', 'PC3', 'PC4']\nwidth = 0.35\n\
+  index = np.arange(len(var_exp))\nax.bar(index, var_exp,\ncolor=['fuchsia', 'lime',\
+  \ 'thistle', 'thistle'])\nfor i, v in enumerate(var_exp):\nv = round(v, 2)\nval\
+  \ = str(v) + '%'\nax.text(i, v+0.5, val, ha=\"center\", color=\"b\",\nfontsize=9,\
+  \ fontweight=\"bold\")\nplt.xticks(index, labels)\nplt.title('Variance Explained')\n\
+  plt.show()\n```\n\n输出结果：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figb_HTML.jpg](img/462931_1_En_6_Figb_HTML.jpg)\n\
+  \n![../images/462931_1_En_6_Chapter/462931_1_En_6_Fig2_HTML.jpg](img/462931_1_En_6_Fig2_HTML.jpg)\n\
+  \n**图 6-2** 平行坐标图\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figc_HTML.jpg](img/462931_1_En_6_Figc_HTML.jpg)\n\
+  \n![../images/462931_1_En_6_Chapter/462931_1_En_6_Fig3_HTML.jpg](img/462931_1_En_6_Fig3_HTML.jpg)\n\
+  \n**图 6-3** 方差解释图\n\n\n\n代码示例首先导入了 `matplotlib`、`pandas`、`numpy`、`json`、`random`\
+  \ 和 `sklearn` 库。函数 `read_json()` 用于读取 JSON 文件。函数 `unique_features()` 从某个维度（特征）中提取出唯一的类别（分类）。在此例中，它从\
+  \ `segm` 特征中提取出三个类别——家庭办公室、企业和消费者。由于数据集接近 10,000 条记录，我需要确认其中包含哪些类别。函数 `sire_features()`\
+  \ 提取出一个仅包含感兴趣特征的新数据集。函数 `sire_numeric()` 将数字字符串转换为浮点数。函数 `sire_sample()` 返回一个经过类别筛选的、包含\
+  \ `n` 条记录的随机样本。函数 `rnd_sample()` 创建一个随机样本。函数 `convert_float()` 将数字字符串数据转换为浮点数。\n\
+  \n主程序块首先读取 `wrangled.json`，并创建一个仅包含感兴趣特征的数据集特征。代码接着创建一个仅包含数值型数据特征的数据集 numeric。数据集\
+  \ numeric 用于生成 PCA。接下来，为每个类别创建三个大小为 100 的样本。这些样本用于创建平行坐标可视化（图 6-2）。PCA 的代码随后对数值型数据集进行标准化和转换。创建一个协方差矩阵，以便生成特征向量和特征值。我还包含了使用相关矩阵的\
+  \ PCA，因为某些学科更倾向于使用它。最后，创建了主成分的可视化。\n\n平行坐标图显示 `prof`（利润）和 `sale`（销售额）是最重要的特征。PCA\
+  \ 可视化（图 6-3）显示，第一主成分占 39.75%，第二主成分占 26.47%，第三主成分占 22.03%，第四主成分占 11.75%。在这种情况下，PCA\
+  \ 分析并不是非常有用，因为所有四个主成分都是必需的，尤其是前三个。因此，我们不能在后续分析中舍弃任何一个维度。\n\n第二个代码示例使用鸢尾花数据集进行 PCA：\n\
+  \n```\nimport matplotlib.pyplot as plt, pandas as pd, numpy as np\nfrom sklearn.preprocessing\
+  \ import StandardScaler\nfrom pandas.plotting import parallel_coordinates\ndef conv_float(d):\n\
+  return d.astype(float)\nif __name__ == \"__main__\":\ndf = pd.read_csv('data/iris.csv')\n\
+  X = df.ix[:,0:4].values\ny = df.ix[:,4].values\nX_std = StandardScaler().fit_transform(X)\n\
+  mean_vec = np.mean(X_std, axis=0)\ncov_mat = np.cov(X_std.T)\neig_vals, eig_vecs\
+  \ = np.linalg.eig(cov_mat)\nprint ('Eigenvectors:\\n', eig_vecs)\nprint ('\\nEigenvalues:\\\
+  n', eig_vals)\nplt.figure()\nparallel_coordinates(df, 'Name', color=\n['orange','lime','fuchsia'])\n\
+  tot = sum(eig_vals)\nvar_exp = [(i / tot)*100 for i in sorted(eig_vals, reverse=True)]\n\
+  cum_var_exp = np.cumsum(var_exp)\nfig, ax = plt.subplots()\nlabels = ['PC1', 'PC2',\
+  \ 'PC3', 'PC4']\nwidth = 0.35\nindex = np.arange(len(var_exp))\nax.bar(index, var_exp,\n\
+  color=['fuchsia', 'lime', 'thistle', 'thistle'])\nfor i, v in enumerate(var_exp):\n\
+  v = round(v, 2)\nval = str(v) + '%'\nax.text(i, v+0.5, val, ha=\"center\", color=\"\
+  b\",\nfontsize=9, fontweight=\"bold\")\nplt.xticks(index, labels)\nplt.title('Variance\
+  \ Explained')\nplt.show()\n```\n\n输出：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Fig5_HTML.jpg](img/462931_1_En_6_Fig5_HTML.jpg)\n\
+  \n图 6-5\n\n方差解释\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Fig4_HTML.jpg](img/462931_1_En_6_Fig4_HTML.jpg)\n\
+  \n图 6-4\n\n平行坐标\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figd_HTML.jpg](img/462931_1_En_6_Figd_HTML.jpg)\n\
+  \n这个代码示例比上一个短得多，因为我们不需要进行数据整理、清洗（那么多）以及创建随机样本（用于平行坐标可视化）。代码首先导入了 `matplotlib`、`pandas`、`numpy`\
+  \ 和 `sklearn` 库。函数 `conv_float()` 将数字字符串转换为浮点数。主程序块首先读取鸢尾花数据集。接着对数据进行标准化和转换，以进行\
+  \ PCA。然后显示平行坐标和方差解释。\n\n平行坐标图显示 `PetalLength`（花瓣长度）和 `PetalWidth`（花瓣宽度）是最重要的特征（图\
+  \ 6-4）。PCA 可视化（方差解释）显示，第一主成分占 72.77%，第二主成分占 23.03%，第三主成分占 3.68%，第四主成分占 0.52%（图 6-5）。在这种情况下，PCA\
+  \ 分析非常有用，因为前两个主成分解释了超过 95% 的方差。因此，我们可以舍弃 PC3 和 PC4，不再考虑。\n\n为清晰起见，PCA 的第一步是探索特征向量和特征值。特征值最低的特征向量包含的数据分布信息最少，因此可以舍弃。在这个例子中，前两个特征值要高得多，尤其是\
+  \ PC1。因此，舍弃 PC3 和 PC4 是合理的。第二步是测量解释方差，这可以通过特征值计算得出。解释方差告诉我们每个主成分可以解释多少信息（方差）。查看解释方差可以确认\
+  \ PC3 和 PC4 并不重要。\n\n## 速度模拟\n\n在数据科学中，速度很重要，尤其是当数据集变得更大时。生成器有助于内存优化，因为生成器函数一次只返回一个项目（按需返回），而不是一次性返回所有项目。\n\
+  \n该代码示例对比了列表和生成器之间的速度：\n\n```\nimport json, humanfriendly as hf\nfrom time import\
+  \ clock\ndef read_json(f):\nwith open(f) as f:\nreturn json.load(f)\ndef mk_gen(k,\
+  \ d):\nfor row in d:\ndic = {}\nfor key in k:\ndic[key] = float(row[key])\nyield\
+  \ dic\ndef conv_float(keys, d):\nreturn [dict([k, float(v)] for k, v in row.items()\n\
+  if k in keys) for row in d]\nif __name__ == \"__main__\":\nf = 'data/wrangled.json'\n\
+  data = read_json(f)\nkeys = ['sale', 'quan', 'disc', 'prof']\nprint ('create, convert,\
+  \ and display list:')\nstart = clock()\ndata = conv_float(keys, data)\nfor i, row\
+  \ in enumerate(data):\nif i < 5:\nprint (row)\nend = clock()\nelapsed_ls = end -\
+  \ start\nprint (hf.format_timespan(elapsed_ls, detailed=True))\nprint ('\\ncreate,\
+  \ convert, and display generator:')\nstart = clock()\ngenerator = mk_gen(keys, data)\n\
+  for i, row in enumerate(generator):\nif i < 5:\nprint (row)\nend = clock()\nelapsed_gen\
+  \ = end - start\nprint (hf.format_timespan(elapsed_gen, detailed=True))\nspeed =\
+  \ round(elapsed_ls / elapsed_gen, 2)\nprint ('\\ngenerator is', speed, 'times faster')\n\
+  ```\n\n输出：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Fige_HTML.jpg](img/462931_1_En_6_Fige_HTML.jpg)\n\
+  \n代码示例首先导入了 `json`、`humanfriendly` 和 `time` 库。你可能需要像我一样安装 `humanfriendly`：`pip install\
+  \ humanfriendly`。函数 `read_json()` 读取 JSON。函数 `mk_gen()` 基于 `wrangled.json` 中的四个特征创建一个生成器，并将值转换为浮点数。函数\
+  \ `conv_float()` 将列表中的字典值转换为浮点数。主程序块首先将 `wrangled.json` 读入一个列表。代码接着对根据键创建新列表并将值转换为浮点数的过程进行计时。接下来，创建一个模拟列表创建和转换过程的生成器。生成器的速度快了\
+  \ 2.26 倍（在我的电脑上）。\n\n\n\n### 大数据\n\n大数据是 21 世纪的热门话题。那么，让我们来处理一个相对较大的数据集。GroupLens\
+  \ 是一个提供大型社会计算数据集用于理论和实践的网站。GroupLens 收集并提供了来自 MovieLens 网站的评分数据集：\n\n[`https://grouplens.org/datasets/movielens/`](https://grouplens.org/datasets/movielens/)\n\
+  \n我们将探索 1M 数据集，其中包含约六千万用户对四千部电影的一百万条评分。由于我相对较新的电脑处理能力有限，我曾对处理超过一百万条数据感到犹豫。\n\n第一个代码示例读取、清洗、计算大小并将\
+  \ MovieLens 数据转储为 JSON：\n\n```python\nimport json, csv\ndef read_dat(h, f):\nreturn\
+  \ csv.DictReader((line.replace('::', ':')\nfor line in open(f)),\ndelimiter=':',\
+  \ fieldnames=h,\nquoting=csv.QUOTE_NONE)\ndef gen_dict(d):\nfor row in d:\nyield\
+  \ dict(row)\ndef dump_json(f, l, d):\nf = open(f, 'w')\nf.write('[')\nfor i, row\
+  \ in enumerate(d):\nj = json.dumps(row)\nf.write(j)\nif i < l - 1:\nf.write(',')\n\
+  else:\nf.write(']')\nf.close()\ndef read_json(f):\nwith open(f) as f:\nreturn json.load(f)\n\
+  def display(n, f):\nfor i, row in enumerate(f):\nif i < n:\nprint (row)\nprint()\n\
+  if __name__ == \"__main__\":\nprint ('... sizing data ...\\n')\nu_dat = 'data/ml-1m/users.dat'\n\
+  m_dat = 'data/ml-1m/movies.dat'\nr_dat = 'data/ml-1m/ratings.dat'\nunames = ['user_id',\
+  \ 'gender', 'age', 'occupation', 'zip']\nmnames = ['movie_id', 'title', 'genres']\n\
+  rnames = ['user_id', 'movie_id', 'rating', 'timestamp']\nusers = read_dat(unames,\
+  \ u_dat)\nul = len(list(gen_dict(users)))\nmovies = read_dat(mnames, m_dat)\nml\
+  \ = len(list(gen_dict(movies)))\nratings = read_dat(rnames, r_dat)\nrl = len(list(gen_dict(ratings)))\n\
+  print ('size of datasets:')\nprint ('users', ul)\nprint ('movies', ml)\nprint ('ratings',\
+  \ rl)\nprint ('\\n... dumping data ...\\n')\nusers = read_dat(unames, u_dat)\nusers\
+  \ = gen_dict(users)\nmovies = read_dat(mnames, m_dat)\nmovies = gen_dict(movies)\n\
+  ratings = read_dat(rnames, r_dat)\nratings = gen_dict(ratings)\nuf = 'data/users.json'\n\
+  dump_json(uf, ul, users)\nmf = 'data/movies.json'\ndump_json(mf, ml, movies)\nrf\
+  \ = 'data/ratings.json'\ndump_json(rf, rl, ratings)\nprint ('\\n... verifying data\
+  \ ...\\n')\nu = read_json(uf)\nm = read_json(mf)\nr = read_json(rf)\nn = 1\ndisplay(n,\
+  \ u)\ndisplay(n, m)\ndisplay(n, r)\n```\n\n输出：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figf_HTML.jpg](img/462931_1_En_6_Figf_HTML.jpg)\n\
+  \n代码示例首先导入 `json` 和 `csv` 库。函数 `read_dat()` 读取并清洗数据（将双冒号替换为单冒号作为分隔符）。函数 `gen_dict()`\
+  \ 将 `OrderedDict` 列表转换为常规字典列表以便处理。函数 `dump_json()` 是我编写的用于将数据转储为 JSON 的自定义函数。函数\
+  \ `read_json()` 读取 JSON。函数 `display()` 显示部分数据以进行验证。主程序块首先读取三个数据集并计算其大小。然后重新读取数据集并转储为\
+  \ JSON。数据集需要重新读取，因为生成器只能遍历一次。由于评分数据集超过一百万条记录，处理需要几秒钟时间。\n\n第二个代码示例清洗电影数据集，这需要额外的清洗工作：\n\
+  \n```python\nimport json, numpy as np\ndef read_json(f):\nwith open(f) as f:\nreturn\
+  \ json.load(f)\ndef dump_json(f, d):\nwith open(f, 'w') as fout:\njson.dump(d, fout)\n\
+  def display(n, d):\n[print (row) for i,row in enumerate(d) if i < n]\ndef get_indx(k,\
+  \ d):\nreturn [row[k] for row in d if 'null' in row]\ndef get_data(k, l, d):\nreturn\
+  \ [row for i, row in enumerate(d) if row[k] in l]\ndef get_unique(key, d):\ns =\
+  \ set()\nfor row in d:\nfor k, v in row.items():\nif k in key:\ns.add(v)\nreturn\
+  \ np.sort(list(s))\nif __name__ == \"__main__\":\nmf = 'data/movies.json'\nm = read_json(mf)\n\
+  n = 20\ndisplay(n, m)\nprint ()\nindx = get_indx('movie_id', m)\nfor row in m:\n\
+  if row['movie_id'] in indx:\nrow['title'] = row['title'] + ':' + row['genres']\n\
+  row['genres'] = row['null'][0]\ndel row['null']\ntitle = row['title'].split(\" \"\
+  )\nyear = title.pop()\nyear = ''.join(c for c in year if c not in '()')\nrow['title']\
+  \ = ' '.join(title)\nrow['year'] = year\ndata = get_data('movie_id', indx, m)\n\
+  n = 2\ndisplay(n, data)\ns = get_unique('year', m)\nprint ('\\n', s, '\\n')\nrec\
+  \ = get_data('year', ['Assignment'], m)\nprint (rec[0])\nrec = get_data('year',\
+  \ [\"L'Associe1982\"], m)\nprint (rec[0], '\\n')\nb1, b2, cnt = False, False, 0\n\
+  for row in m:\nif row['movie_id'] in ['1001']:\nrow['year'] = '1982'\nprint (row)\n\
+  b1 = True\nelif row['movie_id'] in ['2382']:\nrow['title'] = 'Police Academy 5:\
+  \ Assignment: Miami Beach'\nrow['genres'] = 'Comedy'\nrow['year'] = '1988'\nprint\
+  \ (row)\nb2 = True\nelif b1 and b2: break\ncnt += 1\nprint ('\\n', cnt, len(m))\n\
+  mf = 'data/cmovies.json'\ndump_json(mf, m)\nm = read_json(mf)\ndisplay(n, m)\n```\n\
+  \n输出：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figg_HTML.jpg](img/462931_1_En_6_Figg_HTML.jpg)\n\
+  \n代码示例首先导入 `json` 和 `numpy` 库。函数 `read_json()` 读取 JSON。函数 `dump_json()` 保存 JSON。函数\
+  \ `display()` 显示 `n` 条记录。函数 `get_indx()` 返回包含 `null` 键的字典元素的索引。函数 `get_data()` 返回按索引和\
+  \ `movie_id` 键过滤的数据集。函数 `get_unique()` 返回字典元素列表中唯一值的列表。主程序块首先读取 `movies.json` 并显示以供检查。记录\
+  \ 12 和 19 包含 `null` 键。代码继续查找所有包含 `null` 键的 `movie_id` 索引。接下来的几行清洗所有电影。包含 `null`\
+  \ 键的记录需要额外的逻辑才能完全清洗，但所有记录都修改了标题并添加了新的 `year` 键。为了验证，显示了记录 12 和 19。为了确保一切正常，代码基于\
+  \ `year` 查找所有唯一键。注意，有两条记录没有合法的年份。因此，代码清洗了这两条记录。代码中添加了第二个 `elif`，以便在清洗完两条脏记录后停止处理。虽然代码中没有包含，但我检查了\
+  \ `movie_id`、`title` 和 `genres` 键，没有发现问题。\n\n连接 MongoDB 的代码如下：\n\n```python\nclass\
+  \ conn:\nfrom pymongo import MongoClient\nclient = MongoClient('localhost', port=27017)\n\
+  def __init__(self, dbname):\nself.db = conn.client[dbname]\ndef getDB(self):\nreturn\
+  \ self.db\n```\n\n我创建了目录 `classes` 并将代码保存在 `conn.py` 中。\n\n第三个代码示例从三个数据集中生成有用信息。\n\
+  \n\n\n```python\nimport json, numpy as np, sys, os, humanfriendly as hf\nfrom time\
+  \ import clock\nsys.path.append(os.getcwd()+'/classes')\nimport conn\ndef read_json(f):\n\
+  with open(f) as f:\nreturn json.load(f)\ndef get_column(A, v):\nreturn [A_i[v] for\
+  \ A_i in A]\ndef remove_nr(v1, v2):\nset_v1 = set(v1)\nset_v2 = set(v2)\ndiff =\
+  \ list(set_v1 - set_v2)\nreturn diff\ndef get_info(*args):\na = [arg for arg in\
+  \ args]\nratings = [int(row[a[0][1]]) for row in a[2] if row[a[0][0]] == a[1]]\n\
+  uids = [row[a[0][3]] for row in a[2] if row[a[0][0]] == a[1]]\ntitle = [row[a[0][2]]\
+  \ for row in a[3] if row[a[0][0]] == a[1]]\nage = [int(row[a[0][4]]) for col in\
+  \ uids for row in a[4] if col == row[a[0][3]]]\ngender = [row[a[0][5]] for col in\
+  \ uids for row in users if col == row[a[0][3]]]\nreturn (ratings, title[0], uids,\
+  \ age, gender)\ndef generate(k, v, r, m, u):\nfor i, mid in enumerate(v):\ndic =\
+  \ {}\nrec = get_info(k, mid, r, m, u)\ndic = {'_id':i, 'mid':mid, 'title':rec[1],\
+  \ 'avg_rating':np.mean(rec[0]),\n'n_ratings':len(rec[0]), 'avg_age':np.mean(rec[3]),\n\
+  'M':rec[4].count('M'), 'F':rec[4].count('F')}\ndic['avg_rating'] = round(float(str(dic['avg_rating'])[:6]),2)\n\
+  dic['avg_age'] = round(float(str(dic['avg_age'])[:6]))\nyield dic\ndef gen_ls(g):\n\
+  for i, row in enumerate(g):\nyield row\nif __name__ == \"__main__\":\nprint ('...\
+  \ creating datasets ...\\n')\nm = 'data/cmovies.json'\nmovies = np.array(read_json(m))\n\
+  r = 'data/ratings.json'\nratings = np.array(read_json(r))\nr = 'data/users.json'\n\
+  users = np.array(read_json(r))\nprint ('... creating movie indicies vector data\
+  \ ...\\n')\nmv = get_column(movies, 'movie_id')\nrv = get_column(ratings, 'movie_id')\n\
+  print ('... creating unrated movie indicies vector ...\\n')\nnrv = remove_nr(mv,\
+  \ rv)\ndiff = [int(row) for row in nrv]\nprint (np.sort(diff), '\\n')\nnew_mv =\
+  \ [x for x in mv if x not in nrv]\nmid = '1'\nkeys = ('movie_id', 'rating', 'title',\
+  \ 'user_id', 'age', 'gender')\nstats = get_info(keys, mid, ratings, movies, users)\n\
+  avg_rating = np.mean(stats[0])\navg_age = np.mean(stats[3])\nn_ratings = len(stats[0])\n\
+  title = stats[1]\nM, F = stats[4].count('M'), stats[4].count('F')\nprint ('avg rating\
+  \ for:', end=' \"')\nprint (title + '\" is', round(avg_rating, 2), end=' (')\nprint\
+  \ (n_ratings, 'ratings)\\n')\ngen = generate(keys, new_mv, ratings, movies, users)\n\
+  gls = gen_ls(gen)\nobj = conn.conn('test')\ndb = obj.getDB()\nmovie_info = db.movie_info\n\
+  movie_info.drop()\nprint ('... saving movie_info to MongoDB ...\\n')\nstart = clock()\n\
+  for row in gls:\nmovie_info.insert(row)\nend = clock()\nelapsed_ls = end - start\n\
+  print (hf.format_timespan(elapsed_ls, detailed=True))\n```\n\n输出：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figh_HTML.jpg](img/462931_1_En_6_Figh_HTML.jpg)\n\
+  \n代码示例首先导入 `json`、`numpy`、`sys`、`os`、`humanfriendly`、`time` 和 `conn`（我创建的一个用于连接\
+  \ MongoDB 的自定义类）。函数 `read_json()` 用于读取 JSON 文件。函数 `get_column()` 返回一个列向量。函数 `remove_nr()`\
+  \ 用于移除未被评分的 `movie_id` 值。函数 `get_info()` 返回评分、用户、年龄和性别作为列向量，以及电影的标题。该函数非常复杂，因为每个向量都是通过遍历其中一个数据集并进行比较来创建的。为了使其更简洁，大量使用了列表推导式。函数\
+  \ `generate()` 生成一个字典元素，其中包含每部电影的平均评分、平均年龄、男女评分者数量、评分数量、`movie_id` 和标题。函数 `gen_ls()`\
+  \ 生成由函数 `generate()` 生成的每个字典元素。主程序块首先读取三个 JSON 数据集。接着，获取两个列向量——来自电影数据集的每个 `movie_id`\
+  \ 和来自评分数据集的 `movie_id`。每个列向量被转换为一个集合以去除重复项。使用列向量而非完整记录是为了加快处理速度。接下来，返回一个新的列向量，其中仅包含已被评分的电影。代码继续获取\
+  \ `movie_id` 为 1 的每部电影的评分、用户、年龄和性别的标题和列向量。显示该电影的平均评分及其标题和评分数量。代码的最后部分创建了一个生成器，其中包含一个字典元素列表。每个字典元素包含\
+  \ `movie_id`、标题、平均评分、平均年龄、评分数量、男性评分者数量和女性评分者数量。接着，创建另一个生成器来生成该列表。创建生成器是瞬间完成的，但展开（解包）内容需要时间。请记住，第一个生成器运行数十亿次进程，第二个生成器运行第一个生成器。因此，将内容保存到\
+  \ MongoDB 需要将近半小时。\n\n为了验证结果，让我们查看 MongoDB 中的数据。命令 `show collections` 是我运行的第一个命令，用于检查是否创建了\
+  \ `movie_info` 集合：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figi_HTML.jpg](img/462931_1_En_6_Figi_HTML.jpg)\n\
+  \n接下来，我运行 `db.movie_info.count()` 来检查文档数量：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figj_HTML.jpg](img/462931_1_En_6_Figj_HTML.jpg)\n\
+  \n现在我知道了文档数量，可以显示前五条和后五条记录：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Fign_HTML.jpg](img/462931_1_En_6_Fign_HTML.jpg)\n\
+  \n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figm_HTML.jpg](img/462931_1_En_6_Figm_HTML.jpg)\n\
+  \n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figl_HTML.jpg](img/462931_1_En_6_Figl_HTML.jpg)\n\
+  \n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figk_HTML.jpg](img/462931_1_En_6_Figk_HTML.jpg)\n\
+  \n从数据探索来看，`movie_info` 集合似乎已正确创建。\n\n第 4 个代码示例将三个数据集——`users.json`、`cmovies.json`\
+  \ 和 `ratings.json`——保存到 MongoDB：\n\n```python\nimport sys, os, json, humanfriendly\
+  \ as hf\nfrom time import clock\nsys.path.append(os.getcwd() + '/classes')\nimport\
+  \ conn\ndef read_json(f):\nwith open(f) as f:\nreturn json.load(f)\ndef create_db(c,\
+  \ d):\nc = db[c]\nc.drop()\nfor i, row in enumerate(d):\nrow['_id'] = i\nc.insert(row)\n\
+  if __name__ == \"__main__\":\nu = read_json('data/users.json')\nm = read_json('data/cmovies.json')\n\
+  r = read_json('data/ratings.json')\nobj = conn.conn('test')\ndb = obj.getDB()\n\
+  print ('... creating MongoDB collections ...\\n')\nstart = clock()\ncreate_db('users',\
+  \ u)\ncreate_db('movies', m)\ncreate_db('ratings', r)\nend = clock()\nelapsed_ls\
+  \ = end - start\nprint (hf.format_timespan(elapsed_ls, detailed=True))\n```\n\n\
+  输出：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figo_HTML.jpg](img/462931_1_En_6_Figo_HTML.jpg)\n\
+  \n\n\n代码示例首先导入了 `sys`、`os`、`json`、`humanfriendly`、`time` 以及自定义类 `conn`。函数 `read_json`\
+  \ 用于读取 JSON。函数 `create_db()` 用于创建 MongoDB 集合。主程序块首先读取三个数据集——`users.json`、`cmovies.json`\
+  \ 和 `ratings.json`——并将它们保存到 MongoDB 集合中。由于 `ratings.json` 数据集包含超过一百万条记录，将其保存到数据库需要一些时间。\n\
+  \n第 5 个代码示例介绍了聚合管道，这是一个基于数据处理管道概念构建的 MongoDB 数据聚合框架。文档进入一个多阶段管道，该管道将它们转换为聚合结果。除了按一个或多个特定字段对文档进行分组和排序以及聚合数组内容外，管道阶段还可以使用运算符来执行诸如计算平均值或连接字符串等任务。该管道使用原生\
+  \ MongoDB 操作提供高效的数据聚合，是 MongoDB 中数据聚合的首选方法。\n\n```\nimport sys, os\nsys.path.append(os.getcwd()\
+  \ + '/classes')\nimport conn\ndef match_item(k, v, d):\npipeline = [ {'$match' :\
+  \ { k : v }} ]\nq = db.command('aggregate',d,pipeline=pipeline)\nreturn q\nif __name__\
+  \ == \"__main__\":\nobj = conn.conn('test')\ndb = obj.getDB()\nmovie = 'Toy Story'\n\
+  q = match_item('title', movie, 'movie_info')\nr = q['result'][0]\nprint (movie,\
+  \ 'document:')\nprint (r)\nprint ('average rating', r['avg_rating'], '\\n')\nuser_id\
+  \ = '3'\nprint ('*** user', user_id, '***')\nq = match_item('user_id', user_id,\
+  \ 'users')\nr = q['result'][0]\nprint ('age', r['age'], 'gender', r['gender'], 'occupation',\\\
+  \nr['occupation'], 'zip', r['zip'], '\\n')\nprint ('*** \"user 3\" movie ratings\
+  \ of 5 ***')\nq = match_item('user_id', user_id, 'ratings')\nmid = q['result']\n\
+  for row in mid:\nif row['rating'] == '5':\nq = match_item('movie_id', row['movie_id'],\
+  \ 'movies')\ntitle = q['result'][0]['title']\ngenre = q['result'][0]['genres']\n\
+  print (row['movie_id'], title, genre)\nmid = '1136'\nq = match_item('mid', mid,\
+  \ 'movie_info')\ntitle = q['result'][0]['title']\navg_rating = q['result'][0]['avg_rating']\n\
+  print ()\nprint ('\"' + title + '\"', 'average rating:', avg_rating)\n```\n\n输出：\n\
+  \n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figp_HTML.jpg](img/462931_1_En_6_Figp_HTML.jpg)\n\
+  \n代码示例首先导入了 `sys`、`os` 和自定义类 `conn`。函数 `match_item()` 使用聚合管道来匹配符合条件的记录。主程序块首先使用聚合管道从\
+  \ `movie_info` 集合中返回《玩具总动员》的文档。代码接着使用管道从 `users` 集合中返回用户 3 的文档。接下来，聚合管道用于返回用户 3\
+  \ 的所有评分为 5 的电影。最后，管道用于从 `movie_info` 集合中返回《巨蟒与圣杯》的平均评分。聚合管道效率高，功能丰富。\n\n第 6 个代码示例演示了一个多阶段聚合管道：\n\
+  \n```\nimport sys, os\nsys.path.append(os.getcwd() + '/classes')\nimport conn\n\
+  def stages(k, v, r, d):\npipeline = [ {'$match' : { '$and' : [ { k : v },\n{'rating':{'$eq':r}\
+  \ }] } },\n{'$project' : {\n'_id' : 1,\n'user_id' : 1,\n'movie_id' : 1,\n'rating'\
+  \ : 1 } },\n{'$limit' : 100}]\nq = db.command('aggregate',d,pipeline=pipeline)\n\
+  return q\ndef match_item(k, v, d):\npipeline = [ {'$match' : { k : v }} ]\nq = db.command('aggregate',d,pipeline=pipeline)\n\
+  return q\nif __name__ == \"__main__\":\nobj = conn.conn('test')\ndb = obj.getDB()\n\
+  u = '3'\nr = '5'\nq = stages('user_id', u, r, 'ratings')\nresult = q['result']\n\
+  print ('ratings of', r, 'for user ' + str(u) + ':')\nfor i, row in enumerate(result):\n\
+  print (row)\nn = i+1\nprint ()\nprint (n, 'associated movie titles:')\nfor i, row\
+  \ in enumerate(result):\nq = match_item('movie_id', row['movie_id'], 'movies')\n\
+  r = q['result'][0]\nprint (r['title'])\n```\n\n输出：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figq_HTML.jpg](img/462931_1_En_6_Figq_HTML.jpg)\n\
+  \n代码示例首先导入了 `sys`、`os` 和自定义类 `conn`。函数 `stages()` 使用了一个三阶段聚合管道。第一阶段查找用户 3 的所有评分为\
+  \ 5 的记录。第二阶段投影要显示的字段。第三阶段限制返回的文档数量。包含一个限制阶段非常重要，因为结果数据库很大，并且管道有大小限制。函数 `match_item()`\
+  \ 使用聚合管道来匹配符合条件的记录。主程序块首先使用 `stages()` 管道返回用户 3 的所有评分为 5 的记录。代码接着遍历这些数据，并使用 `match_item()`\
+  \ 管道获取用户 3 评分为 5 的电影标题。管道是从 MongoDB 查询文档的高效方法，但需要练习才能熟悉其语法。\n\n## Twitter\n\nTwitter\
+  \ 是一个极好的数据来源，因为你可以获取几乎任何主题的数据。要访问 Twitter 的数据，你需要连接到 Twitter Streaming API。连接需要来自\
+  \ Twitter 的四项信息——API 密钥、API 密钥密文、访问令牌和访问令牌密文（加密）。在你注册并获取凭证后，你需要安装一个 Twitter API。我选择了\
+  \ Twitter API TwitterSearch，但还有很多其他选择。\n\n第 1 个代码示例创建 JSON 来保存我的 Twitter 凭证（将你的凭证插入到每个变量中）：\n\
+  \n```\nimport json\nif __name__ == '__main__':\nconsumer_key = ''\nconsumer_secret\
+  \ = ''\naccess_token = ''\naccess_encrypted = ''\ndata = {}\ndata['ck'] = consumer_key\n\
+  data['cs'] = consumer_secret\ndata['at'] = access_token\ndata['ae'] = access_encrypted\n\
+  json_data = json.dumps(data)\nheader = '[\\n'\nender = ']'\nobj = open('data/credentials.json',\
+  \ 'w')\nobj.write(header)\nobj.write(json_data + '\\n')\nobj.write(ender)\nobj.close()\n\
+  ```\n\n我选择将凭证保存在 JSON 中，以将其隐藏起来。代码示例导入了 `json` 库。主程序块将凭证保存到 JSON 中。\n\n第 2 个代码示例使用\
+  \ TwitterSearch API 流式传输 Twitter 数据。安装方法：`pip install TwitterSearchAPI`。\n\n```\n\
+  from TwitterSearch import *\nimport json, sys\nclass twitSearch:\ndef __init__(self,\
+  \ cred, ls, limit):\nself.cred = cred\nself.ls = ls\nself.limit = limit\ndef search(self):\n\
+  num = 0\ndt = []\ndic = {}\ntry:\ntso = TwitterSearchOrder()\ntso.set_keywords(self.ls)\n\
+  tso.set_language('en')\ntso.set_include_entities(False)\nts = TwitterSearch(\nconsumer_key\
+  \ = self.cred[0]['ck'],\nconsumer_secret = self.cred[0]['cs'],\naccess_token = self.cred[0]['at'],\n\
+  access_token_secret = self.cred[0]['ae']\n)\nfor tweet in ts.search_tweets_iterable(tso):\n\
+  if num <= self.limit:\ndic['_id'] = num\ndic['tweeter'] = tweet['user']['screen_name']\n\
+  dic['tweet_text'] = tweet['text']\ndt.append(dic)\ndic = {}\nelse:\nbreak\nnum +=\
+  \ 1\nexcept TwitterSearchException as e:\nprint (e)\nreturn dt\ndef get_creds():\n\
+  with open('data/credentials.json') as json_data:\nd = json.load(json_data)\njson_data.close()\n\
+  return d\ndef write_json(f, d):\nwith open(f, 'w') as fout:\njson.dump(d, fout)\n\
+  def translate():\nreturn dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)\n\
+  def read_json(f):\nwith open(f) as f:\nreturn json.load(f)\nif __name__ == '__main__':\n\
+  cred = get_creds()\nls = ['machine', 'learning']\nlimit = 10\nobj = twitSearch(cred,\
+  \ ls, limit)\ndata = obj.search()\nf = 'data/TwitterSearch.json'\nwrite_json(f,\
+  \ data)\nnon_bmp_map = translate()\nprint ('twitter data:')\nfor row in data:\n\
+  row['tweet_text'] = str(row['tweet_text']).translate(non_bmp_map)\ntweet_text =\
+  \ row['tweet_text'][0:50]\nprint ('{:<3}{:18s}{}'.format(row['_id'], row['tweeter'],\
+  \ tweet_text))\nprint ('\\nverify JSON:')\nread_data = read_json(f)\nfor i, p in\
+  \ enumerate(read_data):\nif i < 3:\np['tweet_text'] = str(p['tweet_text']).translate(non_bmp_map)\n\
+  tweet_text = p['tweet_text'][0:50]\nprint ('{:<3}{:18s}{}'.format(p['_id'], p['tweeter'],\
+  \ tweet_text))\n```\n\n输出：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figr_HTML.jpg](img/462931_1_En_6_Figr_HTML.jpg)\n\
+  \n\n\n代码示例首先导入了 `TwitterSearch`、`json` 和 `sys` 库。类 `twitSearch` 基于 Twitter 凭证、关键词列表和限制数量来流式传输\
+  \ Twitter 数据。函数 `get_cred()` 从 JSON 返回 Twitter 凭证。函数 `write_json()` 将数据写入 JSON。函数\
+  \ `translate()` 将基本多文种平面（BMP）之外的流式数据转换为可用格式。例如，表情符号就在 BMP 之外。函数 `read_json()` 读取\
+  \ JSON。主程序块首先获取 Twitter 凭证，创建一个搜索关键词列表和一个限制数量。在这个例子中，搜索关键词列表包含 `machine` 和 `learning`，因为我想要流式传输关于机器学习的数据。限制数量为十，将流式传输的记录限制为十条推文。代码继续将\
+  \ Twitter 数据写入 JSON，翻译推文以控制非 BMP 数据，并打印推文。最后，代码读取 JSON 以验证推文是否已正确保存，并打印一些内容。\n\n\
+  ## 网页抓取\n\n网页抓取是一种从网站提取信息的编程方法。它专注于将非结构化的 HTML 格式数据转换为结构化数据。由于 HTML 的非结构化特性，网页抓取在编程上要求很高。也就是说，HTML\
+  \ 几乎没有结构规则，这意味着不同网站的 HTML 结构模式往往不同。因此，准备好为每次网页抓取任务编写自定义代码吧。\n\n代码示例从一个流行的技术书籍出版公司抓取书籍信息。第一步是定位网页。第二步是打开一个包含源代码的窗口。第三步是遍历源代码以识别要抓取的数据。第四步是进行抓取。\n\
+  \n使用 Google Chrome，点击“更多工具”，然后点击“开发者工具”以打开源代码窗口。接下来，将鼠标光标悬停在源代码上，直到找到数据。向下移动源代码树以找到你想要抓取的标签。最后，抓取数据。\n\
+  \n要安装 `BeautifulSoup`，请执行 `pip install BeautifulSoup`。\n\n```python\nfrom bs4 import\
+  \ BeautifulSoup\nimport requests, json\ndef build_title(t):\nt = t.text\nt = t.split()\n\
+  ls = []\nfor row in t:\nif row != '-':\nls.append(row)\nelif row == '-':\nbreak\n\
+  return ' '.join(ls)\ndef release_date(r):\nr = r.text\nr = r.split()\nprefix = r[0]\
+  \ + s + r[1]\nif len(r) == 5:\ndate = r[2] + s + r[3] + s + r[4]\nelse:\ndate =\
+  \ r[2] + s + r[3]\nreturn prefix, date\ndef write_json(f, d):\nwith open(f, 'w')\
+  \ as fout:\njson.dump(d, fout)\ndef read_json(f):\nwith open(f) as f:\nreturn json.load(f)\n\
+  if __name__ == '__main__':\ns = ' '\ndic_ls = []\nbase_url = \"https://ssearch.oreilly.com/?q=data+science\"\
+  \nsoup = BeautifulSoup(requests.get(base_url).text, 'lxml')\nbooks = soup.find_all('article')\n\
+  for i, row in enumerate(books):\ndic = {}\ntag = row.name\ntag_val = row['class']\n\
+  title = row.find('p', {'class' : 'title'})\ntitle = build_title(title)\nurl = row.find('a',\
+  \ {'class' : 'learn-more'})\nlearn_more = url.get('href')\nauthor = row.find('p',\
+  \ {'class' : 'note'}).text\nrelease = row.find('p', {'class' : 'note date2'})\n\
+  prefix, date = release_date(release)\nif len(tag_val) == 2:\npublisher = row.find('p',\
+  \ {'class' : 'note publisher'}).text\nitem = row.find('img', {'class' : 'book'})\n\
+  cat = item.get('class')[0]\nelse:\npublisher, cat = None, None\ndesc = row.find('p',\
+  \ {'class' : 'description'}).text.split()\ndesc = [row for i, row in enumerate(desc)\
+  \ if i < 7]\ndesc = ' '.join(desc) + ' ...'\ndic['title'] = title\ndic['learn_more']\
+  \ = learn_more\nif author[0:3] != 'Pub':\ndic['author'] = author\nif publisher is\
+  \ not None:\ndic['publisher'] = publisher\ndic['category'] = cat\nelse:\ndic['event']\
+  \ = desc\ndic['date'] = date\ndic_ls.append(dic)\nf = 'data/scraped.json'\nwrite_json(f,\
+  \ dic_ls)\ndata = read_json(f)\nfor i, row in enumerate(data):\nif i < 6:\nprint\
+  \ (row['title'])\nif 'author' in row.keys():\nprint (row['author'])\nif 'publisher'\
+  \ in row.keys():\nprint (row['publisher'])\nif 'category' in row.keys():\nprint\
+  \ ('Category:', row['category'])\nprint ('Release Date:', row['date'])\nif 'event'\
+  \ in row.keys():\nprint ('Event:', row['event'])\nprint ('Publish Date:', row['date'])\n\
+  print ('Learn more:', row['learn_more'])\nprint ()\n```\n\n输出：\n\n![../images/462931_1_En_6_Chapter/462931_1_En_6_Figs_HTML.jpg](img/462931_1_En_6_Figs_HTML.jpg)\n\
+  \n代码示例首先导入了 `BeautifulSoup`、`request` 和 `json` 库。函数 `build_title()` 将抓取到的标题数据构建成一个字符串。函数\
+  \ `release_date()` 将抓取到的日期数据构建成一个字符串。函数 `write_json()` 和 `read_json()` 分别用于写入和读取\
+  \ JSON。主程序块首先将 URL 页面转换为一个 `BeautifulSoup` 对象。代码继续将所有 `article` 标签放入变量 `books` 中。通过探索，我发现\
+  \ `article` 标签包含了我想抓取的信息。接下来，遍历每个 `article` 标签。如果每个 `article` 标签中的信息结构一致，抓取会容易得多。但由于并非如此，提取每条信息的逻辑就变得相当复杂。每条信息都被放入一个字典元素中，随后被追加到一个列表中。最后，该列表被保存为\
+  \ JSON。读取 JSON 并显示几条记录以验证一切正常。\n\n## 索引\n\n### A\n\n聚合管道 使用原生操作的多阶段 安德鲁斯曲线\n\n###\
+  \ B\n\n`BeautifulSoup` 大数据 MongoDB 电影数据集 MovieLens 数据 保存为 JSON 三个数据集\n\n### C\n\n\
+  逗号分隔值（CSV）文件 相关性 数据 相关系数 度量 正态分布 和 pandas 参见 Pandas 相关性 立方体数据 累积分布函数（CDF）\n\n###\
+  \ D\n\n数据 安德鲁斯曲线 相关系数 度量 正态分布 和 立方体 数据切块 正态分布 一维 pandas 参见 Pandas 相关性 平行坐标 RadViz\
+  \ 缩放 正态分布 读取 CSV 数据集 零均值和单位方差 切片 二维 均匀分布 数据整理 数据框（df） 数据随机化 数据科学基础 读写 数据可视化 数据切块\
+  \ 字典\n\n### E, F\n\n欧几里得距离最小化 3-D 空间 MCS numpy 方法\n\n### G\n\n生成器 优势 列表推导式 OrderedDict\
+  \ 元素 `read_dict()` 函数 `sim_times()` 函数 模拟 梯度下降（GD）算法 欧几里得距离 参见欧几里得距离最小化 简单函数 参见简单函数最小化\
+  \ 随机 参见随机梯度下降 GroupLens 网站\n\n### H\n\n热力图 pandas 相关性和 `wrangled.json` 数据\n\n###\
+  \ I\n\n逆累积分布函数（ICDF） 鸢尾花数据集\n\n### J, K\n\nJSON 清洗后的数据 发送到 MongoDB 和\n\n### L\n\n\
+  惰性求值 线性代数 基础 矩阵变换 单位矩阵性质 numpy 矩阵 切片 矩阵数学 `display()` 函数 `dot()` 函数 模 乘法 `mult_scalar()`\
+  \ 函数 numpy 矩阵 pandas 矩阵 应用 平均值 数据结构 `df` `head()` 和 `tail()` 方法 numpy 矩阵 向量数学 加法\
+  \ 有向线段 从原点出发的模 减法 可视化 向量空间 列表 列表推导式 创建新列表 字典元素 元组 和\n\n### M\n\nMongoDB 聚合管道 使用原生操作的多阶段\
+  \ 连接到 JSON 和 保存数据集 蒙特卡洛模拟（MCS） 增强图 产品需求模拟 准确预测 `demand()` 函数 函数 `mcs()` `max_bar()`\
+  \ 函数 正态分布 生产算法 `production()` 函数 随机性 使用 PDF 和 CDF 连续随机变量 微积分基本定理 梯度下降 ICDF 积分 较少变异（误差）\
+  \ matplotlib 库 `np_rstrip()` 函数 PPF 利润计算 可视化 假设分析 股票模拟 假设分析 电影数据集 MovieLens 网站\n\
+  \n### N\n\nNoSQL Numpy 方法\n\n### O\n\n一维数据\n\n\n\n### P, Q\n\nPandas 相关性分析 清洗 CSV\
+  \ 文件 创建矩阵 可视化 热力图 平行坐标 百分点函数 (PPF) 主成分分析 (PCA) 特征向量 鸢尾花数据集 `wrangled.json` 数据集 概率密度函数\
+  \ (PDF) PyMongo Python 函数与字符串基础 矩阵 编程代码 伪随机数\n\n### R\n\nRadViz 残差平方和 (RSS)\n\n\
+  ### S\n\nSigmoid 函数 最小化 局部最大值 局部最小值 简单函数 最小化 数据切片 速度模拟 标准差 (SD) 标准正态分布 随机梯度下降 批次\
+  \ 最大值 最小值 theta n 次 RSS 函数 运行 n 次\n\n### T\n\n元组 Twitter `pip install TwitterSearchAPI`\
+  \ 将凭据保存为 JSON 格式 二维数据\n\n### U\n\n均匀分布\n\n### V\n\n可视化\n\n### W, X, Y, Z\n\n网络爬虫，BeautifulSoup\
+  \ 数据整理\n\n"
+- '# 地标
+
+
+  1. 封面
+
+  2. 目录
+
+  3. 正文
+
+  '

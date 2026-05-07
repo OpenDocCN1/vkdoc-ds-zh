@@ -1,0 +1,5145 @@
+- '
+
+  ![](img/978-1-4842-7762-1_CoverFigure.jpg)
+
+
+  ISBN 978-1-4842-7761-4 e-ISBN 978-1-4842-7762-1 [`doi.org/10.1007/978-1-4842-7762-1`](https://doi.org/10.1007/978-1-4842-7762-1)
+  © Tshepo Chris Nokeri 2022 Apress Standard 本出版物中使用的通用描述性名称、注册商标、商标、服务标记等，即使未作明确声明，也不意味着这些名称不受相关保护性法律和法规的约束，因此可供一般使用。出版商、作者和编辑可以假定本书中的建议和信息在出版之日是真实准确的。出版商、作者或编辑均不对本文所含材料或可能存在的任何错误或遗漏提供明示或暗示的担保。出版商对已出版地图中的管辖权主张和机构归属保持中立。
+
+
+  本 Apress 印记由注册公司 APress Media, LLC（Springer Nature 的一部分）出版。
+
+
+  注册公司地址为：1 New York Plaza, New York, NY 10004, U.S.A.
+
+
+  *谨以此书献给我的家人以及所有在我生命中愉快地扮演过重要角色的人。*
+
+
+  ## 引言
+
+
+  本书涵盖了名为`PySpark`的内存分布式集群计算框架，名为`Scikit-Learn`、`PySpark MLlib`、`H2O`和`XGBoost`的机器学习框架平台，以及名为`Keras`的深度学习框架。阅读本书后，您将能够应用监督学习和无监督学习来解决实际和真实世界的数据问题。在本书中，您将学习如何设计特征、优化超参数、训练和测试模型、开发流水线以及自动化机器学习流程。
+
+
+  首先，本书精心介绍了监督和无监督的机器学习与深度学习模型，并审视了大数据框架以及机器学习和深度学习框架。它还讨论了名为广义线性模型的参数模型，以及名为 Cox
+  比例风险模型和加速失效时间（AFT）的生存回归模型。它介绍了名为逻辑回归的二分类模型和名为梯度提升树的集成模型。它还介绍了深度学习以及一种人工神经网络——多层感知器（MLP）分类器。它描述了使用
+  k-means 模型执行聚类分析的方法。它探讨了主成分分析和线性判别分析等降维技术，最后通过解析自动化机器学习作为结尾。
+
+
+  本书的目标读者是希望学习如何应用关键大数据框架以及机器学习和深度学习框架的中级数据科学家和机器学习工程师。在探索本书内容之前，请确保您了解基础统计学、Python
+  编程、概率论和预测分析。
+
+
+  本书的示例使用了`Anaconda`（一种开源的 Python 编程发行版）。以下列表突出显示了本书涵盖的一些 Python 库。
+
+
+  *   `Pandas`：用于数据结构和工具。
+
+  *   `PySpark`：用于内存集群计算。
+
+  *   `XGBoost`：用于梯度提升和生存回归分析。
+
+  *   `Auto-Sklearn`、`基于树的流水线优化工具（TPOT）`、`Hyperopt-Sklearn`和`H2O`：用于 AutoML。
+
+  *   `Scikit-Learn`：用于构建和验证关键机器学习算法。
+
+  *   `Keras`：用于深度学习的高级框架。
+
+  *   `H2O`：用于无人驾驶机器学习。
+
+  *   `Lifelines`：用于生存分析。
+
+  *   `NumPy`：用于数组和矩阵。
+
+  *   `SciPy`：用于积分、求解微分方程和优化。
+
+  *   `Matplotlib`和`Seaborn`：用于创建公认的图表和图形。
+
+
+  ## 致谢
+
+
+  撰写一本独著书籍颇具挑战性，但我得到了家人和挚友们的坚定支持和积极鼓励。衷心感谢 Apress 出版团队在写作和编辑过程中给予的所有支持。最后，衷心感谢各位阅读此书；我真诚地希望它能对您有所帮助。
+
+
+  ## 关于作者 关于技术审校
+
+
+  '
+- '# 1. 探索机器学习
+
+
+  本章介绍了最佳的机器学习方法，并详细说明了监督式机器学习与非监督式机器学习的主要区别。它还讨论了这两种方法的各种应用。
+
+
+  机器学习已经存在了很长时间；然而，直到最近才获得广泛认可。这是因为现代计算机系统的计算能力增强，以及开源平台和框架的易用性。机器学习涉及通过实施各种编程和统计技术来赋予计算机系统智能。它借鉴了统计学、计算语言学和神经科学等领域。它还应用了现代统计学和基础编程。它使开发人员能够开发和部署智能计算机系统，并创建实用且可靠的应用程序。
+
+
+  ## 探索监督式方法
+
+
+  监督式学习涉及向机器学习算法提供大量数据集，算法通过该数据集学习所需的输出。主要的机器学习方法有线性方法、非线性方法和集成方法。以下部分将让您熟悉参数方法，也称为*线性回归方法*。参见表
+  1-1。
+
+
+  线性回归方法期望数据遵循高斯分布。普通最小二乘法是标准的线性方法；它最小化误差项，并确定斜率和截距，以使数据拟合一条直线（其中因变量是连续的）。
+
+
+  此外，普通最小二乘法确定了特征之间关联的程度。它还假设线性关系、残差中无自相关且无多重共线性。在现实世界中，数据几乎从不来自正态分布；该方法难以解释变异性，导致模型欠拟合或过拟合。为了解决这个问题，我们在方程中引入一个惩罚项来改变模型的性能。
+
+
+  **表 1-1** 参数方法类型
+
+
+  | 模型 | 描述 |
+
+  | --- | --- |
+
+  | 线性回归方法 | 当有一个因变量（连续特征）和一个自变量（连续或分类特征）时应用。主要的线性回归方法有`GLM`、`Ridge`、`Lasso`、`Elastic
+  Net`等。 |
+
+  | 生存回归方法 | 应用于与时间事件相关的删失数据，其中因变量是分类的，自变量是连续的。 |
+
+  | 时间序列分析方法 | 应用于发现序列数据中的模式并预测未来实例。主要的时间序列模型包括`ARIMA`模型、`SARIMA`、`Additive`模型等。 |
+
+
+
+
+  ### 探索非线性模型
+
+
+  非线性（分类）方法用于区分不同类别（也称为分类或标签）——见表 1-2。当因变量特征中存在两个类别时，你将实施二分类方法。当存在两个以上类别时，你将实施多分类方法。分类函数数不胜数，包括
+  `sigmoid`、`双曲正切` 和 `核函数` 等。其应用取决于具体情境。后续章节将介绍其中部分函数。
+
+
+  表 1-2
+
+
+  不同的非线性模型
+
+
+  | 模型 | 描述 |
+
+  | --- | --- |
+
+  | 二分类方法 | 适用于分类特征仅有两个可能结果的情况。常用的二分类器是逻辑回归模型。 |
+
+  | 多分类方法 | 适用于分类特征有两个以上可能结果的情况。主要的多分类器是线性判别分析模型（也可用于降维）。 |
+
+  | 生存分类 | 适用于使用分类特征计算事件发生概率的情况。 |
+
+
+  ### 探索集成方法
+
+
+  集成方法使你能够揭示线性和非线性关系。主要的集成方法是随机森林树，它通常计算量很大。此外，其性能取决于多种因素，如树的深度、迭代次数、数据划分和提升方法。
+
+
+  ## 探索无监督方法
+
+
+  与监督式机器学习相反，无监督学习不包含真实标签。你将模型暴露于所有样本数据，让其自行猜测数据的模式。最常见的无监督方法是与聚类相关的方法。
+
+
+  ### 探索聚类方法
+
+
+  聚类方法便于将数据中的公共值聚合在一起；它们使你能够发现结构化和非结构化数据中的模式。表 1-3 重点介绍了几种可用于猜测数据模式的聚类方法。
+
+
+  表 1-3
+
+
+  不同的聚类模型
+
+
+  | 技术 | 描述 |
+
+  | --- | --- |
+
+  | 质心聚类 | 用于确定数据的中心，并将数据点向中心拉拢。主要的质心聚类方法是 `k-means` 方法。 |
+
+  | 密度聚类 | 用于确定数据集中分布的区域。主要的密度聚类模型是 `DBSCAN` 方法。 |
+
+  | 分布聚类 | 基于某种分布识别数据点属于某个聚类的概率。主要的分布聚类方法是 `高斯混合` 方法。 |
+
+
+  ### 探索降维
+
+
+  降维方法有助于确定因子或成分在多大程度上解释了数据中的相关变化。表 1-4 概述了主要的降维方法。
+
+
+  表 1-4
+
+
+  主要降维方法
+
+
+  | 技术 | 描述 |
+
+  | --- | --- |
+
+  | 因子分析 | 用于确定因子在多大程度上解释了数据中特征的相关变化。 |
+
+  | 主成分分析 | 用于确定因子在多大程度上解释了数据中特征的相关变化。 |
+
+
+  ## 探索深度学习
+
+
+  深度学习是机器学习的延伸，它利用人工神经网络来解决复杂问题。你可以使用深度学习来发现大数据中的模式。深度学习使用人工神经网络来发现复杂数据中的模式。这些网络采用类似于动物的方法，即从环境接收输入数据的神经元（节点）扫描输入，并将其传递给后续层中的神经元，最终得出某种输出（即理解数据中的复杂性）。根据具体情境，有几种人工神经网络可用于确定某种现象的行为模式。表
+  1-5 重点介绍了主要的神经网络。
+
+
+  表 1-5
+
+
+  不同的神经网络
+
+
+  | 网络 | 描述 |
+
+  | --- | --- |
+
+  | 受限玻尔兹曼机 (RBM) | 最常见的神经网络，仅包含隐藏层和可见层。 |
+
+  | 多层感知器 (MLP) | 一种神经网络，通过增加输入层、隐藏层和输出层来扩展受限玻尔兹曼机。 |
+
+  | 循环神经网络 (RNN) | 用作序列建模器。 |
+
+  | 卷积神经网络 (CNN) | 用作降维器和分类器。 |
+
+
+  ## 本章小结
+
+
+  本章介绍了机器学习的两种方式——监督式学习和无监督学习。首先解释了监督式机器学习，并讨论了三种监督式学习方法及其应用。然后介绍了无监督学习技术、降维和聚类分析。
+
+
+  '
+- '# 2. 大数据、机器学习与深度学习框架
+
+
+  本章将详细介绍用于并行数据处理的大数据框架——`Apache Spark`。同时，还将介绍几个有助于构建可扩展应用的机器学习（ML）和深度学习（DL）框架。阅读本章后，你将了解如何使用具有弹性和容错性的技术来收集、操作和检查大数据。本章讨论了
+  `Scikit-Learn`、`Spark MLlib` 和 `XGBoost` 框架，还介绍了一个名为 `Keras` 的深度学习框架。最后，讨论了有效设置和管理这些框架的方法。
+
+
+  大数据框架支持并行数据处理。它们使你能够将大数据分布在多个集群中。最流行的大数据框架是 `Apache Spark`，它构建在 `Hadoop` 框架之上。
+
+
+  ## 大数据
+
+
+  大数据对不同的人有不同的含义。在本书中，我们将大数据定义为使用经典方法无法充分处理和操作的大量数据。我们必须使用可扩展的框架和现代技术来处理这些数据并从中获取洞察。当数据无法容纳在当前的内存存储空间中时，我们通常认为数据是“大”的。例如，如果你有一台个人电脑，而手头的数据量超过了电脑的存储容量，这就是大数据。这同样适用于拥有大型存储集群的大型企业。当我们使用
+  `Hadoop/Spark` 技术栈时，我们经常会谈论大数据。
+
+
+  ### 大数据的特征
+
+
+  大数据的特征被描述为四个 V——速度（Velocity）、体量（Volume）、多样性（Variety）和真实性（Veracity）。表 2-1 重点介绍了大数据的这些特征。
+
+
+  表 2-1
+
+
+  大数据特征
+
+
+  | 要素 | 描述 |
+
+  | --- | --- |
+
+  | 速度 | 现代技术和改进的连接性使你能够以前所未有的速度生成数据。速度的特征包括批量数据、近实时或实时数据以及数据流。 |
+
+  | 体量 | 数据增长的规模。数据源和基础设施的性质会影响数据的体量。体量的特征包括艾字节、泽字节等。 |
+
+  | 多样性 | 数据可能来自独特的来源。现代技术设备到处留下数字足迹，这增加了企业和个人获取数据的来源数量。多样性的特征包括数据的结构和复杂性。 |
+
+  | 真实性 | 数据必须来自可靠的来源。同时，数据必须高质量、一致且完整。 |
+
+
+  ## 大数据对商业和人们的影响
+
+
+  毫无疑问，大数据影响着我们的思维方式和商业运作方式。数据驱动的组织通常为基于证据的管理奠定基础。大数据涉及使用定量方法衡量业务的关键方面。它有助于支持决策。接下来的部分将讨论大数据影响企业和人们的方式。
+
+
+
+
+  ### 优化客户关系
+
+
+  来自大数据的洞察有助于管理客户关系。掌握客户大数据的企业可以研究客户的行为模式，并运用描述性分析来驱动客户管理策略。
+
+
+  ### 精细化产品开发
+
+
+  数据驱动型企业利用大数据分析和预测性分析来推动产品开发与管理策略。这种方法对于应用的增量迭代交付非常有用。
+
+
+  ### 提升决策质量
+
+
+  当企业拥有大数据时，可以利用它来揭示现象的复杂模式，从而影响战略制定。这种方法有助于管理层基于证据而非主观推理做出明智决策。数据驱动型企业会培养一种基于证据管理的文化。
+
+
+  我们还在生命科学、物理学、经济学和医学等领域运用大数据。大数据影响世界的方式多种多样。本章并未考虑所有因素。接下来的章节将解释大数据仓库和 ETL 活动。
+
+
+  ## 大数据仓库
+
+
+  过去几十年里，企业在本地数据库中投入了大量资源，包括 Microsoft Access、Microsoft SQL Server、SAP Hana、Oracle
+  Database 等。近年来，像 Microsoft Azure SQL 和 Oracle XE 这样的云数据库得到了广泛采用。此外，还有像 Cassandra
+  和 HBase 等标准的大数据（分布式）数据库。企业正转向可扩展的基于云的数据库，以利用不断增强的计算能力、容错技术和可扩展解决方案带来的优势。
+
+
+  ### 大数据 ETL
+
+
+  尽管数据库管理取得了显著进步，但人们操作数据库数据的方式基本保持不变。提取、转换和加载（ETL）在分析和报告中仍然扮演着不可或缺的角色。表 2-2 讨论了 ETL
+  活动。
+
+
+  表 2-2
+
+
+  ETL 活动
+
+
+  | 活动 | 描述 |
+
+  | --- | --- |
+
+  | 提取 | 涉及从某个数据库中获取数据。 |
+
+  | 转换 | 涉及将数据库中的数据转换为适合分析和报告的格式。 |
+
+  | 加载 | 涉及将数据存储在数据库管理系统中。 |
+
+
+  要执行 ETL 活动，必须使用查询语言。最流行的查询语言是 SQL（结构化查询语言）。随着开源运动的发展，还出现了其他查询语言，例如 HiveQL 和 BigQuery。Python
+  编程语言支持 SQL。Python 框架可以通过实现诸如 `SQLAlchemy`、`pyodbc`、`SQLite`、`SparkSQL` 和 `pandas`
+  等库来连接数据库。
+
+
+  ## 大数据框架
+
+
+  大数据框架使开发人员能够收集、管理和操作分布式数据。大多数开源大数据框架都使用内存集群计算。最流行的框架包括 Hadoop、Spark、Flink、Storm
+  和 Samza。本书使用 PySpark 来执行 ETL 活动、探索数据以及构建机器学习流水线。
+
+
+  ### Apache Spark
+
+
+  Apache Spark 执行内存集群计算。它使开发人员能够使用 Java、Scala、Python、R 和 SQL 构建可扩展的应用程序。它包含诸如驱动程序、集群管理器和执行器之类的集群组件。你可以将其用作独立的集群管理器，或者部署在
+  Mesos、Hadoop、YARN 或 Baronets 之上。你可以使用它来访问 Hadoop 文件系统（HDFS）、Cassandra、HBase 和 Hive
+  等数据源中的数据。Spark 数据结构被认为是一种弹性分布式数据集。本书介绍了一个集成了 Python 和 Apache Spark（PySpark）的框架。本书使用它来操作
+  Spark MLlib。要理解这个框架，你首先需要掌握弹性分布式数据集背后的概念。
+
+
+  #### 弹性分布式数据集
+
+
+  弹性分布式数据集（RDD）是用于并行化数据或转换现有数据的不可变元素。主要的 RDD 操作包括转换和动作。我们将它们存储在 Hadoop 支持的任何存储中。例如，在
+  Hadoop 分布式文件系统（HDFS）、Cassandra、HBase、Amazon S3 等中。
+
+
+  #### Spark 配置
+
+
+  Spark 配置的领域包括 Spark 属性、环境变量和日志记录。默认配置目录是 `SPARK_HOME/conf`。
+
+
+  你可以在环境中使用 `pip install findspark` 安装 `findspark` 库，并使用 `pip install pyspark` 安装
+  `pyspark` 库。
+
+
+  清单 2-1 使用 `findspark` 框架准备 PySpark 框架。
+
+
+  ```
+
+  import findspark as initiate_pyspark
+
+  initiate_pyspark.init("filepath\spark-3.0.0-bin-hadoop2.7")
+
+  清单 2-1
+
+  准备 PySpark 框架
+
+  ```
+
+
+  清单 2-2 使用 `SparkConf()` 方法规定 PySpark 应用程序。
+
+
+  ```
+
+  from pyspark import SparkConf
+
+  pyspark_configuration = SparkConf().setAppName("pyspark_linear_method").setMaster("local")
+
+  清单 2-2
+
+  规定 PySpark 应用程序
+
+  ```
+
+
+  清单 2-3 使用 `SparkSession()` 方法准备 PySpark 会话。
+
+
+  ```
+
+  from pyspark.sql import SparkSession
+
+  pyspark_session = SparkSession(pyspark_context)
+
+  清单 2-3
+
+  准备 Spark 会话
+
+  ```
+
+
+  #### Spark 框架
+
+
+  Spark 框架扩展了 Spark API 的核心。有四个主要的 Spark 框架——SparkSQL、Spark Streaming、Spark MLlib
+  和 GraphX。
+
+
+  ##### SparkSQL
+
+
+  SparkSQL 使您能够使用关系查询语言，如 SQL、HiveQL 和 Scala。它包含一个包含行对象和模式的 `schemaRDD`。您可以使用现有的 RDD、parquet
+  文件或 JSON 数据集来创建它。执行 Spark Context 以创建 SQL 上下文。
+
+
+  ##### Spark Streaming
+
+
+  Spark Streaming 是一个可扩展的流处理框架，支持 Apache Kafka、Apache Flume、HDFS 和 Apache Kensis 等。它使用
+  DStream 以小批量方式处理输入数据，您可以通过 HDFS、数据库和仪表板推送这些数据。较新版本的 Python 不支持 Spark Streaming。因此，本书不涉及该框架。您可以使用
+  Spark Streaming 应用程序从任何数据源读取输入，并将数据副本存储在 HDFS 中。这使您能够构建和启动一个 Spark Streaming 应用程序，该应用程序处理传入数据并对其运行算法。
+
+
+  ##### Spark MLlib
+
+
+  MLlib 是一个机器学习框架，允许您开发和测试机器学习和深度学习模型。在 Python 中，这些框架与 NumPy 框架协同工作。Spark MLlib 可以与多个
+  Hadoop 数据源一起使用，并集成到 Hadoop 工作流中。常见算法包括回归、分类、聚类、协同过滤和降维。关键的工作流工具包括特征转换、标准化和归一化、流水线开发、模型评估和超参数优化。
+
+
+  ##### GraphX
+
+
+  GraphX 是一个可扩展且容错的框架，用于迭代和快速的图并行计算、社交网络和语言建模。它包括图算法，例如用于估计图中每个顶点重要性的 PageRank、用于使用图中编号最小的顶点
+  ID 标记图连通分量的 Connected Components，以及用于查找通过每个顶点的三角形数量的 Triangle Counting。
+
+
+  ## 机器学习框架
+
+
+  要解决机器学习问题，您需要一个支持构建和扩展机器学习模型的框架。机器学习模型并不缺乏——有数不清的机器学习框架。有多个机器学习框架可供您使用。后续章节将介绍 Scikit-Learn、Spark
+  MLlib、H2O 和 XGBoost 等框架。
+
+
+
+
+  ### Scikit-Learn
+
+
+  `Scikit-Learn` 框架包含回归、分类和聚类等机器学习算法。你可以将其与 `NumPy` 和 `SciPy` 等其他框架一起使用。它可以执行机器学习项目所需的大部分任务，例如数据处理、转换、数据拆分、归一化、超参数优化、模型开发和评估。`Scikit-Learn`
+  随大多数支持 Python 的发行包一起提供。在你的 Python 环境中使用 `pip install sklearn` 进行安装。
+
+
+  ### H2O
+
+
+  `H2O` 是一个使用无人驾驶技术的机器学习框架。它使你能够加速 AI 解决方案的采用。它非常易于使用，并且不需要任何技术专业知识。不仅如此，它还支持数值和分类数据，包括文本。在训练机器学习模型之前，你必须先将数据加载到
+  `H2O` 集群中。它支持 CSV、Excel 和 Parquet 文件。默认数据源包括本地文件系统、远程文件、Amazon S3、HDFS 等。它拥有回归、分类、聚类分析和降维等机器学习算法。它还可以执行机器学习项目所需的大部分任务，例如数据处理、转换、数据拆分、归一化、超参数优化、模型开发、检查点、评估和生产化。在你的环境中使用
+  `pip install h2o` 安装该包。
+
+
+  清单 2-4 准备了 `H2O` 框架。
+
+
+  ```
+
+  import h2o
+
+  h2o.init()
+
+  清单 2-4
+
+  初始化 H2O 框架
+
+  ```
+
+
+  ### XGBoost
+
+
+  `XGBoost` 是一个支持包括 Python 在内的编程语言的机器学习框架。它执行可扩展的梯度提升模型，并快速学习并行和分布式计算，而不会牺牲内存效率。不仅如此，它还是一个集成学习器。如第
+  a 章所述，集成学习器可以解决回归和分类问题。`XGBoost` 使用提升方法从前序树的错误中学习。当基于树的模型过拟合时，它非常有用。在你的 Python 环境中使用
+  `pip install xgboost` 安装该模型。
+
+
+  ## 深度学习框架
+
+
+  深度学习框架提供了支持扩展人工神经网络的结构。你可以单独使用它，也可以与其他模型一起使用。它通常包含程序和代码框架。主要的深度学习框架包括 `TensorFlow`、`PyTorch`、`Deeplearning4j`、`Microsoft
+  Cognitive Toolkit` (`CNTK`) 和 `Keras`。
+
+
+  ### Keras
+
+
+  `Keras` 是一个使用 Python 编写的高级深度学习框架；它运行在名为 `TensorFlow` 的机器学习平台之上。它对于深度学习模型的快速原型设计非常有效。你可以在张量处理单元或大规模图形处理单元上运行
+  `Keras`。主要的 `Keras` API 包括模型、层和回调。第 7 章将介绍此框架。执行 `pip install Keras` 和 `pip install
+  tensorflow` 来使用 `Keras` 框架。
+
+
+  '
+- '# 3. 使用 Scikit-Learn、PySpark 和 H2O 进行线性建模
+
+
+  本章介绍普通最小二乘法，并使用主要的 Python 框架（即 `Scikit-Learn`、`Spark MLlib` 和 `H2O`）执行该方法。首先解释该方法背后的基本概念。
+
+
+  ## 探索普通最小二乘法
+
+
+  普通最小二乘法用于具有不受限制（连续）输出特征的数据。此方法要求正态性和线性，并且误差项（也称为*残差*）中不能存在自相关，也不能存在多重共线性。它也非常容易受到数据异常的影响，因此如果此方法效果不佳，你可能希望使用替代方法，例如
+  `Ridge`、`Lasso` 和 `Elastic Net`。
+
+
+  清单 3-1 从 Microsoft CSV 文件中获取必要的数据。
+
+
+  ```
+
+  import pandas as pd
+
+  df = pd.read_csv(r"filepath\WA_Fn-UseC_-Marketing_Customer_Value_Analysis.csv")
+
+  清单 3-1
+
+  获取数据
+
+  ```
+
+
+  清单 3-2 指定要删除的列名，然后执行 `drop()` 方法。然后它将轴指定为 `columns`，以便删除数据中不必要的列。
+
+
+  ```
+
+  drop_column_names = df.columns[[0, 6]]
+
+  initial_data = df.drop(drop_column_names, axis="columns")
+
+  清单 3-2
+
+  删除数据中不必要的特征
+
+  ```
+
+
+  清单 3-3 获取此数据中分类特征的虚拟值。
+
+
+  ```
+
+  initial_data.iloc[::, 0] = pd.get_dummies(initial_data.iloc[::, 0])
+
+  initial_data.iloc[::, 2] = pd.get_dummies(initial_data.iloc[::, 2])
+
+  initial_data.iloc[::, 3] = pd.get_dummies(initial_data.iloc[::, 3])
+
+  initial_data.iloc[::, 4] = pd.get_dummies(initial_data.iloc[::, 4])
+
+  initial_data.iloc[::, 5] = pd.get_dummies(initial_data.iloc[::, 5])
+
+  initial_data.iloc[::, 6] = pd.get_dummies(initial_data.iloc[::, 6])
+
+  initial_data.iloc[::, 7] = pd.get_dummies(initial_data.iloc[::, 7])
+
+  initial_data.iloc[::, 8] = pd.get_dummies(initial_data.iloc[::, 8])
+
+  initial_data.iloc[::, 9] = pd.get_dummies(initial_data.iloc[::, 9])
+
+  initial_data.iloc[::, 15] = pd.get_dummies(initial_data.iloc[::, 15])
+
+  initial_data.iloc[::, 16] = pd.get_dummies(initial_data.iloc[::, 16])
+
+  initial_data.iloc[::, 17] = pd.get_dummies(initial_data.iloc[::, 17])
+
+  initial_data.iloc[::, 18] = pd.get_dummies(initial_data.iloc[::, 18])
+
+  initial_data.iloc[::, 20] = pd.get_dummies(initial_data.iloc[::, 20])
+
+  initial_data.iloc[::, 21] = pd.get_dummies(initial_data.iloc[::, 21])
+
+  清单 3-3
+
+  获取虚拟特征
+
+  ```
+
+
+  清单 3-4 概述了自变量和因变量特征。
+
+
+  ```
+
+  import numpy as np
+
+  int_x = initial_data.iloc[::,0:19]
+
+  fin_x = initial_data.iloc[::,19:21]
+
+  x_combined = pd.concat([int_x, fin_x], axis=1)
+
+  x = np.array(x_combined)
+
+  y = np.array(initial_data.iloc[::,19])
+
+  清单 3-4
+
+  概述特征
+
+  ```
+
+
+
+
+  ### Scikit-Learn 实战
+
+
+  清单 3-5 对数据框进行随机划分。
+
+
+  ```
+
+  from sklearn.model_selection import train_test_split
+
+  x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+
+  清单 3-5
+
+  随机划分数据框
+
+  ```
+
+
+  清单 3-6 对自变量进行缩放。
+
+
+  ```
+
+  from sklearn.preprocessing import StandardScaler
+
+  sk_standard_scaler = StandardScaler()
+
+  sk_standard_scaled_x_train = sk_standard_scaler.fit_transform(x_train)
+
+  sk_standard_scaled_x_test = sk_standard_scaler.transform(x_test)
+
+  清单 3-6
+
+  缩放自变量
+
+  ```
+
+
+  清单 3-7 执行 Scikit-Learn 的普通最小二乘回归方法。
+
+
+  ```
+
+  from sklearn.linear_model import LinearRegression
+
+  sk_linear_model = LinearRegression()
+
+  sk_linear_model.fit(sk_standard_scaled_x_train, y_train)
+
+  清单 3-7
+
+  执行 Scikit-Learn 普通最小二乘回归方法
+
+  ```
+
+
+  清单 3-8 确定 Scikit-Learn 普通最小二乘回归方法的最佳超参数。
+
+
+  ```
+
+  from sklearn.preprocessing import GridSearchCV
+
+  sk_linear_model_param = {''fit_intercept'':[True,False]}
+
+  sk_linear_model_param_mod  = GridSearchCV(estimator=sk_linear_model, param_grid=sk_linear_model_param,
+  n_jobs=-1)
+
+  sk_linear_model_param_mod.fit(sk_standard_scaled_x_train, y_train)
+
+  print("Best OLS score: ", sk_linear_model_param_mod.best_score_)
+
+  print("Best OLS parameter: ", sk_linear_model_param_mod.best_params_)
+
+  Best OLS score:  1.0
+
+  Best OLS parameter:  {''fit_intercept'': True}
+
+  清单 3-8
+
+  确定 Scikit-Learn 普通最小二乘回归方法的最佳超参数
+
+  ```
+
+
+  清单 3-9 执行 Scikit-Learn 的普通最小二乘回归方法。
+
+
+  ```
+
+  sk_linear_model = LinearRegression(fit_intercept= True)
+
+  sk_linear_model.fit(sk_standard_scaled_x_train, y_train)
+
+  sk_linear_model_param_mod.best_params_)
+
+  清单 3-9
+
+  执行 Scikit-Learn 普通最小二乘回归方法
+
+  ```
+
+
+  清单 3-10 计算 Scikit-Learn 普通最小二乘回归方法的截距。
+
+
+  ```
+
+  print(sk_linear_model.intercept_)
+
+  433.0646521131769
+
+  清单 3-10
+
+  计算 Scikit-Learn 普通最小二乘回归方法的截距
+
+  ```
+
+
+  清单 3-11 计算 Scikit-Learn 普通最小二乘回归方法的系数。
+
+
+  ```
+
+  print(sk_linear_model.coef_)
+
+  [-6.15076155e-15  2.49798076e-13 -1.95573220e-14 -1.90089677e-14
+
+  -5.87187344e-14  2.50923806e-14 -1.05879478e-13  1.53591400e-14
+
+  -1.82507711e-13 -7.86327034e-14  4.17629484e-13  1.28923537e-14
+
+  6.52911311e-14 -5.28069778e-14 -1.57900159e-14 -6.74040176e-14
+
+  -9.28427833e-14  5.03132848e-14 -8.75978166e-15  2.90235705e+02
+
+  -9.55950515e-14]
+
+  清单 3-11
+
+  计算 Scikit-Learn 普通最小二乘回归方法的系数
+
+  ```
+
+
+  清单 3-12 计算普通最小二乘回归方法的预测值。
+
+
+  ```
+
+  sk_yhat = sk_linear_model.predict(sk_standard_scaled_x_test)
+
+  清单 3-12
+
+  计算 Scikit-Learn 普通最小二乘回归方法的预测值
+
+  ```
+
+
+  清单 3-13 评估 Scikit-Learn 普通最小二乘方法（见表 3-1）。
+
+
+  **表 3-1** Scikit-Learn 普通最小二乘方法评估
+
+
+  | | Sk 平均绝对误差 | Sk 均方误差 | Sk 均方根误差 | Sk 决定系数 | Sk 方差分数 |
+
+  | --- | --- | --- | --- | --- | --- |
+
+  | **估计值** | 9.091189e-13 | 1.512570e-24 | 1.229866e-12 | 1.0 | 1.0 |
+
+
+  ```
+
+  from sklearn import metrics
+
+  sk_mean_ab_error = metrics.mean_absolute_error(y_test, sk_yhat)
+
+  sk_mean_sq_error = metrics.mean_squared_error(y_test, sk_yhat)
+
+  sk_root_sq_error = np.sqrt(sk_mean_sq_error)
+
+  sk_determinant_coef = metrics.r2_score(y_test, sk_yhat)
+
+  sk_exp_variance = metrics.explained_variance_score(y_test, sk_yhat)
+
+  sk_linear_model_ev = [[sk_mean_ab_error, sk_mean_sq_error, sk_root_sq_error,
+
+  sk_determinant_coef, sk_exp_variance]]
+
+  sk_linear_model_assessment = pd.DataFrame(sk_linear_model_ev, index = ["Estimates"],
+  columns = ["Sk mean absolute error",
+
+  "Sk mean squared error",
+
+  "Sk root mean squared error",
+
+  "Sk determinant coefficient",
+
+  "Sk variance score"])
+
+  sk_linear_model_assessment
+
+  y = np.array(initial_data.iloc[::,19])
+
+  清单 3-13
+
+  评估 Scikit-Learn 普通最小二乘方法
+
+  ```
+
+
+  表 3-1 显示，Scikit-Learn 普通最小二乘方法解释了全部变异性。
+
+
+  ### PySpark 实战
+
+
+  本节使用 PySpark 框架执行并评估普通最小二乘方法。清单 3-14 使用 `findspark` 框架准备 PySpark 环境。
+
+
+  ```
+
+  import findspark as initiate_pyspark
+
+  initiate_pyspark.init("filepath\spark-3.0.0-bin-hadoop2.7")
+
+  清单 3-14
+
+  准备 PySpark 框架
+
+  ```
+
+
+  清单 3-15 使用 `SparkConf()` 方法指定 PySpark 应用。
+
+
+  ```
+
+  from pyspark import SparkConf
+
+  pyspark_configuration = SparkConf().setAppName("pyspark_linear_method").setMaster("local")
+
+  清单 3-15
+
+  指定 PySpark 应用
+
+  ```
+
+
+  清单 3-16 使用 `SparkSession()` 方法准备 PySpark 会话。
+
+
+  ```
+
+  from pyspark.sql import SparkSession
+
+  pyspark_session = SparkSession(pyspark_context)
+
+  清单 3-16
+
+  准备 Spark 会话
+
+  ```
+
+
+  清单 3-17 使用 `createDataFrame()` 方法将本章前面创建的 `pandas` 数据框转换为 PySpark 数据框。
+
+
+  ```
+
+  pyspark_initial_data = pyspark_session.createDataFrame(initial_data)
+
+  清单 3-17
+
+  将 Pandas 数据框转换为 PySpark 数据框
+
+  ```
+
+
+  清单 3-18 为自变量创建一个列表，并为因变量创建一个字符串。它使用 `VectorAssembler()` 方法转换数据，以便在 PySpark 框架中进行建模。
+
+
+  ```
+
+  x_list = list(x_combined.columns)
+
+  y_list = initial_data.columns[19]
+
+  from pyspark.ml.feature import VectorAssembler
+
+  pyspark_data_columns = x_list
+
+  pyspark_vector_assembler = VectorAssembler(inputCols=pyspark_data_columns, outputCol="variables")
+
+  pyspark_data = pyspark_vector_assembler.transform(pyspark_initial_data)
+
+  清单 3-18
+
+  转换数据
+
+  ```
+
+
+  清单 3-19 使用 `randomSplit()` 方法划分数据。
+
+
+  ```
+
+  (pyspark_training_data, pyspark_test_data) = pyspark_data.randomSplit([.8,.2])
+
+  清单 3-19
+
+  划分数据框
+
+  ```
+
+
+  清单 3-20 执行 PySpark 普通最小二乘回归方法。
+
+
+  ```
+
+  from pyspark.ml.regression import LinearRegression
+
+  pyspark_linear_model = LinearRegression(labelCol=y_list, featuresCol=pyspark_data.columns[-1])
+
+  pyspark_fitted_linear_model = pyspark_linear_model.fit(pyspark_training_data)
+
+  清单 3-20
+
+  执行 PySpark 普通最小二乘回归方法
+
+  ```
+
+
+  清单 3-21 计算 PySpark 普通最小二乘回归方法的预测值。
+
+
+  ```
+
+  pyspark_yhat = pyspark_fitted_linear_model.transform(pyspark_test_data)
+
+  清单 3-21
+
+  计算 PySpark 普通最小二乘回归方法的预测值
+
+  ```
+
+
+  清单 3-22 评估 PySpark 普通最小二乘方法。
+
+
+  ```
+
+  pyspark_linear_model_assessment = pyspark_fitted_linear_model.summary
+
+  print("PySpark root mean squared error", pyspark_linear_model_assessment.rootMeanSquaredError)
+
+  print("PySpark determinant coefficient", pyspark_linear_model_assessment.r2)
+
+  PySpark root mean squared error 2.0762306526480097e-13
+
+  PySpark determinant coefficient 1.0
+
+  清单 3-22
+
+  评估 PySpark 普通最小二乘方法
+
+  ```
+
+
+
+
+  ### H2O 实战
+
+
+  本节将使用 H2O 框架执行并评估普通最小二乘法。
+
+
+  清单 3-23 准备 H2O 框架。
+
+
+  ```
+
+  import h2o as initialize_h2o
+
+  initialize_h2o.init()
+
+  清单 3-23
+
+  准备 H2O 框架
+
+  ```
+
+
+  清单 3-24 将 pandas 数据框转换为 H2O 数据框。
+
+
+  ```
+
+  h2o_data = initialize_h2o.H2OFrame(initial_data)
+
+  清单 3-24
+
+  将 Pandas 数据框转换为 H2O 数据框
+
+  ```
+
+
+  清单 3-25 概述了自变量和因变量特征。
+
+
+  ```
+
+  y = y_list
+
+  x = h2o_data.col_names
+
+  x.remove(y_list)
+
+  清单 3-25
+
+  概述特征
+
+  ```
+
+
+  清单 3-26 随机划分数据。
+
+
+  ```
+
+  h2o_training_data, h2o_validation_data, h2o_test_data = h2o_data.split_frame(ratios=[.8,.1])
+
+  清单 3-26
+
+  随机划分数据框
+
+  ```
+
+
+  清单 3-27 执行 H2O 普通最小二乘回归方法。
+
+
+  ```
+
+  from h2o.estimators import H2OGeneralizedLinearEstimator
+
+  h2o_linear_model = H2OGeneralizedLinearEstimator(family="gaussian")
+
+  h2o_linear_model.train(x=x,y=y,training_frame=h2o_training_data,validation_frame=h2o_validation_data)
+
+  清单 3-27
+
+  执行 H2O 普通最小二乘回归方法
+
+  ```
+
+
+  清单 3-28 计算 H2O 普通最小二乘方法的预测值。
+
+
+  ```
+
+  h2o_yhat = h2o_linear_model.predict(h2o_test_data)
+
+  清单 3-28
+
+  H2O 普通最小二乘法执行预测
+
+  ```
+
+
+  清单 3-29 计算 H2O 普通最小二乘方法的标准化系数（见图 3-1）。
+
+
+  ![../images/517508_1_En_3_Chapter/517508_1_En_3_Fig1_HTML.jpg](img/517508_1_En_3_Fig1_HTML.jpg)
+
+
+  图 3-1
+
+
+  H2O 普通最小二乘方法的标准化系数
+
+
+  ```
+
+  h2o_linear_model_std_coefficients = h2o_linear_model.std_coef_plot()
+
+  h2o_linear_model_std_coefficients
+
+  清单 3-29
+
+  H2O 普通最小二乘方法的标准化系数
+
+  ```
+
+
+  清单 3-30 计算 H2O 普通最小二乘方法的偏依赖关系（见图 3-2）。
+
+
+  ![../images/517508_1_En_3_Chapter/517508_1_En_3_Fig2_HTML.png](img/517508_1_En_3_Fig2_HTML.png)
+
+
+  图 3-2
+
+
+  H2O 普通最小二乘方法的偏依赖关系
+
+
+  ```
+
+  h2o_linear_model_dependency_plot = h2o_linear_model.partial_plot(data = h2o_data,
+  cols = list(initial_data.columns[[0,19]]), server=False, plot = True)
+
+  h2o_linear_model_dependency_plot
+
+  清单 3-30
+
+  H2O 普通最小二乘方法的偏依赖关系
+
+  ```
+
+
+  清单 3-31 按升序排列对 H2O 普通最小二乘法最重要的特征（见图 3-3）。
+
+
+  ![../images/517508_1_En_3_Chapter/517508_1_En_3_Fig3_HTML.jpg](img/517508_1_En_3_Fig3_HTML.jpg)
+
+
+  图 3-3
+
+
+  H2O 普通最小二乘方法的特征重要性
+
+
+  ```
+
+  h2o_linear_model_feature_importance = h2o_linear_model.varimp_plot()
+
+  h2o_linear_model_feature_importance
+
+  清单 3-31
+
+  H2O 普通最小二乘方法的特征重要性
+
+  ```
+
+
+  清单 3-32 评估 H2O 普通最小二乘法。
+
+
+  ```
+
+  h2o_linear_model_assessment = h2o_linear_model.model_performance()
+
+  print(h2o_linear_model_assessment)
+
+  ModelMetricsRegressionGLM: glm
+
+  ** Reported on train data. **
+
+  MSE: 24844.712331260016
+
+  RMSE: 157.6220553452467
+
+  MAE: 101.79904883889066
+
+  RMSLE: NaN
+
+  R²: 0.7004468136072375
+
+  Mean Residual Deviance: 24844.712331260016
+
+  Null degrees of freedom: 7326
+
+  Residual degrees of freedom: 7305
+
+  Null deviance: 607612840.7465751
+
+  Residual deviance: 182012362.53881088
+
+  AIC: 94978.33944003603
+
+  清单 3-32
+
+  评估 H2O 普通最小二乘法
+
+  ```
+
+
+  清单 3-33 通过将 `remove_collinear_columns` 指定为 `True` 来改进 H2O 普通最小二乘法的性能。
+
+
+  ```
+
+  h2o_linear_model_collinear_removed = H2OGeneralizedLinearEstimator(family="gaussian",
+  lambda_ = 0,remove_collinear_columns = True)
+
+  h2o_linear_model_collinear_removed.train(x=x,y=y,training_frame=h2o_training_data,validation_frame=h2o_validation_data)
+
+  清单 3-33
+
+  改进普通最小二乘法的性能
+
+  ```
+
+
+  清单 3-34 评估 H2O 普通最小二乘法。
+
+
+  ```
+
+  h2o_linear_model_collinear_removed_assessment = h2o_linear_model_collinear_removed.model_performance()
+
+  print(h2o_linear_model_collinear_removed)
+
+  MSE: 23380.71864337616
+
+  RMSE: 152.9075493341521
+
+  MAE: 102.53007935777588
+
+  RMSLE: NaN
+
+  R²: 0.7180982143647627
+
+  Mean Residual Deviance: 23380.71864337616
+
+  Null degrees of freedom: 7326
+
+  Residual degrees of freedom: 7305
+
+  Null deviance: 607612840.7465751
+
+  Residual deviance: 171287144.78137374
+
+  AIC: 94533.40762597627
+
+  ModelMetricsRegressionGLM: glm
+
+  ** Reported on validation data. **
+
+  MSE: 25795.936313899092
+
+  RMSE: 160.6111338416459
+
+  MAE: 103.18677222520363
+
+  RMSLE: NaN
+
+  R²: 0.7310558588001701
+
+  Mean Residual Deviance: 25795.936313899092
+
+  Null degrees of freedom: 876
+
+  Residual degrees of freedom: 855
+
+  Null deviance: 84181020.04623385
+
+  Residual deviance: 22597240.210975606
+
+  AIC: 11430.364002305443
+
+  清单 3-34
+
+  评估 H2O 普通最小二乘法
+
+  ```
+
+
+  ## 结论
+
+
+  本章执行了三个关键的机器学习框架（Scikit-Learn、PySpark 和 H2O）来对数据进行建模，并使用线性方法生成一个连续输出特征。本章还探讨了评估该方法的各种方式。
+
+
+  '
+- '# 4. 使用 PySpark 和 Lifelines 进行生存分析
+
+
+  本章描述并执行了多种使用主要 Python 框架（即 Lifelines 和 PySpark）的生存分析方法。首先解释了 Cox 比例风险模型背后的基本概念，然后介绍了加速失效时间方法。
+
+
+  ## 探索生存分析
+
+
+  生存方法在制造业、保险业和医学科学领域很常见。当独立调查需要长时间进行，且受试者在特定时间点进入和退出时，这些方法便于正确评估风险。
+
+
+  本章将使用这些方法来确定机器故障的概率、患者从疾病中存活的概率以及其他应用。它们同样适用于处理缺失值（删失数据）。
+
+
+  ## 探索 Cox 比例风险方法
+
+
+  Cox 比例风险方法是处理具有相关变化的受试者的删失数据的最佳生存方法。它与 Mantel-Haenszel 方法类似，并假设风险率是时间的函数。它指出该率是协变量的函数。公式
+  4-1 定义了 Cox 比例风险方法。
+
+
+  ![$$ \left(t,{x}_1,{x}_2,\dots, {x}_p\right)=(t)\ \mathit{\exp}\left({b}_1{X}_1+{b}_2{X}_2+\dots
+  {b}_p{X}_p\right) $$](img/517508_1_En_4_Chapter_TeX_Equ1.png)
+
+
+  （公式 4-1）
+
+
+  清单 4-1 从 Microsoft Excel 文件中获取所需数据。
+
+
+  ```
+
+  import pandas as pd
+
+  initial_data = pd.read_excel(r"filepath\survival_data.xlsx", index_col=[0])
+
+  清单 4-1
+
+  获取数据
+
+  ```
+
+
+  清单 4-2 查找划分数据的比例。
+
+
+  ```
+
+  int(initial_data.shape[0]) * 0.8
+
+  345.6
+
+  清单 4-2
+
+  查找划分数据的比例
+
+  ```
+
+
+  清单 4-3 划分数据。
+
+
+  ```
+
+  lifeline_training_data = initial_data.loc[:346]
+
+  lifeline_test_data = initial_data.loc[346:]
+
+  清单 4-3
+
+  划分数据
+
+  ```
+
+
+
+
+  '
+- '# Lifeline 实战
+
+
+  本节将使用 Lifeline 框架执行并评估 Cox 比例风险方法。代码清单 4-4 执行了 Lifeline Cox 比例风险方法。
+
+
+  ```
+
+  from lifelines import CoxPHFitter
+
+  lifeline_cox_method = CoxPHFitter()
+
+  lifeline_cox_method.fit(lifeline_training_data, initial_data.columns[0], initial_data.columns[1])
+
+  代码清单 4-4
+
+  执行 Lifeline Cox 比例风险方法
+
+  ```
+
+
+  代码清单 4-5 计算了检验统计量（见表 4-1），并使用缩放 Schoenfeld 残差评估了 Lifeline Cox 比例风险方法，这有助于揭示残差中的任何异常（见图
+  4-1）。
+
+
+  ![../images/517508_1_En_4_Chapter/517508_1_En_4_Fig1_HTML.jpg](img/517508_1_En_4_Fig1_HTML.jpg)
+
+
+  图 4-1
+
+
+  年龄的缩放 Schoenfeld 残差
+
+
+  表 4-1
+
+
+  Lifeline Cox 比例风险方法的检验统计量
+
+
+  |   |   | 检验统计量 | p |
+
+  | --- | --- | --- | --- |
+
+  | Age | km | 10.53 | <0.005 |
+
+  | rank | 10.78 | <0.005 |
+
+  | Fin | km | 0.12 | 0.73 |
+
+  | rank | 0.14 | 0.71 |
+
+  | Mar | km | 0.18 | 0.67 |
+
+  | rank | 0.20 | 0.66 |
+
+  | Paro | km | 0.13 | 0.72 |
+
+  | rank | 0.11 | 0.74 |
+
+  | Prio | km | 0.49 | 0.48 |
+
+  | rank | 0.47 | 0.49 |
+
+  | Race | km | 0.34 | 0.56 |
+
+  | rank | 0.37 | 0.54 |
+
+  | Wexp | km | 11.91 | <0.005 |
+
+  | rank | 11.61 | <0.005 |
+
+
+  ```
+
+  lifeline_cox_method_test_statistics_schoenfeld = lifeline_cox_method.check_assumptions(lifeline_training_data,
+  show_plots=True)
+
+  lifeline_cox_method_test_statistics_schoenfeld
+
+  代码清单 4-5
+
+  计算 Lifeline Cox 比例风险方法的检验统计量和残差
+
+  ```
+
+
+  代码清单 4-6 确定了 Lifeline Cox 比例风险方法的评估摘要（见表 4-2）。
+
+
+  表 4-2
+
+
+  Cox 比例风险模型摘要
+
+
+  | Coef | Exp(coef) | Se(coef) | Coef Lower 95% | Coef Upper 95% | Exp(coef) Lower
+  95% | Exp(coef) Upper 95% | Z | P | -log2(p) |   |
+
+  | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+
+  | Fin | -0.71 | 0.49 | 0.23 | -1.16 | -0.27 | 0.31 | 0.77 | -3.13 | <0.005 | 9.14
+  |
+
+  | Age | -0.03 | 0.97 | 0.02 | -0.08 | 0.01 | 0.93 | 1.01 | -1.38 | 0.17 | 2.57 |
+
+  | Race | 0.39 | 1.48 | 0.37 | -0.34 | 1.13 | 0.71 | 3.09 | 1.05 | 0.30 | 1.76 |
+
+  | Wexp | -0.11 | 0.90 | 0.24 | -0.59 | 0.37 | 0.56 | 1.44 | -0.45 | 0.65 | 0.62
+  |
+
+  | Mar | -1.15 | 0.32 | 0.61 | -2.34 | 0.04 | 0.10 | 1.04 | -1.90 | 0.06 | 4.11 |
+
+  | Paro | 0.07 | 1.07 | 0.23 | -0.37 | 0.51 | 0.69 | 1.67 | 0.31 | 0.76 | 0.40 |
+
+  | Prio | 0.10 | 1.11 | 0.03 | 0.04 | 0.16 | 1.04 | 1.17 | 3.24 | <0.005 | 9.73 |
+
+
+  ```
+
+  lifeline_cox_method_assessment_summary = lifeline_cox_method.print_summary()
+
+  lifeline_cox_method_assessment_summary
+
+  代码清单 4-6
+
+  计算评估摘要
+
+  ```
+
+
+  代码清单 4-7 确定了数据中每个特征的对数检验置信区间（见图 4-2）。
+
+
+  ![../images/517508_1_En_4_Chapter/517508_1_En_4_Fig2_HTML.jpg](img/517508_1_En_4_Fig2_HTML.jpg)
+
+
+  图 4-2
+
+
+  对数检验置信区间
+
+
+  ```
+
+  lifeline_cox_log_test_ci = lifeline_cox_method.plot()
+
+  lifeline_cox_log_test_ci
+
+  代码清单 4-7
+
+  执行 Lifeline Cox 比例风险方法
+
+  ```
+
+
+  ## 探索加速失效时间方法
+
+
+  加速失效时间方法使用对数线性函数对删失数据进行建模，以描述生存时间的对数。同样，它也假设每个实例是独立的。
+
+
+  ### PySpark 实战
+
+
+  本节将使用 PySpark 框架执行加速失效时间方法。
+
+
+  代码清单 4-8 使用 `findspark` 框架运行 PySpark 框架。
+
+
+  ```
+
+  import findspark as initiate_pyspark
+
+  initiate_pyspark.init("filepath\spark-3.0.0-bin-hadoop2.7")
+
+  代码清单 4-8
+
+  准备 PySpark 框架
+
+  ```
+
+
+  代码清单 4-9 使用 `SparkConf()` 方法指定 PySpark 应用。
+
+
+  ```
+
+  from pyspark import SparkConf
+
+  pyspark_configuration = SparkConf().setAppName("pyspark_aft_method").setMaster("local")
+
+  代码清单 4-9
+
+  指定 PySpark 应用
+
+  ```
+
+
+  代码清单 4-10 使用 `SparkSession()` 方法准备 PySpark 会话。
+
+
+  ```
+
+  from pyspark.sql import SparkSession
+
+  pyspark_session = SparkSession(pyspark_context)
+
+  from pyspark.sql import SparkSession
+
+  代码清单 4-10
+
+  准备 Spark 会话
+
+  ```
+
+
+  代码清单 4-11 使用 `createDataFrame()` 方法将本章前面创建的 `pandas` 数据框转换为 PySpark 数据框。
+
+
+  ```
+
+  pyspark_initial_data = pyspark_session.createDataFrame(initial_data)
+
+  代码清单 4-11
+
+  将 Pandas 数据框转换为 PySpark 数据框
+
+  ```
+
+
+  代码清单 4-12 为自变量创建一个列表，并为因变量创建一个字符串。然后使用 `VectorAssembler()` 方法转换数据，以便在 PySpark 框架中进行建模。
+
+
+  ```
+
+  x_list = list(initial_data.iloc[::, 0:9].columns)
+
+  from pyspark.ml.feature import VectorAssembler
+
+  pyspark_data_columns = x_list
+
+  pyspark_vector_assembler = VectorAssembler(inputCols=pyspark_data_columns, outputCol="variables")
+
+  pyspark_data = pyspark_vector_assembler.transform(pyspark_initial_data)
+
+  代码清单 4-12
+
+  转换数据
+
+  ```
+
+
+  代码清单 4-13 执行 PySpark 加速失效时间方法。
+
+
+  ```
+
+  from pyspark.ml.regression import AFTSurvivalRegression
+
+  pyspark_accelerated_failure_method = AFTSurvivalRegression(censorCol=pyspark_data.columns[1],
+  labelCol=pyspark_data.columns[0],featuresCol="variables",)
+
+  pyspark_accelerated_failure_method_fitted = pyspark_accelerated_failure_method.fit(pyspark_data)
+
+  代码清单 4-13
+
+  执行 PySpark 加速失效时间方法
+
+  ```
+
+
+  代码清单 4-14 计算 PySpark 加速失效时间方法的预测值。
+
+
+  ```
+
+  pyspark_accelerated_failure_method_fitted.transform(pyspark_data).select(pyspark_data.columns[1],"prediction")
+
+  pyspark_yhat.show()
+
+  +------+------------------+
+
+  |arrest|        prediction|
+
+  +------+------------------+
+
+  |     1|18.883982665910125|
+
+  |     1| 16.88228128814963|
+
+  |     1|22.631360777172517|
+
+  |     0|373.13041474613107|
+
+  |     0| 377.2238319806288|
+
+  |     0| 375.8326538406928|
+
+  |     1|  20.9780526816987|
+
+  |     0| 374.6420738270714|
+
+  |     0| 379.7483494080467|
+
+  |     0| 376.1601473382181|
+
+  |     0| 377.1412349521787|
+
+  |     0| 373.7536844216336|
+
+  |     1| 36.36443059383637|
+
+  |     0|374.14261327949384|
+
+  |     1| 22.98494042401171|
+
+  |     1| 50.61463874375869|
+
+  |     1| 25.56399364288275|
+
+  |     0|379.61997114629696|
+
+  |     0| 384.3322960430372|
+
+  |     0|376.37634062210844|
+
+  +------+------------------+
+
+  代码清单 4-14
+
+  计算 PySpark 加速失效时间方法的预测值
+
+  ```
+
+
+  代码清单 4-15 计算 PySpark 加速失效时间方法的系数。
+
+
+  ```
+
+  pyspark_accelerated_failure_method_fitted.coefficients
+
+  DenseVector([0.0388, -1.7679, -0.0162, -0.0003, 0.0098, -0.0086, -0.0026, 0.0115,
+  0.0003])
+
+  代码清单 4-15
+
+  计算 PySpark 加速失效时间方法的系数
+
+  ```
+
+
+  ## 结论
+
+
+  本章执行了两个关键的机器学习框架（Lifeline 和 PySpark），使用 Cox 比例风险方法和加速失效时间方法对删失数据进行了建模。
+
+
+  '
+- '# 5. 使用 Scikit-Learn、PySpark 和 H2O 进行非线性建模
+
+
+  本章将使用一系列全面的 Python 框架（即 Scikit-Learn、Spark MLlib 和 H2O）来执行并评估一种用于二分类的非线性方法（称为*逻辑回归*）。首先，它阐明了
+  sigmoid 函数背后的基本概念。
+
+
+
+
+  ## 探索逻辑回归方法
+
+
+  逻辑回归方法统一接收数值，然后通过执行一个函数（`sigmoid`）来对它们进行建模，以预测分类输出特征的值。方程 5-1 定义了 sigmoid 函数，该函数适用于逻辑回归（另请参见图
+  5-1）。
+
+
+  ![$$ S(x)=\frac{L}{1-{e}^{-x}}=\frac{e^x}{e^x+1} $$](img/517508_1_En_5_Chapter_TeX_Equ1.png)
+
+
+  （方程 5-1）
+
+
+  方程 5-1 和图 5-1 都表明该函数产生二值输出。
+
+
+  ![../images/517508_1_En_5_Chapter/517508_1_En_5_Fig1_HTML.jpg](img/517508_1_En_5_Fig1_HTML.jpg)
+
+
+  图 5-1
+
+
+  Sigmoid 函数
+
+
+  清单 5-1 使用 `pandas` 框架从一个 Microsoft CSV 文件中获取必要的数据。
+
+
+  ```
+
+  import pandas as pd
+
+  df = pd.read_csv(r"C:\Users\i5 lenov\Downloads\banking.csv")
+
+  清单 5-1
+
+  获取数据
+
+  ```
+
+
+  清单 5-2 指定了要删除的列名，然后执行 `drop()` 方法。它指定轴为 `columns`，以便删除数据中不必要的列。
+
+
+  ```
+
+  drop_column_names = df.columns[[8, 9, 10]]
+
+  initial_data = df.drop(drop_column_names, axis="columns")
+
+  清单 5-2
+
+  删除数据中不必要的特征
+
+  ```
+
+
+  清单 5-3 获取数据中分类特征的虚拟变量值。
+
+
+  ```
+
+  initial_data.iloc[::, 1] = pd.get_dummies(initial_data.iloc[::, 1])
+
+  initial_data.iloc[::, 2] = pd.get_dummies(initial_data.iloc[::, 2])
+
+  initial_data.iloc[::, 3] = pd.get_dummies(initial_data.iloc[::, 3])
+
+  initial_data.iloc[::, 4] = pd.get_dummies(initial_data.iloc[::, 4])
+
+  initial_data.iloc[::, 5] = pd.get_dummies(initial_data.iloc[::, 5])
+
+  initial_data.iloc[::, 6] = pd.get_dummies(initial_data.iloc[::, 6])
+
+  initial_data.iloc[::, 7] = pd.get_dummies(initial_data.iloc[::, 7])
+
+  initial_data.iloc[::, 11] = pd.get_dummies(initial_data.iloc[::, 11])
+
+  清单 5-3
+
+  获取虚拟特征
+
+  ```
+
+
+  清单 5-4 删除空值。
+
+
+  ```
+
+  initial_data = initial_data.dropna()
+
+  清单 5-4
+
+  删除空值
+
+  ```
+
+
+  ### Scikit-Learn 实战
+
+
+  本节使用 Scikit-Learn 框架执行并评估逻辑回归方法。清单 5-5 概述了自变量和因变量特征。
+
+
+  ```
+
+  import numpy as np
+
+  x = np.array(initial_data.iloc[::, 0:17])
+
+  y = np.array(initial_data.iloc[::,-1])
+
+  清单 5-5
+
+  概述特征
+
+  ```
+
+
+  清单 5-6 随机划分数据框。
+
+
+  ```
+
+  from sklearn.model_selection import train_test_split
+
+  x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+
+  清单 5-6
+
+  随机划分数据框
+
+  ```
+
+
+  清单 5-7 对自变量特征进行缩放。
+
+
+  ```
+
+  from sklearn.preprocessing import StandardScaler
+
+  sk_standard_scaler = StandardScaler()
+
+  sk_standard_scaled_x_train = sk_standard_scaler.fit_transform(x_train)
+
+  sk_standard_scaled_x_test = sk_standard_scaler.transform(x_test)
+
+  清单 5-7
+
+  缩放自变量特征
+
+  ```
+
+
+  清单 5-8 执行 Scikit-Learn 逻辑回归方法。
+
+
+  ```
+
+  from sklearn.linear_model import LogisticRegression
+
+  sk_logistic_regression_method = LogisticRegression()
+
+  sk_logistic_regression_method.fit(sk_standard_scaled_x_train,  y_train)
+
+  清单 5-8
+
+  执行 Scikit-Learn 逻辑回归方法
+
+  ```
+
+
+  清单 5-9 确定 Scikit-Learn 逻辑回归方法的最佳超参数。
+
+
+  ```
+
+  from sklearn.model_selection import GridSearchCV
+
+  sk_logistic_regression_method_param = {"penalty":("l1","l2")}
+
+  sk_logistic_regression_method_param_mod  = GridSearchCV(estimator=sk_logistic_regression_method,
+  param_grid=sk_logistic_regression_method_param, n_jobs=-1)
+
+  sk_logistic_regression_method_param_mod.fit(sk_standard_scaled_x_train, y_train)
+
+  print("Best logistic regression score: ", sk_logistic_regression_method_param_mod.best_score_)
+
+  print("Best logistic regression parameter: ", sk_logistic_regression_method_param_mod.best_params_)
+
+  Best logistic regression score:  0.8986039453717755
+
+  Best logistic regression parameter:  {''penalty'': ''l2''}
+
+  清单 5-9
+
+  确定 Scikit-Learn 逻辑回归方法的最佳超参数
+
+  ```
+
+
+  清单 5-10 使用 Scikit-Learn 框架执行逻辑回归方法。
+
+
+  ```
+
+  sk_logistic_regression_method = LogisticRegression(penalty="l2")
+
+  sk_logistic_regression_method.fit(sk_standard_scaled_x_train, y_train)
+
+  清单 5-10
+
+  执行 Scikit-Learn 逻辑回归方法
+
+  ```
+
+
+  清单 5-11 计算逻辑回归方法的截距。
+
+
+  ```
+
+  print(sk_logistic_regression_method.intercept_)
+
+  [-2.4596243]
+
+  清单 5-11
+
+  计算逻辑回归方法的截距
+
+  ```
+
+
+  清单 5-12 计算系数。
+
+
+  ```
+
+  print(sk_logistic_regression_method.coef_)
+
+  [[ 0.03374725  0.04330667 -0.01305369 -0.02709009  0.13508899  0.01735913
+
+  0.00816758  0.42948983 -0.12670658 -0.25784955 -0.04025993 -0.14622466
+
+  -1.14143485  0.70803518  0.23256046 -0.02295578 -0.02857435]]
+
+  清单 5-12
+
+  计算逻辑回归方法的系数
+
+  ```
+
+
+  清单 5-13 计算 Scikit-Learn 逻辑回归方法的混淆矩阵，该矩阵包含两种错误类型——假正例和假负例，以及真正例和真负例（见表 5-1）。
+
+
+  表 5-1
+
+
+  Scikit-Learn 逻辑回归方法的混淆矩阵
+
+
+  |   | 预测：存款 | 预测：无存款 |
+
+  | --- | --- | --- |
+
+  | 实际：存款 | 7230 | 95 |
+
+  | 实际：无存款 | 711 | 202 |
+
+
+
+
+  ```python
+
+  from sklearn import metrics
+
+  sk_logistic_regression_method_assessment_1 = pd.DataFrame(metrics.confusion_matrix(y_test,
+  sk_yhat), index=["Actual: Deposit","Actual: No deposit"], columns=("Predicted: deposit","Predicted:
+  No deposit"))
+
+  print(sk_logistic_regression_method_assessment_1)
+
+  ```
+
+  清单 5-13：计算 Scikit-Learn 逻辑回归方法的混淆矩阵
+
+
+  清单 5-14 计算了相应的分类报告（见表 5-2）。
+
+
+  **表 5-2** Scikit-Learn 逻辑回归方法的分类报告
+
+
+  | | 精确率 | 召回率 | F1 分数 | 支持度 |
+
+  | --- | --- | --- | --- | --- |
+
+  | 0 | 0.910465 | 0.987031 | 0.947203 | 7325.000000 |
+
+  | 1 | 0.680135 | 0.221249 | 0.333884 | 913.000000 |
+
+  | 准确率 | 0.902161 | 0.902161 | 0.902161 | 0.902161 |
+
+  | 宏平均 | 0.795300 | 0.604140 | 0.640544 | 8238.000000 |
+
+  | 加权平均 | 0.884938 | 0.902161 | 0.879230 | 8238.000000 |
+
+
+  ```python
+
+  sk_logistic_regression_method_assessment_2 = pd.DataFrame(metrics.classification_report(y_test,
+  sk_yhat, output_dict=True)).transpose()
+
+  print(sk_logistic_regression_method_assessment_2)
+
+  ```
+
+  清单 5-14：计算 Scikit-Learn 逻辑回归方法的分类报告
+
+
+  清单 5-15 整理了 Scikit-Learn 逻辑回归方法的受试者工作特征曲线。其目标是精简真正率（该方法正确区分正类别的倾向）和假正率（该方法正确区分负类别的倾向）的排列。见图
+  5-2。
+
+
+  ![../images/517508_1_En_5_Chapter/517508_1_En_5_Fig2_HTML.jpg](img/517508_1_En_5_Fig2_HTML.jpg)
+
+
+  **图 5-2** Scikit-Learn 逻辑回归方法的受试者工作特征曲线
+
+
+  ```python
+
+  sk_yhat_proba = sk_logistic_regression_method.predict_proba(sk_standard_scaled_x_test)[::,1]
+
+  fpr_sk_logistic_regression_method, tprr_sk_logistic_regression_method, _ = metrics.roc_curve(y_test,
+  sk_yhat_proba)
+
+  area_under_curve_sk_logistic_regression_method = metrics.roc_auc_score(y_test, sk_yhat_proba)
+
+  plt.plot(fpr_sk_logistic_regression_method, tprr_sk_logistic_regression_method,
+  label="AUC= "+ str(area_under_curve_sk_logistic_regression_method))
+
+  plt.xlabel("False Positive Rate (FPR)")
+
+  plt.ylabel("True Positive Rate (TPR)")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  ```
+
+  清单 5-15：Scikit-Learn 逻辑回归方法的受试者工作特征曲线
+
+
+  清单 5-16 整理了 Scikit-Learn 逻辑回归方法的精确率-召回率曲线，以精简精确率和召回率的排列（见图 5-3）。
+
+
+  ![../images/517508_1_En_5_Chapter/517508_1_En_5_Fig3_HTML.jpg](img/517508_1_En_5_Fig3_HTML.jpg)
+
+
+  **图 5-3** Scikit-Learn 逻辑回归方法的精确率-召回率曲线
+
+
+  ```python
+
+  p_sk_logistic_regression_method, r__sk_logistic_regression_method, _ = metrics.precision_recall_curve(y_test,
+  sk_yhat)
+
+  weighted_ps_sk_logistic_regression_method = metrics.roc_auc_score(y_test, sk_yhat)
+
+  plt.plot(p_sk_logistic_regression_method, r__sk_logistic_regression_method,
+
+  label="WPR= " +str(weighted_ps_sk_logistic_regression_method))
+
+  plt.xlabel("Recall")
+
+  plt.ylabel("Precision")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  ```
+
+  清单 5-16：Scikit-Learn 逻辑回归方法的精确率-召回率曲线
+
+
+  清单 5-17 整理了 Scikit-Learn 逻辑回归方法的学习曲线，以揭示加权训练准确率和交叉验证准确率的变化（见图 5-4）。
+
+
+  ![../images/517508_1_En_5_Chapter/517508_1_En_5_Fig4_HTML.jpg](img/517508_1_En_5_Fig4_HTML.jpg)
+
+
+  **图 5-4** 由 Scikit-Learn 执行的逻辑回归方法的学习曲线
+
+
+  ```python
+
+  from sklearn.model_selection import learning_curve
+
+  train_port_sk_logistic_regression_method, trainscoresk_logistic_regression_method,
+  testscoresk_logistic_regression_method = learning_curve(sk_logistic_regression_method,
+  x, y,
+
+  cv=3, n_jobs=-5, train_sizes=np.linspace(0.1,1.0,50))
+
+  trainscoresk_logistic_regression_method_mean = np.mean(trainscoresk_logistic_regression_method,
+  axis=1)
+
+  testscoresk_logistic_regression_method_mean = np.mean(testscoresk_logistic_regression_method,
+  axis=1)
+
+  plt.plot(train_port_sk_logistic_regression_method, trainscoresk_logistic_regression_method_mean,
+  label="Weighted training accuracy")
+
+  plt.plot(train_port_sk_logistic_regression_method, testscoresk_logistic_regression_method_mean,
+  label="Weighted cv accuracy Score")
+
+  plt.xlabel("Training values")
+
+  plt.ylabel("Weighted accuracy score")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  ```
+
+  清单 5-17：由 Scikit-Learn 执行的逻辑回归方法的学习曲线
+
+
+
+
+  ### PySpark 实战
+
+
+  本节将使用 PySpark 框架执行并评估逻辑回归方法。
+
+
+  清单 5-18 使用 `findspark` 框架准备 PySpark 框架。
+
+
+  ```
+
+  import findspark as initiate_pyspark
+
+  initiate_pyspark.init("filepath\spark-3.0.0-bin-hadoop2.7")
+
+  清单 5-18
+
+  准备 PySpark 框架
+
+  ```
+
+
+  清单 5-19 使用 `SparkConf()` 方法指定 PySpark 应用。
+
+
+  ```
+
+  from pyspark import SparkConf
+
+  pyspark_configuration = SparkConf().setAppName("pyspark_logistic_regression_method").setMaster("local")
+
+  清单 5-19
+
+  指定 PySpark 应用
+
+  ```
+
+
+  清单 5-20 使用 `SparkSession()` 方法准备 PySpark 会话。
+
+
+  ```
+
+  from pyspark.sql import SparkSession
+
+  pyspark_session = SparkSession(pyspark_context)
+
+  清单 5-20
+
+  准备 Spark 会话
+
+  ```
+
+
+  清单 5-21 使用 `createDataFrame()` 方法将本章前面创建的 `pandas` 数据框转换为 PySpark 数据框。
+
+
+  ```
+
+  pyspark_initial_data = pyspark_session.createDataFrame(initial_data)
+
+  清单 5-21
+
+  将 Pandas 数据框转换为 PySpark 数据框
+
+  ```
+
+
+  清单 5-22 创建一个自变量列表和一个因变量字符串。然后使用 `VectorAssembler()` 方法转换数据，以便使用 PySpark 框架进行建模。
+
+
+  ```
+
+  x_list = list(initial_data.iloc[::, 0:17].columns)
+
+  y_list = str(initial_data.columns[-1])
+
+  from pyspark.ml.feature import VectorAssembler
+
+  pyspark_data_columns = x_list
+
+  pyspark_vector_assembler = VectorAssembler(inputCols=pyspark_data_columns, outputCol="features")
+
+  pyspark_data = pyspark_vector_assembler.transform(pyspark_initial_data)
+
+  清单 5-22
+
+  转换数据
+
+  ```
+
+
+  清单 5-23 使用 `randomSplit()` 方法划分数据。
+
+
+  ```
+
+  (pyspark_training_data, pyspark_test_data) = pyspark_data.randomSplit([.8,.2])
+
+  清单 5-23
+
+  划分数据框
+
+  ```
+
+
+  清单 5-24 执行 PySpark 逻辑回归方法。
+
+
+  ```
+
+  from pyspark.ml.classification import LogisticRegression
+
+  pyspark_logistic_regression_method = LogisticRegression(labelCol = y_list, featuresCol
+  = "features")
+
+  pyspark_logistic_regression_method_fitted = pyspark_logistic_regression_method.fit(pyspark_training_data)
+
+  清单 5-24
+
+  执行 PySpark 逻辑回归方法
+
+  ```
+
+
+  清单 5-25 计算 PySpark 逻辑回归方法的预测值。
+
+
+  ```
+
+  pyspark_yhat = pyspark_logistic_regression_method_fitted.transform(pyspark_test_data)
+
+  清单 5-25
+
+  逻辑回归方法预测（使用 PySpark 框架执行）
+
+  ```
+
+
+  清单 5-26 绘制 PySpark 逻辑回归方法的受试者工作特征曲线，以浓缩精确率和召回率的排列（见图 5-5）。
+
+
+  ![../images/517508_1_En_5_Chapter/517508_1_En_5_Fig5_HTML.jpg](img/517508_1_En_5_Fig5_HTML.jpg)
+
+
+  图 5-5
+
+
+  PySpark 逻辑回归方法的受试者工作特征曲线
+
+
+  ```
+
+  pyspark_logistic_regression_method_assessment = pyspark_logistic_regression_method_fitted.summary
+
+  pyspark_logistic_regression_method_roc = pyspark_logistic_regression_method_assessment.roc.toPandas()
+
+  pyspark_logistic_regression_method_auroc = pyspark_logistic_regression_method_assessment.areaUnderROC
+
+  plt.plot(pyspark_logistic_regression_method_roc["FPR"], pyspark_logistic_regression_method_roc["TPR"],
+
+  label="AUC= "+str(pyspark_logistic_regression_method_auroc))
+
+  plt.xlabel("False Positive Rate (FPR)")
+
+  plt.ylabel("True Positive Rate (TPR)")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  清单 5-26
+
+  PySpark 逻辑回归方法的受试者工作特征曲线
+
+  ```
+
+
+  清单 5-27 绘制 PySpark 逻辑回归方法的精确率-召回率曲线，以浓缩精确率和召回率的排列（图 5-6）。
+
+
+  ![../images/517508_1_En_5_Chapter/517508_1_En_5_Fig6_HTML.jpg](img/517508_1_En_5_Fig6_HTML.jpg)
+
+
+  图 5-6
+
+
+  PySpark 逻辑回归方法的精确率-召回率曲线
+
+
+  ```
+
+  pyspark_logistic_regression_method_assessment = pyspark_logistic_regression_method_fitted.summary
+
+  pyspark_logistic_regression_method_assessment_pr = pyspark_logistic_regression_method_assessment.pr.toPandas()
+
+  pyspark_logistic_regression_method_assessment_wpr = pyspark_logistic_regression_method_assessment.weightedPrecision
+
+  plt.plot(pyspark_logistic_regression_method_assessment_pr["precision"],
+
+  pyspark_logistic_regression_method_assessment_pr["recall"],
+
+  label="WPR: "+str(pyspark_logistic_regression_method_assessment_wpr))
+
+  plt.xlabel("Precision")
+
+  plt.ylabel("Recall")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  清单 5-27
+
+  PySpark 逻辑回归方法的精确率-召回率曲线
+
+  ```
+
+
+
+
+  ### H2O 实战
+
+
+  本节使用 `H2O` 框架执行并评估逻辑回归方法。清单 5-28 准备了 H2O 框架。
+
+
+  ```
+
+  import h2o as initialize_h2o
+
+  initialize_h2o.init()
+
+  清单 5-28
+
+  准备 H2O 框架
+
+  ```
+
+
+  清单 5-29 将 `pandas` 数据框转换为 H2O 数据框。
+
+
+  ```
+
+  h2o_data = initialize_h2o.H2OFrame(initial_data)
+
+  清单 5-29
+
+  将 Pandas 数据框转换为 H2O 数据框
+
+  ```
+
+
+  清单 5-30 概述了自变量和因变量特征。
+
+
+  ```
+
+  x_list = list(initial_data.iloc[::, 0:17].columns)
+
+  y_list = str(initial_data.columns[-1])
+
+  y = y_list
+
+  x = h2o_data.col_names
+
+  x.remove(y_list)
+
+  清单 5-30
+
+  概述特征
+
+  ```
+
+
+  清单 5-31 随机划分数据。
+
+
+  ```
+
+  h2o_training_data, h2o_validation_data, h2o_test_data = h2o_data.split_frame(ratios=[.8,.1])
+
+  清单 5-31
+
+  随机划分数据框
+
+  ```
+
+
+  清单 5-32 执行 H2O 逻辑回归方法。
+
+
+  ```
+
+  from h2o.estimators.glm import H2OGeneralizedLinearEstimator
+
+  h2o_logistic_regression_method = H2OGeneralizedLinearEstimator(family="binomial")
+
+  h2o_logistic_regression_method.train(x = x, y = y, training_frame = h2o_training_data,
+  validation_frame = h2o_validation_data)
+
+  清单 5-32
+
+  执行 H2O 逻辑回归方法
+
+  ```
+
+
+  清单 5-33 计算 H2O 逻辑回归方法的预测结果。
+
+
+  ```
+
+  h2o_yhat = h2o_logistic_regression_method.predict(h2o_test_data)
+
+  清单 5-33
+
+  计算 H2O 逻辑回归方法的预测结果
+
+  ```
+
+
+  清单 5-34 计算 H2O 逻辑回归方法的预测结果（见图 5-7）。
+
+
+  ![../images/517508_1_En_5_Chapter/517508_1_En_5_Fig7_HTML.jpg](img/517508_1_En_5_Fig7_HTML.jpg)
+
+
+  图 5-7
+
+
+  H2O 逻辑回归方法的标准化系数
+
+
+  ```
+
+  h2o_logistic_regression_method_std_coefficients = h2o_logistic_regression_method.std_coef_plot()
+
+  h2o_logistic_regression_method_std_coefficients
+
+  清单 5-34
+
+  计算 H2O 逻辑回归方法的标准化系数
+
+  ```
+
+
+  清单 5-35 计算 H2O 逻辑回归方法的偏依赖关系（见图 5-8）。
+
+
+  ![../images/517508_1_En_5_Chapter/517508_1_En_5_Fig8_HTML.png](img/517508_1_En_5_Fig8_HTML.png)
+
+
+  图 5-8
+
+
+  H2O 逻辑回归方法的标准化系数
+
+
+  ```
+
+  h2o_logistic_regression_method_dependency_plot = h2o_logistic_regression_method.partial_plot(data
+  = h2o_data, cols = list(initial_data.columns[[0, 17]]), server=False, plot = True)
+
+  h2o_logistic_regression_method_dependency_plot
+
+  清单 5-35
+
+  计算 H2O 逻辑回归方法的偏依赖关系
+
+  ```
+
+
+  清单 5-36 按升序排列对 H2O 逻辑回归方法最重要的特征（见图 5-9）。
+
+
+  ![../images/517508_1_En_5_Chapter/517508_1_En_5_Fig9_HTML.jpg](img/517508_1_En_5_Fig9_HTML.jpg)
+
+
+  图 5-9
+
+
+  H2O 逻辑回归方法的方差重要性
+
+
+  ```
+
+  h2o_logistic_regression_method_feature_importance = h2o_logistic_regression_method.varimp_plot()
+
+  h2o_logistic_regression_method_feature_importance
+
+  清单 5-36
+
+  计算 H2O 逻辑回归方法的方差重要性
+
+  ```
+
+
+  清单 5-37 绘制 H2O 逻辑回归方法的受试者工作特征曲线，以浓缩真阳性率和假阳性率的排列（见图 5-10）。
+
+
+  ![../images/517508_1_En_5_Chapter/517508_1_En_5_Fig10_HTML.jpg](img/517508_1_En_5_Fig10_HTML.jpg)
+
+
+  图 5-10
+
+
+  H2O 逻辑回归方法的受试者工作特征曲线
+
+
+  ```
+
+  h2o_logistic_regression_method_assessment = h2o_logistic_regression_method.model_performance()
+
+  清单 5-37
+
+  H2O 逻辑回归方法的受试者工作特征曲线
+
+  ```
+
+
+  ## 结论
+
+
+  本章执行了三个关键的机器学习框架（Scikit-Learn、PySpark 和 H2O）来对数据进行建模，并使用逻辑回归方法生成具有两个类别的分类输出特征。
+
+
+  '
+- '# 6. 使用 Scikit-Learn、XGBoost、PySpark 和 H2O 进行树模型与梯度提升
+
+
+  本章使用一系列全面的 Python 框架（即 Scikit-Learn、XGBoost、PySpark 和 H2O）执行并评估一种基于树的方法（决策树方法）和一种集成方法（梯度提升树方法）。首先，本章阐明了决策树如何计算类别的概率。
+
+
+  ## 决策树
+
+
+  *决策树*是一种基础的非参数方法，适用于线性和非线性建模。它执行决策规则，并发展出一种树状结构，以最小的深度将值划分为不同的组（见图 6-1）。
+
+
+  ![../images/517508_1_En_6_Chapter/517508_1_En_6_Fig1_HTML.jpg](img/517508_1_En_6_Fig1_HTML.jpg)
+
+
+  图 6-1
+
+
+  决策树
+
+
+  ## 预处理特征
+
+
+  本章直接操作第 5 章的数据，因此不再按顺序介绍预处理任务。清单 6-1 执行所有预处理任务。
+
+
+  ```
+
+  from sklearn.tree import DecisionTreeClassifier
+
+  import numpy as np
+
+  import pandas as pd
+
+  from sklearn.preprocessing import StandardScaler
+
+  from sklearn.model_selection import train_test_split
+
+  df = pd.read_csv(r"filepath\banking.csv")
+
+  drop_column_names = df.columns[[8, 9, 10]]
+
+  initial_data = df.drop(drop_column_names, axis="columns")
+
+  initial_data.iloc[::, 1] = pd.get_dummies(initial_data.iloc[::, 1])
+
+  initial_data.iloc[::, 2] = pd.get_dummies(initial_data.iloc[::, 2])
+
+  initial_data.iloc[::, 3] = pd.get_dummies(initial_data.iloc[::, 3])
+
+  initial_data.iloc[::, 4] = pd.get_dummies(initial_data.iloc[::, 4])
+
+  initial_data.iloc[::, 5] = pd.get_dummies(initial_data.iloc[::, 5])
+
+  initial_data.iloc[::, 6] = pd.get_dummies(initial_data.iloc[::, 6])
+
+  initial_data.iloc[::, 7] = pd.get_dummies(initial_data.iloc[::, 7])
+
+  initial_data.iloc[::, 11] = pd.get_dummies(initial_data.iloc[::, 11])
+
+  initial_data = initial_data.dropna()
+
+  x = np.array(initial_data.iloc[::, 0:17])
+
+  y = np.array(initial_data.iloc[::, -1])
+
+  x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+
+  sk_standard_scaler = StandardScaler()
+
+  sk_standard_scaled_x_train = sk_standard_scaler.fit_transform(x_train)
+
+  sk_standard_scaled_x_test = sk_standard_scaler.transform(x_test)
+
+  清单 6-1
+
+  预处理特征
+
+  ```
+
+
+
+
+  ### Scikit-Learn 实战
+
+
+  本节使用 `Scikit-Learn` 框架执行并评估决策树方法。代码清单 6-2 使用 `Scikit-Learn` 框架执行决策树方法。
+
+
+  ```
+
+  from sklearn.tree import DecisionTreeClassifier
+
+  sk_decision_tree_method = DecisionTreeClassifier()
+
+  sk_decision_tree_method.fit(sk_standard_scaled_x_train, y_train)
+
+  代码清单 6-2
+
+  执行 Scikit-Learn 决策树方法
+
+  ```
+
+
+  代码清单 6-3 确定了 `Scikit-Learn` 决策树方法的最佳超参数。
+
+
+  ```
+
+  from sklearn.model_selection import GridSearchCV
+
+  sk_decision_tree_method_parameters = {"criterion":("gini","entropy"), "max_depth":[1,
+  2, 3, 4, 5, 6]}
+
+  sk_decision_tree_method_g_search = GridSearchCV(estimator = sk_decision_tree_method,
+  param_grid = sk_decision_tree_method_parameters)
+
+  sk_decision_tree_method_g_search.fit(sk_standard_scaled_x_train, y_train)
+
+  print("最佳决策树回归得分: ", sk_decision_tree_method_g_search.best_score_)
+
+  print("最佳决策树参数: ", sk_decision_tree_method_g_search.best_params_)
+
+  最佳决策树回归得分:  0.900030349013657
+
+  最佳决策树参数:  {''criterion'': ''entropy'', ''max_depth'': 5}
+
+  代码清单 6-3
+
+  确定 Scikit-Learn 决策树方法的最佳超参数
+
+  ```
+
+
+  代码清单 6-4 使用 `Scikit-Learn` 框架执行决策树方法。
+
+
+  ```
+
+  sk_decision_tree_method = DecisionTreeClassifier(criterion = "entropy", max_depth
+  = 5)
+
+  sk_decision_tree_method.fit(sk_standard_scaled_x_train, y_train)
+
+  代码清单 6-4
+
+  执行 Scikit-Learn 决策树方法
+
+  ```
+
+
+  代码清单 6-5 整理了 `Scikit-Learn` 决策树方法的分类报告（见表 6-1）。
+
+
+  表 6-1
+
+
+  Scikit-Learn 决策树方法的分类报告
+
+
+  |   | 精确率 | 召回率 | F1 分数 | 支持度 |
+
+  | --- | --- | --- | --- | --- |
+
+  | 0 | 0.914696 | 0.982253 | 0.947271 | 7325.000000 |
+
+  | 1 | 0.650538 | 0.265060 | 0.376654 | 913.000000 |
+
+  | 准确率 | 0.902768 | 0.902768 | 0.902768 | 0.902768 |
+
+  | 宏平均 | 0.782617 | 0.623656 | 0.661963 | 8238.000000 |
+
+  | 加权平均 | 0.885420 | 0.902768 | 0.884031 | 8238.000000 |
+
+
+  ```
+
+  from sklearn import metrics
+
+  sk_yhat = sk_decision_tree_method.predict(sk_standard_scaled_x_test)
+
+  sk_decision_tree_method_assessment_2 = pd.DataFrame(metrics.classification_report(y_test,
+  sk_yhat, output_dict=True)).transpose()
+
+  sk_decision_tree_method_assessment_2
+
+  代码清单 6-5
+
+  整理 Scikit-Learn 决策树方法的分类报告
+
+  ```
+
+
+  代码清单 6-6 整理了决策树方法的受试者工作特征曲线，以浓缩真阳性率和假阳性率的排列（见图 6-2）。
+
+
+  ![../images/517508_1_En_6_Chapter/517508_1_En_6_Fig2_HTML.jpg](img/517508_1_En_6_Fig2_HTML.jpg)
+
+
+  图 6-2
+
+
+  Scikit-Learn 决策树的受试者工作特征曲线
+
+
+  ```
+
+  import matplotlib.pyplot as plt
+
+  %matplotlib inline
+
+  sk_yhat_proba = sk_decision_tree_method.predict_proba(sk_standard_scaled_x_test)[::,1]
+
+  fpr_sk_decision_tree_method, tprr_sk_decision_tree_method, _ = metrics.roc_curve(y_test,
+  sk_yhat_proba)
+
+  area_under_curve_sk_decision_tree_method = metrics.roc_auc_score(y_test, sk_yhat_proba)
+
+  plt.plot(fpr_sk_decision_tree_method, tprr_sk_decision_tree_method, label="AUC=
+  "+ str(area_under_curve_sk_decision_tree_method))
+
+  plt.xlabel("假阳性率 (FPR)")
+
+  plt.ylabel("真阳性率 (TPR)")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  代码清单 6-6
+
+  决策树方法的受试者工作特征曲线（由 Scikit-Learn 框架执行）
+
+  ```
+
+
+  代码清单 6-7 整理了 `Scikit-Learn` 决策树方法的受试者工作特征曲线，以浓缩精确率和召回率的排列（见图 6-3）。
+
+
+  ![../images/517508_1_En_6_Chapter/517508_1_En_6_Fig3_HTML.jpg](img/517508_1_En_6_Fig3_HTML.jpg)
+
+
+  图 6-3
+
+
+  Scikit-Learn 框架决策树方法的精确率-召回率曲线
+
+
+  ```
+
+  p_sk_decision_tree_method, r__sk_decision_tree_method, _ = metrics.precision_recall_curve(y_test,
+  sk_yhat)
+
+  weighted_ps_sk_decision_tree_method = metrics.roc_auc_score(y_test, sk_yhat)
+
+  plt.plot(p_sk_decision_tree_method, r__sk_decision_tree_method,
+
+  label="WPR= " +str(weighted_ps_sk_decision_tree_method))
+
+  plt.xlabel("召回率")
+
+  plt.ylabel("精确率")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  代码清单 6-7
+
+  Scikit-Learn 决策树方法的精确率-召回率曲线
+
+  ```
+
+
+  代码清单 6-8 整理了 `Scikit-Learn` 决策树方法的学习曲线（见图 6-4）。
+
+
+  ![../images/517508_1_En_6_Chapter/517508_1_En_6_Fig4_HTML.jpg](img/517508_1_En_6_Fig4_HTML.jpg)
+
+
+  图 6-4
+
+
+  由 Scikit-Learn 执行的决策树方法的学习曲线
+
+
+  ```
+
+  from sklearn.model_selection import learning_curve
+
+  train_port_sk_decision_tree_method, trainscore_sk_decision_tree_method, testscore_sk_decision_tree_method
+  = learning_curve(sk_decision_tree_method, x, y,
+
+  cv=3, n_jobs=-5, train_sizes=np.linspace(0.1,1.0,50))
+
+  trainscoresk_decision_tree_method_mean = np.mean(trainscore_sk_decision_tree_method,
+  axis=1)
+
+  testscoresk_decision_tree_method_mean = np.mean(testscore_sk_decision_tree_method,
+  axis=1)
+
+  plt.plot(train_port_sk_decision_tree_method, trainscoresk_decision_tree_method_mean,
+  label="加权训练准确率")
+
+  plt.plot(train_port_sk_decision_tree_method, testscoresk_decision_tree_method_mean,
+  label="加权交叉验证准确率得分")
+
+  plt.xlabel("训练值")
+
+  plt.ylabel("加权准确率得分")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  代码清单 6-8
+
+  由 Scikit-Learn 框架执行的决策树方法的学习曲线
+
+  ```
+
+
+  ## 梯度提升
+
+
+  梯度提升方法继承输入特征的值，然后执行无数个树模型以最小化损失函数（例如，线性建模的平均绝对误差）。它通过吸收弱模型来实现这一点，然后逐步迭代地对数据进行加权建模，并勤勉地伴随选择性能最佳的弱模型。
+
+
+
+
+  ### XGBoost 实战
+
+
+  本节将使用 XGBoost 框架执行并评估决策树方法。代码清单 6-9 执行了 XGBoost 梯度提升方法。
+
+
+  ```python
+
+  from xgboost import XGBClassifier
+
+  xgb_gradient_boosting_method = XGBClassifier()
+
+  xgb_gradient_boosting_method.fit(sk_standard_scaled_x_train, y_train)
+
+  ```
+
+
+  *代码清单 6-9：执行 XGBoost 梯度提升方法*
+
+
+  代码清单 6-10 整理了 XGBoost 梯度提升方法的分类报告（见表 6-2）。
+
+
+  **表 6-2：XGBoost 梯度提升方法的分类报告**
+
+
+  |       | 精确率    | 召回率    | F1 分数   | 支持度      |
+
+  |-------|-----------|----------|-----------|------------|
+
+  | 0     | 0.913410  | 0.976382 | 0.943847  | 7325.00000 |
+
+  | 1     | 0.575980  | 0.257393 | 0.355791  | 913.000000 |
+
+  | 准确率 | 0.896698  | 0.896698 | 0.896698  | 0.896698   |
+
+  | 宏平均 | 0.744695  | 0.616888 | 0.649819  | 8238.000000 |
+
+  | 加权平均 | 0.876013 | 0.896698 | 0.878674  | 8238.000000 |
+
+
+  ```python
+
+  sk_yhat_xgb_gradient_boosting_method = xgb_gradient_boosting_method.predict(sk_standard_scaled_x_test)
+
+  xgb_gradient_boosting_method_assessment_2 = pd.DataFrame(metrics.classification_report(y_test,
+  sk_yhat_xgb_gradient_boosting_method, output_dict=True)).transpose()
+
+  print(xgb_gradient_boosting_method_assessment_2)
+
+  ```
+
+
+  *代码清单 6-10：整理 XGBoost 梯度提升方法的分类报告*
+
+
+  代码清单 6-11 整理了 XGBoost 梯度提升方法的接收者操作特征曲线，以精简精确率和召回率的呈现方式（见图 6-5）。
+
+
+  ![../images/517508_1_En_6_Chapter/517508_1_En_6_Fig5_HTML.jpg](img/517508_1_En_6_Fig5_HTML.jpg)
+
+
+  *图 6-5：XGBoost 梯度提升方法的接收者操作特征曲线*
+
+
+  ```python
+
+  yhat_proba_xgb_gradient_boosting_method = xgb_gradient_boosting_method.predict_proba(sk_standard_scaled_x_test)[::,1]
+
+  fpr_xgb_gradient_boosting_method, tprr_xgb_gradient_boosting_method, _ = metrics.roc_curve(y_test,
+  yhat_proba_xgb_gradient_boosting_method)
+
+  area_under_curve_xgb_gradient_boosting_method = metrics.roc_auc_score(y_test, yhat_proba_xgb_gradient_boosting_method)
+
+  plt.plot(fpr_xgb_gradient_boosting_method, tprr_xgb_gradient_boosting_method, label="AUC=
+  "+ str(area_under_curve_xgb_gradient_boosting_method))
+
+  plt.xlabel("False Positive Rate (FPR)")
+
+  plt.ylabel("True Positive Rate (TPR)")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  ```
+
+
+  *代码清单 6-11：XGBoost 梯度提升方法的接收者操作特征曲线*
+
+
+  代码清单 6-12 整理了 XGBoost 梯度提升方法的精确率-召回率曲线，以精简精确率和召回率的呈现方式（见图 6-6）。
+
+
+  ![../images/517508_1_En_6_Chapter/517508_1_En_6_Fig6_HTML.jpg](img/517508_1_En_6_Fig6_HTML.jpg)
+
+
+  *图 6-6：Scikit-Learn 决策树方法的精确率-召回率曲线*
+
+
+  ```python
+
+  weighted_ps_xgb_gradient_boosting_method = metrics.roc_auc_score(y_test, sk_yhat_xgb_gradient_boosting_method)
+
+  plt.plot(p_xgb_gradient_boosting_method, r__xgb_gradient_boosting_method,
+
+  label="WPR= " +str(weighted_ps_xgb_gradient_boosting_method))
+
+  plt.xlabel("Recall")
+
+  plt.ylabel("Precision")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  ```
+
+
+  *代码清单 6-12：Scikit-Learn 决策树方法的精确率-召回率曲线*
+
+
+  ### PySpark 实战
+
+
+  本节将使用 PySpark 框架执行并评估梯度提升方法。代码清单 6-13 使用 `findspark` 框架准备 PySpark 框架。
+
+
+  ```python
+
+  import findspark as initiate_pyspark
+
+  initiate_pyspark.init("filepath\spark-3.0.0-bin-hadoop2.7")
+
+  ```
+
+
+  *代码清单 6-13：准备 PySpark 框架*
+
+
+  代码清单 6-14 使用 `SparkConf()` 方法指定 PySpark 应用。
+
+
+  ```python
+
+  from pyspark import SparkConf
+
+  pyspark_configuration = SparkConf().setAppName("gradient_boosting_method").setMaster("local")
+
+  ```
+
+
+  *代码清单 6-14：指定 PySpark 应用*
+
+
+  代码清单 6-15 使用 `SparkSession()` 方法准备 PySpark 会话。
+
+
+  ```python
+
+  from pyspark.sql import SparkSession
+
+  pyspark_session = SparkSession(pyspark_context)
+
+  ```
+
+
+  *代码清单 6-15：准备 Spark 会话*
+
+
+  代码清单 6-16 使用 `createDataFrame()` 方法将本章前面创建的 `pandas` 数据框转换为 PySpark 数据框。
+
+
+  ```python
+
+  pyspark_initial_data = pyspark_session.createDataFrame(initial_data)
+
+  ```
+
+
+  *代码清单 6-16：将 Pandas 数据框转换为 PySpark 数据框*
+
+
+  代码清单 6-17 为自变量创建一个列表，并为因变量创建一个字符串。然后使用 `VectorAssembler()` 方法转换数据，以便在 PySpark 框架中进行建模。
+
+
+  ```python
+
+  x_list = list(initial_data.iloc[::, 0:17].columns)
+
+  y_list = str(initial_data.columns[-1])
+
+  from pyspark.ml.feature import VectorAssembler
+
+  pyspark_data_columns = x_list
+
+  pyspark_vector_assembler = VectorAssembler(inputCols=pyspark_data_columns, outputCol="features")
+
+  pyspark_data = pyspark_vector_assembler.transform(pyspark_initial_data)
+
+  ```
+
+
+  *代码清单 6-17：转换数据*
+
+
+  代码清单 6-18 使用 `randomSplit()` 方法划分数据。
+
+
+  ```python
+
+  (pyspark_training_data, pyspark_test_data) = pyspark_data.randomSplit([.8,.2])
+
+  ```
+
+
+  *代码清单 6-18：划分数据框*
+
+
+  代码清单 6-19 执行 PySpark 梯度提升回归方法。
+
+
+  ```python
+
+  from pyspark.ml.classification import GBTClassifier
+
+  pyspark_gradient_boosting_method = GBTClassifier(labelCol = y_list, featuresCol
+  = "features")
+
+  pyspark_gradient_boosting_method_fitted = pyspark_gradient_boosting_method.fit(pyspark_training_data)
+
+  ```
+
+
+  *代码清单 6-19：执行 PySpark 梯度提升方法*
+
+
+  代码清单 6-20 使用 PySpark 框架计算梯度提升回归方法的预测结果。
+
+
+  ```python
+
+  pyspark_yhat = pyspark_gradient_boosting_method_fitted.transform(pyspark_test_data)
+
+  ```
+
+
+  *代码清单 6-20：梯度提升方法的预测结果（使用 PySpark 框架执行）*
+
+
+
+
+  ### H2O 实战
+
+
+  本节将使用 H2O 框架执行并评估主成分方法。清单 6-21 准备了 H2O 框架。
+
+
+  ```
+
+  import h2o as initialize_h2o
+
+  initialize_h2o.init()
+
+  清单 6-21
+
+  准备 H2O 框架
+
+  ```
+
+
+  清单 6-22 将 `pandas` 数据框转换为 H2O 数据框。
+
+
+  ```
+
+  h2o_data = initialize_h2o.H2OFrame(initial_data)
+
+  清单 6-22
+
+  将 Pandas 数据框转换为 H2O 数据框
+
+  ```
+
+
+  清单 6-23 概述了特征。
+
+
+  ```
+
+  x_list = list(initial_data.iloc[::, 0:17].columns)
+
+  y_list = str(initial_data.columns[-1])
+
+  y = y_list
+
+  x = h2o_data.col_names
+
+  x.remove(y_list)
+
+  清单 6-23
+
+  概述特征
+
+  ```
+
+
+  清单 6-24 随机划分数据框。
+
+
+  ```
+
+  h2o_training_data, h2o_validation_data, h2o_test_data = h2o_data.split_frame(ratios=[.8,.1])
+
+  清单 6-24
+
+  随机划分数据框
+
+  ```
+
+
+  清单 6-25 执行 H2O 梯度提升方法。
+
+
+  ```
+
+  from h2o.estimators import H2OGradientBoostingEstimator
+
+  h2o_gradient_boosting_method = H2OGradientBoostingEstimator(nfolds=3)
+
+  h2o_gradient_boosting_method.train(x = x, y = y, training_frame = h2o_training_data,
+  validation_frame = h2o_validation_data)
+
+  清单 6-25
+
+  执行 H2O 梯度提升方法
+
+  ```
+
+
+  清单 6-26 评估 H2O 梯度提升方法（见表 6-3）。
+
+
+  表 6-3
+
+
+  H2O 梯度提升方法评估
+
+
+  | 时间戳 | 持续时间 | 树的数量 | 训练集均方根误差 | 训练集平均绝对误差 | 训练集偏差 | 验证集均方根误差 | 验证集平均绝对误差 | 验证集偏差
+  |   |   |
+
+  | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+
+  | 0 |   | 2021-08-24 04:04:30 | 10.384 秒 | 0.0 | 0.317003 | 0.200981 | 0.100491
+  | 0.311883 | 0.197762 | 0.097271 |
+
+  | 1 |   | 2021-08-24 04:04:30 | 10.496 秒 | 1.0 | 0.309924 | 0.196310 | 0.096053
+  | 0.305219 | 0.193472 | 0.093159 |
+
+  | 2 |   | 2021-08-24 04:04:30 | 10.586 秒 | 2.0 | 0.304085 | 0.192122 | 0.092468
+  | 0.299762 | 0.189611 | 0.089857 |
+
+  | 3 |   | 2021-08-24 04:04:30 | 10.659 秒 | 3.0 | 0.299238 | 0.188351 | 0.089543
+  | 0.295379 | 0.186199 | 0.087249 |
+
+  | 4 |   | 2021-08-24 04:04:30 | 10.745 秒 | 4.0 | 0.295198 | 0.184939 | 0.087142
+  | 0.291736 | 0.183116 | 0.085110 |
+
+
+  ```
+
+  h2o_gradient_boosting_method_history = h2o_gradient_boosting_method.scoring_history()
+
+  print(h2o_gradient_boosting_method_history.head(5))
+
+  清单 6-26
+
+  评估 H2O 梯度提升方法
+
+  ```
+
+
+  ## 结论
+
+
+  本章执行了四个关键的机器学习框架（Scikit-Learn、XGBoost、PySpark 和 H2O）来对数据进行建模，并使用决策树和梯度提升方法生成具有两个类别的分类输出特征。
+
+
+  '
+- '# 7. 使用 Scikit-Learn、Keras 和 H2O 的神经网络
+
+
+  本章将执行并评估非线性神经网络，使用一组多样化的综合性 Python 框架（即 Scikit-Learn、Keras 和 H2O）来解决二分类问题。
+
+
+  ## 探索深度学习
+
+
+  深度学习方法超越了机器学习方法。它们通过包含大量的隐藏层来处理模型和方法中的巨大复杂性。机器学习方法通常类似于一个输入-输出系统，其中目标函数接收输入值，并通过目标函数对其进行转换以产生输出值。深度学习通过包含许多层来扩展处理活动，这些层包含重复且迭代地处理数据的节点。深度学习的广泛认可与其可定制性有关；它使开发者能够根据偏好定制方法。
+
+
+  ## 多层感知器神经网络
+
+
+  顾名思义，多层感知器神经网络包含多个层。此外，其基本结构保持不变；必须有一个层用于接收输入值，一个层用于生成输出值。那些对数据进行建模以分配不同权重和偏置的层被视为隐藏层。
+
+
+  图 7-1 展示了本章使用的多层感知器神经网络。
+
+
+  ![../images/517508_1_En_7_Chapter/517508_1_En_7_Fig1_HTML.png](img/517508_1_En_7_Fig1_HTML.png)
+
+
+  图 7-1
+
+
+  多层感知器神经网络
+
+
+  ## 预处理特征
+
+
+  本章操作的是在第 6 章中获取的数据，因此不会详细描述预处理任务。清单 7-1 执行了所有预处理任务。
+
+
+  ```
+
+  import numpy as np
+
+  import pandas as pd
+
+  from sklearn.preprocessing import StandardScaler
+
+  from sklearn.model_selection import train_test_split
+
+  df = pd.read_csv(r"C:\Users\i5 lenov\Downloads\banking.csv")
+
+  drop_column_names = df.columns[[8, 9, 10]]
+
+  initial_data = df.drop(drop_column_names, axis="columns")
+
+  initial_data.iloc[::, 1] = pd.get_dummies(initial_data.iloc[::, 1])
+
+  initial_data.iloc[::, 2] = pd.get_dummies(initial_data.iloc[::, 2])
+
+  initial_data.iloc[::, 3] = pd.get_dummies(initial_data.iloc[::, 3])
+
+  initial_data.iloc[::, 4] = pd.get_dummies(initial_data.iloc[::, 4])
+
+  initial_data.iloc[::, 5] = pd.get_dummies(initial_data.iloc[::, 5])
+
+  initial_data.iloc[::, 6] = pd.get_dummies(initial_data.iloc[::, 6])
+
+  initial_data.iloc[::, 7] = pd.get_dummies(initial_data.iloc[::, 7])
+
+  initial_data.iloc[::, 11] = pd.get_dummies(initial_data.iloc[::, 11])
+
+  initial_data = initial_data.dropna()
+
+  x = np.array(initial_data.iloc[::,0:17])
+
+  y = np.array(initial_data.iloc[::,-1])
+
+  x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+
+  sk_standard_scaler = StandardScaler()
+
+  sk_standard_scaled_x_train = sk_standard_scaler.fit_transform(x_train)
+
+  sk_standard_scaled_x_test = sk_standard_scaler.transform(x_test)
+
+  清单 7-1
+
+  预处理特征
+
+  ```
+
+
+
+
+  ### Scikit-Learn 实战
+
+
+  本节使用 Scikit-Learn 框架执行并评估一个多层感知器方法。代码清单 7-2 执行了 Scikit-Learn 的多层感知器神经网络。
+
+
+  ```
+
+  from sklearn.neural_network import MLPClassifier
+
+  sk_multilayer_perceptron_net = MLPClassifier()
+
+  sk_multilayer_perceptron_net.fit(sk_standard_scaled_x_train, y_train)
+
+  代码清单 7-2
+
+  执行 Scikit-Learn 多层感知器神经网络
+
+  ```
+
+
+  代码清单 7-3 整理了 Scikit-Learn 多层感知器神经网络的分类报告（见表 7-1）。
+
+
+  表 7-1
+
+
+  Scikit-Learn 多层感知器神经网络的分类报告
+
+
+  |   | 精确率 | 召回率 | F1 分数 | 支持度 |
+
+  | --- | --- | --- | --- | --- |
+
+  | 0 | 0.917062 | 0.976655 | 0.945921 | 7325.000000 |
+
+  | 1 | 0.608696 | 0.291347 | 0.394074 | 913.000000 |
+
+  | 准确率 | 0.900704 | 0.900704 | 0.900704 | 0.900704 |
+
+  | 宏平均 | 0.762879 | 0.634001 | 0.669998 | 8238.000000 |
+
+  | 加权平均 | 0.882886 | 0.900704 | 0.884761 | 8238.000000 |
+
+
+  ```
+
+  from sklearn import metrics
+
+  sk_yhat_multilayer_perceptron_net = sk_multilayer_perceptron_net.predict(sk_standard_scaled_x_test)
+
+  sk_multilayer_perceptron_net_assessment = pd.DataFrame(metrics.classification_report(y_test,
+  sk_yhat_multilayer_perceptron_net,
+
+  output_dict=True)).transpose()
+
+  print(sk_multilayer_perceptron_net_assessment)
+
+  代码清单 7-3
+
+  整理 Scikit-Learn 多层感知器神经网络的分类报告
+
+  ```
+
+
+  代码清单 7-4 整理了多层感知器神经网络的受试者工作特征曲线，以浓缩真阳性率和假阳性率的排列（见图 7-2）。
+
+
+  ![../images/517508_1_En_7_Chapter/517508_1_En_7_Fig2_HTML.jpg](img/517508_1_En_7_Fig2_HTML.jpg)
+
+
+  图 7-2
+
+
+  使用 Scikit-Learn 框架执行的多层感知器网络的受试者工作特征曲线
+
+
+  ```
+
+  import matplotlib.pyplot as plt
+
+  %matplotlib inline
+
+  yhat_proba_sk_multilayer_perceptron_net = sk_multilayer_perceptron_net.predict_proba(sk_standard_scaled_x_test)[::,1]
+
+  fpr_sk_multilayer_perceptron_net, tprr_sk_multilayer_perceptron_net, _ = metrics.roc_curve(y_test,
+  yhat_proba_sk_multilayer_perceptron_net)
+
+  area_under_curve_sk_multilayer_perceptron_net = metrics.roc_auc_score(y_test, yhat_proba_sk_multilayer_perceptron_net)
+
+  plt.plot(fpr_sk_multilayer_perceptron_net, tprr_sk_multilayer_perceptron_net, label="AUC=
+  "+ str(area_under_curve_sk_multilayer_perceptron_net))
+
+  plt.xlabel("假阳性率 (FPR)")
+
+  plt.ylabel("真阳性率 (TPR)")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  代码清单 7-4
+
+  为多层感知器网络整理受试者工作特征曲线（使用 Scikit-Learn 框架执行）
+
+  ```
+
+
+  代码清单 7-5 整理了 Scikit-Learn 多层感知器神经网络的精确率-召回率曲线，以浓缩精确率和召回率的排列（见图 7-3）。
+
+
+  ![../images/517508_1_En_7_Chapter/517508_1_En_7_Fig3_HTML.jpg](img/517508_1_En_7_Fig3_HTML.jpg)
+
+
+  图 7-3
+
+
+  Scikit-Learn 多层感知器神经网络的精确率-召回率曲线
+
+
+  ```
+
+  p_sk_multilayer_perceptron_net, r_sk_multilayer_perceptron_net, _ = metrics.precision_recall_curve(y_test,
+  sk_yhat_multilayer_perceptron_net)
+
+  weighted_ps_sk_multilayer_perceptron_net = metrics.roc_auc_score(y_test, sk_yhat_multilayer_perceptron_net)
+
+  plt.plot(p_sk_multilayer_perceptron_net, r_sk_multilayer_perceptron_net,
+
+  label="WPR= " +str(weighted_ps_sk_multilayer_perceptron_net))
+
+  plt.xlabel("召回率")
+
+  plt.ylabel("精确率")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  代码清单 7-5
+
+  Scikit-Learn 多层感知器神经网络的精确率-召回率曲线
+
+  ```
+
+
+  代码清单 7-6 整理了 Scikit-Learn 多层感知器神经网络的学习曲线（见图 7-4）。
+
+
+  ```
+
+  from sklearn.model_selection import learning_curve
+
+  train_port_sk_multilayer_perceptron_net, trainscore_sk_multilayer_perceptron_net,
+  testscore_sk_multilayer_perceptron_net = learning_curve(sk_multilayer_perceptron_net,
+  x, y,
+
+  cv=3, n_jobs=-5, train_sizes=np.linspace(0.1,1.0,50))
+
+  trainscoresk_multilayer_perceptron_net_mean = np.mean(trainscore_sk_multilayer_perceptron_net,
+  axis=1)
+
+  testscoresk_multilayer_perceptron_net_mean = np.mean(testscore_sk_multilayer_perceptron_net,
+  axis=1)
+
+  plt.plot(train_port_sk_multilayer_perceptron_net, trainscoresk_multilayer_perceptron_net_mean,
+  label="加权训练准确率")
+
+  plt.plot(train_port_sk_multilayer_perceptron_net, testscoresk_multilayer_perceptron_net_mean,
+  label="加权交叉验证准确率分数")
+
+  plt.xlabel("训练样本数")
+
+  plt.ylabel("加权准确率分数")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  代码清单 7-6
+
+  为使用 Scikit-Learn 框架执行的多层感知器网络整理学习曲线
+
+  ```
+
+
+  ![../images/517508_1_En_7_Chapter/517508_1_En_7_Fig4_HTML.jpg](img/517508_1_En_7_Fig4_HTML.jpg)
+
+
+  图 7-4
+
+
+  使用 Scikit-Learn 框架执行的多层感知器网络的学习曲线
+
+
+
+
+  ### Keras 实战
+
+
+  本节使用 Keras 框架执行并评估一个深度信念神经网络。清单 7-7 对特征进行预处理。
+
+
+  ```
+
+  x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+
+  x_train, x_val, y_train, y_val = train_test_split(x_train,y_train,test_size=0.2,random_state=0)
+
+  sk_standard_scaler = StandardScaler()
+
+  sk_standard_scaled_x_train = sk_standard_scaler.fit_transform(x_train)
+
+  sk_standard_scaled_x_test = sk_standard_scaler.transform(x_test)
+
+  清单 7-7
+
+  特征预处理
+
+  ```
+
+
+  清单 7-8 使用 `tensorflow` 框架作为后端，并安装 Keras 框架。
+
+
+  ```
+
+  import tensorflow as tf
+
+  from  tensorflow.keras import Sequential, regularizers
+
+  from  tensorflow.keras.layers import Dense
+
+  from  tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+
+  清单 7-8
+
+  使用 Tensorflow 框架作为后端并安装 Keras 框架
+
+  ```
+
+
+  清单 7-9 构建了一个多层感知器神经网络，该网络包含两个隐藏层，每层有 17 个神经元。输入层包含一个速率为 0.001 的 `"l1"` 正则化器、`relu`
+  激活函数，以及 `binary_crossentropy loss` 和 `accuracy` 指标。
+
+
+  ```
+
+  def keras_multilayer_perceptron_net(optimizer="adam"):
+
+  keras_multilayer_perceptron_net_model = Sequential()
+
+  keras_multilayer_perceptron_net_model.add(Dense(17, input_dim=17, activation="sigmoid",kernel_regularizer=regularizers.l1(0.001),
+  bias_regularizer=regularizers.l1(0.01)))
+
+  keras_multilayer_perceptron_net_model.add(Dense(17, activation="relu"))
+
+  keras_multilayer_perceptron_net_model.add(Dense(17, activation="relu"))
+
+  keras_multilayer_perceptron_net_model.add(Dense(1, activation="relu"))
+
+  keras_multilayer_perceptron_net_model.compile(loss="binary_crossentropy", optimizer=optimizer,
+  metrics=["accuracy"])
+
+  return keras_multilayer_perceptron_net_model
+
+  清单 7-9
+
+  使用 Keras 构建多层感知器
+
+  ```
+
+
+  清单 7-10 绑定多层感知器神经网络。
+
+
+  ```
+
+  keras_multilayer_perceptron_net_model = KerasClassifier(build_fn=keras_multilayer_perceptron_net)
+
+  清单 7-10
+
+  绑定多层感知器神经网络
+
+  ```
+
+
+  清单 7-11 执行 Keras 多层感知器神经网络，设置 56 个周期和 `batch_size` 为 14。
+
+
+  ```
+
+  keras_multilayer_perceptron_net_model_history = keras_multilayer_perceptron_net_model.fit(sk_standard_scaled_x_train,
+  y_train, validation_data=(x_val, y_.val), batch_size=14, epochs=56)
+
+  print(keras_multilayer_perceptron_net_model_history)
+
+  清单 7-11
+
+  使用 Keras 框架执行多层感知器神经网络
+
+  ```
+
+
+  清单 7-12 为使用 `Keras` 框架执行的多层感知器网络整理了一份分类报告（见表 7-2）。
+
+
+  表 7-2
+
+
+  使用 Keras 框架执行的多层感知器网络的分类报告
+
+
+  |   | 精确率 | 召回率 | F1 分数 | 支持度 |
+
+  | --- | --- | --- | --- | --- |
+
+  | 0 | 0.908443 | 0.991536 | 0.948172 | 7325.000000 |
+
+  | 1 | 0.744856 | 0.198248 | 0.313149 | 913.000000 |
+
+  | 准确率 | 0.903617 | 0.903617 | 0.903617 | 0.903617 |
+
+  | 宏平均 | 0.826649 | 0.594892 | 0.630661 | 8238.000000 |
+
+  | 加权平均 | 0.890313 | 0.903617 | 0.877794 | 8238.000000 |
+
+
+  ```
+
+  keras_multilayer_perceptron_net_model.predict(sk_standard_scaled_x_test)
+
+  keras_multilayer_perceptron_net_model = pd.DataFrame(metrics.classification_report(y_test,
+  keras_yhat_multilayer_perceptron_net,
+
+  output_dict=True)).transpose()
+
+  print(keras_multilayer_perceptron_net_model)
+
+  清单 7-12
+
+  为使用 Keras 框架执行的多层感知器网络整理分类报告
+
+  ```
+
+
+  清单 7-13 为使用 Keras 框架执行的多层感知器网络整理了训练损失和交叉验证损失（见图 7-5）。
+
+
+  ![../images/517508_1_En_7_Chapter/517508_1_En_7_Fig5_HTML.jpg](img/517508_1_En_7_Fig5_HTML.jpg)
+
+
+  图 7-5
+
+
+  使用 Keras 框架执行的多层感知器网络的训练损失和交叉验证损失
+
+
+  ```
+
+  plt.plot(keras_multilayer_perceptron_net_model_history.history["loss"], label="训练损失")
+
+  plt.plot(keras_multilayer_perceptron_net_model_history.history["val_loss"], label="交叉验证损失")
+
+  plt.xlabel("周期数")
+
+  plt.ylabel("损失")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  清单 7-13
+
+  使用 Keras 框架执行的多层感知器网络的训练损失和交叉验证损失
+
+  ```
+
+
+  清单 7-14 为使用 Keras 框架执行的多层感知器网络整理了训练准确率和交叉验证准确率（见图 7-6）。
+
+
+  ![../images/517508_1_En_7_Chapter/517508_1_En_7_Fig6_HTML.jpg](img/517508_1_En_7_Fig6_HTML.jpg)
+
+
+  图 7-6
+
+
+  使用 Keras 框架执行的多层感知器网络的训练准确率和交叉验证准确率
+
+
+  ```
+
+  plt.plot(keras_multilayer_perceptron_net_model_history.history["accuracy"], label="训练准确率分数")
+
+  plt.plot(keras_multilayer_perceptron_net_model_history.history["val_accuracy"],
+  label="交叉验证准确率分数")
+
+  plt.xlabel("周期数")
+
+  plt.ylabel("准确率")
+
+  plt.legend(loc="best")
+
+  plt.show()
+
+  清单 7-14
+
+  为使用 Keras 框架执行的多层感知器网络整理训练准确率和交叉验证准确率
+
+  ```
+
+
+  ### 深度信念网络
+
+
+  深度信念网络通过包含隐藏层超越了多层感知器神经网络。网络在生成输出值之前必须重复地对数据进行建模。
+
+
+  ### H2O 实战
+
+
+  本节使用 H2O 框架执行一个深度信念神经网络。
+
+
+  清单 7-15 准备 H2O 框架。
+
+
+  ```
+
+  import h2o as initialize_h2o
+
+  initialize_h2o.init()
+
+  清单 7-15
+
+  准备 H2O 框架
+
+  ```
+
+
+  清单 7-16 将 `pandas` 数据框转换为 H2O 数据框。
+
+
+  ```
+
+  h2o_data = initialize_h2o.H2OFrame(initial_data)
+
+  清单 7-16
+
+  将 Pandas 数据框转换为 H2O 数据框
+
+  ```
+
+
+  清单 7-17 概述了特征。
+
+
+  ```
+
+  x_list = list(initial_data.iloc[::, 0:17].columns)
+
+  y_list = str(initial_data.columns[-1])
+
+  y = y_list
+
+  x = h2o_data.col_names
+
+  x.remove(y_list)
+
+  清单 7-17
+
+  概述特征
+
+  ```
+
+
+  清单 7-18 随机划分数据。
+
+
+  ```
+
+  h2o_training_data, h2o_validation_data, h2o_test_data = h2o_data.split_frame(ratios=[.8,.1])
+
+  清单 7-18
+
+  随机划分数据框
+
+  ```
+
+
+  清单 7-19 执行 H2O 深度信念神经网络。
+
+
+  ```
+
+  from h2o.estimators.deeplearning import H2ODeepLearningEstimator
+
+  h2o_deep_belief_net = H2ODeepLearningEstimator(hidden=[5], epochs=56)
+
+  h2o_deep_belief_net.train(x= x, y= y, training_frame = h2o_training_data, validation_frame
+  = h2o_validation_data)h2o_training_data, validation_frame = h2o_validation_data)
+
+  清单 7-19
+
+  执行 H2O 深度信念神经网络
+
+  ```
+
+
+  ## 结论
+
+
+  本章执行了三个关键的机器学习框架（Scikit-Learn、Keras 和 H2O）来对数据进行建模。它使用多层感知器和深度信念网络生成了一个二元结果。它还应用了
+  `binary_crossentropy` 损失函数（用于评估神经网络）和 `adam` 优化器（用于提升神经网络的性能）。
+
+
+  '
+- '# 8. 使用 Scikit-Learn、PySpark 和 H2O 进行聚类分析
+
+
+  本章通过实现一组多样化的 Python 框架（即 Scikit-Learn、PySpark 和 H2O）来解释 *k-means* 聚类方法。首先，它阐明了该方法如何将值分配到聚类中。
+
+
+
+
+  ## 探索 K-Means 方法
+
+
+  `k-means` 方法是最常见的距离计算方法，属于无监督机器学习家族。它采用欧几里得距离目标函数来高效计算数值间的距离，然后确定中心点，并将中心点附近的数值归集起来，从而建立聚类。
+
+
+  与其他聚类方法（例如空间聚类方法、`birch` 和 `agglomerative`）相比，该方法要求你在训练前指定 `k` 的数值。本章使用*肘部曲线*，该曲线揭示了线性变化向量的波动情况，用以确定
+  `k` 的数值。本章将执行该方法，根据特定特征（例如年龄、收入和消费习惯）将客户分组到不同的聚类中。
+
+
+  清单 8-1 从一个微软 CSV 文件中获取所需数据。
+
+
+  ```
+
+  import pandas as pd
+
+  df = pd.read_csv(r"filepath\Mall_Customers.csv")
+
+  清单 8-1
+
+  获取数据
+
+  ```
+
+
+  清单 8-2 删除数据中不必要的特征。
+
+
+  ```
+
+  drop_column_names = df.columns[[0, 1]]
+
+  initial_data = df.drop(drop_column_names, axis="columns")
+
+  清单 8-2
+
+  删除不必要的特征
+
+  ```
+
+
+  清单 8-3 使用标准缩放器对数据进行缩放。
+
+
+  ```
+
+  from sklearn.preprocessing import StandardScaler
+
+  sk_standard_scaler = StandardScaler()
+
+  sk_standard_scaled_data = sk_standard_scaler.fit_transform(initial_data)
+
+  清单 8-3
+
+  缩放数据
+
+  ```
+
+
+  清单 8-4 使用 Scikit-Learn 框架执行主成分方法。
+
+
+  ```
+
+  from sklearn.decomposition import PCA
+
+  sk_principal_component_method = PCA(n_components=3)
+
+  sk_principal_component_method.fit(sk_standard_scaled_data)
+
+  sk_principal_component_method_transformed_data = sk_principal_component_method.transform(sk_standard_scaled_data)
+
+  清单 8-4
+
+  使用 Scikit-Learn 框架执行主成分方法
+
+  ```
+
+
+  清单 8-5 使用肘部曲线揭示 `k` 的数值（见图 8-1）。
+
+
+  ![../images/517508_1_En_8_Chapter/517508_1_En_8_Fig1_HTML.jpg](img/517508_1_En_8_Fig1_HTML.jpg)
+
+
+  图 8-1
+
+
+  使用肘部曲线揭示 k 的数值
+
+
+  ```
+
+  from sklearn.cluster import KMeans
+
+  import matplotlib.pyplot as plt
+
+  %matplotlib inline
+
+  elbow_range = range(1, 15)
+
+  sk_kmeans_method = [KMeans(n_clusters=x) for x in elbow_range]
+
+  sk_kmeans_method_score = [sk_kmeans_method[x].fit(sk_principal_component_method_transformed_data).score(sk_principal_component_method_transformed_data)
+  for x in range(len(sk_kmeans_method))]
+
+  plt.plot(elbow_range, sk_kmeans_method_score)
+
+  plt.xlabel("Number of k")
+
+  plt.ylabel("Eigenvalues")
+
+  plt.show()
+
+  清单 8-5
+
+  使用肘部曲线揭示 K 的数值
+
+  ```
+
+
+  图 8-1 显示曲线突然发生扭转，这表明 `k-means` 方法必须包含三个成分。
+
+
+  ### Scikit-Learn 实战
+
+
+  本节使用 Scikit-Learn 框架执行 `k-means` 方法；参见清单 8-6。
+
+
+  ```
+
+  sk_kmeans_method = KMeans(n_clusters=3)
+
+  sk_kmeans_method_fitted = sk_kmeans_method.fit(sk_standard_scaled_data)
+
+  清单 8-6
+
+  使用 Scikit-Learn 框架执行 K-Means 方法
+
+  ```
+
+
+  清单 8-7 计算 Scikit-Learn `k-means` 方法的标签。
+
+
+  ```
+
+  sk_kmeans_method_labels = pd.DataFrame(sk_kmeans_method_fitted.labels_, columns
+  = ["Labels"])
+
+  清单 8-7
+
+  计算 Scikit-Learn K-Means 方法的标签
+
+  ```
+
+
+  清单 8-8 计算聚类中心，并确定其均值和标准差（见表 8-1）。
+
+
+  表 8-1
+
+
+  质心统计量
+
+
+  |   | **中心均值** | **中心标准差** |
+
+  | --- | --- | --- |
+
+  | 第一个中心 | -0.157489 | 0.942836 |
+
+  | 第二个中心 | 0.129950 | 0.854012 |
+
+  | 第三个中心 | 0.222984 | 0.891719 |
+
+
+  ```
+
+  sk_kmeans_method = KMeans(n_clusters=3)
+
+  sk_kmeans_method_centers = sk_kmeans_method_fitted.cluster_centers_
+
+  sk_kmeans_method_centers = pd.DataFrame(sk_kmeans_method_centers, columns = ("1st
+  center","2nd center","3rd center"))
+
+  sk_kmeans_method_centers_mean = pd.DataFrame(sk_kmeans_method_centers.mean())
+
+  sk_kmeans_method_centers_std = pd.DataFrame(sk_kmeans_method_centers.std())
+
+  sk_kmeans_method_centers_mean_std = pd.concat([sk_kmeans_method_centers_mean, sk_kmeans_method_centers_std],
+  axis=1)
+
+  sk_kmeans_method_centers_mean_std.columns =["Center mean", "Center standard deviation"]
+
+  print(sk_kmeans_method_centers_mean_std)
+
+  清单 8-8
+
+  计算聚类中心及其均值和标准差
+
+  ```
+
+
+  清单 8-9 确定由 Scikit-Learn `k-means` 方法计算出的缩放数据和标签（见图 8-2）。
+
+
+  ![../images/517508_1_En_8_Chapter/517508_1_En_8_Fig2_HTML.jpg](img/517508_1_En_8_Fig2_HTML.jpg)
+
+
+  图 8-2
+
+
+  Scikit-Learn k-means 方法标签
+
+
+  ```
+
+  plt.scatter(sk_principal_component_method_transformed_data[:,0], sk_principal_component_method_transformed_data[:,
+  1],
+
+  c=sk_kmeans_method_fitted.labels_,cmap="coolwarm", s=120)
+
+  plt.xlabel("y")
+
+  plt.show()
+
+  清单 8-9
+
+  确定 PySpark K-Means 方法的标签
+
+  ```
+
+
+
+
+  ### PySpark 实战
+
+
+  本节将使用 PySpark 框架执行并评估 k-means 方法。
+
+
+  清单 8-10 使用 `findspark` 框架准备 PySpark 框架。
+
+
+  ```
+
+  import findspark as initiate_pyspark
+
+  initiate_pyspark.init("filepath\spark-3.0.0-bin-hadoop2.7")
+
+  清单 8-10
+
+  准备 PySpark 框架
+
+  ```
+
+
+  清单 8-11 使用 `SparkConf()` 方法规定 PySpark 应用。
+
+
+  ```
+
+  from pyspark import SparkConf
+
+  pyspark_configuration = SparkConf().setAppName("pyspark_kmeans_method").setMaster("local")
+
+  清单 8-11
+
+  规定 PySpark 应用
+
+  ```
+
+
+  清单 8-12 使用 `SparkSession()` 方法准备 PySpark 会话。
+
+
+  ```
+
+  from pyspark.sql import SparkSession
+
+  pyspark_session = SparkSession(pyspark_context)
+
+  from pyspark.sql import SparkSession
+
+  清单 8-12
+
+  准备 Spark 会话
+
+  ```
+
+
+  清单 8-13 使用 `createDataFrame()` 方法将本章前面创建的 `pandas` 数据框转换为 PySpark 数据框。
+
+
+  ```
+
+  pyspark_initial_data = pyspark_session.createDataFrame(initial_data)
+
+  清单 8-13
+
+  将 Pandas 数据框转换为 PySpark 数据框
+
+  ```
+
+
+  清单 8-14 为自变量创建一个列表，并为因变量创建一个字符串。然后使用 `VectorAssembler()` 方法转换数据，以便在 PySpark 框架中进行建模。
+
+
+  ```
+
+  x_list = list(initial_data.iloc[::, 0:3].columns)
+
+  from pyspark.ml.feature import VectorAssembler
+
+  pyspark_data_columns = x_list
+
+  pyspark_vector_assembler = VectorAssembler(inputCols=pyspark_data_columns, outputCol="features")
+
+  pyspark_data = pyspark_vector_assembler.transform(pyspark_initial_data)
+
+  清单 8-14
+
+  转换数据
+
+  ```
+
+
+  清单 8-15 使用 PySpark 框架执行 k-means 方法。
+
+
+  ```
+
+  from pyspark.ml.clustering import KMeans
+
+  pyspark_kmeans_method = KMeans().setK(3).setSeed(1)
+
+  pyspark_kmeans_method_fitted = pyspark_kmeans_method.fit(pyspark_data)
+
+  清单 8-15
+
+  使用 PySpark 框架执行 K-Means 方法
+
+  ```
+
+
+  清单 8-16 计算 k-means 方法的标签，并将其传递给 `pandas` 数据框。
+
+
+  ```
+
+  pyspark_yhat = pyspark_kmeans_method_fitted.transform(pyspark_data)
+
+  pyspark_yhat_pandas_df = pyspark_yhat.toPandas()
+
+  清单 8-16
+
+  计算 PySpark K-Means 方法的标签
+
+  ```
+
+
+  清单 8-17 展示了 PySpark k-means 方法计算出的缩放数据和标签（见图 8-3）。
+
+
+  ![../images/517508_1_En_8_Chapter/517508_1_En_8_Fig3_HTML.jpg](img/517508_1_En_8_Fig3_HTML.jpg)
+
+
+  图 8-3
+
+
+  PySpark k-means 方法标签
+
+
+  ```
+
+  from mpl_toolkits.mplot3d import Axes3D
+
+  figure = plt.figure(figsize=(12, 12))
+
+  ax = Axes3D(figure)
+
+  ax.scatter(pyspark_yhat_pandas_df.iloc[::, 0],
+
+  pyspark_yhat_pandas_df.iloc[::, 1],
+
+  pyspark_yhat_pandas_df.iloc[::, 2],
+
+  c = pyspark_yhat_pandas_df.iloc[::, 4],
+
+  cmap = "coolwarm",
+
+  s = 120)
+
+  ax.set_xlabel(initial_data.columns[0])
+
+  ax.set_ylabel(initial_data.columns[1])
+
+  ax.set_zlabel(initial_data.columns[2])
+
+  figure.show()
+
+  清单 8-17
+
+  展示 PySpark K-Means 方法的标签
+
+  ```
+
+
+  清单 8-18 计算 PySpark k-means 方法的中心点。
+
+
+  ```
+
+  pyspark_kmeans_method_centers = pyspark_kmeans_method_fitted.clusterCenters()
+
+  print("K-Means method cluster centers")
+
+  for pyspark_cluster_center in pyspark_kmeans_method_centers:
+
+  print(pyspark_cluster_center)
+
+  K-Means method cluster centers
+
+  [26.5952381  33.14285714 65.66666667]
+
+  [45.30769231 60.52991453 34.47008547]
+
+  [32.97560976 88.73170732 79.24390244]
+
+  清单 8-18
+
+  计算 PySpark K-Means 方法的中心点
+
+  ```
+
+
+  清单 8-19 使用轮廓系数法评估 PySpark k-means 方法。
+
+
+  ```
+
+  from pyspark.ml.evaluation import ClusteringEvaluator
+
+  pyspark_kmeans_method_assessment = ClusteringEvaluator()
+
+  pyspark_kmeans_method_silhoutte = pyspark_kmeans_method_assessment.evaluate(pyspark_yhat)
+
+  print("Silhouette score = " + str(pyspark_kmeans_method_silhoutte))
+
+  Silhouette score = 0.45097978411312134
+
+  清单 8-19
+
+  使用轮廓系数法评估 PySpark K-Means 方法
+
+  ```
+
+
+  ### H2O 实战
+
+
+  本节将使用 H2O 框架执行并评估 k-means 方法。
+
+
+  清单 8-20 准备 H2O 框架。
+
+
+  ```
+
+  import h2o as initialize_h2o
+
+  initialize_h2o.init()
+
+  清单 8-20
+
+  准备 H2O 框架
+
+  ```
+
+
+  清单 8-21 将 `pandas` 数据框转换为 H2O 数据框。
+
+
+  ```
+
+  h2o_data = initialize_h2o.H2OFrame(initial_data)
+
+  清单 8-21
+
+  将 Pandas 数据框转换为 H2O 数据框
+
+  ```
+
+
+  清单 8-22 概述自变量和因变量。
+
+
+  ```
+
+  y = y_list
+
+  x = h2o_data.col_names
+
+  x.remove(y_list)
+
+  清单 8-22
+
+  概述特征
+
+  ```
+
+
+  清单 8-23 保留用于训练和验证 H2O k-means 方法的数据。
+
+
+  ```
+
+  h2o_training_data, h2o_validation_data = h2o_data.split_frame(ratios=[.8])
+
+  清单 8-23
+
+  随机划分数据框
+
+  ```
+
+
+  清单 8-24 执行 H2O k-means 方法。
+
+
+  ```
+
+  from h2o.estimators import H2OKMeansEstimator
+
+  h2o_kmeans_method = H2OKMeansEstimator(k=3)
+
+  h2o_kmeans_method.train(x = x_list, training_frame = h2o_training_data, validation_frame
+  = h2o_validation_data)
+
+  清单 8-24
+
+  使用 H2O 框架执行 K-Means 方法
+
+  ```
+
+
+  清单 8-25 计算 H2O k-means 方法的标签。
+
+
+  ```
+
+  h2o_yhat = h2o_kmeans_method.predict(h2o_validation_data)
+
+  清单 8-25
+
+  计算 H2O K-Means 方法的标签
+
+  ```
+
+
+  清单 8-26 评估 H2O k-means 方法（见表 8-2）。
+
+
+  表 8-2
+
+
+  PySpark 质心统计
+
+
+  |   |   | 质心 | 大小 | 簇内平方和 |
+
+  |---|---|---|---|---|
+
+  | 0 |   | 1.0 | 78.0 | 134.983658 |
+
+  | 1 |   | 2.0 | 51.0 | 69.748489 |
+
+  | 2 |   | 3.0 | 32.0 | 33.898533 |
+
+
+  ```
+
+  from h2o.estimators import H2OKMeansEstimator
+
+  h2o_kmeans_method_assessment = h2o_kmeans_method.model_performance()
+
+  h2o_kmeans_method_assessment
+
+  ModelMetricsClustering: kmeans
+
+  ** Reported on train data. **
+
+  MSE: NaN
+
+  RMSE: NaN
+
+  Total Within Cluster Sum of Square Error: 238.6306804611187
+
+  Total Sum of Square Error to Grand Mean: 479.99999503427534
+
+  Between Cluster Sum of Square Error: 241.36931457315666
+
+  清单 8-26
+
+  评估使用 H2O 框架执行的 K-Means 方法
+
+  ```
+
+
+  ## 结论
+
+
+  本章执行了三个关键的机器学习框架（Scikit-Learn、PySpark 和 H2O），以便将数据分组为三个簇。你了解了如何使用肘部曲线确定 `k` 的数量。为了评估该方法，你使用了轮廓系数法并查看了误差平方和。
+
+
+  '
+- '# 9. 使用 Scikit-Learn、PySpark 和 H2O 进行主成分分析
+
+
+  本章通过实现多种 Python 框架（Scikit-Learn、PySpark 和 H2O）来执行一个简单的降维方法（主成分方法）。首先，它阐明了该方法如何计算主成分。
+
+
+
+
+  ## 探索主成分方法
+
+
+  主成分方法是一种简单的降维工具。它对整个数据集进行线性变换，以获取向量（即*特征值*），然后识别数据中的增量变化。它能让你检测数据中特征的变化。该方法有助于确定每个特征的比例，从而决定保留哪些特征用于建模。当你的数据包含无数特征时，它非常适用，因为它能帮助你识别对模型至关重要的特征。需要注意的是，尽管我在本章中称其为“方法”，但严格来说并非如此。与其他方法相比，它不考虑任何合理的假设；相反，你是在执行线性、非线性和聚类等方法之前执行它。
+
+
+  本章使用上一章（涵盖 k-means 方法）的数据。
+
+
+  清单 9-1 从微软 CSV 文件中获取所需数据。
+
+
+  ```
+
+  import pandas as pd
+
+  initial_data = df.drop(drop_column_names, axis="columns")
+
+  清单 9-1
+
+  获取数据
+
+  ```
+
+
+  清单 9-2 删除数据中任何不必要的特征。
+
+
+  ```
+
+  drop_column_names = df.columns[[0, 1]]
+
+  initial_data = df.drop(drop_column_names, axis="columns")
+
+  清单 9-2
+
+  删除不必要的特征
+
+  ```
+
+
+  ### Scikit-Learn 实战
+
+
+  清单 9-3 使用标准缩放器对整个数据集进行缩放。
+
+
+  ```
+
+  from sklearn.preprocessing import StandardScaler
+
+  sk_standard_scaler = StandardScaler()
+
+  sk_standard_scaled_data = sk_standard_scaler.fit_transform(initial_data))
+
+  清单 9-3
+
+  缩放整个数据集
+
+  ```
+
+
+  清单 9-4 使用 Scikit-Learn 框架执行主成分方法。然后展示每个成分所解释的方差（见图 9-1）。
+
+
+  ![../images/517508_1_En_9_Chapter/517508_1_En_9_Fig1_HTML.jpg](img/517508_1_En_9_Fig1_HTML.jpg)
+
+
+  **图 9-1** Scikit-Learn 主成分方法的方差
+
+
+  ```
+
+  import matplotlib.pyplot as plt
+
+  %matplotlib inline
+
+  from sklearn.decomposition import PCA
+
+  sk_principal_component_method = PCA(n_components=3)
+
+  sk_principal_component_method.fit_transform(sk_standard_scaled_data)
+
+  sk_principal_component_method_variance = sk_principal_component_method.explained_variance_
+
+  plt.bar(range(3), sk_principal_component_method_variance, label="Variance")
+
+  plt.legend()
+
+  plt.ylabel("Variance ratio")
+
+  plt.xlabel("Components")
+
+  plt.show()
+
+  清单 9-4
+
+  排列 Scikit-Learn 主成分方法解释的方差
+
+  ```
+
+
+  图 9-1 显示所有成分解释的方差均超过 0.5。因此，所有主成分方法都将包含三个成分。
+
+
+  清单 9-5 展示 Scikit-Learn 主成分方法的方差。
+
+
+  ```
+
+  print("SciKit-Learn PCA explained variance ratio", sk_principal_component_method_variance)
+
+  SciKit-Learn PCA explained variance ratio [1.33465831 1.00427272 0.67614435]
+
+  清单 9-5
+
+  打印 Scikit-Learn 主成分方法揭示的方差
+
+  ```
+
+
+  清单 9-6 使用 Scikit-Learn 框架执行主成分方法，并展示更少的维度（见图 9-2）。
+
+
+  ![../images/517508_1_En_9_Chapter/517508_1_En_9_Fig2_HTML.jpg](img/517508_1_En_9_Fig2_HTML.jpg)
+
+
+  **图 9-2** Scikit-Learn 主成分方法的维度
+
+
+  ```
+
+  sk_principal_component_method_ = PCA(n_components=3)
+
+  sk_principal_component_method_.fit(sk_standard_scaled_data)
+
+  sk_principal_component_method_reduced_data = sk_principal_component_method_.transform(sk_standard_scaled_data)
+
+  plt.scatter(sk_principal_component_method_reduced_data[:,0], sk_principal_component_method_reduced_data[:,2],
+  c=initial_data.iloc[::, -1], cmap="coolwarm")
+
+  plt.xlabel("y")
+
+  plt.show()
+
+  清单 9-6
+
+  使用 Scikit-Learn 框架执行主成分方法
+
+  ```
+
+
+  图 9-2 展示了 Scikit-Learn 主成分方法找到的维度。
+
+
+
+
+  ### PySpark 实战
+
+
+  本节将使用 PySpark 框架执行主成分方法。
+
+
+  清单 9-7 使用 `findspark` 框架准备 PySpark 环境。
+
+
+  ```
+
+  import findspark as initiate_pyspark
+
+  initiate_pyspark.init("filepath\spark-3.0.0-bin-hadoop2.7")
+
+  清单 9-7
+
+  准备 PySpark 框架
+
+  ```
+
+
+  清单 9-8 使用 `SparkConf()` 方法指定 PySpark 应用。
+
+
+  ```
+
+  from pyspark import SparkConf
+
+  pyspark_configuration = SparkConf().setAppName("pyspark_principal_components_analysis").setMaster("local")
+
+  清单 9-8
+
+  指定 PySpark 应用
+
+  ```
+
+
+  清单 9-9 使用 `SparkSession()` 方法准备 PySpark 会话。
+
+
+  ```
+
+  from pyspark.sql import SparkSession
+
+  pyspark_session = SparkSession(pyspark_context)
+
+  from pyspark.sql import SparkSession
+
+  清单 9-9
+
+  准备 Spark 会话
+
+  ```
+
+
+  清单 9-10 使用 `createDataFrame()` 方法将本章前面创建的 `pandas` 数据框转换为 `PySpark` 数据框。
+
+
+  ```
+
+  pyspark_initial_data = pyspark_session.createDataFrame(initial_data)
+
+  清单 9-10
+
+  将 Pandas 数据框转换为 PySpark 数据框
+
+  ```
+
+
+  清单 9-11 为自变量创建一个列表，并为因变量创建一个字符串。然后使用 `VectorAssembler()` 方法转换数据，以便在 PySpark 框架中进行建模。
+
+
+  ```
+
+  x_list = list(initial_data.iloc[::, 0:3].columns)
+
+  from pyspark.ml.feature import VectorAssembler
+
+  pyspark_data_columns = x_list
+
+  pyspark_vector_assembler = VectorAssembler(inputCols=pyspark_data_columns, outputCol="variables")
+
+  pyspark_data = pyspark_vector_assembler.transform(pyspark_initial_data)
+
+  清单 9-11
+
+  转换数据
+
+  ```
+
+
+  清单 9-12 使用 Lifeline PySpark 框架缩放整个数据集。
+
+
+  ```
+
+  from pyspark.ml.feature import StandardScaler
+
+  pyspark_standard_scaler = StandardScaler(inputCol = pyspark_data.columns[-1], outputCol
+  = "pyspark_scaled_features", withMean = True, withStd = True).fit(pyspark_data)
+
+  pyspark_data_scaled_data = pyspark_standard_scaler.transform(pyspark_data)
+
+  清单 9-12
+
+  使用 Lifeline PySpark 框架缩放整个数据集
+
+  ```
+
+
+  清单 9-13 执行 PySpark 主成分方法。
+
+
+  ```
+
+  from pyspark.ml.feature import PCA
+
+  number_of_k = 3
+
+  pyspark_principal_components_method = PCA(k = number_of_k, inputCol = pyspark_data_scaled_data.columns[-1],
+  outputCol = "pca_reduced_features").fit(pyspark_data_scaled_data)
+
+  pyspark_principal_components_method_data = pyspark_principal_components_method.transform(pyspark_data_scaled_data)
+
+  清单 9-13
+
+  执行 PySpark 主成分方法
+
+  ```
+
+
+  清单 9-14 展示了每个成分解释的方差（见图 9-3）。
+
+
+  ![../images/517508_1_En_9_Chapter/517508_1_En_9_Fig3_HTML.jpg](img/517508_1_En_9_Fig3_HTML.jpg)
+
+
+  图 9-3
+
+
+  PySpark 主成分方法解释的方差
+
+
+  ```
+
+  pyspark_principal_component_method_variance = pyspark_principal_components_method.explainedVariance.toArray()
+
+  plt.bar(range(3), pyspark_principal_component_method_variance, label="Variance")
+
+  plt.legend()
+
+  plt.ylabel("Variance ratio")
+
+  plt.xlabel("Components")
+
+  plt.show()
+
+  清单 9-14
+
+  整理 PySpark 主成分方法解释的方差
+
+  ```
+
+
+  清单 9-15 打印 PySpark 主成分方法揭示的方差。
+
+
+  ```
+
+  print(''Explained variance ratio'', pyspark_principal_components_method.explainedVariance.toArray())
+
+  PySpark PCA variance ratio [0.44266167 0.33308378 0.22425454]
+
+  清单 9-15
+
+  打印 PySpark 主成分方法揭示的方差
+
+  ```
+
+
+  结果显示，第一个成分解释了数据中特征相关变化的 0.44，第二个成分解释了 0.33，第三个成分解释了 0.22。
+
+
+  清单 9-16 使用 PySpark 主成分方法减少数据。
+
+
+  ```
+
+  pyspark_principal_components_method_reduced_data = pyspark_principal_components_method_data.rdd.map(lambda
+  row: row.pyspark_scaled_features).collect()
+
+  pyspark_principal_components_method_reduced_data = np.array(pyspark_principal_components_method_reduced_data)
+
+  清单 9-16
+
+  使用 PySpark 主成分方法减少数据
+
+  ```
+
+
+  清单 9-17 展示了 PySpark 主成分方法减少后的数据（见图 9-4）。
+
+
+  ![../images/517508_1_En_9_Chapter/517508_1_En_9_Fig4_HTML.jpg](img/517508_1_En_9_Fig4_HTML.jpg)
+
+
+  图 9-4
+
+
+  PySpark 主成分方法得到的维度
+
+
+  ```
+
+  plt.scatter(pyspark_principal_components_method_reduced_data[:,0], pyspark_principal_components_method_reduced_data[:,1],
+  c=initial_data.iloc[::, -1], cmap = "coolwarm")
+
+  plt.xlabel("y")
+
+  plt.show()
+
+  清单 9-17
+
+  展示 PySpark 主成分方法减少后的数据
+
+  ```
+
+
+  图 9-4 展示了 PySpark 主成分方法找到的维度。
+
+
+  ### H2O 实战
+
+
+  本节将使用 H2O 框架执行并评估主成分方法。
+
+
+  清单 9-18 准备 H2O 框架。
+
+
+  ```
+
+  import h2o as initialize_h2o
+
+  initialize_h2o.init()
+
+  清单 9-18
+
+  准备 H2O 框架
+
+  ```
+
+
+  清单 9-19 将 `pandas` 数据框转换为 H2O 数据框。
+
+
+  ```
+
+  h2o_data = initialize_h2o.H2OFrame(initial_data)
+
+  清单 9-19
+
+  将 Pandas 数据框转换为 H2O 数据框
+
+  ```
+
+
+  清单 9-20 随机划分数据框。
+
+
+  ```
+
+  h2o_training_data, h2o_validation_data = h2o_data.split_frame(ratios=[.8])
+
+  清单 9-20
+
+  随机划分数据框
+
+  ```
+
+
+  清单 9-21 执行 H2O 主成分方法。
+
+
+  ```
+
+  from h2o.estimators import H2OPrincipalComponentAnalysisEstimator
+
+  h2o_principal_components_method = H2OPrincipalComponentAnalysisEstimator(k = 3,
+  transform = "standardize")
+
+  h2o_principal_components_method.train(training_frame = h2o_training_data)
+
+  清单 9-21
+
+  执行 H2O 主成分方法
+
+  ```
+
+
+  清单 9-22 使用 H2O 主成分方法减少数据。
+
+
+  ```
+
+  h2o_yhat = h2o_principal_components_method.predict(h2o_validation_data)
+
+  清单 9-22
+
+  使用 H2O 主成分方法减少数据
+
+  ```
+
+
+  ## 结论
+
+
+  本章通过执行三个关键的机器学习框架（Scikit-Learn、PySpark 和 H2O），运用主成分方法将数据压缩到少数几个维度。正如本章开头所述，本章并未执行该方法来检验可能的假设，因此没有用于客观评估该方法的关键指标。
+
+
+  '
+- "# 使用 H2O 自动化机器学习流程\n\n本章简短而富有洞察力，通过解释如何借助一个广泛使用的机器学习框架（即 H2O）来自动化机器学习流程，为本书画上句号。\n\
+  \n\n\n## 探索自动化机器学习\n\n在一个充斥着无数机器学习框架的世界里，你可能会认为组织会轻易地采用机器学习。不幸的是，事实并非如此。由于机器学习算法相当复杂，导致技能人才严重短缺。\n\
+  \n为了应对这些挑战，H2O 引入了 AutoML，它试图通过同时训练和精心挑选性能卓越的方法来自动化机器学习过程。\n\n尽管 H2O AutoML 功能强大，但它并不包含聚类分析、生存分析和时间序列分析等方法。\n\
+  \n本章使用了第 3 章的数据。同时，它还将领先的 AutoML 方法的性能与第 3 章中执行的方法进行了对比。\n\n## 预处理特征\n\n本章直接操作第\
+  \ 3 章中获取的数据，因此不再详细描述预处理任务。清单 10-1 执行了所有预处理任务。\n\n```\nimport pandas as pd\ndf =\
+  \ pd.read_csv(r\"filepath\\WA_Fn-UseC_-Marketing_Customer_Value_Analysis.csv\")\n\
+  drop_column_names = df.columns[[0, 6]]\ninitial_data = df.drop(drop_column_names,\
+  \ axis=\"columns\")\ninitial_data.iloc[::, 0] = pd.get_dummies(initial_data.iloc[::,\
+  \ 0])\ninitial_data.iloc[::, 2] = pd.get_dummies(initial_data.iloc[::, 2])\ninitial_data.iloc[::,\
+  \ 3] = pd.get_dummies(initial_data.iloc[::, 3])\ninitial_data.iloc[::, 4] = pd.get_dummies(initial_data.iloc[::,\
+  \ 4])\ninitial_data.iloc[::, 5] = pd.get_dummies(initial_data.iloc[::, 5])\ninitial_data.iloc[::,\
+  \ 6] = pd.get_dummies(initial_data.iloc[::, 6])\ninitial_data.iloc[::, 7] = pd.get_dummies(initial_data.iloc[::,\
+  \ 7])\ninitial_data.iloc[::, 8] = pd.get_dummies(initial_data.iloc[::, 8])\ninitial_data.iloc[::,\
+  \ 9] = pd.get_dummies(initial_data.iloc[::, 9])\ninitial_data.iloc[::, 15] = pd.get_dummies(initial_data.iloc[::,\
+  \ 15])\ninitial_data.iloc[::, 16] = pd.get_dummies(initial_data.iloc[::, 16])\n\
+  initial_data.iloc[::, 17] = pd.get_dummies(initial_data.iloc[::, 17])\ninitial_data.iloc[::,\
+  \ 18] = pd.get_dummies(initial_data.iloc[::, 18])\ninitial_data.iloc[::, 20] = pd.get_dummies(initial_data.iloc[::,\
+  \ 20])\ninitial_data.iloc[::, 21] = pd.get_dummies(initial_data.iloc[::, 21])\n\
+  清单 10-1\n预处理特征\n```\n\n### H2O AutoML 实战\n\n本节使用 `H2OAutoML()` 方法来训练多种方法并对其性能进行排名。本节将执行并评估\
+  \ `H2OAutoML`。\n\n清单 10-2 准备了 H2O 框架。\n\n```\nimport h2o as initialize_h2o\ninitialize_h2o.init()\n\
+  清单 10-2\n准备 H2O 框架\n```\n\n清单 10-3 将 `pandas` 数据框转换为 H2O 数据框。\n\n```\nh2o_data =\
+  \ initialize_h2o.H2OFrame(initial_data)\n清单 10-3\n将 Pandas 数据框转换为 H2O 数据框\n```\n\
+  \n清单 10-4 概述了自变量和因变量特征。\n\n```\nint_x = initial_data.iloc[::,0:19]\nfin_x = initial_data.iloc[::,19:21]\n\
+  x_combined = pd.concat([int_x, fin_x], axis=1)\nx_list = list(x_combined.columns)\n\
+  y_list = initial_data.columns[19]\ny = y_list\nx = h2o_data.col_names\nx.remove(y_list)\n\
+  清单 10-4\n概述特征\n```\n\n清单 10-5 随机划分数据。\n\n```\nh2o_training_data, h2o_validation_data,\
+  \ h2o_test_data = h2o_data.split_frame(ratios=[.8,.1])\nH2OAutoML() 方法允许我们指定训练每种方法所需的大量时间。通过指定\
+  \ max_runtime_secs 来实现。\n清单 10-5\n随机划分数据框\n```\n\n清单 10-6 执行 H2O 的自动机器学习方法。\n\n\
+  ```\nfrom h2o.automl import H2OAutoML\nh2o_automatic_ml = H2OAutoML(max_runtime_secs\
+  \ = 240)\nh2o_automatic_ml.train(x= x, y= y, training_frame = h2o_training_data,\
+  \ validation_frame = h2o_validation_data)\n清单 10-6\n执行 H2O 的自动机器学习\n```\n\n清单 10-7\
+  \ 按升序对 H2O 的方法进行排名（见表 10-1）。\n\n表 10-1\n\nH2O 方法排名\n\n| Model_ID | Mean_residual_deviance\
+  \ | Rmse | Mse | Mae | Rmsle |\n| --- | --- | --- | --- | --- | --- |\n| `StackedEnsemble_AllModels_AutoML_20210824_115721`\
+  \ | 18371.3 | 135.541 | 18371.3 | 86.6257 | 0.482043 |\n| `StackedEnsemble_BestOfFamily_AutoML_20210824_115721`\
+  \ | 18566.8 | 136.26 | 18566.8 | 87.7959 | 0.477828 |\n| `GBM_1_AutoML_20210824_115721`\
+  \ | 19392.8 | 139.258 | 19392.8 | 90.0652 | 0.490441 |\n| `GBM_3_AutoML_20210824_115721`\
+  \ | 19397.8 | 139.276 | 19397.8 | 90.3467 | 0.490855 |\n| `GBM_2_AutoML_20210824_115721`\
+  \ | 19467.3 | 139.525 | 19467.3 | 89.9908 | 0.491887 |\n| `GBM_grid__1_AutoML_20210824_115721_model_4`\
+  \ | 19607.9 | 140.028 | 19607.9 | 91.3311 | 0.495784 |\n| `GBM_4_AutoML_20210824_115721`\
+  \ | 19633.4 | 140.119 | 19633.4 | 89.9553 | 0.499693 |\n| `XRT_1_AutoML_20210824_115721`\
+  \ | 19717.6 | 140.42 | 19717.6 | 89.7474 | 0.485144 |\n| `GBM_grid__1_AutoML_20210824_115721_model_2`\
+  \ | 19805.8 | 140.733 | 19805.8 | 91.7092 | 0.494005 |\n| `GBM_grid__1_AutoML_20210824_115721_model_9`\
+  \ | 19858.6 | 140.921 | 19858.6 | 90.0839 | 0.521174 |\n\n```\nh2o_method_ranking\
+  \ = h2o_automatic_ml.leaderboard\nprint(h2o_method_ranking)\n清单 10-7\n对 H2O 的方法进行排名\n\
+  ```\n\n表 10-1 表明，`StackedEnsemble_AllModels_AutoML_20210824_115721` 是排名最高的方法，其平均残差偏差最小（为\
+  \ 18371.3）。均方根误差为 135.541。\n\n相比之下，排名最低的方法是 `GBM_grid__1_AutoML_20210824_115721_model_9`，其平均残差偏差为\
+  \ 19858.6，均方根误差为 140.921。清单 10-8 评估了排名最高的方法（`StackedEnsemble_AllModels_AutoML_20210824_115721`）。\n\
+  \n```\nhighest_ranking_method = h2o_automatic_ml.leader\nprint(highest_ranking_method)\n\
+  ModelMetricsRegressionGLM: stackedensemble\n** Reported on train data. **\nMSE:\
+  \ 4900.131929292816\nRMSE: 70.00094234574857\nMAE: 45.791336342731775\nRMSLE: 0.3107457400431741\n\
+  R²: 0.9421217261180531\nMean Residual Deviance: 4900.131929292816\nNull degrees\
+  \ of freedom: 7289\nResidual degrees of freedom: 7277\nNull deviance: 617106545.1167994\n\
+  Residual deviance: 35717061.632615335\nAIC: 82648.0458245655\nModelMetricsRegressionGLM:\
+  \ stackedensemble\n** Reported on validation data. **\nMSE: 17967.946605287365\n\
+  RMSE: 134.04456947331872\nMAE: 83.66742154264892\nRMSLE: 0.43883929226519075\nR²:\
+  \ 0.7718029372846945\nMean Residual Deviance: 17967.946605287365\nNull degrees of\
+  \ freedom: 931\nResidual degrees of freedom: 919\nNull deviance: 73564698.35450743\n\
+  Residual deviance: 16728158.289522538\nAIC: 11790.460469478105\nModelMetricsRegressionGLM:\
+  \ stackedensemble\n** Reported on cross-validation data. **\nMSE: 18371.339394332357\n\
+  RMSE: 135.5409140973026\nMAE: 86.62574587341507\nRMSLE: 0.4820432203973515\nR²:\
+  \ 0.7830055540572105\nMean Residual Deviance: 18371.339394332357\nNull degrees of\
+  \ freedom: 7289\nResidual degrees of freedom: 7276\nNull deviance: 617269595.4214188\n\
+  Residual deviance: 133908692.84528854\nAIC: 92282.67565857261\n清单 10-8\n执行 H2O 自动机器学习\n\
+  ```\n\n结果表明，`StackedEnsemble_AllModels_AutoML_20210824_115721` 方法解释了测试数据中 77% 的相关变化，以及验证数据中\
+  \ 78% 的相关变化。\n\n\n\n## 结论\n\n本章中执行的普通最小二乘法，其表现远超排名最高的 H2O AutoML 方法（`StackedEnsemble_AllModels_AutoML_20210824_115721`）。H2O\
+  \ 方法揭示了测试数据中 77% 的相关变化。相比之下，第 3 章中执行的所有方法（使用 Scikit-Learn 和 PySpark 框架）均解释了测试数据中\
+  \ 100% 的相关变化。遗憾的是，`StackedEnsemble_AllModels_AutoML_20210824_115721` 方法没有汇总函数。本书至此结束。\n\
+  \n## 索引\n\nA  \n加速失效时间方法  \nApache Spark  \nAutoML 方法  \nH2O  \n预处理任务  \n\nB  \n\
+  大数据  \n业务  \n客户关系  \n决策  \nETL  \n特征  \n产品开发  \n仓储  \n\nC  \n类别  \n聚类中心  \n聚类方法\
+  \  \nCox 比例风险方法  \n\nD  \n数据驱动型组织  \n决策树  \n深度信念网络  \n深度学习 (DL)  \n降维器  \nDL 框架，Keras\
+  \  \n\nE  \n肘部曲线  \n集成方法  \n\nF  \n`findspark` 框架  \n\nG  \n高斯分布  \n梯度提升方法  \nH2O\
+  \ 框架  \nPySpark  \nXGBoost  \nGraphX  \n\nH, I, J  \nH2OAutoML  \nH2O 框架  \nH2O\
+  \ 逻辑回归方法  \nHadoop 分布式文件系统 (HDF)  \nHadoop 文件系统 (HDFS)  \n\nK  \nKeras  \n`k-means`\
+  \ 方法  \nH2O 框架  \nPySpark 框架  \n\nL  \nLifeline  \nCox 比例风险方法  \n线性回归方法  \n逻辑回归方法\
+  \  \n\nM  \n机器学习 (ML)  \nH2O  \nScikit-Learn 框架  \nXGBoost  \nMantel-Haenszel 方法\
+  \  \nMicrosoft CSV 文件  \n多类分类方法  \n多层感知器神经网络  \n\nN  \n神经网络  \n\nO  \n普通最小二乘法  \n\
+  \nP, Q  \n预处理特征  \n预处理任务  \n主成分方法  \nH2O 框架  \nPySpark 框架  \n尺度  \nScikit-Learn\
+  \  \nPySpark 框架  \nPySpark 逻辑回归方法  \nPySpark 主成分方法  \n\nR  \n残差  \n弹性分布式数据集 (RDDs)\
+  \  \n\nS  \nScikit-Learn 决策树方法  \nScikit-Learn 框架  \nScikit-Learn 逻辑回归方法  \nScikit-Learn\
+  \ 多层感知器神经网络  \n深度信念网络  \nH2O  \nKeras  \nSpark 配置  \nSpark 框架  \nSpark MLlib  \n\
+  Spark 流处理  \n监督学习  \n生存分析方法  \n\nT  \nTensorFlow  \n\nU  \n无监督学习  \n\nV, W  \n`VectorAssembler()`\
+  \ 方法  \n\nX, Y, Z  \nXGBoost\n"

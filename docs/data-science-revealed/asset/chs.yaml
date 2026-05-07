@@ -1,0 +1,6762 @@
+- '
+
+  ![](img/978-1-4842-6870-4_CoverFigure.jpg)
+
+
+  ISBN 978-1-4842-6869-8 e-ISBN 978-1-4842-6870-4 [`doi.org/10.1007/978-1-4842-6870-4`](https://doi.org/10.1007/978-1-4842-6870-4)
+  © Tshepo Chris Nokeri 2021 Apress Standard 本出版物中使用的通用描述性名称、注册商标、商标、服务标记等，即使未作明确声明，也不意味着这些名称不受相关保护法律和法规的约束，因此可自由用于一般用途。出版商、作者和编辑假定本书中的建议和信息在出版之日是真实准确的。出版商、作者或编辑均不对本书所含材料或可能存在的任何错误或遗漏提供明示或暗示的担保。出版商对已出版地图中的管辖权主张和机构归属保持中立。本书通过
+  Springer Science+Business Media New York 在全球图书贸易中发行，地址：1 New York Plaza, Suite 4600,
+  New York, NY 10004-1562, USA。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：orders-ny@springer-sbm.com，或访问
+  www.springeronline.com。Apress Media, LLC 是一家加利福尼亚有限责任公司，其唯一成员（所有者）是 Springer Science
+  + Business Media Finance Inc (SSBM Finance Inc)。SSBM Finance Inc 是一家特拉华州公司。
+
+
+  *谨以此书献给我的家人，以及所有在我生命中愉快地扮演重要角色的人。*
+
+
+  '
+- '# 引言
+
+
+  欢迎阅读《数据科学揭秘》。本书是您使用数据科学流程解决实际问题的指南。它深入介绍了数据科学技术，例如数据工程与可视化、统计建模、机器学习和深度学习。书中包含丰富的示例，涵盖如何选择变量、优化超参数、开发流水线，以及训练、测试和验证机器与深度学习模型。每章都提供一系列示例，帮助您理解每个模型背后的概念、假设和流程。
+
+
+  首先，本书揭示了参数化方法或线性模型，以及使用正则化技术（如套索和岭回归）来应对欠拟合或过拟合的方法。接着，通过介绍时间序列平滑、分解和预测，总结了复杂回归。然后，以全新的视角审视了用于二元分类的非参数模型——逻辑回归，以及集成方法，如决策树、支持向量机和朴素贝叶斯。接下来，介绍了最流行的用于时间事件数据的非参数方法——卡普兰-迈耶估计量。本书还涵盖了使用人工神经网络（如受限玻尔兹曼机、多层感知器和深度信念网络）解决分类问题的方法。随后，通过揭示聚类技术（如
+  K 均值、凝聚聚类和 DBSCAN）以及降维技术（如特征重要性、主成分分析和线性判别分析），总结了无监督学习。此外，还介绍了使用 H2O 的无人驾驶人工智能。
+
+
+  本书使用 Anaconda（Python 编程的开源发行版）来准备示例。以下是本书涵盖的部分库：
+
+
+  *   `Pandas`：用于数据结构和工具
+
+  *   `Statsmodels`：用于基本统计计算和建模
+
+  *   `SciKit-Learn`：用于构建和验证关键机器学习算法
+
+  *   `Prophet`：用于时间序列分析
+
+  *   `Keras`：用于深度学习的高级框架
+
+  *   `H2O`：用于无人驾驶机器学习
+
+  *   `Lifelines`：用于生存分析
+
+  *   `NumPy`：用于数组和矩阵
+
+  *   `SciPy`：用于积分、求解微分方程和优化
+
+  *   `Matplotlib` 和 `Seaborn`：用于常用图表和图形
+
+
+  本书面向希望学习完整数据科学流程的初级到中级数据科学家和机器学习工程师。在阅读本书内容之前，请确保您了解统计学、Python 编程和概率论的基础知识。此外，您还需要在您的环境中安装前面列表中提到的软件包。
+
+
+  '
+- '# 致谢
+
+
+  这是我的第一本书，因此对我意义重大。撰写一本独著书籍颇具挑战，但我得到了家人和挚友的坚定支持和积极鼓励。衷心感谢来自金山大学的 Chris William Callaghan
+  教授和 Renette Krommenhoek 女士。他们慷慨地帮助激发了我对使用高级分析解决实际问题的浓厚兴趣。没有 Apress 出版社敬业团队（包括 Aditee
+  Mirashi 和 Celestin Suresh John）的宝贵帮助，我无法完成本书。他们信任我，并在整个写作和编辑过程中引导我。最后，衷心感谢所有阅读本书的读者；我真诚地希望本书对您有所帮助。
+
+
+  '
+- '# 关于作者 关于技术审校者
+
+
+
+
+  '
+- "# 1. 简单线性回归入门\n\n本书将带你进入数据科学的世界，揭示进行数据科学研究的正确方法。书中涵盖了必要的统计与编程技术，帮助你从宏观视角理解数据科学。不仅如此，它还为运用数据科学技术解决问题提供了理论、技术和数学基础。\n\
+  \n本章将介绍*参数方法*，也称为*线性方法*。理解如何在违反回归假设的情况下测试回归模型，将使你能够轻松应对后续章节中的问题。阅读时需注意，示例数据中只有一个因变量。本章不涉及使用方差膨胀因子（`VIF`）处理多重共线性问题。\n\
+  \n简单线性回归用于估计自变量与因变量之间关系的性质，其中*自变量*可以是连续变量或分类变量，而*因变量*则必然是连续变量。它研究自变量的变化如何影响因变量的变化。标准公式如公式\
+  \ 1-1 所示。\n\n![$$ y=a+ bx $$](img/506148_1_En_1_Chapter_TeX_Equ1.png)\n\n（公式 1-1）\n\
+  \n其中，`y` 代表因变量，`a` 代表截距（当自变量保持不变时因变量的均值），`b` 代表斜率或梯度（直线的方向），`x` 代表自变量。\n\n该模型为数据点拟合一条直线。如果它能完美地将直线拟合到数据点上，那么这就是一个典范模型。相反，如果数据点严重偏离直线，则违反了回归假设。\n\
+  \n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig1_HTML.png](img/506148_1_En_1_Fig1_HTML.png)\n\
+  \n图 1-1\n\n完美线性回归模型的成对散点图\n\n图 1-1 展示了一个最优模型（由于变异性，这在现实世界中几乎不可能发生）。大多数情况下，数据点会散布在直线附近。为了解决这个问题，回归模型（或称回归器）在建模过程中引入了一个误差项，以使数据点的平方偏差尽可能小。它通过估计截距和斜率来减小误差项。最常见的回归模型是最小二乘模型。公式\
+  \ 1-2 表达了最小二乘模型的公式。\n\n![$$ \\hat{y}={\\beta}_0+{\\beta}_1{X}_1+{\\varepsilon}_i\
+  \ $$](img/506148_1_En_1_Chapter_TeX_Equ2.png)\n\n（公式 1-2）\n\n其中，`ŷ` 代表期望的因变量，`β₀`\
+  \ 代表截距，`β₁` 代表斜率，`X₁` 代表自变量，`εᵢ` 代表误差项（即 `n` 个数据点中第 `i` 个点的残差），如公式 1-3 所示。\n\n![$$\
+  \ {e}_i={y}_i-\\hat{y_i} $$](img/506148_1_En_1_Chapter_TeX_Equ3.png)\n\n（公式 1-3）\n\
+  \n最小二乘回归模型确保残差的平方和较小。公式 1-4 利用以下性质估计残差的平方和。\n\n![$$ {e}_1²+{e}_2²\\dots {e}_i² $$](img/506148_1_En_1_Chapter_TeX_Equ4.png)\n\
+  \n（公式 1-4）\n\n公式 1-4 假设残差始终为零，且估计值是无偏的。\n\n## 回归假设\n\n如果回归模型满足表 1-1 中指定的假设，那么它就是可靠的。\n\
+  \n表 1-1\n\n线性回归假设\n\n| 假设 | 描述 |\n| --- | --- |\n| **线性性** | 自变量与因变量之间必须存在线性关系。我们通过成对散点图来验证这一假设。\
+  \ |\n| **正态性** | 数据必须来自正态分布。当变量的值围绕真实均值对称分布时，即为正态分布。我们通过正态概率图（也称为*正态 Q-Q 图*）来验证这一假设。为了进行可靠的正态性检验，可使用名为*柯尔莫哥洛夫-斯米尔诺夫检验*的检验统计量。如果不满足正态性，则需对数据进行变换。\
+  \ |\n| **多重共线性** | 数据中必须几乎没有或完全没有多重共线性。如果自变量之间存在高度相关性，则存在多重共线性。我们通过使用相关矩阵、容忍度和`VIF`来验证这一假设。如果存在多重共线性，则必须对数据中心化。示例数据只有一个因变量，因此不涉及使用`VIF`处理多重共线性。\
+  \ |\n| **无自相关** | 残差中必须不存在自相关。当残差彼此不独立时，即存在自相关。我们通过滞后图、自相关函数图和偏自相关图来验证这一假设。为了进行可靠的自相关检验，可使用德宾-沃森检验。\
+  \ |\n\n相反，如果回归模型违反了基本的回归假设，那么模型将难以泛化。\n\n## 实践中的简单线性回归\n\n示例数据¹包含两列（每列代表一个变量）。第一列包含员工工作年限的值（自变量），第二列包含员工薪资的值（因变量）。\n\
+  \n## 检查数据质量\n\n最小二乘模型是敏感的（数据质量会影响其性能）。为了获得最佳模型性能，需确保数据中没有缺失值或异常值，并在训练回归模型之前对数据进行缩放。\n\
+  \n### 检测缺失值\n\n数据中明显存在的缺失值会导致模型性能不佳。为避免此困境，在加载数据后，应检查数据中是否存在缺失值。\n\n#### 缺失值热力图\n\
+  \n代码清单 1-1 绘制了一个显示缺失值的热力图（见图 1-2）。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig2_HTML.jpg](img/506148_1_En_1_Fig2_HTML.jpg)\n\
+  \n图 1-2\n\n缺失值热力图\n\n```\nimport seaborn as sns\nsns.heatmap(df.isnull(),cmap=\"\
+  Blues\")\nplt.show()\n```\n\n代码清单 1-1  \n缺失值热力图\n\n图 1-2 显示数据中未检测到缺失值。如果数据中存在缺失值，热力图将如图\
+  \ 1-3 所示。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig3_HTML.jpg](img/506148_1_En_1_Fig3_HTML.jpg)\n\
+  \n图 1-3\n\n缺失值热力图\n\n如果数据中存在缺失值，请用该变量的均值或中位数替换缺失值。代码清单 1-2 使用均值替换缺失值。\n\n```\ndf[\"\
+  YearsExperience\"].fillna(df[\"YearsExperience\"].mean())\ndf[\"Salary\"].fillna(df[\"\
+  YearsExperience\"].mean())\n```\n\n代码清单 1-2  \n用均值替换缺失值\n\n代码清单 1-3 使用中位数替换缺失值。\n\
+  \n```\ndf[\"YearsExperience\"].fillna(df[\"YearsExperience\"].median())\ndf[\"Salary\"\
+  ].fillna(df[\"YearsExperience\"].median())\n```\n\n代码清单 1-3  \n用中位数替换缺失值\n\n\n\n\
+  ### 检测正态性\n\n回归模型假设数据服从正态分布（数据点围绕真实均值对称分布）。若数据不服从正态分布，需进行数据变换以降低其偏度。负偏态数据需采用幂变换或指数变换，而正偏态数据则需采用对数变换或平方根变换。具有不同均值和方差的标准正态分布在数学上可用分布函数表示。\n\
+  \n![$$ N\\left(0,1\\right) $$](img/506148_1_En_1_Chapter_TeX_Equ5.png)\n\n（公式 1-5）\n\
+  \n此处，均值等于 0，标准差等于 1。\n\n#### 直方图\n\n直方图的 x 轴表示变量的区间，y 轴表示数值的频率。代码清单 1-4 绘制了员工工作年限的分布，图\
+  \ 1-4 展示了员工工作年限的分布情况。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig4_HTML.jpg](img/506148_1_En_1_Fig4_HTML.jpg)\n\
+  \n图 1-4\n\n直方图\n\n```\nsns.distplot(df[\"YearsExperience\"])\nplt.ylabel(\"Frequency\"\
+  )\nplt.xlabel(\"Experience\")\nplt.show()\n代码清单 1-4\n员工工作年限直方图\n```\n\n图 1-4 显示员工工作年限的值略微服从正态分布。我们无法使用均值来概括该自变量。\n\
+  \n代码清单 1-5 绘制了员工薪资的直方图（见图 1-5）。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig5_HTML.jpg](img/506148_1_En_1_Fig5_HTML.jpg)\n\
+  \n图 1-5\n\n直方图\n\n```\nsns.distplot(df[\"Salary\"])\nplt.ylabel(\"Frequency\")\n\
+  plt.xlabel(\"Salary\")\nplt.show()\n代码清单 1-5\n员工薪资直方图\n```\n\n图 1-4 和图 1-15 均显示非极端正态分布。当数据中存在异常值时，偏态现象经常发生。\n\
+  \n### 检测异常值\n\n异常值是指过小或过大的数据点。它可能通过增大误差率来影响模型。若数据中存在异常值，应将其移除，或用均值或中位数替换。\n\n\n\n\
+  ### 箱线图\n\n检测异常值最简单的方法是使用箱线图。箱线图简洁地总结了数据独特形状和离散程度的信息。它具有以下属性：一个代表数据中间值的箱子，一条代表 50%数据点所在位置的中位数线，以及代表四分位数的直线，其中\
+  \ 25%的数据点位于直线上方，75%的数据点位于直线下方。而`Q3`代表 75%的数据在其上方、25%的数据在其下方的点。这条直线和其他直线代表须线，它将`Q1`或`Q3`与除异常值外最远的数据点连接起来。\n\
+  \n清单 1-6 绘制了员工工作年限的箱线图。\n\n```\nsns.boxplot(df[\"YearsExperience\"])\nplt.xlabel(\"\
+  Experience\")\nplt.show()\nListing 1-6\nEmployees’ Years of Work Experience Box\
+  \ Plot\n```\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig6_HTML.jpg](img/506148_1_En_1_Fig6_HTML.jpg)\n\
+  \n图 1-6\n\n箱线图\n\n图 1-6 显示员工工作年限的值略微左偏，且数据中不存在异常值。\n\n清单 1-7 为因变量的值构建了一个箱线图（见图 1-7）。\n\
+  \n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig7_HTML.jpg](img/506148_1_En_1_Fig7_HTML.jpg)\n\
+  \n图 1-7\n\n箱线图\n\n```\nsns.boxplot(df[\"Salary\"])\nplt.xlabel(\"Salary\")\nplt.show()\n\
+  Listing 1-7\nEmployees’ Salaries Box Plot\n```\n\n图 1-7 表明员工薪资的值左偏，且数据中未检测到异常值。图\
+  \ 1-6 和图 1-7 都略微近似于正态分布。\n\n清单 1-8 绘制了员工工作年限和员工薪资的折线图。图 1-8 展示了由直线连接随时间变化的趋势。它有两个轴：x\
+  \ 轴（水平）和 y 轴（垂直）。这些轴在图形上表示为 (`x`, `y`)。自变量位于 x 轴上，因变量位于 y 轴上。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig8_HTML.png](img/506148_1_En_1_Fig8_HTML.png)\n\
+  \n图 1-8\n\n折线图\n\n```\ndf.plot(kind=\"line\")\nplt.xlabel(\"Experience\")\nplt.ylabel(\"\
+  Salary\")\nplt.show()\nListing 1-8\nEmployees’ Years of Work Experience and Employees’\
+  \ Salaries Line Plot\n```\n\n图 1-8 并未显示出一条理想的直线。数据点始终遵循长期上升趋势。这条直线向右上方倾斜。员工的薪资随着其工作年限的增加而增加。\n\
+  \n清单 1-9 返回一个使用核密度估计显示概率密度函数的图（见图 1-9）。它捕捉了连续随机变量的概率。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig9_HTML.jpg](img/506148_1_En_1_Fig9_HTML.jpg)\n\
+  \n图 1-9\n\n密度图\n\n```\nsns.kdeplot(df[\"YearsExperience\"],df[\"Salary\"])\nplt.title(\"\
+  Experience and salary density plot\")\nplt.xlabel(\"Experience\")\nplt.ylabel(\"\
+  Salary\")\nplt.show()\nListing 1-9\nDensity Plot\n```\n\n图 1-9 显示了一个二维概率密度；然而，该分布不够正态。它包含聚集的数据点，这无意中增加了数据解读的难度。\n\
+  \n清单 1-10 返回一个描绘变量之间关联的散点图（见图 1-10）。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig10_HTML.jpg](img/506148_1_En_1_Fig10_HTML.jpg)\n\
+  \n图 1-10\n\n成对散点图\n\n```\nsns.jointplot(x=\"YearsExperience\",y=\"Salary\",data=df,kind=\"\
+  reg\")\nplt.xlabel(\"Experience\")\nplt.ylabel(\"Salary\")\nplt.show()\nListing\
+  \ 1-10\nEmployees’ Years of Work Experience and Employees’ Salaries Joint Plot\n\
+  ```\n\n图 1-10 表明一条直线完美地拟合了数据点。员工工作年限与员工薪资之间存在强正相关关系。\n\n清单 1-11 使用集中趋势汇总了数据（见表 1-2）。\n\
+  \n表 1-2\n\n描述性统计\n\n| | 计数 | 均值 | 标准差 | 最小值 | 25% | 50% | 75% | 最大值 |\n| --- | ---\
+  \ | --- | --- | --- | --- | --- | --- | --- |\n| **工作年限** | 30.0 | 5.313333 | 2.837888\
+  \ | 1.1 | 3.20 | 4.7 | 7.70 | 10.5 |\n| **薪资** | 30.0 | 76003.000000 | 27414.429785\
+  \ | 37731.0 | 56720.75 | 65237.0 | 100544.75 | 122391.0 |\n\n```\ndf.describe().transpose()\n\
+  Listing 1-11\nSummarize the Central Tendency\n```\n\n表 1-2 突出显示，员工工作年限的算术平均值为 5\
+  \ 年，员工薪资的算术平均值为每年 76,003 美元。员工工作年限的值与均值偏差 3，员工薪资的值与均值偏差 27,414 美元。最低工作年限为 1 年，最低薪资为\
+  \ 37,731 美元。薪资最高的员工年薪为 122,391 美元，拥有约 11 年工作经验。四分之一的员工年薪约为 56,721 美元。年薪在 100,544\
+  \ 美元及以上的员工属于高收入阶层。\n\n## 理解相关性\n\n线性回归的核心在于检验相关系数。相关性估计了自变量与因变量之间线性关系的表观强度。确定两个变量之间相关性的方法有多种，例如皮尔逊相关法、斯皮尔曼相关法和肯德尔相关法。\n\
+  \n### 皮尔逊相关法\n\n清单 1-12 应用了皮尔逊相关法（因变量为连续变量）。公式 1-6 表达了该方法。\n\n![$$ {r}_{xy}=\\frac{s_{xy}}{s_x{s}_y}\
+  \ $$](img/506148_1_En_1_Chapter_TeX_Equ6.png)\n\n（公式 1-6）\n\n这里，`s[x]` 代表自变量的标准差，`s[y]`\
+  \ 代表因变量的标准差，`s[xy]` 代表协方差。该方法产生的值范围从 -1 到 1，其中 -1 表示强负相关关系，0 表示无相关关系，1 表示强正相关关系。\n\
+  \n## 相关矩阵\n\n图 1-11 显示了员工工作年限与员工薪资之间的相关性。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig11_HTML.jpg](img/506148_1_En_1_Fig11_HTML.jpg)\n\
+  \n图 1-11\n\n相关矩阵热力图\n\n```\ndfcorr = df.corr(method=\"pearson\")\nsns.heatmap(dfcorr,\
+  \ annot=True,annot_kws={\"size\":12}, cmap=\"Blues\")\nplt.show()\nListing 1-12\n\
+  Correlation Matrix\n```\n\n图 1-11 显示了一条从左上角到右下角的由 1 组成的对角线（每个变量与自身完全相关）。员工工作年限与员工薪资之间存在强正相关关系。\n\
+  \n\n\n### 协方差方法\n\n协方差是两个变量之间的联合变异性（它估计两个变量如何一起变化）。公式 1-7 表达了协方差方法。\n\n![$$ {S}_{xy}=\\\
+  frac{\\sum \\left({x}_i-\\underset{\\_}{x}\\right)\\left({y}_i-\\underset{\\_}{y}\\\
+  right)\\ }{n-1} $$](img/506148_1_En_1_Chapter_TeX_Equ7.png)\n\n（公式 1-7）\n\n这里，`n`\
+  \ 是样本数量，`y[i]` 表示标量随机变量，`x` 和 `y` 是这些标量随机变量的均值。\n\n## 协方差矩阵\n\n代码清单 1-13 生成了协方差矩阵（见图\
+  \ 1-12）。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig12_HTML.png](img/506148_1_En_1_Fig12_HTML.png)\n\
+  \n图 1-12\n\n协方差矩阵热力图\n\n```\ndfcov = df.cov()\nsns.heatmap(dfcov, annot=True,annot_kws={\"\
+  size\":12}, cmap=\"Blues\")\nplt.show()\n代码清单 1-13\n协方差矩阵\n```\n\n图 1-12 显示协方差约为\
+  \ 0.0076（接近 1）。这证实了变量之间存在正相关关系。\n\n## 分配和重塑数组\n\n代码清单 1-14 使用 `NumPy` 分配了 `x` 和\
+  \ `y` 的数组。一个数组包含一个或多个变量。\n\n```\nx = np.array(df[\"YearsExperience\"])\ny = np.array(df[\"\
+  Salary\"])\n代码清单 1-14\n分配 x 和 y 数组\n```\n\n代码清单 1-15 重塑了 `x` 和 `y`（将一维数据转换为二维数据）。\n\
+  \n```\nx = x.reshape(-1,1)\ny = y.reshape(-1,1)\n代码清单 1-15\n重塑 x 和 y 数组\n```\n\n\
+  ### 将数据拆分为训练数据和测试数据\n\n监督模型需要数据划分。代码清单 1-16 通过调用 `train_test_split()` 方法将数据拆分为训练数据和测试数据。\n\
+  \n```\nfrom sklearn.model_selection import train_test_split\nx_train, x_test, y_train,\
+  \ y_test = train_test_split(x,y,test_size=0.2, random_state=0)\n代码清单 1-16\n将数据拆分为训练数据和测试数据\n\
+  ```\n\n请注意，80% 的数据用于训练，20% 的数据用于测试。\n\n## 数据归一化\n\n常见的缩放方法包括：`StandardScaler()`，它缩放数据使得均值为\
+  \ 0，标准差为 1；`MinMaxScaler()`，它将数据缩放到 0 到 1 之间，如果数据中有负值，则缩放到 -1 到 1 之间；以及 `RobustScaler()`，它移除异常值并使用缩放后的数据（使用前述任一缩放方法）。代码清单\
+  \ 1-17 应用 `StandardScaler()` 方法对数据进行归一化。\n\n```\nfrom sklearn.model_selection import\
+  \ StandardScaler\nscaler = StandardScaler()\nx_train = scaler.fit_transform(x_train)\n\
+  x_test = scaler.transform(x_test)\n代码清单 1-17\n数据归一化\n```\n\n## 使用 Statsmodels 开发最小二乘模型\n\
+  \n`Statsmodels` 是一个 Python 科学计算包，包含一组不同的类和函数，用于正确估计统计模型和执行检验统计。它补充了用于统计计算的 `SciPy`\
+  \ 包。默认情况下，它不包含截距项。代码清单 1-18 手动向模型添加了一个截距项。\n\n```\nx_constant = sm.add_constant(x_train)\n\
+  x_test = sm.add_constant(x_test)\n代码清单 1-18\n添加常数项\n```\n\n代码清单 1-19 完成了回归器的构建。\n\
+  \n```\nmodel = sm.OLS(y_train, x_constant).fit()\n代码清单 1-19\n开发最小二乘模型\n```\n\n###\
+  \ 预测\n\n代码清单 1-20 列出了预测值（见表 1-3）。\n\n表 1-3\n\n预测值\n\n|   | 预测薪资 |\n| --- | --- |\n\
+  | **0** | 40748.961841 |\n| **1** | 122699.622956 |\n| **2** | 64961.657170 |\n\
+  | **3** | 63099.142145 |\n| **4** | 115249.562855 |\n| **5** | 107799.502753 |\n\
+  \n```\ny_pred = model.predict(x_test)\npd.DataFrame(y_pred, columns = [\"Predicted\
+  \ salary\"])\n代码清单 1-20\n预测值\n```\n\n## 评估模型\n\n代码清单 1-21 返回了回归器性能的摘要（见表 1-4）。\n\
+  \n表 1-4\n\n结果\n\n| 因变量： | y | R-squared： | 0.941 |\n| --- | --- | --- | --- |\n\
+  | **模型：** | OLS | **调整后 R-squared：** | 0.939 |\n| **方法：** | 最小二乘法 | **F 统计量：** |\
+  \ 352.1 |\n| **日期：** | 2020 年 10 月 16 日，周五 | **Prob (F 统计量)：** | 5.03e-15 |\n| **时间：**\
+  \ | 14:42:15 | **对数似然：** | -242.89 |\n| **观测数：** | 24 | **AIC：** | 489.8 |\n| **残差自由度：**\
+  \ | 22 | **BIC：** | 492.1 |\n| **模型自由度：** | 1 |   |   |\n| **协方差类型：** | 非稳健 |  \
+  \ |   |\n\n|   | **系数** | **标准误** | **T 值** | **P>&#124;t&#124;** | **[0.025** |\
+  \ **0.975]** |\n| --- | --- | --- | --- | --- | --- | --- |\n| **常数项** | 7.389e+04\
+  \ | 1281.861 | 57.640 | 0.000 | 7.12e+04 | 7.65e+04 |\n| **x1** | 2.405e+04 | 1281.861\
+  \ | 18.765 | 0.000 | 2.14e+04 | 2.67e+04 |\n\n| **Omnibus：** | 3.105 | **Durbin-Watson：**\
+  \ | 2.608 |\n| --- | --- | --- | --- |\n| **Prob(Omnibus)：** | 0.212 | **Jarque-Bera\
+  \ (JB)：** | 1.567 |\n| **偏度：** | 0.297 | **Prob(JB)：** | 0.457 |\n| **峰度：** | 1.898\
+  \ | **条件数** | 1.00 |\n\n```\nsummary = model.summary()\nsummary\n代码清单 1-21\n概况\n\
+  ```\n\n`R-squared` 表示模型能解释的数据变异程度。另一方面，调整后的 `R-squared` 表示自变量对因变量解释的变异程度。该模型解释了数据中\
+  \ 94.1% 的变异，自变量（`YearsExperience`）解释了数据中 93.9% 的变异。该模型很好地解释了数据。p 值略高于 0.05。我们拒绝原假设，接受备择假设。员工的工作年限与员工薪资之间存在显著差异。\n\
+  \n## 使用 SciKit-Learn 开发最小二乘模型\n\n`SciKit-Learn` 包在训练和测试模型方面很受欢迎。它具有支持数据预处理、模型选择、训练和评估的功能。\n\
+  \n### 最小二乘模型超参数优化\n\n超参数是在训练模型之前设置的值。它控制模型的学习过程。超参数优化涉及指定一个值列表，并找到能产生最佳模型性能的值。\n\
+  \n#### 步骤 1：使用默认超参数拟合最小二乘模型\n\n代码清单 1-22 使用默认超参数拟合最小二乘模型。\n\n```\nfrom sklearn.linear_model\
+  \ import LinearRegression\nlm = LinearRegression()\nlm.fit(x_train,y_train)\n代码清单\
+  \ 1-22\n开发最小二乘模型\n```\n\n\n\n#### 步骤 2：确定交叉验证得分的均值和标准差\n\n交叉验证涉及检验模型对数据的泛化程度。代码清单\
+  \ 1-24 使用 `R²` 分数作为标准来寻找交叉验证得分。还有其他可用作标准的分数，例如均方误差（在考虑回归关系后，模型对数据变异性的解释程度）和均方根误差（在不考虑回归关系的情况下对变异性的解释程度）。代码清单\
+  \ 1-23 查找回归器的默认参数。\n\n```\nlm.get_params()\n代码清单 1-23\n默认参数\n```\n\n一次密集搜索会返回一个估计器、一个参数空间、用于搜索候选参数的方法、交叉验证方案以及评分函数。交叉验证方法包括\
+  \ `RandomizedSearchCV`（考虑特定数量的候选参数）、`GridSearchCV`（考虑所有参数组合）以及 `BayesSearchCV`（通过将高斯过程作为函数的先验来处理，利用先前的损失来确定对损失进行采样的最佳点）。下面，我们将向您展示如何使用\
+  \ `GridSearchCV` 和 `BayesSearchCV` 执行交叉验证。表 1-5 突出显示了可优化的超参数。\n\n**表 1-5** 可优化的超参数\n\
+  \n| 参数 | 描述 |\n| --- | --- |\n| `fit_intercept` | 决定模型是否必须估计截距 |\n| `normalize`\
+  \ | 决定是否必须对自变量进行归一化 |\n| `copy_X` | 决定是否必须复制自变量 |\n\n代码清单 1-24 创建了网格模型。\n\n```\n\
+  from sklearn.model_selection import GridSearchCV\nparam_grid = {'fit_intercept':[True,False],\n\
+  'normalize':[True,False],\n'copy_X':[True, False]}\ngrid_model  = GridSearchCV(estimator=lm,\n\
+  param_grid=param_grid,\nn_jobs=-1)\ngrid_model.fit(x_train,y_train)\n代码清单 1-24\n\
+  使用 GridSearchCV 开发网格模型\n```\n\n代码清单 1-25 返回最佳交叉验证得分和最佳参数。\n\n```\nprint(\"Best score:\
+  \ \", grid_model.best_score_, \"Best parameters: \", grid_model.best_params_)\n\
+  代码清单 1-25\n使用 GridSearchCV 查找最佳超参数\n```\n\n最佳得分：0.9272138118711238 最佳参数：{‘copy_X’:\
+  \ True, ‘fit_intercept’: True, ‘normalize’: True}\n\n另一种查找正确超参数的方法是使用贝叶斯优化。代码清单\
+  \ 1-26 使用 `Skopt` 执行贝叶斯优化。要在 Python 环境中安装它，请使用 `pip install scikit-optimize`。\n\n\
+  ```\nfrom skopt import BayesSearchCV\nparam_grid = {'fit_intercept':[True,False],\n\
+  'normalize':[True,False],\n'copy_X':[True, False]}\ngrid_model = BayesSearchCV(lm,param_grid,n_iter=30,random_state=1234,verbose=0)\n\
+  grid_model.fit(x_train,y_train)\n代码清单 1-26\n使用 BayesSearchCV 开发网格模型\n```\n\n代码清单\
+  \ 1-27 查找最佳交叉验证得分和最佳参数。\n\n```\nprint(\"Best score: \", grid_model.best_score_,\
+  \ \"Best parameters: \", grid_model.best_params_)\n代码清单 1-27\n使用 BayesSearchCV 查找最佳超参数\n\
+  ```\n\n最佳得分：0.9266258295344271 最佳参数：OrderedDict([(‘copy_X’, False), (‘fit_intercept’,\
+  \ True), (‘normalize’, False)])\n\n### 最终确定最小二乘模型\n\n代码清单 1-28 使用代码清单 1-27 中估计的超参数完成最小二乘模型。\n\
+  \n```\nlm = LinearRegression(copy_X= True,\nfit_intercept= True,\nnormalize= True)\n\
+  lm.fit(x_train,y_train)\n代码清单 1-28\n最终确定最小二乘模型\n```\n\n### 查找截距\n\n代码清单 1-29 估计截距。截距是在保持因变量不变的情况下，自变量的均值。\n\
+  \n```\nlm.intercept_\narray([73886.20833333])\n代码清单 1-29\n截距\n```\n\n### 查找估计系数\n\
+  \n代码清单 1-30 估计系数。\n\n```\nlm.coef_\narray([[24053.85556857]])\n代码清单 1-30\n系数\n```\n\
+  \n一条直线的公式表示如下：\n\n![$$ \\hat{y}=73\\ 886.21+24\\ 053.851{X}_1+{\\varepsilon}_i $$](img/506148_1_En_1_Chapter_TeX_Equ8.png)\n\
+  \n(公式 1-8)\n\n工作年限每增加一年，薪水增加 24,054。\n\n### 使用 SciKit-Learn 测试最小二乘模型性能\n\n代码清单 1-31\
+  \ 应用 `predict()` 方法返回预测值，然后将该数组传递给一个数据框（见表 1-6）。\n\n**表 1-6** 实际值\n\n|   | 预测薪水\
+  \ |\n| --- | --- |\n| **0** | 40748.961841 |\n| **1** | 122699.622956 |\n| **2**\
+  \ | 64961.657170 |\n| **3** | 63099.142145 |\n| **4** | 115249.562855 |\n| **5**\
+  \ | 107799.502753 |\n\n```\ny_pred = lm.predict(x_test)\npd.DataFrame(y_pred, columns\
+  \ = [\"Predicted salary\"])\n代码清单 1-31\n将预测值制成表格\n```\n\n代码清单 1-32 将实际值制成表格（见表 1-7）。\n\
+  \n**表 1-7** 薪水的实际值\n\n|   | 实际薪水 |\n| --- | --- |\n| **0** | 37731.0 |\n| **1**\
+  \ | 122391.0 |\n| **2** | 57081.0 |\n| **3** | 63218.0 |\n| **4** | 116969.0 |\n\
+  | **5** | 109431.0 |\n\n```\npd.DataFrame(y_test, columns = [\"Actual salary\"])\n\
+  代码清单 1-32\n创建实际值表格\n```\n\n表 1-7 表明回归器存在轻微误差。\n\n### 平均绝对误差\n\n绝对误差是估计值与真实值之间的差值。例如，如果模型预测薪水为\
+  \ 40,749 美元，而实际值为 37,731 美元，那么该模型的绝对误差为 40,749 美元 – 37,731 美元 = 3,018 美元。平均绝对误差（MAE）表示估计中误差的平均幅度，不考虑方向。\n\
+  \n![$$ MAE=\\frac{1}{n}{\\sum}_{i=1}^n\\mid {x}_i-x\\mid $$](img/506148_1_En_1_Chapter_TeX_Equ9.png)\n\
+  \n(公式 1-9)\n\n这里，*n* 表示误差的数量，∣*x*[*i*] − *x*∣ 表示绝对误差。\n\n### 均方误差\n\n均方误差（MSE）表示在考虑回归关系后，模型对数据变异性的解释程度。\n\
+  \n![$$ MSE=\\frac{1}{n}{\\sum}_{i=1}^n\\mid {y}_i-\\hat{y}\\mid $$](img/506148_1_En_1_Chapter_TeX_Equ10.png)\n\
+  \n(公式 1-10)\n\n### 均方根误差\n\n均方根误差（RMSE）表示在不考虑回归关系的情况下解释的变异性。要获得 RMSE 分数，请使用 MSE\
+  \ 的平方根。\n\n![$$ RMSE=\\sqrt{MSE} $$](img/506148_1_En_1_Chapter_TeX_Equ11.png)\n\n\
+  (公式 1-11)\n\n\n\n### R 平方\n\nR 平方（R²）表示模型所能解释的数据变异程度。该指标的取值范围为 0 到 1，其中 0 表示回归模型对数据变异性的解释能力很差，而\
+  \ 1 则表示回归模型对数据的解释能力最佳。\n\n![$$ {R}²=1-\\frac{\\sum {\\left({y}_i-\\hat{y}\\right)}²}{\\\
+  sum {\\left({y}_i-\\underset{\\_}{y}\\right)}²} $$](img/506148_1_En_1_Chapter_TeX_Equ12.png)\n\
+  \n（公式 1-12）\n\n此处，![$$ \\hat{y} $$](img/506148_1_En_1_Chapter_TeX_IEq4.png) 表示 `y`\
+  \ 的预测值，而 ![$$ \\underset{\\_}{y} $$](img/506148_1_En_1_Chapter_TeX_IEq5.png) 表示\
+  \ `y` 的平均值。R² 分数需要乘以一百。例如，如果分数是 0.9，那么模型解释了数据中 90% 的变异。\n\n还有其他用于模型评估的指标，例如：\n\n\
+  *   *解释方差分数*：一个衡量模型与实际数据之间差异的指标。如果该分数接近 1，则表明存在强相关性。\n*   *平均伽马偏差*：一个衡量因变量尺度并估计相对误差的指标。它是幂参数为\
+  \ 2 的 Tweedie 偏差。\n*   *平均泊松偏差*：一个衡量因变量尺度并估计相对误差的指标。它是幂参数为 1 的 Tweedie 偏差。\n\n清单\
+  \ 1-33 列出了这些评估指标（见表 1-8）。\n\n**表 1-8** 性能矩阵\n\n| | 值 |\n| --- | --- |\n| **MAE**\
+  \ | 2.446172e+03 |\n| **MSE** | 1.282341e+07 |\n| **RMSE** | 3.580979e+03 |\n| **R²**\
+  \ | 9.881695e-01 |\n| **解释方差分数** | 9.897038e-01 |\n| **平均伽马偏差** | 3.709334e-03 |\n\
+  | **平均泊松偏差** | 2.129260e+02 |\n\n```\nMAE = metrics.mean_absolute_error(y_test,y_pred)\n\
+  MSE = metrics.mean_squared_error(y_test,y_pred)\nRMSE = np.sqrt(MSE)\nR2 = metrics.r2_score(y_test,y_pred)\n\
+  EV = metrics.explained_variance_score(y_test,y_pred)\nMGD = metrics.mean_gamma_deviance(y_test,y_pred)\n\
+  MPD = metrics.mean_poisson_deviance(y_test,y_pred)\nlmmodelevaluation = [[MAE,MSE,RMSE,R2,EV,MGD,MPD]]\n\
+  lmmodelevaluationdata = pd.DataFrame(lmmodelevaluation,\nindex = [\"Values\"],\n\
+  columns = [\"MAE\",\n\"MSE\",\n\"RMSE\",\n\"R2\",\n\"Explained variance score\"\
+  ,\n\"Mean gamma deviance\",\n\"Mean Poisson deviance\"]).transpose()\nlmmodelevaluationdata\n\
+  清单 1-33\n评估指标\n```\n\n表 1-8 表明该模型解释了数据中 98% 的变异。员工的工作年限与员工薪资之间存在强相关性。平均而言，不考虑方向的误差幅度为\
+  \ 2,446，均方误差为 1。\n\n### 训练数据\n\n清单 1-34 通过在数据点之间绘制一条线来验证变量之间是否存在线性关系（见图 1-13）。\n\
+  \n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig13_HTML.jpg](img/506148_1_En_1_Fig13_HTML.jpg)\n\
+  \n**图 1-13** 训练数据\n\n```\nplt.scatter(x_train,y_train,s=200)\nplt.plot(x_test,y_pred,color=\"\
+  red\")\nplt.xlabel(\"Actual Experience\")\nplt.ylabel(\"Actual Salary\")\nplt.show()\n\
+  清单 1-34\n训练数据\n```\n\n图 1-13 证实数据点接近一条直线，但并非极度接近。员工的工作年限与员工薪资之间存在线性关系。\n\n### 测试数据\n\
+  \n清单 1-35 返回图 1-14，该图显示了员工工作年限的实际值与员工工作年限的预测值。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig14_HTML.jpg](img/506148_1_En_1_Fig14_HTML.jpg)\n\
+  \n**图 1-14** 测试数据\n\n```\nplt.scatter(y_test,y_pred,s=200)\nplt.axhline(color=\"\
+  red\")\nplt.xlabel(\"Actual Salary\")\nplt.ylabel(\"Predicted Salary\")\nplt.show()\n\
+  清单 1-35\n测试数据\n```\n\n图 1-14 确认了一个完美拟合的模型。如前所述，由于变异性，完美模型在现实世界中很少见。\n\n### 实际值与预测值\n\
+  \n模型评估涉及比较因变量的实际值和预测值。清单 1-36 返回了员工薪资实际值与员工薪资预测值之间的差异（见图 1-15）。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig15_HTML.jpg](img/506148_1_En_1_Fig15_HTML.jpg)\n\
+  \n**图 1-15** 实际值与预测值\n\n```\nplt.scatter(y_test,y_pred,s=200)\nplt.axhline(color=\"\
+  red\")\nplt.xlabel(\"Actual Salary\")\nplt.ylabel(\"Predicted Salary\")\nplt.show()\n\
+  清单 1-36\n实际值与预测值\n```\n\n员工薪资的实际值与预测值之间存在显著差异，但这些差异并不大。\n\n## 诊断残差\n\n残差表示实际值与预测值之间的差异。残差诊断涉及发现模型所犯错误的行为模式。我们可以使用多种工具来检查模型是否满足假设。分析残差最简单的方法是查看其平均值。如果残差的平均值接近\
+  \ 0，则模型拟合良好。\n\n为了以图形方式表示残差并理解错误的行为模式，我们可以使用一些图，例如自相关函数图、偏自相关函数图、拟合值与残差值图、杠杆值与残差值图、拟合值与学生化残差值图、杠杆值与学生化残差值图（也称为\
+  \ Cook's D 影响图）以及正态概率（或正态 Q-Q）图。这些图对于检测残差中的异常非常有用。\n\n如果残差中存在某种模式或形状，则模型违反了回归假设。主要有三种模式，即*扇形模式*，当变异性随预测值增加时发生（误差项不受自变量值影响）；*抛物线模式*，当预测值相关或存在乘法误差时发生；以及*双弓模式*，当自变量是比例或百分比时发生。还有其他因素会影响残差的行为模式，例如数据的分布和明显存在的异常值。确保我们为模型提供高质量的数据非常重要。\n\
+  \n\n\n### 使用 Statsmodels 评估残差\n\n清单 1-37 展示了残差诊断指标，清单 1-38 展示了箱线图。\n\n```\nmodel_residual\
+  \ = model.resid\nmodel_fitted = model.fittedvalues\nmodel_leverage = model.get_influence().hat_matrix_diag\n\
+  model_norm_residual = model.get_influence().resid_studentized_internal\nmodel_norm_residual_ab_sqrt\
+  \ = np.sqrt(np.abs(model_norm_residual))\n清单 1-37\n残差诊断指标\n```\n\n图 1-16 展示了残差的离散情况。\n\
+  \n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig16_HTML.jpg](img/506148_1_En_1_Fig16_HTML.jpg)\n\
+  \n图 1-16\n\n残差箱线图\n\n```\nmodel_residual = pd.DataFrame(model_residual)\nmodel_residual.columns\
+  \ = [\"Residuals\"]\nsns.boxplot(model_residual[\"Residuals\"])\nplt.xlabel(\"Residuals\"\
+  )\nplt.show()\n清单 1-38\n残差箱线图\n```\n\n图 1-16 显示残差的均值接近 0，但并非极端接近。残差围绕真实值对称分布（表现良好）。\n\
+  \n#### 正态 Q-Q 图\n\n清单 1-39 绘制了正态 Q-Q 图。图 1-17 用于判断数据是否来自正态理论分布。它通过比较两个概率分布（x 轴上的理论分位数和\
+  \ y 轴上的样本分位数值）来验证正态性假设。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig17_HTML.jpg](img/506148_1_En_1_Fig17_HTML.jpg)\n\
+  \n图 1-17\n\n正态 Q-Q 图\n\n```\nfig, ax = plt.subplots()\nfig = sm.graphics.qqplot(model_residual,ax=ax,line=\"\
+  45\",fit=True,dist=stats.norm)\nplt.show()\n清单 1-39\n正态 Q-Q 图\n```\n\n图 1-17 显示数据点并未形成一条直线。它们偏离了直线。图中还显示了数据中的异常值。\n\
+  \n#### Cook's D 影响\n\n清单 1-40 绘制了 Cook's D 影响图。图 1-18 用于检测将回归函数拉向自身的异常值。它使用一个临界值来确定异常值。临界值代表我们判断某个观测值是否为异常值的阈值。我们使用\
+  \ `4/n-k-1` 来估算临界值，其中 *n* 是样本量，*k* 是用于评估性能的异常值数量。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig18_HTML.jpg](img/506148_1_En_1_Fig18_HTML.jpg)\n\
+  \n图 1-18\n\nCook's D 影响\n\n```\nfig, ax = plt.subplots()\nfig = sm.graphics.influence_plot(model,ax=ax,criterion=\"\
+  cooks\")\nplt.show()\n清单 1-40\nCook's D 影响\n```\n\n图 1-18 显示了有影响力的数据点（观测值 0 处有一个小点，观测值\
+  \ 11 处有一个极端点）。移除它们会显著提高模型的预测能力。\n\n#### 拟合值与残差值\n\n清单 1-41 绘制了拟合值与残差值。图 1-19 比较了拟合值（预测响应）与残差（实际值与预测值之差）。它用于检查方差不齐、非线性以及异常值。\n\
+  \n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig19_HTML.jpg](img/506148_1_En_1_Fig19_HTML.jpg)\n\
+  \n图 1-19\n\n拟合值与残差值\n\n```\nplt.scatter(model_fitted,model_residual,s=200)\nplt.xlabel(\"\
+  Fitted Salary\")\nplt.ylabel(\"Residual Salary\")\nplt.show()\n清单 1-41\n拟合值与残差值\n\
+  ```\n\n图 1-19 显示了表现良好的拟合薪资与残差薪资图的特征。没有大的残差。此外，残差围绕零点随机波动。该模型满足线性假设。\n\n#### 杠杆值与残差值\n\
+  \n清单 1-42 绘制了杠杆值（*x* 距离 y 均值的远近程度）与残差值（见图 1-20）。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig20_HTML.jpg](img/506148_1_En_1_Fig20_HTML.jpg)\n\
+  \n图 1-20\n\n杠杆值与残差值\n\n```\nplt.scatter(model_leverage,model_residual,s=200)\nplt.xlabel(\"\
+  Leverage Salary\")\nplt.ylabel(\"Residual Salary\")\nplt.show()\n清单 1-42\n杠杆值与残差值\n\
+  ```\n\n图 1-2 表明存在一个高杠杆数据点，它导致了预测的不准确性。\n\n#### 拟合值与学生化残差值\n\n清单 1-43 返回预测响应和标准化删除残差（见图\
+  \ 1-21）。学生化残差大于或等于 3 的点是有影响力的点。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig21_HTML.jpg](img/506148_1_En_1_Fig21_HTML.jpg)\n\
+  \n图 1-21\n\n拟合值与学生化残差值\n\n```\nplt.scatter(model_leverage,model_norm_residual,s=200)\n\
+  plt.xlabel(\"Leverage Salary\")\nplt.ylabel(\"Studentized Residual Salary\")\nplt.show()\n\
+  清单 1-43\n拟合值与学生化残差值\n```\n\n图 1-21 确认了随机分布（残差没有遵循任何趋势或模式）。\n\n#### 杠杆值与学生化残差值\n\n\
+  识别有影响力数据点的另一种方法是将自变量的数据点与其他数据点的距离与标准化删除残差进行比较。参见清单 1-44。\n\n```\nplt.scatter(model_leverage,model_norm_residual,s=200)\n\
+  plt.xlabel(\"Leverage Salary\")\nplt.ylabel(\"Studentized Residual Salary\")\nplt.show()\n\
+  清单 1-44\n拟合值与学生化残差值\n```\n\n图 1-22 显示了表现良好的残差特征，但存在一个极端异常值。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig22_HTML.jpg](img/506148_1_En_1_Fig22_HTML.jpg)\n\
+  \n图 1-22\n\n拟合值与学生化残差值\n\n\n\n### 使用 SciKit-Learn 评估残差\n\n以下部分通过自相关函数和偏自相关函数，研究残差与自身之间的相关程度。\n\
+  \n## 自相关函数\n\n自相关表示数据与自身（而非其他数据）的相关程度（参见列表 1-45）。图 1-23 用于判断先前滞后期的残差之间是否存在自相关。该图有两个坐标轴，x\
+  \ 轴表示滞后期，y 轴表示残差的自相关函数。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig23_HTML.jpg](img/506148_1_En_1_Fig23_HTML.jpg)\n\
+  \n图 1-23\n\n自相关函数图\n\n```\nfrom statsmodels.graphics.tsaplots import plot_acf\n\
+  residuallm = y_test - y_pred\nplot_acf(residuallm)\nplt.xlabel(\"Lag\")\nplt.ylabel(\"\
+  ACF\")\nplt.show()\n列表 1-45\n自相关函数\n```\n\n图 1-23 显示，在滞后期 0 时，相关性为 1（数据与自身相关）。在滞后期\
+  \ 1、2、4 和 5 处存在轻微的负相关，在滞后期 3 处存在中等程度的负相关。\n\n## 偏自相关函数\n\n列表 1-46 绘制了在低阶滞后期中未被解释的系数的偏相关图（参见图\
+  \ 1-24）。\n\n![../images/506148_1_En_1_Chapter/506148_1_En_1_Fig24_HTML.jpg](img/506148_1_En_1_Fig24_HTML.jpg)\n\
+  \n图 1-24\n\n偏自相关函数\n\n```\nfrom statsmodels.graphics.tsaplots import plot_pacf\n\
+  plot_pacf(residualslm)\nplt.xlabel(\"Lag\")\nplt.ylabel(\"PACF\")\nplt.show()\n\
+  列表 1-46\n偏自相关函数\n```\n\n滞后期 0 可以解释所有高阶自相关。\n\n## 结论\n\n本章介绍了简单线性回归方法、最小二乘模型及其应用。通过使用两个回归变量（分别应用\
+  \ `Statsmodels` 和 `SciKit-Learn`），检验了员工工作年限与员工薪资之间是否存在显著差异。研究结果表明，员工工作年限与员工薪资之间存在显著差异。数据存在线性关系，但回归变量违反了某些回归假设。由于数据中的微小异常（这在样本量较小时很常见），它们会产生边际误差。后续章节将介绍处理误差的技术；引入由偏差和方差引起的误差概念，以及如何使用高级参数方法（如岭回归和套索回归）来解决这些误差。\n\
+  \n脚注 1\n\n"
+- '# 2. 高级参数方法
+
+
+  前一章介绍的方法违反了某些回归假设。它无法捕捉噪声，因此在预测未来实例时会出错。解决此问题最便捷的方法是在方程中添加一个惩罚项。
+
+
+  本章介绍了偏差-方差权衡这一新颖概念，然后涵盖了正则化模型，如岭回归、内置交叉验证的岭回归以及套索回归。最后，将这些模型的性能与最小二乘模型的性能进行比较。要深入理解正则化模型，首先必须理解偏差-方差权衡的概念。在下一节中，我们将正式介绍这一概念。
+
+
+  ## 偏差与方差的概念
+
+
+  *偏差*表示估计值接近实际值的程度，而*方差*表示数据点在模型每次实现中的变化程度。当模型类别无法拟合数据时，就会产生由偏差引起的误差。开发更具表达力的模型类别可以解决此问题。另一方面，由方差引起的误差表示模型对某个数据点预测的可变性。当模型类别能够拟合数据但实际未能拟合时，就会发生这种情况。开发表达力较弱的模型类别可以解决此问题。
+
+
+  ![../images/506148_1_En_2_Chapter/506148_1_En_2_Fig1_HTML.png](img/506148_1_En_2_Fig1_HTML.png)
+
+
+  图 2-1
+
+
+  偏差与方差的图形定义
+
+
+  图 2-1 展示了偏差和方差。
+
+
+  ## 偏差-方差权衡的实际应用
+
+
+  偏差-方差权衡涉及以牺牲另一方为代价来降低偏差或方差。当数据中变量较少、模型高度正则化、决策树模型经过极度剪枝、或 K 近邻模型的 k 值较大时，我们会降低方差以增加偏差。图
+  2-2 展示了一个低偏差（或高方差）的示例。
+
+
+  ![../images/506148_1_En_2_Chapter/506148_1_En_2_Fig2_HTML.png](img/506148_1_En_2_Fig2_HTML.png)
+
+
+  图 2-2
+
+
+  低偏差/高方差
+
+
+  当数据中变量较多、模型未正则化、决策树模型未剪枝、或 K 近邻模型的 k 值较小时，我们会降低偏差以增加方差。图 2-3 展示了一个高偏差（或低方差）的示例。
+
+
+  ![../images/506148_1_En_2_Chapter/506148_1_En_2_Fig3_HTML.png](img/506148_1_En_2_Fig3_HTML.png)
+
+
+  图 2-3
+
+
+  高偏差/低方差
+
+
+  偏差-方差权衡旨在解决欠拟合（当存在低偏差误差项时）和过拟合（当存在高方差时）的问题。我们根据模型的复杂度来降低偏差和方差。模型中的多个参数会增加模型的复杂度和方差，并降低偏差。
+
+
+  ## 岭回归
+
+
+  我们也称岭回归为 Tikhonov 或 L2 正则化。该模型通过沿每个特征向量以一个小 k 值最小化变量，确保坐标轴上的分布范围狭窄，从而解决多重共线性问题。与最小二乘回归器类似，它假设数据具有线性和正态性。这两个模型的主要区别在于，岭回归器假设在数据归一化后，系数很小。它还假设随着
+  k 值增加，具有多重共线性的系数会改变其行为。基于此假设，该模型会将系数急剧减小到零。岭回归器的 k 值最多小于最小二乘模型的 k 值。
+
+
+  它通过增加偏差（引入惩罚项并控制对最小二乘函数的收缩）来收缩估计值，以稳定变异性。它防止自变量值膨胀，减少标准误差，并提供更可靠的估计。此过程最小化残差的惩罚平方和，并仔细控制回归模型中大量的收缩。它通过添加一个惩罚项（与系数平方和相关的项）来改变成本函数。一个恒定的惩罚项取值范围为
+  0 到 1。它控制估计值 β，因此更有可能出现高方差。最小二乘模型不控制岭模型的损失函数。公式 2-1 表达了标准的岭回归公式。
+
+
+  ![$$ {\beta}^{ridge}={\left({X}^{\prime }X+{\lambda}_2\right)}^{-1}{X}^{\prime }y
+  $$](img/506148_1_En_2_Chapter_TeX_Equ1.png)
+
+
+  （公式 2-1）
+
+
+  这里，`λ[2]` 表示负责惩罚回归系数平方的岭惩罚项。该惩罚项控制系数的大小和正则化的程度。
+
+
+
+
+  ### RidgeCV
+
+
+  `RidgeCV` 代表“带内置交叉验证的岭回归”（它通过权衡模型的预测误差，将每个数据点作为样本外预测进行验证）。交叉验证方法包括 K 折、留一法和广义交叉验证（GCV）。默认情况下，SciKit-Learn
+  中的 `ridgeCV` 回归器使用 GCV。参见公式 2-2。
+
+
+  ![$$ GCV=\frac{1}{n}{\sum}_{i=1}^n\left(\frac{y_i-\hat{f}\left({x}_i\right)}{1-\frac{tr(S)}{n}}\right)
+  $$](img/506148_1_En_2_Chapter_TeX_Equ2.png)
+
+
+  （公式 2-2）
+
+
+  回想一下，`tr(S)` 是有效参数数量。
+
+
+  它通过划分数据、寻找最优惩罚项以及训练和验证互补回归器来改变模型行为。
+
+
+  ## Lasso 回归
+
+
+  `Lasso` 代表“最小绝对收缩和选择算子”（也称为 L1 正则化）。它应用了收缩技术（将数据居中到其中心点，例如将数据居中到均值）。这个过程会产生稀疏模型（参数数量减少的模型）。我们将其用于变量选择和正则化。与岭回归一样，lasso
+  回归通过包含惩罚项来提升回归器的预测能力。它们的区别在于惩罚项：lasso 回归使用 L1 来惩罚残差之和，而岭回归使用 L2 惩罚项。它假设随着惩罚项的增加，更多的系数被设置为零，从而导致选择的变量更少。L1
+  正则化使用非零系数，并强制系数绝对值之和（将系数设为 0 并增加可解释性）。参见公式 2-3。
+
+
+  ![$$ {\beta}^{lasso}={\left({X}^{\prime }X\right)}^{-1}{X}^{\prime }y-\frac{\lambda_1}{2}\
+  w $$](img/506148_1_En_2_Chapter_TeX_Equ3.png)
+
+
+  （公式 2-3）
+
+
+  `λ1` 代表 lasso 惩罚项，用于惩罚回归系数绝对值之和。
+
+
+  ### 可调超参数
+
+
+  如果你不想使用默认参数来完成模型，你可以相应地更改超参数。表 2-1 列出了可调超参数。
+
+
+  表 2-1
+
+
+  可调超参数
+
+
+  | 参数 | 描述 |
+
+  | --- | --- |
+
+  | `alpha` | 决定正则化强度。它是一个乘以该项的常数。选择 `alpha` 时必须谨慎。`alpha` 值小表示正则化弱，值大表示正则化强。随着 `alpha`
+  增加，参数会变小。如果 `alpha` 增加，系数趋近于 0，导致数据欠拟合。默认值为 1。 |
+
+  | `fit_intercept` | 决定模型是否必须估计截距。 |
+
+  | `normalize` | 决定是否必须对自变量进行归一化。 |
+
+  | `copy_X` | 决定是否必须复制自变量。 |
+
+  | `tol` | 决定精度。默认值为 0.003。 |
+
+  | `max_iter` | 决定最大迭代次数。 |
+
+  | `tol` | 决定优化的容差。 |
+
+  | `warm_state` | 决定是初始化一个解还是擦除之前的解。 |
+
+
+  ### 开发模型
+
+
+  示例数据来自 GitHub。^(²) 它包含一些分类自变量。清单 2-1 使用 `LabelEncoder()` 方法将分类变量转换为数值。例如，我们将 `[''VS2''
+  ''VS1'' ''VVS1'' ''VVS2'' ''IF'']` 转换为 `[0,1,2,34]`。清单 2-2 创建了 `x` 和 `y` 数组，然后对数据进行分割和归一化。
+
+
+  ```
+
+  from sklearn.preprocessing import LabelEncoder
+
+  categorical_features = [''colour'', ''clarity'']
+
+  le = LabelEncoder()
+
+  for i in range(2):
+
+  new = le.fit_transform(df[categorical_features[i]])
+
+  df[categorical_features[i]] = new
+
+  df["certification"] = pd.get_dummies(df["certification"])
+
+  print(df.clarity.unique())
+
+  print(df.colour.unique())
+
+  print(df.certification.unique())
+
+  [2 1 3 4 0]
+
+  [0 1 3 2 4 5]
+
+  [1 0]
+
+  清单 2-1
+
+  清单 2-1
+
+  将变量转换为数值
+
+  ```
+
+
+  最后，清单 2-3 训练了所有模型。
+
+
+  ```
+
+  from sklearn.linear_model import LinearRegression, Ridge, RidgeCV, RidgeCV
+
+  lm = LinearRegression()
+
+  lm.fit(x_train,y_train)
+
+  ridge = Ridge()
+
+  ridge.fit(x_train, y_train)
+
+  ridgecv = RidgeCV()
+
+  ridgecv.fit(x_train, y_train)
+
+  lasso = RidgeCV()
+
+  lasso.fit(x_train,y_train)
+
+  清单 2-3
+
+  开发模型
+
+  ```
+
+
+  ```
+
+  from sklearn.preprocessing import StandardScaler
+
+  from sklearn.model_selection import train_test_split
+
+  x = df.iloc[::,0:4]
+
+  y = df.iloc[::,-1]
+
+  x_train, x_test, y_train, y_test = train_test_split(x,y,test_size=0.2, random_state=0)
+
+  scaler = StandardScaler()
+
+  x_train = scaler.fit_transform(x_train)
+
+  x_test = scaler.transform(x_test)
+
+  清单 2-2
+
+  数据预处理
+
+  ```
+
+
+  ## 评估模型
+
+
+  表 2-2 使用主要评估指标总结了所有回归器的性能。
+
+
+  表 2-2
+
+
+  所有模型的模型评估结果
+
+
+  |   | MAE | MSE | RMSE | R² | 解释方差得分 |
+
+  | --- | --- | --- | --- | --- | --- |
+
+  | OLS | 550.512799 | 528211.610638 | 726.781680 | 0.942619 | 0.944409 |
+
+  | Ridge | 548.303122 | 526871.168399 | 725.858918 | 0.942764 | 0.944672 |
+
+  | Ridge CV | 550.291000 | 528056.270472 | 726.674804 | 0.942636 | 0.944437 |
+
+  | Lasso | 550.291000 | 528056.270472 | 726.674804 | 0.942636 | 0.944437 |
+
+
+  表 2-2 突出显示，所有回归器都解释了数据中超过 94% 的变异性。然而，最小二乘回归器是最弱的竞争者，其 R 平方得分最低且存在差异。此外，岭回归器在预测值与实际值之间的差异最大。
+
+
+  ## 结论
+
+
+  本章探讨了用于正则化最小二乘模型估计的不同模型，例如岭回归、带内置交叉验证的岭回归和 lasso 回归。这些模型充分处理了由偏差引起的误差和由方差引起的误差。在测试它们的性能后，我们发现正则化或收缩模型估计可以提高整体性能。岭回归模型是一个微妙的竞争者。如果两种正则化模型都不能提高最小二乘模型的预测能力，请使用
+  `ElasticNet` 模型，它是岭回归和 lasso 回归的可行混合体。
+
+
+  脚注 1
+
+
+  '
+- '# 3. 时间序列分析
+
+
+  本章介绍一种复杂的回归方法，称为*时间序列分析*。与回归方法类似，时间序列对数据的底层结构做出了强有力的假设。我们将时间序列分析视为一种参数方法，因为它处理的是连续变量。请记住，我们并不将序列分析局限于连续变量；我们也可以分析与时间相关的分类变量。
+
+
+  本章介绍了用于检验假设的实证检验，然后介绍了分析时间序列的标准技术，如季节性分解和平滑。之后，它展示了如何估计收益率以及如何计算最小值和最大值。最后，涵盖了 `SARIMAX`
+  模型的开发和评估。
+
+
+  ## 什么是时间序列分析？
+
+
+  时间序列分析使我们能够识别序列中明显的趋势和一致的模式。它捕捉变量随时间的变化。在连续时间序列分析中，我们持续检查一个变量。我们在特定时间点定义序列，而不是在每个时间点。例如，我们将使用外汇的收盘价（每个交易日有一个收盘价）。我们从雅虎获取了示例数据（这是关于
+  2010 年 7 月 3 日至 2020 年 7 月 4 日期间美元/南非兰特货币对价格的时间序列数据）。
+
+
+
+
+  ### 时间序列假设
+
+
+  时间序列分析模型必须满足以下假设：
+
+
+  - 超过 50 个独立数据点
+
+  - 无缺失值
+
+  - 序列中无异常值
+
+  - 非平稳性
+
+  - 无白噪声
+
+  - 变量与自身之间存在相关性
+
+
+  ### 时间序列模型类型
+
+
+  我们通常通过平滑或移动平均（MA）来分析序列，使用 Box-Jenkins 自回归（AR）和 MA 模型，这两种方法的组合称为 ARMA 模型。当一个序列令人信服地显示出某种模式时，我们使用该模型的宽松版本，即自回归积分滑动平均（ARIMA）模型。我们可以通过季节性
+  ARIMA 或 SARIMAX 模型来包含季节性成分。这些方法根据序列的线性结构来描述它。有时，也存在非线性结构。处理非线性模型时，请使用自回归条件异方差（ARCH）模型。处理多个时间序列时，请使用
+  VARMA 模型。
+
+
+  ### ARIMA 模型
+
+
+  `ARIMA(p, d, q)` 能够找到关键趋势并合理预测序列的未来值，其中 `p` 表示自回归模型的阶数，`d` 表示差分次数，`q` 表示移动平均模型的阶数。ARIMA
+  这个术语包含三层含义：AR（自回归）表示先前值影响的线性组合，I（积分）表示随机游走，MA（移动平均）表示先前误差的线性组合。
+
+
+  ## 平稳性检验
+
+
+  当存在随机趋势（随机游走或单位根）时，序列是平稳的。当数据中存在不确定性时，就会出现这种情况。当序列具有随机性元素时，我们就能识别出这些趋势。它们的可见存在会影响结论。在训练时间序列模型之前，需要检验序列是否平稳。我们提出假设如下：
+
+
+  -   *原假设：* 序列是平稳的。
+
+  -   *备择假设：* 序列不是平稳的。
+
+
+  ### 增广迪基-富勒检验
+
+
+  检验序列是否平稳最可靠的方法是增广迪基-富勒（ADF）检验。它是一种单位根检验。查看结果时，要密切关注 ADF F 统计量。如果 F 统计量为负值，则有充分证据表明存在单位根。我们提出假设如下：
+
+
+  -   *原假设：* 存在单位根。
+
+  -   *备择假设：* 不存在单位根。
+
+
+  如果 p 值超过 0.05，那么我们坚决拒绝原假设，接受备择假设。有充分证据表明不存在单位根。
+
+
+  ### 执行 ADF 富勒检验
+
+
+  清单 3-1 执行了 ADF 富勒检验（见表 3-1）。
+
+
+  **表 3-1** ADF 检验统计量
+
+
+  | | 值 |
+
+  | --- | --- |
+
+  | **ADF F% 统计量** | -1.031626 |
+
+  | **P 值** | 0.741555 |
+
+  | **使用的滞后阶数** | 0.000000 |
+
+  | **观测数** | 262.000000 |
+
+
+  ```
+
+  from statsmodels.tsa.stattools import adfuller
+
+  adfullerreport = adfuller(new_df["Close"])
+
+  adfullerreportdata = pd.DataFrame(adfullerreport[0:4],
+
+  columns = ["Values"],
+
+  index=["ADF F% statistics",
+
+  "P-value",
+
+  "No. of lags used",
+
+  "No. of observations"])
+
+  Adfullerreportdata
+
+  Listing 3-1
+
+  ADF Fuller Test
+
+  ```
+
+
+  正如预期，F 统计量为负值。p 值超过 0.05。我们拒绝原假设，接受备择假设。有充分证据表明不存在单位根——该序列是非平稳的。
+
+
+  ## 白噪声检验
+
+
+  当序列存在随机性元素时，就存在白噪声。随机性的明显存在表明序列的数据点之间没有相关性——自相关为零。白噪声是平稳性的一个例子。我们提出假设如下：
+
+
+  -   *原假设：* 存在白噪声。
+
+  -   *备择假设：* 不存在白噪声。
+
+
+  要检查序列是否存在白噪声，请查看均值。如果均值为零，则序列存在白噪声。如果序列的均值不为零，则不存在白噪声。参见清单 3-2 和图 3-1。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig1_HTML.jpg](img/506148_1_En_3_Fig1_HTML.jpg)
+
+
+  **图 3-1** 随机白噪声
+
+
+  ```
+
+  randval = np.random.randn(1000)
+
+  autocorrelation_plot(randval)
+
+  plt.show()
+
+  Listing 3-2
+
+  Random White Noise
+
+  ```
+
+
+  在 95% 和 99% 置信区间上方存在显著的尖峰。
+
+
+  ### 相关性检验
+
+
+  相关性估计变量之间线性关系的强度。在时间序列分析中，我们关注序列中数据点之间的相关性。如果你还记得，我们是在假设数据底层结构是线性的前提下进行的。要检查序列中是否存在相关性，我们不使用皮尔逊相关方法。我们使用自相关来验证该假设。
+
+
+  清单 3-3 和图 3-2 展示了滞后变量。滞后是最近数据点与先前数据点之间的时间差。它验证序列是否具有随机性元素。当我们绘制滞后图时，我们期望找到一种模式。如果滞后图显示线性模式，则两个滞后变量之间存在相关性。它还能检测时间序列中的异常值。如你所见，没有检测到异常值。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig2_HTML.jpg](img/506148_1_En_3_Fig2_HTML.jpg)
+
+
+  **图 3-2** 滞后图
+
+
+  ```
+
+  lag_plot(df["Close"])
+
+  plt.show()
+
+  Listing 3-3
+
+  Lag
+
+  ```
+
+
+  图 3-2 显示了序列中的线性模式（数据点紧密对齐在一条假想的直线上）。清单 3-4 生成了一个自相关图（见图 3-3）。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig3_HTML.jpg](img/506148_1_En_3_Fig3_HTML.jpg)
+
+
+  **图 3-3** 自相关图
+
+
+  ```
+
+  autocorrelation_plot(df["Close"])
+
+  plt.show()
+
+  Listing 3-4
+
+  Autocorrelation
+
+  ```
+
+
+  图 3-3 显示了美元/南非兰特每日收益率，其中大部分尖峰在统计上不显著。
+
+
+  ## 自相关函数
+
+
+  清单 3-5 展示了自相关函数（ACF）图。图 3-4 考虑了趋势、季节性、周期性和残差成分。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig4_HTML.jpg](img/506148_1_En_3_Fig4_HTML.jpg)
+
+
+  **图 3-4** ACF 图
+
+
+  ```
+
+  plot_acf(df["Close"])
+
+  plt.xlabel("Lag")
+
+  plt.ylabel("ACF")
+
+  plt.show
+
+  Listing 3-5
+
+  ACF Plot
+
+  ```
+
+
+  '
+- '# 偏自相关
+
+
+  清单 3-6 展示了偏自相关（PACF）。图 3-5 显示了在低阶滞后中未解释的偏相关系数。在滞后 1 处有一个显著的尖峰。第一个滞后解释了所有高阶自相关。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig5_HTML.jpg](img/506148_1_En_3_Fig5_HTML.jpg)
+
+
+  **图 3-5** PACF 图
+
+
+  ```
+
+  plot_pacf(df["Close"])
+
+  plt.xlabel("Lag")
+
+  plt.ylabel("PACF")
+
+  plt.show()
+
+  Listing 3-6
+
+  PACF
+
+  ```
+
+
+
+
+  ## 理解趋势、季节性与不规则成分
+
+
+  将趋势与周期分离颇具挑战性。理解时间序列数据最简单的方法是将数据分解为不同成分。季节性分解涉及将一个序列分解为三个成分，即趋势、周期、季节性和不规则成分。我们通常使用加法模型，如公式
+  3-1 所示。
+
+
+  `Y(t) = T(t)+C(t)+S(t) x I(t)` (公式 3-1)
+
+
+  这里，`T(t)` 表示时期 `t` 的趋势值，`S(t)` 表示时期 `t` 的季节性值，`C(t)` 表示时期 `t` 的周期值，`I(t)` 表示时期 `t`
+  的不规则（随机）值。季节性分解要求数值为正。当序列中存在零值时，需对整个序列加上 0.5 或 1。清单 3-7 对该序列进行了分解（见图 3-6）。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig6_HTML.jpg](img/506148_1_En_3_Fig6_HTML.jpg)
+
+
+  图 3-6
+
+
+  季节性成分
+
+
+  ```
+
+  decompose = seasonal_decompose(df["Close"].interpolate(),freq=30)
+
+  decompose.plot()
+
+  plt.show()
+
+  清单 3-7
+
+  季节性分解
+
+  ```
+
+
+  ## 使用移动平均和指数技术平滑时间序列
+
+
+  分析序列最直接的方法是使用平滑技术。主要有两种平滑技术，即移动平均平滑和指数平滑。
+
+
+  ### 原始时间序列
+
+
+  清单 3-8 以图形方式展示了变量随时间的变化。图 3-7 有两个轴：x 轴（水平）和 y 轴（垂直），图形上表示为 `(x,y)`。时间（自变量）位于 x 轴上，因变量位于
+  y 轴上。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig7_HTML.jpg](img/506148_1_En_3_Fig7_HTML.jpg)
+
+
+  图 3-7
+
+
+  原始时间序列
+
+
+  ```
+
+  Original = new_df["Close"]
+
+  fig, ax = plt.subplots()
+
+  Original.plot(kind="line", color="navy")
+
+  plt.xlabel("Time")
+
+  plt.ylabel("Close")
+
+  plt.xticks(rotation=45)
+
+  plt.show()
+
+  清单 3-8
+
+  时间序列
+
+  ```
+
+
+  #### 移动平均平滑技术
+
+
+  `MA` 应用了先前和近期数据点的加权平均均值。当序列中没有季节性，但我们希望预测未来实例时，此方法非常有用。权重取决于序列的稳定性。如果序列稳定，则近期数据点权重高，先前数据点权重低。相反，如果序列不稳定，则近期数据点权重低，先前数据点权重高。清单
+  3-9 返回了 90 天的移动平均值（见图 3-8）。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig8_HTML.jpg](img/506148_1_En_3_Fig8_HTML.jpg)
+
+
+  图 3-8
+
+
+  时间序列（90 天移动平均值）
+
+
+  ```
+
+  MA90 = df["Close"].rolling(window=90).mean()
+
+  df.plot(kind="line",color="navy")
+
+  MA90.plot(kind="line",color="black",label="Rolling MA 90 days")
+
+  plt.xlabel("Date")
+
+  plt.xticks(rotation=45)
+
+  plt.ylabel("Price")
+
+  plt.legend()
+
+  plt.show()
+
+  清单 3-9
+
+  时间序列（90 天移动平均值）
+
+  ```
+
+
+  图 3-8 未考虑季节性。收盘价大多高于移动平均线。然而，它难以跟上趋势。
+
+
+  #### 指数平滑技术
+
+
+  `MA` 方法的一种替代方案是指数平滑。它将窗口外的值权重设为零。使用此方法，大权重值会迅速衰减，小权重值则缓慢衰减。清单 3-10 将半衰期（指数权重衰减一半的时间滞后）指定为
+  30（见图 3-9）。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig9_HTML.jpg](img/506148_1_En_3_Fig9_HTML.jpg)
+
+
+  图 3-9
+
+
+  时间序列（指数）
+
+
+  ```
+
+  Exp = df["Close"].ewm(halflife=30).mean()
+
+  fig, ax = plt.subplots()
+
+  Original.plot(kind="line", color="navy")
+
+  Exp.plot(kind="line", color="gray", label="Half Life")
+
+  plt.xlabel("Time")
+
+  plt.ylabel("Close")
+
+  plt.xticks(rotation=45)
+
+  plt.legend()
+
+  plt.show
+
+  清单 3-10
+
+  时间序列（指数）
+
+  ```
+
+
+  平滑方法不会为预测或模型是否合理的检验生成置信区间。
+
+
+  ## 运行最小值和最大值
+
+
+  运行最小值是序列进展过程中的最低值，运行最大值是序列进展过程中的最高值。序列的极值能告诉我们很多关于序列边界的信息。清单 3-11 使用 `expanding()`
+  方法估计了运行最小值和最大值（见图 3-10）。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig10_HTML.jpg](img/506148_1_En_3_Fig10_HTML.jpg)
+
+
+  图 3-10
+
+
+  价格运行最小值和最大值
+
+
+  ```
+
+  expanding_df = df
+
+  expanding_df["running_min"] = expanding_df["Close"].expanding().min()
+
+  expanding_df["running_max"] = expanding_df["Close"].expanding().max()
+
+  fig, ax = plt.subplots()
+
+  Original.plot(kind="line", color="navy")
+
+  expanding_df["running_min"].plot(kind="line", color="red")
+
+  expanding_df["running_max"].plot(kind="line", color="red")
+
+  plt.xlabel("Date")
+
+  plt.ylabel("Close")
+
+  plt.legend()
+
+  plt.xticks(rotation=45)
+
+  plt.show()
+
+  清单 3-11
+
+  运行最小值和最大值
+
+  ```
+
+
+  图 3-10 显示，美元/南非兰特收盘价在 2019 年 7 月 24 日跌至 13.8531 的低点。此后，它接近一个心理价位。在 2019 年最后一个季度，南非兰特兑美元汇率适度企稳。然而，这些涨幅在年初迅速被抹去。美元小幅走高，于
+  2020 年 4 月 6 日达到 19.2486 的新高。
+
+
+  ## 查找收益率和滚动收益率
+
+
+  收益指投资利润。它显示了投资价值的变化。清单 3-12 展示了删除扩展。
+
+
+  ```
+
+  del df_expanding["Running_min"]
+
+  del df_expanding["Running_max"]
+
+  清单 3-12
+
+  删除扩展
+
+  ```
+
+
+  清单 3-13 和图 3-11 展示了投资组合的收益率。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig11_HTML.jpg](img/506148_1_En_3_Fig11_HTML.jpg)
+
+
+  图 3-11
+
+
+  收益率
+
+
+  ```
+
+  pr = df.pct_change()
+
+  pr_plus_one = pr.add(1)
+
+  cumulative_return = pr_plus_one.cumprod().sub(1)
+
+  fig, ax = plt.subplots()
+
+  cumulative_return.mul(100).plot(ax=ax, color="navy")
+
+  plt.xlabel("Date")
+
+  plt.ylabel("Return (%)")
+
+  plt.xticks(rotation=45)
+
+  plt.show()
+
+  清单 3-13
+
+  收益率
+
+  ```
+
+
+  ### 查找滚动收益率
+
+
+  滚动收益率展示了滚动窗口的收益率。它反映了收益率的稳定性。清单 3-14 查找了先前平均收益率的线性组合，清单 3-15 绘制了 90 天的滚动收益率（见图 3-12）。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig12_HTML.jpg](img/506148_1_En_3_Fig12_HTML.jpg)
+
+
+  图 3-12
+
+
+  滚动收益率
+
+
+  ```
+
+  rolling_90_days_rate_of_return = df["Close"].rolling(window=90).apply(get_period_return)
+
+  fig, ax = plt.subplots()
+
+  rolling_90_days_rate_of_return.plot(color="navy")
+
+  plt.xlabel("Date")
+
+  plt.ylabel("Return (%)")
+
+  plt.xticks(rotation=45)
+
+  plt.show()
+
+  清单 3-15
+
+  滚动收益率
+
+  ```
+
+
+  ```
+
+  def get_period_return(period_return):
+
+  return np.prod(period_return + 1) – 1
+
+  清单 3-14
+
+  滚动收益率函数
+
+  ```
+
+
+
+
+  ## SARIMAX 超参数优化
+
+
+  清单 3-16 将数据拆分为训练数据和测试数据。
+
+
+  ```
+
+  train = df.iloc[:len(df) -12]
+
+  test = df.iloc[:len(df) -12]
+
+  start = len(train)
+
+  end = len(train) + len(train) – 1
+
+  Listing 3-16
+
+  Split Data
+
+  ```
+
+
+  清单 3-17 应用 `itertools` 包，使用赤池信息准则（AIC）来确定季节性 ARIMA 模型的最优参数。
+
+
+  ```
+
+  import itertools
+
+  p = d = q = range(0, 2)
+
+  pdq = list(itertools.product(p, d, q))
+
+  seasonal_pdq = [(x[0], x[1], x[2], 12) for x in list(itertools.product(p, d, q))]
+
+  for param in pdq:
+
+  for param in pdq:
+
+  for param_seasonal in seasonal_pdq:
+
+  try:
+
+  mod = sm.tsa.statespace.SARIMAX(train["Close"],
+
+  order=param, seasonal_order=param_seasonal,
+
+  enforce_stationarity=False,
+
+  enforce_invertibility=False)
+
+  results = mod.fit()
+
+  print(''SARIMAX{}x{}12 - AIC:{}''.format(param, param_seasonal, results.aic))
+
+  except:
+
+  continue
+
+  Listing 3-17
+
+  Hyperparameter Optimization
+
+  ```
+
+
+  AIC 定义为 `AIC = -2 lnL + 2k`，其中 `lnL` 是模型的最大化对数似然值，`k` 是估计的参数数量。我们确定季节性 ARIMA 模型的最优参数如下：–
+  ARIMA `(1, 1, 1) x(1, 1, 1, 12)12`。
+
+
+  ## 开发 SARIMAX 模型
+
+
+  清单 3-18 配置了阶数为 `(1, 1, 1)`、季节性阶数为 `(1, 1, 1, 12)` 的 ARIMA 模型。
+
+
+  ```
+
+  timeseriesmodel1 = sm.tsa.statespace.SARIMAX(new_df["Close"], order=(1, 1, 1),
+
+  seasonal_order=(1, 1, 1, 12),
+
+  enforce_stationarity=False,
+
+  enforce_invertibility=False)
+
+  timeseriesmodel_fit1 = timeseriesmodel1.fit()
+
+  Listing 3-18
+
+  Finalize the SARIMAX Model
+
+  ```
+
+
+  ### 模型摘要
+
+
+  清单 3-19 和表 3-2 展示了 SARIMAX 模型的概况。
+
+
+  表 3-2
+
+
+  SARIMAX 概况
+
+
+  | **因变量：** | 收盘价 | **观测数：** | 263 |
+
+  | **模型：** | SARIMAX(1, 1, 1)x(1, 1, 1, 12) | **对数似然值** | 53.382 |
+
+  | **日期：** | 2020 年 10 月 16 日，周五 | **AIC** | -96.765 |
+
+  | **时间：** | 16:07:34 | **BIC** | -79.446 |
+
+  | **样本：** | 2019-07-03 | **HQIC** | -89.783 |
+
+  |   | - 2020-07-03 |   |   |
+
+  | **协方差类型：** | Opg |   |   |
+
+
+  |   | **系数** | **标准误** | **Z** | **P>&#124;z&#124;** | **[0.025** | **0.975]** |
+
+  | --- | --- | --- | --- | --- | --- | --- |
+
+  | **ar.L1** | 0.4856 | 1.971 | 0.246 | 0.805 | -3.377 | 4.348 |
+
+  | **ma.L1** | -0.5019 | 1.952 | -0.257 | 0.797 | -4.327 | 3.324 |
+
+  | **ar.S.L12** | -4.739e-06 | 0.008 | -0.001 | 1.000 | -0.015 | 0.015 |
+
+  | **ma.S.L12** | -0.9322 | 0.046 | -20.178 | 0.000 | -1.023 | -0.842 |
+
+  | **sigma2** | 0.0348 | 0.002 | 15.107 | 0.000 | 0.030 | 0.039 |
+
+
+  | **Ljung-Box (Q)：** | 66.32 | **Jarque-Bera (JB)：** | 91.15 |
+
+  | **Prob(Q)：** | 0.01 | **Prob(JB)：** | 0.00 |
+
+  | **异方差性 (H)：** | 5.28 | **偏度：** | 0.53 |
+
+  | **Prob(H) (双侧)：** | 0.00 | **峰度：** | 5.86 |
+
+
+  ```
+
+  timeseriesmodel_fit1.summary()
+
+  Listing 3-19
+
+  SARIMAX Profile
+
+  ```
+
+
+  表 3-2 显示 AIC 得分为 -96.765，该得分低于其他阶数，并且 `ar.L1`、`ma.L1` 和 `ar.S.L12` 在统计上不显著。p 值均大于
+  0.005。这表明 SARIMAX `(1, 1, 1, 12)` 模型并非合适的模型。建议尝试所有阶数和季节性阶数，以找到能够生成具有显著准确预测能力模型的最优超参数。
+
+
+  ## 预测 SARIMAX
+
+
+  清单 3-20 生成序列的未来实例，并将其与实际值一起绘制（见图 3-13）。
+
+
+  ![../images/506148_1_En_3_Chapter/506148_1_En_3_Fig13_HTML.jpg](img/506148_1_En_3_Fig13_HTML.jpg)
+
+
+  图 3-13
+
+
+  SARMIAX (1, 1, 1, 12) 预测
+
+
+  ```
+
+  predictions1 = timeseriesmodel_fit1.predict(start,end,typ="levels").rename("Prediction")
+
+  test.plot(color="navy")
+
+  predictions1.plot(color="red")
+
+  plt.ylabel("Price")
+
+  plt.xlabel("Date")
+
+  plt.xticks(rotation=45)
+
+  plt.show()
+
+  Listing 3-20
+
+  Forecast
+
+  ```
+
+
+  ## 结论
+
+
+  本章涵盖了时间序列分析。我们训练了一个阶数为 `(1, 1, 1)`、季节性阶数为 `(1, 1, 1, 12)` 的 SARIMAX 模型。它预测了上升趋势；然而，由于序列中存在有影响力的数据点，该预测并不可靠。该模型在预测序列时会出现显著错误。下一章将介绍加法模型。
+
+
+  '
+- '# 4. 高质量时间序列分析
+
+
+  前一章介绍了季节性 ARIMA。在数据预处理和超参数优化方面付出了大量努力之后，该模型在预测序列的未来实例时仍会产生相当大的误差。为了进行快速自动化的预测流程，请使用
+  Facebook 的 Prophet；它基于包含季节性和假日效应的非线性趋势来预测时间序列数据。本章介绍 Prophet，并展示开发和测试加法模型的方法。首先，讨论
+  Statsmodels 包和 Prophet 包之间的关键区别。
+
+
+  ## Statsmodels 与 Prophet 的区别
+
+
+  时间序列分析通常需要诊断和处理缺失值与异常值、使用多种检验统计量验证关键假设、进行超参数优化以及控制季节性效应。如果工作流程中出现一点小错误，模型在预测未来实例时就会产生重大错误。因此，使用
+  Statsmodels 构建模型需要一定程度的精通。
+
+
+  请牢记，机器学习的目标是用最少的代码赋予计算机智能。Statsmodels 并未提供这一点。Prophet 填补了这一空白。它由 Facebook 的核心数据科学团队开发。它可以执行缺失值和异常值检测、超参数优化以及季节性和假日效应控制等任务。要在
+  Python 环境中安装 FB Prophet，请使用 `pip install fbprophet`。要在 Conda 环境中安装，请使用 `conda install
+  -c conda-forge fbprophet`。
+
+
+  ## 理解 Prophet 的组成部分
+
+
+  在上一章中，我们费尽心力构建了一个包含三个组成部分的时间序列模型，即趋势、季节性和不规则成分。
+
+
+
+
+  ### Prophet 组件
+
+
+  Prophet 包充分考虑了趋势、季节性和节假日及事件。在本节中，我们将简要讨论该包的关键组件。
+
+
+  #### 趋势
+
+
+  趋势是单一且一致的方向性运动（向上或向下）。我们通过拟合时间序列模型来发现趋势。表 4-1 突出显示了可调优的趋势参数。
+
+
+  **表 4-1** 可调优的趋势参数
+
+
+  | 参数 | 描述 |
+
+  | --- | --- |
+
+  | `growth` | 指定分段线性或逻辑斯蒂趋势 |
+
+  | `n_changepoints` | 如果未指定变点，则自动包含的变点数量 |
+
+  | `change_prior_scale` | 自动变点选择的变更 |
+
+
+  #### 变点
+
+
+  变点是一个惩罚项。它会改变时间序列模型的行为。如果你不指定变点，则默认变点值会自动设置。
+
+
+  #### 季节性
+
+
+  季节性表示逐年一致的上行或下行运动。公式 4-1 对此进行了近似。
+
+
+  ![$$ S(t)={\sum}_{n=1}^N{\alpha}_n coscos\ \left(\frac{2\pi nt}{P}\right)+{b}_n\mathit{\cos}\left(\frac{2\pi
+  nt}{P}\right) $$](img/506148_1_En_4_Chapter_TeX_Equ1.png)
+
+
+  （公式 4-1）
+
+
+  此处，`P` 是周期（周数据为 7，月数据为 30，季度数据为 90，年数据为 365）。
+
+
+  #### 节假日和事件参数
+
+
+  节假日和事件会影响时间序列的条件均值。表 4-2 概述了关键的可调优节假日和事件参数。
+
+
+  **表 4-2** 节假日和事件参数
+
+
+  | 参数 | 描述 |
+
+  | --- | --- |
+
+  | `daily_seasonality` | 拟合日季节性 |
+
+  | `weekly_seasonality` | 拟合周季节性 |
+
+  | `year_seasonality` | 拟合年季节性 |
+
+  | `holidays` | 包含节假日名称和日期 |
+
+  | `yeasonality_prior_scale` | 确定季节性或节假日组件所需的强度 |
+
+
+  ### 加法模型
+
+
+  加法模型假设趋势和周期被视为一个项。其组件类似于 Holt-Winters 技术。我们将该方程表示为公式 4-2。
+
+
+  ![$$ y=S(t)+T(t)\ast I(t) $$](img/506148_1_En_4_Chapter_TeX_Equ2.png)
+
+
+  （公式 4-2）
+
+
+  该公式的数学表达式如公式 4-3 所示。
+
+
+  ![$$ y=g(t)+s(t)+h(t)+{\varepsilon}_i $$](img/506148_1_En_4_Chapter_TeX_Equ3.png)
+
+
+  （公式 4-3）
+
+
+  此处，`g(t)` 表示用于建模非周期性变化的线性或逻辑斯蒂增长曲线，`s(t)` 表示周期性变化（日、周、年季节性），`h(t)` 表示节假日的影响，`+ ε[i]`
+  表示考虑异常变化的误差项。
+
+
+  ### 数据预处理
+
+
+  我们从雅虎财经获取了示例数据。^(³) 在训练模型之前，按如下方式重新调整数据用途：
+
+
+  *   `df["ds"]`，重新调整时间用途
+
+  *   `df["y"]`，重新调整自变量用途
+
+  *   `df.set_index("")`，将日期和时间设置为索引列
+
+
+  清单 4-1 将列名设置为正确的格式。
+
+
+  ```
+
+  df["ds"] = df["Date"]
+
+  df["y"] = df["Close"]
+
+  df.set_index("Date")
+
+  清单 4-1
+
+  处理数据
+
+  ```
+
+
+  表 4-3 展示了在使用 Prophet 开发时间序列模型之前，数据框应有的样子。
+
+
+  **表 4-3** 数据集
+
+
+  |   | 收盘价 | ds | y |
+
+  | --- | --- | --- | --- |
+
+  | **日期** |   |   |   |
+
+  | **2019-07-03** | 14.074300 | 2019-07-03 | 14.074300 |
+
+  | **2019-07-04** | 14.052900 | 2019-07-04 | 14.052900 |
+
+  | **2019-07-05** | 14.038500 | 2019-07-05 | 14.038500 |
+
+  | **2019-07-08** | 14.195200 | 2019-07-08 | 14.195200 |
+
+  | **2019-07-09** | 14.179500 | 2019-07-09 | 14.179500 |
+
+  | **...** | ... | ... | ... |
+
+  | **2020-06-29** | 17.298901 | 2020-06-29 | 17.298901 |
+
+  | **2020-06-30** | 17.219200 | 2020-06-30 | 17.219200 |
+
+  | **2020-07-01** | 17.341900 | 2020-07-01 | 17.341900 |
+
+  | **2020-07-02** | 17.039301 | 2020-07-02 | 17.039301 |
+
+  | **2020-07-03** | 17.037100 | 2020-07-03 | 17.037100 |
+
+
+  ## 开发 Prophet 模型
+
+
+  清单 4-2 指定了官方节假日。清单 4-3 将模型的置信区间配置为 95%，并考虑了年季节性、周季节性和日季节性。
+
+
+  ```
+
+  holidays = pd.DataFrame({
+
+  ''holiday'': ''playoff'',
+
+  ''ds'': pd.to_datetime(["2020-12-25", "2020-12-24", "2020-12-23", "2019-12-25",
+  "2021-01-01", "2021-01-20"]),
+
+  "lower_window": 0,
+
+  "upper_window": 1,
+
+  })
+
+  清单 4-2
+
+  指定节假日
+
+  ```
+
+
+  清单 4-3 完成了模型构建。
+
+
+  ```
+
+  m = Prophet(holidays=holidays,
+
+  interval_width=0.95,
+
+  yearly_seasonality=True,
+
+  weekly_seasonality=True,
+
+  daily_seasonality=True,
+
+  changepoint_prior_scale=0.095)
+
+  m.add_country_holidays(country_name=''US'')
+
+  m.fit(df)
+
+  清单 4-3
+
+  开发 Prophet 模型
+
+  ```
+
+
+  ### 创建未来数据框
+
+
+  清单 4-4 应用 `make_future_dataframe()` 方法来创建未来数据框。
+
+
+  ```
+
+  future = m.make_future_dataframe(periods=365)
+
+  清单 4-4
+
+  创建限制为 365 天的未来数据框
+
+  ```
+
+
+  ### 预测
+
+
+  清单 4-5 应用 `predict()` 方法来预测未来实例。
+
+
+  ```
+
+  forecast = m.predict(future)
+
+  清单 4-5
+
+  预测时间序列
+
+  ```
+
+
+  清单 4-6 绘制了历史值和预测值（见图 4-1）。
+
+
+  ![../images/506148_1_En_4_Chapter/506148_1_En_4_Fig1_HTML.jpg](img/506148_1_En_4_Fig1_HTML.jpg)
+
+
+  **图 4-1** 预测
+
+
+  ```
+
+  m.plot(forecast)
+
+  plt.xlabel("Date")
+
+  plt.ylabel("Price")
+
+  plt.xticks(rotation=45)
+
+  plt.show()
+
+  清单 4-6
+
+  预测
+
+  ```
+
+
+  图 4-1 与上一章中的 SARIMAX 结果基本一致；但它提供了更多细节。它预测 2021 年第一季度将出现长期看涨趋势。
+
+
+  ### 季节性组件
+
+
+  清单 4-7 对序列进行了分解（见图 4-2）。
+
+
+  ![../images/506148_1_En_4_Chapter/506148_1_En_4_Fig2_HTML.jpg](img/506148_1_En_4_Fig2_HTML.jpg)
+
+
+  **图 4-2** 季节性组件
+
+
+  ```
+
+  model.plot_components(forecast)
+
+  plt.show()
+
+  清单 4-7
+
+  季节性组件
+
+  ```
+
+
+
+
+  ## 交叉验证模型
+
+
+  交叉验证用于测试模型性能。在后台，Prophet 会计算历史数据的预测误差。它会设定一个截止点，并仅使用该截止点之前的数据。清单 4-8 应用了 `cross_validation()`
+  方法，并指定了训练数据的初始起点（`initial`）、预测周期（`horizon`）以及截止点之间的间隔（`period`）。详见表 4-4。
+
+
+  表 4-4
+
+
+  交叉验证表
+
+
+  |   | ds | yhat | yhat_lower | yhat_upper | y | cutoff |
+
+  | --- | --- | --- | --- | --- | --- | --- |
+
+  | **0** | 2020-02-10 | 14.706377 | 14.527866 | 14.862567 | 15.071000 | 2020-02-09
+  |
+
+  | **1** | 2020-02-11 | 14.594084 | 14.429592 | 14.753000 | 14.953500 | 2020-02-09
+  |
+
+  | **2** | 2020-02-12 | 14.448900 | 14.283988 | 14.625561 | 14.791600 | 2020-02-09
+  |
+
+  | **3** | 2020-02-13 | 14.258331 | 14.094124 | 14.428341 | 14.865500 | 2020-02-09
+  |
+
+  | **4** | 2020-02-14 | 14.028495 | 13.858400 | 14.204660 | 14.905000 | 2020-02-09
+  |
+
+  | **...** | ... | ... | ... | ... | ... | ... |
+
+  | **295** | 2020-06-29 | 19.919252 | 19.620802 | 20.193089 | 17.298901 | 2020-04-24
+  |
+
+  | **296** | 2020-06-30 | 19.951939 | 19.660207 | 20.233733 | 17.219200 | 2020-04-24
+  |
+
+  | **297** | 2020-07-01 | 19.966822 | 19.665303 | 20.250541 | 17.341900 | 2020-04-24
+  |
+
+  | **298** | 2020-07-02 | 20.012227 | 19.725297 | 20.301380 | 17.039301 | 2020-04-24
+  |
+
+  | **299** | 2020-07-03 | 20.049481 | 19.752089 | 20.347799 | 17.037100 | 2020-04-24
+  |
+
+
+  ```
+
+  from fbprophet.diagnostics import cross_validation
+
+  df_cv = cross_validation(model, initial="210 days",period="15 days", horizon="70
+  days") df_cv
+
+  清单 4-8
+
+  交叉验证
+
+  ```
+
+
+  ## 评估模型
+
+
+  清单 4-9 应用了 `performance_metrics()` 方法来返回关键的评估指标（见表 4-5）。
+
+
+  表 4-5
+
+
+  性能指标
+
+
+  |   | horizon | mse | Rmse | mae | mape | mdape | coverage |
+
+  | --- | --- | --- | --- | --- | --- | --- | --- |
+
+  | **0** | 7 days | 0.682286 | 0.826006 | 0.672591 | 0.038865 | 0.033701 | 0.166667
+  |
+
+  | **1** | 8 days | 1.145452 | 1.070258 | 0.888658 | 0.051701 | 0.047487 | 0.100000
+  |
+
+  | **2** | 9 days | 1.557723 | 1.248088 | 1.077183 | 0.063369 | 0.056721 | 0.033333
+  |
+
+  | **3** | 10 days | 2.141915 | 1.463528 | 1.299301 | 0.077282 | 0.066508 | 0.033333
+  |
+
+  | **4** | 11 days | 3.547450 | 1.883468 | 1.648495 | 0.097855 | 0.086243 | 0.000000
+  |
+
+  | **...** | ... | ... | ... | ... | ... | ... | ... |
+
+  | **59** | 66 days | 187.260756 | 13.684325 | 9.480800 | 0.549271 | 0.244816 | 0.000000
+  |
+
+  | **60** | 67 days | 157.856975 | 12.564115 | 8.915581 | 0.515198 | 0.244816 | 0.000000
+  |
+
+  | **61** | 68 days | 137.029889 | 11.705977 | 8.692623 | 0.499211 | 0.253436 | 0.000000
+  |
+
+  | **62** | 69 days | 116.105651 | 10.775233 | 8.146737 | 0.466255 | 0.252308 | 0.000000
+  |
+
+  | **63** | 70 days | 96.738282 | 9.835562 | 7.483452 | 0.427025 | 0.227503 | 0.000000
+  |
+
+
+  ```
+
+  from fbprophet.diagnostics import performance_metrics
+
+  df_p = performance_metrics(df_cv)
+
+  df_p
+
+  清单 4-9
+
+  性能
+
+  ```
+
+
+  ## 结论
+
+
+  本章介绍了广义加性模型。该模型考虑了季节性，并将时间作为回归变量。其性能优于季节性 ARIMA 模型。该模型在预测序列未来实例时误差较小。我们可以依赖 Prophet
+  模型来预测时间序列。
+
+
+  本书前四章恰当地介绍了参数化方法。该方法对数据的底层结构做出了大胆的假设。它假设数据的底层结构是线性的。
+
+
+  后续章节将介绍非参数化方法。该方法支持对数据底层结构进行灵活的假设。它假设数据的底层结构是非线性的。
+
+
+  脚注 1
+
+
+  '
+- "# 5. 逻辑回归分析\n\n本章以结构化的方式介绍逻辑回归的概念及其实现。前面的章节介绍了监督学习，并重点讨论了参数化方法。在监督学习中，我们向模型提供一组正确答案，然后让模型预测未见过的数据。我们使用参数化方法来解决回归问题（当因变量是连续变量时）。\n\
+  \n本章介绍一种被称为非参数化方法（或分类方法）的监督学习方法。与线性回归方法不同，它对数据的结构有灵活的假设。它没有线性和正态性假设。分类方法有两个完整的类别。它们是二元分类（当因变量有两个结果时使用，例如：是/否、通过/失败）和多类分类（当因变量有两个以上结果时使用，例如：负面/中性/正面）。\n\
+  \n## 什么是逻辑回归？\n\n逻辑回归是一种用于估计自变量对因变量影响程度的模型。自变量可以是连续变量或分类变量，而因变量则始终是只有两个结果的分类变量。尽管逻辑回归被称为*回归*，但它并非回归模型，而是一种分类模型。与线性回归一样，我们使用该模型来寻找截距和斜率。\n\
+  \n## 逻辑回归的假设\n\n分类方法不包含对数据结构的严格假设。它假设因变量是分类变量，并且数据中至少有 50 个数据点。理想情况下，我们需要大样本。\n\n\
+  ## 逻辑回归实践\n\n我们从 Kaggle 获取了示例数据。^(⁴) 表 5-1 显示了数据的前几行。\n\n表 5-1\n\n数据集\n\n|   | Pregnancies\
+  \ | Glucose | BloodPressure | SkinThickness | Insulin | BMI | DiabetesPedigreeFunction\
+  \ | Age | Outcome |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | ---\
+  \ |\n| **0** | 6 | 148 | 72 | 35 | 0 | 33.6 | 0.627 | 50 | 1 |\n| **1** | 1 | 85\
+  \ | 66 | 29 | 0 | 26.6 | 0.351 | 31 | 0 |\n| **2** | 8 | 183 | 64 | 0 | 0 | 23.3\
+  \ | 0.672 | 32 | 1 |\n| **3** | 1 | 89 | 66 | 23 | 94 | 28.1 | 0.167 | 21 | 0 |\n\
+  | **4** | 0 | 137 | 40 | 35 | 168 | 43.1 | 2.288 | 33 | 1 |\n\n## Sigmoid 函数\n\n\
+  逻辑回归使用 sigmoid 函数对输出进行转换，使其能够直接返回一个分配给两个分类类别的概率值。其标准公式呈 S 形或 sigmoid 形状。图 5-1 展示了一个标准的逻辑函数。\n\
+  \n![../images/506148_1_En_5_Chapter/506148_1_En_5_Fig1_HTML.jpg](img/506148_1_En_5_Fig1_HTML.jpg)\n\
+  \n图 5-1\n\nSigmoid 函数\n\n公式 5-1 表达了 sigmoid 函数。\n\n![$$ S(x)=\\frac{L}{1-{e}^{-x}}=\\\
+  frac{e^x}{e^x+1} $$](img/506148_1_En_5_Chapter_TeX_Equ1.png)\n\n（公式 5-1）\n\n标准的\
+  \ sigmoid 函数接受任何输入，并输出一个介于 0 和 1 之间的值。\n\n\n\n### 描述性分析\n\n清单 5-1 生成了描述性统计量（见表 5-2）。\n\
+  \n表 5-2\n\n描述性统计量\n\n| | 计数 | 均值 | 标准差 | 最小值 | 25% | 50% | 75% | 最大值 |\n| --- |\
+  \ --- | --- | --- | --- | --- | --- | --- | --- |\n| **怀孕次数** | 768.0 | 3.845052\
+  \ | 3.369578 | 0.000 | 1.00000 | 3.0000 | 6.00000 | 17.00 |\n| **血糖** | 768.0 |\
+  \ 120.894531 | 31.972618 | 0.000 | 99.00000 | 117.0000 | 140.25000 | 199.00 |\n\
+  | **血压** | 768.0 | 69.105469 | 19.355807 | 0.000 | 62.00000 | 72.0000 | 80.00000\
+  \ | 122.00 |\n| **皮肤厚度** | 768.0 | 20.536458 | 15.952218 | 0.000 | 0.00000 | 23.0000\
+  \ | 32.00000 | 99.00 |\n| **胰岛素** | 768.0 | 79.799479 | 115.244002 | 0.000 | 0.00000\
+  \ | 30.5000 | 127.25000 | 846.00 |\n| **身体质量指数** | 768.0 | 31.992578 | 7.884160\
+  \ | 0.000 | 27.30000 | 32.0000 | 36.60000 | 67.10 |\n| **糖尿病遗传函数** | 768.0 | 0.471876\
+  \ | 0.331329 | 0.078 | 0.24375 | 0.3725 | 0.62625 | 2.42 |\n| **年龄** | 768.0 | 33.240885\
+  \ | 11.760232 | 21.000 | 24.00000 | 29.0000 | 41.00000 | 81.00 |\n| **结果** | 768.0\
+  \ | 0.348958 | 0.476951 | 0.000 | 0.00000 | 0.0000 | 1.00000 | 1.00 |\n\n```\ndf.describe().transpose()\n\
+  清单 5-1\n描述性统计量\n```\n\n### 皮尔逊相关方法\n\n清单 5-2 展示了线性关系的强度（见图 5-2）。\n\n![../images/506148_1_En_5_Chapter/506148_1_En_5_Fig2_HTML.jpg](img/506148_1_En_5_Fig2_HTML.jpg)\n\
+  \n图 5-2\n\n皮尔逊相关矩阵\n\n```\ndfcorr = df.corr(method=\"pearson\")\nsns.heatmap(dfcorr,\
+  \ annot=True,annot_kws={\"size\":12}, cmap=\"Blues\")\nplt.show()\n清单 5-2\n皮尔逊相关矩阵\n\
+  ```\n\n图 5-2 显示数据中大多数变量之间存在微弱的正相关关系。\n\n### 其他相关方法\n\n还有其他用于衡量变量间相关性的方法，例如肯德尔方法和斯皮尔曼方法。它们的使用取决于具体应用场景。\n\
+  \n#### 肯德尔相关方法\n\n肯德尔相关方法用于估计有序变量中排名之间的关联性。有序变量由距离未知的分类变量组成。有序数据的一个例子是李克特量表。肯德尔相关方法的值范围从\
+  \ -1 到 1，其中 -1 表示排名不一致，0 表示排名相互独立，1 表示两个排名完全一致。清单 5-3 生成了肯德尔相关矩阵（见图 5-3）。\n\n![../images/506148_1_En_5_Chapter/506148_1_En_5_Fig3_HTML.jpg](img/506148_1_En_5_Fig3_HTML.jpg)\n\
+  \n图 5-3\n\n肯德尔相关矩阵\n\n```\ndfcorr_kendall = df.corr(method=\"kendall\")\nsns.heatmap(dfcorr_kendall,\
+  \ annot=True,annot_kws={\"size\":12}, cmap=\"Oranges\")\nplt.show()\n清单 5-3\n肯德尔相关矩阵\n\
+  ```\n\n图 5-3 显示大多数排名非常接近一致。肯德尔相关方法与皮尔逊相关方法产生的值略有差异。\n\n#### 斯皮尔曼相关方法\n\n斯皮尔曼相关方法是另一种基于排名的相关方法。它衡量两个变量排名之间的统计依赖性。该方法有助于识别变量是否呈线性关系。其值范围也在\
+  \ -1 到 1 之间，其中 -1 表示弱关联，0 表示无关联，1 表示强关联。清单 5-4 返回了一个斯皮尔曼相关矩阵（见图 5-4）。\n\n![../images/506148_1_En_5_Chapter/506148_1_En_5_Fig4_HTML.jpg](img/506148_1_En_5_Fig4_HTML.jpg)\n\
+  \n图 5-4\n\n斯皮尔曼相关矩阵\n\n```\n-\n清单 5-4\n斯皮尔曼相关矩阵\n```\n\n图 5-4 也证实了数据的底层结构是线性的。\n\
+  \n## 协方差矩阵\n\n协方差提供了关于自变量和因变量之间联合变异性的详细信息。大多数情况下，我们对协方差本身不感兴趣，而是对变量之间的相关性感兴趣。清单\
+  \ 5-5 生成了协方差矩阵（见图 5-5）。\n\n![../images/506148_1_En_5_Chapter/506148_1_En_5_Fig5_HTML.jpg](img/506148_1_En_5_Fig5_HTML.jpg)\n\
+  \n图 5-5\n\n协方差矩阵\n\n```\ndfcov = df.cov() sns.heatmap(dfcov, annot=True,annot_kws={\"\
+  size\":12}, cmap=\"Blues\")\nplt.show\n清单 5-5\n协方差矩阵\n```\n\n图 5-5 描绘了变量之间的变异性。\n\
+  \n### 创建 X 和 Y 数组\n\n在执行描述性分析和降维之后，下一步是将数据分解为两组一维数组（`x`, `y`），其中 `x` 代表自变量，`y` 代表因变量。清单\
+  \ 5-6 以如下方式对数据进行切片：数据的前八列属于 `x` 数组，最后一列属于 `y` 数组。\n\n```\nx = df.iloc[::,0:8]\n\
+  y = df.iloc[::,-1]\n清单 5-6\n创建 X 和 Y 数组\n```\n\n### 将数据拆分为训练数据和测试数据\n\n在监督学习模型中，我们将数据拆分为训练数据和测试数据。清单\
+  \ 5-7 将数据拆分为训练数据和测试数据。\n\n```\nfrom sklearn.model_selection import train_test_split\n\
+  x_train, x_test, y_train, y_test = train_test_split(x,y, test_size=0.2, random_state=0)\n\
+  清单 5-7\n拆分数据\n```\n\n\n\n### 特征值矩阵\n\n最常见的多重共线性检测方法是容忍度和方差膨胀因子（VIF）。容忍度衡量的是独特的总体标准方差，而\
+  \ VIF 则是包含单个自变量在内的模型总体方差。一种更可靠的严重程度判断方法是使用特征值。特征值小于 0 表示存在多重共线性。特征值在 10 到 100 之间表示存在轻微的多重共线性。最后，特征值大于\
+  \ 100 表示存在严重的多重共线性。代码清单 5-8 使用`NumPy`包生成特征向量和特征值，并使用`Pandas`将其转换为数据框，以便您能清晰地查看该矩阵（见表\
+  \ 5-3）。\n\n**表 5-3**  \n特征值矩阵\n\n| | 特征值 | 怀孕次数 | 血糖 | 血压 | 皮褶厚度 | 胰岛素 | BMI | 糖尿病遗传函数\
+  \ | 年龄 | 结果 |\n|---|---|---|---|---|---|---|---|---|---|---|\n| **怀孕次数** | 13456.577591\
+  \ | -0.002022 | 0.022650 | -0.022465 | -0.049041 | -0.151620 | -0.005077 | -0.986468\
+  \ | 0.018049 | 0.010692 |\n| **血糖** | 932.805966 | 0.097812 | 0.972186 | 0.143425\
+  \ | 0.119804 | 0.087995 | 0.050824 | -0.000769 | 0.006061 | 0.000643 |\n| **血压**\
+  \ | 390.577869 | 0.016093 | 0.141901 | -0.922468 | -0.262749 | 0.232160 | 0.075596\
+  \ | 0.001177 | -0.002469 | -0.000071 |\n| **皮褶厚度** | 198.184055 | 0.060757 | -0.057856\
+  \ | -0.307012 | 0.884371 | -0.259927 | 0.221412 | 0.000379 | 0.001118 | -0.002349\
+  \ |\n| **胰岛素** | 112.693345 | 0.993111 | -0.094629 | 0.020977 | -0.065549 | 0.000169\
+  \ | -0.006137 | -0.001426 | -0.000072 | -0.000295 |\n| **BMI** | 45.837383 | 0.014011\
+  \ | 0.046977 | -0.132444 | 0.192811 | -0.021518 | -0.970677 | 0.003045 | 0.013921\
+  \ | 0.000672 |\n| **糖尿病遗传函数** | 7.763548 | 0.000537 | 0.000817 | -0.000640 | 0.002699\
+  \ | -0.001642 | -0.002032 | 0.006306 | -0.239281 | 0.970922 |\n| **年龄** | 0.164361\
+  \ | -0.003565 | 0.140168 | -0.125454 | -0.301007 | -0.920492 | -0.014979 | 0.162649\
+  \ | 0.003234 | -0.001209 |\n| **结果** | 0.099139 | 0.000585 | 0.007010 | 0.000309\
+  \ | 0.002625 | -0.006131 | -0.013184 | -0.019319 | -0.970655 | -0.239141 |\n\n```\n\
+  eigenvalues, eigenvectors = np.linalg.eig(dfcov)\neigenvalues = pd.DataFrame(eigenvalues)\n\
+  eigenvectors = pd.DataFrame(eigenvectors)\neigens = pd.concat([eigenvalues,eigenvectors],axis=1)\n\
+  eigens.index = df.columns\neigens.columns = (\"Eigen values\",\"Pregnancies\",\"\
+  Glucose\",\"BloodPressure\",\"SkinThickness\",\"Insulin\",\"BMI\",\"DiabetesPedigreeFunction\"\
+  ,\"Age\",\"Outcome\")\neigens\n代码清单 5-8\n创建特征值矩阵\n```\n\n## 数据归一化\n\n代码清单 5-9 对数据进行转换，使得均值为\
+  \ 0，标准差为 1。\n\n```\nfrom sklearn.preprocessing import StandardScaler\nscaler = StandardScaler()\n\
+  x_train = scaler.fit_transform(x_train)\nx_test = scaler.transform(x_test)\n代码清单\
+  \ 5-9\n数据归一化\n```\n\n## 数据建模\n\n我们开发了两个模型来解决当前的分类问题；第一个模型使用`Statsmodels`，第二个模型使用`SciKit-Learn`。\n\
+  \n## 使用 Statsmodels 开发逻辑分类器\n\n在过去的两个章节（涵盖时间序列分析）中，我们批评了使用`Statsmodels`开发可靠时间序列模型的难度。但这并不意味着这个包整体上不好。它仍然具有相关性；实际上，很少有包能像`Statsmodels`那样提供深入的分析。\n\
+  \n### 添加常数项\n\n默认情况下，`Statsmodels`不包含常数项。代码清单 5-10 手动添加了一个常数项。\n\n```\nfrom statsmodels.api\
+  \ import sm\nx_constant = sm.add_constant(x_train)\nx_test = sm.add_constant(x_test)\n\
+  代码清单 5-10\n添加常数项\n```\n\n### 开发逻辑分类器\n\n`Statsmodels`的默认分类器使用逻辑模型和最大似然法（MLE）。我们如公式\
+  \ 5-2 所示表达该公式。\n\n![$$ {F}_{ML}=\\mathit{\\log}\\left|\\sum \\left(\\varTheta \\\
+  right)\\right|-\\mathit{\\log}\\left|S\\right|+ tr\\left[S\\sum {\\left(\\varTheta\
+  \ \\right)}^{-1}\\right]-p $$](images/506148_1_En_5_Chapter/506148_1_En_5_Chapter_TeX_Equ2.png)\n\
+  \n（公式 5-2）\n\n这里，`log`表示自然对数，`S`表示经验协方差矩阵，`ϴ`表示参数向量，`∑(ϴ)`和`|∑(ϴ)|`表示协方差。参见代码清单\
+  \ 5-11。\n\n```\nmodel = sm.Logit(y_train,x_constant).fit()\n代码清单 5-11\n开发逻辑分类器\n\
+  ```\n\n#### 偏回归\n\n描述变量间关系的一种宽松方式是使用偏回归图。代码清单 5-12 绘制了所研究变量之间的关联（见图 5-6）。\n\n![../images/506148_1_En_5_Chapter/506148_1_En_5_Fig6_HTML.jpg](img/506148_1_En_5_Fig6_HTML.jpg)\n\
+  \n**图 5-6**  \n偏回归网格图\n\n```\nfig = sm.graphics.plot_partregress_grid(model)\nplt.show()\n\
+  代码清单 5-12\n偏回归\n```\n\n### 模型摘要\n\n代码清单 5-13 和表 5-4 总结了该模型。\n\n**表 5-4**  \n概况\n\
+  \n| **因变量:** | 结果 | **观测数:** | 614 |\n|---|---|---|---|\n| **模型:** | Logit | **残差自由度:**\
+  \ | 605 |\n| **方法:** | MLE | **模型自由度:** | 8 |\n| **日期:** | 2020 年 10 月 15 日，周四 |\
+  \ **伪 R 方:** | 0.2607 |\n| **时间:** | 19:15:31 | **对数似然值:** | -296.59 |\n| **收敛:**\
+  \ | 是 | **零模型对数似然值:** | -401.18 |\n| **协方差类型:** | 非稳健 | **LLR p 值:** | 7.418e-41\
+  \ |\n\n| | **系数** | **标准误** | **z** | **P>&#124;z&#124;** | **[0.025** | **0.975]**\
+  \ |\n|---|---|---|---|---|---|---|\n| **常数项** | -0.7920 | 0.106 | -7.484 | 0.000\
+  \ | -0.999 | -0.585 |\n| **x1** | 0.3147 | 0.118 | 2.664 | 0.008 | 0.083 | 0.546\
+  \ |\n| **x2** | 1.0788 | 0.131 | 8.224 | 0.000 | 0.822 | 1.336 |\n| **x3** | -0.2685\
+  \ | 0.113 | -2.369 | 0.018 | -0.491 | -0.046 |\n| **x4** | 0.0710 | 0.125 | 0.569\
+  \ | 0.569 | -0.174 | 0.316 |\n| **x5** | -0.1664 | 0.115 | -1.443 | 0.149 | -0.393\
+  \ | 0.060 |\n| **x6** | 0.6955 | 0.131 | 5.313 | 0.000 | 0.439 | 0.952 |\n| **x7**\
+  \ | 0.2983 | 0.110 | 2.700 | 0.007 | 0.082 | 0.515 |\n| **x8** | 0.2394 | 0.124\
+  \ | 1.931 | 0.054 | -0.004 | 0.483 |\n\n```\nsummary = model.summary()\nsummary\n\
+  代码清单 5-13\n概况\n```\n\n表 5-4 显示了关于逻辑回归模型的信息。它概述了估计的截距和斜率。此外，它还包含对假设检验有用的检验统计量结果以及关于模型性能的信息。在分类分析中，我们不使用`R²`来衡量变异性。相反，我们使用伪`R²`。表\
+  \ 5-4 表明我们具有统计上显著的关系。少数已建立的关系在统计上不显著。\n\n## 使用 SciKit-Learn 开发逻辑分类器\n\n在下一节中，我们将使用`Scikit-Learn`包。我们遵循与其他章节相同的步骤。代码清单\
+  \ 5-14 使用默认超参数训练模型。\n\n```\nfrom sklearn.linear_model import LogisticRegression\n\
+  logreg = LogisticRegression()\nlogreg.fit(x_train,y_train)\n代码清单 5-14\n使用默认超参数开发逻辑分类器\n\
+  ```\n\n\n\n### 逻辑回归超参数优化\n\n回顾前几章的内容，你可能已经注意到超参数对模型性能起着重要作用。在最终确定机器学习模型之前，请确保模型具有最优的超参数。清单\
+  \ 5-15 返回了最优超参数。\n\n```\nfrom sklearn.model_selection import GridSearchCV\nparam_grid\
+  \ = {\"dual\":[False,True],\n\"fit_intercept\":[False,True],\n\"max_iter\":[1,10,100,1000],\n\
+  \"penalty\":(\"l1\",\"l2\"),\n\"tol\":[0.0001,0.001,0.01,1.0],\n\"warm_start\":[False,True]}\n\
+  grid_model = GridSearchCV(estimator=logreg, param_grid=param_grid)\ngrid_model.fit(x_train,y_train)\n\
+  print(\"Best score: \", grid_model.best_score_, \"Best parameters: \", grid_model.best_params_)\n\
+  清单 5-15\n超参数优化\n```\n\n最佳得分：`0.7960609991158407` 最佳参数：`{'dual': False, 'fit_intercept':\
+  \ True, 'max_iter': 100, 'penalty': 'l2', 'tol': 0.0001, 'warm_start': False}`\n\
+  \n清单 5-16 完成了模型的构建。\n\n```\nlogreg = LogisticRegression(dual= False,\nfit_intercept=\
+  \ True,\nmax_iter= 10,\nn_jobs= -5,\npenalty= 'l2',\ntol=0.0001,\nwarm_start= False)\n\
+  logreg.fit(x_train,y_train)\n清单 5-16\n最终确定逻辑分类器\n```\n\n### 预测\n\n清单 5-17 获取预测值，然后创建一个显示实际值和预测值的数据框（见表\
+  \ 5-5）。\n\n表 5-5\n\n实际值与预测值\n\n|   | 实际值 | 预测值 |\n| --- | --- | --- |\n| **661**\
+  \ | 1 | 1 |\n| **122** | 0 | 0 |\n| **113** | 0 | 0 |\n| **14** | 1 | 1 |\n| **529**\
+  \ | 0 | 0 |\n| **...** | ... | ... |\n| **476** | 1 | 0 |\n| **482** | 0 | 0 |\n\
+  | **230** | 1 | 1 |\n| **527** | 0 | 0 |\n| **380** | 0 | 0 |\n\n```\ny_pred = logreg.predict(x_test)\n\
+  y_pred  = pd.DataFrame({\"Actual\":y_test, \"Predicted\": y_predlogreg})\ny_pred\n\
+  清单 5-17\n实际值与预测值\n```\n\n### 查找截距\n\n清单 5-18 查找截距。\n\n```\nlogreg.intercept_\narray([-0.78763914])\n\
+  清单 5-18\n截距\n```\n\n### 查找估计系数\n\n清单 5-19 展示了我们模型的参数。\n\n```\nlogreg.coef_\narray([[\
+  \ 0.3097449 ,  1.06006236, -0.26057825,  0.06865213, -0.15816976,\n0.68419394, \
+  \ 0.29353764,  0.2396453 ]])\n清单 5-19\n系数\n```\n\n### 评估逻辑分类器\n\n在最终确定二分类器后，我们必须考察该分类器对类别的分类效果。这涉及比较实际标签与预测标签之间的差异。我们首先从构建混淆矩阵开始。\n\
+  \n##### 混淆矩阵\n\n当分类器进行预测时，它容易出错。在处理二分类问题时，存在两种类型的错误，即第一类错误（假阳性）和第二类错误（假阴性）。\n\n\
+  - *假阳性（FP）*：错误地预测事件发生。例如，预测患者患有糖尿病，而实际上患者并未患病。\n- *假阴性（FN）*：错误地预测事件未发生。例如，预测患者未患糖尿病，而实际上患者患有糖尿病。\n\
+  \n尽管分类器容易出错，但它确实能做出一些正确的预测。\n\n- *真阳性（TP）*：正确地预测事件发生。例如，正确预测患者患有糖尿病。\n- *真阴性（TN）*：正确地预测事件未发生。例如，正确预测患者未患糖尿病。\n\
+  \n混淆矩阵包含了实际类别与预测类别的四种组合。混淆矩阵的形式如表 5-6、清单 5-20 和表 5-7 所示。\n\n表 5-7\n\n混淆矩阵\n\n| \
+  \  | 预测：否 | 预测：是 |\n| --- | --- | --- |\n| **实际：否** | 98 | 9 |\n| **实际：是** | 18\
+  \ | 29 |\n\n表 5-6\n\n混淆矩阵\n\n|   | 预测：否 | 预测：是 |\n| --- | --- | --- |\n| **实际：否**\
+  \ | TN = 98 | FP = 9 |\n| **实际：是** | FN = 18 | TP = 29 |\n\n```\ncmatlogreg = pd.DataFrame(metrics.confusion_matrix(y_test,y_predlogreg),\
+  \ index=[\"Actual: No\",\"Actual: Yes\"],\ncolumns=(\"Predicted: No\",\"Predicted:\
+  \ Yes\"))\ncmatlogreg\n清单 5-20\n混淆矩阵\n```\n\n#### 分类报告\n\n分类报告是一份详细报告，突出显示了分类器的性能。它包含关键指标，如准确率、精确率、F1\
+  \ 支持度、召回率和患病率。这些指标的计算均基于混淆矩阵。表 5-8 概述了分类报告中的关键指标，清单 5-21 返回了一份分类报告。\n\n表 5-8\n\n\
+  分类报告\n\n| 指标 | 描述 |\n| --- | --- |\n| 精确率 | 确定分类器正确的频率 |\n| 准确率 | 确定分类器预测正确的频率 |\n\
+  | F1 支持度 | 确定精确率和召回率的平均值 |\n| 支持度 | 确定属于该类别的真实响应样本数量 |\n\n```\ncreportlogreg = pd.DataFrame(metrics.classification_report(y_test,y_predlogreg,\
+  \ output_dict=True)).transpose()\ncreportlogreg\n清单 5-21\n分类报告\n```\n\n表 5-9 突出显示逻辑分类器的准确率为\
+  \ 82%。同时，它也表明数据存在不平衡。分类器在预测类别 0 时比预测类别 1 时更精确。\n\n表 5-9\n\n分类报告\n\n|   | 精确率 | 召回率\
+  \ | F1 分数 | 支持度 |\n| --- | --- | --- | --- | --- |\n| **0** | 0.844828 | 0.915888\
+  \ | 0.878924 | 107.000000 |\n| **1** | 0.763158 | 0.617021 | 0.682353 | 47.000000\
+  \ |\n| **准确率** | 0.824675 | 0.824675 | 0.824675 | 0.824675 |\n| **宏平均** | 0.803993\
+  \ | 0.766455 | 0.780638 | 154.000000 |\n| **加权平均** | 0.819902 | 0.824675 | 0.818931\
+  \ | 154.000000 |\n\n#### ROC 曲线\n\n接收者操作特征（ROC）曲线是一种用于寻找合适超参数设置的工具。它有助于总结在不同概率阈值下，真阳性率与假阳性率之间的权衡。x\
+  \ 轴表示假阳性率，y 轴表示真阳性率。曲线越贴近 ROC 空间的左侧边界而非顶部边界，其准确度就越高。参见清单 5-22。\n\n```\ny_predlogreg_proba\
+  \ = logreg.predict_proba(x_test)[::,1]\nfprlogreg, tprlogreg, _ = metrics.roc_curve(y_test,y_predlogreg_proba)\n\
+  auclogreg = metrics.roc_auc_score(y_test, y_predlogreg_proba)\nplt.plot(fprlogreg,\
+  \ tprlogreg, label=\"AUC: \"+str(auclogreg), color=\"navy\")\nplt.plot([0,1],[0,1],color=\"\
+  red\")\nplt.xlim([0.00,1.01])\nplt.ylim([0.00,1.01])\nplt.xlabel(\"特异性\")\nplt.ylabel(\"\
+  敏感性\")\nplt.legend(loc=4)\nplt.show()\n清单 5-22\nROC 曲线\n```\n\n图 5-7 中的曲线先沿左侧边界延伸一段，然后平滑地弯向\
+  \ ROC 空间的顶部边界。曲线逐渐接近 45 度线。这意味着逻辑分类器的准确度并未达到我们期望的水平。\n\n![../images/506148_1_En_5_Chapter/506148_1_En_5_Fig7_HTML.jpg](img/506148_1_En_5_Fig7_HTML.jpg)\n\
+  \n图 5-7\n\nROC 曲线\n\n##### 曲线下面积\n\n曲线下面积（AUC）也被视为准确度指标。它包含了 ROC 曲线的性能度量。它指示了分类器区分不同类别的能力。曲线下面积得分越接近\
+  \ 1，模型的预测能力就越强。AUC 得分为 `0.87`。根据 80/20 法则，该分类器在区分实际类别与预测类别方面表现良好。\n\n\n\n#### 精确率-召回率曲线\n\
+  \n我们使用精确率-召回率曲线来展示不同阈值下精确率与召回率之间的权衡关系。理想情况下，我们希望曲线能径直向右上方移动，然后急剧水平弯曲。这样的曲线意味着高精确率和高召回率，表明二分类器做出的所有预测都是正确的。参见清单\
+  \ 5-23。\n\n```\nprecisionlogreg, recalllogreg, thresholdlogreg = metrics.precision_recall_curve(y_test,y_predlogreg)\n\
+  apslogreg = metrics.roc_auc_score(y_test,y_predlogreg)\nplt.plot(precisionlogreg,\
+  \ recalllogreg, label=\"aps: \"+str(apslogreg),color=\"navy\",alpha=0.8)\nplt.axhline(y=0.5,color=\"\
+  red\",alpha=0.8)\nplt.xlabel(\"Precision\")\nplt.ylabel(\"Recall\")\nplt.legend(loc=4)\n\
+  plt.show()\n清单 5-23\n精确率-召回率曲线\n```\n\n图 5-8 中的曲线并未逼近右上角边界，而是缓慢地向右下角下降。这表明糖尿病患者与非糖尿病患者之间存在重叠区域。精确率和召回率都不够高。\n\
+  \n![../images/506148_1_En_5_Chapter/506148_1_En_5_Fig8_HTML.jpg](img/506148_1_En_5_Fig8_HTML.jpg)\n\
+  \n图 5-8\n\n精确率-召回率曲线\n\n#### 计算平均精确率分数\n\n为了理解精确率-召回率曲线，我们需要解析其集中趋势。平均精确率分数（APS）是精确率-召回率曲线内所有精确率分数的算术平均值。该分类器在\
+  \ 76% 的情况下是精确的。\n\n#### 学习曲线\n\n学习曲线用于判断模型是否存在低偏差误差项（欠拟合）和高方差（过拟合）。它描绘了模型随时间推移的学习过程。该曲线使我们能够确定增加训练数据中的数据点能在多大程度上带来收益，并判断估计器是存在方差误差还是偏差。学习曲线有两种类型，即训练学习曲线（根据训练数据计算）和验证学习曲线（根据验证数据计算）。学习曲线有两个轴：x\
+  \ 轴表示训练集大小，y 轴表示准确率分数。图 5-9 展示了分类器的学习过程。另请参见清单 5-24。\n\n![../images/506148_1_En_5_Chapter/506148_1_En_5_Fig9_HTML.jpg](img/506148_1_En_5_Fig9_HTML.jpg)\n\
+  \n图 5-9\n\n学习曲线\n\n```\ntrainsizelogreg, trainscorelogreg, testscorelogreg = learning_curve(logreg,\
+  \ x, y, cv=5, n_jobs=5, train_sizes=np.linspace(0.1,1.0,50))\ntrainscorelogreg_mean\
+  \ = np.mean(trainscorelogreg,axis=1)\ntestscorelogreg_mean = np.mean(testscorelogreg,axis=1)\n\
+  plt.plot(trainsizelogreg,trainscorelogreg_mean,color=\"red\", label=\"Training score\"\
+  , alpha=0.8)\nplt.plot(trainsizelogreg,testscorelogreg_mean,color=\"navy\", label=\"\
+  Cross validation score\", alpha=0.8)\nplt.xlabel(\"Training set size\")\nplt.ylabel(\"\
+  Accuracy\")\nplt.legend(loc=4)\nplt.show()\n清单 5-24\n学习曲线\n```\n\n在学习过程的初始阶段，逻辑分类器存在过拟合。然而，随着训练集大小的增加，分类器的过拟合程度降低。当分类器接近第\
+  \ 400 个数据点时，交叉验证准确率分数开始下降。增加更多数据点并不会提升泛化能力。你将在后续章节中学习更多关于如何解读学习曲线的知识。\n\n## 结论\n\
+  \n本章介绍了非参数方法。它评估了使用 `Statsmodels` 和 `SciKit-Learn` 开发的两个逻辑分类器。第二个模型展示了表现良好的模型的特征。该模型在\
+  \ 85% 的情况下是正确的。理想情况下，我们希望模型在 100% 的情况下都是正确的。有几种方法可以改进逻辑分类器的性能，例如降维和正则化。在 `SciKit-Learn`\
+  \ 包中，有内置交叉验证的逻辑分类器和岭分类器。这些模型有助于提升分类器的性能。\n\n脚注 1\n\n"
+- '# 6. 使用线性判别分析进行降维与多变量分析
+
+
+  前一章介绍了一种称为逻辑回归的分类方法。它用于解决二分类问题。多项逻辑回归（MLR）是逻辑回归的扩展，它使用 `Softmax` 函数代替 `Sigmoid`
+  函数，并应用交叉熵损失函数。它是一种用于预测具有两个以上类别的目标变量的逻辑回归形式。它与线性判别分析（LDA）的不同之处在于，MLR 不假设数据来自正态分布。LDA
+  属于线性家族，它假设正态性和线性。
+
+
+  我们使用 LDA 来解决二分类问题和多分类问题。本章介绍线性分类和判别分析。它揭示了使用 LDA 将数据压缩到更少维度，并利用连续变量估计分类变量的方法。
+
+
+  该模型的工作方式类似于前几章中介绍的模型，如线性回归和逻辑回归。它也与协方差分析（ANOVA）相似。ANOVA 使用分类变量估计连续变量。LDA 合理地假设各组的协方差结构相似。如果各组的协方差结构不相等，则使用二次判别分析。LDA
+  模型的一个扩展被称为费舍尔判别分析（FDA）。FDA 不执行分类，但变换后获得的特征可用于分类。
+
+
+  逻辑回归和 LDA 都用于估计分类因变量。LDA 与逻辑回归的区别在于它有更多的假设。它也与主成分分析和因子分析相似，因为它寻找最能解释数据的线性组合。当样本量较大时，LDA
+  效果最佳。
+
+
+  它应用判别函数，通过寻找变量的线性组合并最大化它们之间的差异，将一组连续变量分配到各个类别中。同样，它应用费舍尔线性判别规则来最大化类内散度矩阵与类间散度矩阵之间的比率，并发现组内的线性组合。
+
+
+  最后，它仅使用连续变量来估计分类变量。如果自变量是分类变量，因变量也是分类变量，则使用另一种称为判别对应分析的替代模型。鉴于其继承自线性家族，需要根据线性和正态性假设对模型进行检验。LDA
+  有两个用途：降维和分类。
+
+
+  ### 降维
+
+
+  我们使用 LDA（类似于 PCA）进行降维。它发现数据中解释的方差，并将数据减少到更少的维度。请记住使用特征值来寻找数据中显著变异性的来源。具有最高载荷的特征值是第一个函数，具有第二高载荷的是第二个函数，依此类推。我们根据某些标准剔除具有过高特征值（极端变异性）的因子。
+
+
+  ### 分类
+
+
+  LDA 解决二分类和多分类问题。它应用线性分类器将变量分配到某个类别。由于该模型应用线性分类器，因此继承了线性和正态性的严格假设。
+
+
+
+
+  ## 假设
+
+
+  LDA 对数据结构做出了强假设。如果满足表 6-1 中强调的假设，我们认为 LDA 分类器是可靠的。
+
+
+  **表 6-1** LDA 假设
+
+
+  | 假设 | 描述 |
+
+  | --- | --- |
+
+  | 多元正态性 | 每个变量分组中必须存在多元正态性；自变量必须服从正态分布。 |
+
+  | 协方差 | 各组变量之间的方差在预测变量的各个水平上相同。当协方差相等时，可以使用线性判别分析。否则，使用二次判别分析。 |
+
+  | 相关性 | 变量之间不能高度相关。 |
+
+  | 随机抽样 | 必须使用随机抽样选择参与者。参与者的得分必须独立于变量。 |
+
+
+  假设有 C 个类别，令类别的均值向量为类别内的样本数量。
+
+
+  公式 6-1 是类内散度矩阵。
+
+
+  ![$$ {S}_w={\sum}_{i=1}^C{\sum}_{j=1}^{M_i}\left({y}_j-{\mu}_i\right){\left({y}_j-{\mu}_i\right)}^T
+  $$](img/506148_1_En_6_Chapter_TeX_Equ1.png)
+
+
+  （公式 6-1）
+
+
+  公式 6-2 是类间散度矩阵。公式 6-3 是类内散度矩阵。
+
+
+  ![$$ {S}_b={\sum}_{i=1}^C\left({y}_j-{\mu}_i\right){\left({y}_j-{\mu}_i\right)}^T
+  $$](img/506148_1_En_6_Chapter_TeX_Equ2.png)
+
+
+  （公式 6-2）
+
+
+  ![$$ \mu =\frac{1}{C}{\sum}_{i=1}^C{\mu}_i\left( 整个数据集的均值\right) $$](img/506148_1_En_6_Chapter_TeX_Equ3.png)
+
+
+  （公式 6-3）
+
+
+  它执行一种变换，在最小化类内散度的同时最大化类间散度矩阵。参见公式 6-4。
+
+
+  ![$$ \mathit{\operatorname{maximize}}=\frac{\mathit{\det}\left({S}_w\right)}{\mathit{\det}\left({S}_b\right)}
+  $$](img/506148_1_En_6_Chapter_TeX_Equ4.png)
+
+
+  （公式 6-4）
+
+
+  这种变换在保持类别可分性的同时，减少了由身份以外的来源引起的变异。线性变换由一个矩阵 *U* 给出，其列是 *S*[*w*]^(-1)*S*[*b*] 的特征向量。
+
+
+  基本上，它计算 d 维均值向量，然后是散度矩阵以及散度矩阵的特征向量和等效特征值。此后，模型对特征值进行分类，并选择较大的特征值形成一个 *d×k* 维矩阵，并将样本转换到新的子空间。最终结果是类别分离。
+
+
+  ## 开发 LDA 分类器
+
+
+  示例数据来自 ML Data。^(⁵) 我们想根据一组自变量预测汽车的质量。参见代码清单 6-1。
+
+
+  ```
+
+  from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+
+  LDA = LinearDiscriminantAnalysis()
+
+  LDA.fit(x_train,y_train)
+
+  代码清单 6-1
+
+  使用默认超参数开发模型
+
+  ```
+
+
+  ### LDA 超参数优化
+
+
+  调整 LDA 超参数并不像调整其他分类模型的超参数那样繁琐。表 6-2 强调了重要的超参数。
+
+
+  **表 6-2** 可调超参数
+
+
+  | 参数 | 描述 |
+
+  | --- | --- |
+
+  | `n_component` | 确定组件的数量。 |
+
+  | `shrinkage` | 使用 Ledoit-Wolf 引理确定自动收缩或指定值。 |
+
+  | `solver` | 确定要使用的求解器；默认使用 `svd` 进行奇异值分解，`lsqr` 用于最小二乘解，`eigen` 用于特征值分解 |
+
+  | `store_covariance` | 确定是否存储协方差 |
+
+  | `tol` | 确定优化的容差 |
+
+
+  代码清单 6-2 找到了能产生最佳模型性能的超参数。
+
+
+  ```
+
+  param_gridLDA = {"n_components":[1,2,3,4,5,6,7,8,9],
+
+  "solver":("svd", "lsqr", "eigen"),
+
+  "store_covariance":[False,True],
+
+  "tol":[0.0001,0.001,0.01,1.0]}
+
+  grid_modelLDA = GridSearchCV(estimator=LDA, param_grid= param_gridLDA)
+
+  grid_modelLDA.fit(x_train,y_train)
+
+  print("最佳得分: ", grid_modelLDA.best_score_, "最佳参数: ", grid_modelLDA.best_params_)
+
+  最佳得分: 0.7622550979608157 最佳参数: {''n_components'': 1, ''solver'': ''svd'', ''store_covariance'':
+  False, ''tol'': 0.0001}
+
+  代码清单 6-2
+
+  超参数优化
+
+  ```
+
+
+  代码清单 6-3 使用默认超参数完成模型。
+
+
+  ```
+
+  LDA = LinearDiscriminantAnalysis(n_components= 1,
+
+  solver= ''svd'',
+
+  store_covariance= False,
+
+  tol= 0.0001)
+
+  LDA.fit(x_train,y_train)
+
+  代码清单 6-3
+
+  最终确定 LDA 分类器
+
+  ```
+
+
+  代码清单 6-4 对变量进行变换。
+
+
+  ```
+
+  features_new = LDA.transform(x_train)
+
+  代码清单 6-4
+
+  创建新特征
+
+  ```
+
+
+  代码清单 6-5 估计每个选定组件解释的方差百分比。
+
+
+  ```
+
+  print(LDA.explained_variance_ratio_)
+
+  [1.]
+
+  代码清单 6-5
+
+  解释方差比
+
+  ```
+
+
+  每个选定的组件解释了 100% 的方差。代码清单 6-6 打印了原始特征数量和缩减后的特征数量。
+
+
+  ```
+
+  print(''原始特征数 #:'', x_train.shape[1])
+
+  print(''缩减后特征数 #:'', features_new.shape[1])
+
+  原始特征数 #: 7
+
+  缩减后特征数 #: 1
+
+  代码清单 6-6
+
+  原始特征和缩减特征的数量
+
+  ```
+
+
+  最初，我们有八个特征；现在有七个特征。
+
+
+  ### 预测
+
+
+  在最终确定分类器之后，下一步涉及比较因变量的实际值和变量的预测值。代码清单 6-7 列出了实际值和预测值（参见表 6-3）。
+
+
+  **表 6-3** 实际值与预测值
+
+
+  |   | 实际值 | 预测值 |
+
+  | --- | --- | --- |
+
+  | **661** | 1 | 1 |
+
+  | **122** | 0 | 0 |
+
+  | **113** | 0 | 0 |
+
+  | **14** | 1 | 1 |
+
+  | **529** | 0 | 0 |
+
+  | **...** | ... | ... |
+
+  | **476** | 1 | 0 |
+
+  | **482** | 0 | 0 |
+
+  | **230** | 1 | 1 |
+
+  | **527** | 0 | 0 |
+
+  | **380** | 0 | 0 |
+
+
+  ```
+
+  y_predLDA = LDA.predict(x_test)
+
+  pd.DataFrame({"实际值": y_test,"预测值": y_predLDA})
+
+  代码清单 6-7
+
+  实际值与预测值
+
+  ```
+
+
+  表 6-3 并没有告诉我们太多关于分类器性能的信息。
+
+
+  ### 评估 LDA 分类器
+
+
+  为了了解 LDA 分类器的性能，我们必须并排比较实际类别和预测类别。
+
+
+  ##### 混淆矩阵
+
+
+  我们通常将混淆矩阵视为误差矩阵。它是一个 2×2 的矩阵，用于统计实际标签和预测标签。代码清单 6-8 列出了混淆矩阵（参见表 6-4）。
+
+
+  **表 6-4** 混淆矩阵
+
+
+  |   | 预测：否 | 预测：是 |
+
+  | --- | --- | --- |
+
+  | **实际：否** | 263 | 0 |
+
+  | **实际：是** | 0 | 263 |
+
+
+  ```
+
+  cmatLDA = pd.DataFrame(metrics.confusion_matrix(y_test,y_predLDA), index=["实际：否","实际：是"],
+
+  columns=("预测：否","预测：是"))
+
+  cmatLDA
+
+  代码清单 6-8
+
+  混淆矩阵
+
+  ```
+
+
+  表 6-4 突出了与逻辑分类器相似的值。我们预计会得到相似的性能结果。
+
+
+
+  好的，作为一名高级文档工程师和翻译员，我将严格遵循您提供的注意事项和示例，将给定的英文文本翻译成中文。
+
+
+
+  #### 分类报告
+
+
+  表 6-5 重点展示了重要的分类评估指标。它让我们对分类器的性能有一个概览。请参见代码清单 6-9。
+
+
+  **表 6-5** 分类报告
+
+
+  | | 精确率 | 召回率 | F1 分数 | 支持度 |
+
+  | --- | --- | --- | --- | --- |
+
+  | **0** | 1.0 | 1.0 | 1.0 | 263.0 |
+
+  | **1** | 1.0 | 1.0 | 1.0 | 83.0 |
+
+  | **准确率** | 1.0 | 1.0 | 1.0 | 1.0 |
+
+  | **宏平均** | 1.0 | 1.0 | 1.0 | 346.0 |
+
+  | **加权平均** | 1.0 | 1.0 | 1.0 | 346.0 |
+
+
+  ```
+
+  creportLDA = pd.DataFrame(metrics.classification_report(y_test,y_predLDA, output_dict=True)).transpose()
+
+  creportLDA
+
+  ```
+
+
+  **代码清单 6-9** 分类报告
+
+
+  LDA 分类器展示了最优的模型性能。它在 100% 的情况下都是准确且精确的。
+
+
+  #### ROC 曲线
+
+
+  代码清单 6-10 应用了 `roc_curve()` 和 `roc_auc_score()` 方法来描绘实际类别和每个类别的概率，从而绘制出曲线（见图 6-1）。
+
+
+  ![../images/506148_1_En_6_Chapter/506148_1_En_6_Fig1_HTML.jpg](img/506148_1_En_6_Fig1_HTML.jpg)
+
+
+  **图 6-1** ROC 曲线
+
+
+  ```
+
+  y_predLDA_probaLDA = LDA.predict_proba(x_test)[::,1]
+
+  fprLDA, tprLDA, _ = metrics.roc_curve(y_test,y_predLDA_probaLDA)
+
+  aucLDA = metrics.roc_auc_score(y_test,y_predLDA_probaLDA)
+
+  plt.plot(fprLDA, tprLDA,label="AUC: " + str(aucLDA),color="navy")
+
+  plt.plot([0,1], [0,1],color="red")
+
+  plt.xlim([0.00,1.01])
+
+  plt.ylim([0.00,1.01])
+
+  plt.xlabel("Sensitivity")
+
+  plt.ylabel("Specificity")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  ```
+
+
+  **代码清单 6-10** ROC 曲线
+
+
+  图 6-1 显示 AUC 分数为 1.0。LDA 分类器展示了最优模型的性能。
+
+
+  #### 精确率-召回率曲线
+
+
+  代码清单 6-11 生成了一条曲线，告诉我们 LDA 分类器在预测类别时的相关性和精确率。我们使用精确率-召回率曲线。
+
+
+  ```
+
+  precisionLDA, recallLDA, thresholdLDA = metrics.precision_recall_curve(y_test,y_predLDA)
+
+  apsLDA = metrics.roc_auc_score(y_test,y_predLDA)
+
+  plt.plot(precisionLDA, recallLDA, label="APS: "+str(apsLDA),color="navy")
+
+  plt.axhline(y=0.5,color="red",alpha=0.8)
+
+  plt.xlabel("Recall")
+
+  plt.ylabel("Precision")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  ```
+
+
+  **代码清单 6-11** 精确率-召回率曲线
+
+
+  图 6-2 展示了一条表现良好的精确率-召回率曲线的特征。
+
+
+  ![../images/506148_1_En_6_Chapter/506148_1_En_6_Fig2_HTML.jpg](img/506148_1_En_6_Fig2_HTML.jpg)
+
+
+  **图 6-2** 精确率-召回率曲线
+
+
+  #### 学习曲线
+
+
+  代码清单 6-12 和图 6-3 描绘了 LDA 分类器的学习过程。
+
+
+  ![../images/506148_1_En_6_Chapter/506148_1_En_6_Fig3_HTML.jpg](img/506148_1_En_6_Fig3_HTML.jpg)
+
+
+  **图 6-3** 学习曲线
+
+
+  ```
+
+  trainsizeLDA, trainscoreLDA, testscoreLDA = learning_curve(LDA, x, y, cv=5, n_jobs=5,
+  train_sizes=np.linspace(0.1,1.0,50))
+
+  trainscoreLDA_mean = np.mean(trainscoreLDA,axis=1)
+
+  testscoreLDA_mean = np.mean(testscoreLDA,axis=1)
+
+  plt.plot(trainsizeLDA,trainscoreLDA_mean,color="red", label="Training Score")
+
+  plt.plot(trainsizeLDA,testscoreLDA_mean,color="navy", label="Cross Validation Score")
+
+  plt.xlabel("Training Set Size")
+
+  plt.ylabel("Accuracy")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  ```
+
+
+  **代码清单 6-12** 学习曲线
+
+
+  图 6-3 传达出，分类器的训练和交叉验证准确率在前 550 个数据点上保持稳定，但随着我们增加训练集，准确率会下降。
+
+
+  ## 结论
+
+
+  本章探讨了判别分析。它主要关注线性判别分析，并阐述了将其用于降维线性分类的方法。该模型使用了一个单一的分解求解器，该求解器被限制为将优化集的协方差和容差存储为
+  0.0001。它展示了最优的模型性能。
+
+
+  脚注 1
+
+
+  '
+- '# 7. 使用支持向量寻找超平面
+
+
+  前一章介绍了一种名为线性判别分析（LDA）的线性分类模型，当协方差矩阵相等时，该模型能均等地分布各组。尽管该分类器是最优的线性分类模型之一，但它也有其局限性。首先，我们无法使用分类变量来估计因变量。其次，我们是在严格的正态性假设下训练和测试模型的。本章将介绍另一种线性分类模型，称为支持向量机（SVM）。它属于集成家族；它可以估计连续变量或分类变量。它应用核函数来转换数据，使得超平面能够最佳地拟合数据。与
+  LDA 不同，SVM 不对数据的底层结构做任何假设。
+
+
+  ## 支持向量机
+
+
+  SVM 通常假设数据点在低维空间中线性不可分，而在高维空间中线性可分。它找到一个最优超平面，以充分利用间隔并简化非线性问题。首先，它有效地捕获数据并开发一个新的维度向量空间。然后，它将新向量空间的线性边界划分为两个类别。它将数据点定位在超平面的上方或下方，从而进行分类。它使用核函数来估计具有极大间隔的超平面。主要的核函数有线性函数、多项式函数和
+  Sigmoid 函数。除非你在分析高维数据，否则完全没有必要深入研究这些函数。你总是可以使用超参数优化来找到最优函数。
+
+
+  ### 支持向量
+
+
+  支持向量是紧邻超平面的数据点。它们决定了超平面的位置。此外，当我们移除这些数据点时，超平面的位置会发生变化。
+
+
+  ### 超平面
+
+
+  超平面是一条将数据分成两个类别的线（每个类别落在其中一侧）。它充当两侧之间的边界。在使用真实世界数据时，定位一个最优超平面是具有挑战性的。SVM 通过一个称为*核技巧*的过程将数据转换到更高维度。转换数据后，它不再是一条直线，而是一个平面。它应用核函数来转换数据，从而将超平面定位在合适的位置。图
+  7-1 描绘了一个超平面。
+
+
+  ![../images/506148_1_En_7_Chapter/506148_1_En_7_Fig1_HTML.png](img/506148_1_En_7_Fig1_HTML.png)
+
+
+  **图 7-1** 超平面
+
+
+  图 7-1 显示了公式 7-1 中表达的直线方程。
+
+
+  ![$$ WT\ x+b=0 $$](img/506148_1_En_7_Chapter_TeX_Equ1.png)
+
+
+  **（公式 7-1）**
+
+
+  这里，`W` 代表直线的斜率，`x` 代表输入向量，`b` 代表偏置。两条线（以橙色高亮显示）穿过支持向量并支撑最佳平面。一个理想的超平面对于支持向量具有极大的间隔。
+
+
+  它通过在训练期间使用一种扩大分离的优化过程来确定如何定位超平面。我们不会手动添加超平面。它应用一种被称为核技巧的技术来转换数据。该技术使其能够用更少的计算能力来扩大维度向量空间。
+
+
+
+
+  ### 支持向量分类器
+
+
+  支持向量分类器（SVC），也称为*间隔分类器*，允许某些数据点位于超平面的错误一侧。如果数据无法直接区分，它会引入松弛变量，允许某些数据点落在间隔内部，从而违反约束条件；此外，它还会对这些点进行惩罚。它将松弛变量限制为非负值。如果松弛变量大于
+  0，它会通过选择 lambda 值，将平面放置在数据点附近而非间隔处，从而搁置约束条件。图 7-2 展示了 SVC 的工作原理。
+
+
+  ![../images/506148_1_En_7_Chapter/506148_1_En_7_Fig2_HTML.png](img/506148_1_En_7_Fig2_HTML.png)
+
+
+  图 7-2
+
+
+  LinearSVC 工作流程
+
+
+  `LinearSVC` 分类器执行三个基本任务。
+
+
+  - *转换*：将输入空间转换为更高维的向量空间
+
+  - *线性分离或直线划分*：实现具有最大间隔的超平面
+
+  - *分类*：将数据点分配到某个类别
+
+
+  ## 开发 LinearSVC 分类器
+
+
+  我们从 Kaggle 获取了示例数据。^(⁶) 清单 7-1 完成了分类器的构建。
+
+
+  ```
+
+  from sklearn.svm import LinearSVC
+
+  lsvc = LinearSVC()
+
+  lsvc.fit(x_train,y_train)
+
+  清单 7-1
+
+  完成 LinearSVC 分类器
+
+  ```
+
+
+  ### LinearSVC 超参数优化
+
+
+  表 7-1 突出了关键的超参数。
+
+
+  表 7-1
+
+
+  可调超参数
+
+
+  | 参数 | 描述 |
+
+  | --- | --- |
+
+  | `Dual` | 决定模型是否必须解决对偶问题 |
+
+  | `fit_intercept` | 决定模型是否必须计算截距 |
+
+  | `max_iter` | 决定最大迭代次数 |
+
+  | `Penalty` | 决定要使用的正则化方法。可用的惩罚项包括 l1 惩罚（Lasso）和 l2 惩罚（Ridge） |
+
+  | `Tol` | 决定优化的容差 |
+
+  | `Loss` | 决定函数的类型。可用的损失函数包括 hinge 和 squared hinge |
+
+
+  清单 7-2 创建了一个包含分组参数和特定值范围的字典，我们期望从中找到最佳交叉验证分数，然后应用 `GridSearchCV()` 方法开发网格模型并找到具有最佳分数的超参数。
+
+
+  ```
+
+  param_gridlsvc = {"dual":[False,True],
+
+  "fit_intercept":[False,True],
+
+  "max_iter":[1,10,100,100],
+
+  "penalty":("l1","l2"),
+
+  "tol":[0.0001,0.001,0.01,1.0],
+
+  "loss":("hinge", "squared_hinge")}
+
+  grid_modellsvc = GridSearchCV(estimator=lsvc, param_grid=param_gridlsvc)
+
+  grid_modellsvc.fit(x_train,y_train)
+
+  print("Best score: ", grid_modellsvc.best_score_, "Best parameters: ", grid_modellsvc.best_params_)
+
+  清单 7-2
+
+  超参数优化
+
+  ```
+
+
+  最佳分数：0.7671331467413035 最佳参数：{‘dual’: False, ‘fit_intercept’: True, ‘loss’: ‘squared_hinge’,
+  ‘max_iter’: 100, ‘penalty’: ‘l1’, ‘tol’: 0.001}
+
+
+  ### 完成 LinearSVC 分类器
+
+
+  先前的发现表明，我们应使用平方铰链函数，并通过 L1 惩罚项控制偏差和方差。清单 7-3 完成了 `LinearSVC` 分类器的构建。
+
+
+  ```
+
+  lsvc = LinearSVC(dual= False,
+
+  fit_intercept= True,
+
+  max_iter= 100,
+
+  penalty= ''l1'',
+
+  tol= 0.001,
+
+  loss="squared_hinge")
+
+  lsvc.fit(x_train,y_train)
+
+  清单 7-3
+
+  完成 LinearSVC 分类器
+
+  ```
+
+
+  ### 评估 LinearSVC 分类器
+
+
+  清单 7-4 并列展示了实际类别和预测类别。另见表 7-2。
+
+
+  表 7-2
+
+
+  实际值与预测值
+
+
+  |   | 实际值 | 预测值 |
+
+  | --- | --- | --- |
+
+  | **661** | 1 | 1 |
+
+  | **122** | 0 | 0 |
+
+  | **113** | 0 | 0 |
+
+  | **14** | 1 | 1 |
+
+  | **529** | 0 | 0 |
+
+  | **...** | ... | ... |
+
+  | **476** | 1 | 0 |
+
+  | **482** | 0 | 0 |
+
+  | **230** | 1 | 1 |
+
+  | **527** | 0 | 0 |
+
+  | **380** | 0 | 0 |
+
+
+  ```
+
+  y_predlsvc = lsvc.predict(x_test)
+
+  pd.DataFrame({"Actual":y_test,"Predicted":y_predlsvc})
+
+  清单 7-4
+
+  实际值与预测值
+
+  ```
+
+
+  ##### 混淆矩阵
+
+
+  清单 7-5 和表 7-3 为我们提供了关于分类器性能的抽象报告。
+
+
+  表 7-3
+
+
+  混淆矩阵
+
+
+  |   | 预测：否 | 预测：是 |
+
+  | --- | --- | --- |
+
+  | **实际：否** | 98 | 9 |
+
+  | **实际：是** | 18 | 29 |
+
+
+  ```
+
+  cmatlsvc = pd.DataFrame(metrics.confusion_matrix(y_test,y_predlsvc),
+
+  index=["Actual: No","Actual: Yes"],
+
+  columns=("Predicted: No","Predicted: Yes"))
+
+  cmatlsvc
+
+  清单 7-5
+
+  混淆矩阵
+
+  ```
+
+
+  #### 分类报告
+
+
+  清单 7-6 和表 7-4 展示了 `LinearSVC` 分类器的可靠性。它提供了模型的准确率分数、精确率分数、召回率以及其他关键评估指标。
+
+
+  表 7-4
+
+
+  分类报告
+
+
+  |   | 精确率 | 召回率 | F1 分数 | 支持度 |
+
+  | --- | --- | --- | --- | --- |
+
+  | **0** | 0.844828 | 0.915888 | 0.878924 | 107.000000 |
+
+  | **1** | 0.763158 | 0.617021 | 0.682353 | 47.000000 |
+
+  | **准确率** | 0.824675 | 0.824675 | 0.824675 | 0.824675 |
+
+  | **宏平均** | 0.803993 | 0.766455 | 0.780638 | 154.000000 |
+
+  | **加权平均** | 0.819902 | 0.824675 | 0.818931 | 154.000000 |
+
+
+  ```
+
+  creportlsvc = pd.DataFrame(metrics.classification_report(y_test,y_predlsvc, output_dict=True)).transpose()
+
+  creportlsvc
+
+  清单 7-6
+
+  分类报告
+
+  ```
+
+
+  `LinearSVC` 分类器的准确率为 82%。在预测类别 0 时，精确率为 84%；在预测类别 1 时，精确率为 76%。
+
+
+  #### 学习曲线
+
+
+  清单 7-7 生成了一条曲线，描绘了 `LinearSVC` 分类器在学习训练数据时准确率的变化过程（见图 7-3）。
+
+
+  ![../images/506148_1_En_7_Chapter/506148_1_En_7_Fig3_HTML.jpg](img/506148_1_En_7_Fig3_HTML.jpg)
+
+
+  图 7-3
+
+
+  学习曲线
+
+
+  ```
+
+  trainsizelsvc, trainscorelsvc, testscorelsvc = learning_curve(lsvc, x, y, cv=5,
+  n_jobs=5, train_sizes=np.linspace(0.1,1.0,50))
+
+  trainscorelsvc_mean = np.mean(trainscorelsvc,axis=1)
+
+  testscorelsvc_mean = np.mean(testscorelsvc,axis=1)
+
+  plt.plot(trainsizelsvc,trainscorelsvc_mean,color="red", label="Training Score")
+
+  plt.plot(trainsizelsvc,testscorelsvc_mean,color="navy", label="Cross Validation
+  Score")
+
+  plt.xlabel("Training Set Size")
+
+  plt.ylabel("Accuracy")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  清单 7-7
+
+  学习曲线
+
+  ```
+
+
+  在学习过程的第一阶段，训练准确率分数急剧下降至约 70% 的历史最低点，随后开始反弹。当分类器处理到第 200 个数据点时，训练准确率分数开始提升。在大多数情况下，训练准确率分数低于交叉验证准确率分数。最后，当分类器即将处理到第
+  600 个数据点时，训练准确率分数超过了交叉验证准确率分数。
+
+
+  ## 结论
+
+
+  本章介绍了 SVM 如何将输入空间转换为更高维的向量空间，创建超平面并对变量进行分类。我们使用平方铰链损失函数和 L1 惩罚项配置了 `LinearSVC` 分类器。请记住，由于该分类器缺乏概率重要性，我们没有绘制
+  ROC 曲线和精确率-召回率曲线。我们依赖分类报告和学习曲线来理解分类器的潜在性能。
+
+
+  脚注 1
+
+
+
+
+  '
+- '# 8. 使用决策树进行分类
+
+
+  本章介绍最广泛使用的集成方法——决策树。决策树分类器可以估计分类因变量或连续因变量。它解决二分类和多分类问题。该模型基于树状结构。它在逐步构建决策树的同时，将数据分解成小而易于管理的块。最终结果是一个包含决策节点和叶节点的树状结构。我们将其视为一种贪婪模型，因为它主要关注减少训练时间，同时最大化信息增益。
+
+
+  为了充分利用决策树，需要预先了解数据和分区。我们通过递归地将训练数据划分为决策节点来构建决策树。然后，根据检查结果来检验变量和分支情况。
+
+
+  它会选择预测能力强、不纯度低且熵值低的变量。它还会探索最重要的变量以降低不纯度。最重要的是分区后叶节点的纯度；它会寻找节点上熵值最低的树。总之，决策树分类器有两个目的：将数据分离成不同的子集，以及缩短决策树的分支。它限制了树的深度。
+
+
+  ## 熵
+
+
+  熵代表对随机性或不确定性的估计。熵越低，分布越不均匀，节点越多。它表示数据中的无序程度。它估计节点中样本的同质性。如果变量是同质的，那么熵为零。如果样本被均分，那么熵为
+  1。我们使用公式 8-1 来估计熵。
+
+
+  ![$$ Entropy=p(A)\kern0.5em \mathit{\log}\left(p(A)\right)-p(B)\mathit{\log}\left(p(B)\right)
+  $$](img/506148_1_En_8_Chapter_TeX_Equ1.png)
+
+
+  (公式 8-1)
+
+
+  这里，`p` 是一个类别的比例或比率。我们使用熵将可比较的数据组归入相似的类别。高熵表明数据高度无序。低熵表明数据组织良好。该模型假设不纯度较低的节点需要较少的信息来描述，而不纯度较高的节点需要更多的信息。
+
+
+  决策树估计节点的熵，然后估计分区中每个节点的熵。之后，它对子节点进行加权平均，计算信息增益，并选择信息增益最高的节点进行分区。为决策树分类组织数据涉及将数据分区，并将样本分组到它们所属的类别中，并在每次构建节点时最大化组的纯度。
+
+
+  ## 信息增益
+
+
+  信息增益指的是分区后增加确定性水平的信息。它与熵相反。如果加权熵减少，那么信息增益增加，反之亦然。总之，决策树分类器会寻找能带来最显著信息增益的变量。要计算信息增益，我们使用公式
+  8-2。
+
+
+  ![$$ Information\ gain=\left( Entropy\ before\ the\ split\right)-\Big( Weighted\
+  entropy\ after\ the\ split $$](img/506148_1_En_8_Chapter_TeX_Equ2.png)
+
+
+  (公式 8-2)
+
+
+  ## 决策树的结构
+
+
+  如前所述，决策树是一种基于流程图的树状结构。决策树使用一系列 `if`-`then`-`else` 决策规则来估计正弦曲线。决策规则的复杂性取决于树的深度。决策树包含决策节点和叶节点。最顶层的决策节点对应于根节点（最重要的自变量）。叶节点是一个分类或决策。图
+  8-1 展示了决策树的结构。
+
+
+  ![../images/506148_1_En_8_Chapter/506148_1_En_8_Fig1_HTML.png](img/506148_1_En_8_Fig1_HTML.png)
+
+
+  图 8-1
+
+
+  决策树结构
+
+
+  ## 开发决策树分类器
+
+
+  代码清单 8-1 使用默认超参数开发了一个决策树分类器。
+
+
+  ```
+
+  from sklearn.tree import plot_tree
+
+  from sklearn.tree import DecisionTreeClassifier
+
+  dt = DecisionTreeClassifier()
+
+  dt.fit(x_train,y_train)
+
+  代码清单 8-1
+
+  使用默认超参数开发决策树分类器
+
+  ```
+
+
+  ### 决策树超参数优化
+
+
+  有数十个可调的决策树超参数。我们只介绍两个关键超参数：`criterion` 和 `max_depth`。标准包括 `gini` 不纯度和 `entropy`。默认情况下，标准是
+  `gini`，它给出每个标签或类别的概率。值越高表示同质性越高。代码清单 8-2 寻找最优超参数。
+
+
+  ```
+
+  param_griddt = {"criterion":("gini","entropy"),
+
+  "max_depth":[1,3,5,7,9,12]}
+
+  grid_modeldt = GridSearchCV(estimator=dt, param_grid=param_griddt)
+
+  grid_modeldt.fit(x_train,y_train)
+
+  print("Best score: ", grid_modeldt.best_score_, "Best parameters:", grid_modeldt.best_params_)
+
+  代码清单 8-2
+
+  超参数优化
+
+  ```
+
+
+  最佳得分：0.7182993469278954 最佳参数：{‘criterion’: ‘entropy’, ‘max_depth’: 3}
+
+
+  上述结果表明，我们应该使用 `entropy` 作为标准，并将树的最大深度设置为 3。参见代码清单 8-3。
+
+
+  ```
+
+  dt = DecisionTreeClassifier(criterion= ''entropy'', max_depth= 3)
+
+  dt.fit(x_train,y_train)
+
+  代码清单 8-3
+
+  最终确定决策树分类器
+
+  ```
+
+
+  ### 可视化决策树
+
+
+  代码清单 8-4 可视化决策树（见图 8-2）。
+
+
+  ![../images/506148_1_En_8_Chapter/506148_1_En_8_Fig2_HTML.jpg](img/506148_1_En_8_Fig2_HTML.jpg)
+
+
+  图 8-2
+
+
+  决策树
+
+
+  ```
+
+  plt.figure(figsize=(24,14))
+
+  tree.plot_tree(dt, filled=True)
+
+  plt.show()
+
+  代码清单 8-4
+
+  可视化决策树
+
+  ```
+
+
+
+
+  #### 特征重要性
+
+
+  特征重要性决定了自变量对因变量的相对重要程度。它会为每个自变量分配一个介于 0 到 1 之间的分数。得分最高的自变量是最重要的变量，得分第二高的自变量是第二重要的变量，以此类推。清单
+  8-5 绘制了特征重要性（见图 8-3）。
+
+
+  ![../images/506148_1_En_8_Chapter/506148_1_En_8_Fig3_HTML.jpg](img/506148_1_En_8_Fig3_HTML.jpg)
+
+
+  **图 8-3** 特征重要性
+
+
+  ```
+
+  diabetes_features = [x for i,x in enumerate(df.columns) if i!=8]
+
+  def plot_feature_importances_diabetes(model):
+
+  plt.figure(figsize=(8,6))
+
+  n_features = 8
+
+  plt.barh(range(n_features), model.feature_importances_, align="center")
+
+  plt.yticks(np.arange(n_features), diabetes_features)
+
+  plt.xlabel("Feature Importance")
+
+  plt.ylabel("Feature")
+
+  plt.ylim(-1, n_features)
+
+  plot_feature_importances_diabetes(dt)
+
+  plt.savefig(''feature_importance'')
+
+  Listing 8-5
+
+  Feature Importance
+
+  ```
+
+
+  图 8-3 显示，有少数几个变量对因变量很重要。`Glucose`的得分最高，这意味着它对于因变量（糖尿病结果）的重要性高于其他变量。紧随其后的是`bmi`和`age`。
+
+
+  我们利用上述发现来减少数据中的变量数量。清单 8-6 对数据进行了缩减。
+
+
+  ```
+
+  x = df[["Glucose","DiabetesPedigreeFunction","Age"]]
+
+  x = df.iloc[::,0:8]
+
+  y = df.iloc[::,-1]
+
+  x_train, x_test, y_train, y_test = train_test_split(x,y,test_size=0.2,random_state=0)
+
+  scaler = StandardScaler()
+
+  x_train = scaler.fit_transform(x_train)
+
+  x_test = scaler.transform(x_test)
+
+  dt = DecisionTreeClassifier(criterion= ''entropy'', max_depth= 3)
+
+  dt.fit(x_train,y_train)
+
+  Listing 8-6
+
+  Re-processing
+
+  ```
+
+
+  ### 评估决策树分类器
+
+
+  清单 8-7 返回了一个比较实际值和预测值的表格（见表 8-1）。
+
+
+  **表 8-1** 实际值与预测值
+
+
+  |   | 实际值 | 预测值 |
+
+  | --- | --- | --- |
+
+  | **661** | 1 | 1 |
+
+  | **122** | 0 | 0 |
+
+  | **113** | 0 | 0 |
+
+  | **14** | 1 | 0 |
+
+  | **529** | 0 | 0 |
+
+  | **...** | ... | ... |
+
+  | **476** | 1 | 0 |
+
+  | **482** | 0 | 0 |
+
+  | **230** | 1 | 1 |
+
+  | **527** | 0 | 0 |
+
+  | **380** | 0 | 0 |
+
+
+  ```
+
+  y_preddt = dt.predict(x_test)
+
+  pd.DataFrame({"Actual":y_test, "Predicted": y_preddt})
+
+  Listing 8-7
+
+  Actual Values and Predicted Values
+
+  ```
+
+
+  ##### 混淆矩阵
+
+
+  清单 8-8 和表 8-2 展示了决策树分类器的性能。它包含了实际值和预测值的四种组合。
+
+
+  **表 8-2** 混淆矩阵
+
+
+  |   | 预测：否 | 预测：是 |
+
+  | --- | --- | --- |
+
+  | **实际：否** | 93 | 14 |
+
+  | **实际：是** | 23 | 24 |
+
+
+  ```
+
+  cmatdt = pd.DataFrame(metrics.confusion_matrix(y_test,y_preddt), index=["Actual:
+  No","Actual: Yes"],
+
+  columns=("Predicted: No","Predicted: Yes"))
+
+  cmatdt
+
+  Listing 8-8
+
+  Confusion Matrix
+
+  ```
+
+
+  #### 分类报告
+
+
+  为了深入了解决策树分类器的性能，我们使用了分类报告。清单 8-9 以表格形式呈现了分类报告（见表 8-3）。
+
+
+  **表 8-3** 分类报告
+
+
+  |   | 精确率 | 召回率 | F1 分数 | 支持度 |
+
+  | --- | --- | --- | --- | --- |
+
+  | **0** | 0.801724 | 0.869159 | 0.834081 | 107.00000 |
+
+  | **1** | 0.631579 | 0.510638 | 0.564706 | 47.00000 |
+
+  | **准确率** | 0.759740 | 0.759740 | 0.759740 | 0.75974 |
+
+  | **宏平均** | 0.716652 | 0.689899 | 0.699393 | 154.00000 |
+
+  | **加权平均** | 0.749797 | 0.759740 | 0.751869 | 154.00000 |
+
+
+  ```
+
+  creportdt = pd.DataFrame(metrics.classification_report(y_test,y_preddt, output_dict=True)).transpose()
+
+  creportdt
+
+  Listing 8-9
+
+  Classification Report
+
+  ```
+
+
+  表 8-3 表明决策树分类器表现不佳。准确率得分为 74%，比逻辑回归分类器、线性支持向量分类器和线性判别分析分类器的准确率得分低了约 8%。该分类器的精确率得分也低于这两个分类器。
+
+
+  #### ROC 曲线
+
+
+  最可靠的方法涉及预测每个类别的概率。首先，我们预测每个类别的概率。然后，我们构建 ROC 曲线并找到 AUC 值。清单 8-10 生成了 ROC 曲线（见图 8-4）。
+
+
+  ![../images/506148_1_En_8_Chapter/506148_1_En_8_Fig4_HTML.jpg](img/506148_1_En_8_Fig4_HTML.jpg)
+
+
+  **图 8-4** ROC 曲线
+
+
+  ```
+
+  y_preddt_proba = dt.predict_proba(x_test)[::,1]
+
+  fprdt, tprdt, _ = metrics.roc_curve(y_test,y_preddt_proba)
+
+  aucdt = metrics.roc_auc_score(y_test, y_preddt_proba)
+
+  plt.plot(fprdt, tprdt, label="AUC: "+str(aucdt), color="navy")
+
+  plt.plot([0,1],[0,1],color="red")
+
+  plt.xlim([0.00,1.01])
+
+  plt.ylim([0.00,1.01])
+
+  plt.xlabel("Specificity")
+
+  plt.ylabel("Sensitivity")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  Listing 8-10
+
+  ROC Curve
+
+  ```
+
+
+  图 8-4 显示 AUC 得分接近 80%。理想情况下，我们希望 AUC 得分大于 80%。上述 AUC 得分表明该分类器在区分不同类别方面并不熟练。
+
+
+  #### 精确率-召回率曲线
+
+
+  清单 8-11 生成了一条曲线，该曲线提供了关于假阳性和假阴性的有意义的见解（见图 8-5）。
+
+
+  ![../images/506148_1_En_8_Chapter/506148_1_En_8_Fig5_HTML.jpg](img/506148_1_En_8_Fig5_HTML.jpg)
+
+
+  **图 8-5** 精确率-召回率曲线
+
+
+  ```
+
+  precisiondt, recalldt, thresholddt = metrics.precision_recall_curve(y_test,y_preddt)
+
+  apsdt = metrics.roc_auc_score(y_test,y_preddt)
+
+  plt.plot(precisiondt, recalldt, label="APS: "+str(apsdt),color="navy")
+
+  plt.axhline(y=0.5,color="red")
+
+  plt.xlabel("Recall")
+
+  plt.ylabel("Precision")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  Listing 8-11
+
+  Precision-Recall Curve
+
+  ```
+
+
+  在不考虑决策阈值的情况下，APS 为 69%。
+
+
+  #### 学习曲线
+
+
+  清单 8-12 生成了一条曲线，该曲线描绘了`LinearSVC`分类器在学习训练数据时准确率的变化过程（见图 8-6）。
+
+
+  ![../images/506148_1_En_8_Chapter/506148_1_En_8_Fig6_HTML.jpg](img/506148_1_En_8_Fig6_HTML.jpg)
+
+
+  **图 8-6** 学习曲线
+
+
+  ```
+
+  trainsizedt, trainscoredt, testscoredt = learning_curve(dt, x, y, cv=5, n_jobs=5,
+  train_sizes=np.linspace(0.1,1.0,50))
+
+  trainscoredt_mean = np.mean(trainscoredt,axis=1)
+
+  testscoredt_mean = np.mean(testscoredt,axis=1)
+
+  plt.plot(trainsizedt,trainscoredt_mean,color="red", label="Training Score")
+
+  plt.plot(trainsizedt,testscoredt_mean,color="navy", label="Cross Validation Score")
+
+  plt.xlabel("Training Set Size")
+
+  plt.ylabel("Accuracy")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  Listing 8-12
+
+  Learning Curve
+
+  ```
+
+
+  图 8-6 显示，从决策树分类器开始学习数据时起，训练准确率得分就高于交叉验证得分。该分类器一开始非常乐观，但随着我们增加训练集，其大小下降，并稳定在 0.75
+  到 0.80 的范围内。
+
+
+
+
+  ## 结论
+
+
+  本章介绍了树分类建模技术，包括发现最优超参数、寻找对因变量最重要的变量，以及仅使用重要变量和最佳超参数来可视化决策树和分类器。还有一些独特的决策树分类器扩展算法，例如极端随机树和随机森林树。极端随机树会随机分割决策树的节点，而随机森林树则并行迭代构建多个决策树。
+
+
+  '
+- '# 9. 回归经典
+
+
+  现在我们将介绍最古老的分类方法之一：朴素贝叶斯，这是一种 18 世纪初期的模型。它是一种监督学习模型，可以解决二分类和多分类问题。*朴素*一词源于该模型对数据所做的假设。我们之所以认为它朴素，是因为它假设变量之间相互独立，即数据之间不存在依赖关系。这在现实世界中很少发生。我们可以将朴素贝叶斯定理简化为公式
+  9-1。
+
+
+  ![$$ P\left(A\vert B\right)=\kern0.5em \left(P\left(B\vert A\right)P(A)\right)/\left(P(B)\right)
+  $$](img/506148_1_En_9_Chapter_TeX_Equ1.png)
+
+
+  （公式 9-1）
+
+
+  这里，表示在事件 B 已发生的情况下，事件 A 发生的概率。
+
+
+  本章将介绍高斯朴素贝叶斯。它假设自变量是二元的。然而，我们可以放宽这一假设，以容纳服从正态分布的连续变量。此外，由于我们不需要进行超参数调优（它没有可调的超参数），因此该方法内存效率高且速度快。贝叶斯模型属于概率模型家族。要理解该模型，请先熟悉朴素贝叶斯。
+
+
+  ## 朴素贝叶斯定理
+
+
+  当处理连续自变量时，请使用`GaussianNB`分类器。只要您具备处理连续变量的背景知识，建模就相对容易。关于高斯分布（也称为*正态分布*）的回顾，请参考本书第一章。我们提到，当数据点接近实际均值时，数据服从正态分布。`GaussianNB`分类器会估计一个变量属于某个特定类别的概率；同时，它还会估计中心值，即均值或标准差。它最适合高维特征。我们通常在小训练集的情况下使用此分类器。该分类器使用高斯概率密度函数来估计自变量新值的概率。
+
+
+  ## 开发高斯朴素贝叶斯分类器
+
+
+  `GaussianNB`分类器不需要超参数优化。同样，我们从 Kaggle 获取了数据。^(⁷) 代码清单 9-1 完成了`GaussianNB`分类器的构建。
+
+
+  ```
+
+  from sklearn.naive_bayes import GaussianNB
+
+  gnb = GaussianNB()
+
+  gnb.fit(x_train,y_train)
+
+  代码清单 9-1
+
+  完成 GaussianNB 分类器
+
+  ```
+
+
+  代码清单 9-2 返回了一个同时显示实际类别和预测类别的表格（见表 9-1）。
+
+
+  表 9-1
+
+
+  实际值与预测值
+
+
+  |   | 实际值 | 预测值 |
+
+  | --- | --- | --- |
+
+  | **661** | 1 | 1 |
+
+  | **122** | 0 | 0 |
+
+  | **113** | 0 | 0 |
+
+  | **14** | 1 | 1 |
+
+  | **529** | 0 | 0 |
+
+  | **...** | ... | ... |
+
+  | **476** | 1 | 0 |
+
+  | **482** | 0 | 0 |
+
+  | **230** | 1 | 0 |
+
+  | **527** | 0 | 0 |
+
+  | **380** | 0 | 0 |
+
+
+  ```
+
+  y_predgnb = gnb.predict(x_test)
+
+  pd.DataFrame({"Actual":y_test, "Predicted":y_predgnb})
+
+  代码清单 9-2
+
+  实际值与预测值
+
+  ```
+
+
+  ### 评估高斯朴素贝叶斯分类器
+
+
+  要了解`GaussianNB`分类器的性能，我们必须将实际类别与预测类别进行并排比较。
+
+
+  ##### 混淆矩阵
+
+
+  代码清单 9-3 和表 9-2 生成了一个矩阵，突出显示了用于评估`GaussianNB`分类器关键性能的值。
+
+
+  表 9-2
+
+
+  混淆矩阵
+
+
+  |   | 预测：否 | 预测：是 |
+
+  | --- | --- | --- |
+
+  | **实际：否** | 93 | 14 |
+
+  | **实际：是** | 18 | 29 |
+
+
+  ```
+
+  cmatgnb = pd.DataFrame(metrics.confusion_matrix(y_test,y_predgnb), index=["Actual:
+  No","Actual: Yes"],
+
+  columns=("Predicted: No","Predicted: Yes"))
+
+  cmatgnb
+
+  代码清单 9-3
+
+  混淆矩阵
+
+  ```
+
+
+  #### 分类报告
+
+
+  代码清单 9-4 和表 9-3 突出了关键的分类评估指标，如准确率、精确率、召回率等。
+
+
+  表 9-3
+
+
+  分类报告
+
+
+  |   | 精确率 | 召回率 | F1 分数 | 支持度 |
+
+  | --- | --- | --- | --- | --- |
+
+  | **0** | 0.837838 | 0.869159 | 0.853211 | 107.000000 |
+
+  | **1** | 0.674419 | 0.617021 | 0.644444 | 47.000000 |
+
+  | **准确率** | 0.792208 | 0.792208 | 0.792208 | 0.792208 |
+
+  | **宏平均** | 0.756128 | 0.743090 | 0.748828 | 154.000000 |
+
+  | **加权平均** | 0.787963 | 0.792208 | 0.789497 | 154.000000 |
+
+
+  ```
+
+  creportgnb = pd.DataFrame(metrics.classification_report(y_test,y_predgnb, output_dict=True)).transpose()
+
+  creportgnb
+
+  代码清单 9-4
+
+  分类报告
+
+  ```
+
+
+  表 9-3 显示，类别 0 的精确率得分（0.84）和召回率得分（0.87）最高。总体而言，该模型的准确率为 79%。
+
+
+  #### ROC 曲线
+
+
+  代码清单 9-5 和图 9-1 展示了不同的阈值，使操作员能够在精确率和召回率之间进行权衡。阈值介于 0 和 1 之间。
+
+
+  ![../images/506148_1_En_9_Chapter/506148_1_En_9_Fig1_HTML.jpg](img/506148_1_En_9_Fig1_HTML.jpg)
+
+
+  图 9-1
+
+
+  ROC 曲线
+
+
+  ```
+
+  y_predgnb_proba = gnb.predict_proba(x_test)[::,1]
+
+  fprgnb, tprgnb, _ = metrics.roc_curve(y_test,y_predgnb_proba)
+
+  aucgnb = metrics.roc_auc_score(y_test, y_predgnb_proba)
+
+  plt.plot(fprgnb, tprgnb, label="auc: "+str(aucgnb), color="navy")
+
+  plt.plot([0,1],[0,1],color="red")
+
+  plt.xlim([0.00,1.01])
+
+  plt.ylim([0.00,1.01])
+
+  plt.xlabel("特异度")
+
+  plt.ylabel("敏感度")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  代码清单 9-5
+
+  ROC 曲线
+
+  ```
+
+
+  图 9-1 显示，当特异度在 0 到 0.1 之间时，曲线紧贴右侧边界。然而，随着特异度的增加，曲线弯曲并缓慢趋近于 1。AUC 得分为 0.84。
+
+
+  #### 精确率-召回率曲线
+
+
+  分类报告告诉我们，类别 0 拥有大量的数据点（数据不平衡）。我们必须更多地关注精确率和召回率。代码清单 9-6 生成了精确率-召回率曲线（见图 9-2）。
+
+
+  ![../images/506148_1_En_9_Chapter/506148_1_En_9_Fig2_HTML.jpg](img/506148_1_En_9_Fig2_HTML.jpg)
+
+
+  图 9-2
+
+
+  精确率-召回率曲线
+
+
+  ```
+
+  precisiongnb, recallgnb, thresholdgnb = metrics.precision_recall_curve(y_test,y_predgnb)
+
+  apsgnb = metrics.roc_auc_score(y_test,y_predgnb)
+
+  plt.plot(precisiongnb, recallgnb, label="aps: "+str(apsgnb),color="navy",alpha=0.8)
+
+  plt.axhline(y=0.5,color="red",alpha=0.8)
+
+  plt.xlabel("精确率")
+
+  plt.ylabel("召回率")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  代码清单 9-6
+
+  精确率-召回率曲线
+
+  ```
+
+
+  精确率得分的平均值为 74%。该曲线并未接近最上方的边界。相反，它平滑地下降，直到达到 0.8，然后势头减弱。
+
+
+
+
+  #### 学习曲线
+
+
+  清单 9-7 生成了一条曲线，描绘了 `GaussianNB` 分类器在学习训练数据时准确率的变化过程（见图 9-3）。
+
+
+  ![../images/506148_1_En_9_Chapter/506148_1_En_9_Fig3_HTML.jpg](img/506148_1_En_9_Fig3_HTML.jpg)
+
+
+  **图 9-3** 学习曲线
+
+
+  ```
+
+  trainsizegnb, trainscoregnb, testscoregnb = learning_curve(gnb, x, y, cv=5, n_jobs=5,
+  train_sizes=np.linspace(0.1,1.0,50))
+
+  trainscoregnb_mean = np.mean(trainscoregnb,axis=1)
+
+  testscoregnb_mean = np.mean(testscoregnb,axis=1)
+
+  plt.plot(trainsizegnb,trainscoregnb_mean,color="red", label="Training Score", alpha=0.8)
+
+  plt.plot(trainsizegnb,testscoregnb_mean,color="navy", label="Cross Validation Score",
+  alpha=0.8)
+
+  plt.xlabel("Training Set Size")
+
+  plt.ylabel("Accuracy")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  ```
+
+
+  **清单 9-7** 学习曲线
+
+
+  图 9-3 显示 `GaussianNB` 分类器是一个快速学习器。鉴于该模型没有可调的超参数，这一点并不令人意外。与我们在前几章中开发的分类器相比，`GaussianNB`
+  在训练过程的初始阶段过拟合程度更低。与其他学习曲线不同，训练准确率分数在前几个训练集上并未骤降。尽管该分类器学习速度快，但它未能达到 80% 的准确率。
+
+
+  ## 结论
+
+
+  本章介绍了朴素贝叶斯分类器。请记住，还有其他朴素分类器，例如多项式朴素贝叶斯模型和伯努利朴素贝叶斯模型。^(⁸) 它们的使用取决于具体情境。
+
+
+  脚注 1 2
+
+
+  '
+- "# 10. 聚类分析\n\n本章将以结构化形式简要介绍聚类分析的概念。在前几章中，我们充分介绍了监督学习。在监督学习中，我们向模型提供一组正确答案，然后让它预测未见过的数据。现在，让我们稍微转移一下注意力。假设我们有一组包含多个变量的数据，并且没有需要关注的独立变量。在这种情况下，我们不会对某种现象做出任何看似合理的假设。\n\
+  \n本章将介绍无监督学习。我们不会向模型提供一组正确答案；相反，我们允许它做出智能的粗略估计。无监督学习包括降维和聚类分析。在本章中，我们首先让您熟悉一种广泛称为主成分分析（PCA）的降维方法，然后向您介绍聚类分析。之后，我们将开发并评估诸如\
+  \ K-means 模型、凝聚模型和 DBSCAN 模型等模型。在对数据进行预处理和建模之前，我们先讨论一下聚类分析。\n\n## 什么是聚类分析？\n\n聚类分析是一种能够可靠地找到具有相似性和差异性的数据点组的方法。在聚类分析中，我们关注的是能够解释数据变异的独特聚类。没有真正的因变量。我们平等地对待所有变量。流行的聚类技术包括：*质心聚类*，它是随机的，将数据点的质心选择到一组指定的聚类中，例如\
+  \ K-means；*密度聚类*，它根据密度分布对数据点进行分组，例如 DBSCAN；以及*分布聚类*，它根据某种分布识别数据点属于某个聚类的概率，例如高斯混合模型等。\n\
+  \n## 聚类分析实践\n\n表 10-1 显示了此用例的数据。数据中有三个变量。没有实际的独立变量。所有变量同等重要。我们关注的是数据中的相似性和差异性。同样，我们从\
+  \ Kaggle 获得了示例数据。^(⁹)\n\n**表 10-1** 数据集\n\n|   | 年龄 | 年收入 (千美元) | 消费评分 (1–100) |\n\
+  |--- |--- |--- |--- |\n| **0** | 19 | 15 | 39 |\n| **1** | 21 | 15 | 81 |\n| **2**\
+  \ | 20 | 16 | 6 |\n| **3** | 23 | 16 | 77 |\n| **4** | 31 | 17 | 40 |\n\n## 相关矩阵\n\
+  \n我们首先计算数据中变量之间的关联性。当数据中有一组连续变量时，使用皮尔逊方法来衡量相关性。清单 10-1 生成了皮尔逊相关矩阵（见表 10-2）。\n\n\
+  **表 10-2** 皮尔逊相关矩阵\n\n|   | 年龄 | 年收入 (千美元) | 消费评分 (1–100) |\n|--- |--- |--- |---\
+  \ |\n| **年龄** | 1.000000 | -0.012398 | -0.327227 |\n| **年收入 (千美元)** | -0.012398\
+  \ | 1.000000 | 0.009903 |\n| **消费评分 (1–100)** | -0.327227 | 0.009903 | 1.000000\
+  \ |\n\n```\ndfcorr = df.corr()\ndfcorr\n```\n\n**清单 10-1** 皮尔逊相关矩阵\n\n表 10-2 显示了年龄与年收入之间微弱的负相关关系，以及年龄与消费评分之间较强的负相关关系。\n\
+  \n## 协方差矩阵\n\n计算协方差的主要目的是构建特征矩阵。清单 10-2 和表 10-3 总结了变量之间的变异性。\n\n**表 10-3** 协方差矩阵\n\
+  \n|   | 年龄 | 年收入 (千美元) | 消费评分 (1-100) |\n|--- |--- |--- |--- |\n| **年龄** | 195.133166\
+  \ | -4.548744 | -118.040201 |\n| **年收入 (千美元)** | -4.548744 | 689.835578 | 6.716583\
+  \ |\n| **消费评分 (1-100)** | -118.040201 | 6.716583 | 666.854271 |\n\n```\ndfcov =\
+  \ df.cov()\ndfcov\n```\n\n**清单 10-2** 协方差矩阵\n\n大多数情况下，我们对变量之间的协方差不感兴趣；相反，我们感兴趣的是它们之间的相关性以及相关性的严重程度。\n\
+  \n## 特征矩阵\n\n为了可靠地找出变量之间相关性的严重程度，请使用特征值。特征值小于 0 表示多重共线性，介于 10 和 100 之间表示轻微多重共线性，大于\
+  \ 100 表示严重多重共线性。清单 10-3 计算并列出了特征值和特征向量（见表 10-4）。\n\n**表 10-4** 特征矩阵\n\n|   | 特征值\
+  \ | 年龄 | 年收入 (千美元) | 消费评分 (1–100) |\n|--- |--- |--- |--- |--- |\n| **年龄** | 167.228524\
+  \ | 0.973210 | 0.188974 | -0.130965 |\n| **年收入 (千美元)** | 700.264355 | 0.005517 |\
+  \ -0.588641 | -0.808376 |\n| **消费评分 (1–100)** | 684.330136 | 0.229854 | -0.785997\
+  \ | 0.573914 |\n\n```\neigenvalues, eigenvectors = np.linalg.eig(dfcov)\neigenvalues\
+  \ = pd.DataFrame(eigenvalues)\neigenvectors = pd.DataFrame(eigenvectors)\neigen\
+  \ = pd.concat([eigenvalues,eigenvectors],axis=1)\neigen.index = df.columns\neigen.columns\
+  \ = (\"Eigen values\",\"Age\",\"Annual Income (k$)\",\"Spending Score (1-100)\"\
+  )\neigen\n```\n\n**清单 10-3** 特征矩阵\n\n表 10-4 显示了特征向量和特征值。存在严重的多重共线性。正如我们在前几章中着重提到的，多重共线性会对结论产生不利影响。\n\
+  \n清单 10-4 应用 `StandardScaler()` 方法对数据进行缩放，使得均值为 0，标准差为 1。\n\n```\nfrom sklearn.preprocessing\
+  \ import StandardScaler\nscaler = StandardScaler()\ndf = scaler.fit_transform(df)\n\
+  ```\n\n**清单 10-4** 数据标准化\n\n接下来，我们执行 PCA。\n\n\n\n### 主成分分析\n\n在主成分分析（PCA）中，我们利用特征值来寻找数据中的变异来源。PCA\
+  \ 会计算累积比例。请记住，我们并非基于某个模型来执行 PCA，而是由它来寻找能够解释变异的数据点。与因子分析类似，我们使用 PCA^(¹⁰) 来简化一组变量的结构。它通过计算变量的线性组合来得到主成分。该方法的主要目标是解释总方差。同时，它也将数据压缩到更少的成分中，以便所使用的成分能够代表模型估计值。最后，它会剔除具有较大特征值（极端变异性）的因子。不仅如此，它还使用凯泽准则来确定需要保留的因子数量。图\
+  \ 10-1 简化了一组变量的结构。\n\n![../images/506148_1_En_10_Chapter/506148_1_En_10_Fig1_HTML.png](img/506148_1_En_10_Fig1_HTML.png)\n\
+  \n**图 10-1** 主成分分析\n\n此处，变量（`M1`、`M2` 和 `M3`）基于某些因子或成分 `C1` 和 `C2`。回想一下，我们感兴趣的是找出支持主成分的变量。代码清单\
+  \ 10-5 返回 PCA 载荷并创建一个载荷矩阵。\n\n```\npca = PCA()\npca.fit_transform(df)\npca_variance\
+  \ = pca.explained_variance_\nplt.figure(figsize=(8, 6))\nplt.bar(range(3), pca_variance,\
+  \ align=\"center\", label=\"Individual Variance\")\nplt.legend()\nplt.ylabel(\"\
+  Variance Ratio\")\nplt.xlabel(\"Principal Components\")\nplt.show()\n```\n\n**代码清单\
+  \ 10-5** 解释方差\n\n图 10-2 展示了各成分对预测变量相对重要性的排序。它证实了第一个成分解释了数据中的大部分变异。参见代码清单 10-6。\n\
+  \n![../images/506148_1_En_10_Chapter/506148_1_En_10_Fig2_HTML.jpg](img/506148_1_En_10_Fig2_HTML.jpg)\n\
+  \n**图 10-2** 解释方差\n\n```\npca = PCA(n_components=3).fit(df)\npca_components = pca.components_.T\n\
+  pca_components = pd.DataFrame(pca_components)\npca_components.index = df.columns\n\
+  pca_components.columns = df.columns\npca_components\n```\n\n**代码清单 10-6** 主成分矩阵\n\
+  \n代码清单 10-6 返回一个条件索引，该索引描述了每个成分的 PCA 载荷（见表 10-5）。\n\n**表 10-5** 主成分\n\n|   | 年龄\
+  \ | 年收入 (k$) | 消费评分 (1–100) |\n| --- | --- | --- | --- |\n| **年龄** | -0.188974 |\
+  \ 0.130965 | 0.973210 |\n| **年收入 (k$)** | 0.588641 | 0.808376 | 0.005517 |\n| **消费评分\
+  \ (1–100)** | 0.785997 | -0.573914 | 0.229854 |\n\n`年龄` 具有最高的 PCA 载荷（它是第一主成分），其次是年收入（`k$`），依此类推。代码清单\
+  \ 10-7 对数据进行转换。请记住，我们将成分数量指定为 3。\n\n```\npca2 = PCA(n_components=3)\npca2.fit(df)\n\
+  x_3d = pca2.transform(df)\nplt.figure(figsize=(8,6))\nplt.scatter(x_3d[:,0], x_3d[:,2],\
+  \ c=old_df['Annual Income (k$)'])\nplt.xlabel(\"y\")\nplt.show()\n```\n\n**代码清单\
+  \ 10-7** 完成 PCA\n\n执行降维后，我们使用散点图绘制数据点。图 10-3 展示了数据点的分布。参见代码清单 10-8。\n\n![../images/506148_1_En_10_Chapter/506148_1_En_10_Fig3_HTML.jpg](img/506148_1_En_10_Fig3_HTML.jpg)\n\
+  \n**图 10-3** 主成分\n\n```\ndf = pca.transform(df)\n```\n\n**代码清单 10-8** 数据降维\n\n##\
+  \ 肘部曲线\n\n肘部曲线被广泛认为是*曲线拐点*图。我们用它来发现数据中的聚类数量。其 x 轴为聚类数量，y 轴为解释方差的百分比。我们使用一个截断点来选择聚类数量。截断点是指平滑弯曲结束、急剧弯曲开始的那个点。参见代码清单\
+  \ 10-9。\n\n```\nNc = range(1,20)\nkmeans = [KMeans(n_clusters=i) for i in Nc]\n\
+  scores = [kmeans[i].fit(df).score(df) for i in range(len(kmeans))]\nfig, ax = plt.subplots()\n\
+  plt.plot(Nc, scores)\nplt.xlabel(\"No. of clusters\")\nplt.show()\n```\n\n**代码清单\
+  \ 10-9** 肘部曲线\n\n图 10-4 显示了从聚类 1 到聚类 3 的平滑弯曲。然而，从聚类 3 开始，曲线急剧弯曲。我们使用 3 作为截断点。\n\n\
+  ![../images/506148_1_En_10_Chapter/506148_1_En_10_Fig4_HTML.jpg](img/506148_1_En_10_Fig4_HTML.jpg)\n\
+  \n**图 10-4**\n\n解决问题的方法不止一种。你也可以使用碎石图来验证截断点。请记住，我们通常在 PCA 中使用碎石图来确定要保留的成分数量。代码清单\
+  \ 10-10 生成一个碎石图，我们也可以用它来确定聚类模型要使用的聚类数量（见图 10-5）。\n\n![../images/506148_1_En_10_Chapter/506148_1_En_10_Fig5_HTML.jpg](img/506148_1_En_10_Fig5_HTML.jpg)\n\
+  \n**图 10-5** 碎石图\n\n```\nks = range(1,20)\nds = []\nfor k in ks:\n    cls = KMeans(n_clusters=k)\n\
+  \    cls.fit(df)\n    ds.append(cls.inertia_)\nfig, ax = plt.subplots()\nplt.plot(ks,\
+  \ ds)\nplt.xlabel(\"Value of k\")\nplt.ylabel(\"Distortion\")\nplt.show()\n```\n\
+  \n**代码清单 10-10** 碎石图\n\n图 10-5 验证了碎石图的拐点。\n\n## K-Means 聚类\n\nK-Means 模型是最流行的聚类模型。它将数据分割成\
+  \ *k* 个具有最近均值*质心*的聚类，然后计算子集之间的距离以形成聚类。它还能减少簇内距离并增加簇间距离。其公式如公式 10-1 所示。\n\n![$$ Dis\\\
+  left({x}_1,{x}_2\\right)=\\sqrt{\\sum_{i=0}^n{\\left({x}_{1i}-{y}_{2i}\\right)}²}\
+  \ $$](img/506148_1_En_10_Chapter_TeX_Equ1.png)\n\n**(公式 10-1)**\n\n基本上，该模型会找到初始的\
+  \ *k*（聚类数量）并计算聚类之间的距离。然后，它将每个数据点分配到最近的质心。该模型在处理大样本时效果最佳。参见代码清单 10-11。\n\n```\nkmeans\
+  \ = KMeans(n_clusters=3)\nkmeans_output = kmeans.fit(df)\nkmeans_output\n```\n\n\
+  **代码清单 10-11** 使用默认超参数的 K-Means 模型\n\n\n\n### K-Means 超参数优化\n\n我们通常不希望使用初始超参数来拟合模型，除非它能带来最佳性能。针对每个用例，我们必须找到最佳的超参数（前提是模型具有可调超参数）。表\
+  \ 10-6 概述了 K-means 的关键可调超参数。\n\n**表 10-6** 可调超参数\n\n| 参数 | 描述 |\n| --- | --- |\n\
+  | `copy_X` | 确定是否必须复制自变量。 |\n| `tol` | 确定精度。默认值为 0.003。 |\n| `max_iter` | 确定最大迭代次数。\
+  \ |\n| `tol` | 确定优化的容差。 |\n\n代码清单 10-12 为 K-means 模型找到了最佳超参数。\n\n```\nparam_gridkmeans\
+  \ = {\"copy_x\":[False,True],\n\"max_iter\":[1,10,100,1000],\n\"n_init\":[5,10,15,20],\n\
+  \"tol\":[0.0001,0.001,0.01,1.0]}\ngrid_modelkmeans = GridSearchCV(estimator=kmeans_output,\
+  \ param_grid=param_gridkmeans)\ngrid_modelkmeans.fit(df)\nprint(\"Best score: \"\
+  , grid_modelkmeans.best_score_, \"Best hyper-parameters: \", grid_modelkmeans.best_params_)\n\
+  ```\n\n**代码清单 10-12** 超参数优化\n\n最佳得分：-49470.220198874384 最佳超参数：`{'copy_x': False,\
+  \ 'max_iter': 1, 'n_init': 15, 'tol': 0.01}`\n\n代码清单 10-13 使用最佳超参数完成了 K-means 模型。\n\
+  \n```\nkmeans = KMeans(n_clusters=3,\ncopy_x=False,\nmax_iter= 1, n_init= 15,\n\
+  tol= 0.01)\nkmeans_output = kmeans.fit(df)\nkmeans_output\n```\n\n**代码清单 10-13**\
+  \ 最终确定 K-Means 模型\n\n代码清单 10-14 以表格形式列出了预测标签（表 10-7）。\n\n**表 10-7** 预测标签\n\n|  \
+  \ | 预测值 |\n| --- | --- |\n| **0** | 1 |\n| **1** | 1 |\n| **2** | 1 |\n| **3** |\
+  \ 1 |\n| **4** | 1 |\n| **...** | ... |\n| **195** | 0 |\n| **196** | 2 |\n| **197**\
+  \ | 0 |\n| **198** | 2 |\n| **199** | 0 |\n\n```\ny_predkmeans = pd.DataFrame(kmeans_output.labels_,\
+  \ columns = [\"Predicted\"])\ny_predkmeans\n```\n\n**代码清单 10-14** 预测标签\n\n表 10-7\
+  \ 并未告诉我们太多信息。我们基本上是在观察 K-means 模型生成的标签。\n\n### 质心\n\n数据的集中趋势能揭示数据的许多信息。我们必须找到簇的中心，也称为质心。代码清单\
+  \ 10-15 应用 `cluster_centers_` 来查找质心（见表 10-8）。\n\n**表 10-8** 质心\n\n|   | 簇 1 | 簇\
+  \ 2 | 簇 3 |\n| --- | --- | --- | --- |\n| **0** | -8.879001 | -11.467679 | 0.891796\
+  \ |\n| **1** | -10.435900 | 42.928296 | -5.127039 |\n| **2** | 43.326081 | 2.774284\
+  \ | 1.470721 |\n\n```\nkmean_centroids = pd.DataFrame(kmeans_output.cluster_centers_,\
+  \ columns = (\"Cluster 1\",\"Cluster 2\",\"Cluster 3\"))\nkmean_centroids\n```\n\
+  \n**代码清单 10-15** 质心\n\n为了真正理解模型，代码清单 10-16 创建了一个散点图，用于显示簇和簇中心（见图 10-6）。\n\n![../images/506148_1_En_10_Chapter/506148_1_En_10_Fig6_HTML.jpg](img/506148_1_En_10_Fig6_HTML.jpg)\n\
+  \n**图 10-6** K-means 模型\n\n```\nfig, ax = plt.subplots()\nplt.scatter(df[:,0],df[:,1],c=kmeans_output.labels_,cmap=\"\
+  viridis\",s=20)\nplt.scatter(kmean_centroids[:,0], kmean_centroids[:,1], color=\"\
+  red\")\nplt.xlabel(\"y\")\nplt.show()\n```\n\n**代码清单 10-16** 可视化 K-Means 模型\n\n\
+  K-means 模型进行了智能的猜测，直到数据点被分配到最近的质心，并找到了质心的平均值。图 10-6 表明数据中存在三个明显的簇。\n\n### 轮廓系数\n\
+  \n我们使用轮廓系数法来评估 K-means 模型。该方法比较凝聚度和分离度。其值范围从 -1 到 1，其中 -1 表示严重的错误标记，0 表示簇之间存在重叠，1\
+  \ 表示样本远离相邻簇。参见代码清单 10-17。\n\n```\nmetrics.silhouette_score(df, y_predkmeans)\n0.3839349967742105\n\
+  ```\n\n**代码清单 10-17** 轮廓系数\n\n轮廓系数为 0.38，这表明模型远非完美。簇之间存在重叠。\n\n## 凝聚层次聚类\n\n凝聚模型是一种层次模型，它采用自底向上的方法来生成树状图。它首先创建\
+  \ *n* 个簇（每个数据点一个），然后计算邻近度。之后，它合并彼此接近的簇，同时更新邻近度矩阵。最终结果是一个单一的簇。计算数据点之间距离的方法有多种。表 10-9\
+  \ 重点介绍了关键的距离计算技术。\n\n**表 10-9** 距离计算技术\n\n| 技术 | 描述 |\n| --- | --- |\n| **单链接聚类**\
+  \ | 寻找簇之间的最小距离 |\n| **全链接聚类** | 寻找簇之间的最大距离 |\n| **平均链接聚类** | 寻找簇之间的平均距离 |\n| **质心链接聚类**\
+  \ | 寻找簇质心之间的距离 |\n\n与随机初始化质心的 K-means 模型不同，凝聚模型会根据分辨率生成多个分区。代码清单 10-18 完成了凝聚模型。\n\
+  \n```\nagglo = AgglomerativeClustering(n_clusters=None,distance_threshold=0)\nagglo_output\
+  \ = agglo.fit(pca_df)\nagglo_output\n```\n\n**代码清单 10-18** 最终确定凝聚模型\n\n在最终确定凝聚模型后，代码清单\
+  \ 10-19 查找并以表格形式列出预测标签（表 10-10）。代码清单 10-20 展示了凝聚模型。\n\n**表 10-10** 预测标签\n\n|   |\
+  \ 预测值 |\n| --- | --- |\n| **0** | -1 |\n| **1** | -1 |\n| **2** | -1 |\n| **3**\
+  \ | -1 |\n| **4** | -1 |\n| **...** | ... |\n| **195** | -1 |\n| **196** | -1 |\n\
+  | **197** | -1 |\n| **198** | -1 |\n| **199** | -1 |\n\n```\ny_pred = pd.DataFrame(agglo_output.labels_,columns\
+  \ = [\"Predicted\"])\ny_pred\n```\n\n**代码清单 10-19** 预测标签\n\n```\nfig, ax = plt.subplots()\n\
+  plt.scatter(df[:,0],df[:,1],c=agglo_output.labels_,cmap=\"viridis\",s=20)\nplt.xlabel(\"\
+  y\")\nplt.show()\n```\n\n**代码清单 10-20** 凝聚模型\n\n图 10-7 指出了三个簇。大的簇分解成两个小簇。我们还注意到簇\
+  \ 1 和簇 2 之间存在轻微重叠。\n\n![../images/506148_1_En_10_Chapter/506148_1_En_10_Fig7_HTML.jpg](img/506148_1_En_10_Fig7_HTML.jpg)\n\
+  \n**图 10-7** 凝聚模型\n\n我们使用树状图来描绘簇树的层次结构。代码清单 10-21 创建了一个链接矩阵，计算每个节点下的样本数量，并生成相应的树状图（见图\
+  \ 10-8）。\n\n![../images/506148_1_En_10_Chapter/506148_1_En_10_Fig8_HTML.jpg](img/506148_1_En_10_Fig8_HTML.jpg)\n\
+  \n**图 10-8** 凝聚树状图\n\n```\ndef plot_dendrogram(model, **kwargs):\ncounts = np.zeros(model.children_.shape[0])\n\
+  n_samples = len(model.labels_)\nfor i, merge in enumerate(model.children_):\ncurrent_count\
+  \ = 0\nfor child_idx in merge:\nif child_idx < n_samples:\ncurrent_count += 1\n\
+  else:\ncurrent_count += counts[child_idx - n_samples]\ncounts[i] = current_count\n\
+  linkage_matrix = np.column_stack([model.children_, model.distances_,\ncounts]).astype(float)\n\
+  dendrogram(linkage_matrix, **kwargs)\nplot_dendrogram(agglo_output, truncate_mode=\"\
+  level\", p=3)\n```\n\n**代码清单 10-21** 可视化树状图\n\n图 10-8 显示了以簇形式连接的数据点（一个父节点带有两个子节点）。\n\
+  \n\n\n### 基于密度的含噪声空间聚类模型\n\n我们使用基于密度的含噪声空间聚类模型（`DBSCAN`）来寻找任意空间形状的聚类。该模型识别一个包含若干数据点的半径区域。任何一个数据点都可以是核心点、边界点或离群点。根据这些点，数据点被分组为不同的聚类。表\
+  \ 10-11 重点说明了这些点。\n\n表 10-11\n\nDBSCAN 点类型\n\n| 点类型 | 描述 |\n| --- | --- |\n| **核心点**\
+  \ | 被最少数量邻居所包围的点。核心点被边界点所包围。 |\n| **边界点** | 未被最少数量邻居所包围，但可以从核心点到达的点。 |\n| **离群点**\
+  \ | 既不是核心点也不是边界点的点。该点远离核心点的可达范围。 |\n\n该模型会寻找互为邻居的核心点，并将它们归入同一个聚类。因此，一个聚类至少包含一个核心点（可达点）或边界点。此外，它还能发现被不同聚类所包围的聚类。参见代码清单\
+  \ 10-22。\n\n```\ndbscan = DBSCAN()\ndbscan_output = dbscan.fit(df)\ndbscan_output\n\
+  代码清单 10-22\n完成 DBSCAN 模型\n```\n\n代码清单 10-23 和表 10-12 重点说明了预测的标签。\n\n表 10-12\n\n\
+  预测类别\n\n|   | 预测值 |\n| --- | --- |\n| **0** | -1 |\n| **1** | -1 |\n| **2** | -1\
+  \ |\n| **3** | -1 |\n| **4** | -1 |\n| **...** | ... |\n| **195** | -1 |\n| **196**\
+  \ | -1 |\n| **197** | -1 |\n| **198** | -1 |\n| **199** | -1 |\n\n```\ny_pred =\
+  \ pd.DataFrame(dbscan_output.labels_,columns = [\"Predicted\"])\ny_pred\n代码清单 10-23\n\
+  预测标签\n```\n\n代码清单 10-24 描述了 DBSCAN 模型的特征（见图 10-9）。\n\n![../images/506148_1_En_10_Chapter/506148_1_En_10_Fig9_HTML.jpg](img/506148_1_En_10_Fig9_HTML.jpg)\n\
+  \n图 10-9\n\nDBSCAN 模型\n\n```\nfig, ax = plt.subplots()\nplt.scatter(df[:,0],df[:,1],c=dbscan_output.labels_,cmap=\"\
+  viridis\",s=20)\nplt.xlabel(\"y\")\nplt.show()\n代码清单 10-24\n可视化 DBSCAN 模型\n```\n\
+  \n图 10-9 显示，DBSCAN 模型并未做出大量智能的推测。这并不意味着该模型在所有情况下都表现不佳。当满足基于密度的标准时，该模型是适用的。显然，高斯分布表现出更优的性能。\n\
+  \n## 结论\n\n本章介绍了降维和聚类分析。我们开发并评估了三种聚类模型，即 K-means 模型、DBSCAN 模型和凝聚层次模型。我们首先使用 PCA\
+  \ 方法降低数据的维度。然后，我们采用肘部法则来确定在 K-means 模型和凝聚层次模型中需要指定的聚类数量。在开发 DBSCAN 模型时，我们不需要预先假定聚类的数量。\n\
+  \n聚类模型是宽松的；它们没有强假设条件。聚类分析中令人望而生畏的部分是模型评估。它们缺乏稳健的评估指标，我们依赖轮廓系数法进行模型评估。\n\n脚注 1  \
+  \ 2\n\n"
+- '# 生存分析
+
+
+  本章介绍生存分析。该方法包括两个分支：参数方法和非参数方法。参数生存分析模型包括威布尔模型、指数模型、对数线性模型等（更多信息请参阅 Lifelines^(¹¹)）。非参数生存分析模型包括
+  Kaplan-Meier 模型和 Nelson-Aalen 模型。
+
+
+  本章仅介绍最流行的非参数模型，即 Kaplan-Meier 模型，该模型使用时间来衡量一个二元变量。它对数据的结构有宽松的假设。同样，它也不对数据的线性关系和正态性做出假设。
+
+
+  它不以传统意义来捕捉时间。它捕捉的是研究对象在研究中的实际进入和退出日期。我们也称生存分析为*可靠性分析*或*持续时间建模*。当我们使用它时，持续时间比时间更重要。在临床试验中，我们用它来估计患者在特定时间之后存活（即疾病或死亡）的概率。在工程领域，我们用它来估计机器在特定时间之后无故障运行（即机器故障）的概率。
+
+
+  要使一项研究和生存分析模型被认为是可靠的，必须满足某些条件。首先，研究设计应包含一个对照组。其次，必须有严格的方法来记录研究中参与者的活动；我们必须始终考虑诸如患者进入或退出研究、患者处于风险状态以及患者死亡等因素。表
+  11-1 概述了关键的生存分析术语。
+
+
+  表 11-1
+
+
+  生存分析关键术语
+
+
+  | 术语 | 描述 |
+
+  | --- | --- |
+
+  | **生存时间** | 表示事件的时间线 |
+
+  | **事件** | 表示正在研究的二元结果（通常是疾病或死亡） |
+
+  | **删失** | 表示患者从研究中移除 |
+
+
+  衡量疾病和死亡等事件结果的研究需要很长时间。参与者可以进入或退出研究，有些人可能死亡，而其他人则被报告为处于风险中。在生存分析中，我们主要处理缺失值。我们将包含缺失值的数据称为*删失数据*。与逻辑回归和线性判别分析等其他非参数模型不同，生存分析模型对缺失值不敏感。事实上，我们总是期望在数据中发现缺失值。
+
+
+
+
+  ## 生存分析实践
+
+
+  我们加载了 Lifeline 包中一个名为 `load_watons` 的数据集。Lifeline 并非标准的 Python 库。要在 Python 环境中安装它，请使用
+  `pip install lifelines`；要在 Conda 环境中安装，请使用 `conda install -c conda-forge lifelines`。该数据包含三列。第一列是时间（自变量），第二列是事件（因变量），第三列指定患者所属的组别。这两个组别是对照组和
+  miR-137 组。每位患者只能属于其中一组。参见代码清单 11-1 和表 11-2。
+
+
+  **表 11-2** 数据集
+
+
+  |   | T | E | 组别 |
+
+  | --- | --- | --- | --- |
+
+  | **0** | 6.0 | 1 | miR-137 |
+
+  | **1** | 13.0 | 1 | miR-137 |
+
+  | **2** | 13.0 | 1 | miR-137 |
+
+  | **3** | 13.0 | 1 | miR-137 |
+
+  | **4** | 19.0 | 1 | miR-137 |
+
+
+  ```
+
+  from lifelines.datasets import load_walton
+
+  import pandas as pd
+
+  df = load_waton()
+
+  df.head()
+
+  代码清单 11-1
+
+  加载数据
+
+  ```
+
+
+  代码清单 11-2 返回数据结构。
+
+
+  ```
+
+  tdf.info()
+
+  RangeIndex: 163 entries, 0 to 162
+
+  Data columns (total 3 columns):
+
+  #   Column  Non-Null Count  Dtype
+
+  ---  ------  --------------  -----
+
+  0   T       163 non-null    float64
+
+  1   E       163 non-null    int64
+
+  2   group   163 non-null    object
+
+  dtypes: float64(1), int64(1), object(1)
+
+  memory usage: 3.9+ K
+
+  代码清单 11-2
+
+  数据结构
+
+  ```
+
+
+  如您所见，共有 163 名患者参与了这项研究。数据中没有缺失值。这意味着所使用的数据收集方法是严谨的。请记住，这在现实世界中几乎不会发生。大多数情况下，我们处理的数据都包含缺失值。该数据包含三列；第一列是连续变量（以年数表示的时间线），第二列是二元变量（事件结果——我们将未能在特定时间后存活的患者编码为
+  0，将在特定时间后存活的患者编码为 1），第三列是二元分类变量（患者属于对照组或 miR-137 组）。基于数据结构，我们可以使用生存分析模型，例如 Kaplan-Meier
+  模型或 Nelson-Aalen 模型。在本章中，我们将研究 Kaplan-Meier 模型。在开发模型之前，我们先描述一下数据。
+
+
+  代码清单 11-3 统计并列出每个组别的患者数量（见表 11-3）。
+
+
+  **表 11-3** 每组患者数量
+
+
+  |   | 数量 |
+
+  | --- | --- |
+
+  | **组别** |   |
+
+  | **对照组** | 129 |
+
+  | **miR-137** | 34 |
+
+
+  ```
+
+  class_series_group = df.groupby("group").size()
+
+  class_series_group = pd.DataFrame(class_series_group, columns=["Count"])
+
+  class_series_group
+
+  代码清单 11-3
+
+  组别计数
+
+  ```
+
+
+  表 11-4 强调，在参与研究的 193 名患者中，129 名属于对照组，34 名属于 miR-137 组。对照组占患者总样本的 79.14%，miR-137
+  组占样本的 20.86%。
+
+
+  **表 11-4** 事件结果计数
+
+
+  |   | 数量 |
+
+  | --- | --- |
+
+  | **E** |   |
+
+  | **0** | 7 |
+
+  | **1** | 156 |
+
+
+  代码清单 11-4 统计并列出事件结果（见表 11-4）。
+
+
+  ```
+
+  class_series_event = df.groupby("E").size()
+
+  class_series_event = pd.DataFrame(class_series_event, columns=["Count"])
+
+  class_series_event
+
+  代码清单 11-4
+
+  事件结果
+
+  ```
+
+
+  表 11-4 显示，在 163 名患者中，只有 7 名未能在特定时间后存活，而 95.71% 的患者在指定时间后存活。
+
+
+  代码清单 11-5 统计并列出每个组别的事件结果（见表 11-5）。
+
+
+  **表 11-5** 每组事件结果计数
+
+
+  |   |   | 数量 |
+
+  | --- | --- | --- |
+
+  | **组别** | E |   |
+
+  | **对照组** | 0 | 7 |
+
+  | 1 | 122 |
+
+  | **miR-137** | 1 | 34 |
+
+
+  ```
+
+  class_series_event_per_group = df.groupby(["group","E"]).size()
+
+  class_series_event_per_group = pd.DataFrame(class_series_event_per_group, columns
+  = ["Count"])
+
+  class_series_event_per_group
+
+  代码清单 11-5
+
+  每组事件结果
+
+  ```
+
+
+  表 11-5 显示，属于 miR-137 组的所有 34 名患者在特定时间后均存活。在对照组中，122 名患者存活，7 名未存活。
+
+
+  ### 数据预处理
+
+
+  代码清单 11-6 将数据拆分为 miR-137 组和对照组。
+
+
+  ```
+
+  miR_137 = df.loc[df.group == "miR-137"]
+
+  control_group = df.loc[df.group == "control"]
+
+  代码清单 11-6
+
+  拆分数据
+
+  ```
+
+
+  将数据一分为二后，我们将数据重新调整为所需的格式。参见代码清单 11-7。
+
+
+  ```
+
+  T1 = miR_137["T"]
+
+  E1 = miR_137["E"]
+
+  T2 = control_group["T"]
+
+  E2 = control_group["E"]
+
+  代码清单 11-7
+
+  重新调整数据
+
+  ```
+
+
+  ### 描述性统计
+
+
+  请记住，在生存分析中，没有严格的线性和正态性假设；我们使用描述性分析不是为了检验假设，而是为了理解数据的底层结构。我们知道我们正在处理偏态数据。代码清单 11-8
+  返回描述性统计（见表 11-6）。
+
+
+  **表 11-6** MiR-137 描述性统计
+
+
+  |   | 计数 | 均值 | 标准差 | 最小值 | 25% | 50% | 75% | 最大值 |
+
+  | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+
+  | **T** | 34.0 | 25.705882 | 13.358755 | 6.0 | 16.0 | 26.0 | 29.0 | 62.0 |
+
+
+  ```
+
+  pd.DataFrame(miR_137["T"].describe()).transpose()
+
+  代码清单 11-8
+
+  描述性统计
+
+  ```
+
+
+  表 11-6 显示，患者参与研究的最少年限为 6 年，最多年限为 62 年。患者参与研究的平均年限为 26 年。
+
+
+
+
+  ### 生存表
+
+
+  我们通常将生命表称为生存表。生存表是一种提供患者参与研究期间活动信息的表格。表 11-7 展示了生存表的内容。
+
+
+  表 11-7
+
+
+  生存表的内容
+
+
+  | 内容 | 描述 |
+
+  | --- | --- |
+
+  | **已移除** | 在区间 *t* 内死亡（或发生关注事件）的受试者数量 |
+
+  | **已观测** | 在区间 *t* 内未发生事件且被认为处于风险中的受试者数量 |
+
+  | **已删失** | 在区间 *t* 内退出研究的参与者数量 |
+
+  | **已进入** | 在区间 *t* 内进入研究的受试者数量 |
+
+  | **处于风险中** | 在区间 *t* 内处于风险中的受试者总数 |
+
+
+  代码清单 11-9 应用了 `survival_from_event()` 方法来创建生存表（见表 11-8）。
+
+
+  表 11-8
+
+
+  生存表
+
+
+  |   | removed | observed | censored | entrance | at_risk |
+
+  | --- | --- | --- | --- | --- | --- |
+
+  | **event_at** |   |   |   |   |   |
+
+  | **0.0** | 0 | 0 | 0 | 34 | 34 |
+
+  | **6.0** | 1 | 1 | 0 | 0 | 34 |
+
+  | **9.0** | 3 | 3 | 0 | 0 | 33 |
+
+  | **13.0** | 3 | 3 | 0 | 0 | 30 |
+
+  | **15.0** | 2 | 2 | 0 | 0 | 27 |
+
+
+  ```
+
+  table = survival_table_from_events(T1,E1)
+
+  table.head()
+
+  代码清单 11-9
+
+  生存表
+
+  ```
+
+
+  表 11-8 告诉我们以下信息：
+
+
+  - 在第一年，患者进入研究。默认情况下，我们认为所有患者都处于风险中。
+
+  - 在第 6 年，一名患者死亡，我们认为另一名患者处于风险中。
+
+  - 在第 9 年，三名患者死亡，我们认为另外三名患者处于风险中。
+
+  - 在第 13 年，我们报告了三例死亡和三例处于风险中的患者。
+
+  - 到第 15 年，我们报告了两例死亡和两例处于风险中的患者。miR-137 组剩余 27 名患者。
+
+
+  ## Kaplan-Meier 模型
+
+
+  Kaplan-Meier (KM) 模型是一种非参数方法，用于根据观测到的生存时间估计生存概率。它使用时间测量一个二元变量。我们也将其视为乘积限模型。使用该模型时，我们考察在特定时期内死亡的患者数量，并假设他们在此之前一直存活。为了理解该模型的工作原理，我们解释其底层的生存函数。代码清单
+  11-10 完成了 Kaplan-Meier 模型。
+
+
+  ```
+
+  kmf_miR_137 = KaplanMeierFitter().fit(T1,E1)
+
+  kmf_control_group = KaplanMeierFitter().fit(T2,E2)
+
+  代码清单 11-10
+
+  完成 Kaplan-Meier 模型
+
+  ```
+
+
+  开发模型后，我们找到置信区间的估计值。
+
+
+  ### 置信区间
+
+
+  置信区间 (CI) 表示一个值落在特定范围内的概率。表 11-9 显示了在特定时期内生存估计值落在特定范围内的概率。第一列显示时间线，第二列显示置信区间的下限，第三列显示置信区间的上限。参见代码清单
+  11-11。
+
+
+  表 11-9
+
+
+  Kaplan-Meier 估计置信区间
+
+
+  |   | KM_estimate_lower_0.95 | KM_estimate_upper_0.95 |
+
+  | --- | --- | --- |
+
+  | **0.0** | 1.000000 | 1.000000 |
+
+  | **6.0** | 0.809010 | 0.995804 |
+
+  | **9.0** | 0.716269 | 0.954139 |
+
+  | **13.0** | 0.616102 | 0.896087 |
+
+  | **15.0** | 0.552952 | 0.852504 |
+
+
+  ```
+
+  kmf_miR_137_ci = kmf_miR_137.confidence_interval_
+
+  kmf_control_group_ci = kmf_control_group.confidence_interval_
+
+  kmf_miR_137_ci.head()
+
+  代码清单 11-11
+
+  Kaplan-Meier 估计置信区间
+
+  ```
+
+
+  表 11-9 显示，如果我们重复该研究 95% 的次数：
+
+
+  - 在第 0 年，miR-137 组患者的生存概率为 100%。
+
+  - 在第 6 年，miR-137 组患者的生存概率介于 80.90% 和 99.58% 之间。
+
+  - 在第 9 年，miR-137 组患者的生存概率介于 71.27% 和 95.41% 之间。
+
+  - 在第 13 年，miR-137 组患者的生存概率介于 61.61% 和 89.61% 之间。
+
+  - 在第 15 年，miR-137 组患者的生存概率介于 55.95% 和 85.25% 之间。
+
+
+  ### 累积密度
+
+
+  累积密度表示在特定时间 *t* 发生失败的概率。它估计的是累积密度。我们使用公式 11-1 来估计无条件失败率。
+
+
+  ![$$ \hat{f}=\frac{d_i}{\left\{\frac{d_i}{t_{i+1}-{t}_i}\right\}} $$](img/506148_1_En_11_Chapter_TeX_Equ1.png)
+
+
+  (公式 11-1)
+
+
+  这里，*d*[*i*] 表示事件数量，*t* 是生存时间。参见代码清单 11-12 和表 11-10。
+
+
+  表 11-10
+
+
+  Kaplan-Meier 累积密度估计
+
+
+  |   | KM_estimate |
+
+  | --- | --- |
+
+  | **timeline** |   |
+
+  | **0.0** | 0.000000 |
+
+  | **6.0** | 0.029412 |
+
+  | **9.0** | 0.117647 |
+
+  | **13.0** | 0.205882 |
+
+  | **15.0** | 0.264706 |
+
+
+  ```
+
+  kmf_c_density = kmf_miR_137.cumulative_density_
+
+  kmf_control_group_c_density = kmf_control_group.cumulative_density_
+
+  kmf_c_density.head()
+
+  代码清单 11-12
+
+  Kaplan-Meier 累积密度估计
+
+  ```
+
+
+  为了理解累积密度估计值，我们绘制 Kaplan-Meier 累积密度曲线。
+
+
+  #### 累积密度曲线
+
+
+  我们使用累积密度曲线来理解中位数和四分位距。绘制曲线时，x 轴为累积频率，y 轴为每个区间的上组界。代码清单 11-13 和图 11-1 展示了 Kaplan-Meier
+  累积密度曲线。从曲线中，我们可以识别中位数四分位数和四分位距。
+
+
+  ![../images/506148_1_En_11_Chapter/506148_1_En_11_Fig1_HTML.jpg](img/506148_1_En_11_Fig1_HTML.jpg)
+
+
+  图 11-1
+
+
+  Kaplan-Meier 累积密度曲线
+
+
+  ```
+
+  kmf_miR_137.plot_cumulative_density(color="navy", label="miR-137")
+
+  kmf_control_group.plot_cumulative_density(color="green", label="control")
+
+  plt.xlabel("Time")
+
+  plt.ylabel("Cumulative Incidence")
+
+  plt.legend(loc=2)
+
+  plt.show()
+
+  代码清单 11-13
+
+  Kaplan-Meier 累积密度曲线
+
+  ```
+
+
+  图 11-1 显示了以下信息：
+
+
+  - 在第 0 年，无条件失败率为 0%。
+
+  - 在第 6 年，无条件失败率为 2.94%。
+
+  - 在第 9 年，无条件失败率为 11.17%。
+
+  - 在第 13 年，无条件失败率为 20.59%。
+
+  - 在第 15 年，无条件失败率为 26.47%。
+
+
+
+
+  ### 生存函数
+
+
+  在生存分析中，利用事件结果和随访时间来估计生存函数。时间 `t` 的生存函数（在无删失情况下）通过方程 11-2 中的公式进行估计。
+
+
+  ![$$ \hat{S}=\frac{numberofpatientssurvivingbeyondtimet}{n} $$](img/506148_1_En_11_Chapter_TeX_Equ2.png)
+
+
+  （方程 11-2）
+
+
+  此处，`n` 是研究中的患者数量（即时间零点时的数量）。我们将该公式表示为方程 11-3 所示的形式。
+
+
+  ![$$ \hat{S}\left({t}_i\right)=\frac{\left(n-\left({d}_0+{d}_1+\dots +{d}_i\right)\right)}{n}
+  $$](img/506148_1_En_11_Chapter_TeX_Equ3.png)
+
+
+  （方程 11-3）
+
+
+  此处，`d[i]` 是事件数量，`n` 是存活个体的数量。
+
+
+  清单 11-14 估计并制表了 Kaplan-Meier 函数估计值（见表 11-11）。
+
+
+  表 11-11
+
+
+  Kaplan-Meier 生存函数估计值
+
+
+  |   | KM_estimate |
+
+  | --- | --- |
+
+  | **时间线** |   |
+
+  | **0.0** | 1.000000 |
+
+  | **6.0** | 0.970588 |
+
+  | **9.0** | 0.882353 |
+
+  | **13.0** | 0.794118 |
+
+  | **15.0** | 0.735294 |
+
+
+  ```
+
+  kmf_survival_function = kmf_miR_137.survival_function_
+
+  kmf_control_group_survival_function = kmf_control_group.survival_function_
+
+  kmf_survival_function.head()
+
+  清单 11-14
+
+  Kaplan-Meier 生存函数估计值
+
+  ```
+
+
+  #### 生存曲线
+
+
+  生存曲线是 `Ŝ(t[i])` 相对于 `t` 的绘图。在生存曲线中，x 轴表示以年为单位的时间，y 轴表示生存概率或生存人数比例。清单 11-15 绘制了生存曲线（见图
+  11-2）。
+
+
+  ![../images/506148_1_En_11_Chapter/506148_1_En_11_Fig2_HTML.jpg](img/506148_1_En_11_Fig2_HTML.jpg)
+
+
+  图 11-2
+
+
+  Kaplan-Meier 生存曲线
+
+
+  ```
+
+  kmf_miR_137.plot_survival_function(color="navy", label="miR-137")
+
+  kmf_control_group.plot_survival_function(color="green",label="control")
+
+  plt.xlabel("Time")
+
+  plt.ylabel("Survival Probability")
+
+  plt.legend(loc=3)
+
+  plt.show()
+
+  清单 11-15
+
+  Kaplan-Meier 生存曲线
+
+  ```
+
+
+  图 11-2 显示，miR-137 组与对照组的生存曲线存在显著差异。miR-137 组的生存曲线在第 9 年急剧下降。与此同时，对照组的生存曲线直到第 45
+  年才开始下降。清单 11-16 绘制了带有置信区间的生存曲线（见图 11-3）。
+
+
+  ![../images/506148_1_En_11_Chapter/506148_1_En_11_Fig3_HTML.jpg](img/506148_1_En_11_Fig3_HTML.jpg)
+
+
+  图 11-3
+
+
+  带有置信区间的 Kaplan-Meier 生存曲线
+
+
+  ```
+
+  kmf_miR_137.plot_survival_function(color="navy", label="miR-137")
+
+  kmf_control_group.plot_survival_function(color="green", label="Control")
+
+  plt.plot(kmf_miR_137.confidence_interval_, color="red", label="95% CI")
+
+  plt.plot(kmf_control_group.confidence_interval_, color="red")
+
+  plt.xlabel("Time")
+
+  plt.ylabel("Survival Probability")
+
+  plt.legend(loc=3)
+
+  plt.show()
+
+  清单 11-16
+
+  带有置信区间的 Kaplan-Meier 曲线
+
+  ```
+
+
+  图 11-3 告诉我们以下信息：
+
+
+  *   在第 0 年，患者生存的概率为 100%。
+
+  *   在第 6 年，患者生存的概率为 97.06%。
+
+  *   在第 9 年，患者生存的概率为 88.24%。
+
+  *   在第 13 年，患者生存的概率为 79.41%。
+
+  *   在第 15 年，患者生存的概率为 73.53%。
+
+
+  清单 11-17 查找中位生存时间。
+
+
+  ```
+
+  kmf_miR_137.median_survival_time_
+
+  26.0
+
+  清单 11-17
+
+  中位生存时间
+
+  ```
+
+
+  中位生存时间为 26 年。清单 11-18 应用 `predict()` 方法来预测未来的事件结果实例。
+
+
+  ```
+
+  kmf_miR_137.predict(30)
+
+  0.23529411764705874
+
+  清单 11-18
+
+  预测的事件结果
+
+  ```
+
+
+  当生存时间为 30 年时，事件结果为 0。在了解了模型如何预测实例之后，我们来看一下模型的表现。
+
+
+  ## 评估 Kaplan-Meier 模型
+
+
+  在估计了两组的生存概率之后，我们必须确定两组的死亡生成是否相等。与其他非参数模型不同，Kaplan-Meier 模型没有复杂的模型评估指标。测试模型的最佳方法是找出各组是否具有相似的生存曲线。我们将假设表述如下：
+
+
+  *   *零假设：* 所有组共享相同的生存曲线。
+
+  *   *备择假设：* 并非所有组都共享相同的生存曲线。
+
+
+  清单 1-19 返回了对数秩检验结果（见表 11-12）。清单 11-20 显示了 p 值。
+
+
+  表 11-12
+
+
+  对数秩检验结果
+
+
+  | t_0 | -1 |
+
+  | --- | --- |
+
+  | **null_distribution** | chi squared |
+
+  | **degrees_of_freedom** | 1 |
+
+  | **test_name** | logrank_test |
+
+  |   | **test_statistic** | p |
+
+  | **0** | **122.25** | <0.005 |
+
+
+  ```
+
+  from lifelines.statistics import logrank_test
+
+  results = logrank_test(T1, T2, event_observed_A=E1, event_observed_B=E2)
+
+  results.print_summary()
+
+  清单 1-19
+
+  对数秩检验结果
+
+  ```
+
+
+  ```
+
+  print(results.p_value)
+
+  2.0359832222855426e-28
+
+  清单 11-20
+
+  P 值
+
+  ```
+
+
+  上述发现表明 p 值大于 0.05。我们拒绝零假设，接受备择假设。并非所有组都共享相同的生存曲线。
+
+
+  ## 结论
+
+
+  本章介绍了最流行的非参数生存分析模型，即 Kaplan-Meier 模型。我们估计了患者在特定时间之后存活过某个事件的生存概率。在开发模型之前，我们将数据分为两组，然后为所研究的组创建了一个生存表。我们绘制了累积密度曲线和生存曲线以理解这些估计值。此后，我们使用对数秩检验测试了两组是否共享相同的生存曲线。在研究了检验统计量后，我们发现该模型是可靠的，并且可以使用它来预测未来的事件结果实例。
+
+
+  脚注 1
+
+
+
+
+  '
+- '# 12. 神经网络
+
+
+  本章介绍机器学习中常被称为深度学习的一个子领域。首先，介绍不同的人工神经网络。其次，涵盖反向传播和前向传播。第三，介绍不同的激活函数。最后，使用 `SciKit-Learn`
+  包构建并测试一个受限玻尔兹曼机和一个多层感知器，随后使用 `Keras` 包构建深度信念网络。要在 Python 环境中安装 `Keras`，请使用 `pip
+  install Keras`；在 conda 环境中，请使用 `conda install -c conda-forge keras`。
+
+
+  人工神经网络是一个相互连接的节点组，它通过各层使用不同的权重和偏置来检索和处理输入值，直到产生输出值。神经网络由若干层组成，每层都配置了节点。隐藏层和输出层中的每个节点都包含自己的分类器。可见层中的节点检索输入值，随后激活发生。表
+  12-1 重点列出了几种神经网络类型及其应用。
+
+
+  **表 12-1** 神经网络类型及其应用
+
+
+  | 神经网络 | 应用 |
+
+  | --- | --- |
+
+  | `受限玻尔兹曼机` 或 `自编码器` | 未标记数据、变量提取和模式识别 |
+
+  | `递归神经张量网络` 或 `循环神经网络` | 文本处理^(¹²) |
+
+  | `深度信念网络` 或 `卷积神经网络` | 图像识别 |
+
+  | `循环神经网络` | 语音识别 |
+
+  | `多层感知器` 或 `深度信念网络` | 分类和时间序列分析 |
+
+
+  ## 前向传播
+
+
+  前向传播涉及可见层中的节点接收并处理输入值，然后将它们传输到后续层中的节点，直到产生输出值。尽管每一层都检索相同的输入值，但它们传输的值并不相同。
+
+
+  ## 反向传播
+
+
+  反向传播是前向传播的逆过程。在反向传播中，网络反向估计梯度，并转换前一个训练周期的错误率权重。这个过程内存效率不高，并且还会导致模型性能不佳。
+
+
+  ## 代价函数
+
+
+  第 1 章介绍了残差分析，因此理解代价函数应该相对容易。代价函数用于估计实际值与预测值之间的差异。它会调整权重和偏置，直到找到最小值。我们可互换使用代价函数和损失函数。
+
+
+  ## 梯度
+
+
+  梯度表示代价随权重和偏置变化的速率。我们在训练期间计算梯度。它用于……神经网络将前几层的梯度相乘，以找到后续层的梯度。为了优化梯度，我们使用梯度下降法。梯度下降法有三种类型，即：1)
+  批量梯度下降法——估计整个训练数据参数的代价函数梯度；2) 随机梯度下降法——为每个自变量和因变量更新参数；3) 小批量梯度下降法——应用批量梯度下降法和随机梯度下降法对训练数据的一个小批量执行操作。
+
+
+  ## 梯度消失
+
+
+  如果梯度很大，我们训练网络的速度就快；如果梯度很小，训练就会变慢。通常，第一层的梯度较小，而后续层的梯度较大。传统的机器学习模型学习速度慢，并且在预测类别时会产生很多错误。人工神经网络通过缩放梯度来弥补这一不足。
+
+
+  ## 激活函数
+
+
+  激活函数为网络增加非线性。激活函数使得反向传播成为可能。如果没有激活函数，神经网络将退化为线性回归模型。下面，我们将讨论这些激活函数。还有其他一些函数^(¹³)可供我们使用。
+
+
+  ### Sigmoid 激活函数
+
+
+  第 5 章介绍了逻辑函数及其如何估计值。我们也把逻辑函数称为 Sigmoid 激活函数。它触发介于 0 和 1 之间的输出值。我们主要使用 Sigmoid 激活函数来解决二分类问题。Sigmoid
+  函数表示为：
+
+
+  ![$$ Sigmoid=\frac{1}{1+{e}^{-z}} $$](img/506148_1_En_12_Chapter_TeX_Equ1.png)
+
+
+  （公式 12-1）
+
+
+  该激活函数为仅需要正输出值的前馈神经网络提供支持。
+
+
+  ### 双曲正切激活函数
+
+
+  双曲正切（`tanh`）激活函数是 Sigmoid 激活函数的扩展。它触发介于 -1 和 1 之间的输出值，并使网络能够将均值中心化为 0。该函数表示为：
+
+
+  ![$$ Tanh=\frac{e^t-{e}^{-t}}{e^t-{e}^{-t}} $$](img/506148_1_En_12_Chapter_TeX_Equ2.png)
+
+
+  （公式 12-2）
+
+
+  `tanh` 激活函数将双曲正切曲线拟合到数据上。图 12-1 描绘了标准的 `tanh` 函数。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig1_HTML.jpg](img/506148_1_En_12_Fig1_HTML.jpg)
+
+
+  **图 12-1** Tanh 函数
+
+
+  注意输出值介于 -1 和 1 之间，且均值中心化为 0。
+
+
+  ### 线性整流单元激活函数
+
+
+  `ReLU` 是 CNN 和多层感知器中的默认激活函数。`ReLU` 有助于模型更快地学习，并且其性能更好。与 Sigmoid 和 `tanh` 激活函数不同，`ReLU`
+  激活函数不会将数据饱和到 -1、0 或 1。相反，它会继续前进，直到检索到最优值。它有助于解决梯度消失问题。该函数表示为：
+
+
+  ![$$ f(x)=\mathit{\max}\left(0,x\right) $$](img/506148_1_En_12_Chapter_TeX_Equ3.png)
+
+
+  （公式 12-3）
+
+
+  图 12-2 描绘了标准的 `ReLU` 函数。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig2_HTML.jpg](img/506148_1_En_12_Fig2_HTML.jpg)
+
+
+  **图 12-2** ReLU 函数
+
+
+  注意输出值不受限于特定范围。
+
+
+  ### 损失函数
+
+
+  损失是检查模型底层性能的标准度量。神经网络应用损失函数来确定是否应在每个训练周期改进其学习过程。损失增加表明模型是一个熟练的学习者。对于连续因变量，最常见的损失函数包括均方误差（`MSE`）、平均绝对误差（`MAE`）、平均绝对百分比误差（`MAPE`）和均方对数误差（`MSLE`）。用于分类结果的损失函数包括用于二分类的二元交叉熵和用于多分类的分类交叉熵。
+
+
+  ## 优化
+
+
+  有许多模型性能优化的方法，例如 `SGD`、`RMSProp`、`ADAGRAD`、`Adadelta` 和 `Adam`。本章应用 `Adam` 优化方法^(¹⁴)，因为它在训练期间最小化代价函数方面效果更好。`Adam`
+  代表自适应矩估计。它考虑动量中的先前梯度并降低学习率。
+
+
+
+
+  ### 伯努利受限玻尔兹曼机
+
+
+  我们使用受限玻尔兹曼机（RBM）来解决梯度消失问题。RBM 是一种浅层神经网络，包含可见层和隐藏层。它将可见层中的每个节点与隐藏层中的每个节点相连接。此外，它还应用权重和偏置来理解变量之间的潜在关系。
+
+
+  图 12-3 展示了一个在可见层有 3 个节点、隐藏层有 4 个节点的 RBM。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig3_HTML.png](img/506148_1_En_12_Fig3_HTML.png)
+
+
+  图 12-3
+
+
+  受限玻尔兹曼机
+
+
+  ## 训练逻辑分类器
+
+
+  代码清单 12-1 训练了逻辑分类器。
+
+
+  ```
+
+  from sklearn.linear_model import LogisticRegression
+
+  logreg = LogisticRegression(dual= False,
+
+  fit_intercept= True,
+
+  max_iter= 10,
+
+  n_jobs= -5,
+
+  penalty= ''l2'',
+
+  tol=0.0001,
+
+  warm_start= False)
+
+  logreg.fit(x_train, y_train)
+
+  代码清单 12-1
+
+  完成逻辑分类器
+
+  ```
+
+
+  ## 流水线
+
+
+  代码清单 12-2 为逻辑分类器和 RBM 分类器创建了一个流水线。
+
+
+  ```
+
+  from sklearn.neural_network import BernoulliRBM
+
+  from sklearn.pipeline import Pipeline
+
+  rbm = BernoulliRBM()
+
+  classifier = Pipeline(steps=[("rbm", rbm), ("logreg", logreg)])
+
+  classifier.fit(x_train, y_train)
+
+  代码清单 12-2
+
+  完成流水线
+
+  ```
+
+
+  表 12-2 突出了关键的分类评估指标，如准确率、精确率、召回率等。
+
+
+  表 12-2
+
+
+  分类报告
+
+
+  |   | 精确率 | 召回率 | F1 分数 | 支持度 |
+
+  | --- | --- | --- | --- | --- |
+
+  | **0** | 0.829787 | 0.728972 | 0.776119 | 107.000000 |
+
+  | **1** | 0.516667 | 0.659574 | 0.579439 | 47.000000 |
+
+  | **准确率** | 0.707792 | 0.707792 | 0.707792 | 0.707792 |
+
+  | **宏平均** | 0.673227 | 0.694273 | 0.677779 | 154.000000 |
+
+  | **加权平均** | 0.734224 | 0.707792 | 0.716094 | 154.000000 |
+
+
+  ```
+
+  y_pred = classifier.predict(x_test)
+
+  creportbm = pd.DataFrame(metrics.classification_report(y_test, y_pred, output_dict=True)).transpose()
+
+  creportbm
+
+  代码清单 12-3
+
+  分类报告
+
+  ```
+
+
+  伯努利 RBM 分类器在预测类别时的准确率为 70.78%。这个准确率分数低于我们在前面章节中介绍的分类器。该分类器在预测类别 0 时的精确率为 82.98%，在预测类别
+  1 时的精确率为 51.67%。
+
+
+  '
+- '# 使用 SciKit-Learn 的多层感知机
+
+
+  单感知机模型最多只能勉强捕捉数据的底层结构，导致模型性能不佳。多层感知机（MLP）模型解决了这个问题。它训练、加权并阈值化一组随机值，然后使用激活函数估计和控制变化。它包含多个层；至少需要三个层，即可见层、隐藏层和输出层。
+
+
+  图 12-4 展示了在可见层有 3 个节点、隐藏层有 4 个节点、输出层只有一个可能结果的 MLP。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig4_HTML.png](img/506148_1_En_12_Fig4_HTML.png)
+
+
+  图 12-4
+
+
+  多层感知机
+
+
+  ```
+
+  from sklearn.neural_network import MLPClassifier
+
+  mlp = MLPClassifier()
+
+  mlp.fit(x_train, y_train)
+
+  代码清单 12-4
+
+  完成 MLP 分类器
+
+  ```
+
+
+  表 12-3 提供了模型的准确率分数、精确率分数、召回率以及其他关键评估指标。
+
+
+  表 12-3
+
+
+  分类报告
+
+
+  |   | 精确率 | 召回率 | F1 分数 | 支持度 |
+
+  | --- | --- | --- | --- | --- |
+
+  | **0** | 0.848214 | 0.887850 | 0.867580 | 107.000000 |
+
+  | **1** | 0.714286 | 0.638298 | 0.674157 | 47.000000 |
+
+  | **准确率** | 0.811688 | 0.811688 | 0.811688 | 0.811688 |
+
+  | **宏平均** | 0.781250 | 0.763074 | 0.770869 | 154.000000 |
+
+  | **加权平均** | 0.807340 | 0.811688 | 0.808548 | 154.000000 |
+
+
+  ```
+
+  y_predmlp = mlp.predict(x_test)
+
+  creportmlp = pd.DataFrame(metrics.classification_report(y_test, y_predmlp, output_dict=True)).transpose()
+
+  creportmlp
+
+  代码清单 12-5
+
+  分类报告
+
+  ```
+
+
+  与 RBM 分类器相比，MLP 分类器更准确、更精确。
+
+
+  ## 比较伯努利 RBM 和 MLP 的 ROC 曲线
+
+
+  图 12-5 展示了分类器在区分不同类别方面的能力。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig5_HTML.jpg](img/506148_1_En_12_Fig5_HTML.jpg)
+
+
+  图 12-5
+
+
+  ROC 曲线
+
+
+  ```
+
+  y_pred_probarbm = classifier.predict_proba(x_test)[::, 1]
+
+  y_pred_probamlp = mlp.predict_proba(x_test)[::, 1]
+
+  aucrbm = metrics.roc_auc_score(y_test, y_pred_probarbm)
+
+  aucmlp = metrics.roc_auc_score(y_test, y_pred_probamlp)
+
+  fprrbm, tprrbm, _ = metrics.roc_curve(y_test, y_pred_probarbm)
+
+  fprmlp, tprmlp, _ = metrics.roc_curve(y_test, y_pred_probamlp)
+
+  plt.plot(fprrbm, tprrbm, label="auc: "+str(aucrbm), color="gray")
+
+  plt.plot(fprmlp, tprmlp, label="auc: "+str(aucmlp), color="black")
+
+  plt.plot([0, 1], [0, 1], color="red")
+
+  plt.xlabel("特异性")
+
+  plt.ylabel("敏感性")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  代码清单 12-6
+
+  ROC 曲线
+
+  ```
+
+
+  在图 12-5 中，MLP 分类器的曲线以黑色突出显示，伯努利 RBM 分类器的曲线以灰色突出显示。与 MLP 分类器相比，伯努利 RBM 的曲线更接近 45
+  度线。两条曲线都不接近边界的右侧。它们没有表现出完美 ROC 曲线的特征。然而，MLP 分类器的 AUC 分数为 0.86（高于本书各章节中介绍的大多数分类器）。同时，伯努利
+  RBM 分类器的 AUC 分数低于 0.80（低于前面章节中介绍的所有分类器的分数）。
+
+
+  ## 比较伯努利 RBM 和 MLP 的精确率-召回率曲线
+
+
+  图 12-6 展示了分类器在不同阈值下如何权衡精确率和召回率。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig6_HTML.jpg](img/506148_1_En_12_Fig6_HTML.jpg)
+
+
+  图 12-6
+
+
+  精确率-召回率曲线
+
+
+  ```
+
+  precisionrbm, recallrbm, thresholdrbm = metrics.precision_recall_curve(y_test, y_predrbm)
+
+  precisionmlp, recallmlp, thresholdmlp = metrics.precision_recall_curve(y_test, y_predmlp)
+
+  apsrbm = metrics.average_precision_score(y_test, y_predrbm)
+
+  apsmlp = metrics.roc_auc_score(y_test, y_predmlp)
+
+  plt.plot(precisionrbm, recallrbm, label="aps: "+str(apsrbm), color="gray")
+
+  plt.plot(precisionmlp, recallmlp, label="aps: "+str(apsmlp), color="black")
+
+  plt.axhline(y=0.5, color="red")
+
+  plt.xlabel("召回率")
+
+  plt.ylabel("精确率")
+
+  plt.legend(loc=3)
+
+  plt.show()
+
+  代码清单 12-7
+
+  精确率-召回率曲线
+
+  ```
+
+
+  所有曲线都没有沿着顶部边界，也没有接近右上角边界。相反，它们很快达到了 1.0 点。平均而言，MLP 分类器比伯努利 RBM 分类器更精确。
+
+
+  ### 使用 Keras 的深度信念网络
+
+
+  深度信念网络是多个 RBM 的组合。该网络是反向传播的一种替代方案。其结构类似于 MLP 网络。然而，它们在训练方式上有所不同；一个 RBM 的隐藏层是另一个
+  RBM 的可见层。
+
+
+
+
+  ## 将数据拆分为训练集、测试集和验证集
+
+
+  之前，我们将数据拆分为训练集和测试集，其中 80%的数据用于训练，20%的数据用于测试。从现在开始，我们将从训练数据中分配一部分用于验证。首先，我们按照 80/20
+  的比例将数据拆分为训练集和测试集。最后，我们进一步拆分训练数据，从中分配 10%用于验证。图 12-7 展示了我们如何将数据拆分为三个集合。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig7_HTML.png](img/506148_1_En_12_Fig7_HTML.png)
+
+
+  图 12-7 数据拆分
+
+
+  我们使用`training_test_split()`方法将数据拆分为训练集、测试集和验证集。
+
+
+  ```
+
+  x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2,random_state=0)
+
+  x_train, x_val, y_train, y_val = train_test_split(x_train, y_train,test_size=0.2,
+  random_state=0)
+
+  x_train = scaler.fit_transform(x_train)
+
+  x_test = scaler.transform(x_test)
+
+  代码清单 12-8
+
+  将数据拆分为训练集、测试集和验证集
+
+  ```
+
+
+  随后，我们导入 Keras 包。
+
+
+  ```
+
+  import tensorflow as tf
+
+  from keras import Sequential, regularizers
+
+  from keras.layers import Dense, Dropout
+
+  from keras.wrappers.scikit_learn import KerasClassifier
+
+  代码清单 12-9
+
+  导入 Keras 包
+
+  ```
+
+
+  第一个网络包含一个使用 sigmoid 激活函数的可见层。此外，还有两个隐藏层，分别包含 8 个神经元并使用 ReLu 激活函数。
+
+
+  ```
+
+  def create_dnn_model1(optimizer="adam"):
+
+  model1 = Sequential()
+
+  model1.add(Dense(8, input_dim=8, activation="sigmoid"))
+
+  model1.add(Dense(8, activation="relu"))
+
+  model1.add(Dense(1, activation="relu"))
+
+  model1.compile(loss="binary_crossentropy", optimizer=optimizer, metrics=["accuracy"])
+
+  return model1
+
+  代码清单 12-10
+
+  构建模型 1 的架构
+
+  ```
+
+
+  我们使用`KerasClassifier()`方法封装网络的架构。
+
+
+  ```
+
+  model1 = KerasClassifier(build_fn=create_dnn_model1)
+
+  代码清单 12-11
+
+  封装模型 1
+
+  ```
+
+
+  ### 超参数优化
+
+
+  代码清单 12-12 寻找训练中包含的最优样本数量以及完整的前向和后向传播次数。
+
+
+  ```
+
+  batch_size = [15, 30, 60]
+
+  epochs = [16, 32, 64]
+
+  param_grid = {"batch_size":batch_size, "epochs": epochs}
+
+  grid_model = GridSearchCV(estimator=model1, param_grid=param_grid)
+
+  grid_model.fit(x_train, y_train, validation_data=(x_val, y_val))
+
+  print("Best scores: ", grid_model.best_score_, "Best parameters: ", grid_model.best_params_)
+
+  代码清单 12-12
+
+  超参数优化
+
+  ```
+
+
+  最佳得分：0.7535971999168396 最佳参数：{‘batch_size’: 15, ‘epochs’: 64}
+
+
+  我们使用上述结果来完成模型。
+
+
+  ### 完成模型
+
+
+  我们使用`fit()`方法来训练模型。
+
+
+  ```
+
+  history1 = model1.fit(x_train, y_train, validation_data=(x_val, y_val), batch_size=15,
+  epochs=64)
+
+  history1
+
+  代码清单 12-13
+
+  完成模型 1
+
+  ```
+
+
+  表 12-4 提供了模型的准确率、精确率、召回率以及其他关键评估指标。
+
+
+  表 12-4 分类报告
+
+
+  |   | 精确率 | 召回率 | F1 分数 | 支持样本数 |
+
+  | --- | --- | --- | --- | --- |
+
+  | **0** | 0.862069 | 0.934579 | 0.896861 | 107.000000 |
+
+  | **1** | 0.815789 | 0.659574 | 0.729412 | 47.000000 |
+
+  | **准确率** | 0.850649 | 0.850649 | 0.850649 | 0.850649 |
+
+  | **宏平均** | 0.838929 | 0.797077 | 0.813136 | 154.000000 |
+
+  | **加权平均** | 0.847945 | 0.850649 | 0.845756 | 154.000000 |
+
+
+  ```
+
+  y_predmodel1 = model1.predict(x_test)
+
+  creportmodel1 = pd.DataFrame(metrics.classification_report(y_test,y_predmodel1,
+  output_dict=True)).transpose()
+
+  creportmodel1
+
+  代码清单 12-14
+
+  分类报告
+
+  ```
+
+
+  第一个深度信念网络表现出优越的性能；它比之前介绍的任何其他分类器都更准确。
+
+
+  ## 正则化
+
+
+  在第二章中，我们介绍了偏差-方差权衡的概念。你可以回顾一下那一章。我们通过使用 dropout 方法或添加惩罚项来对深度信念网络进行正则化。
+
+
+  ### Dropout
+
+
+  我们使用 dropout 方法在训练过程中移除每一层的神经元，以减少过拟合。网络会估算在某一层丢弃一个神经元的概率。丢弃率表示在某一层中被丢弃的变量所占的比例。代码清单
+  12-15 构建了第二个深度信念网络，并以 0.2 的比率丢弃层中的神经元。
+
+
+  ```
+
+  def create_dnn_model2(optimizer="adam"):
+
+  model2 = Sequential()
+
+  model2.add(Dense(8, input_dim=8, activation="sigmoid"))
+
+  model2.add(Dense(8, activation="relu"))
+
+  model2.add(Dropout(0.2))
+
+  model2.add(Dense(1, activation="relu"))
+
+  model2.compile(loss="binary_crossentropy", optimizer=optimizer, metrics=["accuracy"])
+
+  return model2
+
+  代码清单 12-15
+
+  构建模型 2 的架构
+
+  ```
+
+
+  代码清单 12-16 封装了分类器。
+
+
+  ```
+
+  model2 = KerasClassifier(build_fn=create_dnn_model2)
+
+  代码清单 12-16
+
+  封装模型 2
+
+  ```
+
+
+  之后，我们完成分类器。
+
+
+  ```
+
+  history2 = model2.fit(x_train, y_train, validation_data=(x_val, y_val), batch_size=15,
+  epochs=64)
+
+  history2
+
+  代码清单 12-17
+
+  完成模型 2
+
+  ```
+
+
+  表 12-5 提供了模型的准确率、精确率、召回率以及其他关键评估指标。
+
+
+  表 12-5 分类报告
+
+
+  |   | 精确率 | 召回率 | F1 分数 | 支持样本数 |
+
+  | --- | --- | --- | --- | --- |
+
+  | **0** | 0.844828 | 0.915888 | 0.878924 | 107.000000 |
+
+  | **1** | 0.763158 | 0.617021 | 0.682353 | 47.000000 |
+
+  | **准确率** | 0.824675 | 0.824675 | 0.824675 | 0.824675 |
+
+  | **宏平均** | 0.803993 | 0.766455 | 0.780638 | 154.000000 |
+
+  | **加权平均** | 0.819902 | 0.824675 | 0.818931 | 154.000000 |
+
+
+  ```
+
+  y_predmodel2 = model2.predict(x_test)
+
+  creportmodel2 = pd.DataFrame(metrics.classification_report(y_test,y_predmodel2,
+  output_dict=True)).transpose()
+
+  creportmodel2
+
+  代码清单 12-18
+
+  分类报告
+
+  ```
+
+
+  在我们指定的比率下，dropout 方法未能提升分类器的性能。然而，该分类器的性能仍然优于前面章节中介绍的那些分类器。
+
+
+
+
+  ### L1 正则化
+
+
+  我们使用 L1 正则化将数据居中到其中心点。这种正则化技术会使弱变量的系数变为零。它有助于减少噪声变量，从而优化学习过程。清单 12-19 展示了第三个深度信念网络的架构。它包含一个使用
+  sigmoid 激活函数和 alpha 为 0.01 的 L1 惩罚项的可见层。此外，还有两个使用 ReLu 激活函数的隐藏层。
+
+
+  ```
+
+  def create_dnn_model3(optimizer="adam"):
+
+  model3 = Sequential()
+
+  model3.add(Dense(8, input_dim=8, activation="sigmoid", kernel_regularizer=regularizers.l1(0.001),
+  bias_regularizer=regularizers.l1(0.01)))
+
+  model3.add(Dense(8, activation="relu"))
+
+  model3.add(Dense(1, activation="relu"))
+
+  model3.compile(loss="binary_crossentropy", optimizer=optimizer, metrics=["accuracy"])
+
+  return model3
+
+  清单 12-19
+
+  构建模型 3 的架构
+
+  ```
+
+
+  清单 12-20 封装了分类器。
+
+
+  ```
+
+  model3 = KerasClassifier(build_fn=create_dnn_model3)
+
+  清单 12-20
+
+  封装模型 3
+
+  ```
+
+
+  之后，我们完成分类器的构建。
+
+
+  ```
+
+  history3 = model3.fit(x_train, y_train, validation_data=(x_val, y_val), batch_size=30,
+  epochs=64)
+
+  history3
+
+  清单 12-21
+
+  最终确定模型 3
+
+  ```
+
+
+  表 12-6 提供了模型的准确率、精确率、召回率以及其他关键评估指标。
+
+
+  表 12-7
+
+
+  分类报告
+
+
+  |   | precision | recall | f1-score | support |
+
+  | --- | --- | --- | --- | --- |
+
+  | **0** | 0.850877 | 0.906542 | 0.877828 | 107.000000 |
+
+  | **1** | 0.750000 | 0.638298 | 0.689655 | 47.000000 |
+
+  | **accuracy** | 0.824675 | 0.824675 | 0.824675 | 0.824675 |
+
+  | **macro avg** | 0.800439 | 0.772420 | 0.783742 | 154.000000 |
+
+  | **weighted avg** | 0.820090 | 0.824675 | 0.820399 | 154.000000 |
+
+
+  表 12-6
+
+
+  分类报告
+
+
+  |   | precision | recall | f1-score | support |
+
+  | --- | --- | --- | --- | --- |
+
+  | **0** | 0.859649 | 0.915888 | 0.886878 | 107.000000 |
+
+  | **1** | 0.775000 | 0.659574 | 0.712644 | 47.000000 |
+
+  | **accuracy** | 0.837662 | 0.837662 | 0.837662 | 0.837662 |
+
+  | **macro avg** | 0.817325 | 0.787731 | 0.799761 | 154.000000 |
+
+  | **weighted avg** | 0.833815 | 0.837662 | 0.833702 | 154.000000 |
+
+
+  ```
+
+  y_predmodel3 = model3.predict(x_test)
+
+  creportmodel3 = pd.DataFrame(metrics.classification_report(y_test,y_predmodel3,
+  output_dict=True)).transpose()
+
+  creportmodel3
+
+  清单 12-22
+
+  分类报告
+
+  ```
+
+
+  向分类器添加 L1 惩罚项可以减少不平衡性。然而，它并没有提高准确率。在预测类别 1 时，该分类器比所有其他分类器都更精确。
+
+
+  ### L2 正则化
+
+
+  L2 正则化的前提是，在数据归一化后，系数会变小，并且随着 *k* 值的增加，存在多重共线性的系数会改变其行为。这种正则化技术最适合于相关性严重的变量。清单 12-23
+  构建了第四个深度信念网络的架构。它包含一个使用 sigmoid 激活函数和 alpha 为 0.01 的 L2 惩罚项的可见层。此外，还有两个使用 ReLu 激活函数的隐藏层。
+
+
+  ```
+
+  def create_dnn_model4(optimizer="adam"):
+
+  model4 = Sequential()
+
+  model4.add(Dense(8, input_dim=8, activation="sigmoid", kernel_regularizer=regularizers.l2(0.001),
+  bias_regularizer=regularizers.l2(0.001)))
+
+  model4.add(Dense(8, activation="relu"))
+
+  model4.add(Dense(1, activation="relu"))
+
+  model4.compile(loss="binary_crossentropy", optimizer=optimizer, metrics=["accuracy"])
+
+  return model4
+
+  清单 12-23
+
+  构建模型 4 的架构
+
+  ```
+
+
+  清单 12-24 封装了分类器。
+
+
+  ```
+
+  model4 = KerasClassifier(build_fn=create_dnn_model4)
+
+  清单 12-24
+
+  封装模型 4
+
+  ```
+
+
+  之后，我们完成分类器的构建。
+
+
+  ```
+
+  history4 = model4.fit(x_train, y_train, validation_data=(x_val, y_val), batch_size=30,
+  epochs=64)
+
+  history4
+
+  清单 12-25
+
+  最终确定模型 4
+
+  ```
+
+
+  表 12-6 提供了模型的准确率、精确率、召回率以及其他关键评估指标。
+
+
+  ```
+
+  y_predmodel4 = model4.predict(x_test)
+
+  creportmodel4 = pd.DataFrame(metrics.classification_report(y_test,y_predmodel4,
+  output_dict=True)).transpose()
+
+  creportmodel4
+
+  清单 12-26
+
+  分类报告
+
+  ```
+
+
+  向深度信念网络添加 L2 惩罚项并不能提高准确率。当我们仔细比较带惩罚项网络的分类报告时，我们注意到添加 L1 惩罚项以牺牲准确率为代价减少了数据的不平衡性。
+
+
+  ## 比较深度信念网络的 ROC 曲线
+
+
+  图 12-8 简洁地总结了所有模型在不同概率阈值下特异性和敏感性之间的权衡。曲线越靠近左侧边框和顶部边框，模型越准确。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig8_HTML.jpg](img/506148_1_En_12_Fig8_HTML.jpg)
+
+
+  图 12-8
+
+
+  ROC 曲线
+
+
+  ```
+
+  y_pred_probamodel1 = model1.predict_proba(x_test)[::,1]
+
+  y_pred_probamodel2 =  model2.predict_proba(x_test)[::,1]
+
+  y_pred_probamodel3 = model3.predict_proba(x_test)[::,1]
+
+  y_pred_probamodel4 = model4.predict_proba(x_test)[::,1]
+
+  fprmodel1, tprmodel1, _ = metrics.roc_curve(y_test, y_pred_probamodel1)
+
+  fprmodel2, tprmodel2, _ = metrics.roc_curve(y_test, y_pred_probamodel2)
+
+  fprmodel3, tprmodel3, _ = metrics.roc_curve(y_test, y_pred_probamodel3)
+
+  fprmodel4, tprmodel4, _ = metrics.roc_curve(y_test, y_pred_probamodel4)
+
+  plt.plot(fprmodel1, tprmodel1, color="navy", label="Model 1")
+
+  plt.plot(fprmodel2, tprmodel2, color="orange", label="Model 2")
+
+  plt.plot(fprmodel3, tprmodel3, color="green", label="Model 3")
+
+  plt.plot(fprmodel4, tprmodel4, color="brown", label="Model 4")
+
+  plt.plot([0, 1], [0, 1], color="red")
+
+  plt.xlabel("Specificity")
+
+  plt.ylabel("Sensitivity")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  清单 12-27
+
+  ROC 曲线
+
+  ```
+
+
+  图 12-8 显示所有曲线都表现出良好曲线的特征。它们既没有紧贴左侧边框，也没有到达左侧边框的顶部。尽管曲线努力尝试，但它们逐渐趋近于 45 度线。
+
+
+  ```
+
+  aucmodel1 = metrics.roc_auc_score(y_test, y_predmodel1)
+
+  aucmodel2 = metrics.roc_auc_score(y_test, y_predmodel2)
+
+  aucmodel3 = metrics.roc_auc_score(y_test, y_predmodel3)
+
+  aucmodel4 = metrics.roc_auc_score(y_test, y_predmodel4)
+
+  aucfinal = [[aucmodel1, aucmodel2, aucmodel3, aucmodel3]]
+
+  aucfinaldata = pd.DataFrame(aucfinal, columns = ("Model 1",
+
+  "Model 2",
+
+  "Model 3",
+
+  "Model 4"),
+
+  index=["AUC Score"]).transpose()
+
+  aucfinaldata
+
+  清单 12-28
+
+  AUC 分数
+
+  ```
+
+
+  在构建 ROC 曲线时，我们非常关注 AUC 分数。表 12-8 突出了所有网络的 AUC 分数。
+
+
+  表 12-9
+
+
+  APS 分数
+
+
+  |   | APS 分数 |
+
+  | --- | --- |
+
+  | **模型 1** | 0.641970 |
+
+  | **模型 2** | 0.587768 |
+
+  | **模型 3** | 0.615066 |
+
+  | **模型 4** | 0.615066 |
+
+
+  表 12-8
+
+
+  深度信念网络的 AUC 分数
+
+
+  |   | AUC 分数 |
+
+  | --- | --- |
+
+  | **模型 1** | 0.797077 |
+
+  | **模型 2** | 0.766455 |
+
+  | **模型 3** | 0.787731 |
+
+  | **模型 4** | 0.787731 |
+
+
+  未正则化的网络具有最高的 AUC 分数，其次是使用 L1 和 L2 惩罚项正则化的网络。使用丢弃神经元的网络表现最差。
+
+
+
+
+  ## 比较深度信念网络的精确率-召回率曲线
+
+
+  我们的网络在预测类别 0 时比预测类别 1 更精确。我们必须基于精确率与召回率之间的权衡来得出关于网络性能的结论。代码清单 12-29 绘制了所有网络的精确率-召回率曲线（见图
+  12-9）。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig9_HTML.jpg](img/506148_1_En_12_Fig9_HTML.jpg)
+
+
+  **图 12-9** 精确率-召回率曲线
+
+
+  ```
+
+  precisionmodel1, recallmodel1, thresholdmodel1 = metrics.precision_recall_curve(y_test,
+  y_predmodel1)
+
+  precisionmodel2, recallmodel2, thresholdmodel2 = metrics.precision_recall_curve(y_test,
+  y_predmodel2)
+
+  precisionmodel3, recallmodel3, thresholdmodel3 = metrics.precision_recall_curve(y_test,
+  y_predmodel3)
+
+  precisionmodel4, recallmodel4, thresholdmodel4 = metrics.precision_recall_curve(y_test,
+  y_predmodel4)
+
+  plt.plot(precisionmodel1, recallmodel1, label="Model 1", color="navy")
+
+  plt.plot(precisionmodel2, recallmodel2, label="Model 2", color="orange")
+
+  plt.plot(precisionmodel3, recallmodel3, label="Model 3", color="green")
+
+  plt.plot(precisionmodel4, recallmodel4, label="Model 4", color="brown")
+
+  plt.axhline(y=0.5, color="red")
+
+  plt.xlabel("Recall")
+
+  plt.ylabel("Precision")
+
+  plt.legend(loc=3)
+
+  plt.show()
+
+  ```
+
+
+  **代码清单 12-29** 精确率-召回率曲线
+
+
+  随着我们逐步提高召回率，第四个网络的精确率下降速度比所有模型都快。图 12-9 还显示第一个网络的表现优于其他网络。表 12-19 使用 APS 分数总结了所有网络的精确率和召回率。
+
+
+  ```
+
+  apsmodel1 = metrics.average_precision_score(y_test, y_predmodel1)
+
+  apsmodel2 = metrics.average_precision_score(y_test, y_predmodel2)
+
+  apsmodel3 = metrics.average_precision_score(y_test, y_predmodel3)
+
+  apsmodel4 = metrics.average_precision_score(y_test, y_predmodel4)
+
+  apsfinal = [[apsmodel1, apsmodel2, apsmodel3, apsmodel3]]
+
+  apsfinaldata = pd.DataFrame(apsfinal, columns = ("Model 1",
+
+  "Model 2",
+
+  "Model 3",
+
+  "Model 4"),
+
+  index=["APS Score"]).transpose()
+
+  apsfinaldata
+
+  ```
+
+
+  **代码清单 12-30** APS 分数
+
+
+  未正则化的网络具有最高的 APS 分数，其次是使用 L1 和 L2 惩罚项进行正则化的网络。使用丢弃神经元的网络精确度较低。
+
+
+  ### 各轮次的训练损失与验证损失
+
+
+  图 12-10 展示了领先的深度信念网络如何学习比较实际类别与预测类别。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig10_HTML.jpg](img/506148_1_En_12_Fig10_HTML.jpg)
+
+
+  **图 12-10** 各轮次的训练损失与验证损失
+
+
+  ```
+
+  plt.plot(history1.history["loss"], color="red", label="Training Loss")
+
+  plt.plot(history1.history["val_loss"], color="green", label="Cross-Validation Loss")
+
+  plt.xlabel("Epochs")
+
+  plt.ylabel("Loss")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  ```
+
+
+  **代码清单 12-31** 各轮次的训练损失与验证损失
+
+
+  图 12-10 显示，在第 1 轮次，交叉验证损失持续增加，直到在第 60 轮次达到峰值后开始下降。训练损失在各轮次中始终为 0。
+
+
+  ### 各轮次的训练准确率与验证准确率
+
+
+  图 12-11 展示了领先的深度信念网络如何学习正确预测类别。
+
+
+  ![../images/506148_1_En_12_Chapter/506148_1_En_12_Fig11_HTML.jpg](img/506148_1_En_12_Fig11_HTML.jpg)
+
+
+  **图 12-11** 各轮次的训练准确率与验证准确率
+
+
+  ```
+
+  plt.plot(history1.history["accuracy"], color="red", label="Training Accuracy")
+
+  plt.plot(history1.history["val_accuracy"], color="green", label="Cross-Validation
+  Accuracy")
+
+  plt.xlabel("Epochs")
+
+  plt.ylabel("Accuracy")
+
+  plt.legend(loc=4)
+
+  plt.show()
+
+  ```
+
+
+  **代码清单 12-32** 各轮次的训练准确率与验证准确率
+
+
+  图 12-11 突出显示，在第 1 轮次，训练准确率上升至约 80%。与此同时，交叉验证准确率持续下降至 0%，此后一直保持为 0%。
+
+
+  ## 结论
+
+
+  本章介绍了人工神经网络及其应用，并随后解释了各种激活函数。它使用不同的人工神经网络（如伯努利 RBM 分类器、MLP 分类器和深度信念网络）解决了前几章中涉及的相同分类问题。
+
+
+  在正确构建其架构并完成训练后，我们使用多个分类评估矩阵测试了它们的性能。我们发现伯努利 RBM 分类器难以区分不同类别。然而，MLP 分类器擅长区分不同类别。所有正则化的深度信念网络都表现出良好分类器的特性。此外，未正则化的深度信念网络性能优于其他网络。
+
+
+  脚注 1 2 3
+
+
+  '
+- '# 13. 使用 H2O 进行机器学习
+
+
+  本章为这本让您熟悉数据科学世界的书画上句号。本书涵盖了监督学习和无监督学习，以及降维。此外，它还涉及了机器学习的一个子领域，通常被称为深度学习。您可能已经意识到机器学习领域非常广泛。您必须能够进行数据工程、优化超参数，并开发、测试、验证、部署和扩展模型，以使用机器学习和深度学习模型解决复杂问题。这通常要求个人了解并应用不同的统计、机器学习和深度学习模型，以及一些编程技巧。
+
+
+  对数据科学家的需求很高，但具备足够技能的数据科学家的供应却很低。在过去十年中，全球各地的智库一直在贡献有据可查且具有开创性的开源软件包，这些软件包极大地帮助我们使用机器学习解决复杂问题。公共领域也有大量可用内容，例如在线教程、传统学位课程、在线学习课程、已发表的学术研究论文等。尽管科学界正试图通过让
+  AI 易于访问来加速其应用，但大多数组织在一致地采用和扩展 AI 解决方案方面仍面临困难。
+
+
+  要充分利用 H2O，请使用 H2O Flow。它充分提供了无需编写大量代码的能力。它是一个基于 Web 的开源交互式 H2O 环境，允许您将代码执行、文本、数学、图表和富媒体结合在单个文档中。使用
+  H2O Flow，您可以高效地捕获、重新运行、注释、展示和共享您的工作流程^(¹⁵)。在本章中，我们将向您展示如何使用 Python 代码构建和测试模型。要在
+  Python 环境中安装 H2O，请使用`pip install h2o`；要在 Conda 环境中安装，请使用`conda install -c h2oai
+  h2o`。
+
+
+
+
+  ## H2O 的工作原理
+
+
+  H2O 使我们能够以较少的技术投入来开发、测试和验证机器学习和深度学习模型。使用此包时，我们无需编写大量代码。它自动化了大部分数据科学流程。清单 13-1 初始化了
+  H2O。
+
+
+  表 13-1 环境信息
+
+
+  | H2O_cluster_uptime: | 07 秒 |
+
+  | --- | --- |
+
+  | **H2O_cluster_timezone:** | America/Los_Angeles |
+
+  | **H2O_data_parsing_timezone:** | UTC |
+
+  | **H2O_cluster_version:** | 3.30.0.7 |
+
+  | **H2O_cluster_version_age:** | 3 个月零 3 天 |
+
+  | **H2O_cluster_name:** | H2O_from_python_i5_lenov_z4hv4c |
+
+  | **H2O_cluster_total_nodes:** | 1 |
+
+  | **H2O_cluster_free_memory:** | 2.975 Gb |
+
+  | **H2O_cluster_total_cores:** | 0 |
+
+  | **H2O_cluster_allowed_cores:** | 0 |
+
+  | **H2O_cluster_status:** | 接受新成员，运行健康 |
+
+  | **H2O_connection_url:** | [`http://127.0.0.1:54321`](http://127.0.0.1:54321) |
+
+  | **H2O_connection_proxy:** | {“http”: null, “https”: null} |
+
+  | **H2O_internal_security:** | False |
+
+  | **H2O_API_Extensions:** | Amazon S3, Algos, AutoML, Core V3, TargetEncoder, Core
+  V4 |
+
+  | **Python_version:** | 3.7.6 final |
+
+
+  ```
+
+  import h2o
+
+  h2o.init()
+
+  清单 13-1
+
+  初始化 H2O
+
+  ```
+
+
+  ### 数据处理
+
+
+  我们使用 `import_file()` 方法将数据加载到 H2O 数据框中。该包支持不同的文件格式。同样，我们从 Kaggle 获取了示例数据。^((16))
+
+
+  ```
+
+  df = h2o.import_file(path_name)
+
+  清单 13-2
+
+  将数据加载到 H2O 数据框
+
+  ```
+
+
+  清单 13-3 返回前 10 个数据点。
+
+
+  ```
+
+  df.head()
+
+  清单 13-3
+
+  查看 H2O 数据框
+
+  ```
+
+
+  清单 13-4 将自变量和因变量分配到两个独立的数据框中。
+
+
+  ```
+
+  y = "Outcome" x = df.col_names x.remove("Outcome") df["Outcome"] = df["Outcome"].asfactor()
+
+  清单 13-4
+
+  将变量分配到 X 和 Y 数据框
+
+  ```
+
+
+  清单 13-5 应用 `split_frame()` 方法将数据拆分为训练数据、测试数据和验证数据。
+
+
+  ```
+
+  train, valid, test = df.split_frame(ratios=[.8, .1], seed=1234)
+
+  print("Train shape: ", train.shape)
+
+  print("Valid shape: ", valid.shape)
+
+  print("Test shape: ", test.shape)
+
+  清单 13-5
+
+  将数据拆分为训练数据、测试数据和验证数据
+
+  ```
+
+
+  ### 模型训练
+
+
+  清单 13-6 完成了逻辑分类器。
+
+
+  ```
+
+  from h2o.estimators.glm import H2OGeneralizedLinearEstimator glm = H2OGeneralizedLinearEstimator(family="binomial")
+  glm.train(x=x, y=y, training_frame=train, validation_frame=valid)
+
+  清单 13-6
+
+  完成逻辑分类器
+
+  ```
+
+
+  我们将族类型指定为“binomial”，因为我们正在解决一个二分类问题。如果我们要解决一个多分类问题，那么我们会将族类型指定为“multinomial”。
+
+
+  #### 模型评估
+
+
+  在本书中，我们依赖混淆矩阵、分类报告、ROC 曲线、精确率-召回率曲线和学习曲线来总结二分类器的性能。与 H2O 包相比，SciKit-Learn 包提供的矩阵较少。下面，我们将充分讨论
+  H2O 包中可用的分类评估指标，然后向您展示如何估算它们。我们从基尼指数开始。
+
+
+  ##### 基尼指数
+
+
+  H2O 包使我们能够获取基尼指数值，该值衡量数值中存在的不平等程度。我们使用该指数来正确判断分类器的质量。该指数的取值范围从 0 到 1。其中，0 表示分类器具有完全平等性，1
+  表示分类器具有完全不平等性。当我们开发分类器时，通常期望找到更接近 1 的基尼指数值。清单 13-7 返回基尼指数的估计值。
+
+
+  ```
+
+  glm.gini(train=True, valid=True, xval=False)
+
+  {''train'': 0.6828073360331426, ''valid'': 0.548148148148148}
+
+  清单 13-7
+
+  基尼指数
+
+  ```
+
+
+  训练数据的基尼指数值为 0.68，验证数据的值为 0.55。这两个数据集都处于平等与不平等的边界线上。我们没有达到预期的完全不平等。然而，这些值并没有小到足以影响关于分类器的结论。
+
+
+  ##### 绝对马修斯相关系数
+
+
+  H2O 包中另一个可用的分类模型评估指标是绝对马修斯相关系数 (MCC)。我们用它来确定实际类别与分类器预测类别之间相关性的性质。MCC 的取值范围从 -1 到
+  1。其中，-1 表示分类器在预测类别时犯了很多错误，0 表示分类器难以猜测类别，1 表示分类器在区分类别方面不熟练。清单 13-8 返回绝对 MCC 的估计值。
+
+
+  ```
+
+  glm.mcc(train=True, valid=True, xval=False)
+
+  {''train'': [[0.3356601829569534, 0.5297584436640914]],
+
+  ''valid'': [[0.3790626186045188, 0.39336862882432994]]}
+
+  清单 13-8
+
+  绝对 MCC
+
+  ```
+
+
+  上述发现表明，实际类别与分类器预测的类别之间存在微弱的正相关。
+
+
+  ##### 混淆矩阵
+
+
+  清单 13-9 返回关于分类器性能的抽象信息。（见表 13-2）。
+
+
+  表 13-2 混淆矩阵
+
+
+  |   |   | 0 | 1 | 错误率 | 比率 |
+
+  | --- | --- | --- | --- | --- | --- |
+
+  | **0** | 0 | 306.0 | 90.0 | 0.2273 | (90.0/396.0) |
+
+  | **1** | 1 | 49.0 | 168.0 | 0.2258 | (49.0/217.0) |
+
+  | **2** | 总计 | 355.0 | 258.0 | 0.2268 | (139.0/613.0) |
+
+
+  ```
+
+  glm.confusion_matrix()
+
+  清单 13-9
+
+  混淆矩阵
+
+  ```
+
+
+  清单 13-10 找出训练数据和验证数据的 F1 分数。
+
+
+  ```
+
+  glm.F1(train=True, valid=True, xval=False)
+
+  {''train'': [[0.3356601829569534, 0.7073684210526315]],
+
+  ''valid'': [[0.3790626186045188, 0.5405405405405405]]}
+
+  清单 13-10
+
+  训练数据和验证数据的 F1 分数
+
+  ```
+
+
+  上述发现表明，逻辑分类器具有不错的精确率和召回率。清单 13-11 找出准确率系数。
+
+
+  ```
+
+  glm.accuracy(train=True, valid=True, xval=False)
+
+  {''train'': [[0.5331122058852918, 0.7862969004893964]], ''valid'': [[0.8926783510054471,
+  0.8115942028985508]]}
+
+  清单 13-11
+
+  准确率系数
+
+  ```
+
+
+  清单 13-12 生成一条曲线，总结分类器在区分类别方面的熟练程度（见图 13-1）。
+
+
+  ![../images/506148_1_En_13_Chapter/506148_1_En_13_Fig1_HTML.jpg](img/506148_1_En_13_Fig1_HTML.jpg)
+
+
+  图 13-1 ROC 曲线
+
+
+  ```
+
+  glm_perf.plot()
+
+  清单 13-12
+
+  ROC 曲线
+
+  ```
+
+
+  图 13-1 展示了一条表现良好的曲线的特征；它一开始沿着边界的左侧行进。然而，随着我们增加假阳性率，真阳性率也随之增加。
+
+
+
+
+  #### 标准化系数幅度
+
+
+  清单 13-13 返回一个图表，以图形方式展示了自变量与因变量之间的关系（见图 13-2）。
+
+
+  ![../images/506148_1_En_13_Chapter/506148_1_En_13_Fig2_HTML.jpg](img/506148_1_En_13_Fig2_HTML.jpg)
+
+
+  **图 13-2** 标准化系数幅度
+
+
+  ```
+
+  glm.std_coef_plot()
+
+  ```
+
+
+  **清单 13-13** 标准化系数幅度
+
+
+  图 13-2 展示了标准化系数的大小。除血压和胰岛素外，大多数自变量与糖尿病结果呈正相关。我们还观察到血糖与糖尿病结果之间存在强正相关。
+
+
+  #### 偏依赖
+
+
+  我们使用偏依赖来确定变量之间关系的影响。表 13-3 突出了年龄与糖尿病结果之间的偏依赖关系。
+
+
+  **表 13-3** 年龄偏依赖
+
+
+  |   | 年龄 | 平均响应 | 响应标准差 | 平均响应标准误差 |
+
+  |--- |--- |--- |--- |--- |
+
+  | **0** | 21.000000 | 0.322744 | 0.261743 | 0.009445 |
+
+  | **1** | 24.157895 | 0.328581 | 0.263071 | 0.009493 |
+
+  | **2** | 27.315789 | 0.334469 | 0.264344 | 0.009539 |
+
+  | **3** | 30.473684 | 0.340407 | 0.265559 | 0.009583 |
+
+  | **4** | 33.631579 | 0.346395 | 0.266716 | 0.009624 |
+
+
+  ```
+
+  glm.partial_plot(data = df, cols = ["Age", "Outcome"], server=False, plot = True)
+
+  ```
+
+
+  **清单 13-14** 偏依赖
+
+
+  表 13-3 和 13-4 突出了变量值以及响应均值、响应标准差和响应平均标准误差的变化。
+
+
+  **表 13-4** 血糖偏依赖
+
+
+  |   | 结果 | 平均响应 | 响应标准差 | 平均响应标准误差 |
+
+  |--- |--- |--- |--- |--- |
+
+  | **0** | 0 | 0.348501 | 0.272299 | 0.009826 |
+
+  | **1** | 1 | 0.348501 | 0.272299 | 0.009826 |
+
+
+  图 13-3 展示了变量及其对应的平均响应。这有助于理解偏依赖的概念。
+
+
+  ![../images/506148_1_En_13_Chapter/506148_1_En_13_Fig3_HTML.jpg](img/506148_1_En_13_Fig3_HTML.jpg)
+
+
+  **图 13-3** 偏依赖
+
+
+  #### 特征重要性
+
+
+  我们将特征重要性作为一种降维技术，通过为每个自变量分配一个值，来显示每个自变量对因变量的相对重要性。清单 13-15 绘制了特征重要性图（见图 13-4）。
+
+
+  ![../images/506148_1_En_13_Chapter/506148_1_En_13_Fig4_HTML.jpg](img/506148_1_En_13_Fig4_HTML.jpg)
+
+
+  **图 13-4** 特征重要性
+
+
+  ```
+
+  glm.varimp_plot()
+
+  ```
+
+
+  **清单 13-15** 特征重要性
+
+
+  图 13-4 显示，血糖是糖尿病结果中最重要的变量，其次是身体质量指数（BMI），然后是怀孕次数，依此类推。如果我们移除年龄、胰岛素和皮肤厚度，可以提高分类器的性能。
+
+
+  ### 预测
+
+
+  清单 13-16 以表格形式列出了预测类别和类别概率（见表 13-5）。
+
+
+  **表 13-5** 预测类别和类别概率
+
+
+  | 预测 | p0 | p1 |
+
+  |--- |--- |--- |
+
+  | **0** | 0.956033 | 0.0439669 |
+
+  | **0** | 0.977438 | 0.0225621 |
+
+  | **1** | 0.58329 | 0.41671 |
+
+  | **0** | 0.753834 | 0.246166 |
+
+  | **1** | 0.269132 | 0.730868 |
+
+  | **0** | 0.952432 | 0.0475679 |
+
+  | **0** | 0.811075 | 0.188925 |
+
+  | **0** | 0.917553 | 0.0824472 |
+
+  | **0** | 0.665598 | 0.334402 |
+
+  | **0** | 0.813001 | 0.186999 |
+
+
+  ```
+
+  y_predglm = glm.predict(test)
+
+  y_predglm
+
+  ```
+
+
+  **清单 13-16** 预测类别
+
+
+  ## 自动机器学习
+
+
+  AutoML 代表自动机器学习。这个术语不言自明。它使我们能够仅用几行代码就能构建并严格测试不同的机器学习和深度学习模型。它还自动化了超参数优化和数据建模等过程。我们无需开发多个模型并逐一比较，就可以使用它。开发一个
+  AutoML 模型非常简单。清单 13-17 完成了 AutoML 模型的构建。
+
+
+  ```
+
+  from h2o.automl import H2OAutoML
+
+  automl = H2OAutoML(max_runtime_secs=120)
+
+  automl.train(x=x, y=y, training_frame=train, validation_frame=valid)
+
+  ```
+
+
+  **清单 13-17** 完成 AutoML 模型
+
+
+  当我们完成时，必须指定不同模型学习数据结构所需的最大秒数。在我们的案例中，我们指定了 2 分钟。当我们使用它时，在后台，H2O 包会优化可用模型的超参数并训练它们。
+
+
+  ### 排行榜
+
+
+  表 13-6 突出了所有训练模型的性能，包括 5 折交叉验证的模型性能。它根据 AUC 分数对分类器进行排名。列表中排名第一的分类器具有最高的 AUC 分数，而排名最后的分类器具有最低的
+  AUC 分数。它还突出了对数损失、精确率-召回率曲线下面积、每类平均误差、均方误差总和以及均方根误差总和。
+
+
+  **表 13-6** AutoML 排行榜
+
+
+  | model_id | auc | logloss | aucpr | mean_per_class_error | rmse | mse |
+
+  |--- |--- |--- |--- |--- |--- |--- |
+
+  | **StackedEnsemble_BestOfFamily_AutoML_20201025_135923** | 0.830476 | 0.48388 |
+  0.703867 | 0.243867 | 0.397547 | 0.158043 |
+
+  | **GLM_1_AutoML_20201025_135923** | 0.829476 | 0.486136 | 0.70964 | 0.248761 |
+  0.397072 | 0.157666 |
+
+  | **GBM_grid__1_AutoML_20201025_135923_model_8** | 0.8278 | 0.483469 | 0.714668
+  | 0.244595 | 0.398872 | 0.159099 |
+
+  | **StackedEnsemble_AllModels_AutoML_20201025_135923** | 0.827573 | 0.486645 | 0.707761
+  | 0.248918 | 0.399255 | 0.159404 |
+
+  | **DeepLearning_grid__2_AutoML_20201025_135923_model_1** | 0.823174 | 0.506595
+  | 0.695583 | 0.244216 | 0.403943 | 0.16317 |
+
+  | **DeepLearning_grid__1_AutoML_20201025_135923_model_3** | 0.819415 | 0.571089
+  | 0.682411 | 0.257378 | 0.415348 | 0.172514 |
+
+  | **GBM_5_AutoML_20201025_135923** | 0.818548 | 0.494956 | 0.675015 | 0.244787 |
+  0.40579 | 0.164665 |
+
+  | **DeepLearning_grid__1_AutoML_20201025_135923_model_2** | 0.818118 | 0.554478
+  | 0.725002 | 0.237461 | 0.41781 | 0.174565 |
+
+  | **GBM_grid__1_AutoML_20201025_135923_model_9** | 0.815156 | 0.502735 | 0.687605
+  | 0.258513 | 0.408501 | 0.166873 |
+
+  | **GBM_grid__1_AutoML_20201025_135923_model_5** | 0.814243 | 0.498371 | 0.669688
+  | 0.262178 | 0.40745 | 0.166015 |
+
+
+  ```
+
+  leaderboard = automl.leaderboard
+
+  leaderboard
+
+  ```
+
+
+  **清单 13-18** AutoML 排行榜
+
+
+  表 13-6 显示，领先的二分类器的 AUC 分数为 0.83，AUCPR 为 0.70。
+
+
+  ### 预测
+
+
+  上面，我们找到了领先的分类器。现在让我们考虑预测类别和类别概率（见表 13-7）。
+
+
+  **表 13-7** 预测类别和类别概率
+
+
+  | 预测 | p0 | p1 |
+
+  |--- |--- |--- |
+
+  | **0** | 0.923024 | 0.0769757 |
+
+  | **0** | 0.896685 | 0.103315 |
+
+  | **1** | 0.625636 | 0.374364 |
+
+  | **1** | 0.713157 | 0.286843 |
+
+  | **1** | 0.37774 | 0.62226 |
+
+  | **0** | 0.922715 | 0.0772854 |
+
+  | **0** | 0.836983 | 0.163017 |
+
+  | **0** | 0.910994 | 0.0890061 |
+
+  | **1** | 0.587552 | 0.412448 |
+
+  | **1** | 0.686241 | 0.313759 |
+
+
+  ```
+
+  y_pred = automl.predict(test)
+
+  y_pred
+
+  ```
+
+
+  **清单 13-19** 预测类别和类别概率
+
+
+
+
+  ## 结论
+
+
+  本章介绍了一个名为 `H2O` 的无人驾驶开源软件包。我们开发并测试了一个逻辑分类器和 `AutoML` 模型。你可能已经注意到这个软件包是多么直观和功能丰富。它不需要使用者具备广泛的技术技能和经验。该软件包的易用性使得组织能够加速采用实用的人工智能解决方案。我们预计在可预见的未来会出现更多无人驾驶开源软件包。
+
+
+  至此，我们来到了本书的最后一章；我们相信你已经对数据科学的世界有了足够的洞察。现在，请运用所学知识来解决复杂问题。始终紧跟最新的研究和技术。切勿陷入部署不可靠模型或忽视模型及
+  Web 应用可扩展性的陷阱。
+
+
+  '
+- '# 脚注
+
+
+  1 2
+
+
+  '
+- "# 索引\n\n- `A`\n  - `激活函数`\n    - `损失`\n    - `ReLu`\n    - `sigmoid`\n    - `tanh`\n\
+  \  - `实际值`\n  - `Adam 优化方法`\n  - `凝聚模型`\n    - `簇`\n    - `定义`\n    - `树状图`\n  \
+  \  - `距离度量技术`\n    - `预测标签`\n  - `赤池信息准则 (AIC)`\n  - `协方差分析 (ANOVA)`\n  - `曲线下面积\
+  \ (AUC)`\n  - `人工神经网络`\n  - `增广迪基-富勒 (ADF) 检验`\n  - `自相关函数`\n  - `AutoML`\n    -\
+  \ `排行榜`\n    - `预测`\n  - `自回归 (AR)`\n  - `自回归条件异方差 (ARCH) 模型`\n  - `自回归积分滑动平均 (ARIMA)\
+  \ 模型`\n  - `平均精度分数 (APS)`\n\n- `B`\n  - `反向传播`\n  - `箱线图`\n\n- `C`\n  - `删失数据`\n\
+  \  - `质心聚类`\n  - `聚类分析`\n    - `数据集`\n    - `定义`\n  - `置信区间 (CI)`\n  - `相关系数`\n\
+  \  - `相关矩阵`\n  - `相关方法`\n    - `协方差`\n    - `创建 x 和 y 数组`\n    - `特征矩阵`\n    - `Kendall`\n\
+  \    - `建模数据`\n    - `标准化数据`\n    - `Spearman`\n    - `训练/测试数据`\n  - `代价函数`\n  -\
+  \ `协方差矩阵`\n  - `协方差方法`\n  - `cross_validation()` 方法\n  - `交叉验证方法`\n\n- `D`\n  -\
+  \ `数据`\n    - `缺失值`\n    - `热力图`\n  - `数据质量`\n    - `缺失值`\n    - `正态性`\n    - `异常值`\n\
+  \  - `决策树`\n    - `分类报告`\n    - `混淆矩阵`\n    - `熵`\n    - `特征重要性`\n    - `超参数优化`\n\
+  \    - `信息增益`\n    - `学习曲线`\n    - `精确率-召回率曲线`\n    - `ROC 曲线`\n    - `结构`\n   \
+  \ - `值`\n    - `可视化`\n  - `深度信念网络`\n    - `AUC 分数`\n    - `数据划分`\n    - `最终确定模型`\n\
+  \    - `超参数优化`\n    - `精确率/召回率曲线`\n    - `ROC 曲线`\n    - `训练/测试数据`\n    - `训练/验证准确率`\n\
+  \    - `训练/验证损失`\n  - `基于密度的带噪声空间聚类 (DBSCAN) 模型`\n    - `簇`\n    - `点`\n    - `预测标签`\n\
+  \    - `可视化`\n  - `密度聚类`\n  - `分布聚类`\n  - `双弓形模式`\n  - `丢弃法`\n  - `持续时间建模`\n\n-\
+  \ `E`\n  - `特征矩阵`\n  - `弹性网络模型`\n  - `肘部曲线`\n  - `熵`\n  - `expanding()` 方法\n\n-\
+  \ `F`\n  - `扇形模式`\n  - `费希尔判别分析 (FDA)`\n  - `fit()` 方法\n  - `前向传播`\n\n- `G`\n  -\
+  \ `高斯朴素贝叶斯`\n    - `分类报告`\n    - `混淆矩阵`\n    - `评估分类器`\n    - `最终确定`\n    - `学习曲线`\n\
+  \    - `精确率召回率曲线`\n    - `ROC 曲线`\n  - `基尼指数值`\n  - `梯度`\n  - `GridSearchCV()` 方法\n\
+  \n- `H`\n  - `H2O`\n    - `Flow`\n    - `数据处理`\n    - `初始化模型`\n    - `参见模型评估`\n\
+  \    - `预测`\n  - `直方图`\n  - `超参数优化`\n\n- `I, J`\n  - `自变量`\n\n- `K`\n  - `卡普兰-迈耶\
+  \ (KM) 模型`\n    - `置信区间`\n    - `累积密度曲线`\n    - `估计公式`\n    - `定义`\n    - `评估`\n\
+  \    - `生存曲线`\n    - `生存函数方程`\n    - `估计`\n  - `Kendall 方法 / Spearman 方法`\n  - `K\
+  \ 均值聚类`\n    - `质心`\n    - `公式`\n    - `超参数优化`\n    - `最优超参数`\n    - `预测标签`\n  \
+  \  - `可调超参数`\n\n- `L`\n  - `LabelEncoder()` 方法\n  - `Lasso`\n  - `最小二乘模型`\n    -\
+  \ `绝对误差`\n    - `MSE`\n    - `RMSE`\n    - `R 方`\n  - `线性判别分析 (LDA)`\n    - `假设`\n\
+  \    - `分类`\n    - `分类器`\n    - `混淆矩阵`\n    - `评估`\n    - `超参数优化`\n    - `载荷曲线`\n\
+  \    - `精确率-召回率曲线`\n    - `预测`\n    - `报告`\n    - `ROC 曲线`\n    - `降维`\n  - `线性方法`\n\
+  \  - `线性回归假设`\n  - `LinearSVC 分类器`\n    - `评估`\n    - `分类报告`\n    - `混淆矩阵`\n   \
+  \ - `学习曲线`\n    - `值`\n    - `最终确定`\n    - `超参数优化`\n  - `逻辑分类器`\n  - `逻辑回归假设`\n\
+  \    - `数据集`\n    - `定义`\n    - `描述性分析`\n    - `皮尔逊相关`\n    - `sigmoid 函数`\n\n-\
+  \ `M`\n  - `make_future_dataframe()` 方法\n  - `间隔分类器`\n  - `马修斯相关系数 (MCC)`\n  - `最大似然法\
+  \ (MLE)`\n  - `均方误差 (MSE)`\n  - `模型评估`\n    - `混淆矩阵`\n    - `特征重要性`\n    - `基尼指数值`\n\
+  \    - `MCC`\n    - `部分依赖`\n    - `ROC 曲线`\n    - `标准化系数大小`\n  - `滑动平均 (MA)`\n \
+  \ - `多层感知器 (MLP) 模型`\n    - `分类报告`\n    - `精确率/召回率曲线`\n    - `ROC 曲线`\n  - `多项逻辑回归\
+  \ (MLR)`\n\n- `N, O`\n  - `纳尔逊-阿伦模型`\n  - `非参数生存分析`\n  - `标准化数据`\n\n- `P, Q`\n \
+  \ - `成对散点图`\n  - `抛物线模式`\n  - `参数方法`\n    - `偏差`\n    - `偏差-方差权衡`\n    - `lasso\
+  \ 回归`\n    - `定义`\n    - `开发模型`\n    - `评估模型`\n    - `可调超参数`\n    - `RidgeCV`\n\
+  \    - `岭回归`\n    - `方差`\n  - `参数生存分析`\n  - `皮尔逊相关方法`\n  - `皮尔逊方法`\n  - `完美线性回归模型`\n\
+  \  - `performance_metrics()` 方法\n  - `预测类别`\n  - `predict()` 方法\n  - `主成分分析 (PCA)`\n\
+  \    - `目标`\n    - `数据维度`\n    - `数据变换`\n    - `数据分布`\n    - `解释方差`\n    - `因子分析`\n\
+  \    - `凯泽准则`\n    - `矩阵结构`\n  - `Prophet`\n    - `加法模型`\n    - `组件`\n    - `交叉验证`\n\
+  \    - `测试数据`\n    - `预处理`\n    - `开发模型`\n    - `评估`\n\n- `R`\n  - `接收者操作特征 (ROC)`\n\
+  \  - `正则化`\n    - `丢弃`\n    - `L1`\n    - `L2`\n  - `可靠性分析`\n  - `ReLu 激活函数`\n \
+  \ - `重塑数组`\n  - `残差诊断`\n    - `箱线图`\n    - `库克距离`\n    - `影响`\n    - `拟合值/残差值`\n\
+  \    - `拟合值/学生化残差值`\n    - `杠杆值/残差值`\n    - `正态 Q-Q 图`\n    - `SciKit-Learn`\n \
+  \   - `自相关`\n    - `偏相关`\n  - `受限玻尔兹曼机 (RBM)`\n    - `逻辑分类器`\n    - `流水线`\n  - `RidgeCV`\n\
+  \  - `roc_curve()` 和 `roc_auc_score()` 方法\n  - `均方根误差 (RMSE)`\n\n- `S`\n  - `SciKit-Learn\
+  \ 软件包`\n    - `交叉验证`\n    - `默认超参数`\n    - `估计系数`\n    - `查找截距`\n    - `超参数优化`\n\
+  \    - `截距`\n    - `最小二乘模型`\n    - `逻辑分类器`\n    - `AUC`\n    - `分类报告`\n    - `混淆矩阵`\n\
+  \    - `学习曲线`\n    - `精确率召回率曲线`\n    - `ROC 曲线`\n    - `预测`\n  - `Sigmoid 激活函数`\n\
+  \  - `轮廓系数法`\n  - `简单线性回归`\n  - `Spearman 相关矩阵`\n  - `StandardScaler()` 方法\n  -\
+  \ `Statsmodels`\n    - `添加常数`\n    - `评估逻辑分类器`\n    - `模型预测`\n  - `Statsmodels 和\
+  \ Prophet`\n  - `支持向量分类器 (SVC)`\n  - `支持向量机 (SVM)`\n    - `超平面`\n    - `支持向量`\n\
+  \    - `SVC`\n    - `向量空间`\n  - `生存分析`\n    - `列`\n    - `数据收集方法`\n    - `数据集`\n\
+  \    - `数据结构`\n    - `事件结果`\n    - `族`\n    - `关键术语`\n    - `Lifeline 软件包`\n   \
+  \ - `加载数据`\n    - `创建目录内容`\n    - `survival_from_event()` 方法\n\n- `T, U`\n  - `双曲正切\
+  \ (tanh) 激活函数`\n  - `测试数据`\n  - `时间序列分析`\n    - `ACF`\n    - `ADF 检验`\n    - `ARIMA\
+  \ 模型`\n    - `假设`\n    - `平均/指数技术`\n    - `定义`\n    - `指数平滑技术`\n    - `预测`\n   \
+  \ - `SARIMAX`\n    - `不规则成分`\n    - `MA`\n    - `MA 平滑技术`\n    - `最小值和最大值`\n   \
+  \ - `运行`\n    - `SARIMAX 超参数优化`\n    - `SARIMAX 模型`\n    - `变量`\n    - `白噪声`\n \
+  \   - `检验`\n  - `train_test_split()` 方法\n  - `可调超参数`\n\n- `V, W, X, Y, Z`\n  - `方差膨胀因子\
+  \ (VIF)`\n"

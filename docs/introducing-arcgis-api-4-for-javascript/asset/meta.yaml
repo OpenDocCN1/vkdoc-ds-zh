@@ -1,0 +1,124 @@
+name: Introducing ArcGIS API 4 for JavaScript
+name_cn: ArcGIS API 4 for JavaScript 入门指南
+slug: introducing-arcgis-api-4-for-javascript
+toc:
+- - '#'
+  - 介绍 ArcGIS API 4 for JavaScript
+- - '##'
+  - 目录
+- - '##'
+  - 关于作者与技术审校者
+- - '#'
+  - 1. 引言
+- - '##'
+  - 如何获取 ArcGIS API
+- - '##'
+  - 关键概念
+- - '##'
+  - 你需要了解的内容
+- - '##'
+  - AMD
+- - '#'
+  - 2. 入门
+- - '##'
+  - 关于 dojoConfig 呢？
+- - '##'
+  - AMD 与包
+- - '###'
+  - AMD
+- - '###'
+  - 包
+- - '##'
+  - 总结
+- - '#'
+  - 3. 地图与视图
+- - '##'
+  - WebMap
+- - '##'
+  - LayerView
+- - '##'
+  - 图层
+- - '###'
+  - GraphicsLayer
+- - '###'
+  - FeatureLayer
+- - '####'
+  - MapImageLayer
+- - '####'
+  - CSVLayer
+- - '####'
+  - SceneLayer
+- - '####'
+  - '`VectorTileLayer`'
+- - '####'
+  - '`GroupLayer`'
+- - '##'
+  - Portal API
+- - '###'
+  - 我的精彩门户项目
+- - '##'
+  - 总结
+- - '##'
+  - 脚注
+- - '#'
+  - 4. API 核心基础
+- - '##'
+  - 访问器
+- - '###'
+  - 监听属性变化
+- - '####'
+  - '`watchUtils`'
+- - '###'
+  - 自动转换（Autocasting）
+- - '###'
+  - 扩展 Accessor
+- - '####'
+  - TypeScript 集成
+- - '##'
+  - 集合
+- - '##'
+  - 承诺（Promises）
+- - '##'
+  - 总结
+- - '#'
+  - 5. 场景
+- - '##'
+  - SceneView
+- - '###'
+  - '`camera` 属性'
+- - '##'
+  - environment 属性
+- - '##'
+  - 局部场景
+- - '##'
+  - 摘要
+- - '#'
+  - 6. 弹出窗口
+- - '##'
+  - 字段与别名
+- - '##'
+  - MediaInfos
+- - '##'
+  - 自定义操作
+- - '##'
+  - 总结
+- - '##'
+  - 微件
+- - '###'
+  - 先决条件
+- - '####'
+  - 类型定义
+- - '####'
+  - JSX
+- - '###'
+  - 构建自定义微件
+- - '####'
+  - 存储与 ViewModel
+- - '####'
+  - 自定义微件
+- - '##'
+  - 总结
+- - '##'
+  - 脚注
+- - '##'
+  - 索引

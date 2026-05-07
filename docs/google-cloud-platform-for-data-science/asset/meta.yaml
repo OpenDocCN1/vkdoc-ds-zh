@@ -1,0 +1,308 @@
+name: Google Cloud Platform for Data Science
+name_cn: 数据科学的 Google Cloud Platform
+slug: google-cloud-platform-for-data-science
+toc:
+- - '#'
+  - 前言
+- - '#'
+  - 引言
+- - '#'
+  - 第 1 章：GCP 简介
+- - '##'
+  - 1. GCP 简介
+- - '###'
+  - GCP 及其数据科学服务概览
+- - '###'
+  - 设置 GCP 账号和项目
+- - '##'
+  - 总结
+- - '#'
+  - 第 2 章：Google Colaboratory
+- - '##'
+  - 2. Google Colaboratory
+- - '###'
+  - Colab 的功能
+- - '###'
+  - 在 Colaboratory 上创建并运行 Jupyter Notebook
+- - '###'
+  - 动手实践示例
+- - '####'
+  - 生成 100 个介于 0 和 100 之间的随机数
+- - '####'
+  - 将数据绘制为直方图
+- - '###'
+  - 导入库
+- - '####'
+  - 导入 Pandas 库
+- - '####'
+  - 导入 Numpy 库
+- - '####'
+  - 导入 Matplotlib 库
+- - '####'
+  - 导入 Seaborn 库
+- - '###'
+  - 处理数据
+- - '###'
+  - 可视化数据
+- - '###'
+  - 在 Colaboratory 上运行机器学习模型
+- - '####'
+  - 生成随机特征
+- - '####'
+  - 生成随机目标
+- - '####'
+  - 将特征和目标合并成一个数据框
+- - '####'
+  - 加载数据集
+- - '####'
+  - 将数据拆分为特征 (X) 和目标 (y)
+- - '####'
+  - 将数据拆分为训练集和测试集
+- - '####'
+  - 训练一个随机森林分类器
+- - '####'
+  - 对测试集进行预测
+- - '####'
+  - 评估模型性能
+- - '###'
+  - 在生产环境中部署模型
+- - '####'
+  - 保存模型
+- - '###'
+  - 从 Colaboratory 访问 GCP 服务和数据
+- - '###'
+  - 总结
+- - '#'
+  - 第 3 章：大数据与机器学习
+- - '##'
+  - 3. 大数据与机器学习
+- - '###'
+  - BigQuery
+- - '###'
+  - 在 BigQuery 数据上运行 SQL 查询
+- - '###'
+  - BigQuery ML
+- - '####'
+  - Generate random features
+- - '####'
+  - Generate random target
+- - '####'
+  - Combine the features and target into a data frame
+- - '####'
+  - Save the data to a CSV file
+- - '###'
+  - Google Cloud AI 平台及其功能
+- - '###'
+  - 使用 Vertex AI 训练和部署机器学习模型
+- - '###'
+  - MLOps，即机器学习运维
+- - '###'
+  - Vertex AI 中的用户管理型笔记本实例
+- - '###'
+  - BigQuery Sandbox 训练容器
+- - '###'
+  - 使用 Vertex AI 和 Python SDK 训练模型
+- - '####'
+  - 安装 Vertex AI SDK
+- - '####'
+  - 创建存储桶
+- - '####'
+  - 初始化 Vertex AI SDK for Python
+- - '####'
+  - 初始化 BigQuery
+- - '####'
+  - 创建 Vertex AI 表格数据集
+- - '####'
+  - 创建 BigQuery 数据集
+- - '####'
+  - 创建 Vertex AI 表格数据集
+- - '###'
+  - 创建训练脚本
+- - '####'
+  - 读取环境变量
+- - '####'
+  - 读取参数
+- - '####'
+  - 设置训练变量
+- - '####'
+  - 关于权限问题
+- - '####'
+  - 下载一个表
+- - '####'
+  - 下载数据集拆分
+- - '####'
+  - 创建数据集
+- - '####'
+  - 打乱训练集
+- - '####'
+  - 创建模型
+- - '####'
+  - 编译 Keras 模型
+- - '####'
+  - 创建模型
+- - '####'
+  - 设置数据集
+- - '####'
+  - 训练模型
+- - '####'
+  - 启动训练并创建模型
+- - '####'
+  - 移除物种列
+- - '####'
+  - 将数据转换为 Python 列表
+- - '####'
+  - 获取预测结果
+- - '####'
+  - 查看预测结果
+- - '####'
+  - Get the prediction for each set of input data
+- - '####'
+  - View the best prediction for the penguin characteristics in each row
+- - '####'
+  - Delete the training job
+- - '####'
+  - Delete the endpoint and undeploy the model from it
+- - '####'
+  - Delete the model
+- - '####'
+  - Delete the storage bucket and its contents
+- - '###'
+  - Google Cloud Dataproc 及其在大数据处理中的用例简介
+- - '####'
+  - 如何使用 Google Cloud 控制台创建和更新 Dataproc 集群
+- - '#####'
+  - 创建 Dataproc 集群
+- - '#####'
+  - 更新 Dataproc 集群
+- - '#####'
+  - 提交 Spark 作业
+- - '#####'
+  - 清理
+- - '###'
+  - TensorFlow
+- - '###'
+  - 总结
+- - '#'
+  - 第 4 章：数据可视化与商业智能
+- - '##'
+  - 4. 数据可视化与商业智能
+- - '###'
+  - Looker Studio 及其特性
+- - '###'
+  - 使用 Looker Studio 创建和共享数据可视化与报告
+- - '###'
+  - BigQuery 和 Looker
+- - '####'
+  - 构建仪表板
+- - '###'
+  - Colab 上的数据可视化
+- - '##'
+  - 总结
+- - '#'
+  - 第 5 章：数据处理与转换
+- - '##'
+  - 5. 数据处理与转换
+- - '###'
+  - Google Cloud Dataflow 简介及其在批处理和流数据处理中的应用场景
+- - '####'
+  - 在 Cloud Dataflow 上运行数据处理管道
+- - '###'
+  - Google Cloud Dataprep 简介及其在数据准备中的应用场景
+- - '##'
+  - 总结
+- - '#'
+  - 第 6 章：数据分析与存储
+- - '##'
+  - 6. 数据分析与存储
+- - '###'
+  - Google Cloud Storage 简介及其在数据存储方面的用例
+- - '####'
+  - 主要特性
+- - '####'
+  - 存储选项
+- - '####'
+  - 存储位置
+- - '####'
+  - 使用 Google Cloud Storage 创建分析用数据湖
+- - '###'
+  - Google Cloud SQL 简介及其在关系数据库中的用例
+- - '####'
+  - 使用 Cloud SQL 创建 MySQL 实例
+- - '####'
+  - 连接到您的 MySQL 实例
+- - '####'
+  - 在 SQL 中创建数据库并上传数据
+- - '###'
+  - Google Cloud Pub/Sub 简介及其在实时数据流中的应用场景
+- - '####'
+  - 使用 Cloud Pub/Sub 设置和消费数据流
+- - '##'
+  - 总结
+- - '#'
+  - 第 7 章：高级主题
+- - '##'
+  - 7. 高级主题
+- - '###'
+  - 使用 IAM 保护和管理 GCP 资源
+- - '####'
+  - 使用资源管理器 API 授予和移除 IAM 角色
+- - '###'
+  - 使用 Google Cloud Source Repositories 进行版本控制
+- - '###'
+  - Dataplex
+- - '####'
+  - 步骤 1：创建 Google Cloud 项目
+- - '####'
+  - 步骤 2：启用 Dataplex API
+- - '####'
+  - 步骤 3：创建数据湖
+- - '###'
+  - Cloud Data Fusion
+- - '####'
+  - 启用或禁用 Cloud Data Fusion
+- - '####'
+  - 创建数据管道
+- - '##'
+  - 总结
+- - '#'
+  - 索引
+- - '##'
+  - A
+- - '##'
+  - B
+- - '##'
+  - C
+- - '##'
+  - D
+- - '##'
+  - E
+- - '##'
+  - F
+- - '##'
+  - G, H
+- - '##'
+  - I
+- - '##'
+  - J, K
+- - '##'
+  - L
+- - '##'
+  - M
+- - '##'
+  - N
+- - '##'
+  - O
+- - '##'
+  - Q
+- - '##'
+  - R
+- - '##'
+  - S
+- - '##'
+  - T
+- - '##'
+  - U
+- - '##'
+  - V
+- - '##'
+  - W, X, Y, Z

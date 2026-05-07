@@ -1,0 +1,1492 @@
+- '
+
+  '
+- "# 介绍 ArcGIS API 4 for JavaScript\n\n将精彩地图转化为出色应用\n\n本书作者引用的任何源代码或其他补充材料，读者均可通过本书在\
+  \ GitHub 上的产品页面获取，网址为 [`www.apress.com/9781484232811`](http://www.apress.com/9781484232811)。如需更详细信息，请访问\
+  \ [`www.apress.com/source-code`](http://www.apress.com/source-code)。\n\nISBN 978-1-4842-3281-1\
+  \  \n电子书 ISBN 978-1-4842-3282-8  \n[`doi.org/10.1007/978-1-4842-3282-8`](https://doi.org/10.1007/978-1-4842-3282-8)\n\
+  \n美国国会图书馆控制号：2017960885\n\n© Rene Rubalcava 2017\n\n本作品受版权保护。出版商保留所有权利，无论是全部还是部分材料，特别是翻译、重印、重用插图、朗诵、广播、微缩胶片复制或任何其他物理形式，以及电子改编、计算机软件或现在已知或未来开发的类似或不同方法的传输或信息存储与检索。\n\
+  \n本书中可能出现商标名称、徽标和图像。我们并非在每次出现商标名称、徽标或图像时都使用商标符号，而是仅以编辑方式使用这些名称、徽标和图像，以维护商标所有者的利益，并无意侵犯商标权。本出版物中对商品名称、商标、服务标志及类似术语的使用，即使未明确标识，也不应被视为对其是否受专有权利保护的表达意见。\n\
+  \n尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑和出版商均不对可能出现的任何错误或遗漏承担法律责任。出版商对本书所含内容不作任何明示或暗示的保证。\n\
+  \n印刷于无酸纸上\n\n由 Springer Science+Business Media New York 向全球图书贸易发行，地址：233 Spring\
+  \ Street, 6th Floor, New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：orders-ny@springer-sbm.com，或访问\
+  \ www.springeronline.com。Apress Media, LLC 是一家加利福尼亚有限责任公司，其唯一成员（所有者）是 Springer Science\
+  \ + Business Media Finance Inc (SSBM Finance Inc)。SSBM Finance Inc 是一家特拉华州公司。\n\n\
+  ## 目录\n\n第 1 章：引言 1  \n如何获取 ArcGIS API 1  \n关键概念 1  \n你需要了解的内容 2  \nAMD 3  \n第 2\
+  \ 章：入门 5  \ndojoConfig 怎么样？ 6  \nAMD 与包 8  \nAMD 8  \n包 10  \n总结 14  \n第 3 章：地图与视图\
+  \ 15  \nWebMaps 17  \nLayerViews 20  \n图层 21  \nGraphicsLayer 22  \nFeatureLayer\
+  \ 24  \nMapImageLayer 26  \nCSVLayer 32  \nSceneLayer 33  \nVectorTileLayer 34 \
+  \ \nGroupLayer 35  \nPortal API 37  \n总结 52  \n第 4 章：API 核心基础 53  \n访问器 53  \n监听属性变化\
+  \ 54  \nwatchUtils 59  \n自动类型转换 61  \n扩展访问器 63  \nTypeScript 集成 64  \n集合 66  \n\
+  Promise 68  \n总结 69  \n第 5 章：场景 71  \nSceneView 74  \ncamera 属性 74  \nenvironment\
+  \ 属性 85  \n本地场景 87  \n总结 94  \n第 6 章：弹出窗口 97  \n字段与别名 97  \nMediaInfos 104  \n自定义操作\
+  \ 105  \n总结 108  \n第 7 章：微件 109  \n前提条件 109  \n类型定义 110  \nJSX 111  \n构建自定义微件 111\
+  \  \nStore 与 ViewModel 113  \n自定义微件 122  \n总结 131  \n索引 133\n\n## 关于作者与技术审校者\n\n\
+  关于作者  \n关于技术审校者\n\n"
+- '# 1. 引言
+
+
+  ArcGIS API for JavaScript 多年来不断发展，纳入了能够利用 ArcGIS Server 和 ArcGIS Online 更新的新功能。向
+  API 第 4 版的迁移是自其首次发布以来在技术和功能上最大的飞跃之一。此版本的 API 为开发者引入了一些新概念，并使开发者能够更轻松地将 3D 场景添加到其应用程序中。
+
+
+  ## 如何获取 ArcGIS API
+
+
+  您可以在 [`https://developers.arcgis.com/javascript/latest`](https://developers.arcgis.com/javascript/latest)
+  找到有关该 API 的更多信息。
+
+
+  ## 关键概念
+
+
+  ArcGIS API 4 for JavaScript 继承了早期版本 API 中的一些概念，并引入了一些新概念。这些内容将在本书中更详细地讨论，但此处简要说明如下：
+
+
+  *   **异步模块定义 (AMD)**：这是 Dojo 使用的模块系统，非常适合大型应用程序开发。
+
+  *   **地图、图层和视图**：地图及其图层和视图关系是关键。地图是一个数据源，可以链接到多个视图。
+
+  *   **访问器**：访问器是 API 的强大实现，提供了丰富的功能集。
+
+  *   **集合**：这些是类似数组的数据存储，也可以发出更改事件。
+
+  *   **Promise**：该 API 一直使用 Promise 进行异步操作，但在第 4 版中它们扮演着更重要的角色。
+
+  *   **微件与 UI**：API 中地图的微件和 UI 已针对第 4 版进行了完全重写和重新架构。
+
+  *   **Web 场景与本地场景**：场景是 JavaScript API 中一个令人兴奋的新增功能，因为它们将 3D 能力交到了开发者手中。
+
+
+  ## 你需要了解的内容
+
+
+  我认为可以公平地说，如果你正在阅读本书，你应该具备一些基本的编程经验。如果你有 JavaScript 经验，那就更好了，因为本书不会涵盖 JavaScript
+  基础知识。你可以在网上找到大量资源来学习 JavaScript，我建议你这样做。
+
+
+  你不需要了解地理信息系统 (GIS)。我假设你知道地图是什么，仅此而已。
+
+
+
+
+  ### AMD
+
+
+  就本书而言，你无需过多担心 ArcGIS API for JavaScript 中使用的 AMD。本书中的所有示例都将使用 ES2015，¹ 你可以使用 `Babel`²
+  和 `GruntJS`³ 将它们编译为 AMD。
+
+
+  你真正需要了解的是，你为 ArcGIS JavaScript API 应用程序编写的代码需要编译为 AMD，才能使用 Dojo 加载器。⁴
+
+
+  让我们开始吧！
+
+
+  脚注 1
+
+
+  [`https://babeljs.io/docs/learn-es2015/`](https://babeljs.io/docs/learn-es2015/)
+
+
+  2
+
+
+  [`https://babeljs.io/`](https://babeljs.io/)
+
+
+  3
+
+
+  [`http://gruntjs.com/`](http://gruntjs.com/)
+
+
+  4
+
+
+  [`http://dojotoolkit.org/reference-guide/1.10/loader/amd.html#loader-amd`](https://dojotoolkit.org/documentation/tutorials/1.10/build/)
+
+
+  '
+- '# 2. 入门
+
+
+  让我们停止空谈，开始编写代码。以下是你的第一个应用程序的简单 HTML 页面。本示例中的所有 `index.html` 页面都将以此为基础。你只需在过程中更新
+  JavaScript 代码即可。
+
+
+  ```
+
+  5       \
+
+  6       ArcGIS API for JavaScript 4
+
+  ```
+
+
+  这是 `dojoConfig.js` 文件：
+
+
+  ```
+
+  1   var locationPath = window.location.pathname.replace(/\/[^\/]+$/, ''/'');
+
+  2   window.dojoConfig = {
+
+  3     deps: [''app/main''],
+
+  4     packages: [{
+
+  5       name: ''app'',
+
+  6       location: locationPath + ''/app'',
+
+  7       main: ''main''
+
+  8     }]
+
+  9   };
+
+  ```
+
+
+  这是第一个示例 JavaScript 文件 `app/main.js`：
+
+
+  ```
+
+  1   import Map from "esri/Map";
+
+  2   import SceneView from "esri/views/SceneView";
+
+
+  4   const map = new Map({ basemap: "topo" });
+
+  5   const view = new SceneView({
+
+  6     container: "mainDiv",
+
+  7     map,
+
+  8     center: [-118.182, 33.913],
+
+  9     scale: 836023
+
+  10   });
+
+  ```
+
+
+  这就是启动一个简单的 `SceneView` 所需的全部代码。现在，你拥有了一个可以操作的交互式 3D 地图。
+
+
+  ## 关于 dojoConfig 呢？
+
+
+  让我们简要谈谈 `dojoConfig` 在你的开发环境中是如何工作的。对于本书中的大多数示例，我将假设你使用的是 ArcGIS API for JavaScript
+  的内容分发网络（CDN）版本。
+
+
+  这个 `locationPath` 是怎么回事？
+
+
+  ```
+
+  1   var locationPath = window.location.pathname.replace(/\/[^\/]+$/, ''/'');
+
+  ```
+
+
+  假设你的应用程序托管在 `http://localhost/apps/myapplication`。`location.pathname` 将是 `/apps/myapplication`。正则表达式
+  `/\/[^\/]+$/` 会将其转换为 `/apps/`。你要做的是为你的应用程序创建一个包，这基本上是一种将你的代码命名空间化到其自己的包中，以将其与依赖项区分开来的方法。
+
+
+  ```
+
+  1   window.dojoConfig = {
+
+  2     ...
+
+  3     packages: [{
+
+  4       name: ''app'',
+
+  5       location: locationPath + ''/app'',
+
+  6       main: ''main''
+
+  7     }]
+
+  8   };
+
+  ```
+
+
+  这将创建一个名为 `app` 的包，并且你让 ArcGIS CDN 中的 Dojo 知道该应用程序位于你的主机上的 `/apps/app`，而不是 CDN 上。如果你不这样做，Dojo
+  会尝试在 CDN 上查找一个不存在的 `app` 包。同时，你还指定了 `app` 包有一个名为 `main` 的模块作为入口点。
+
+
+  ```
+
+  1   window.dojoConfig = {
+
+  2     deps: [''app/main''],
+
+  3     ...
+
+  4   };
+
+  ```
+
+
+  通过声明 `deps: [''app/main'']` 作为项目的依赖项，`app/main` 模块将在应用程序启动时自动加载。实际上，你可以在此数组中列出任何需要在应用程序启动前加载的模块。
+
+
+  你可以在 [`https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/`](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/)
+  阅读更多关于 `dojoConfig` 的信息。
+
+
+  ## AMD 与包
+
+
+  我想强调，你应该使用 ES6 编写代码。这是为了简化你实际编写代码的方式；此外，至少对我来说，它让我忘记了我实际上是在为我的代码使用异步模块定义。¹ 你编写的
+  ES6 代码将使用诸如 `BabelJS`² 之类的编译器转换为兼容 ES5 的 AMD 模块。但归根结底，你的代码仍然是 AMD，因此你应该对它和包有所了解。
+
+
+  ### AMD
+
+
+  当你编写如下代码时：
+
+
+  ```
+
+  1   import Map from "esri/Map";
+
+  2   import SceneView from "esri/views/SceneView";
+
+
+  4   const map = new Map({ basemap: "topo" });
+
+  5   const view = new SceneView({
+
+  6     container: "mainDiv",
+
+  7     map,
+
+  8     center: [-118.182, 33.913],
+
+  9     scale: 836023
+
+  10   });
+
+  ```
+
+
+  Babel 会将其编译成类似这样的代码：
+
+
+  ```
+
+  1   define(["exports", "module", "esri/Map", "esri/views/SceneView"], function(exports\
+
+  2   ts, module, _esriMap, _esriviewsSceneView) {
+
+
+  4     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj
+  : {\
+
+  5   ''default'': obj }; }
+
+
+  7     var _Map = _interopRequireDefault(_esriMap);
+
+  8     var _SceneView = _interopRequireDefault(_esriviewsSceneView);
+
+
+  10     var map = new Map"default";
+
+  11     var view = new SceneView"default";
+
+
+  18   });
+
+  ```
+
+
+  不要让所有这些代码吓到你。代码量的增加与 ES6 模块³ 和 `import`⁴ 语句有关。当你编写 `import Map from "esri/Map";`
+  时，它假定源代码导出了一个默认的 `Object`，该对象实际上指向 `Map` 模块。然而，我们仍然生活在一个并非所有人都编写 ES6 代码的世界，而且模块系统尚未在任何浏览器中原生实现。因此，你仍然需要考虑一些混合搭配的情况。这就是上述输出代码的作用。
+
+
+  在 AMD 中，你使用 `define` 方法创建模块。第一个参数是一个数组，列出了所有其他依赖项。第二个参数是一个函数，返回该模块的实际代码。
+
+
+  不过，正如我之前所说，如果你用 ES6 编写代码，并让编译器创建你的 AMD 模块，你就不需要过多担心这些细节。你应该了解它们，但不要让它们成为你的负担。
+
+
+  更多细节，请参考 Dojo 关于 AMD 模块的文档。⁵
+
+
+
+
+  ### 包
+
+
+  我注意到一个经常出现的困惑点，就是关于“包”的概念。别担心，我刚开始接触 AMD 时也对此感到困惑。目前，你无需过分担心包的问题，直到你决定要构建自己的应用程序时，才需要真正了解什么是包。
+
+
+  包本质上类似于 Java 中的命名空间。在 ArcGIS API for JavaScript 4 中，`esri` 是一个包，`dojo` 也是一个包。这意味着
+  `esri/Map` 是 `esri` 包中的一个模块。当你编写自己的应用程序代码时，通常会创建一个 `app` 包。这样你就可以在 `app` 包下引用自己的模块。
+
+
+  因此，你的源代码文件夹可能看起来像这样：
+
+
+  ```
+
+  1   src
+
+  2     ├── app
+
+  3        ├── /widgets
+
+  4        ├── /services
+
+  ```
+
+
+  如果你使用的是通过 Bower 发布的 ArcGIS API for JavaScript 4，那么理想情况下，所有其他包都应该放在同一个文件夹中。
+
+
+  ```
+
+  1   src
+
+  2     ├── app
+
+  3     ├── dgrid
+
+  4     ├── dijit
+
+  5     ├── dojo
+
+  6     ├── dojox
+
+  7     ├── dstore
+
+  8     ├── moment
+
+  9     ├── esri
+
+  ```
+
+
+  这让你可以轻松地组织代码，并且也能让 Dojo 构建工具知道你正在使用哪些包。
+
+
+  有时你可能需要使用基于通用模块定义（UMD）构建的库。在这种情况下，Dojo 构建系统会识别出你正在尝试加载一个看起来像 AMD 模块但又不完全是 AMD 模块的东西。你可以在构建配置文件的
+  `packages` 属性中告知 Dojo 构建系统如何加载这个包。
+
+
+  以 API 中使用的 `moment` 库为例。如果你打算使用通过 Bower 发布的 API 进行自定义本地构建，你需要对构建配置文件进行如下小调整：
+
+
+  ```
+
+  1   packages: [
+
+  2     ''app'',
+
+  3     ''dijit'',
+
+  4     ''dojo'',
+
+  5     ''dojox'',
+
+  6     ''dstore'',
+
+  7     ''dgrid'',
+
+  8     ''esri'', {
+
+  9       name: ''moment'',
+
+  10       location: ''moment'',
+
+  11       main: ''moment'',
+
+  12       trees: [
+
+  13         // 忽略 .hidden、tests、min、src 和 templates 等目录
+
+  14         [".", ".", /(\/\.)|(~$)|(test|txt|src|min|templates)/]
+
+  15       ],
+
+  16       resourceTags: {
+
+  17         amd: function(filename, mid){
+
+  18           return /\.js$/.test(filename);
+
+  19         }
+
+  20       }
+
+  21     }
+
+  22   ]
+
+  ```
+
+
+  在这个例子中，你通过定义 `name`、`location` 和 `main` 属性来定义一个 `moment` 包。这与之前定义 `app` 包的方式类似。不过，对于这个包，你还定义了一个
+  `resourceTags` 属性。该属性通过正则表达式告诉 Dojo 构建系统，所有 `.js` 文件都是 AMD 模块。你还添加了一个 `trees` 属性，它告诉
+  Dojo 构建系统忽略隐藏文件、测试目录、压缩文件以及你不想让 Dojo 构建系统尝试构建的其他文件。这些就是为 UMD 文件定义包所需的步骤，以便它们能够被正确地加载到
+  Dojo 构建系统中。
+
+
+  通常，这些属性是在包文件夹内的一个 JavaScript 文件中定义的。这个文件可以任意命名，但通常会被命名为类似 `app.profile.js` 的形式，内容如下：
+
+
+  ```
+
+  1   var profile = (function () {
+
+  2     return {
+
+  3       resourceTags: {
+
+  4         amd: function (filename, mid) {
+
+  5           return /\.js$/.test(filename);
+
+  6         }
+
+  7       }
+
+  8     };
+
+  9   })();
+
+  ```
+
+
+  你还可以在此处添加其他选项，这些选项可以在文档中找到。
+
+
+  你可以通过 `package.json` 文件告知 Dojo 构建系统如何找到你的包配置文件。
+
+
+  ```
+
+  1   {
+
+  2       "name": "app",
+
+  3       "description": "My Application Package.",
+
+  4       "version": "1.0",
+
+  5       "dojoBuild": "app.profile.js"
+
+  6   }
+
+  ```
+
+
+  Dojo 构建系统会查找 `package.json` 文件中的 `dojoBuild` 属性，以根据定义的设置来确定如何加载你的 AMD 包。
+
+
+  ## 总结
+
+
+  在这一简短章节中，我介绍了如何设置一个基本应用程序以及如何定义 `dojoConfig` 对象。你了解了 AMD 加载器，以及如何定义 AMD 包，以及如何使用
+  Dojo 构建系统创建 API 的自定义构建。在深入理解包的概念之后，让我们继续学习 ArcGIS API 4 for JavaScript 的一些概念。
+
+
+  脚注
+
+
+  [`https://github.com/amdjs/amdjs-api/blob/master/AMD.md`](https://github.com/amdjs/amdjs-api/blob/master/AMD.md)
+
+
+  [`https://babeljs.io/`](https://babeljs.io/)
+
+
+  [`http://jsmodules.io/`](http://jsmodules.io/)
+
+
+  [`https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
+
+
+  [`https://dojotoolkit.org/documentation/tutorials/1.10/modules/index.html`](https://dojotoolkit.org/documentation/tutorials/1.10/modules/index.html)
+
+
+  [`https://en.wikipedia.org/wiki/Java_package`](https://en.wikipedia.org/wiki/Java_package)
+
+
+  [`http://bower.io/`](http://bower.io/)
+
+
+  [`https://dojotoolkit.org/documentation/tutorials/1.10/build/`](https://dojotoolkit.org/documentation/tutorials/1.10/build/)
+
+
+  [`https://dojotoolkit.org/documentation/tutorials/1.10/build/`](https://dojotoolkit.org/documentation/tutorials/1.10/build/)
+
+
+
+
+  '
+- "# 3. 地图与视图\n\n最新版本的 ArcGIS API 创建地图的方式与 3.x 版本有所不同。\n\n```\n1   import Map from\
+  \ \"esri/Map\";\n2   import SceneView from \"esri/views/SceneView\";\n\n4   const\
+  \ map = new Map({ basemap: \"topo\" });\n5   const view = new SceneView({\n6   \
+  \  container: \"mainDiv\",\n7     map,\n8     center: [-118.182, 33.913],\n9   \
+  \  scale: 836023\n10   });\n```\n\n现在，地图（以及构成地图的图层）与地图数据的显示方式之间存在着明显的区别。你可以将地图视为数据源，而将视图视为地图的视觉表现。\n\
+  \n你可以在图 3-1 中看到这种关系。\n\n![A458961_1_En_3_Fig1_HTML.jpg](img/A458961_1_En_3_Fig1_HTML.jpg)\n\
+  \n图 3-1\n\n地图-视图关系\n\n在图 3-1 中，你可以看到地图是各种空间服务的容器。同一张地图现在可以显示在 `MapView`（数据的二维表示）或\
+  \ `SceneView`（数据的三维表示）中。每个视图负责数据的视觉显示方式。\n\n这意味着在 3.x API 中你可能认为理所当然的一些功能，例如直接在\
+  \ `FeatureLayer` 上访问图形，将不再可用。这是因为一个视图可能显示一个图层中的 10 个要素，而另一个视图可能显示同一图层中的 100 个要素。正如你在图\
+  \ 3-1 中所见，视图中的每个图层都表示为一个 `LayerView`。你可以通过使用 `view.whenLayerView(sourceLayer)` 来获取视图的\
+  \ `LayerView`。当 `LayerView` 完成时，这将返回一个 `LayerView` 的 Promise。通过这样做，你可以访问视图中显示的实际图形。\n\
+  \n地图与视图的分离是 ArcGIS API for JavaScript 4 中引入的一个强大的新概念。借助此功能，你可以创建十几个使用不同服务的地图，而无需在将地图附加到视图之前预先加载所有数据。这允许你将地图视为应用程序中的纯数据源，即使不显示地图也能访问图层。\n\
+  \n## WebMap\n\n在 API 的第 4 版中使用 `WebMap` 对象从未如此简单。你可以在 ArcGIS 图库中搜索各种 `WebMap`。¹\n\
+  \n要创建一个 `WebMap`，你只需要拥有门户中该项的 `id` 值。\n\n```\n1   import MapView from \"esri/views/MapView\"\
+  ;\n2   import WebMap from \"esri/WebMap\";\n\n4   const webmap = new WebMap({\n\
+  5     portalItem: {\n6       id: \"2dfaf8bdb45a4dcf8511a849e4583873\"\n7     }\n\
+  8   });\n\n10   const view = new MapView({\n11     map: webmap,\n12     container:\
+  \ \"viewDiv\"\n13   });\n```\n\n就是这样。将 `WebMap` 对象加载到应用程序中只需这些步骤。但由于地图只是一个数据容器，你可以在将其显示在页面上之前访问\
+  \ `WebMap` 数据。\n\n例如，假设你想在显示 `WebMap` 对象中的某个图层之前调整其 `definitionExpression`。你可以这样做：\n\
+  \n```\n1   // http://jsbin.com/lodihu/4/edit?html,output\n2   const webmap = new\
+  \ WebMap({\n3     portalItem: {\n4       id: \"2dfaf8bdb45a4dcf8511a849e4583873\"\
+  \n5     }\n6   });\n\n8   webmap.load().then(() => {\n9     const layer = webmap.layers.find({\
+  \ id } => {\n10       return id.indexOf(\"CensusTractPoliticalAffiliationTotals\"\
+  ) > -1;\n11     });\n12     layer.definitionExpression = \"TOTPOP_CY > 10000\"\n\
+  13     const view = new MapView({\n14       map: webmap,\n15       container: \"\
+  viewDiv\"\n16     });\n17   });\n```\n\n这相当酷。请注意，你必须调用 `WebMap` 对象的 `load()` 方法。这是因为当\
+  \ `WebMap` 被初始化时，数据不会被预取。只有当 `WebMap` 被添加到视图时，它才会加载显示所需的数据。通过调用 `load()` 方法，你是在请求\
+  \ `WebMap` 加载你的数据，因为你出于某种原因需要使用它。这还有一个额外的好处，即允许你创建多个 `WebMap` 对象，并根据需要将它们传递给视图。\n\
+  \n```\n1   const webmapids = [\n2     \"e691172598f04ea8881cd2a4adaa45ba\",\n3 \
+  \    \"2dfaf8bdb45a4dcf8511a849e4583873\"\n4   ];\n\n6   // 创建一个 WebMap 数组\n7  \
+  \ const webmaps = webmapids.map(webmapid => {\n8     return new WebMap({\n9    \
+  \   portalItem: {\n10         id: webmapid\n11       }\n12     });\n13   });\n```\n\
+  \n然后，你可以将这些 `WebMap` 对象保留在内存中，直到你实际需要它们并在视图中使用它们。也可以在运行时切换视图的地图。\n\n需要注意的是，在 4 的初始版本中，`WebMap`\
+  \ 尚不支持所有图层和渲染器，但完全支持的工作正在进行中。任何不支持的图层都将被定义为 `UnsupportedLayer`。还有一种图层类型叫做 `UnknownLayer`，当无法确定图层类型时使用。引入此图层是为了应对未来可能添加的新图层类型。\n\
+  \n## LayerView\n\n由于地图仅仅是数据和图层的容器，而视图负责显示这些数据，因此你与数据交互的方式发生了变化。在 ArcGIS API for\
+  \ JavaScript 的 3.x 版本中，你可以直接从图层访问 `FeatureLayer` 中的图形。在 API 的第 4 版中，图形包含在视图中，更确切地说，包含在\
+  \ `LayerView` 对象中，该对象是图层在视图中的表示。\n\n你可以像这样访问图层：\n\n```\n1   view.whenLayerView(layer).then((layerView)=>{\n\
+  2     // 对 LayerView 执行某些操作\n3   });\n```\n\n一旦你拥有了 `LayerView` 并希望与 `FeatureLayer`\
+  \ 显示的要素进行交互，你可以通过一个名为 `queryFeatures` 的方法来访问它们。\n\n```\n1   view.whenLayerView(layer).then((layerView)=>{\n\
+  2     // 确保 layerView 已完成图形的绘制\n3     watchUtils.whenTrueOnce(layerView, \"updating\"\
+  , ()=>{\n4       layerView.queryFeatures().then((graphics)=>{\n5         // 对 Graphics\
+  \ 执行某些操作\n6       });\n7     });\n8   });\n```\n\n你可以在 `FeatureLayer LayerView`\
+  \ 上使用其他一些有用的查询方法。\n\n*   `queryExtent`：返回 `LayerView` 中要素的范围\n*   `queryFeatureCount`：返回\
+  \ `LayerView` 中要素的计数\n*   `queryObjectIds`：返回一个 `ObjectId` 数组，这对于针对 REST API 执行更多查询任务非常有用\n\
+  \n如果你想创建一个能够与显示的要素进行交互的自定义微件，这些方法都非常有用。\n\n\n\n## 图层\n\n在 `WebMap` 中检索图层非常简单。要访问地图上的图层，只需从\
+  \ `map.layers` 属性中获取即可。该属性会提供地图的操作图层，这意味着不包含底图。如果你想要包括底图在内的所有图层，可以使用 `map.allLayers`\
+  \ 属性。相比 3.x 版本，这是一个更简单的 API。\n\n如果你只关心底图，可以通过 `map.basemap` 属性获取。\n\n重申一下，视图和 `LayerView`\
+  \ 才是实际绘制地图数据的部分。它们控制着图形的显示、范围以及任何其他视觉属性。而地图和图层则是这些数据的容器。它们是地图的模型，这意味着在应用程序开发中，你可以将它们视为模型来处理。地图和图层可以作为图表、表格或任何其他可能甚至没有地图显示的自定义组件的数据源。这是该\
+  \ API 的一个强大特性。\n\nAPI 中提供了多种图层，每种图层都有不同的用途。你可以在 API 文档中阅读每种图层类型的更多详细信息，但以下是一些常见的图层：\n\
+  \n*   `GraphicsLayer`\n*   `FeatureLayer`\n*   `MapImageLayer`\n*   `SceneLayer`\n\
+  *   `VectorTileLayer`\n\n### GraphicsLayer\n\n`GraphicsLayer` 可能是你能用到的最简单的图层。顾名思义，它只包含显示在地图上的图形。\n\
+  \n注意\n\n如果你熟悉 ArcGIS API for JavaScript 3.x 版本的 `GraphicsLayer`，那么 4 版本中 `GraphicsLayer`\
+  \ 的一个主要区别是它不支持渲染器。你需要在每个图形上定义符号，而不是在图层上定义。这是因为 `GraphicsLayer` 可以支持具有不同几何类型的图形。这大大简化了创建要显示在地图上的基本图形的过程。\n\
+  \n初始化一个 `GraphicsLayer` 相当简单。\n\n```\n1   const graphicsLayer = new GraphicsLayer({\n\
+  2     graphics: [graphic1, graphic2, graphic3]\n3   });\n```\n\n你可以通过几种方法向 `GraphicsLayer`\
+  \ 添加图形。\n\n```\n1   // 添加单个图形\n2   graphicsLayer.add(graphic);\n3   // 添加图形数组\n\
+  4   graphicsLayer.addMany([graphic1, graphic2, graphic3]);\n```\n\n由于无法为 `GraphicsLayer`\
+  \ 设置渲染器或弹出模板，你需要为每个图形单独定义符号和弹出窗口。\n\n```\n1   // 创建一个图形\n2   let graphic = new Graphic({\n\
+  3     attributes: {\n4       id: 1,\n5       city: \"Los Angeles\"\n6     },\n7\
+  \     geometry: { type: \"point\", x: xValue, y: yValue },\n8     symbol: { type:\
+  \ \"simple-marker\",\n9       style: 'circle',\n10       color: 'red',\n11     \
+  \  size: 10,\n12       outline: {\n13         color: 'rgba(255, 255, 255, 0.5)'\n\
+  14         width: 4\n15       }\n16     },\n17     popupTemplate: {\n18       title:\
+  \ \"我的超棒图形！\",\n19       content: \"{*}\" // 显示所有字段\n20     }\n21   });\n\n23  \
+  \ // 将其添加到 graphicsLayer\n24   graphicsLayer.add(graphic);\n```\n\n弹出窗口将在后续章节中更详细地介绍。\n\
+  \n如果你需要更强大的图形支持，特别是使用渲染器和弹出窗口，那么你应该使用 `FeatureLayer`。`GraphicsLayer` 最适合作为简单的杂项图形容器。\n\
+  \n### FeatureLayer\n\n`FeatureLayer` 可能是 ArcGIS 平台中用途最广泛、使用最广泛的图层类型。有几种不同的方法可以初始化一个\
+  \ `FeatureLayer`。\n\n```\n1   // 通过 URL 创建\n2   const featureLayer = new FeatureLayer({\n\
+  3     url: \"http://services6.arcgis.com/m3L8QUZ93HeaQzKv/arcgis/rest/services/BeerAn\\\
+  \n4   dBurgerJoints/FeatureServer/0\"\n5   });\n\n7   // 通过 Portal 项目创建\n8   const\
+  \ featureLayer = new FeatureLayer({\n9     portalItem: {\n10       id: \"b126510e440744169943fd8ccc9b0c4e\"\
+  \n11     }\n12   });\n```\n\n通过这两种方法之一初始化 `FeatureLayer` 后，该图层就绑定到了一个远程服务。就像你可以查询\
+  \ `FeatureLayer` 的 `LayerView` 一样，你也可以直接查询 `FeatureLayer` 来查找要素、`ObjectId` 或 `FeatureLayer`\
+  \ 的范围。\n\n你也可以通过 `FeatureCollection` 创建 `FeatureLayer`，尽管与 API 的 3.x 版本相比，这个过程已经简化了。\n\
+  \n```\n1   const featureLayer = new FeatureLayer({\n2     objectIdField: \"item_id\"\
+  ,\n3     geometryType: \"point\",\n4     // 定义 FeatureLayer 中图形的字段\n5     fields:\
+  \ [{\n6       name: \"item_id\",\n7       alias: \"项目 ID\",\n8       type: \"oid\"\
+  \n9     }, {\n10       name: \"description\",\n11       alias: \"描述\",\n12     \
+  \  type: \"string\"\n13     }, {\n14       name: \"title\",\n15       alias: \"\
+  标题\",\n16       type: \"string\"\n17     }],\n18     // 为图层定义渲染器\n19     renderer:\
+  \ {\n20       type: \"simple\",\n21       symbol: {\ntype: \"simple-marker\",\n\
+  22         style: 'circle',\n23         color: 'red',\n24         size: 10,\n25\
+  \         outline: {\n26           color: 'rgba(255, 255, 255, 0.5)'\n27       \
+  \    width: 4\n28         }\n29       }\n30     },\n31     popupTemplate: {\n32\
+  \       title: \"{title}\",\n33       content: \"{description}\"\n34     },\n35\
+  \     // 这是一个图形集合\n36     source: [graphic1, graphic2, graphic3]\n37   });\n```\n\
+  \n这里你正在做的是手动定义 `FeatureLayer` 的数据源。这基本上传递了一个图形集合，并为这些图形定义了渲染器，以及字段和弹出窗口。这样做的好处是能够为多个图形使用单个渲染器以及单个弹出窗口。你还可以像查询绑定到远程服务的\
+  \ `FeatureLayer` 一样，查询这个 `FeatureLayer`。\n\n现在，也许你想更新 `FeatureLayer` 中的源要素。你可以通过以下方式实现：\n\
+  \n```\n1   const graphicOfInterest = featureLayer.source.find(x => x.attributes.OBJECTID\
+  \ ==\\\n2   = oid);\n3   const target = graphicOfInterest.clone();\n4   const target.geometry\
+  \ = updatedGeometry;\n5   featureLayer.source.remove(graphicOfInterest);\n6   featureLayer.source.add(target);\n\
+  ```\n\n这允许你更新 `FeatureLayer` 源中的单个图形。如果你想显示更新的 GPS 数据或更改单个要素的符号，这会非常有用。\n\n\n\n\
+  #### MapImageLayer\n\n`MapImageLayer` 以前被称为 `ArcGISDynamicMapServiceLayer`。它允许你将动态地图服务加载到应用程序中，与切片图像服务不同，它会为整个地图范围加载单个图像，而不是许多切片。\n\
+  \n这是一个相当简单的图层。你甚至可以在 `MapImageLayer` 中定义哪些子图层可见，这在以前是一项繁琐的任务。现在处理子图层要容易得多。\n\n```\n\
+  1   const layer = new MapImageLayer({\n2     url: \"https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServe\\\
+  \n3   r\",\n4     sublayers: [{\n5       id: 0,\n6       visible: true\n7     },\
+  \ {\n8       id: 1,\n9       visible: true\n10     }, {\n11       id: 2,\n12   \
+  \    visible: true\n13     }, {\n14       id: 3,\n15       visible: false\n16  \
+  \   }]\n17   });\n```\n\n你可以简单地在 `MapImageLayer` 的 `sublayers` 属性中定义每个子图层的可见性。你甚至可以更进一步，为单个子图层提供\
+  \ `definitionExpression`。\n\n```\n1   let layer = new MapImageLayer({\n2     url:\
+  \ \"https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServe\\\n\
+  3   r\",\n4     sublayers: [{\n5       id: 0,\n6       visible: true\n7     }, {\n\
+  8       id: 1,\n9       visible: true\n10     }, {\n11       id: 2,\n12       visible:\
+  \ true,\n13       // provide a definitionExpression\n14       definitionExpression:\
+  \ \"pop2000 > 1000000\"\n15     }, {\n16       id: 3,\n17       visible: false\n\
+  18     }]\n19   });\n```\n\n现在，当请求图像时，这将为动态地图服务的子图层传递一个 `definitionExpression`。这遵循了\
+  \ ArcGIS API for JavaScript 整个第 4 版的主题，即提供更简单的 API。我完全期望人们会利用这个更易用的 API，在他们的应用程序中实现\
+  \ `MapImageLayer` 的实用功能。\n\n在 ArcGIS API 4 for JavaScript 的第 4 版中，你定义的子图层将是 `MapImageLayer`\
+  \ 中唯一使用的子图层。如果你正在处理一个包含数百个图层的地图服务，这将非常有用，我个人见过太多这样的情况。\n\n你还可以为每个子图层定义一个 `popupTemplate`²\
+  \ 和一个 `renderer`³。\n\n```\n1   const layer = new MapImageLayer({\n2     url: \"\
+  https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapSe\\\n3  \
+  \ rver\",\n4     sublayers: [\n5     {\n6       id: 3,\n7       visible: true,\n\
+  8       renderer: {type: \"simple\",\n9         symbol: { type: \"simple-fill\"\
+  ,\n10           style: \"solid\",\n11           color: \"dodgerblue\",\n12     \
+  \      outline: {\n13             width: 0.5,\n14             color: \"white\"\n\
+  15           }\n16         },\n17         label: \"State boundaries\"\n18      \
+  \ },\n19       opacity: 0.5\n20     },\n21     {\n22       id: 2,\n23       visible:\
+  \ true,\n24       popupTemplate: {\n25           title: \"{NAME}\",\n26        \
+  \   content: [\n27           {\n28             fieldInfos: [\n29               {\n\
+  30                 fieldName: \"POP2000\",\n31                 visible: true,\n\
+  32                 label: \"Population for year 2000\",\n33                 format:\
+  \ {\n34                   places: 0,\n35                   digitSeparator: true\n\
+  36                 }\n37               },\n38               {\n39              \
+  \   fieldName: \"POP2007\",\n40                 visible: true,\n41             \
+  \    label: \"Population for year 2007\",\n42                 format: {\n43    \
+  \               places: 0,\n44                   digitSeparator: true\n45      \
+  \           }\n46               }\n47             ]\n48           },\n49       \
+  \    {\n50             type: \"media\",\n51             mediaInfos: [\n52      \
+  \         {\n53                 title: \"Population\",\n54                 type:\
+  \ \"column-chart\",\n55                 caption: \"\",\n56                 value:\
+  \ {\n57                   theme: \"Grasshopper\",\n58                   fields:\
+  \ [ \"POP2000\", \"POP2007\" ],\n59                   normalizeField: null,\n60\
+  \                   tooltipField: null\n61                 }\n62               }\n\
+  63             ]\n64           }\n65           ]\n66         }\n67     },\n68  \
+  \   {\n69       id: 0,\n70       visible: true,\n71       definitionExpression:\
+  \ \"POP2000 > 100000\"\n72     }]\n73   });\n```\n\n这非常强大，因为你现在可以像使用 `FeatureService`\
+  \ 一样轻松地处理地图服务。在 API 的 3.x 版本中，为动态地图服务定义自定义渲染器的功能已经存在了一段时间，并且作为 ArcGIS Server 地图服务的一部分也已经存在了一段时间。从\
+  \ ArcGIS API for JavaScript 的第 4 版开始，新特性是它简化了 API，使开发人员更容易利用这一功能。能够为每个子图层定义弹出窗口的功能增加了\
+  \ `MapImageLayer` 的实用性，我毫不避讳地说，我认为这是我现在个人最喜欢的 API 图层。\n\n你还可以通过查询表和表连接对 `MapImageLayer`\
+  \ 做更多事情，前提是你的服务中有这些数据。请查看文档⁴了解这些细节，并尽情享受 `MapImageLayer` 的强大功能。\n\n#### CSVLayer\n\
+  \n`CSVLayer`⁵ 在 ArcGIS API 4 for JavaScript 中非常有用，用于在空间上表示表格数据。\n\n只要 CSV 文件具有以下名称的坐标字段，它就可以为你转换文件：\n\
+  \n*   经度字段名称：`lon`、`lng`、`long`、`longitude`、`x`、`xcenter`、`longitude83`、`longdecdeg`、`POINT-X`\n\
+  *   纬度字段名称：`lat`、`latitude`、`y`、`ycenter`、`latitude83`、`latdecdeg`、`POINT-Y`\n\n\
+  如果你的 CSV 文件不符合该格式，你可以使用 `CSVLayer` 的 `latitudeField` 和 `longitudeField` 属性指定自定义的纬度和经度字段名称。\n\
+  \n```\n1   let csvLayer = new CSVLayer({\n2    url: \"http://ontheinternet/mydata.csv\"\
+  ,\n3    copyright: \"Please provide a copyright for the data\"\n4   });\n```\n\n\
+  请注意，根据 CSV 文件的来源，你可能需要在应用程序中提供一个 `proxyRule`。\n\n```\n1   urlUtils.addProxyRule({\n\
+  2    urlPrefix: \"ontheinternet\",\n3    proxyUrl: \"/proxy/\"\n4   });\n```\n\n\
+  #### SceneLayer\n\n处理 3D 地图的一个关键组件是 `SceneLayer`。`SceneLayer` 允许你将场景服务⁶ 加载到你的 3D\
+  \ 地图应用程序中。一旦你有了 `SceneLayer`，通过 `SceneView` 将其添加到你的 3D 地图中就相当简单了。\n\n```\n1   const\
+  \ sceneLayer = new SceneLayer({\n2     url: \"http://scene.arcgis.com/arcgis/rest/services/Hosted/Building_Boston/Scen\\\
+  \n3   eServer/layers/0\";\n4   });\n\n6   const map = new Map({\n7     basemap:\
+  \ \"streets\",\n8     ground: \"world-elevation\",\n9     layers: [sceneLayer]\n\
+  10   });\n\n12   const view = new SceneView({\n13     container: \"viewDiv\",\n\
+  14     map: map,\n15     scale: 50000000,\n16     center: [-101.17, 21.78]\n17 \
+  \  });\n```\n\n我将在后面的章节中介绍 3D 可视化和 `SceneView`，但你真正需要知道的是，将 `SceneLayer` 添加到你的地图中与添加其他图层的方式完全相同。\n\
+  \n\n\n#### `VectorTileLayer`\n\n矢量切片非常有趣。Mapbox 不久前发布了矢量切片规范⁷，事实证明它的用途极其广泛。矢量切片的文件体积很小，这使得我们可以构建高分辨率底图并高效缓存数据。矢量切片本质上是以一种紧凑的格式存储矢量数据，从而允许在浏览器中灵活地设置这些矢量要素的样式。这与创建无法在浏览器中设置样式的切片图像数据形成了对比。\n\
+  \n通常，你会有一个单一的服务来为你的应用程序提供所有矢量切片。不过，你可以为这些服务加载不同的样式，这样就能加载相同的数据，但呈现不同的外观。\n\n当你初始化一个\
+  \ `VectorTileLayer` 时，其方式与其他图层相同。\n\n```\n1   const tileLyr = new VectorTileLayer({\n\
+  2     url: \"https://www.arcgis.com/sharing/rest/content/items/f96366254a564adda1dc46\\\
+  \n3   38b447ed956/resources/styles/root.json\"\n4   });\n```\n\n如果你查看用于初始化 `VectorTileLayer`\
+  \ 的 URL，你会发现它实际上指向的是一个样式文件，而不是特定的图层 ID。你指向的 URL 是 `resources/styles/root.json`。这实际上只是一个样式文件，它定义了\
+  \ `VectorTileLayer` 在地图上渲染时应采用的样式。\n\n你实际上可以在运行时通过使用 `loadStyle()` 方法来切换 `VectorTileLayer`\
+  \ 的样式，例如 `vectorTileLayer.loadStyle(myNewStyleObject)`。\n\n矢量切片对制图师来说是一份礼物，因为矢量切片提供了灵活性，可以设计出非常时尚且富有影响力的底图。你可以通过这个矢量切片样式编辑器来测试\
+  \ ArcGIS 矢量切片底图的样式：[`https://github.com/Esri/arcgis-vectortile-style-editor`](https://github.com/Esri/arcgis-vectortile-style-editor)。\n\
+  \n最近，ArcGIS API 4 for JavaScript 开始使用其自身的矢量切片实现。这种新的实现允许 API 渲染不同投影的矢量切片，并使其能够在\
+  \ 3D 环境中使用；但是，当前的实现不支持 Mapbox 切片。\n\n矢量切片能提供极其清晰且美观的地图。重要的是要知道矢量切片使用了 WebGL⁸，这依赖于你的显卡和浏览器支持。如果你看到一些图形异常，或者注意到你的笔记本电脑冒烟，你可能需要考虑升级你的显卡驱动程序。\n\
+  \n#### `GroupLayer`\n\n`GroupLayer`⁹ 是一个有趣的图层。它不从网络服务拉取数据；但是，它允许你将多个图层组合在一起。这些图层不必是同一类型；你可以将一个\
+  \ `GraphicsLayer` 与一个 `TiledLayer` 组合在一起，一切都能正常工作。一个有用的场景是控制多个相似或相关的 `FeatureLayer`\
+  \ 的可见性。让我们看看下面的示例：\n\n```\n1   import Map from \"esri/Map\";\n2   import MapView\
+  \ from \"esri/views/MapView\";\n3   import FeatureLayer from \"esri/layers/FeatureLayer\"\
+  ;\n4   import GroupLayer from \"esri/layers/GroupLayer\";\n\n6   const URL = \"\
+  http://tmservices1.esri.com/arcgis/rest/services/LiveFeeds/NOAA_sto\\\n7   rm_reports/MapServer\"\
+  ;\n8   const titles = [\n9     \"NOAA 冰雹风暴报告 (24 小时)\",\n10     \"NOAA 龙卷风风暴报告 (24\
+  \ 小时)\",\n11     \"NOAA 大风风暴报告 (24 小时)\",\n12     \"NOAA 龙卷风风暴报告 (过去一周)\"\n13  \
+  \ ];\n14   const layers = [0, 1, 2, 3].map((index, idx) => {\n15     return new\
+  \ FeatureLayer({\n16       url: `${URL}/${index}`,\n17       outFields: [\"*\"],\n\
+  18       popupTemplate: {\n19         title: titles[idx],\n20         content: \"\
+  {*}\"\n21       }\n22     });\n23   });\n24   const groupLayer = new GroupLayer({\
+  \ layers });\n25   const map = new Map({\n26     basemap: \"streets\",\n27     layers:\
+  \ [groupLayer]\n28   });\n29   const view = new MapView({\n30     container: \"\
+  viewDiv\",\n31     map,\n32     center: [-98.648, 36.374],\n33     zoom: 5,\n34\
+  \     ui: {\n35       components: [\"zoom\", \"attribution\", \"compass\"]\n36 \
+  \    }\n37   });\n38   view.then(() => {\n39     const btn = document.createElement(\"\
+  div\");\n40     btn.className = \"esri-button esri-widget-button esri-interactive\
+  \ esri-icon-fea\\\n41   ture-layer\";\n42     btn.title = \"切换风暴数据\";\n43     view.ui.add(btn,\
+  \ \"top-right\");\n44     // 切换 GroupLayer 的图层可见性\n45     btn.addEventListener(\"\
+  click\", () => {\n46       groupLayer.visible = !groupLayer.visible;\n47     });\n\
+  48   });\n```\n\n这里你可以做的是切换 `GroupLayer` 的可见性。当你这样做时，被分组的图层的可见性也会随之切换。\n\n\n\n##\
+  \ Portal API\n\n在使用 ArcGIS API 4 for JavaScript 时，`WebMap`、`WebScene` 乃至图层，其底层驱动大部分功能的\
+  \ API 都是 Portal API。Portal API 由一系列模块组成，从 `Portal` 类本身到 `PortalItem`。你可以利用 Portal\
+  \ API 为你的门户构建一个强大的数据浏览器，同时它也在整个 API 中以更微妙的方式被使用。\n\n```\n1   const webmap = new\
+  \ WebMap({\n2     portalItem: {\n3       id: webmapid\n4     }\n5   });\n\n7   const\
+  \ webscene = new WebScene({\n8     portalItem: {\n9       id: sceneid\n10     }\n\
+  11   });\n```\n\n这些示例使用了自动转换（autocasting），相关内容将在第 4 章中介绍。\n\n`WebMap` 和 `WebScene`\
+  \ 都在底层利用 Portal API 来构建各自的地图和场景。例如，一个 `WebMap` 可能包含来自门户的三个图层。每个图层通过其自身的门户项目 ID 进行引用。当你通过\
+  \ ID 加载一个 `WebMap` 时，Portal API 会用于加载该 `WebMap`，然后递归加载每个由 ID 或可能只是 URL 引用的图层项目。其美妙之处在于，即使创建了地图甚至图层，这些资源也不会立即加载。这对你作为开发者意味着，你可以初始化一组\
+  \ `WebMap` 或图层，而无需加载它们所有必需的资源，仅在需要时才加载这些数据。这对于开发目的来说效率极高。\n\n让我们看看加载门户项目的应用程序可能是什么样子（图\
+  \ 3-2）。\n\n![A458961_1_En_3_Fig2_HTML.jpg](img/A458961_1_En_3_Fig2_HTML.jpg)\n\n\
+  图 3-2\n\n通过门户项目添加图层\n\n你将使用 `calcite-bootstrap` 来帮助设计此应用的样式，因为它已经内置了美观的门户项目卡片样式。你可以修改一个现有示例，使其更明确地展示门户项目及其生成的图层。\n\
+  \n```\n7     门户项目乐趣多\n\n9       html,\n10       body {\n11         font-family:\
+  \ sans-serif;\n12         padding: 0;\n13         margin: 0 !important;\n14    \
+  \     height: 100%;\n15         width: 100%;\n16       }\n17       #viewDiv {\n\
+  18         position: absolute;\n19         right: 0;\n20         left: 300px;\n\
+  21         top: 0;\n22         bottom: 0;\n23       }\n24       #itemDiv {\n25 \
+  \        position: absolute;\n26         left: 0;\n27         top: 0;\n28      \
+  \   bottom: 0;\n29         width: 300px;\n30         overflow-y: auto;\n31     \
+  \  }\n32       .description {\n33         margin: 0 auto;\n34         width: 100%;\n\
+  35         padding: 20px;\n36       }\n37       .card h6 {\n38         margin: 0\
+  \ !important;\n39       }\n\n45       window.dojoConfig = {\n46         deps: ['app/main'],\n\
+  47         packages: [{\n48           name: 'app',\n49           location: window.location.pathname.replace(/\\\
+  /[^\\/]+$/, ''); + 'app',\n50           main: 'main'\n51         }]\n52       };\n\
+  \n58       将图层项目添加到地图\n```\n\n这是 `app/main.js` 文件的代码。\n\n```\n1   import Map from\
+  \ 'esri/Map';\n2   import MapView from 'esri/views/MapView';\n3   import Layer from\
+  \  \"esri/layers/Layer\";\n4   import PortalItem from \"esri/portal/PortalItem\"\
+  ;\n5   import esriLang from \"esri/core/lang\";\n6   import all from \"dojo/promise/all\"\
+  ;\n7   import on from \"dojo/on\";\n\n9   // 创建一个卡片模板来显示门户项目信息\n10   const template\
+  \ = `\n\n14       {title}\n\n16         {created}\n17         {owner}\n\n21    \
+  \        添加到地图\n\n26   `;\n27   // 用于图层的门户项目数组\n28   const layerItems = [\n29  \
+  \   \"a88018dc6c8045378f65b7abeb1d5a30\",\n30     \"6df6df711e8f4b09bf7c1fcbae2afdd3\"\
+  ,\n31     \"f1fca09035074e95a64c49548e79e625\",\n32     \"d816e92c10bd4505bfcfbb761d5ac97d\"\
+  ,\n33     \"ea7ff2ac9b4d49cdbe63dbf4ba2f21cd\"\n34   ];\n35   const map = new Map({\n\
+  36     basemap: \"streets-navigation-vector\"\n37   });\n38   const view = new MapView({\n\
+  39     map,\n40     container: \"viewDiv\",\n41     zoom: 12,\n42     center: [-118.1670,\
+  \ 34.0224]\n43   });\n44   // 用于存放卡片的容器\n45   const $cardsList = document.querySelector(\"\
+  .cards-list\");\n46   view.then(() => {\n47     // 从我们的列表中创建新的 PortalItem 实例\n48\
+  \     const portalItems = layerItems.map(id => (new PortalItem({ id }).load()));\n\
+  49     // 使用 dojo/promise/all 等待所有\n50     // PortalItem 的 Promise 完成。\n51     all(portalItems).then(items\
+  \ => {\n52       let docFrag = document.createDocumentFragment();\n53       // 遍历每个项目为其创建卡片\n\
+  54       items.forEach(item => {\n55         // esri/lang::substitute 将使用 PortalItem\
+  \ 创建一个新字符串。\n56         const card = esriLang.substitute(item, template);\n57  \
+  \       const elem = document.createElement(\"div\");\n58         elem.innerHTML\
+  \ = card;\n59         let layer;\n60         // 添加监听器，用于复选框被选中时\n61         on(elem,\
+  \ \"input:click\", ({ target }) => {\n62           if (target.checked && !layer)\
+  \ {\n63             if (item.isLayer) {\n64               // 这个静态方法从门户项目创建图层\n65\
+  \               Layer.fromPortalItem({\n66                 portalItem: item\n67\
+  \               }).then(function (lyr) {\n68                 // 现在你可以将图层添加到地图\n\
+  69                 layer = lyr;\n70                 map.add(lyr);\n71          \
+  \       view.extent = item.extent;\n72               });\n73             }\n74 \
+  \          }\n75           else if (target.checked && layer) {\n76             //\
+  \ 图层已创建，直接添加\n77             map.add(layer);\n78             view.extent = item.extent;\n\
+  79           }\n80           else {\n81             // 如果取消选中则移除图层\n82         \
+  \    map.remove(layer);\n83           }\n84         });\n85         docFrag.appendChild(elem);\n\
+  86       });\n87       // 将完成的列表附加到页面。\n88       $cardsList.appendChild(docFrag);\n\
+  89       docFrag = undefined;\n90     });\n91   });\n```\n\n要通过门户 ID 加载图层，你可以使用静态属性\
+  \ `Layer.fromPortalItem()`。你只需传入一个 `PortalItem` 或类似 `PortalItem` 的对象，剩下的工作将由它处理。需要注意的是，`Layer.fromPortalItem()`\
+  \ 返回一个包含生成图层的 promise，因此你需要等待 promise 完成，然后才能将图层添加到地图。\n\n```\n1   Layer.fromPortalItem({\n\
+  2     portalItem: {\n3       id: layerPortalId\n4     }\n5   });\n```\n\n`Layer`\
+  \ 类将验证门户项目是否为图层，然后确定它需要成为哪种类型的图层，例如 `TileLayer` 或 `FeatureLayer`。\n\n也许你想为你的门户项目在应用程序中构建一个简单的浏览器。你可以使用\
+  \ Portal API 查询你的门户项目，并在应用程序中显示项目信息（见图 3-3）。\n\n![A458961_1_En_3_Fig3_HTML.jpg](img/A458961_1_En_3_Fig3_HTML.jpg)\n\
+  \n图 3-3\n\n示例门户浏览器\n\n以下是此应用程序的基本 HTML 页面：\n\n```\n7     门户项目乐趣多\n```\n\n\n\n```css\n\
+  html,\nbody {\n  font-family: sans-serif;\n  padding: 0;\n  margin: 0 !important;\n\
+  \  height: 100%;\n  width: 100%;\n}\n#viewDiv {\n  position: absolute;\n  right:\
+  \ 0;\n  left: 300px;\n  top: 0;\n  bottom: 0;\n}\n#itemDiv {\n  padding: 25px;\n\
+  \  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n}\n.portal-item {\n\
+  \  flex-grow: 4;\n}\n.item-link {\n  margin: 5px;\n}\n.description {\n  text-align:\
+  \ center;\n  margin: 0 auto;\n  width: 100%;\n  padding: 20px;\n}\n.card h6 {\n\
+  \  height: 3rem !important;\n  margin: 0 !important;\n  padding: 0 !important;\n\
+  }\n```\n\n```javascript\nwindow.dojoConfig = {\n  deps: ['app/main'],\n  packages:\
+  \ [{\n    name: 'app',\n    location: window.location.pathname.replace(/\\/[^\\\
+  /]+$/, '') + 'app',\n    main: 'main'\n  }]\n};\n```\n\n### 我的精彩门户项目\n\n您可以编写自己的应用程序来加载您的门户信息。\n\
+  \n```javascript\nimport Portal from \"esri/portal/Portal\";\nimport PortalItem from\
+  \ \"esri/portal/PortalItem\";\nimport OAuthInfo from \"esri/identity/OAuthInfo\"\
+  ;\nimport esriId from \"esri/identity/IdentityManager\";\nimport PortalQueryParams\
+  \ from \"esri/portal/PortalQueryParams\";\nimport esriLang from \"esri/core/lang\"\
+  ;\nimport on from \"dojo/on\";\n\n// 创建一个卡片模板来显示门户项目信息\nconst template = `\n\n \
+  \     {title}\n\n        {created}\n        {owner}\n\n        打开\n\n`;\n\n// 用于存放卡片的容器\n\
+  const $cardsList = document.querySelector(\".cards-list\");\nconst info = new OAuthInfo({\n\
+  \  appId: \"zppZ53G093yZV7tG\",\n  popup: false\n});\n// 将 OAuthInfo 添加到 IdentityManager\n\
+  esriId.registerOAuthInfos([info]);\n// 现在设置门户\nconst portal = new Portal({\n  //\
+  \ https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-Portal.html#authMode\n\
+  \  authMode: \"immediate\"\n});\n// 如果用户尚未通过此应用程序登录，将触发登录\nportal.load().then(()\
+  \ => {\n  const queryParams = new PortalQueryParams({\n    query: `owner:${portal.user.username}`,\n\
+  \    sortField: \"numViews\",\n    sortOrder: \"desc\",\n    num: 20\n  });\n  return\
+  \ portal.queryItems(queryParams);\n}).then(({ results }) => {\n  let docFrag = document.createDocumentFragment();\n\
+  \  // 遍历每个项目，为其创建卡片\n  results.forEach(item => {\n    // esri/lang::substitute 将使用\
+  \ PortalItem 创建一个新字符串。\n    const card = esriLang.substitute(item, template);\n\
+  \    const elem = document.createElement(\"div\");\n    elem.className = \"portal-item\"\
+  ;\n    elem.innerHTML = card;\n    docFrag.appendChild(elem);\n  });\n  // 将完成的列表附加到页面。\n\
+  \  $cardsList.appendChild(docFrag);\n  docFrag = undefined;\n});\n```\n\n您在这里可以做到的是使用\
+  \ `Portal` 模块来访问您的门户项目。然后，您可以简单地遍历这些门户项目，并添加带有描述和缩略图的精美小卡片，以及打开实际项目的链接。如果您想在应用程序中使用门户项目，这是一种快速访问它们的好方法。\n\
+  \n## 总结\n\n在本章中，我介绍了地图和视图之间的关系，以及让视图管理地图中数据渲染管线的优势。我还介绍了 `LayerView` 如何让您访问视图中当前显示的要素，以及查询这些要素的优势。您了解了\
+  \ API 支持的各种图层类型，以及它们提供的一些新功能和特性。我还介绍了 Portal API 的新功能，以及它为从门户加载图层和搜索各种门户项目所提供的简便性。这些是\
+  \ API 中的核心概念，您可以在此基础上构建出色的应用程序！在下一章中，我将介绍 API 的核心基础——本质上是 API 设计的基本构建块——这将使您的技能更上一层楼。\n\
+  \n## 脚注\n\n1.  [`www.arcgis.com/home/gallery.html`](http://www.arcgis.com/home/gallery.html)\n\
+  2.  [`https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html)\n\
+  3.  [`https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-Renderer.html)\n\
+  4.  [`https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html)\n\
+  5.  [`https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-CSVLayer.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-CSVLayer.html)\n\
+  6.  [`http://server.arcgis.com/en/server/latest/publish-services/windows/scene-services.htm`](http://server.arcgis.com/en/server/latest/publish-services/windows/scene-services.htm)\n\
+  7.  [`https://github.com/mapbox/vector-tile-spec`](https://github.com/mapbox/vector-tile-spec)\n\
+  8.  [`https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API`](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)\n\
+  9.  [`https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GroupLayer.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-GroupLayer.html)\n\
+  10. [`https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-Portal.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-Portal.html)\n\
+  11. [`https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalItem.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-PortalItem.html)\n\
+  12. [`https://github.com/Esri/calcite-bootstrap`](https://github.com/Esri/calcite-bootstrap)\n\
+  13. [`https://developers.arcgis.com/javascript/latest/sample-code/portalitem-dragndrop/index.html`](https://developers.arcgis.com/javascript/latest/sample-code/portalitem-dragndrop/index.html)\n\
+  14. [`https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-Portal.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-portal-Portal.html)\n\
+  \n"
+- "# 4. API 核心基础\n\n在 ArcGIS API 4 for JavaScript 中，有少数几个基本概念构成了 API 的构建方式。如果您熟悉这些核心概念，那么在使用\
+  \ API 时将会受益匪浅。\n\n\n\n## 访问器\n\nArcGIS API for JavaScript 的一个重要新增功能是 `Accessor`¹\
+  \ 模块。它位于 `esri/core/Accessor`，这足以说明它是该 API 的核心部分。这并非偶然，因为该 API 的大部分功能都构建在 `Accessor`\
+  \ 及其能力之上。\n\n`Accessor` 模块大致基于通过 `Object.defineProperty`³ 方法实现的 ES5 getter/setter²。\n\
+  \n### 监听属性变化\n\n`Accessor` 的有趣之处在于，你无需监听事件来了解对象何时发生了变化，而只需直接监听属性本身的变化即可。\n\n```\n\
+  // 监听事件\nwidget.on(\"value-change\", (val) => {\n    console.log(val);\n});\n\n\
+  // 新方法\nwidget.watch(\"value\", (val) => {\n    console.log(val);\n})\n```\n\n这也开启了监听任何值变化的能力，而不仅仅是那些分配了事件的变化。这与\
+  \ `dojo/Stateful`⁴ 的工作方式类似，区别在于你无需使用 `get/set` 方法。\n\n```\n// dojo/stateful\nwidget.set(\"\
+  value\", newValue);\n\n// Accessor\nwidget.value = newValue;\n```\n\n不过，你仍然可以使用\
+  \ `set` 方法来设置 `Accessor` 的深层属性。\n\n```\n// 更新属性 \"view.map.basemap.title\"\nview.set(\"\
+  map.basemap.title\", newTitle);\n```\n\n或者，你也可以一次性设置多个属性。\n\n```\n// 更新属性 \"view.map.basemap.title\"\
+  \nview.set({\n  constraints: {\n    minScale: 250000,\n    maxScale: 0\n  },\n \
+  \ rotation: 45\n});\n```\n\n你还可以监听嵌套属性的变化。\n\n```\n// 更新属性 \"view.map.basemap.title\"\
+  \nview.watch(\"map.basemap.title\", (newValue) => /*处理结果*/);\n```\n\n每个方法都会返回一个\
+  \ `WatchHandle`⁵，因此你可以通过 `remove` 方法停止监听属性变化。\n\n```\n// 更新属性 \"view.map.basemap.title\"\
+  \nconst handler = view.watch(\"map.basemap.title\", (newValue) => /*处理结果*/);\n//\
+  \ 在应用程序的某个时刻移除该处理器\nfunction cleanup() {\n  handler.remove();\n}\n```\n\n监听属性变化还有另一个很棒的特性，那就是能够同时监听多个属性的变化。\n\
+  \n```\nimport Map from \"esri/Map\";\nimport MapView from \"esri/views/MapView\"\
+  ;\n\nconst map = new Map({\n  basemap: \"streets\"\n});\n\nconst view = new MapView({\n\
+  \  container: \"viewDiv\",\n  map: map,\n  zoom: 4,\n  center: [15, 65]\n});\n\n\
+  view.watch(\"center, scale\", (value, oldValue, propertyName) => {\n  if (propertyName\
+  \ === \"center\") {\n    // 打印 center 的 x 和 y 值\n    console.log(value.x, value.y);\n\
+  \  } else {\n    // 打印 scale 值\n    console.log(value);\n  }\n});\n```\n\n在这个例子中，你同时监听了视图的\
+  \ `center` 和 `scale` 属性。当这些属性发生变化时，你只需决定如何处理它们。在这个演示中，你只需将结果打印到开发者控制台。在你的应用程序中能够灵活地监听属性变化，这充分证明了\
+  \ `Accessor` 为 API 带来的强大功能。\n\n由于监听属性变化的能力是 API 的核心功能，因此提供了一个实用模块来帮助你实现这一点。你可以在\
+  \ `esri/core/watchUtils`⁶ 中找到这个实用工具。如果你发现在监听属性变化时需要进行一些条件检查，这个工具会非常有用。\n\n```\n\
+  view.watch(\"stationary\", (value) => {\n  if (value) {\n    // 仅在值为 true 时执行某些操作\n\
+  \  }\n});\n```\n\n这增加了一些认知负担，至少对我来说是这样，我想避免这种情况。我只关心值何时为 true，因此我可以使用一个实用工具来实现这一点。\n\
+  \n```\nwatchUtils.whenTrue(view, \"stationary\", () => {\n  // 执行某些操作\n});\n```\n\
+  \n让我们看一个示例，该示例会在你与地图交互时统计屏幕上的点数。\n\n以下是一些示例代码，展示了如何实现这一点：\n\n```\nimport Map from\
+  \ \"esri/Map\";\nimport FeatureLayer from \"esri/layers/FeatureLayer\";\nimport\
+  \ watchUtils from \"esri/core/watchUtils\";\nimport SceneView from \"esri/views/SceneView\"\
+  ;\nimport QueryTask from \"esri/tasks/QueryTask\";\nimport Query from \"esri/tasks/supports/Query\"\
+  ;\n\nconst url = \"http://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/US\\\
+  \nA_Major_Cities/FeatureServer/0\";\nconst map = new Map({\n    basemap: \"streets\"\
+  ,\n    layers: [ new FeatureLayer({ url }) ]\n}):\nconst query = new Query();\n\
+  const queryTask = new QueryTask({ url });\nconst view = new SceneView({\n    container:\
+  \ \"map\",\n    map: map,\n    center: [-118.182, 33.913],\n    scale: 836023\n\
+  });\n\nquery.watch(\"geometry\", () =>{\n    qTask.executeForCount(query).then((count)\
+  \ =>{\n        document.getElementById(\"cityCount\").innerText = count;\n    });\n\
+  });\n\nview.then(() =>{\n    watchUtils.whenTrue(view, \"stationary\", () =>{\n\
+  \        query.geometry = view.extent;\n    });\n    watchUtils.whenFalse(view,\
+  \ \"stationary\", () =>{\n        document.getElementById(\"cityCount\").innerText\
+  \ = \"...\";\n    });\n});\n```\n\n\n\n#### `watchUtils`\n\n正如我们所看到的，监听属性变化在 API\
+  \ 中非常有用。由于在监听属性时，你的具体需求可能因应用程序而异，因此有一个名为`watchUtils`的辅助工具可供使用。⁷\n\n让我们来看几个更有趣的方法：\n\
+  \n- `watchUtils.init()`：当你需要获取属性的初始值时，这个工具会派上用场。请记住，当你监听属性变化时，只有在属性实际发生变化时你才会收到通知。这意味着，除非你使用此工具来监听变化并同时获取初始值，否则你将无法知道许多属性的初始值。\n\
+  \n    ```\n    1   watchUtils.init(view, \"stationary\", (value, oldValue) => console.log(`New/Initia\\\
+  \n    2   l value is \"${value}\" and Old value is \"${oldValue}\"`));\n    ```\n\
+  \n    这将为你提供属性的初始值（即默认值），以及像常规监听器一样的所有未来更新。如果你需要初始值来启动应用程序中的某个操作或在页面上显示一个值，但又不想等待值发生变化，这将非常有用。\n\
+  \n- `watchUtils.once()`：顾名思义，当你只关心监听一次属性变化时，这个监听方法非常有用。它也是返回`PromiseWatchHandle`的监听辅助方法的一个子集。⁸\
+  \ 这意味着你可以像对待任何 Promise 一样对待这个监听器，甚至可以在应用程序中链式调用此监听器的结果。\n\n    ```\n    1   watchUtils.once(view,\
+  \ \"camera\").then(({ value, oldValue, propertyName, target })\\\n    2     => {\n\
+  \    3      return geometryEngineAsync.union([oldValue.position, value.position]);\n\
+  \    4   }).then(positionMultiPoints =>  {\n    5     // store or continue using\
+  \ unioned points\n    6   });\n    ```\n\n    如你所见，某些监听辅助方法能够返回 Promise 是非常有用的。\n\
+  \n- `watchUtils.pausable()`：我非常喜欢这个小工具。顾名思义，这是一个你可以暂停，然后根据需要恢复的监听器。\n\n    ```\n\
+  \    1   const handler = watchUtils.pausable(view, \"center\", updateComponentMethod);\n\
+  \    2   // resize component, no need to update during animated resize\n    3  \
+  \ handler.pause();\n    4   // resize of component is done, resume updates\n   \
+  \ 5   handler.resume();\n    ```\n\n    通过这个小示例，我可能有一个自定义组件，它会随着视图的`center`属性变化而更新。但是，我可能为调整此组件的大小或将其停靠到一个不完全可见的工具栏设置了动画。关键在于，我只想暂停此组件的更新，以便调用`handler.pause()`。然后，当组件处于我希望继续更新的状态时，我可以调用`handler.resume()`。我发现这个`pausable()`辅助方法是`watchUtils`辅助工具中最有用的一个。\n\
+  \n我建议你查阅文档⁹，并在监听属性变化时遇到特殊情况时，记住这些辅助工具。\n\n### 自动转换（Autocasting）\n\n使用 Accessor 的另一个强大特性是，你可以定义能够自动转换为某个类或模块的属性。这允许你传入看起来像某种类型的数据，并将其转换为该类型。\n\
+  \n```\n1   import Accessor from \"esri/core/Accessor\";\n2   import Extent from\
+  \ \"esri/geometry/Extent\";\n\n4   const Model = Accessor.createSubclass({\n5  \
+  \   properties: {\n6       extent: Extent\n7     }\n8   });\n\n10   export default\
+  \ Model;\n```\n\n现在，你可以将一个类似`extent`的对象传递给这个 Accessor，它会被转换成一个真正的`Extent`对象。\n\n\
+  ```\n1   const model = new Model({\n2     extent: {\n3       xmin: -122.68,\n4 \
+  \      ymin: 45.53,\n5       xmax: -122.45,\n6       ymax: 45.6\n7     }\n8   });\n\
+  \n10   model.watch(\"extent\", (val) => console.log(val));\n```\n\n如你所见，这使得构建模块和类变得非常容易，这些模块和类允许你传入简单的数据对象，这些对象可以自动转换为更复杂的对象。\n\
+  \n自动转换在 API 中变得非常有用，以至于你甚至可能忘记它的存在。一个很好的例子是当你创建一个`WebMap`时。\n\n```\n1   const webmap\
+  \ = new WebMap({\n2     portalItem: {\n3       id: \"e691172598f04ea8881cd2a4adaa45ba\"\
+  \n4     }\n5   });\n\n7   const view = new MapView({\n8     map: webmap,  //the\
+  \ WebMap instance created above\n9     container: \"viewDiv\"\n10   });\n```\n\n\
+  `WebMap`在第 3 章中有详细介绍。但在这个例子中，你只是将一个`PortalItem`的`id`值传递给了`WebMap`的构造函数。在内部，`WebMap`知道`portalItem`属性的类型是`PortalItem`。因此，通过传入一个具有`PortalItem`所需最小属性的对象，`WebMap`可以将该对象自动转换为正确的实例。\n\
+  \n如果你一直在使用 3.x 版本的 API，那么简单地监听属性变化而不是监听事件发生可能是一个新概念，但我希望你能看到在 4.x 版本的 API 中监听属性变化的简单性和灵活性，并从使用此功能中获得一些真正的好处。\n\
+  \n### 扩展 Accessor\n\n从 ArcGIS API for JavaScript 的 4.2 版本开始，Accessor 文档现在包含了“实现\
+  \ Accessor”部分。¹⁰ 该部分内容相当详尽，因此我们不重复其内容，而是来看几个基础点。\n\n你已经看到了如何使用`Accessor.createSubclass()`自己实现一个\
+  \ Accessor。关键在于提供一个`properties`对象，该对象将包含有关你实现的信息。你已经看到了如何预定义属性的类型。\n\n```\n1   const\
+  \ Model = Accessor.createSubclass({\n2     properties: {\n3       extent: Extent\n\
+  4     }\n5   });\n```\n\n但你还可以更进一步，拥有一些计算属性。\n\n```\n1   const Model = Accessor.createSubclass({\n\
+  2     properties: {\n3       graphic: new Graphic(/* Graphic Properties */),\n4\
+  \       bufferedGeometry: {\n5         dependsOn: [\"graphic\"],\n6         get:\
+  \ function() {\n7           return geometryEngine.buffer(this.graphic.geometry);\n\
+  8         }\n9       }\n10     }\n11   });\n```\n\n在这个示例中，你想要一个基于`graphic`值的`bufferedGeometry`属性。在这种情况下，我不希望我的`Model`的用户在他们那边使用`GeometryEngine`，所以我可以简化它并为他们提供这个值。\n\
+  \n#### TypeScript 集成\n\nAPI 的 4.2 版本还引入了改进的 TypeScript 集成，用于使用 Accessors。这种改进的集成还附带了一组装饰器¹¹，简化了实现过程。\n\
+  \n这意味着你可以将之前的示例更新为如下所示：\n\n```\n1   /// \n3   /// \n\n5   import { declared, subclass,\
+  \ property } from \"esri/core/accessorSupport/decorators\";\n\n7   @subclass()\n\
+  8   class Model extends declared(Accessor) {\n\n10     @property()\n11     graphic:\
+  \ Graphic = new Graphic();\n\n13     @property({\n14       dependsOn: [\"graphic]\n\
+  15     })\n16     get bufferedGeometry(): Geometry {\n17       return geometryEngine.buffer(this.graphic.geometry);\n\
+  18     }\n\n20   }\n```\n\n这些装饰器非常有用，可以使实现 Accessor¹² 和定义属性更加明确。你可以查阅装饰器文档以获取更多详细信息。¹³\n\
+  \n\n\n## 集合\n\nArcGIS API 4 for JavaScript 中的集合是类似数组的数据容器。它们的外观和行为都像数组，但不能使用 `for`\
+  \ 循环进行迭代。相反，您可以使用众多数组方法之一来处理集合。这些方法大多是典型的数组方法，其工作方式符合预期。有些方法是集合独有的，例如 `getItemAt()`。\n\
+  \n在不直接复制文档的前提下，我想指出一些集合独有的方法。\n\n*   `ofType`：允许您创建类型化集合\n*   `add`：工作方式类似于 `Array.prototype.push`\n\
+  *   `addMany`：接受一个对象数组并将其添加到集合中\n*   `clone`：顾名思义，创建集合的克隆\n*   `remove`：从集合中移除传入的参数\n\
+  *   `removeAll`：清空集合\n*   `removeAt`：轻松地从集合中移除指定索引处的项\n*   `removeMany`：移除给定数组中的所有项\n\
+  *   `reorder`：将集合中的某项移动到新的索引位置\n*   `toArray`：将集合导出为普通的原生数组\n\n集合的另一个特性是能够监听 `change`\
+  \ 事件。\n\n```\ncollection.on(\"change\", ({ added, moved, removed }) => {/*执行一些酷炫的操作*/});\n\
+  ```\n\n`change` 事件返回一个包含 `added`、`moved` 和 `removed` 属性的对象。每个属性都是一个数组，其中包含集合中发生变化的项。这是一个极其有用的特性，是原生\
+  \ JavaScript 数组所不具备的。您可以监视对集合所做的任何更改并做出相应处理。\n\n## 承诺（Promises）\n\n视图和图层的一个共同点是它们都是承诺。\n\
+  \n承诺对于执行异步操作非常有用。您会在整个 API 中发现承诺的身影。这是因为有大量的异步操作在进行。\n\n当您创建一个视图时，可以检查承诺方法 `then`\
+  \ 来查看视图何时加载完成，并开始检查属性。\n\n```\nview.then(() => {\n  view.watch(\"extent.xmin\",\
+  \ (xmin) => console.log(xmin));\n});\n```\n\n在视图加载并准备就绪后开始监听 Accessor 属性的变化也是一个好习惯。承诺非常有用，您可以对它们的结果进行链式调用。\n\
+  \n```\nview.then(() => {\n  return view.whenLayerView(myLayer);\n})\n.then((layerView)\
+  \ => {\n  return watchUtils.whenFalseOnce(layerView, \"updating\");\n})\n.then(({\
+  \ target: layerView }) => {\n  return layerView.queryFeatures()\n})\n.then((features\
+  \ => {\n  view.goTo(features);\n}))\n.otherwise(error => {\n  // 在此处捕获 Promise 链中的错误\n\
+  });\n```\n\n在这段代码片段中，您等待视图加载，从视图中获取一个 `LayerView`，查询视图中的要素，然后使用 `goTo` 方法将地图动画定位到这些要素。\n\
+  \n在这个示例中，您使用了 `watchUtils` 模块来帮助检查属性变化，但您只关心 `LayerView` 何时完成更新，以便获取要素。我将在下一章关于\
+  \ Accessor 的内容中更详细地介绍这个方法。\n\n在整个 API 中使用承诺的能力对于处理 Web 地图应用中发生的多个异步操作非常有用。\n\n##\
+  \ 总结\n\n至此，您应该对 ArcGIS API for JavaScript 的核心基础原理有了相当清晰的认识。扎实掌握 Accessor、集合和承诺的工作原理将极大地提升您使用该\
+  \ API 构建应用程序的能力。\n\n*   Accessor 提供了一种轻松监听属性变化的方法，而无需监听事件。\n*   如果您想知道集合是否已更新，集合对于存储通常可能放在数组中的数据非常有用。\n\
+  *   承诺允许您处理异步数据，并且在视图的情况下，让您知道它们何时可以使用。\n\n脚注\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Accessor.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Accessor.html)\n\
+  \n[`http://javascriptplayground.com/blog/2013/12/es5-getters-setters/`](http://javascriptplayground.com/blog/2013/12/es5-getters-setters/)\n\
+  \n[`https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)\n\
+  \n[`https://dojotoolkit.org/reference-guide/1.10/dojo/Stateful.html`](https://dojotoolkit.org/reference-guide/1.10/dojo/Stateful.html)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Accessor.html#~WatchHandle`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Accessor.html#~WatchHandle)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-watchUtils.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-watchUtils.html)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-watchUtils.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-watchUtils.html)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-watchUtils.html#~PromisedWatchHandle`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-watchUtils.html#~PromisedWatchHandle)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-watchUtils.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-watchUtils.html)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/guide/implementing-accessor/index.html`](https://developers.arcgis.com/javascript/latest/guide/implementing-accessor/index.html)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-accessorSupport-decorators.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-accessorSupport-decorators.html)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/guide/implementing-accessor/index.html`](https://developers.arcgis.com/javascript/latest/guide/implementing-accessor/index.html)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-accessorSupport-decorators.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-accessorSupport-decorators.html)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html)\n\
+  \n\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html)\n\
+  \n16\n\n[`https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)\n\
+  \n17\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#getItemAt`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#getItemAt)\n\
+  \n18\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#.ofType`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#.ofType)\n\
+  \n19\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#add`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#add)\n\
+  \n20\n\n[`https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)\n\
+  \n21\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#addMany`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#addMany)\n\
+  \n22\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#clone`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#clone)\n\
+  \n23\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#remove`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#remove)\n\
+  \n24\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#removeAll`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#removeAll)\n\
+  \n25\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#removeAt`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#removeAt)\n\
+  \n26\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#removeMany`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#removeMany)\n\
+  \n27\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#reorder`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#reorder)\n\
+  \n28\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#toArray`](https://developers.arcgis.com/javascript/latest/api-reference/esri-core-Collection.html#toArray)\n\
+  \n29\n\n[`https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)\n\
+  \n30\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#goTo`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-MapView.html#goTo)\n\
+  \n"
+- "# 5. 场景\n\n迄今为止，ArcGIS API 4 for JavaScript 最令人兴奋的功能之一便是引入了 3D 场景。3D 场景是一种可视化数据的非凡新方式（见图\
+  \ 5-1）。\n\n![A458961_1_En_5_Fig1_HTML.jpg](img/A458961_1_En_5_Fig1_HTML.jpg)\n\n\
+  图 5-1\n\n使用 Pictometry 影像的示例场景\n\n您可以使用场景查看器¹（Scene Viewer）创建和发布场景，该查看器是 ArcGIS\
+  \ Online 平台²的一部分。当您在场景查看器中创作场景时，它们会保存到您的帐户中，您可以与他人共享。然后，您可以使用场景的项目 ID，将这些场景与您的 ArcGIS\
+  \ API 4 for JavaScript 应用程序结合使用。\n\n场景本身是在 ArcGIS Pro³中创建和发布的。您可以在场景查看器中更新场景，并修改或创建新的幻灯片⁴。您在场景查看器中更新和修改的场景，随后便可在您的\
+  \ ArcGIS API 4 for JavaScript 应用程序中查看。\n\n加载 `WebScene` ⁵ 非常简单；就像加载 `WebMap` 一样。\n\
+  \n```\n1   import WebScene from \"esri/WebScene\";\n2   import SceneView from \"\
+  esri/views/SceneView\";\n\n4   const scene = new WebScene({\n5     portalItem: {\n\
+  6       id: \"082c4fd545104f159db39da11ea1e675\"\n7     }\n8   });\n\n10   const\
+  \ view = new SceneView({\n11     map: scene,\n12     container: \"viewDiv\"\n13\
+  \   });\n```\n\n这就是使用 ArcGIS JavaScript API 显示场景所需的全部操作。\n\n场景与常规地图有何不同？简单来说：3D。\n\
+  \n场景包含高程数据，这意味着您可以处理地形和建筑物。当您在地图上放置要素时，可以像在床上铺床单一样将它们覆盖。您也可以像广告牌一样将符号立牌显示（见图 5-2）。\n\
+  \n![A458961_1_En_5_Fig2_HTML.jpg](img/A458961_1_En_5_Fig2_HTML.jpg)\n\n图 5-2\n\n\
+  场景中的示例 3D 符号\n\n## SceneView\n\n`SceneView` 与 `MapView` 共享相似的 API，因为它们都基于 `View`\
+  \ ⁶ 模块。正如您已经了解到的，视图负责渲染 `Map`、`WebMap` 或 `WebScene` 中的数据。\n\n要理解 `SceneView`，您需要了解几个可以使用的独特属性。\n\
+  \n*   `camera` ⁷\n*   `environment` ⁸\n\n\n\n### `camera` 属性\n\n你可以将相机想象为一台真实的摄像机，它位于特定位置，指向特定方向，并以特定视角和倾斜角度进行拍摄。这些恰好也是相机所具备的属性。在应用程序运行期间，你可以随时更新相机。如果你确实想要更新相机，建议使用视图的\
+  \ `goTo` 方法，让视图平滑过渡到新的相机设置。如果直接使用 `view.camera = updatedCamera`，则无法实现平滑过渡。\n\n```\n\
+  const view = new SceneView({\n  map,\n  container: \"viewDiv\",\n  camera: {\n \
+  \   position: [7.654, 45.919, 5183],\n    tilt: 80\n  }\n});\n// 在应用程序的某个时刻，你可以更新相机。\n\
+  view.goTo({\n  position: [7.654, 45.919, 7500],\n  tilt: 65\n});\n```\n\n你可以在 [`https://jsbin.com/sodeda/3`](https://jsbin.com/sodeda/3)\
+  \ 的演示中查看更新相机的示例。\n\n还需要注意的是，视图不会反映对相机所做的任何直接更新。\n\n```\nview.camera.position = updatedPosition;\
+  \ // 无效\n```\n\n不过，你可以克隆相机以保留当前相机设置，并仅更新单个属性。\n\n```\nconst camera = view.camera.clone();\n\
+  camera.tilt = 120;\nview.camera = camera;\n// 或者\nview.goTo(camera);\n```\n\n现在，我将向你展示一个有趣的示例，演示如何在每次场景变化时克隆相机，并回放这些相机设置，从而为你的视图创建平滑的动画效果。\n\
+  \n让我们看看这个示例的代码：\n\n```\n6  4.x 3D Camera Recorder\n```\n\n我们需要为这个小应用程序定义一些样式。\n\n\
+  ```\nhtml, body, #viewDiv {\n  padding: 0;\n  margin: 0;\n  width: 100%;\n  height:\
+  \ 100%;\n}\n#recorder {\n  position: absolute;\n  z-index: 999;\n  bottom: 1em;\n\
+  \  left: 1em;\n  padding: 1em;\n  width: 50%;\n  margin-left: 100px;\n}\n#reverse\
+  \ {\n  position: absolute;\n  z-index: 999;\n  bottom: 50px;\n  left: 150px;\n}\n\
+  #recorder > input[type=range] {\n  width: 168px;\n}\ninput[type=range] {\n  -webkit-appearance:\
+  \ none;\n  margin: 18px 0;\n  width: 100%;\n}\ninput[type=range]:focus {\n  outline:\
+  \ none;\n}\ninput[type=range]::-webkit-slider-runnable-track {\n  width: 100%;\n\
+  \  height: 8.4px;\n  cursor: pointer;\n  animate: 0.2s;\n  box-shadow: 1px 1px 1px\
+  \ #000000, 0px 0px 1px #0d0d0d;\n  background: #3071a9;\n  border-radius: 1.3px;\n\
+  \  border: 0.2px solid #010101;\n}\ninput[type=range]::-webkit-slider-thumb {\n\
+  \  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;\n  border: 1px solid #000000;\n\
+  \  height: 20px;\n  width: 20px;\n  border-radius: 10px;\n  background: #ffffff;\n\
+  \  cursor: pointer;\n  -webkit-appearance: none;\n  margin-top: -5px;\n}\ninput[type=range]:focus::-webkit-slider-runnable-track\
+  \ {\n  background: #367ebd;\n}\ninput[type=range]::-moz-range-track {\n  width:\
+  \ 100%;\n  height: 8.4px;\n  cursor: pointer;\n  animate: 0.2s;\n  box-shadow: 1px\
+  \ 1px 1px #000000, 0px 0px 1px #0d0d0d;\n  background: #3071a9;\n  border-radius:\
+  \ 1.3px;\n  border: 0.2px solid #010101;\n}\ninput[type=range]::-moz-range-thumb\
+  \ {\n  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;\n  border: 1px solid\
+  \ #000000;\n  height: 20px;\n  width: 20px;\n  border-radius: 10px;\n  background:\
+  \ #ffffff;\n  cursor: pointer;\n}\ninput[type=range]::-ms-track {\n  width: 100%;\n\
+  \  height: 8.4px;\n  cursor: pointer;\n  animate: 0.2s;\n  background: transparent;\n\
+  \  border-color: transparent;\n  border-width: 16px 0;\n  color: transparent;\n\
+  }\ninput[type=range]::-ms-fill-lower {\n  background: #2a6495;\n  border: 0.2px\
+  \ solid #010101;\n  border-radius: 2.6px;\n  box-shadow: 1px 1px 1px #000000, 0px\
+  \ 0px 1px #0d0d0d;\n}\ninput[type=range]::-ms-fill-upper {\n  background: #3071a9;\n\
+  \  border: 0.2px solid #010101;\n  border-radius: 2.6px;\n  box-shadow: 1px 1px\
+  \ 1px #000000, 0px 0px 1px #0d0d0d;\n}\ninput[type=range]::-ms-thumb {\n  box-shadow:\
+  \ 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;\n  border: 1px solid #000000;\n  height:\
+  \ 20px;\n  width: 20px;\n  border-radius: 10px;\n  background: #ffffff;\n  cursor:\
+  \ pointer;\n}\ninput[type=range]:focus::-ms-fill-lower {\n  background: #3071a9;\n\
+  }\ninput[type=range]:focus::-ms-fill-upper {\n  background: #367ebd;\n}\n```\n\n\
+  现在，我们可以为示例应用程序编写代码了。\n\n\n\n```javascript\nrequire([\n    'esri/Map',\n    'esri/views/SceneView',\n\
+  \    'esri/core/watchUtils',\n    'esri/core/Scheduler',\n    'dojo/on'\n], function(Map,\
+  \ SceneView, watchUtils, Scheduler, on) {\n    class CameraRecorder {\n        constructor(params)\
+  \ {\n            this.view = params.view;\n            this.cameras = [null];\n\
+  \            this.timer = null;\n            this.watcher = null;\n            this.handler\
+  \ = null;\n            this.intervalID = null;\n            this.isPlaying = false;\n\
+  \            this.slider = document.getElementById('slider');\n            this.reverseBtn\
+  \ = document.getElementById('reverseBtn');\n            this.reverseBtn.addEventListener('click',\
+  \ this.playReverse.bind(this));\n            this.playBtn = document.getElementById('playBtn');\n\
+  \            this.playBtn.addEventListener('click', this.play.bind(this));\n   \
+  \         this.stopBtn = document.getElementById('stopBtn');\n            this.stopBtn.addEventListener('click',\
+  \ this.stop.bind(this));\n        }\n        clear() {\n            if (this.watcher)\
+  \ {\n                this.watcher.remove();\n            }\n            if (this.handler)\
+  \ {\n                this.handler.remove();\n            }\n            if (this.timer)\
+  \ {\n                this.timer.remove();\n            }\n            this.recordStart();\n\
+  \        }\n        recordStart() {\n            if (this.isPlaying || this.isPaused)\
+  \ {\n                return;\n            }\n            this.timer = Scheduler.schedule(()\
+  \ => {\n                this._cameraWatch();\n                this._sliderWatch();\n\
+  \            });\n        }\n        play() {\n            if (this.isPlaying) {\n\
+  \                return;\n            }\n            this.playBtn.classList.toggle('btn-info');\n\
+  \            this.playBtn.classList.toggle('btn-success');\n            this._play(false);\n\
+  \        }\n        stop() {\n            this.isPaused = !this.isPaused;\n    \
+  \        this.stopBtn.classList.toggle('btn-info');\n            this.stopBtn.classList.toggle('btn-danger');\n\
+  \            if (!this.isPaused) {\n                this.recordStart();\n      \
+  \      }\n        }\n        playReverse() {\n            if (this.isPlaying) {\n\
+  \                return;\n            }\n            this.reverseBtn.classList.toggle('btn-info');\n\
+  \            this.reverseBtn.classList.toggle('btn-success');\n            this._play(true);\n\
+  \        }\n        _cameraWatch() {\n            const view = this.view;\n    \
+  \        const cameras = this.cameras;\n            const slider = this.slider;\n\
+  \            this.watcher = view.watch('camera', (val) => {\n                cameras.push(val.clone());\n\
+  \                slider.max = slider.value = cameras.length;\n                this.clear();\n\
+  \            });\n        }\n        _sliderWatch() {\n            const view =\
+  \ this.view;\n            const cameras = this.cameras;\n            this.handler\
+  \ = on(this.slider, 'input', (e) => {\n                const val = Number(e.target.value);\n\
+  \                view.goTo(cameras[val] || view.camera.clone());\n             \
+  \   this.clear();\n            });\n        }\n        _play(inReverse) {\n    \
+  \        this.isPlaying = true;\n            let intervalID = this.intervalID;\n\
+  \            const slider = this.slider;\n            const view = this.view;\n\
+  \            const cameras = this.cameras;\n            let len = cameras.length;\n\
+  \            let i = 0;\n            intervalID = setInterval(() => {\n        \
+  \        if (!inReverse) {\n                    slider.value = i;\n            \
+  \        view.goTo(cameras[i++] || view.camera.clone());\n                    if\
+  \ (i === len) {\n                        clearInterval(intervalID);\n          \
+  \              this.playBtn.classList.toggle('btn-info');\n                    \
+  \    this.playBtn.classList.toggle('btn-success');\n                        this.isPlaying\
+  \ = false;\n                        this.recordStart();\n                    }\n\
+  \                } else {\n                    slider.value = len;\n           \
+  \         view.camera = cameras[len--] || view.camera.clone();\n               \
+  \     if (len < 0) {\n                        clearInterval(intervalID);\n     \
+  \                   this.reverseBtn.classList.toggle('btn-info');\n            \
+  \            this.reverseBtn.classList.toggle('btn-success');\n                \
+  \        this.isPlaying = false;\n                        this.recordStart();\n\
+  \                    }\n                }\n            }, 100);\n        }\n   \
+  \ }\n    const map = new Map({\n        basemap: 'streets'\n    });\n    const view\
+  \ = new SceneView({\n        container: 'viewDiv',\n        map: map,\n        camera:\
+  \ {\n            position: [-122.4194, 37.7749, 1000],\n            heading: 0,\n\
+  \            tilt: 0\n        }\n    });\n    const camRecorder = new CameraRecorder({\n\
+  \        view: view\n    });\n    view.watch('stationary', (val) => {\n        if\
+  \ (val) {\n            camRecorder.recordStart();\n        }\n    });\n});\n```\n\
+  \n`CameraRecorder` 类创建了一个 `CameraRecorder` 小部件。该类会监视 `SceneView` 的 `camera` 属性是否发生变化，一旦变化，就会克隆相机并将克隆的相机保存到一个数组中，以供后续使用。它提供了用于重放相机、反向重放或暂停监视器以停止保存相机变化的按钮。此外，它还提供了一个滑块，以便你可以回放到某个特定的\
+  \ `Camera` 点。这个小应用程序展示了在 `SceneView` 中访问 `Camera` 的实用性，这样你不仅可以保存 `SceneView` 的快照，还可以根据需要操作\
+  \ `Camera`。\n\n## environment 属性\n\n`environment` 属性有什么作用？注意到 3D 场景中建筑物和物体投射出的那些非常酷的阴影了吗？这些就是通过\
+  \ `environment` 属性控制的。更具体地说，是通过环境的 `lighting` 属性来处理的。\n\n本质上，这允许你控制场景中太阳的位置。不仅如此，你还可以通过日期和一天中的时间来定义它。你知道吗，场景中星星的位置是与日期精确对应的？这是一个相当强大的细节。\n\
+  \n`lighting` 的大部分属性都相当直观；`date` 和 `displayUTCOffset` 不言自明。`directShadowsEnabled`\
+  \ 属性只是打开或关闭阴影。可能会让你感到困惑的是 `ambientOcclusionEnabled`。这基本上是指光线如何从表面反射。出于性能考虑，在低功耗设备（如手机）上，`ambientOcclusionEnabled`\
+  \ 属性是禁用的（见图 5-3）。\n\n![A458961_1_En_5_Fig3_HTML.jpg](img/A458961_1_En_5_Fig3_HTML.jpg)\n\
+  \n**图 5-3** 场景中更新后的环境设置\n\n\n\n## 局部场景\n\n局部场景是三维可视化中极为实用的工具。通过局部场景，您可以在三维环境中查看地下数据。创建局部场景需要完成两项设置：配置\
+  \ `SceneView#viewingMode` 属性，并提供 `SceneView#clippingArea` 属性。\n\n```\n1   const\
+  \ view = new SceneView({\n2     container: \"viewDiv\",\n3     map: map,\n4    \
+  \ viewingMode: \"local\",\n5     clippingArea: myClippingArea\n6   });\n```\n\n\
+  局部场景允许您将三维表面展平并裁剪至特定范围，从而查看地下元素。目前，该功能可用于查看钻井、地震数据、压裂数据，以及任何可映射至地下的数据。不过，目前尚无直接的方法来显示管道数据。\n\
+  \n以下示例展示了如何创建局部场景以查看特定区域的钻井。您可以在此处查看在线演示：¹³\n\n```\n1   require([\n2     \"esri/Map\"\
+  ,\n3     \"esri/views/SceneView\",\n4     \"esri/layers/FeatureLayer\",\n5     \"\
+  esri/widgets/Home\"\n6   ], function(Map, SceneView, FeatureLayer, Home\n7   ) {\n\
+  \n9     const wellsUrl = \"http://services.arcgis.com/jDGuO8tYggdCCnUJ/arcgis/rest/serv\\\
+  \n10   ices/CA%20Class%20II%20Injection%20Wells/FeatureServer/6\";\n\n12     const\
+  \ wellsSurfaceRenderer = {\n13     type: \"simple\",\n14     symbol: {\n15     \
+  \  type: \"point-3d\",\n16       symbolLayers: [{\n17         type: \"icon\",\n\
+  18         material: {\n19           color: \"#0D2644\"\n20         },\n21     \
+  \    resource: {\n22           primitive: \"circle\"\n23         },\n24        \
+  \ size: 4\n25       }]\n26     }\n27   };\n\n29     const wellsDepthRenderer = {\n\
+  30      type: \"simple\",\n31      symbol: {\n32        type: \"point-3d\",\n33\
+  \        symbolLayers: [{\n34          type: \"object\",\n35          resource:\
+  \ {\n36            primitive: \"cylinder\"\n37          },\n38          width: 50\n\
+  39        }]\n40      },\n41      visualVariables: [\n42      {\n43        type:\
+  \ \"size\",\n44        field: \"WellDepthA\",\n45        axis: \"height\",\n46 \
+  \       stops: [\n47        {\n48          value: 1,\n49          size: -0.3048\
+  \ // meters!\n50        },\n51        {\n52          value: 10000,\n53         \
+  \ size: -3048 // meters!\n54        }]\n55      },\n56      {\n57        type: \"\
+  size\",\n58        axis: \"width\",\n59        useSymbolValue: true // sets the\
+  \ width to 50m\n60      },\n61      {\n62        type: \"color\",\n63        field:\
+  \ \"WellDepthA\",\n64        stops: [\n65          {\n66            value: 0,\n\
+  67            color: \"#FFFCD4\",\n68          },\n69          {\n70           \
+  \ value: 10000,\n71            color: \"#FF0000\"\n72          }\n73        ]\n\
+  74      }\n75      ]\n76    });\n\n78     // 地下钻井\n79     const wellsLyr = new FeatureLayer({\n\
+  80       url: wellsUrl,\n81       definitionExpression: \"WellDepthA > 0\",\n82\
+  \       outFields: [\"*\"],\n83       popupTemplate: {\n84         title: \"Well\"\
+  ,\n85         content: \"{*}\"\n86       },\n87       renderer: wellsDepthRenderer,\n\
+  88       // 防止圆柱体突出地表\n89       elevationInfo: {\n90         mode: \"relative-to-ground\"\
+  ,\n91         offset: -10\n92       }\n93     });\n\n95     // 地表显示的钻井\n96     const\
+  \ wellsSurfaceLyr = new FeatureLayer({\n97       url: wellsUrl,\n98       definitionExpression:\
+  \ \"WellDepthA > 0\",\n99       outFields: [\"*\"],\n100       popupTemplate: {\n\
+  101         title: \"Well\",\n102         content: \"{*}\"\n103       },\n104  \
+  \     renderer: wellsSurfaceRenderer,\n105       elevationInfo: {\n106         mode:\
+  \ \"on-the-ground\"\n107       }\n108     });\n\n110     const losAngelesExtent\
+  \ = {\n111       xmax: -13151509,\n112       xmin: -13160242,\n113       ymax: 3999804,\n\
+  114       ymin: 3992447,\n115       spatialReference: {\n116         wkid: 102100\n\
+  117       }\n118     };\n\n120     const map = new Map({\n121       basemap: \"\
+  topo\",\n122       layers: [\n123         wellsLyr,\n124         wellsSurfaceLyr\n\
+  125       ]\n126     });\n\n128     const view = new SceneView({\n129       container:\
+  \ \"viewDiv\",\n130       map: map,\n131       viewingMode: \"local\",\n132    \
+  \   clippingArea: losAngelesExtent,\n133       extent: losAngelesExtent,\n134  \
+  \     constraints: {\n135         collision: {\n136           enabled: false\n137\
+  \         },\n138         tilt: {\n139           max: 360\n140         }\n141  \
+  \     },\n142       environment: {\n143         atmosphere: null,\n144         starsEnabled\
+  \ : false\n145       }\n146     });\n\n148     const homeBtn = new Home({\n149 \
+  \      view: view\n150     }, \"homeDiv\");\n151     homeBtn.startup();\n152   });\n\
+  ```\n\n您将得到一个与图 5-4 相似的应用程序。\n\n![A458961_1_En_5_Fig4_HTML.jpg](img/A458961_1_En_5_Fig4_HTML.jpg)\n\
+  \n图 5-4\n\n局部场景演示\n\n在此示例中，我们大量利用了自动类型转换功能，但让我们重点看看其中使用的几个三维专用模块。本演示将向您介绍几个新符号：`PointSymbol3D`、¹⁴\
+  \ `IconSymbol3DLayer`、¹⁵ 和 `ObjectSymbol3DLayer`。¹⁶\n\n`PointSymbol3D` 符号的功能如其名称所示：允许您在三维\
+  \ `SceneView` 中显示点数据。单独使用时，它功能有限，但另外两个符号正是为此而设计的。\n\n`IconSymbol3DLayer` 符号允许您定义可在三维环境中使用并覆盖在地表上的符号。每个符号都包含可在应用程序中使用的原始类型。`IconSymbol3DLayer`\
+  \ 的原始类型列表如下。¹⁷ 您也可以向 `href` 属性提供 URL，以链接到您自己的符号。\n\n`ObjectSymbol3DLayer` 符号在三维环境中更进一步，允许您定义球体、圆柱体、立方体等形状。`ObjectSymbol3DLayer`\
+  \ 符号的原始类型已列出。¹⁸ 请注意，ArcGIS API for JavaScript 文档指出，如果您想使用自定义对象，需要通过教程在 ArcGIS Pro\
+  \ 中创建并导出它们。¹⁹\n\n\n\n## 摘要\n\n本章介绍了在 ArcGIS API for JavaScript 中使用场景的基础知识。3D 可视化是\
+  \ ArcGIS API 4 for JavaScript 中最新的、也是最令人兴奋的功能之一。它们为用户提供了以全新方式探索数据的机会，并且其用途在未来的版本中只会不断增加。现在，您应该熟悉以下内容：\n\
+  \n*   创建 `SceneView` 并使用 `WebScene`\n*   在场景中操作相机\n*   为应用程序中的场景自定义环境\n*   创建用于聚焦可视化和查看地下要素的局部场景\n\
+  \n脚注 1\n\n[`https://www.arcgis.com/home/webscene/viewer.html`](https://www.arcgis.com/home/webscene/viewer.html)\n\
+  \n2\n\n[`https://www.arcgis.com/home/`](https://www.arcgis.com/home/)\n\n3\n\n[`http://pro.arcgis.com/en/pro-app/help/mapping/map-authoring/author-a-web-scene.htm`](http://pro.arcgis.com/en/pro-app/help/mapping/map-authoring/author-a-web-scene.htm)\n\
+  \n4\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Slide.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Slide.html)\n\
+  \n5\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-WebScene.html)\n\
+  \n6\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html)\n\
+  \n7\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#camera`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#camera)\n\
+  \n8\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#environment`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#environment)\n\
+  \n9\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-Camera.html#properties`](https://developers.arcgis.com/javascript/latest/api-reference/esri-Camera.html#properties)\n\
+  \n10\n\n[`https://jsbin.com/sodeda/4/edit?js,output`](https://jsbin.com/sodeda/4/edit?js,output)\n\
+  \n11\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Lighting.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Lighting.html)\n\
+  \n12\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Lighting.html#ambientOcclusionEnabled`](https://developers.arcgis.com/javascript/latest/api-reference/esri-webscene-Lighting.html#ambientOcclusionEnabled)\n\
+  \n13\n\n[`http://jsbin.com/boqehodozu/4/edit?js,output`](http://jsbin.com/boqehodozu/4/edit?js,output)\n\
+  \n14\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PointSymbol3D.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-PointSymbol3D.html)\n\
+  \n15\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-IconSymbol3DLayer.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-IconSymbol3DLayer.html)\n\
+  \n16\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-ObjectSymbol3DLayer.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-ObjectSymbol3DLayer.html)\n\
+  \n17\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-IconSymbol3DLayer.html#resource`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-IconSymbol3DLayer.html#resource)\n\
+  \n18\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-ObjectSymbol3DLayer.html#resource`](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-ObjectSymbol3DLayer.html#resource)\n\
+  \n19\n\n[`https://github.com/Esri/arcgis-pro-sdk-community-samples/tree/master/Map-Authoring/ExportWeb3DObjectResource#exportweb3dobjectresource`](https://github.com/Esri/arcgis-pro-sdk-community-samples/tree/master/Map-Authoring/ExportWeb3DObjectResource#exportweb3dobjectresource)\n\
+  \n"
+- "# 6. 弹出窗口\n\n自 ArcGIS API for JavaScript 1.0 版本以来，用户点击地图时的首次交互通常都是获取弹出窗口。`Popup`\
+  \ ¹ 微件通常是访问地图上可视化效果背后原始数据的第一个入口点。地图上定义良好的数据可视化可能会根据色带颜色或显示点的大小，告诉您一个城市与相邻城市的人口密度对比。但您首次查看这些原始数据时，很可能需要点击该要素并在弹出窗口中查看数据。\n\
+  \n由于弹出窗口对于探索地图中的数据至关重要，因此有多种选项可用于配置数据的显示方式。\n\n\n\n## 字段与别名\n\n你可以通过为图层定义 `popupTemplate`\
+  \ 来快速开始配置弹出窗口，示例如下：\n\n```\n1   const featureLayer = new FeatureLayer({\n2     url:\
+  \ \"https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapSe\\\n\
+  3   rver/3\",\n4     outFields: [\"*\"],\n5     popupTemplate: {\n6       title:\
+  \ \"名称: {STATE_NAME}\",\n7       content: \"{*}\"\n8     }\n9   });\n```\n\n如果该要素的\
+  \ `NAME` 字段值为 `Foghorn Leghorn`，则会创建一个标题为“名称: Foghorn Leghorn”的弹出窗口。通过将 `content`\
+  \ 定义为 `\"{*}\"`，弹出窗口将显示一个简单的表格，列出所有字段名称及其值。\n\n这几乎是最简单的 `Popup` 组件定义方式了。但你还可以更进一步。\n\
+  \n为图层和地图配置弹出窗口最简单的方法，可能是在 ArcGIS Online 地图查看器中配置 `Popup` ²。如果你通过 `WebMap` 或 `PortalItem`\
+  \ 加载地图（如前面章节所述），你在弹出窗口中进行的配置将反映在应用程序中。\n\n如果需要，你可以配置 `Popup` 显示别名而非实际字段名称。你可以在 `popupTemplate`\
+  \ 的 `content` 属性中进行配置。\n\n```\n1   const featureLayer = new FeatureLayer({\n2  \
+  \   url: \"https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapSe\\\
+  \n3   rver/3\",\n4     outFields: [\"*\"],\n5     popupTemplate: {\n6       title:\
+  \ \"名称: {STATE_NAME}\",\n7       content: [\n8         {\n9           type: \"fields\"\
+  ,\n10           fieldInfos: [\n11             {\n12               fieldName: \"\
+  POP2000\",\n13               visible: true,\n14               label: \"2000 年人口\"\
+  ,\n15               format: {\n16                 places: 0,\n17               \
+  \  digitSeparator: true\n18               }\n19             },\n20             {\n\
+  21               fieldName: \"POP2007\",\n22               visible: true,\n23  \
+  \             label: \"2007 年人口\",\n24               format: {\n25             \
+  \    places: 0,\n26                 digitSeparator: true\n27               }\n28\
+  \             }\n29           ]\n30         }\n31       ]\n32     }\n33   });\n\
+  ```\n\n上述示例将显示两个字段：`POP2000` 和 `POP2007`。不过，你可以为每个字段提供与实际字段名称不同的 `label` 属性。由于处理的是包含数值的字段，你还可以定义这些数值的显示方式。在此例中，你希望不显示小数位，并且不使用数字分隔符（这取决于区域设置）。\n\
+  \n如果你的数据包含日期字段，你还可以定义日期格式。\n\n```\n1   {\n2     fieldName: \"FAKEDATE\",\n3    \
+  \ visible: true,\n4     label: \"假日期字段\",\n5     format: {\n6       dateFormat:\
+  \ \"short-date\"\n7     }\n8   }\n```\n\n这很简单，对吧？\n\n如果你想要真正自定义输出，甚至可以在内容中使用纯 HTML。\n\
+  \n```\n1   const featureLayer = new FeatureLayer({\n2     url: \"https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapSe\\\
+  \n3   rver/2\",\n4     outFields: [\"*\"],\n5     popupTemplate: {\n6       title:\
+  \ \"名称: {STATE_NAME}\",\n7       content: `\n\n9           {STATE_ABBR}\n\n12  \
+  \           2000 年人口: {POP2000}\n13             2007 年人口: {POP2007}\n14        \
+  \     总户数: {HOUSEHOLDS}\n\n17       `\n18     }\n19   });\n```\n\n你甚至可以使用函数对内容进行进一步处理。假设你的应用程序中有一个已知的几何图形，比如某个围栏区域。当用户点击某个要素时，你想通知他们该位置是否在此围栏区域内。\n\
+  \n```\n1   const featureLayer = new FeatureLayer({\n2     url: URL,\n3     outFields:\
+  \ [\"*\"],\n4     popupTemplate: {\n5       title: \"名称: {name}\",\n6       content({\
+  \ graphic }) {\n7         const isWithin = geometryEngine.contains(fencedGeometry,\
+  \ graphic.geometry);\n8         return `\n9           该位置当前${isWithin ? \"位于\" :\
+  \ \"不位于\"}围栏区域内。\n10         `;\n11       }\n12     }\n13   });\n```\n\n这只是自定义弹出窗口内容的另一种方式。\n\
+  \n你还可以更进一步，基于视图的点击事件查询多个图层。\n\n```\n1   view.on(\"click\", ({ mapPoint }) => {\n\
+  2     const screenPoint = view.toScreen(mapPoint);\n3     view.hitTest(screenPoint).then(({\
+  \ results }) => {\n4       if (results[0].graphic) {\n5         view.popup.open({\n\
+  6           location: mapPoint,\n7           promises: [() => {\n8             query.geometry\
+  \ = results[0].graphic.geometry;\n9             return qTask.execute(query).then(({\
+  \ features }) => {\n10               var names = features.map((feature) => {\n11\
+  \                 return feature.attributes.state_name;\n12               }).join(\"\
+  , \");\n13               return \"{route} 穿越以下州: \" + names;\n14             });\n\
+  15           }]\n16         });\n17       }\n18     });\n19   });\n```\n\n这个特定示例将查询一个服务，以查看图形是否与该服务的要素相交。当添加到弹出窗口参数中\
+  \ `promises` 属性的查询完成时，弹出窗口将打开并显示你的自定义结果。\n\n你甚至可以在弹出窗口中使用 Arcade³ 表达式。\n\n```\n\
+  1   const featureLayer = new FeatureLayer({\n2     url: \"https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapSe\\\
+  \n3   rver/2\",\n4     outFields: [\"*\"],\n5     popupTemplate: {\n6       title:\
+  \ \"名称: {STATE_NAME}\",\n7       expressionInfos: [\n8         {\n9           name:\
+  \ \"percent-change\",\n10           title: \"2000 年至 2007 年变化百分比\",\n11        \
+  \   expression: \"Abs((($feature.POP2000 - $feature.POP2007) / $feature.POP20\\\n\
+  12   00) * 100) + '%'\"\n13         }\n14       ],\n15       content: \"2000 年至\
+  \ 2007 年的变化百分比为 {expression/percent-change}\"\n16     }\n17   });\n```\n\n如你所见，自定义弹出窗口显示数据的方式并不困难。\n\
+  \n## MediaInfos\n\n弹出窗口的内容还可以包含基于要素数据的图表。你可以采用与配置 `PopupTemplate` 的 `fieldInfos`\
+  \ 类似的方式来定义。\n\n```\n1   {\n2     type: \"media\",\n3     mediaInfos: [\n4      \
+  \ {\n5         title: \"人口\",\n6         type: \"column-chart\",\n7         caption:\
+  \ \"\",\n8         value: {\n9           theme: \"BlueDusk\",\n10           fields:\
+  \ [ \"POP2000\", \"POP2007\" ]\n11         }\n12       }\n13     ]\n14   }\n```\n\
+  \n这将为字段 `POP2000` 和 `POP2007` 中提供的人口数据显示一个柱状图。其他可选的媒体类型包括 `image`（图片）、`pie-chart`（饼图）、`bar-chart`（条形图）或\
+  \ `line-chart`（折线图）。如果类型是 `image`，则需要提供 `sourceURL` 属性，而不是 `fields` 属性。可用的主题基于 Dojox\
+  \ 图表库主题。⁴ 你可以在文档中阅读更多关于 `mediaInfos` 选项的信息。⁵\n\n\n\n## 自定义操作\n\nArcGIS API 4 for\
+  \ JavaScript 最有趣的补充功能之一就是添加自定义操作。自定义操作允许您在弹出窗口中添加可用于各种任务的小按钮。您可以使用它来打开新的网页、执行查询或执行其他任务。\n\
+  \n在本示例中，您将根据城市名称搜索该城市中与啤酒相关的活动。\n\n```\n1   require([\n2     \"esri/views/MapView\"\
+  ,\n3     \"esri/Map\",\n4     \"esri/layers/Layer\"\n5   ], function(\n6       \
+  \    MapView, Map, Layer\n7           ) {\n\n9     const map = new Map({\n10   \
+  \    basemap: \"streets-navigation-vector\"\n11     });\n\n13     const view = new\
+  \ MapView({\n14       map: map,\n15       container: \"viewDiv\",\n16       center:\
+  \ [-117.24, 34.05],\n17       zoom: 8\n18     });\n\n20     view.popup.on(\"trigger-action\"\
+  , ({ action }) => {\n21       if (action.id === \"alcohol-details\") {\n22     \
+  \    var attributes = view.popup.viewModel.selectedFeature.attributes;\n23     \
+  \    var name = attributes.NAME;\n24         window.open(`https://www.google.com/search?q=${name}\
+  \ Beer events`);\n25       }\n26     });\n\n28     Layer.fromPortalItem({\n29  \
+  \     portalItem: {\n30         id: \"c531f67a12254c27af9479d436e23850\"\n31   \
+  \    }\n32     })\n33     .then((layer) => {\n34       layer.popupTemplate = {\n\
+  35         title: '{Name}',\n36         content: '{*}',\n37         actions: [{\n\
+  38             id: 'alcohol-details',\n39             className: 'esri-icon-description',\n\
+  40             title: 'Events'\n41         }]\n42       };\n43       map.add(layer);\n\
+  44     })\n45     .otherwise(err => console.log(err));\n46   });\n```\n\n您可以在 [`http://jsbin.com/namufut/2/edit?js,output`](http://jsbin.com/namufut/2/edit?js,output)\
+  \ 找到此应用程序的演示。\n\n需要记住的主要一点是，当您定义 `PopupTemplate` 时，您需要定义一个 `actions` 属性，该属性包含一个包含您可能想要使用的各种自定义操作的数组。\n\
+  \n```\n1   {\n2     title: '{Name}',\n3     content: '{*}',\n4     actions: [{\n\
+  5         id: 'alcohol-details',\n6         className: 'esri-icon-description',\n\
+  7         title: 'Events'\n8     }]\n9   }\n```\n\n`className` 属性用于定义自定义图标。这可以是您在\
+  \ CSS 代码中定义的图标，也可以是 API 提供的图标之一。您还可以提供一个 `image` 属性，该属性是您要使用的图像的 URL。如果您没有定义 `className`\
+  \ 或 `image`，则会提供一个默认图标。您可以在文档中阅读有关自定义操作的更多信息。\n\n如果您想向第三方 Web 服务（例如用于提供客户详细信息的自定义\
+  \ API）发出请求，自定义操作也会派上用场。\n\n```\n1   view.popup.on(\"trigger-action\", ({ action\
+  \ }) => {\n2     if (action.id === \"customer-details\") {\n3       var attributes\
+  \ = view.popup.viewModel.selectedFeature.attributes;\n4       var customerGroup\
+  \ = attributes.CUSTOMER_GROUP;\n5       esriRequest(customAPIURL, {\n6         query:\
+  \ {\n7           group: customerGroup\n8         },\n9         responseType: \"\
+  json\"\n10       })\n11       .then({ data } => {\n12         // 解析数据并更新弹出窗口内容\n\
+  13       })\n14       .otherwise(error => console.log(error));\n15     }\n16   });\n\
+  ```\n\n## 总结\n\n在本章中，您学习了如何定义 `PopupTemplate`。您还学习了如何设置可在 `PopupTemplate` 中使用的字段和字段别名，从而更精细地控制数据的显示方式。`PopupTemplate`\
+  \ 甚至可以包含自定义 HTML 或媒体元素（如图表），以提供对数据的更深入理解。您还了解了如何在 `PopupTemplate` 中使用自定义操作来执行一些自定义任务，例如搜索\
+  \ Web 或访问第三方 Web 服务，从而为您的数据增加更多价值。\n\n`Popup` 通常是用户了解地图上数据详细信息的第一个入口点。它被广泛使用并且功能强大。任何使用\
+  \ ArcGIS API for JavaScript 进行开发的人都应该学习如何充分利用它的功能。\n\n在下一章中，您将了解如何使用 ArcGIS API\
+  \ for JavaScript 中的新微件框架来创建自定义微件！\n\n脚注\n\n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Popup.html)\n\
+  \n[`https://doc.arcgis.com/en/arcgis-online/create-maps/configure-pop-ups.htm`](https://doc.arcgis.com/en/arcgis-online/create-maps/configure-pop-ups.htm)\n\
+  \n[`https://developers.arcgis.com/arcade/`](https://developers.arcgis.com/arcade/)\n\
+  \n[`https://download.dojotoolkit.org/release-1.10.0/dojo-release-1.10.0/dojox/charting/tests/theme_preview.html`](https://download.dojotoolkit.org/release-1.10.0/dojo-release-1.10.0/dojox/charting/tests/theme_preview.html)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#media`](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#media)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html`](https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/index.html)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#actions`](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html#actions)\n\
+  \n[`https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-PopupTemplate.html)\n\
+  \n## 微件\n\nArcGIS API for JavaScript 的版本 4 引入了自己的微件框架来构建自定义微件。自定义微件开发由名为 MaquetteJS\
+  \ 的虚拟 DOM 库提供支持。这取代了以前用于构建微件的旧版 Dojo Dijit 框架。尽管 Dijit 是一个完全稳定且久经考验的微件框架，但虚拟 DOM\
+  \ 库允许您使用 DOM 的抽象版本，从而可以高效地发现更改并更新 DOM。\n\n### 先决条件\n\n然而，自定义微件开发有一个您应该注意的先决条件：TypeScript。用于自定义微件开发的许多工具（例如前面章节中讨论的\
+  \ Accessor 装饰器）都需要使用 TypeScript。\n\n我强烈建议您学习 TypeScript 教程。我还强烈推荐 Egghead.io 上的以下课程：\n\
+  \n- 快速上手 TypeScript\n- 在 TypeScript 中有效使用类型\n\n\n\n#### 类型定义\n\n你可以在 GitHub 上阅读更多关于安装\
+  \ ArcGIS API 或 JavaScript 类型定义的信息。¹⁰ 关键在于，你可以通过 `npm install --save @types/arcgis-js-api`\
+  \ 轻松安装类型定义。\n\n需要注意的是，这并不会安装 Dojo 的类型定义。如果你想在 TypeScript 开发中使用一些 Dojo 模块，你可以获取 `dojo-typings`¹¹\
+  \ 并在 `tsconfig.json` 文件中进行如下配置：\n\n```\n1     \"types\": [ \"arcgis-js-api\" ],\n\
+  2     \"include\": [\n3       \"./src/app/**/*\"\n4     ],\n5     \"exclude\": [\n\
+  6       \"node_modules\"\n7     ],\n8     \"files\": [\n9       \"node_modules/dojo-typings/dojo/1.11/modules.d.ts\"\
+  ,\n10       \"node_modules/dojo-typings/dijit/1.11/modules.d.ts\",\n11       \"\
+  node_modules/dojo-typings/dojox/1.11/modules.d.ts\",\n12       \"node_modules/dojo-typings/custom/dgrid/1.1/dgrid.d.ts\"\
+  ,\n13       \"node_modules/dojo-typings/custom/dstore/1.1/dstore.d.ts\",\n14   \
+  \    \"node_modules/intern/typings/intern/intern.d.ts\"\n15     ]\n```\n\n你可以阅读更多关于\
+  \ `tsconfig.json` 文件的信息。¹² `tsconfig.json` 文件用于配置 TypeScript 编译器。\n\n#### JSX\n\n\
+  这个更新的微件框架还引入了 JSX¹³ 的使用，该语法由 React¹⁴ 推广开来。JSX 在 JavaScript 中看起来非常像 HTML，只是其语法需要一个编译步骤来将\
+  \ JSX 转换为 JavaScript 函数。\n\n例如，JSX `<h1>hello!</h1>` 会被编译成一个看起来像 `h('h1', 'hello!')`\
+  \ 的函数。这种创建 DOM 元素的方法被称为 HyperScript。¹⁵ 在使用 ArcGIS API for JavaScript 进行自定义微件开发时，如果你使用了\
+  \ JSX，则无需关心 HyperScript。\n\n### 构建自定义微件\n\n在深入构建自定义微件之前，你可以在 GitHub 上找到演示应用程序的源代码（见图\
+  \ 7-1）。¹⁶\n\n![A458961_1_En_7_Fig1_HTML.jpg](img/A458961_1_En_7_Fig1_HTML.jpg)\n\
+  \n图 7-1\n\n自定义微件开发\n\n在此示例中，你将构建的微件将显示一个图表，该图表代表地图视图中可见的数据。关键在于确保图表仅基于可见数据，以便在平移地图时图表能够随之更新。\n\
+  \n#### 存储与 ViewModel\n\n第一步是构建一个应用程序存储。这个应用程序存储将包含用于描述应用程序状态的属性。在此应用程序中，你需要关注 `View`\
+  \ 和 `WebMap`。你可以参考前面的章节，了解如何为此类任务使用 `Accessor` 模块。¹⁷\n\n对于每个继承自 `Accessor` 的 TypeScript\
+  \ 文件，你需要添加以下 `amd-dependency` 行：\n\n```\n1   /// \n3   /// \n```\n\n在后续示例中我将省略它们，但请注意它们是必需的。\n\
+  \n```\n1   // app/stores/app.ts\n2   import EsriMap = require(\"esri/Map\");\n3\
+  \   import MapView = require(\"esri/views/MapView\");\n4   import Accessor = require(\"\
+  esri/core/Accessor\");\n\n6   import {\n7     subclass,\n8     declared,\n9    \
+  \ property\n10     } from \"esri/core/accessorSupport/decorators\";\n\n12   type\
+  \ UIParams = {\n13     element: any,\n14     position?: string\n15   };\n\n17  \
+  \ interface Store {\n18     webmap: EsriMap;\n19     view: MapView;\n\n21     addToUI(params:\
+  \ UIParams): void;\n22   }\n\n24   @subclass(\"app.stores.AppStore\")\n25   class\
+  \ AppStore extends declared(Accessor) implements Store {\n\n27     @property()\n\
+  28     webmap: EsriMap;\n\n30     @property()\n31     view: MapView;\n\n33     addToUI({\
+  \ element, position }: UIParams) {\n34       this.view.ui.add(element, position);\n\
+  35     }\n\n37   }\n\n39   export default new AppStore();\n```\n\n你在存储中有两个可观察的属性：`webmap`\
+  \ 和 `view`。你还添加了一个方法 `addToUI()`，它充当代理，为你将组件添加到 UI 中。另外，请注意你导出模块的方式：`export default\
+  \ new AppStore();`。这将创建你的存储的单例，这样每次模块导入它时就不会创建新的存储。\n\n接下来你要做的是为你的自定义微件构建一个 `ViewModel`。`ViewModel`\
+  \ 的行为与应用程序存储非常相似。`ViewModel` 的职责是监视应用程序存储的变化，并根据这些变化更新自身状态。`ViewModel` 的另一个职责是管理微件的业务逻辑，即根据应用程序存储对数据执行任何查询或操作。\n\
+  \n```\n1   // app/widgets/viewmodels/summaryviewmodel.ts\n\n3   import Accessor\
+  \ = require(\"esri/core/Accessor\");\n4   import watchUtils = require(\"esri/core/watchUtils\"\
+  );\n\n6   import FeatureLayerView = require(\"esri/views/layers/FeatureLayerView\"\
+  );\n7   import Graphic = require(\"esri/Graphic\");\n\n9   import Query = require(\"\
+  esri/tasks/support/Query\");\n\n11   import {\n12     subclass,\n13     declared,\n\
+  14     property\n15     } from \"esri/core/accessorSupport/decorators\";\n\n17 \
+  \  import store from \"../../stores/app\";\n\n19   const { init, whenOnce, whenFalse\
+  \ } = watchUtils;\n\n21   export type Stats = {\n22     \"Carcinogen\": number,\n\
+  23     \"PBT\": number,\n24     \"Non-PBT\": number,\n25     \"Metal\": number\n\
+  26   };\n\n28   const stats: Stats = {\n29     \"Carcinogen\": 0, // CARCINOGEN\
+  \ == \"Yes\"\n30     \"PBT\": 0,        // CLASS == \"PBT\"\n31     \"Non-PBT\"\
+  : 0,    // CLASS == \"Non-PBT\"\n32     \"Metal\": 0       // METAL == \"Yes\"\n\
+  33   };\n\n35   function errorHandler (error: Error) {\n36     console.log(\"LayerView\
+  \ Query Error\", error);\n37   }\n\n39   @subclass(\"app.widgets.viewmodels.summaryviewmodel\"\
+  )\n40   class SummaryViewModel extends declared(Accessor) {\n\n42     @property()\n\
+  43     count: number = 0;\n\n45     @property()\n46     stats: Stats = stats;\n\n\
+  48     constructor() {\n49       super();\n50       whenOnce(store, \"view\").then(_\
+  \ => {\n51         return store.webmap.findLayerById(\"tri\");\n52       })\n53\
+  \       .then(layer => {\n54         return store.view.whenLayerView(layer);\n55\
+  \       })\n56       .then(this.watchLayerView.bind(this))\n57       .otherwise(errorHandler);\n\
+  58     }\n```\n\n\n\n```typescript\nprivate watchLayerView(layerView: FeatureLayerView)\
+  \ {\n  const queryFeatures = this.queryLayerView(layerView);\n  init(store, \"view.stationary\"\
+  , _ => {\n    if (layerView.updating) {\n      whenFalse(layerView, \"updating\"\
+  , queryFeatures.bind(this));\n    }\n    else {\n      queryFeatures();\n    }\n\
+  \  });\n}\n\nprivate queryLayerView(layerView: FeatureLayerView) {\n  return ()\
+  \ => layerView.queryFeatures(\n    new Query({\n        geometry: store.view.extent\n\
+  \      })).then(this.parseResults.bind(this)\n    );\n}\n\nprivate parseResults(results:\
+  \ Graphic[]) {\n  const _stats = (Object).assign({}, stats);\n  results.forEach(({\
+  \ attributes: attr }) => {\n    if (attr.CARCINOGEN === \"Yes\") {\n      _stats[\"\
+  Carcinogen\"]++;\n    }\n    if (attr.CLASS === \"PBT\") {\n      _stats[\"PBT\"\
+  ]++;\n    }\n    else if (attr.CLASS === \"Non-PBT\") {\n      _stats[\"Non-PBT\"\
+  ]++;\n    }\n    if (attr.METAL === \"Yes\") {\n      _stats[\"Metal\"]++;\n   \
+  \ }\n  });\n  this.set({\n    count: results.length,\n    stats: _stats\n  });\n\
+  }\n\nexport default SummaryViewModel;\n```\n\n为你的 `ViewModel` 导入所有依赖项后，你需要创建一个类型，用于图表中使用的数据。该类型将保存\
+  \ `FeatureLayer` 中各值的计数。\n\n```typescript\nexport type Stats = {\n  \"Carcinogen\"\
+  : number,\n  \"PBT\": number,\n  \"Non-PBT\": number,\n  \"Metal\": number\n};\n\
+  ```\n\n这四个值将显示在你的图表中。然后，你基于该类型创建一个数据对象，其初始值为 `0`。\n\n```typescript\nconst stats:\
+  \ Stats = {\n  \"Carcinogen\": 0, // CARCINOGEN == \"Yes\"\n  \"PBT\": 0,      \
+  \  // CLASS == \"PBT\"\n  \"Non-PBT\": 0,    // CLASS == \"Non-PBT\"\n  \"Metal\"\
+  : 0       // METAL == \"Yes\"\n};\n```\n\n这里你可以看到一些注释，用于说明数据中的字符串值对应每个类别的含义。`ViewModel`\
+  \ 上有两个可观察的属性：`count` 和 `stats`。\n\n初始化 `ViewModel` 时，你将监听视图何时更新，然后找到你感兴趣的 `FeatureLayerView`\
+  \ 用于图表。\n\n```typescript\nconstructor() {\n  super();\n  whenOnce(store, \"view\"\
+  ).then(_ => {\n    return store.webmap.findLayerById(\"tri\");\n  })\n  .then(layer\
+  \ => {\n    return store.view.whenLayerView(layer);\n  })\n  .then(this.watchLayerView.bind(this))\n\
+  \  .otherwise(errorHandler);\n}\n```\n\n接下来，你将监听 `view.stationary` 的变化，以便查询 `FeatureLayerView`\
+  \ 获取数据，并使用视图的范围将结果限制为可见数据。\n\n```typescript\nprivate watchLayerView(layerView: FeatureLayerView)\
+  \ {\n  const queryFeatures = this.queryLayerView(layerView);\n  init(store, \"view.stationary\"\
+  , _ => {\n    if (layerView.updating) {\n      whenFalse(layerView, \"updating\"\
+  , queryFeatures.bind(this));\n    }\n    else {\n      queryFeatures();\n    }\n\
+  \  });\n}\n\nprivate queryLayerView(layerView: FeatureLayerView) {\n  return ()\
+  \ => layerView.queryFeatures(\n    new Query({\n        geometry: store.view.extent\n\
+  \      })).then(this.parseResults.bind(this)\n    );\n}\n```\n\n找到可见数据后，你需要转换结果，使其与图表使用的数据对象匹配。\n\
+  \n```typescript\nprivate parseResults(results: Graphic[]) {\n  const _stats = (Object).assign({},\
+  \ stats);\n  results.forEach(({ attributes: attr }) => {\n    if (attr.CARCINOGEN\
+  \ === \"Yes\") {\n      _stats[\"Carcinogen\"]++;\n    }\n    if (attr.CLASS ===\
+  \ \"PBT\") {\n      _stats[\"PBT\"]++;\n    }\n    else if (attr.CLASS === \"Non-PBT\"\
+  ) {\n      _stats[\"Non-PBT\"]++;\n    }\n    if (attr.METAL === \"Yes\") {\n  \
+  \    _stats[\"Metal\"]++;\n    }\n  });\n  // 一次性更新 ViewModel 的值。\n  this.set({\n\
+  \    count: results.length,\n    stats: _stats\n  });\n}\n```\n\n然后，你可以使用结果中的序列化值更新\
+  \ `ViewModel`。\n\n\n\n#### 自定义微件\n\n在准备好 `ViewModel` 后，你现在可以创建自定义微件了。\n\n```typescript\n\
+  1   // app/widgets/summary.tsx\n2   import Widget = require(\"esri/widgets/Widget\"\
+  );\n\n4   import SummaryViewModel, { Stats } from \"./viewmodels/summaryviewmodel\"\
+  ;\n\n6   import {\n7     aliasOf,\n8     subclass,\n9     declared,\n10     property\n\
+  11     } from \"esri/core/accessorSupport/decorators\";\n12   import {\n13     renderable,\n\
+  14     join,\n15     tsx\n16     } from \"esri/widgets/support/widget\";\n\n18 \
+  \  const CSS = {\n19     base: \"esri-widget esri-component summary-widget\",\n\
+  20     container: \"chart-container\",\n21     column: \"summary-column\",\n22 \
+  \    red: \"red\",\n23     yellow: \"yellow\",\n24     blue: \"blue\",\n25     purple:\
+  \ \"purple\",\n26     keybox: \"keybox\",\n27     keysection: \"keysection\"\n28\
+  \   };\n\n30   type Style = {\n31     target: Stats,\n32     multi: number\n33 \
+  \  };\n\n35   function allValues(x: any) {\n36     return Math.max(...(Object.keys(x).map((k)\
+  \ => x[k])));\n37   }\n\n39   function roundToInt(num: number, target: number) {\n\
+  40     return Math.round(num / target) * 10;\n41   }\n\n43   function inlineStyle({\
+  \ target, multi }: Style) {\n44     return Object.keys(target).map(k => {\n45  \
+  \     return {\n46         height: `${target[k] * multi}px`\n47       };\n48   \
+  \  });\n49   }\n\n51   @subclass(\"app.widgets.summary\")\n52   class Summary extends\
+  \ declared(Widget) {\n\n54     @aliasOf(\"viewModel.count\")\n55     @renderable()\n\
+  56     count: number;\n\n58     @aliasOf(\"viewModel.stats\")\n59     @renderable()\n\
+  60     stats: Stats;\n\n62     @property({\n63       type: SummaryViewModel\n64\
+  \     })\n65     viewModel: SummaryViewModel = new SummaryViewModel();\n\n67   \
+  \  render() {\n68       const max = roundToInt(allValues(this.stats), 10);\n69 \
+  \      const multi = 1;\n70       const chartHeight = { height: `${(max * multi)}px`\
+  \ };\n71       const styles = inlineStyle({ target: this.stats, multi });\n72  \
+  \     return (\n\n75             Facilities Summary ({this.count})\n\n80       \
+  \        \\\n\n89              Carcinogen\n90              PBT\n91             \
+  \ Non-PBT\n92              Metal\n\n95       );\n96     }\n\n98   }\n\n100   export\
+  \ default Summary;\n```\n\n导入此模块的依赖项后，你可以创建一个对象，用于表示微件样式所使用的 CSS。\n\n```typescript\n\
+  1   ...\n2   const CSS = {\n3     base: \"esri-widget esri-component summary-widget\"\
+  ,\n4     container: \"chart-container\",\n5     column: \"summary-column\",\n6 \
+  \    red: \"red\",\n7     yellow: \"yellow\",\n8     blue: \"blue\",\n9     purple:\
+  \ \"purple\",\n10     keybox: \"keybox\",\n11     keysection: \"keysection\"\n12\
+  \   };\n13   ...\n```\n\n这是在微件开发过程中用于轻松引用 CSS 样式的一个便捷辅助工具。在讨论 `render()` 方法时，你将看到这些样式如何发挥作用。\n\
+  \n你还需要创建一个名为 `Style` 的类型，用于自定义微件中。\n\n```typescript\n1   ...\n2   type Style = {\n\
+  3     target: Stats,\n4     multi: number\n5   };\n6   ...\n```\n\n如你所见，这将使用来自 `ViewModel`\
+  \ 的 `Stats` 类型。\n\n然后，你提供一些在微件中使用的辅助方法。\n\n```typescript\n1   ...\n2   function\
+  \ allValues(x: any) {\n3     return Math.max(...(Object.keys(x).map((k) => x[k])));\n\
+  4   }\n\n6   function roundToInt(num: number, target: number) {\n7     return Math.round(num\
+  \ / target) * 10;\n8   }\n\n10   function inlineStyle({ target, multi }: Style)\
+  \ {\n11     return Object.keys(target).map(k => {\n12       return {\n13       \
+  \  height: `${target[k] * multi}px`\n14       };\n15     });\n16   }\n17   ...\n\
+  ```\n\n前两个方法将帮助你找到图表数据中的最大值，以便确定条形图的最大高度。第三个方法用于创建样式，以设置每个图表条形的高度。你将在 `render()`\
+  \ 方法中看到这些方法的使用方式。\n\n自定义微件的 `class` 具有一些与之相关的有趣属性。\n\n```typescript\n1     ...\n\
+  2     @aliasOf(\"viewModel.count\")\n3     @renderable()\n4     count: number;\n\
+  \n6     @aliasOf(\"viewModel.stats\")\n7     @renderable()\n8     stats: Stats;\n\
+  \n10     @property({\n11       type: SummaryViewModel\n12     })\n13     viewModel:\
+  \ SummaryViewModel = new SummaryViewModel();\n14     ...\n```\n\n你有一个基于 `viewModel.count`\
+  \ 的属性 `count`，以及一个基于 `viewModel.stats` 的属性 `stats`。你可以使用 `aliasOf` 装饰器来帮助定义这种关系。你还必须为每个属性使用\
+  \ `renderable` 装饰器，这会让微件知道，当这些值发生变化时，应使用新值重新初始化 `render()` 方法。\n\n然后，你有一个属性 `viewModel`，将其定义为\
+  \ `SummaryViewModel` 类型，即你之前定义的自定义 `ViewModel`。\n\n最后，是你的 `render()` 方法。\n\n```typescript\n\
+  1     ...\n2     render() {\n3       const max = roundToInt(allValues(this.stats),\
+  \ 10);\n4       const multi = 1;\n5       const chartHeight = { height: `${(max\
+  \ * multi)}px` };\n6       const styles = inlineStyle({ target: this.stats, multi\
+  \ });\n7       return (\n\n10             Facilities Summary ({this.count})\n\n\
+  15               \\\n\n24              Carcinogen\n25              PBT\n26     \
+  \         Non-PBT\n27              Metal\n\n30       );\n31     }\n32     ...\n\
+  ```\n\n`render()` 方法是定义实际微件的地方。如你所见，它看起来像是将常规 HTML 放入了 JavaScript 中，但有一些细微差别。你可以将渲染的数据绑定到微件的属性。例如，如果\
+  \ `count` 属性为 `81`，`<label>Facilities Summary ({this.count})</label>` 将显示为 `<label>Facilities\
+  \ Summary (81)</label>`。当 `count` 属性发生变化时，`render` 方法将再次被调用，但会使用 `count` 的新值更新 DOM。\n\
+  \n你首先初始化一些值，以便使用你创建的辅助方法。\n\n```typescript\n1       ...\n2       const max = roundToInt(allValues(this.stats),\
+  \ 10);\n3       const multi = 1;\n4       const chartHeight = { height: `${(max\
+  \ * multi)}px` };\n5       const styles = inlineStyle({ target: this.stats, multi\
+  \ });\n6       ...\n```\n\n这些值将用于确定图表中每个类别的 CSS 高度和颜色，以便在自定义微件中显示。\n\n我之前提到过，你使用\
+  \ `CSS` 对象来帮助定义微件的 CSS。如果你想组合 `CSS` 对象的样式，`esri/widgets/support/widget` 中有一个名为 `join`\
+  \ 的辅助方法。\n\n```typescript\n1    Carcinogen\n```\n\n这将在构建微件 DOM 时，将不同的 CSS 类组合成一个字符串。\n\
+  \n现在，你已经将微件与 `ViewModel` 连接起来，并将 `ViewModel` 与应用程序存储连接起来。`ViewModel` 将处理随着地图平移而更新图表数据的业务逻辑。微件将处理创建和适当显示图表数据的逻辑。在这种情况下，你的应用程序实现了良好的关注点分离。\n\
+  \n你可以参考完整的演示应用程序¹⁹来了解如何实现自定义微件并编译 TypeScript。\n\n\n\n## 总结\n\n在本章中，你学习了如何使用 ArcGIS\
+  \ API for JavaScript 中的新微件框架来创建 `ViewModel` 和 `Widget`，使它们能够清晰地处理各自的任务。现在，你已经很好地掌握了如何使用一些辅助装饰器来简化属性与可渲染属性的绑定。同时，你也深入理解了如何将属性值绑定到\
+  \ JSX 中以进行显示。\n\n关于自定义微件开发的更多详细信息，你可以在文档中找到，此外还有一个 Hello World 示例和一个更复杂的示例。请记住，自定义微件开发确实需要对\
+  \ `Accessor` 有一定的了解。不过，与常规 JavaScript 相比，这些装饰器使得实现 `Accessor` 变得更加简单。\n\n## 脚注\n\
+  \n1. [`https://developers.arcgis.com/javascript/latest/guide/custom-widget/index.html`](https://developers.arcgis.com/javascript/latest/guide/custom-widget/index.html)\n\
+  2. [`https://medium.com/cardlife-app/what-is-virtual-dom-c0ec6d6a925c#.j4jqazh5j`](https://medium.com/cardlife-app/what-is-virtual-dom-c0ec6d6a925c#.j4jqazh5j)\n\
+  3. [`http://maquettejs.org/`](http://maquettejs.org/)\n4. [`https://dojotoolkit.org/reference-guide/1.10/dijit/`](https://dojotoolkit.org/reference-guide/1.10/dijit/)\n\
+  5. [`www.typescriptlang.org/`](http://www.typescriptlang.org/)\n6. [`www.typescriptlang.org/docs/tutorial.html`](http://www.typescriptlang.org/docs/tutorial.html)\n\
+  7. [`https://egghead.io`](https://egghead.io)\n8. [`https://egghead.io/courses/up-and-running-with-typescript`](https://egghead.io/courses/up-and-running-with-typescript)\n\
+  9. [`https://egghead.io/courses/use-types-effectively-in-typescript`](https://egghead.io/courses/use-types-effectively-in-typescript)\n\
+  10. [`https://github.com/Esri/jsapi-resources/tree/master/4.x/typescript`](https://github.com/Esri/jsapi-resources/tree/master/4.x/typescript)\n\
+  11. [`https://github.com/dojo/typings`](https://github.com/dojo/typings)\n12. [`https://www.typescriptlang.org/docs/handbook/tsconfig-json.html`](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)\n\
+  13. [`https://facebook.github.io/react/docs/introducing-jsx.html`](https://facebook.github.io/react/docs/introducing-jsx.html)\n\
+  14. [`https://facebook.github.io/react/`](https://facebook.github.io/react/)\n15.\
+  \ [`https://github.com/dominictarr/hyperscript`](https://github.com/dominictarr/hyperscript)\n\
+  16. [`https://github.com/odoe/esrijs4-ts-demo`](https://github.com/odoe/esrijs4-ts-demo)\n\
+  17. [`https://developers.arcgis.com/javascript/latest/guide/implementing-accessor/index.html`](https://developers.arcgis.com/javascript/latest/guide/implementing-accessor/index.html)\n\
+  18. [`https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-FeatureLayerView.html`](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-layers-FeatureLayerView.html)\n\
+  19. [`https://github.com/odoe/esrijs4-ts-demo`](https://github.com/odoe/esrijs4-ts-demo)\n\
+  20. [`https://developers.arcgis.com/javascript/latest/guide/custom-widget/index.html`](https://developers.arcgis.com/javascript/latest/guide/custom-widget/index.html)\n\
+  21. [`https://developers.arcgis.com/javascript/latest/sample-code/widgets-custom-helloworld/index.html`](https://developers.arcgis.com/javascript/latest/sample-code/widgets-custom-helloworld/index.html)\n\
+  22. [`https://developers.arcgis.com/javascript/latest/sample-code/widgets-custom-recenter/index.html`](https://developers.arcgis.com/javascript/latest/sample-code/widgets-custom-recenter/index.html)\n\
+  23. [`https://developers.arcgis.com/javascript/latest/guide/implementing-accessor/index.html`](https://developers.arcgis.com/javascript/latest/guide/implementing-accessor/index.html)\n\
+  \n## 索引\n\nA\n- `Accessor.createSubclass()`\n- `Accessors`\n- ArcGIS API for JavaScript\n\
+  - `Object.defineProperty` 方法\n- 属性变化\n- `watchUtils`\n- `addToUI()` 方法\n- `ambientOcclusionEnabled`\
+  \ 属性\n- API 核心基础\n- 自动转换\n- 集合\n- 扩展访问器\n- 承诺\n- TypeScript 集成\n- ArcGIS API\n-\
+  \ ArcGIS API 4\n- ArcGIS Online\n- ArcGIS Server\n- 异步模块定义 (AMD)\n- 地理信息系统 (GIS)\n\
+  - 自动转换\n\nB\n- 与啤酒相关的事件\n\nC\n- `className` 属性\n- `Collection.prototype.getItemAt()`\
+  \ 方法\n- 内容分发网络 (CDN)\n- `CSVLayer`\n\nD, E\n- `directShadowsEnabled` 属性\n- `displayUTCOffset`\
+  \ 属性\n- 3D 场景\n- ArcGIS JavaScript API\n- `camera` 属性\n- `environment` 属性\n- 局部场景\n\
+  - Pictometry 影像\n- Scene Viewer\n- `WebMap`\n- `WebScene`\n\nF\n- `FeatureLayers`\n\
+  - `FeatureLayerView` 方法\n\nG, H\n- GitHub\n- `GraphicsLayer`\n- `GroupLayer`\n\n\
+  I\n- `IconSymbol3DLayer` 符号\n\nJ, K\n- JavaScript\n\nL\n- `Label` 属性\n- 图层\n- `CSVLayer`\n\
+  - `FeatureLayers`\n- `GraphicsLayer`\n- `GroupLayer`\n- `map.allLayers` 属性\n- `map.basemap`\
+  \ 属性\n- `MapImageLayer`\n- `map.layers` 属性\n- `SceneLayer`\n- `VectorTileLayer`\n\
+  - `LayerViews`\n\nM, N\n- `MapImageLayer`\n- `MaquetteJS`\n\nO\n- `ObjectSymbol3DLayer`\
+  \ 符号\n\nP, Q\n- 包\n- `PointSymbol3D` 符号\n- 弹出窗口\n- 自定义操作\n- 字段和别名\n- `mediaInfos`\n\
+  - `popupTemplate`\n- Portal API\n- 应用程序\n- ArcGIS API 4\n- calcite-bootstrap\n-\
+  \ `FeatureLayer`\n- HTML 页面\n- JavaScript\n- `Layer.fromPortalItem()`\n- 门户资源管理器\n\
+  - `TileLayer`\n- `WebMap` 和 `WebScene`\n- 承诺\n- `promises` 属性\n\nR\n- `render()`\
+  \ 方法\n- `resourceTags` 属性\n\nS\n- `SceneLayer`\n- `SceneView#clippingArea` 属性\n\
+  - `SummaryViewModel`\n\nT\n- `TiledLayer`\n- `trees` 属性\n\nU\n- 通用模块定义 (UMD)\n\n\
+  V\n- `VectorTileLayer`\n- `ViewModel`\n\nW, X, Y, Z\n- `WebMaps`\n- 微件\n- 自定义微件\n\
+  - GitHub\n- JSX\n- `MaquetteJS`\n- 存储和 `ViewModel`\n- TypeScript\n- 类型定义\n"

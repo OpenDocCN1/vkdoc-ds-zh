@@ -1,0 +1,2267 @@
+- '
+
+  ![](img/979-8-8688-0935-4_CoverFigure.jpg)
+
+
+  ISBN 979-8-8688-0934-7 电子书 ISBN 979-8-8688-0935-4 [`doi.org/10.1007/979-8-8688-0935-4`](https://doi.org/10.1007/979-8-8688-0935-4)
+  © Engy Fouda 2024 本作品受版权保护。所有权利均由出版商独家许可，无论涉及材料的全部或部分，具体包括翻译、重印、重用插图、朗诵、广播、以缩微胶卷或任何其他物理方式复制、传输或信息存储与检索、电子改编、计算机软件，或通过目前已知或未来开发的任何类似或不同方法。本出版物中使用的一般描述性名称、注册商标名称、商标、服务标记等，即使未作明确声明，也不意味着这些名称不受相关保护性法律和法规的约束，因此可自由用于一般用途。出版商、作者和编辑假定本书中的建议和信息在出版之日是真实准确的。出版商、作者或编辑均不对本书所含材料或可能存在的任何错误或遗漏提供明示或暗示的保证。出版商对已出版地图和机构归属中的管辖权主张保持中立。
+
+
+  本 Apress 印记由注册公司 APress Media, LLC（Springer Nature 的一部分）出版。
+
+
+  注册公司地址为：美国纽约州纽约市纽约广场 1 号，邮编 10004。
+
+
+  *献给我聪慧的天才 Areej，请保持微笑，继续像你本来的星星一样闪耀。*
+
+
+  *献给 Hesham，尽管我有时让你抓狂，但你从未放弃过我。*
+
+
+  *献给我的父母，希望你们现在为我感到骄傲。*
+
+
+  *献给我的兄弟、家人和朋友，你们总是耐心倾听我的倾诉。*
+
+
+  ## 引言
+
+
+  本书以逐步序列的方式向您展示如何使用 Python 完成数据清洗、统计和可视化任务，即使您没有任何编程或统计学背景。
+
+
+  本书的案例研究预测了缅因州的总统选举，这是我在哈佛大学完成的一个项目。第 1 章更详细地解释了该案例研究。除了总统选举，本书还提供了现实生活中的例子，包括分析股票、石油和黄金价格、犯罪、市场营销和医疗保健。您将看到数据科学在行动中的实际应用，以及如何在
+  Python 中完成复杂任务和可视化。
+
+
+  您将逐步学习如何进行可视化。本书包含代码解释以及每一步的截图。全书遵循数据科学在行动中的范式，以易于理解的方式演示如何使用 Python 执行复杂任务和可视化，并使用真实的大数据进行有趣的动手实验。
+
+
+  它将为读者提供使用 Python 进行数据科学和分析所需的专业知识：
+
+
+  - 导入和导出原始数据文件
+
+  - 操作和转换数据
+
+  - 合并数据集
+
+  - 创建汇总统计和报告
+
+  - 识别并纠正数据、语法和编程逻辑错误
+
+  - T 检验
+
+  - 线性回归
+
+  - 可视化
+
+
+  ### 谁应该阅读本书？
+
+
+  本书的主要读者是数据科学领域的新手学生，他们可能没有深厚的编程经验。因此，大学教授可以将其用作课程的讲义。此外，像我这样的技术讲师，在认证培训中心教授来自不同行业领域的专业人士，也可以用它来教学，并将其作为课程的教科书。
+
+
+  此外，经验丰富但刚接触 Python 的系统分析师和科学家将找到更快速、更高效的工具来完成日常任务。同时，数据记者和调查记者会发现本书易于理解，并能快速生成必要的可视化内容。
+
+
+  ### 本书是如何组织的？
+
+
+  本书分为三个部分。第一部分，即第 1、2 和 3 章，让您熟悉 SAS 界面和基本核心任务。第 1 章重点介绍缅因州总统选举项目案例研究的总体思路及其输出。在整本书中，您将逐步学习如何获得这些输出图表和分析。
+
+
+  然后，第二部分，即第 4、5 和 6 章，侧重于更高级的编程方面。第三部分，即第 7 章，将带您从分析历史数据走向预测未来。
+
+
+  所有示例代码都在`Example Code`文件夹中，本书所需的数据集在`Datasets`文件夹中。
+
+
+  关于作者 关于技术审稿人
+
+
+  '
+- "# 1. 数据科学在行动\n\n本章介绍了一个案例研究，该研究分析了缅因州的选民数据。该项目源于我 2016 年秋季在哈佛大学攻读硕士期间，在 Larry Adams\
+  \ 教授的指导下进行的一个项目，旨在预测全国总统选举结果。我的任务是预测缅因州 2016 年和 2020 年的选举结果。\n\n该项目分两个阶段进行，首先侧重于预测\
+  \ 2016 年选举结果，并根据实际结果验证发现，然后再进入第二阶段。第二阶段纳入了 2016 年产生的新数据，以预测 2020 年的结果：因此，本书的某些部分使用了\
+  \ 2016 年的数据。在可行的情况下，我收集了与分析相关的历史数据，包括可追溯到 1960 年的选举数据。\n\n选民的人口统计特征按年龄、性别、教育程度、人口统计和种族进行了划分。通过全面研究，确定了与该州相关的议题类别，包括经济、教育、环境、医疗保健和枪支管制。此外，我还审查了县的选票议题，以评估它们对总统选举的潜在影响。\n\
+  \n探索了各种预测方法和算法，包括蒙特卡洛和贝叶斯，以及统计检验（如 T 检验和卡方检验），并利用了自 1960 年以来的政党投票模式、民调准确性和选举人票数。过去，与\
+  \ FiveThirtyEight 和其他预测平台进行了比较，发现 2016 年的预测是准确的。该项目为将认知特征转化为用于分析的数值数据提供了宝贵的见解，最终基于趋势测量和模式分析做出明智的决策——这是通过后续数据科学工作磨练出来的技能。\n\
+  \n对于这个项目，我同时使用了 SAS 和 R 编程语言。2020 年，我与 Apress 合作出版了一本书《使用 SAS Studio 学习数据科学》。这本书大获成功，反响热烈；因此，Apress\
+  \ 和我决定用 Python 重写它。\n\n\n\n## 数据科学流程\n\n数据科学流程始于提出一个问题或假设；接着收集相关的原始数据；随后进行数据清洗与探索；建模与评估；最后是部署、可视化以及沟通研究发现，如图\
+  \ 1-1 所示。\n\n![](img/619569_1_En_1_Fig1_HTML.jpg)\n\n图 1-1  \n数据科学流程\n\n不同领域的问题各不相同，例如在政治领域，问题围绕预测选举结果展开，比如特朗普是否会在\
+  \ 2016 年和 2020 年赢得缅因州；或者在 Facebook 的背景下，探索提高用户参与度的策略。\n\n第二阶段涉及收集原始数据，具体表现为获取全面的选民信息，包括年龄、种族、教育程度、收入、性别、行业、历史投票数据以及投票结果。历史数据越多，预测的准确性就越高。此外，收集多年的人口分布信息也至关重要。\n\
+  \n随后，第三阶段需要对原始数据进行清洗；处理缺失值、异常值和重复行等问题；纠正拼写错误，同时标准化各列的数据类型和格式。\n\n第四阶段涉及尝试多种模型，并比较它们针对特定问题的定制化表现。例如，在总统选举场景中，我使用了蒙特卡洛和贝叶斯算法。\n\
+  \n最后一个阶段是在报告中以通俗易懂的语言将结果进行可视化和阐述。这一步至关重要，因为它最终回答了启动整个流程的初始问题，从而实现了这项工作的首要目标。\n\n\
+  ### 案例研究：缅因州总统选举\n\n如前所述，数据科学之旅始于一个疑问。在本项目的范围内，我的疑问聚焦于确定唐纳德·特朗普是否会在 2016 年和 2020\
+  \ 年的总统选举中赢得缅因州。\n\n#### 人口\n\n下一步是广泛收集相关数据。首先，我利用美国人口普查局的信息，重点了解了缅因州各县的人口分布情况。这一探索揭示出人口分布非常独特，大片区域要么人口稀少，要么只有零星的居民。虽然南部地区的小点看似微不足道，但每个点都代表着超过\
+  \ 5000 人。因此，要警惕总统竞选团队或主流媒体发布的地图可能带来的误解。\n\n接下来，合乎逻辑的步骤是获取选民信息。虽然有些州免费提供选民数据库，但缅因州的做法不同，它只向政党出售此类数据库。因此，我联系了州务卿办公室寻求帮助。\n\
+  \n作为回应，我被告知要访问缅因州的中央选民登记系统，必须隶属于以下五个特定类别之一：候选人或竞选代表、政党成员、公投竞选参与者、动员投票活动的组织者，或为授权目的服务的民选官员。费用根据请求的记录数量确定，详见第\
+  \ 21-A 章第 196-A 节。值得注意的是，包含一百万条记录的州级选民档案费用为 2,200 美元。\n\n在通过几封电子邮件阐明我请求的研究性质并提供必要的验证后，该办公室慷慨地提供了一张免费的\
+  \ DVD，其中包含必要的信息，包括与我研究相关的部分数据，而选民的个人数据，如姓氏和地址，已从数据集中移除。\n\n该 DVD 的主表列出了选民的详细信息，如图\
+  \ 1-2 所示，列包括名字、出生年份、注册代码、特殊指定、注册日期、国会选区、县 ID、修改日期以及最近一次有 VPH 的州级选举。\n\n![](img/619569_1_En_1_Fig2_HTML.jpg)\n\
+  \n图 1-2  \n选民信息\n\n接下来的表格汇总了已注册和已登记的选民，如图 1-3 所示。其列包括县名、市镇名、选区、国会选区、州参议院选区、县专员选区、党派归属以及总人数。文件中记录的党派归属包括民主党、绿党独立派、自由意志党、共和党以及无党派。\n\
+  \n![](img/619569_1_En_1_Fig3_HTML.jpg)\n\n图 1-3  \n已注册和已登记选民表\n\n最初的数据集充满了错误值和异常值。例如，一位选民的年龄被列为\
+  \ 220 岁，尽管其出生日期显示年龄大约为 67 岁。此外，一些选民信息完全是空白的。正如之前强调的，必须通过处理异常值和缺失值、格式不一致问题，并进行彻底的数据探索来仔细清洗数据。在第\
+  \ 6 章中，我们将通过逐步实验一起进行数据清洗。\n\n此外，我彻底搜索并从各种来源收集数据，以确保拥有足够的历史数据。我还从美国人口普查局网站获取了额外的表格：\n\
+  \n[`https://www.census.gov/data/tables/time-series/demo/voting-and-registration/p20-585.html`](https://www.census.gov/data/tables/time-series/demo/voting-and-registration/p20-585.html)\n\
+  \n随后，我根据性别、年龄和种族对选民进行分类，以便进一步分析。\n\n#### 性别\n\n如图 1-4 所示，我的分析显示，在缅因州，注册的女性选民数量超过了注册的男性选民。然而，两性之间的百分比差异在\
+  \ ±2% 之间。就政治竞选活动的战略意义而言，代表们可以考虑利用这一信息，例如，佩戴癌症意识粉红丝带以引起女性选民的共鸣，因为历史上她们的投票率高于男性。这一建议凸显了数据和统计的巨大影响力，它们能够塑造演讲主题并影响政治代表的着装。\n\
+  \n![](img/619569_1_En_1_Fig4_HTML.jpg)\n\n图 1-4  \n按性别分组的缅因州注册选民\n\n#### 种族\n\n\
+  关于缅因州的种族人口统计数据，超过 96% 的人口被认定为白人，如图 1-5 所示。因此，我将黑人、亚裔和西班牙裔选民归类为非白人注册选民。\n\n![](img/619569_1_En_1_Fig5_HTML.jpg)\n\
+  \n图 1-5  \n按种族分组的缅因州注册选民\n\n#### 年龄\n\n2016 年，65 岁以上的注册选民数量显著下降，如图 1-6 所示（注意纵坐标刻度不同）。相反，18-24\
+  \ 岁和 25-44 岁年龄段的选民数量有所增加。这一观察结果表明，需要调整演讲主题以引起更广泛选民基础的共鸣。例如，竞选代表应优先关注学生贷款和住房抵押贷款等问题，而不是优先讨论医疗保险和退休金。\n\
+  \n![](img/619569_1_En_1_Fig6_HTML.jpg)\n\n图 1-6  \n按年龄分组的缅因州注册选民\n\n\n\n#### 选民投票率\n\
+  \n我研究了历史选民投票率，以评估有多少人冒着缅因州风雪交加的街道前去投票。图 1-7 展示了 2000 年至 2016 年的选民投票率百分比，其中民主党胜出。\n\
+  \n如果你用摇摆党来尝试这个练习，柱状图的颜色会随之改变，以反映获胜的政党。\n\n![](img/619569_1_En_1_Fig7_HTML.jpg)\n\
+  \n图 1-7\n\n2000–2016 年缅因州选民投票率\n\n我再次按获胜政党以及年龄、种族和性别群体对选民投票率模式进行了分类研究。在图 1-8 中，字母\
+  \ D 代表民主党，R 代表共和党，O 代表所有其他政党的总和。\n\n![](img/619569_1_En_1_Fig8_HTML.jpg)\n\n图 1-8\n\
+  \n按政党、年龄、种族和性别群体划分的缅因州选民投票率\n\n#### 2012 年获胜候选人\n\n我开始深入分析数据，构建了一个直方图，展示了 2012 年缅因州选举中各位候选人及其各自的获胜百分比。分析结果显示，巴拉克·奥巴马以压倒性优势战胜了米特·罗姆尼，其他候选人获得的选票极少，如图\
+  \ 1-9 所示。第 3 章提供了关于如何复现图 1-9 的详细分步指南。\n\n![](img/619569_1_En_1_Fig9_HTML.jpg)\n\n\
+  图 1-9\n\n2012 年候选人及其获胜百分比直方图\n\n随后，我尝试按县划分，以地理方式呈现这些数据。图 1-10 用最深色表示倾向民主党的县，而 2000\
+  \ 年至 2016 年间共和党控制的地区则用较浅的色调表示。然而，务必记住，缅因州的地理区域并不一定与人口密度相关。\n\n![](img/619569_1_En_1_Fig10_HTML.jpg)\n\
+  \n图 1-10\n\n2000–2016 年缅因州各县在总统选举中投票情况地图\n\n### 类别/议题\n\n每次总统选举辩论都会涉及相关议题，并阐明每位候选人提出的应对方法。这些策略可以左右选民的意见，并影响他们基于议题的决策。因此，深入研究这些议题至关重要。\n\
+  \n#### 国家面临的议题\n\n根据 CNN 2016 年的报道，缅因州选民认为外交政策、移民、经济和恐怖主义是最紧迫的国家问题。然而，值得注意的是，这些议题可能并未直接反映缅因州的挑战。如图所示，缅因州的本地情况并未受到外交政策问题的显著影响。\n\
+  \n根据种族统计数据，很明显缅因州的移民人口极少。截至 2016 年该项目进行时，对缅因州任何恐怖事件的简短调查均未发现结果。然而，经济问题始终是全球性的关注点。因此，我开始探索选票中记录的缅因州特定议题。\n\
+  \n#### 类别：缅因州面临的议题\n\n我在 Ballotpedia 网站上获取了表 1-1 中列出的选票清单。\n\n表 1-1\n\n缅因州居民面临的议题^(¹,²)\n\
+  \n| 2000 | 2004 | 2008 | 2012 | 2016 |\n| --- | --- | --- | --- | --- |\n| 辅助死亡\
+  \ | 教育 | 债券 | 婚姻 | 大麻 |\n| 商业 | 税收 | 税收 | 教育 | 教育 |\n| 彩票 | 狩猎与垂钓 | 赌博 | 水资源 | 枪支\
+  \ |\n| 税收 |   | 水资源 | 交通 | 经济 |\n| 选举权 |   | 交通 | 债券发行 | 选举 |\n| LGBT |   |   |\
+  \   | 债券 |\n| 渔业 |   |   |   |   |\n\n显而易见，某些议题，如渔业、债券、水资源、教育和税收，长期以来一直悬而未决。这一发现让我推断，缅因州正面临水资源和税收方面的挑战。我再次强调了总统竞选演讲的重要性，这些演讲应通过提出可行的解决方案或计划来针对这些具体议题。在演讲中直接解决这些关切点，可能会影响缅因州选民的投票意向。\n\
+  \n根据收集到的信息、对当地报纸的回顾，以及缅因州选票上反复讨论且未解决的最常见议题，我预测 2020 年缅因州的五大议题将是：\n\n1.  教育\n\n2.\
+  \  经济\n\n3.  债券\n\n4.  医疗保健\n\n5.  税收\n\n### 影响缅因州经济的因素\n\n在讨论经济时，必须确定收入来源。根据《波特兰新闻先驱报》的信息以及\
+  \ Maine.gov 网站上提供的收入数据集^(³)，收入来源包括：\n\n1.  农业\n\n2.  林业\n\n3.  渔业\n\n4.  狩猎\n\n\
+  5.  税收\n\n6.  公司和企业管理\n\n7.  金融与保险业\n\n#### 缅因州失业率与其他州的比较\n\n唐纳德·特朗普承诺创造更多就业机会，并将制造业公司带回美国，而不是将其外包。众多新闻来源指出，他对创造就业的强调影响了“锈带”州的投票决定，使他们支持他而非希拉里·克林顿。我试图研究缅因州的失业率，并将其与全国数据进行比较，以评估特朗普的承诺对缅因州选民的潜在共鸣程度。结果显示，缅因州在\
+  \ 2016 年并未经历严重的失业问题。因此，特朗普的承诺对缅因州选民的吸引力可能不如对其他某些州的选民。\n\n#### 缅因州收入中位数\n\n为了更高的精确度和研究目标，我参考了缅因州的收入中位数数据。我将其与整个美国的收入中位数进行了对比。如表\
+  \ 1-2 所示，从 2005 年到 2015 年，缅因州的收入中位数一直略低于全国平均水平。尽管如此，在选举前的三年里，收入中位数出现了显著增长。\n\n表\
+  \ 1-2\n\n缅因州历史实际家庭收入中位数^(⁴)\n\n| 日期 | 美国 | 缅因州 |\n| --- | --- | --- |\n| 2018 |\
+  \ $61,937 | $55,602 |\n| 2017 | $61,807 | $57,649 |\n| 2016 | $60,291 | $55,542\
+  \ |\n| 2015 | $59,116 | $54,578 |\n| 2014 | $56,969 | $52,515 |\n| 2013 | $56,415\
+  \ | $50,718 |\n| 2012 | $56,288 | $51,180 |\n| 2011 | $56,507 | $51,507 |\n| 2010\
+  \ | $57,762 | $52,878 |\n| 2009 | $58,921 | $53,657 |\n| 2008 | $60,829 | $54,459\
+  \ |\n| 2007 | $61,601 | $55,710 |\n| 2006 | $60,490 | $54,233 |\n| 2005 | $59,604\
+  \ | $55,168 |\n\n#### 出口民调如何显示 2016 年缅因州选举中的收入因素？\n\n从另一个角度来看，CNN 报道称，出口民调显示，除年薪在\
+  \ 30,000 美元至 50,000 美元之间的选民外，缅因州选民普遍强烈倾向于克林顿。有趣的是，这一收入群体更青睐特朗普。然而，他们仅占调查样本的 19%。因此，缅因州的主流情绪是倾向于支持克林顿。\n\
+  \n\n\n#### 回顾过往选举，探寻是否存在可预测的结果（模式）\n\n最后，项目的最终阶段涉及收集历次选举的历史数据，以便为后续的建模和预测步骤提供信息。如前所述，我仅专注于民主党和共和党，因为其他党派在\
+  \ 2012 年选举中获得的选票比例微乎其微。\n\n**表 1-3** 缅因州历届总统选举历史结果^(⁵,⁶)\n\n| 年份 | 民主党 | 民主党得票率\
+  \ | 共和党 | 共和党得票率 |\n| --- | --- | --- | --- | --- |\n| 2016 | **357,735** | **47.80%**\
+  \ | 335,593 | 44.90% |\n| 2012 | **401,306** | **56.27%** | 292,276 | 40.98% |\n\
+  | 2008 | **421,923** | **57.71%** | 295,273 | 40.38% |\n| 2004 | **396,842** | **53.57%**\
+  \ | 330,201 | 44.58% |\n| 2000 | **319,951** | **49.10%** | 286,616 | 44.00% |\n\
+  | 1996 | **312,788** | **51.60%** | 186,378 | 30.80% |\n| 1992 | **263,420** | **38.80%**\
+  \ | 206,820 | 30.40% |\n| 1988 | 243,569 | 43.90% | **307,131** | **55.30%** |\n\
+  | 1984 | 214,515 | 38.80% | **336,500** | **60.80%** |\n| 1980 | 220,974 | 42.30%\
+  \ | **238,522** | **45.60%** |\n| 1976 | 232,279 | 48.07% | **236,320** | **48.91%**\
+  \ |\n| 1972 | 160,584 | 38.50% | **256,458** | **61.50%** |\n| 1968 | **217,312**\
+  \ | **55.30%** | 169,254 | 43.10% |\n| 1964 | **62,264** | **68.84%** | 118,701\
+  \ | 31.16% |\n| 1960 | **181,159** | **42.95%** | 240,608 | 57.05% |\n\n在审阅表 1-3\
+  \ 中呈现的数据后，我惊讶地发现了缅因州的历史政治轨迹：从一个以共和党为主的州转变为一个坚定的民主党州。因此，我选择将缅因州定性为“倾向民主党”的州，因为从 1960\
+  \ 年到 2016 年的 15 次选举中，民主党赢得了 7 次。我对 2020 年的预测倾向于民主党以微弱优势获胜。值得注意的是，自 1992 年以来，缅因州一直支持民主党。然而，忽视缅因州可能会导致其转向支持共和党。据《班戈每日新闻》报道，克林顿在\
+  \ 2015 年 9 月之后没有访问过缅因州，而是选择派遣代理人。因此，多年来民主党首次将一张选举人票输给了共和党。\n\n#### 建模\n\n在建模过程中，建议尝试多种算法进行预测并评估其结果，而不是仅仅依赖单一模型。在本项目中，我使用了蒙特卡洛和贝叶斯算法。关于统计检验，所使用的方法包括：\n\
+  \n- 直方图\n- 箱线图\n- 比例检验\n- T 检验\n- 决策树\n- 卡方检验\n- 散点图和线性回归\n\n##### 我的 2016 年预测\n\
+  \n在 SAS University Edition 中使用过往选举结果执行蒙特卡洛算法后，得到的输出如图 1-11 所示。\n\n![](img/619569_1_En_1_Fig11_HTML.jpg)\n\
+  \n**图 1-11** 蒙特卡洛算法的 2016 年预测结果\n\n图 1-11 显示，根据模拟结果，希拉里·克林顿预计将以平均 52.14%的得票率赢得缅因州。她的获胜优势^(⁷)仅为\
+  \ 48%。尽管如此，模拟准确预测了她在缅因州的胜利，这为该项目带来了成功的结果，并让我在该课程中获得了 A。太好了！\n\n##### 我的 2020 年预测\n\
+  \n根据我的预测，民主党预计将以 50.8%的多数票赢得缅因州四张选举人票中的三张，如图 1-12 所示。\n\n![](img/619569_1_En_1_Fig12_HTML.jpg)\n\
+  \n**图 1-12** 蒙特卡洛算法的 2020 年预测结果\n\n概率表明，2020 年，民主党预计将以约 51%的得票率，以大约+3%的微弱优势在缅因州击败共和党。在\
+  \ 2020 年^(⁸)，拜登以 53.1%的得票率获胜，而特朗普仅获得 44%的选票。1960 年至 2016 年的历史数据显示，缅因州民主党的平均支持率约为\
+  \ 43%，而共和党的平均支持率约为 40%。这一差距与 2016 年大选中缅因州民主党和共和党之间的差距相似。尽管如此，如果民主党不谨慎行事，缅因州仍有可能倒向共和党。\n\
+  \n## 总结\n\n在本章中，我们重点关注从缅因州总统选举项目案例研究及其附带的图表中提取关键概念。在下一章中，我们将深入探讨编写第一个 Python 程序以及数据类型的过程。\n\
+  \n**脚注** 1 2 3 4 5 6 7 8\n\n## 开始入门\n\n我们将从安装 Jupyter Notebook 并浏览其界面以熟悉它开始本章的学习。在学习任何编程语言时，我们都会涵盖以下主题：数据类型（本章讨论）、比较和逻辑运算符（第\
+  \ 5 章）、条件语句（第 6 章）以及循环（第 5 章）。\n\n### 安装\n\n您可以免费安装 Anaconda 用于个人和教育目的。Anaconda\
+  \ 是一个易于安装的环境管理器、Python 发行版以及包含超过 720 个开源包的集合。其主要优势在于它捆绑了 Python、Jupyter Notebook、Spyder\
+  \ IDE 以及数据分析和机器学习库与包，如图 2-1 所示。您可以从以下网站免费安装：\n\n[`https://www.anaconda.com/download/`](https://www.anaconda.com/download/)\n\
+  \n本书的示例代码使用了 Jupyter Notebook。但是，您可以将代码复制并粘贴到您喜欢的 Python IDE（集成开发环境）中。您必须确保从数据集文件夹上传本书的数据集，并相应调整代码中的文件路径。此外，您也可以只安装\
+  \ Python 和 Jupyter Notebook，而无需安装整个 Anaconda。您可以从以下链接免费安装 Jupyter Notebook：\n\n\
+  [`https://jupyter.org/install`](https://jupyter.org/install)\n\n![](img/619569_1_En_2_Fig1_HTML.jpg)\n\
+  \n**图 2-1** Anaconda\n\n### 云端 Python\n\n如果您没有安装 Conda 或 Anaconda，您可以使用以下在线平台之一在云端访问\
+  \ Python：\n\n- Kaggle：[`https://www.kaggle.com/code`](https://www.kaggle.com/code)\n\
+  - Anaconda Cloud：[`https://anaconda.cloud/`](https://anaconda.cloud/)\n- Online\
+  \ Python：[`www.online-python.com`](http://www.online-python.com)\n- Sololearn：[`https://code.sololearn.com/python`](https://code.sololearn.com/python)\n\
+  - Replit：[`https://replit.com/languages/python3`](https://replit.com/languages/python3)\n\
+  - Trinket：[`https://trinket.io/library/trinkets/create?lang=python3`](https://trinket.io/library/trinkets/create%253Flang%253Dpython3)\n\
+  - Google Colab：[`https://colab.research.google.com`](https://colab.research.google.com/)\n\
+  \n> **注意**  \n> 除 Anaconda Cloud 外，所有这些在线平台都是免费的；Anaconda Cloud 仅在一段时间内免费。由于条款、条件及定价计划频繁变更，请务必在注册前仔细阅读。\n\
+  \n\n\n## 什么是 Python？\n\nPython 是一种编程和脚本语言。它流行、快速，并且比其他编程语言更灵活。其主要优势在于有一个庞大的社区为其贡献力量。因此，你可以轻松找到项目所需的各类工具包/库和代码示例。\n\
+  \n## 导览\n\n每个用于输入文本的地方都称为一个单元格，如图 2-2 所示。你可以输入 Python 代码或任何文本。如果你想插入纯英文文本，请从下拉菜单中选择标记语言，并选择\
+  \ `Markdown`。\n\n要在标记单元格中创建标题，请在标题前输入 `#` 和一个空格。当你运行此单元格时，Python 解释器会将其加粗并放大字体，如图\
+  \ 2-3 所示。\n\n![](img/619569_1_En_2_Fig2_HTML.jpg)\n\n图 2-2\n\n单元格与 Markdown\n\n\
+  要运行一个单元格，请点击 `运行` 图标，如图 2-3 所示，或者按住 Shift 键并点击 `Shift-Return`；然后，点击 Return 键。如果你想运行所有\
+  \ Jupyter Notebook 单元格，请点击双箭头图标，如图 2-3 中高亮所示。\n\n![](img/619569_1_En_2_Fig3_HTML.jpg)\n\
+  \n图 2-3\n\n运行与全部运行\n\n要删除任何单元格，你可以点击 `ESC`，然后双击键盘上的 `D` 键，或者从“编辑”菜单中选择“删除单元格”选项，如图\
+  \ 2-4 所示。\n\n![](img/619569_1_En_2_Fig4_HTML.jpg)\n\n图 2-4\n\n删除单元格\n\n要添加任何单元格，请点击\
+  \ `加号`。如图 2-5 所示，你可以通过点击工具栏中的图标来上下移动它。你也可以从 `插入` 菜单中移动它。\n\n![](img/619569_1_En_2_Fig5_HTML.jpg)\n\
+  \n图 2-5\n\n添加单元格\n\n再次说明，这取决于你安装的版本；界面可能会有所不同。在本书中，版本是 Jupyter Notebook 服务器 6.4.5。运行在此版本\
+  \ Python 上的服务器是 Python 3.9.7（默认，2021 年 9 月 16 日，16:59:28）[MSC v.1916 64 位 (AMD64)]。内核信息是\
+  \ Python 3.9.7（默认，2021 年 9 月 16 日，16:59:28）[MSC v.1916 64 位 (AMD64)]。\n\n## 数据类型\n\
+  \n在 Python 中，有多种对数据类型进行分类的方法。通常，它们可以分为以下六类：\n\n1.  数值类型\n    1.  `int`：用于整数，例如 `42`\n\
+  \    2.  `float`：用于小数，例如 `3.14`\n    3.  `complex`：用于复数，例如 `3+4j`\n2.  序列类型\n  \
+  \  1.  `str`：用于文本，例如 `\"hello\"`\n    2.  `list`：用于有序的项目集合，例如 `[1, 2, 3]`\n    3.\
+  \  `tuple`：用于有序的、不可变的项目集合，例如 `(1, 2, 3)`\n3.  映射类型\n    1.  `dict`：字典类型，用于键/值对，例如\
+  \ `{'name': 'Alice', 'age': 25}`\n4.  集合类型\n    1.  `set`：用于无序的唯一项目集合，例如 `{1, 2,\
+  \ 3}`\n    2.  `frozenset`：不可变的集合类型，例如 `frozenset([1, 2, 3])`\n5.  布尔类型\n    1.\
+  \  `bool`：布尔类型，用于真/假值，例如 `True, False`\n6.  二进制类型\n    1.  `bytes`：不可变的字节序列，例如 `b'hello'`\n\
+  \    2.  `bytearray`：可变的字节序列，例如 `bytearray(b'hello')`\n    3.  `memoryview`：内存视图对象，例如\
+  \ `memoryview(b'hello')`\n\n尽管这种分类是标准的，但我更倾向于将其分为标量/基本类型、容器类型和高级类型。因此，接下来的类型转换部分将遵循这种分类。\n\
+  \n1.  标量类型是保存单个值的简单数据类型。它包括 `int`、`float`、`bool`、`complex` 和 `str`。\n2.  容器类型是包含多个值的数据结构，这些值可以是不同的数据类型。此类包括\
+  \ `list`、`tuple`、`dict`、`set` 和 `frozenset`。\n3.  高级类型通常来自外部库，用于更复杂的数据结构和操作。\n \
+  \   1.  Pandas DataFrame：二维标签化数据结构，其列可能包含多种类型，用于数据分析，如代码清单 2-1 所示。完整代码位于示例代码文件夹中的\
+  \ Chapter 2.ipynb 文件中。\n\n```\nimport pandas as pd\ndf = pd.DataFrame({'A': [1,\
+  \ 2, 3], 'B': [4, 5, 6]})\nprint(df)\n代码清单 2-1\nPandas DataFrame\n```\n\n输出如图 2-6\
+  \ 所示。左侧的第一列不是 DataFrame 的组成部分；它是一个索引，用作行的标识符。\n\n![](img/619569_1_En_2_Fig6_HTML.jpg)\n\
+  \n图 2-6\n\nPandas DataFrame 就像一个由列和行组成的数据表\n\n1.  Numpy 数组：用于数值运算的 N 维数组对象，如代码清单\
+  \ 2-2 所示。\n\n```\nimport numpy as np\narr = np.array([1, 2, 3])\nprint(arr)\n代码清单\
+  \ 2-2\nNumpy\n```\n\n输出如图 2-7 所示。\n\n![](img/619569_1_En_2_Fig7_HTML.jpg)\n\n图 2-7\n\
+  \n一维 Numpy 数组\n\n1.  Pandas Series：能够保存任何数据类型的一维标签化数组，如代码清单 2-3 所示。\n\n```\nimport\
+  \ pandas as pd\ns = pd.Series([1, 2, 3])\nprint(s)\n代码清单 2-3\nPandas Series\n```\n\
+  \n输出如图 2-8 所示。我们使用 Pandas Series 来存储 Pandas DataFrame 中的一列，正如我们将在本书的许多示例中看到的那样。\n\
+  \n![](img/619569_1_En_2_Fig8_HTML.jpg)\n\n图 2-8\n\nPandas Series\n\n我们将在本章后面详细讨论\
+  \ Pandas 和 Numpy，并学习如何在整本书中有效地使用它们。\n\n## 类型转换\n\n类型转换是将一种数据类型转换为另一种数据类型。以下是这些类别中的示例：\n\
+  \n### 标量类型转换\n\n1.  `int()`：转换为整数，如代码清单 2-4 所示。\n2.  `float()`：转换为浮点数，如代码清单 2-5\
+  \ 所示。\n\n```\nx = int(3.14)  # x 现在是 3\nprint(x)\n代码清单 2-4\n转换为整数\n```\n\n```\n\
+  x = float(3) # x 现在是 3.0\nprint(x)\n代码清单 2-5\n转换为浮点数\n```\n\n1.  `str()`：转换为字符串，如代码清单\
+  \ 2-6 所示。\n\n```\nx = str(3.14) # x 现在是 '3.14'\nprint(x)\n代码清单 2-6\n转换为字符串\n```\n\
+  \n### 容器类型转换\n\n1.  `list()`：转换为列表，如代码清单 2-7 所示。\n2.  `tuple()`：转换为元组，如代码清单 2-8\
+  \ 所示。\n\n```\nx = list((1, 2, 3))  # x 现在是 [1, 2, 3]\nprint(x)\n代码清单 2-7\n转换为列表\n\
+  ```\n\n```\nx = tuple([1, 2, 3])  # x 现在是 (1, 2, 3)\nprint(x)\n代码清单 2-8\n转换为元组\n\
+  ```\n\n1.  `set()`：转换为集合，如代码清单 2-9 所示。\n2.  `dict()`：转换为字典（通常来自键/值对列表），如代码清单 2-10\
+  \ 所示。\n\n```\nx = set([1, 2, 2, 3])  # x 现在是 {1, 2, 3}\nprint(x)\n代码清单 2-9\n转换为集合\n\
+  ```\n\n```\nx = dict([('a', 1), ('b', 2)])  # x 现在是 {'a': 1, 'b': 2}\nprint(x)\n\
+  代码清单 2-10\n转换为字典\n```\n\n\n\n#### 高级类型转换\n\n1.  `to_numpy()`：使用 `arr = df.to_numpy()`\
+  \ 将 Pandas DataFrame 或 Series 转换为 Numpy 数组，如代码清单 2-11 所示。\n\n```\nimport pandas\
+  \ as pd\nimport numpy as np\n## 步骤 1：创建一个 pandas DataFrame\ndata = {\n'A': [1, 2,\
+  \ 3, 4],\n'B': [5, 6, 7, 8],\n'C': [9, 10, 11, 12]\n}\ndf = pd.DataFrame(data)\n\
+  print(\"原始 DataFrame:\\n\", df)\n## 步骤 2：将 DataFrame 转换为 numpy 数组\nnumpy_array =\
+  \ df.to_numpy()\nprint(\"\\n 转换为 numpy 数组:\\n\", numpy_array)\n代码清单 2-11\n转换为 Numpy\
+  \ 数组\n```\n\n输出结果如图 2-9 所示。\n\n![](img/619569_1_En_2_Fig9_HTML.jpg)\n\n图 2-9\n\n\
+  从 Pandas DataFrame 到 Numpy 数组\n\n2.  `pd.DataFrame()`：使用 `df = pd.DataFrame(np_array)`\
+  \ 从 Numpy 数组创建 Pandas DataFrame，如代码清单 2-12 所示。\n\n```\nimport numpy as np\nimport\
+  \ pandas as pd\n## 步骤 1：创建一个 numpy 数组\nnumpy_array = np.array([[1, 2, 3], [4, 5,\
+  \ 6], [7, 8, 9]])\nprint(\"原始 numpy 数组:\\n\", numpy_array)\n## 步骤 2：将 numpy 数组转换为\
+  \ pandas DataFrame\ndf = pd.DataFrame(numpy_array, columns=['列 1', '列 2', '列 3'])\n\
+  print(\"\\n 转换为 DataFrame:\\n\", df)\n代码清单 2-12\n转换为 Pandas DataFrame\n```\n\n输出结果如图\
+  \ 2-10 所示。\n\n![](img/619569_1_En_2_Fig10_HTML.jpg)\n\n图 2-10\n\n从 Numpy 数组到 Pandas\
+  \ DataFrame\n\n## Pandas\n\n在本书中，我们将广泛使用 Pandas 和 Numpy。Pandas 是一个强大且流行的 Python\
+  \ 库，用于数据处理和分析。它提供了易于使用的数据结构和函数，旨在无缝处理结构化数据。其显著特性之一是能够以人类可读的表格格式呈现数据，同时允许进行数值解释以进行大规模计算。可以将\
+  \ Pandas 视为 Python 中 Excel 的增强版，使您能够更高效、更程序化地处理和分析数据。\n\n### 为什么使用 Pandas？\n\n-\
+  \   **轻松处理数据**：Pandas 简化了诸如从文件加载数据、清理杂乱数据以及执行计算等任务。\n-   **数据分析**：使用 Pandas，您可以快速探索大型数据集，筛选出所需信息，并获得洞察。\n\
+  -   **多功能性**：Pandas 可以处理不同的数据类型，包括数字、文本和时间序列数据。\n\n### 关键概念\n\n-   **Series**：Series\
+  \ 是一种一维的类数组对象，可以容纳各种数据类型，包括数字、字符串和日期。可以将其视为电子表格中的单列，如代码清单 2-13 所示。\n\n```\nimport\
+  \ pandas as pd\ndf = pd.DataFrame({'A': [1, 2, 3], 'B': [4, 5, 6]})\nseries=df['A']\n\
+  print(series)\n代码清单 2-13\nPandas Series\n```\n\n输出结果如图 2-11 所示。\n\n![](img/619569_1_En_2_Fig11_HTML.jpg)\n\
+  \n图 2-11\n\n从 Pandas DataFrame 获取 Series\n\n-   **DataFrame**：DataFrame 是一个二维表格，类似于电子表格或\
+  \ SQL 表。它由行和列组成，每列可以有不同的数据类型，如代码清单 2-14 所示。\n\n```\ndata = {\n'姓名': ['Alice', 'Bob',\
+  \ 'Charlie'],\n'年龄': [25, 30, 35],\n'城市': ['纽约', '洛杉矶', '芝加哥']\n}\ndf = pd.DataFrame(data)\n\
+  print(df)\n代码清单 2-14\nPandas DataFrame\n```\n\n输出结果如图 2-12 所示。\n\n![](img/619569_1_En_2_Fig12_HTML.jpg)\n\
+  \n图 2-12\n\n创建 Pandas DataFrame\n\n### Pandas 的基本操作\n\n-   **加载数据**：您可以从各种来源加载数据，例如\
+  \ CSV 文件、Excel 文件和数据库。在接下来的章节中，我们将看到如何加载多种文件类型。\n-   **检查数据**：检查数据的结构和摘要。要汇总 DataFrame，请使用\
+  \ `df.info()` 方法。要进行统计摘要，请使用 `df.describe()` 方法，我们将在第 3 章中看到。\n-   **筛选数据**：在下一章，即第\
+  \ 3 章中，我们将看到如何根据我们想要操作和分析数据以生成所需可视化图表的方式，选择特定的行和列。在本书的其余部分，我们将继续使用相同的技术来完成进一步的数据科学任务。\n\
+  -   **修改数据**：添加、删除或更新列。在第 6 章中，我们将详细讨论如何执行这些任务。\n-   **处理缺失数据**：识别并处理缺失值。同样，在第 6\
+  \ 章中，我们将看到如何使用 `df.dropna()` 删除包含缺失值的行，使用 `df.fillna(0)` 将缺失值替换为 0，以及其他方法。\n-  \
+  \ **Pandas DataFrame 中的索引**：按名称访问列，按索引访问行，使用 `df.at[行号, '列名']` 属性按行和列访问特定元素，并使用\
+  \ `df.loc[行起始:行结束, '列起始':'列结束']` 对行和列进行切片。我们将在第 6 章中提供更多示例来演示此主题。\n\n## Numpy\n\n\
+  Numpy 是“数值 Python”的缩写，是一个用于数值计算的基础 Python 库。它支持数组、矩阵以及对这些数据结构进行操作的高级数学函数。Numpy 是许多其他数据科学库（包括\
+  \ Pandas）的支柱。\n\n我们经常将数据从 Pandas DataFrame 传输到 Numpy 数组。Pandas DataFrame 很有用，因为它们包含列名和其他文本数据，便于人类阅读。然而，对于计算机执行计算而言，Numpy\
+  \ 数组是最有效的。\n\n### 为什么使用 Numpy？\n\n-   **性能**：Numpy 操作是用 C 语言实现的，这使得它们对于大规模计算来说极其快速和高效。\n\
+  -   **易用性**：Numpy 使得使用简单的语法对数组和矩阵执行复杂的数学运算变得容易。\n-   **灵活性**：Numpy 数组可以处理各种数据类型，并且在数值计算方面比\
+  \ Python 列表更通用。\n\n### 关键概念\n\n-   **数组**：Numpy 数组是一个值的网格，所有值类型相同，如代码清单 2-15 所示。数组由非负整数元组索引。\n\
+  \n```\nimport numpy as np\narray = np.array([1, 2, 3, 4, 5])\nprint(array)\n代码清单\
+  \ 2-15\nNumpy 数组\n```\n\n输出结果如图 2-13 所示。\n\n![](img/619569_1_En_2_Fig13_HTML.jpg)\n\
+  \n图 2-13\n\n创建 Numpy 数组\n\n-   **矩阵**：矩阵是一个二维数组。Numpy 可以轻松处理一维和二维数组，如代码清单 2-16 所示。\n\
+  \n```\nmatrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])\nprint(matrix)\n代码清单\
+  \ 2-16\nNumpy 矩阵\n```\n\n输出结果如图 2-14 所示。\n\n![](img/619569_1_En_2_Fig14_HTML.jpg)\n\
+  \n图 2-14\n\n创建 Numpy 矩阵\n\n\n\n### Numpy 基本操作\n\n*   **创建数组**：Numpy 提供了多种快速创建数组的函数，如代码清单\
+  \ 2-17 所示。\n\n```\nzeros = np.zeros((3, 3))  # 创建一个 3x3 的零矩阵\nones = np.ones((2,\
+  \ 2))  # 创建一个 2x2 的全 1 矩阵\nprint(zeros)\nprint(ones)\n代码清单 2-17\n创建 Numpy 数组\n```\n\
+  \n输出结果如图 2-15 所示。\n\n![](img/619569_1_En_2_Fig15_HTML.jpg)\n\n图 2-15\n\n创建两个 Numpy\
+  \ 矩阵，一个为 3×3 的零矩阵，另一个为较小的 2×2 全 1 矩阵\n\n*   **数组运算**：对数组执行逐元素运算，如代码清单 2-18 所示。\n\
+  \n```\narray1 = np.array([1, 2, 3])\narray2 = np.array([4, 5, 6])\nsum_array = array1\
+  \ + array2  # 逐元素相加\nprint(\"array1=\",array1)\nprint(\"array2=\",array2)\nprint(\"\
+  sum_array=\",sum_array)\n代码清单 2-18\n数组运算\n```\n\n输出结果如图 2-16 所示。使用 Numpy 进行算术运算非常简便。\n\
+  \n![](img/619569_1_En_2_Fig16_HTML.jpg)\n\n图 2-16\n\n两个 Numpy 数组的求和\n\n*   **数学函数**：Numpy\
+  \ 提供了多种可应用于数组的数学函数，如代码清单 2-19 所示。\n\n```\narray = np.array([1, 2, 3, 4, 5])\nprint(\"\
+  array=\",array)\nprint(\"square root=\",np.sqrt(array))  # 每个元素的平方根\nprint(\"mean=\"\
+  ,np.mean(array)) # 数组的均值\n代码清单 2-19\n数学函数\n```\n\n输出结果如图 2-17 所示。使用 Numpy 进行数学运算非常简便。\n\
+  \n![](img/619569_1_En_2_Fig17_HTML.jpg)\n\n图 2-17\n\nNumpy 数组的平方根与均值\n\n*   **索引与切片**：访问和修改特定元素或子数组，如代码清单\
+  \ 2-20 所示。\n\n```\narray = np.array([1, 2, 3, 4, 5])\nprint(\"array=\",array)\n\
+  print(\"second element=array[1]=\",array[1]) # 访问第二个元素\n## 访问索引从 1 到 3 的元素\nprint(\"\
+  From second to fourth elements=\",  array[1:4])\narray[2] = 10  # 修改第三个元素\nprint(\"\
+  new array after changing third element value=\",array)\n代码清单 2-20\n索引与切片\n```\n\n\
+  输出结果如图 2-18 所示。在本书后续内容中，尤其是在第 6 章，我们将通过大量实际动手实验来演示数据科学流程中实用的索引与切片操作。\n\n![](img/619569_1_En_2_Fig18_HTML.jpg)\n\
+  \n图 2-18\n\nNumpy 数组的索引与切片\n\n*   **重塑数组**：在不改变数据的情况下更改数组的形状，如代码清单 2-21 所示。\n\n\
+  ```\narray = np.array([[1, 2, 3], [4, 5, 6]]) # 3x3 数组\nreshaped = array.reshape((3,\
+  \ 2))  # 重塑为 3x2 数组\nprint(reshaped)\n代码清单 2-21\n重塑数组\n```\n\n输出结果如图 2-19 所示。我们首先创建一个\
+  \ 3×3 的 Numpy 矩阵；然后使用 `.reshape()` 方法将其重塑为 3×2 的矩阵。Python 中许多数据科学和机器学习函数都需要重塑矩阵，以便为数据处理做好准备。\n\
+  \n![](img/619569_1_En_2_Fig19_HTML.jpg)\n\n图 2-19\n\n将矩阵从 3×3 重塑为 3×2，且不丢失或改变数据\n\
+  \n## 本章小结\n\n本章是我们学习 Python 之旅的基础。它从安装和 Python 云端游乐场开始，然后解释了 Jupyter Notebook 的界面和基本组件。同时，还介绍了数据类型和类型转换。\n\
+  \n此外，本章还讲解了 Pandas 和 Numpy，它们是 Python 中用于数据处理和数值计算的关键工具。Pandas 提供了用于处理结构化数据的高级数据结构和函数，使得数据分析和可视化变得简单。\n\
+  \n另一方面，Numpy 为数组和矩阵的数值运算提供了强大的功能，为高效的科学计算奠定了基础。这两个库共同构成了深入探索数据的强大基础。在下一章中，我们将深入探讨数据可视化。\n\
+  \n"
+- "# 3. 数据可视化\n\n有句谚语说：“一图胜千言。”可视化是一项繁琐而艰巨的任务。幸运的是，Python 拥有丰富的内置库，其中包含各种函数和选项，可以制作出表现力丰富的图表。本章将使用公共领域中的大型数据集。我们将遵循第\
+  \ 1 章中提到的数据科学流程，即每个小节都从一个问题开始，并通过图表来寻找答案。\n\n本章涵盖了各种基本图表，例如散点图、直方图、序列图、条形图、排序条形图以及气泡图。\n\
+  \n\n\n## 散点图\n\n散点图用于通过描述散点的方向、强度和线性关系来展示变量之间的相互依赖性。此外，它们还能轻松显示异常值。\n\n在本例中，我们的问题是：西雅图市的薪资是否与员工的年龄范围有关，还是两者之间没有关系？\n\
+  \n你可以在数据集文件夹中找到数据文件，或者通过以下链接从 Data.Gov 项目下载 CSV 文件：[`https://web.archive.org/web/20170116035611/http://catalog.data.gov/dataset/city-of-seattle-wages-comparison-by-gender-average-hourly-wage-by-age-353b2`](https://web.archive.org/web/20170116035611/http://catalog.data.gov/dataset/city-of-seattle-wages-comparison-by-gender-average-hourly-wage-by-age-353b2)。\n\
+  \n数据集位于数据集文件夹中，文件名为：`City_of_Seattle_Wages__Comparison_by_Gender_-_Average_Hourly_Wage_by_Age.csv`。完整代码位于示例代码文件夹中的\
+  \ `Chapter 3.ipynb` 的清单 3-1 中。不过，在 Jupyter Notebook 中，代码将按照以下步骤划分到不同的单元格中。\n\n有多种库可用于可视化。在本例中，我们使用\
+  \ Matplotlib。步骤如下：\n\n1. 加载库。\n2. 加载数据并探索数据。\n3. 创建散点图。\n4. 通过以下方式增强图表：\n   1. 移除一些不需要的值\n\
+  \   2. 添加标题\n   3. 调整图表大小\n   4. 为 x 轴和 y 轴添加标签\n\n```\nimport pandas as pd\nimport\
+  \ matplotlib.pyplot as plt\nimport numpy as np\n清单 3-1-1\n导入所需的库\n```\n\n在清单 3-1-1\
+  \ 中，我们导入了所需的库。我们从将 `Pandas` 模块导入为 `pd` 开始。`Pandas` 是 Python 如此流行的原因之一。它通过加载数据、以人类可读的表格形式查看数据以及进行大量计算，帮助读取和操作数据。数据表被称为\
+  \ `DataFrame`，其简写约定为 `df`。`Pandas` DataFrame 具有列名和其他文本数据，使其对用户友好。\n\n然后，我们加载 `matplotlib.pyplot`\
+  \ 库，其中包含所有可视化函数。通常将其简称为 `plt`。\n\n最后加载的库是 `numpy`，这是一个用于操作数值数据列表和表格的 Python 包。计算机发现以\
+  \ numpy 数组形式进行统计计算更容易且更快。然而，它们对人类不太友好。因此，我们经常将数据从 `Pandas` DataFrame 转换为 `Numpy`\
+  \ 数组。\n\n注意\n\n在本书的示例中，我们将频繁使用这三个库：Pandas、Matplotlib 和 Numpy。\n\n```\ndf=pd.read_csv('../Datasets/Chapter\
+  \ 3/City_of_Seattle_Wages__Comparison_by_Gender_-_Average_Hourly_Wage_by_Age.csv')\n\
+  print(df.head())\n清单 3-1-2\n加载数据集并探索数据\n```\n\n在清单 3-1-2 中，我们将数据导入 Pandas，以便将其视为\
+  \ DataFrame。`read_csv()` 函数接受一个 csv 格式的文件，并将其转换为一个名为 `df` 的 Pandas DataFrame。然后，`head`\
+  \ 方法返回 DataFrame 的前五行。\n\n`head` 方法的输出如图 3-1 所示。\n\n![](img/619569_1_En_3_Fig1_HTML.jpg)\n\
+  \n图 3-1\n\n`df.head()` 方法的输出\n\n从图 3-1 中，我们发现除了 `AGE RANGE` 列之外，所有八列都是数值型的。`AGE\
+  \ RANGE` 列是 `string` 数据类型。\n\n让我们通过使用 `describe()` 方法进一步探索数据集。它会返回数据集的汇总统计报告，如清单\
+  \ 3-1-3 所示。\n\n![](img/619569_1_En_3_Fig2_HTML.jpg)\n\n图 3-2\n\n图 3-2 显示了 `describe()`\
+  \ 方法的输出\n\n```\nprint(df.describe())\n清单 3-1-3\ndescribe 方法计算汇总统计量\n```\n\n图 3-2\
+  \ 显示了每列的一些统计量。请注意，它只给出数值列的统计量。以下是统计量的定义：\n\n* Count：非缺失行的数量。\n* Mean：平均值。\n* Std：标准差的缩写。这是衡量数据离散程度的指标。\n\
+  * Min：最小值。\n* 25%：第 25 百分位数。\n* 50%：第 50 百分位数，也称为中位数。\n* 75%：第 75 百分位数。\n* Max：最大值。\n\
+  \n我们使用 Pandas 的 `describe()` 方法来开始建立对数据的一些直觉。\n\n```\nplt.figure(figsize=(12, 6))\n\
+  plt.scatter(df['AGE RANGE'], df['Total Average of HOURLY RATE'])\nplt.xlabel('AGE\
+  \ RANGE')\nplt.ylabel('Total Average of HOURLY RATE')\n清单 3-1-4\n初始散点图\n```\n\n\
+  为了避免图表相互重叠，我们使用 `figure` 方法，并在其中设置图表的尺寸，如清单 3-1-4 所示。然后，我们使用 `scatter` 方法，并将要绘制的两个变量传递给它。为了增强图表效果，我们使用\
+  \ `xlabel` 和 `ylabel` 方法设置 x 轴和 y 轴的标签。\n\n![](img/619569_1_En_3_Fig3_HTML.jpg)\n\
+  \n图 3-3\n\n散点图的输出\n\n在图 3-3 中，最后两个 `AGE RANGE` 值是不需要的，并且会给出关于两个变量之间关系的错误印象。因此，我们应该将它们从数据中过滤掉，如清单\
+  \ 3-1-5 所示。\n\n```\nplt.figure(figsize=(12, 6))\ndf1=df['AGE RANGE']\ndf2=df['Total\
+  \ Average of HOURLY RATE']\nplt.scatter(df1[:-2],df2[:-2] )\nplt.xlabel('AGE RANGE')\n\
+  plt.ylabel('Total Average of HOURLY RATE')\nplt.title('年龄范围与总平均小时工资之间的相互依赖性')\n\
+  清单 3-1-5\n过滤 AGE RANGE 中的最后两个值\n```\n\n从图 3-4 的最终散点图中，我们可以确定西雅图的 `AGE RANGE` 与 `Total\
+  \ Average of HOURLY RATE` 之间存在相互依赖性。这种关系不是线性的，而是曲线性的。\n\n![](img/619569_1_En_3_Fig4_HTML.jpg)\n\
+  \n图 3-4\n\n最终的散点图\n\n### 散点图关系\n\n图 3-5 展示了散点图关系的不同示例。要描述散点图，你应该说明它是线性关系还是曲线关系，正如我们在上一个示例中看到的那样。\n\
+  \n![](img/619569_1_En_3_Fig5_HTML.jpg)\n\n图 3-5\n\n散点图的方向、强度和线性度\n\n如果相互依赖性是线性的，则观察其方向以判断是正相关还是负相关。在图\
+  \ 3-5 中，左上角 X1-Y1 的关系是正相关，而右上角 X2-Y2 的图是负相关。在图 3-8 中，右下角 X3-Y3 没有方向，因为关系不是线性的，而是曲线性的。在图\
+  \ 3-5 中，左下角 X4-Y4 没有关系，因为点不规则地分散。\n\n最后，描述关系的强度。如果点非常接近线/形状，则存在高度相互依赖性，关系很强。否则，关系很弱。\n\
+  \n\n\n#### 在同一图像中绘制多个散点图\n\n我们在同一图像中绘制多个散点图以比较数值。在本例中，我们拥有每个政党的登记选民人数，并将绘制这些数据，以比较缅因州各县中哪个政党的登记选民更多。\n\
+  \n数据集文件夹中的 `MAINECOUNTIESPARTIES.xlsx` 数据集包含三列：县名和每个政党的登记选民人数，如表 3-1 所示。\n\n**表\
+  \ 3-1** 缅因州各县政党登记选民人数\n\n| 县 | 共和党 | 民主党 |\n| --- | --- | --- |\n| 安德罗斯科金 | 28189\
+  \ | 22975 |\n| 阿鲁斯图克 | 19419 | 13377 |\n| 坎伯兰 | 57697 | 102935 |\n| 富兰克林 | 7900\
+  \ | 7001 |\n| 汉考克 | 13682 | 16107 |\n| 肯纳贝克 | 29296 | 31753 |\n| 诺克斯 | 9148 | 12440\
+  \ |\n| 林肯 | 9727 | 10241 |\n| 牛津 | 12172 | 16214 |\n| 佩诺布斯科特 | 41601 | 32832 |\n\
+  | 皮斯卡塔奎斯 | 5403 | 3098 |\n| 萨加达霍克 | 9304 | 10679 |\n| 萨默塞特 | 14998 | 9092 |\n| 沃尔多\
+  \ | 10378 | 10442 |\n| 华盛顿 | 9037 | 6358 |\n| 约克 | 50388 | 55828 |\n\n和往常一样，我们读取数据集并使用\
+  \ `head()` 方法进行探索，以验证其是否被正确读取，如代码清单 3-2-1 所示。\n\n```\ndf=pd.read_excel('../Datasets/Chapter\
+  \ 3/MAINECOUNTIESPARTIES.xlsx')\nprint(df.head())\n代码清单 3-2-1\n读取并探索数据集\n```\n\n\
+  输出结果如图 3-6 所示，显示了数据集的前五行。\n\n![](img/619569_1_En_3_Fig6_HTML.jpg)\n\n**图 3-6** `head()`\
+  \ 方法的输出\n\n该代码绘制了两个重叠的散点图，它们的 x 轴都是 `counties`，而第一个散点图的 y 轴是民主党人数，第二个散点图的 y 轴是共和党人数。为了改变颜色以区分它们，我们使用\
+  \ `c=['r']` 设置了颜色选项，如代码清单 3-2-2 所示。此外，我们仅更改了共和党数据点的标记，以便即使在灰度下也能区分这些点，方法是在散点函数中使用\
+  \ `marker='^'` 选项将其设置为三角形。我们将 y 轴标签更改为“共和党：红色三角形 民主党：蓝色圆圈”。最后，我们设置了图的标题。\n\n```\n\
+  plt.figure(figsize=(18, 6))\nplt.scatter(df['counties'],df['Democratic'], c=['b'])\n\
+  plt.scatter(df['counties'],df['Republican'] , marker='^',c=['r'])\nplt.xlabel('counties')\n\
+  plt.ylabel('Republican:Red Triangles Democrat:Blue Circles')\nplt.title('Maine Counties\
+  \ and Parties')\n代码清单 3-2-2\n比较缅因州各县共和党与民主党的登记选民人数\n```\n\n上述代码的输出如图 3-7 所示。\n\n\
+  ![](img/619569_1_En_3_Fig7_HTML.jpg)\n\n**图 3-7** 缅因州各县及政党的散点图\n\n从图 3-7 中，我们可以看出坎伯兰县的民主党选民最多，总体登记选民也最多。这可能意味着它的人口也最多，但我们无法确定这一点，需要进一步验证。然而，我们可以确定的是，该县民主党与共和党之间的差距巨大。除该县外，在其余\
+  \ 15 个县中，有 8 个县的民主党人数多于共和党，但差异不大。因此，民主党必须更加关注缅因州，以免其变回红色州。\n\n此外，如果民主党计划在缅因州举行集会，应该选在坎伯兰县。另一方面，共和党则应该选在佩诺布斯科特县。\n\
+  \n类似地，你也可以对你的州进行同样的练习，并通过你的分析和预测为 2024 年总统大选做好准备。\n\n## 直方图\n\n直方图任务用于创建显示数值变量频率分布的图表。在本例中，我们将查看\
+  \ 2018 年 3 月北卡罗来纳州夏洛特市雇员的年薪分布情况。\n\n你可以在数据集文件夹中找到数据文件，或者通过以下链接下载 CSV 文件：[`data.amerigeoss.org/dataset/city-employee-salaries-march-2018/resource/264fa25e-93cb-46b8-8edd-24ad224f3b74?view_id=4c9ee967-a039-4d72-ad78-2f556909b207`](https://data.amerigeoss.org/dataset/city-employee-salaries-march-2018/resource/264fa25e-93cb-46b8-8edd-24ad224f3b74%253Fview_id%253D4c9ee967-%2560a039-4d72-ad78-2f556909b207)。\n\
+  \n和往常一样，使用 Pandas 的 `read_csv()` 方法将 CSV 文件加载到 DataFrame 中。然后，使用 `head()` 方法进行探索，以验证其是否被正确读取，如代码清单\
+  \ 3-3-1 所示。\n\n```\ndf=pd.read_csv('../Datasets/Chapter 3/City_Employee_Salaries_March_2018.csv')\n\
+  print(df.head())\n代码清单 3-3-1\n读取并探索数据集\n```\n\n输出结果如图 3-8 所示，显示了数据集的前五行。我们有九列数据。然而，我们只对其中一列\
+  \ `Annual_Rt` 感兴趣，用于绘制直方图。\n\n![](img/619569_1_En_3_Fig8_HTML.jpg)\n\n**图 3-8**\
+  \ `head()` 方法的输出\n\n在代码清单 3-3-2 中，我们再次首先使用 `.figure()` 方法在新的绘图中绘制直方图，避免覆盖上一节的散点图。同时，我们在\
+  \ `.figure()` 方法中使用 `figsize` 设置了绘图尺寸。然后，我们在 `.hist()` 方法中选择 `Annual_RT` 作为变量。最后，我们标记\
+  \ x 轴并设置绘图标题。\n\n```\nplt.figure(figsize=(18, 10))\nplt.hist(df['Annual_Rt'])\n\
+  plt.xlabel('Annual_Rt')\nplt.title('The Distribution of The Annual Rate of Charlotte\
+  \ City Employees')\n代码清单 3-3-2\n选择分析变量以绘制其直方图\n```\n\n图 3-9 显示了直方图。然而，我们需要改善该图的外观。它是一个右偏曲线，并且存在一些明显的异常值。此外，我们可以调整组距（bins）以获得更接近正态分布的曲线。最后一步是在直方图上叠加一条正态分布曲线。我们将在代码清单\
+  \ 3-3-3 中完成所有这些步骤。\n\n![](img/619569_1_En_3_Fig9_HTML.jpg)\n\n**图 3-9** 夏洛特市雇员的直方图\n\
+  \n代码清单 3-3-3 首先从 `scipy.stats` 中导入 `norm`。该库用于绘制正态分布曲线；它包含用于处理正态（高斯）分布的函数。\n\n然后，我们生成一个\
+  \ x 轴的值数组，范围从 `0` 到 `14000`，步长为 `1`。我们将最高年薪率设置为 `140000`，并通过在 `Annual_RT` 序列上设置掩码来忽略任何大于该值的数值。\n\
+  \n之后，我们使用新的掩码序列绘制直方图，将组距（bins）更改为 `10`，并对直方图进行归一化以绘制密度并返回概率密度。接下来是绘制正态分布，其均值和标准差根据数据计算得出。最后的修改包括为\
+  \ x 轴添加标签、设置标题、设置图例并显示所有内容。\n\n\n\n```python\nfrom scipy.stats import norm\nplt.figure(figsize=(15,\
+  \ 10))\n#Generate data for x-axis ranging from 0 to 14000 with 1 step\nx = np.arange(0,\
+  \ 140000, 1)\n#Set the maximum salary to 140000\n#Creates a new series for the 'Annual_Rt'\
+  \ from the DataFrame df\nar = df['Annual_Rt']\n#Creates a boolean mask where values\
+  \ in 'Annual_Rt' are less than 140000\nmask = ar < 140000\n#Applies the mask to\
+  \ filter the data\ndf1 = ar[mask]\n# Plot the histogram\n#plt.hist: Plots a histogram\
+  \ of the filtered data (df1)\n#bins=10: Specifies the number of bins for the histogram\n\
+  #density=True: Normalizes the histogram to represent a probability density\n#alpha=0.6:\
+  \ Sets the transparency of the bars\n#color=b: Sets the color of the bars to blue\n\
+  plt.hist(df1, bins=10, density=True, alpha=0.6, color='b')\n# Plot the normal distribution\
+  \ with mean and standard deviation calculated from the data\n#Calculates the mean\
+  \ (mu) and standard deviation (std) of the filtered data #using a normal distribution\
+  \ fit\nmu, std = norm.fit(df1)\n#Plots the normal distribution curve using the calculated\
+  \ mean and standard #deviation. The curve is in red and labeled as Normal Distribution\n\
+  plt.plot(x, norm.pdf(x, mu, std), 'r-', label='Normal Distribution')\n#Sets the\
+  \ label for the x-axis\nplt.xlabel('Annual_Rt')\n#Sets the title of the plot\nplt.title('The\
+  \ Distribution of The Annual Rate of Charlotte City Employees')\n#Displays a legend\
+  \ to identify the histogram and the normal distribution curve\nplt.legend()\n#Displays\
+  \ the plot\nplt.show()\nListing 3-3-3\nEnhancing the appearance of the histogram\n\
+  ```\n\n清单 3-3-3 的输出是图 3-10，该图展示了在屏蔽薪资并设置其最大值后，直方图上叠加的正态分布曲线。\n\n![](img/619569_1_En_3_Fig10_HTML.jpg)\n\
+  \n图 3-10\n\n最终的直方图\n\n现在，我们得到的正态分布曲线比之前右偏的曲线更接近正态分布。\n\n## 序列图\n\n序列图显示数值随时间的变化。在本例中，让我们绘制股票价格随时间变化的趋势。\n\
+  \n在本练习中，我们没有要加载的数据集。相反，我们将使用雅虎财经库 `yfinance` 来加载任何公司的股票数据。首先，如清单 3-4-1 所示，我们将加载苹果公司股票的历史数据。然后，在清单\
+  \ 3-4-2 中，我们将加载多家公司并将它们相互绘制以比较数值。这些公司包括苹果 (AAPL)、英特尔 (INTC)、微软 (MSFT) 和 ASML 控股\
+  \ (ASML)。\n\n```python\n# This library is used to fetch financial data, including\
+  \ historical stock #prices\nimport yfinance as yf\n#matplotlib is used for creating\
+  \ plots and visualizations\nimport matplotlib.pyplot as plt\n# Define the stock\
+  \ symbol and time range\nstock_symbol = \"AAPL\"  # Example: Apple Inc.\nstart_date\
+  \ = \"2022-01-01\"\nend_date = \"2023-01-01\"\n# Download historical stock data\n\
+  stock_data = yf.download(stock_symbol, start=start_date, end=end_date)\n# Plot the\
+  \ closing prices over time\nplt.figure(figsize=(15, 8))\nplt.plot(stock_data['Close'],\
+  \ label=f\"{stock_symbol} Closing Prices\", color='blue')\nplt.title(f\"{stock_symbol}\
+  \ Closing Prices Over Time\")\nplt.xlabel(\"Date\")\nplt.ylabel(\"Closing Price\"\
+  )\nplt.legend()\nplt.grid(True)\nplt.show()\nListing 3-4-1\nSeries plot to show\
+  \ Apple Inc. closing prices over time\n```\n\n现在，让我们逐行解释清单 3-4-1 的代码。如前所述，首先加载所需的库。然后，我们设置公司的股票代码以及开始和结束日期。我们将这些信息传递给\
+  \ `yf.download()` 方法，以下载指定股票代码的历史数据。接着，我们使用 `plt.plot()` 方法，通过设置颜色来绘制序列图。最后，像往常一样，我们设置图表标题、x\
+  \ 轴和 y 轴的标签、显示网格，并在应用所有这些设置后显示图表。输出结果如图 3-11 所示。\n\n![](img/619569_1_En_3_Fig11_HTML.jpg)\n\
+  \n图 3-11\n\n序列图输出\n\n我们可以通过将股票代码以列表形式添加到 `stock_symbol` 中来添加更多公司的股票，如下所示：`stock_symbols\
+  \ = [\"AAPL\", \"INTC\", \"MSFT\", \"ASML\"]`，如清单 3-4-2 所示。\n\n此外，在清单 3-4-2 中，我们遍历公司列表\
+  \ `stock_symbols`，以在一张图中绘制它们的序列图。\n\n```python\n# yfinance is used to fetch financial\
+  \ data, including historical stock #prices\nimport yfinance as yf\n#matplotlib.pyplot\
+  \ used for creating plots and visualizations\nimport matplotlib.pyplot as plt\n\
+  #stock_symbols are a list containing the stock symbols for Apple (AAPL), #Intel\
+  \ (INTC), Microsoft (MSFT), and ASML Holding (ASML)\nstock_symbols = [\"AAPL\",\
+  \ \"INTC\", \"MSFT\", \"ASML\"]\n#The date range to fetch historical stock data\n\
+  start_date = \"2021-01-01\"\nend_date = \"2023-01-01\"\n#Download historical stock\
+  \ data for each stock\nstock_data = yf.download(stock_symbols, start=start_date,\
+  \ end=end_date)['Close']\n#A loop is used to iterate over each stock symbol, and\
+  \ the closing prices #for each stock are plotted. All in the same figure\nplt.figure(figsize=(15,\
+  \ 8))\nfor symbol in stock_symbols:\nplt.plot(stock_data[symbol], label=f\"{symbol}\
+  \ Closing Prices\")\nplt.title(\"Closing Prices Over Time for Selected Stocks\"\
+  )\nplt.xlabel(\"Date\")\nplt.ylabel(\"Closing Price\")\n# Displays a legend to identify\
+  \ each stock\nplt.legend()\n# Adds a grid to the plot for better readability\nplt.grid(True)\n\
+  #Show the plot using the above settings\nplt.show()\nListing 3-4-2\nSeries plot\
+  \ showing multiple companies’ closing prices over time aggregated together\n```\n\
+  \n清单 3-4-2 的输出是图 3-12。这段代码获取指定股票的历史收盘价，并在给定日期范围内将它们绘制在同一张图上。您可以根据自己的偏好自定义股票代码和日期范围。\n\
+  \n![](img/619569_1_En_3_Fig12_HTML.jpg)\n\n图 3-12\n\n选定股票随时间变化的收盘价\n\n从图 3-12 可以清楚地看出，ASML\
+  \ 的收盘价最高，即使在其最低点（大约在 2022 年 10 月）也是如此，而英特尔 (INTC) 从 2021 年 1 月到 2023 年 1 月的收盘价最低。\n\
+  \n\n\n## 条形图\n\n条形图用于并排比较数值，无论是垂直方向还是水平方向。在本示例中，我们将使用纽约市的犯罪数据来比较 2018 年纽约市不同行政区的犯罪率。你可以通过此链接下载\
+  \ 2018 年纽约警察局投诉数据：[`https://www.kaggle.com/datasets/mihalw28/nypd-complaint-data-current-ytd-july-2018/data?select=NYPD_Complaint_Data_Current_YTD.csv`](https://www.kaggle.com/datasets/mihalw28/nypd-complaint-data-current-ytd-july-2018/data%253Fselect%253DNYPD_Complaint_Data_Current_YTD.csv)。\n\
+  \n如需下载最新数据，可通过纽约市开放数据项目网站获取。你可以在数据集文件夹中找到该数据文件，或通过此链接下载数据集：[`https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Current-Year-To-Date-/5uac-w243/data`](https://data.cityofnewyork.us/Public-Safety/NYPD-Complaint-Data-Current-Year-To-Date-/5uac-w243/data)。\n\
+  \n从上述链接下载当前年份的数据集，步骤与图 3-13 类似，点击“导出”然后选择“CSV”即可。\n\n![](img/619569_1_En_3_Fig13_HTML.jpg)\n\
+  \n图 3-13：纽约警察局投诉数据——纽约市开放数据\n\n该数据集包含海量信息。可以对这些数据进行大量的调查和分析。例如：每个行政区最常见的犯罪类型是什么？犯罪最可能发生在什么时间？一周中哪一天犯罪数量最多？\n\
+  \n在本示例中，我们只关心回答一个问题：哪个行政区的犯罪率最高，哪个最低？\n\n要回答这个问题，我们需要以下三列：`Borough`（行政区）、`Longitude`（经度）和`Latitude`（纬度）。因此，我们将删除所有其他列。然后，我们将统计每个行政区的犯罪数量，并用条形图表示。\n\
+  \n在清理和准备数据之后，我们得到如下数据集，如表 3-2 所示。\n\n表 3-2：各行政区犯罪数量\n\n| 行政区 | 犯罪数量 | 纬度 | 经度 |\n\
+  | --- | --- | --- | --- |\n| 布朗克斯 | 50153 | 40.82452 | -73.8978 |\n| 布鲁克林 | 67489\
+  \ | 40.82166 | -73.9189 |\n| 曼哈顿 | 56691 | 40.71332 | -73.9829 |\n| 皇后区 | 44137\
+  \ | 40.74701 | -73.7936 |\n| 史坦顿岛 | 10285 | 40.63204 | -74.1222 |\n\n为了加载数据，我们编写代码清单\
+  \ 3-5-1。在本示例中，我们将值直接插入代码中，而不是读取外部数据，以练习在 Python 中读取数据的其他方式。\n\n```\n# 数据\nBorough\
+  \ = ['BRONX', 'BROOKLYN', 'MANHATTAN', 'QUEENS', 'STATEN ISLAND']\ncrimes = [50153,\
+  \ 67489, 56691, 44137, 10285]\n# 创建条形图\nplt.figure(figsize=(10, 6))\nplt.bar(Borough,\
+  \ crimes, color='skyblue')\n# 添加标签和标题\nplt.xlabel('Borough')\nplt.ylabel('Number\
+  \ of Crimes')\nplt.title('Number of Crimes in Different Boroughs')\n# 显示条形图\nplt.show()\n\
+  ```\n\n代码清单 3-5-1：创建各行政区犯罪数量的数据集\n\n在代码清单 3-5-1 中，我们将行政区的名称和每个行政区的犯罪总数分别插入到两个列表`Borough`和`crimes`中。然后，我们使用`plt.bar()`方法创建条形图，并设置两个变量和颜色。最后，像往常一样，我们设置\
+  \ x 轴和 y 轴的标签以及图表标题，然后显示图表。\n\n代码清单 3-5-1 的输出是图 3-14。\n\n![](img/619569_1_En_3_Fig14_HTML.jpg)\n\
+  \n图 3-14：显示纽约市不同行政区犯罪数量的条形图\n\n### 如何对条形图进行排序？\n\n为避免混淆，最好将图表按升序或降序排序。在本示例中，我们将学习一种对之前纽约市行政区犯罪条形图进行排序的方法。排序条形图的方法有很多种。在代码清单\
+  \ 3-5-2 中，我们展示了其中一种方法。\n\n```\n# 数据\nBorough = ['BRONX', 'BROOKLYN', 'MANHATTAN',\
+  \ 'QUEENS', 'STATEN ISLAND']\ncrimes = [50153, 67489, 56691, 44137, 10285]\n# 按犯罪数量对数据进行排序\n\
+  sorted_data = sorted(zip(Borough, crimes), key=lambda x: x[1])\n# 排序后提取排序后的行政区与犯罪数量\n\
+  sorted_Borough, sorted_crimes = zip(*sorted_data)\n# 创建条形图\nplt.figure(figsize=(10,\
+  \ 6))\nplt.bar(sorted_Borough, sorted_crimes, color='skyblue')\n# 添加标签和标题\nplt.xlabel('Borough')\n\
+  plt.ylabel('Number of Crimes')\nplt.title('Number of Crimes in Different Boroughs\
+  \ (Sorted)')\n# 显示条形图\nplt.show()\n```\n\n代码清单 3-5-2：对垂直条形图进行升序排序\n\n在代码清单 3-5-2\
+  \ 中，我们使用`zip(Borough, crimes)`函数将两个列表组合成行政区与犯罪数量的配对。`sorted()`函数根据每个配对的第二个元素（即犯罪数量），使用`lambda`函数作为排序键对这些配对进行排序。\n\
+  \n排序后，使用`zip(*sorted_data)`函数将排序后的数据解压缩为两个独立的列表`sorted_Borough`和`sorted_crimes`。然后，像往常一样，我们使用`Matplotlib`创建条形图。`plt.figure(figsize=(10,\
+  \ 6))`设置图形大小。接着使用`plt.bar()`函数创建条形图，其中`sorted_Borough`位于 x 轴，`sorted_crimes`变量位于\
+  \ y 轴，条形颜色为天蓝色。`plt.xlabel`、`plt.ylabel`和`plt.title`函数分别用于添加 x 轴、y 轴的标签和图表标题。最后，使用`plt.show()`显示创建的条形图。代码清单\
+  \ 3-5-2 的输出是图 3-15 中的升序排序图表。\n\n![](img/619569_1_En_3_Fig15_HTML.jpg)\n\n图 3-15：升序排序的条形图\n\
+  \n要反转输出以获得降序的垂直条形图，请在`sorted_data = sorted(zip(Borough, crimes), key=lambda x: x[1],\
+  \ reverse=True)`中将`reverse`选项设置为`True`，如代码清单 3-5-3 所示。\n\n```\n# 数据\nBorough = ['BRONX',\
+  \ 'BROOKLYN', 'MANHATTAN', 'QUEENS', 'STATEN ISLAND']\ncrimes = [50153, 67489, 56691,\
+  \ 44137, 10285]\n# 按犯罪数量对数据进行降序排序\nsorted_data = sorted(zip(Borough, crimes), key=lambda\
+  \ x: x[1], reverse=True)\n# 排序后提取排序后的行政区与犯罪数量\nsorted_Borough, sorted_crimes = zip(*sorted_data)\n\
+  # 创建条形图\nplt.figure(figsize=(10, 6))\nplt.bar(sorted_Borough, sorted_crimes, color='skyblue')\n\
+  # 添加标签和标题\nplt.xlabel('Borough')\nplt.ylabel('Number of Crimes')\nplt.title('Number\
+  \ of Crimes in Different Boroughs (Sorted Descending)')\n# 显示条形图\nplt.show()\n```\n\
+  \n代码清单 3-5-3：对条形图进行降序排序\n\n代码清单 3-5-3 的输出如图 3-16 所示。\n\n![](img/619569_1_En_3_Fig16_HTML.jpg)\n\
+  \n图 3-16：将 reverse 设置为 true 以反转条形图，实现降序排列\n\n要将条形图的方向从垂直改为水平，我们使用`plt.barh()`函数来绘制条形图，如代码清单\
+  \ 3-5-4 所示。\n\n\n\n"
+- "# 数据\n\n```python\nBorough = ['BRONX', 'BROOKLYN', 'MANHATTAN', 'QUEENS', 'STATEN\
+  \ ISLAND']\ncrimes = [50153, 67489, 56691, 44137, 10285]\n# 按犯罪数量降序排序数据\nsorted_data\
+  \ = sorted(zip(Borough, crimes), key=lambda x: x[1], reverse=True)\n# 提取排序后的行政区划和犯罪数量\n\
+  sorted_Borough, sorted_crimes = zip(*sorted_data)\n# 创建水平条形图\nplt.figure(figsize=(10,\
+  \ 6))\nplt.barh(sorted_Borough, sorted_crimes, color='skyblue')\n# 添加标签和标题\nplt.xlabel('犯罪数量')\n\
+  plt.ylabel('行政区划')\nplt.title('不同行政区划的犯罪数量（降序排列）')\n# 显示水平条形图\nplt.show()\n```\n\
+  \n代码清单 3-5-4：使用水平条形图替代垂直条形图\n\n代码清单 3-5-4 的输出结果为图 3-17。\n\n![](img/619569_1_En_3_Fig17_HTML.jpg)\n\
+  \n**图 3-17** 使用水平条形图替代垂直条形图\n\n### 使用条形图创建直方图\n\n条形图也可用于创建直方图。在许多其他统计编程语言（如 SAS）中，直方图只能针对字符串数据类型绘制，且数据必须为数值型。在\
+  \ Python 中则没有此限制。在本例中，你将学习如何绘制 2012 年缅因州总统候选人及其得票率的图表，该内容在第 1 章中曾提及。缅因州的结果如表 3-3\
+  \ 所示。\n\n**表 3-3** 2012 年总统候选人及其在缅因州的得票率\n\n| 候选人 | 得票率 |\n| --- | --- |\n| Obama\
+  \ | 56.27 |\n| Romney | 40.98 |\n| Johnson | 1.31 |\n| Stein | 1.14 |\n| Paul |\
+  \ 0.29 |\n| Anderson | 0.01 |\n| Reed | 0 |\n\n同样，我们不会从外部文件加载数据，而是像代码清单 3-6 那样将值直接插入代码中。\n\
+  \n```python\n# 数据\ncandidates = ['Obama', 'Romney', 'Johnson', 'Stein', 'Paul',\
+  \ 'Anderson', 'Reed']\nwinning_percentages = [56.27, 40.98, 1.31, 1.14, 0.29, 0.01,\
+  \ 0]\n# 为每位候选人定义颜色\ncolors = ['blue', 'red', 'silver', 'green', 'grey', 'grey',\
+  \ 'grey']\n# 创建条形图\nplt.figure(figsize=(10, 6))\nbars = plt.bar(candidates, winning_percentages,\
+  \ color=colors)\n# 在每个条形上方添加标签\nfor bar, label in zip(bars, winning_percentages):\n\
+  \    plt.text(bar.get_x() + bar.get_width() / 2 - 0.05, bar.get_height() + 0.2,\
+  \ f'{label:.2f}%', ha='center', va='bottom', color='black', fontweight='bold')\n\
+  # 添加标签和标题\nplt.xlabel('候选人')\nplt.ylabel('得票率 (%)')\nplt.title('总统候选人得票率')\n# 显示条形图\n\
+  plt.show()\n```\n\n代码清单 3-6：2012 年缅因州总统候选人得票率\n\n代码清单 3-6 中条形图的附加价值在于使用相应的政党颜色为条形着色。同样，我们从两个列表\
+  \ `candidates` 和 `winning_percentages` 中读取数据。然后，我们定义要在图表中使用的颜色列表。`plt.figure(figsize=(10,\
+  \ 6))` 设置图形大小。接着使用 `plt.bar` 函数创建垂直条形图，其中 `candidates` 列位于 x 轴，`winning_percentages`\
+  \ 变量位于 y 轴，条形根据我们预先指定的颜色列表着色。然后，我们循环遍历每个条形及其对应的得票率。\n\n接着使用 `plt.text` 函数在每个条形上方添加文本标签，显示保留两位小数的得票率。标签使用\
+  \ `ha='center'` 水平居中，并使用 `va='bottom'` 底部对齐。标签为黑色粗体。最后，一如既往地设置 x 轴和 y 轴的标签以及图表标题。输出结果为图\
+  \ 3-18。\n\n![](img/619569_1_En_3_Fig18_HTML.jpg)\n\n**图 3-18** 使用相应政党颜色着色的条形图\n\n\
+  ## 气泡图\n\n气泡图有助于同时展示三个数据变量。在本例中，我们将创建一个气泡图来展示一个班级的身高、体重和年龄。\n\n对于本例，我生成了班级的随机数据，如代码清单\
+  \ 3-7-1 所示，作为本章的第三个数据源。\n\n```python\nimport pandas as pd\nimport numpy as np\n\
+  import matplotlib.pyplot as plt\n# 生成 20 名学生的数据集\nnp.random.seed(42)  # 设置随机种子以确保可重复性\n\
+  students_data = {\n    'Name': [f'Student{i}' for i in range(1, 21)],\n    'Height':\
+  \ np.random.uniform(150, 190, 20),  # 身高，单位：厘米\n    'Weight': np.random.uniform(45,\
+  \ 90, 20),   # 体重，单位：千克\n    'Age': np.random.randint(18, 25, 20)        # 年龄，单位：岁\n\
+  }\nstudents_df = pd.DataFrame(students_data)\n# 创建气泡图\nplt.figure(figsize=(12, 8))\n\
+  # 调整气泡大小的缩放因子\nscaling_factor = 500\nscatter = plt.scatter(students_df['Height'],\
+  \ students_df['Weight'], s=students_df['Age'] * scaling_factor, c=students_df['Age'],\
+  \ cmap='viridis', alpha=0.7)\n# 用学生姓名标注每个点\nfor i, name in enumerate(students_df['Name']):\n\
+  \    plt.text(students_df['Height'][i], students_df['Weight'][i], name, ha='center',\
+  \ va='center', fontsize=8, color='black', alpha=0.7)\n# 添加标签和标题\nplt.xlabel('身高\
+  \ (cm)')\nplt.ylabel('体重 (kg)')\nplt.title('气泡图：身高 vs 体重，气泡大小表示年龄，并显示学生姓名')\n# 添加颜色条\n\
+  cbar = plt.colorbar(scatter)\ncbar.set_label('年龄 (岁)')\n# 显示气泡图\nplt.show()\n```\n\
+  \n代码清单 3-7-1：随机生成班级数据并绘制气泡图\n\n代码清单 3-7-1 首先使用 `np.random.seed(42)` 设置随机种子以确保可重复性。固定随机化中的种子意味着每次重新编译和运行代码时，都会生成相同的随机值。但如果我们不指定种子，每次重新运行单元格时，都会生成新的随机值。然后，使用\
+  \ `np.random.uniform` 函数为 20 名学生生成随机数据。数据集包含学生姓名、身高、体重和年龄列。接着，使用 Matplotlib 创建气泡图。一如既往，`plt.figure(figsize)`\
+  \ 设置图形大小。\n\n现在，惊喜之处在于再次使用了 `plt.scatter` 函数。是的，我们用它来绘制散点图和气泡图。在散点图中，x 轴表示身高，y 轴表示体重，气泡大小与年龄成正比（缩放因子为\
+  \ 500），颜色表示年龄。`cmap='viridis'` 指定颜色映射，`alpha=0.7` 设置气泡的透明度。\n\n然后使用 `plt.text` 函数为图表上的每个点添加注释，在相应位置显示学生姓名。代码为\
+  \ x 轴、y 轴添加标签，并为图表添加标题。\n\n为图表添加了一个颜色条图例来表示学生的年龄。`cbar.set_label` 函数设置颜色条的标签。最后，使用\
+  \ `plt.show()` 显示创建的气泡图。输出结果为图 3-19。\n\n![](img/619569_1_En_3_Fig19_HTML.jpg)\n\n\
+  **图 3-19** 初始气泡图\n\n\n\n如图 3-19 所示，气泡直径并无显著差异。年龄范围在 18 至 24 岁之间。因此，我决定将生成的随机数据集之一保存为\
+  \ Excel 文件，并手动修改部分年龄、体重和身高值，以制造显著差异。年龄范围变为 5 至 24 岁，与数据集文件夹中`class.xlsx`数据集一致，如代码清单\
+  \ 3-7-2 所示。代码清单 3-7-1 与 3-7-2 的唯一区别在于，后者将随机生成部分替换为通过`pd.read_excel`函数读取文件来创建 DataFrame\
+  \ `students_df`。\n\n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot\
+  \ as plt\n# 为 20 名学生生成数据集\nnp.random.seed(42)  # 设置随机种子以确保可重复性\nstudents_df = pd.read_excel('../Datasets/Chapter\
+  \ 3/class.xlsx')\nprint(df.head())')\n# 创建气泡图\nplt.figure(figsize=(12, 8))\n# 调整气泡大小的缩放因子\n\
+  scaling_factor = 500\nscatter = plt.scatter(students_df['Height'], students_df['Weight'],\
+  \ s=students_df['Age'] * scaling_factor, c=students_df['Age'], cmap='viridis', alpha=0.7)\n\
+  # 为每个数据点标注学生姓名\nfor i, name in enumerate(students_df['Name']):\nplt.text(students_df['Height'][i],\
+  \ students_df['Weight'][i], name, ha='center', va='center', fontsize=8, color='black',\
+  \ alpha=0.7)\n# 添加坐标轴标签和标题\nplt.xlabel('Height (cm)')\nplt.ylabel('Weight (kg)')\n\
+  plt.title('Bubble Chart: Height vs Weight with Age as Bubble Size and Student Names')\n\
+  # 添加颜色条\ncbar = plt.colorbar(scatter)\ncbar.set_label('Age (years)')\n# 显示气泡图\n\
+  plt.show()\n代码清单 3-7-2\n读取班级数据集而非随机生成\n```\n\n代码清单 3-7-2 的输出结果为图 3-20。现在，图表清晰地展示了班级中的离群值。例如，紫色气泡中的学生\
+  \ 5 是班级中最矮的学生，而黄色气泡中的学生 4 则是班级中最高的学生。\n\n![](img/619569_1_En_3_Fig20_HTML.jpg)\n\
+  \n图 3-20\n\n气泡图的最终版本\n\n## 总结\n\n本章深入探讨了数据可视化。首先介绍了最基本的图表类型，如散点图和直方图。此外，还展示了如何通过改变颜色和图案来叠加图表，以便于比较分析结果。Python\
+  \ 中的数据可视化是最强大的功能之一，提供了丰富的自定义图表选项。\n\n"
+- "# 4. 统计分析及线性模型\n\n在第 3 章中，我们探讨了图形与数据可视化。在第 4 章中，我们将研究统计学与线性模型。\n\n## 统计分析\n\n读取数据集后，通常需要执行一些统计分析任务，以理解数据并将其纳入报告中。本章将讨论频数表、汇总统计、相关性分析以及\
+  \ T 检验。\n\n### 频数表\n\n频数表任务通常是探索任何数据集时的首要步骤之一。它根据数据生成频数表，显示每个变量的唯一水平。此外，该表还有助于识别离群值。\n\
+  \n在此示例中，我们探索数据集文件夹中的`HEART.csv`文件，以查看有多少人患有高胆固醇。为此，我们重点关注字符串变量`CHOL_STATUS`。相关代码位于示例代码文件夹中第\
+  \ 4 章的代码清单 4-1 中。\n\n在代码清单 4-1 中，我们将学习如何生成频数表，并以条形图的形式绘制频数分布。\n\n```\nimport pandas\
+  \ as pd\nimport matplotlib.pyplot as plt\nheart_df = pd.read_csv('../Datasets/Chapter\
+  \ 4/HEART.csv')\nfrequency_table = heart_df['Chol_Status'].value_counts().reset_index().rename(columns={'index':\
+  \ 'Chol_Status', 'Chol_Status': 'Frequency'})\n# 按频数排序\nfrequency_table = frequency_table.sort_values(by='Frequency',\
+  \ ascending=False)\n# 打印频数表\nprint(frequency_table)\n# 绘制频数图\nplt.figure(figsize=(8,\
+  \ 6))\nplt.bar(frequency_table['Chol_Status'], frequency_table['Frequency'], color='skyblue')\n\
+  plt.xlabel('Chol_Status')\nplt.ylabel('Frequency')\nplt.title('Frequency Plot of\
+  \ Chol_Status')\nplt.show()\n代码清单 4-1\n频数表\n```\n\n在导入所需库并将 csv 文件读取到 Pandas DataFrame\
+  \ `heart_df`后，我们计算频数表。以下代码行：`frequency_table = heart_df['Chol_Status'].value_counts().reset_index().rename(columns={'index':\
+  \ 'Chol_Status', 'Chol_Status': 'Frequency'})`，执行了以下操作：\n\n*   `heart_df['Chol_Status'].value_counts()`：计算\
+  \ DataFrame `heart_df`中`'Chol_Status'`列唯一值的频数。\n\n*   `.reset_index():`：重置结果序列的索引，将其转换为\
+  \ DataFrame。\n\n*   `.rename(columns={'index': 'Chol_Status', 'Chol_Status': 'Frequency'}):`：将\
+  \ DataFrame 的列重命名为`'Chol_Status'`和`'Frequency'`，以提高清晰度。\n\n然后，我们按`Frequency`列对频数表\
+  \ DataFrame 进行降序排序，确保频数最高的类别显示在最前面。这是通过以下指令完成的：`frequency_table = frequency_table.sort_values(by='Frequency',\
+  \ ascending=False)`。\n\n接着，我们将频数表 DataFrame 打印到控制台，显示`Chol_Status`列中每个唯一值的频数。此代码的输出结果如图\
+  \ 4-1 中的表格所示。\n\n![](img/619569_1_En_4_Fig1_HTML.jpg)\n\n图 4-1\n\n频数表\n\n至于绘制频数图，如前所述，我们使用`plt.figure()`方法创建一个新图形，避免图表相互叠加。同时，我们用它来设置图形尺寸。然后，以`Chol_Status`序列为\
+  \ x 轴，频数为 y 轴创建条形图，并添加相应的标签。最后两步是设置图形标题并显示图形。此部分的输出结果如图 4-2 所示。\n\n![](img/619569_1_En_4_Fig2_HTML.jpg)\n\
+  \n图 4-2\n\n频数条形图\n\n图 4-2 展示了`Chol_Status`的降序分布情况，其中`Borderline`在该数据集中占比最高，其次是`High`，频数最低的是`Desirable`。\n\
+  \n\n\n### 汇总统计\n\n汇总统计任务提供所有观测值以及分组观测值内各变量的描述性统计。您还可以通过图形化展示（如直方图或箱线图）来汇总数据。\n\n\
+  在本例中，我们回顾缅因州过去的选举情况，以观察是否存在任何可预测的结果（模式）。数据集位于 `Datasets` 文件夹中，文件名为 `Maine_Past_Elections.xlsx`。该\
+  \ Excel 文件的内容如表 4-1 所示。\n\n**表 4-1** `Maine_Past_Elections.xlsx`\n\n| 年份 | 民主党票数\
+  \ | 民主党得票率 | 共和党票数 | 共和党得票率 |\n| --- | --- | --- | --- | --- |\n| 2016 | **357,735**\
+  \ | **47.80%** | 335,593 | 44.90% |\n| 2012 | **401,306** | **56.27%** | 292,276\
+  \ | 40.98% |\n| 2008 | **421,923** | **57.71%** | 295,273 | 40.38% |\n| 2004 | **396,842**\
+  \ | **53.57%** | 330,201 | 44.58% |\n| 2000 | **319,951** | **49.10%** | 286,616\
+  \ | 44.00% |\n| 1996 | **312,788** | **51.60%** | 186,378 | 30.80% |\n| 1992 | **263,420**\
+  \ | **38.80%** | 206,820 | 30.40% |\n| 1988 | 243,569 | 43.90% | **307,131** | **55.30%**\
+  \ |\n| 1984 | 214,515 | 38.80% | **336,500** | **60.80%** |\n| 1980 | 220,974 |\
+  \ 42.30% | **238,522** | **45.60%** |\n| 1976 | 232,279 | 48.07% | **236,320** |\
+  \ **48.91%** |\n| 1972 | 160,584 | 38.50% | **256,458** | **61.50%** |\n| 1968 |\
+  \ **217,312** | **55.30%** | 169,254 | 43.10% |\n| 1964 | **62,264** | **68.84%**\
+  \ | 118,701 | 31.16% |\n| 1960 | **181,159** | **42.95%** | 240,608 | 57.05% |\n\
+  \n让我们读取数据，并计算数据集中民主党与共和党两列（即变量 `D` 和 `R`）的汇总统计，如代码清单 4-2 所示。\n\n```\nimport pandas\
+  \ as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\npast_elections_df\
+  \ = pd.read_excel('../Datasets/Chapter 4/Maine_Past_Elections.xlsx')\nprint(past_elections_df['D'].describe())\n\
+  print(past_elections_df['R'].describe())\nprint(past_elections_df.isnull().sum())\n\
+  Listing 4-2\nSummary statistics\n```\n\n导入库并加载数据集后，我们计算并打印 DataFrame `past_elections_df`\
+  \ 中列 `D` 和 `R` 的描述性统计。`.describe()` 方法会为指定列生成计数、均值、标准差、最小值和最大值等汇总统计信息。\n\n`.isnull()`\
+  \ 方法用于检查 DataFrame `past_elections_df` 中的缺失值，该方法返回一个由布尔值组成的 DataFrame，指示是否存在缺失值。接着，`.sum()`\
+  \ 方法计算每列缺失值的总数并打印结果。输出结果如图 4-3 所示。如图所示，数据集中不存在空值。\n\n![](img/619569_1_En_4_Fig3_HTML.jpg)\n\
+  \n**图 4-3** 缅因州民主党与共和党的汇总统计\n\n民主党与共和党的平均值差异并不显著。因此，缅因州属于“倾向民主党”的州，因为民主党在 15 次选举中赢得了\
+  \ 7 次（从 1960 年到 2016 年）。自 1992 年以来，民主党在缅因州的选举中一直获胜。\n\n### 相关性分析\n\n在解释相关性概念之前，我们想先明确因果关系与相关性的区别。因果关系是指一件事导致另一件事发生，而相关性是指两件或更多事情看起来有关联。相关性并不总是意味着因果关系。\n\
+  \n例如，旅行会导致购买行李箱和机票，但行李箱的销售与机票是相关的，如图 4-4 所示。\n\n![](img/619569_1_En_4_Fig4_HTML.jpg)\n\
+  \n**图 4-4** 因果关系与相关性\n\n相关性是一种用于描述数值变量之间联系的统计方法。这种联系通过计算相关系数来表达，其取值范围从 -1 到 1。相关性分析任务提供图表和统计数据，以探索变量之间的关联。\n\
+  \n让我们看几个例子。第一个例子是探究汽车的长度、重量与其马力之间是否存在相关性。汽车数据集位于 `Datasets` 文件夹中。\n\n代码位于示例代码文件夹中第\
+  \ 4 章的 `Chapter 4.ipynb` 文件中的代码清单 4-3。在 Python 中有多种计算相关性的方法。在本例中，我们使用 Pandas 中的\
+  \ `corr()` 方法来计算指定变量之间的相关矩阵。\n\n在代码清单 4-3 中，我们导入所需的库，加载数据集，并对其进行探索。为了更深入地探索数据，我们绘制了变量之间的多对双变量分布图。\n\
+  \n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\
+  cars_df = pd.read_excel('../Datasets/Chapter 4/CARS.xlsx')\nprint(cars_df.head())\n\
+  print(cars_df.describe())\n# Selecting variables\nvariables = cars_df[['Weight',\
+  \ 'Length', 'Horsepower']]\n# Calculate the correlation matrix\ncorrelation_matrix\
+  \ = variables[['Weight', 'Length']].corrwith(variables['Horsepower'])\nprint(\"\
+  Pearson correlation coefficients:\")\nprint(correlation_matrix)\nplt.figure(figsize=(12,\
+  \ 6))\nplt.scatter(cars_df['Weight'], cars_df['Horsepower'])\nplt.xlabel('Weight')\n\
+  plt.ylabel('Horsepower')\nplt.figure(figsize=(12, 6))\nplt.scatter(cars_df['Length'],\
+  \ cars_df['Horsepower'])\nplt.xlabel('Length')\nplt.ylabel('Horsepower')\nListing\
+  \ 4-3\nImport the required libraries, load the dataset, and explore it\n```\n\n\
+  在代码清单 4-3 中，我们首先导入用于数据操作的 Pandas 库。我们使用 `pd.read_excel()` 函数将数据集 `CARS.xlsx` 加载到一个\
+  \ Pandas DataFrame 中。然后，我们从数据集中提取 `Weight`、`Length` 和 `Horsepower` 列，并将它们存储在一个名为\
+  \ `variables` 的新 DataFrame 中。\n\n我们使用 `corrwith()` 方法计算变量对 `Weight` 与 `Horsepower`\
+  \ 以及 `Length` 与 `Horsepower` 之间的皮尔逊相关系数。该方法计算两个 DataFrame 或两个 Series 之间的相关性。在本例中，我们将\
+  \ `variables` DataFrame 中的 `Weight` 和 `Length` 列与 `Horsepower` 列进行相关性计算。图 4-5 中的输出显示，马力与重量的相关性高于与长度的相关性。\n\
+  \n![](img/619569_1_En_4_Fig5_HTML.jpg)\n\n**图 4-5** 皮尔逊相关系数\n\n为了确认这些相关性，让我们绘制散点图，如图\
+  \ 4-6 所示。\n\n![](img/619569_1_En_4_Fig6_HTML.jpg)\n\n**图 4-6** 马力与重量和长度之间的相关性\n\n\
+  现在，让我们探讨如何将相关性应用于缅因州的总统选举。当前的问题是：国内生产总值（GDP）是否对缅因州的选民投票率产生影响？\n\n\n\n数据集`correlation.xlsx`位于`Datasets`目录中。然而，构建此数据集颇具挑战。不同的媒体机构和政府来源对缅因州选民投票率的统计数字各不相同。在本分析中，我选择使用\
+  \ 2016 年最常被引用的数字。需要注意的是，如果这些数据要用于本练习之外的范围，则有必要进行进一步的验证。以下是我参考的部分来源示例：\n\n*   [`https://en.wikipedia.org/wiki/United_States_presidential_election_in_Maine,_2000`](https://en.wikipedia.org/wiki/United_States_presidential_election_in_Maine,_2000)\n\
+  *   [`http://www.270towin.com/states/Maine`](http://www.270towin.com/states/Maine)\n\
+  *   [`https://www.pressherald.com/2016/11/08/mainers-head-to-polls-in-historic-election/`](https://www.pressherald.com/2016/11/08/mainers-head-to-polls-in-historic-election/)\n\
+  *   [`https://www.mainepublic.org/politics/2016-11-08/maine-voter-turnout-extremely-heavy`](https://www.mainepublic.org/politics/2016-11-08/maine-voter-turnout-extremely-heavy)\n\
+  *   [`https://www.csmonitor.com/USA/Elections/2012/1106/Voter-turnout-the-6-states-that-rank-highest-and-why/Maine`](https://www.csmonitor.com/USA/Elections/2012/1106/Voter-turnout-the-6-states-that-rank-highest-and-why/Maine)\n\
+  *   [`https://www.census.gov/history/pdf/2008presidential_election-32018.pdf`](https://www.census.gov/history/pdf/2008presidential_election-32018.pdf)\n\
+  *   [`https://bipartisanpolicy.org/report/2012-voter-turnout/`](https://bipartisanpolicy.org/report/2012-voter-turnout/)\n\
+  *   [`https://www.census.gov/content/dam/Census/library/publications/2008/demo/p20-557.pdf`](https://www.census.gov/content/dam/Census/library/publications/2008/demo/p20-557.pdf)\n\
+  *   [`https://www.census.gov/content/dam/Census/library/publications/2006/demo/p20-556.pdf`](https://www.census.gov/content/dam/Census/library/publications/2006/demo/p20-556.pdf)\n\
+  *   [`https://www.census.gov/content/dam/Census/library/publications/2002/demo/p20-542.pdf`](https://www.census.gov/content/dam/Census/library/publications/2002/demo/p20-542.pdf)\n\
+  *   [`https://www.deptofnumbers.com/gdp/maine/`](https://www.deptofnumbers.com/gdp/maine/)\n\
+  \n```\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\n\
+  correlation = pd.read_excel('../Datasets/Chapter 4/correlation.xlsx')\nprint(correlation.head())\n\
+  print(correlation.describe())\n# Calculate the correlation matrix\ncorrelation_coefficient\
+  \ = correlation['gdp'].corr(correlation['voterturnout'])\n#print(\"Pearson correlation\
+  \ coefficients:\")\nprint(\"Pearson correlation coefficient between GDP and Voter\
+  \ Turnout:\", correlation_coefficient)\nplt.figure(figsize=(12, 6))\nplt.scatter(correlation['gdp'],\
+  \ correlation['voterturnout'])\nplt.xlabel('gdp')\nplt.ylabel('voterturnout')\n\
+  Listing 4-4\nIs the GDP correlated with Maine voter turnout?\n```\n\n清单 4-4 首先导入必要的库。然后，它使用`pd.read_excel()`函数将数据集`correlation.xlsx`读入一个名为`correlation`的\
+  \ Pandas DataFrame。像往常一样，我们通过`print(correlation.head())`语句显示数据集的前几行，以验证数据集是否被正确读取，从而了解其结构和内容的概览。这有助于理解数据的格式并识别任何潜在问题。\n\
+  \n同样，`print(correlation.describe())`语句会打印数据集的汇总统计信息，包括每个数值列的计数、均值、标准差、最小值和最大值。这有助于深入了解数据集中值的分布和范围。\n\
+  \n该代码使用`.corr()`方法计算`gdp`（国内生产总值）和`voterturnout`列之间的皮尔逊相关系数。该系数衡量两个变量之间线性关系的强度和方向。结果存储在变量`correlation_coefficient`中。上述语句的输出如图\
+  \ 4-7 所示。\n\n![](img/619569_1_En_4_Fig7_HTML.jpg)\n\n图 4-7\n\n`.head()`、`.describe()`和`.corr()`方法的输出\n\
+  \n如图 4-7 所示，相关系数略低于 0.05，这表明缅因州的 GDP 与选民投票率之间几乎不存在关系。\n\n在清单 4-4 中，我们通过可视化方式探索 GDP\
+  \ 与选民投票率之间的关系；使用 Matplotlib 创建了一个散点图。`.scatter()`方法将`gdp`绘制在 x 轴上，将`voterturnout`绘制在\
+  \ y 轴上。`plt.xlabel()`和`plt.ylabel()`函数分别为 x 轴和 y 轴设置标签，为图表提供上下文。`.title()`方法为图表设置标题。最后，`plt.show()`显示图表。在图表上，你会发现数据点分布散乱，表明缅因州选民投票率与\
+  \ GDP 之间没有关系，如图 4-8 所示。\n\n![](img/619569_1_En_4_Fig8_HTML.jpg)\n\n图 4-8\n\n缅因州选民投票率与\
+  \ GDP 之间的相关性\n\n## 假设检验\n\n假设检验是一种统计方法，用于基于样本数据对总体参数进行推断。它涉及将观测数据与预期假设或零假设进行比较，以确定任何观测到的差异或关系是否具有统计显著性，或者仅仅是随机因素造成的。\n\
+  \n用于连续数据分析的假设检验示例包括 T 检验和方差分析，而卡方检验则用于分类数据分析。\n\n### T 检验\n\n我们经常需要确定两个不同组别之间的均值是否存在真实差异，或者所感知到的差异是否仅仅是随机变异的结果。T\
+  \ 检验通过衡量两个数据集之间差异的可能性来服务于这一目的。换句话说，它评估两个样本的均值。值得注意的是，T 检验适用于小样本量，因为小样本量可能不服从正态分布。\n\
+  \n\n\n#### 单样本 T 检验\n\n在此示例中，我收集了缅因州过去总统选举中代表两大主要政党的候选人在不同年份的所有投票数据。该数据集作为预测缅因州\
+  \ 2016 年和 2020 年选举结果的基础。\n\n数据集 `MaineVotesDR.xlsx` 包含四列：`Election Year`（选举年份）、`Democratic\
+  \ Votes`（民主党得票数）、`Republican Votes`（共和党得票数）和 `Result`（结果）。`Result` 列记录了一个二元结果：`0`\
+  \ 表示共和党候选人获胜，而 `1` 表示民主党候选人获胜。\n\n我们的假设是共和党候选人将在 2020 年缅因州总统选举中获胜，而备择假设则表明民主党候选人获胜。\n\
+  \n零假设 (H0)：`result = 0`  \n备择假设 (Ha)：`result = 1`\n\n现在，让我们加载数据集，并探索 T 检验如何揭示 2020\
+  \ 年选举的结果，如代码清单 4-5 所示。\n\n```\nimport pandas as pd\nfrom scipy import stats\nmaine_votes_df\
+  \ = pd.read_excel('../Datasets/Chapter 4/MaineVotesDR.xlsx')\n# 正态性检验\nnormality_test\
+  \ = stats.shapiro(maine_votes_df['Result'])\nprint(\"正态性检验:\")\nprint(normality_test)\n\
+  # t 检验\nt_stat, p_value = stats.ttest_1samp(maine_votes_df['Result'], 0)\nprint(\"\
+  \\nT 检验:\")\nprint(\"T 统计量:\", t_stat)\nprint(\"P 值:\", p_value)\n代码清单 4-5\n单样本\
+  \ T 检验\n```\n\n在代码清单 4-5 中，我们使用 `stats.shapiro()` 对 DataFrame 的 `Result` 列执行正态性检验。它适用于较小的样本量。结果将给出一个检验统计量和一个\
+  \ p 值，以确定数据是否显著偏离正态分布。如果数据集大于 20 行，则可以使用 `stats.normaltest()` 函数。然后，我们使用 `stats.ttest_1samp()`\
+  \ 对 `Result` 列执行单样本 t 检验，零假设 (h0) 为 0。我们打印两个检验的结果。输出如图 4-9 所示。\n\n![](img/619569_1_En_4_Fig9_HTML.jpg)\n\
+  \n图 4-9  \nT 检验结果：对 2020 年缅因州总统选举的预测\n\np 值 = 0.0004。由于 p 值小于 0.05，我们可以拒绝零假设。因此，我们可以得出结论，共和党候选人将在\
+  \ 2020 年缅因州选举中失利。他确实输掉了缅因州。\n\n#### 双样本 T 检验\n\n在此示例中，问题是：两个性别之间的身高是否存在显著差异？\n\n\
+  零假设是身高没有差异。备择假设是身高因性别而异。\n\n在此示例中，加载 CLASS 数据集，如代码清单 4-6-1 所示。\n\n```\nimport pandas\
+  \ as pd\nimport numpy as np\nfrom scipy import stats\nimport seaborn as sns\nimport\
+  \ matplotlib.pyplot as plt\n#https://www.kaggle.com/datasets/megasatish/class-data\n\
+  class_df = pd.read_csv('../Datasets/Chapter 4/Class.csv')\n# 按性别进行正态性检验\nprint(\"\
+  按性别进行正态性检验:\")\nfor Gender in class_df['Gender'].unique():\n    stat, p_value =\
+  \ stats.shapiro(class_df[class_df['Gender'] == Gender]['Height'])\n    print(f\"\
+  性别: {Gender}, 统计量: {stat:.2f}, p 值: {p_value:.4f}\")\n# 按性别进行 t 检验\n# 比较男性和女性\n\
+  male_heights = class_df[class_df['Gender'] == 'M']['Height']\nfemale_heights = class_df[class_df['Gender']\
+  \ == 'F']['Height']\nt_stat, p_value = stats.ttest_ind(male_heights, female_heights)\n\
+  print(f\"\\n 男性和女性身高之间的 T 检验:\")\nprint(f\"T 统计量: {t_stat:.2f}, p 值: {p_value:.4f}\"\
+  )\n代码清单 4-6-1\n双样本 T 检验\n```\n\n在代码清单 4-6-1 中，导入所需库并加载数据集后，我们使用 `scipy.stats` 中的\
+  \ `.shapiro()` 方法（与上一个代码清单相同）检验每个性别组内身高的正态性。然后，我们遍历唯一的性别值（`M` 和 `F`），对每个性别的身高执行正态性检验。并打印每个性别的检验统计量和\
+  \ p 值，如图 4-10 所示。\n\n![](img/619569_1_En_4_Fig10_HTML.jpg)\n\n图 4-10  \n按性别进行正态性检验\n\
+  \n从图 4-10 中，我们不能拒绝零假设，因为没有足够的证据支持拒绝；p 值为 0.1645，大于 0.05。我们可以得出结论，两个性别之间的身高没有差异。但是，我们必须注意样本量很小。CLASS\
+  \ 数据集仅包含 19 行。\n\n为了进一步理解数据分布，让我们使用箱线图和折线图来可视化每个性别的身高。如代码清单 4-6-2 所示。\n\n```\n#\
+  \ 按性别可视化身高分布\nsns.boxplot(x='Gender', y='Height', data=class_df)\nplt.title('按性别划分的身高分布')\n\
+  plt.show()\n# 对于 t 检验图，让我们使用 seaborn 按性别显示身高分布，\n# 突出显示均值和置信区间\nsns.catplot(x='Gender',\
+  \ y='Height', kind=\"point\", data=class_df, join=False, capsize=.1)\nplt.title('显示按性别划分的身高均值的点图')\n\
+  plt.show()\n代码清单 4-6-2\n可视化每个性别的身高\n```\n\n在代码清单 4-6-2 中，我们使用 `sns.boxplot()` 方法绘制每个性别的身高分布。如图\
+  \ 4-11 所示，箱线图显示两组的中位数差异很小，几乎可以忽略不计。此外，如折线图所示，两组的均值之间也存在微小差异。\n\n![](img/619569_1_En_4_Fig11_HTML.jpg)\n\
+  \n图 4-11  \n按性别划分的身高分布箱线图和折线图\n\n## 总结\n\n本章解释了几乎所有分析和数据科学报告所需的最关键的统计概念。它们是频数表、汇总统计、相关分析和\
+  \ T 检验。在下一章中，我们将学习运算符和循环。\n\n"
+- '# 5. 数据预处理与特征工程
+
+
+  本章介绍一些基本的数据清理和查询方法，例如注释语句、算术和比较运算符，以及如何表示缺失值和循环。
+
+
+  ## 注释语句
+
+
+  记录你的代码至关重要，这样你和你的同事才能理解分析构建背后的逻辑。通常，如果你不记录代码，几个月后你再看它时，可能不记得为什么使用某个函数或为什么进行某项检查。因此，代码文档对于遵循逻辑流程至关重要。
+
+
+  Python 中注释语句的语法可以通过以下两种方式实现：
+
+
+  ```
+
+  #消息
+
+  """消息"""
+
+  ```
+
+
+  你可以在程序中的任何位置使用注释语句来解释你的代码。Python 解释器在处理过程中会忽略注释语句中的文本。始终建议你在程序开头编写一条注释，说明你的程序将做什么，然后根据需要添加尽可能多的注释。为了描述逻辑流程，最好在每个数据或过程步骤处编写一条注释，描述其作用。
+
+
+
+
+  ## 算术运算符与赋值运算符
+
+
+  算术运算符表示执行算术计算，如表 5-1 所示。
+
+
+  **表 5-1** 算术运算符与赋值运算符
+
+
+  | 运算符 | 含义 | 示例 | 结果 |
+
+  | --- | --- | --- | --- |
+
+  | `+` | 加法 | `2 + 3` | `5` |
+
+  | `+=` |   | `X = 5` `X += 15` | `X=20` |
+
+  | `-` | 减法 | `5 – 3` | `2` |
+
+  | `-=` |   | `X = 5` `X -= 15` | `X=-10` |
+
+  | `/` | 除法 | `5 / 2` | `2.5` |
+
+  | `/=` |   | `X = 15` `X /= 5` | `X=3.0` |
+
+  | `//` | 商 | `5 // 2` | `2` |
+
+  | `%` | 余数 | `5 % 2` | `1` |
+
+  | `*` | 乘法 | `2 * 3` | `6` |
+
+  | `*=` |   | `X = 15` `X *= 5` | `X=75` |
+
+  | `**` | 幂运算 | `2 ** 3` | `8` |
+
+
+  如果缺失值是算术运算符的操作数，则结果也为缺失值。为避免缺失值的传播，我们将在本章及下一章中讨论一些在数据集中表示和处理缺失值的方法。
+
+
+  ## Python 运算符优先级规则：PEMDAS
+
+
+  - `P`：括号（Parentheses）
+
+  - `E`：幂运算（Exponentiation）
+
+  - `M`：乘法（Multiplication）
+
+  - `D`：除法（Division）
+
+  - `A`：加法（Addition）
+
+  - `S`：减法（Subtraction）
+
+
+  你可以通过流行的运算符顺序口诀来记忆：“Please Excuse My Dear Aunt Sally.”
+
+
+  ## 比较运算符
+
+
+  比较运算符用于对两个变量、常量或表达式进行比较、运算或计算。如果比较结果为真，则返回 `True`；如果比较结果为假，则返回 `False`。比较运算符如表 5-2
+  所示。
+
+
+  **表 5-2** 比较运算符
+
+
+  | 运算符 | 含义 | 示例 | 结果 |
+
+  | --- | --- | --- | --- |
+
+  | `==` | 等于 | `print(2 == 3)` | `False` |
+
+  | `!=` | 不等于 | `print(2 != 3)` | `True` |
+
+  | `<` | 小于 | `print(2 < 3)` | `True` |
+
+  | `<=` | 小于或等于 | `print(2 <= 3)` | `True` |
+
+  | `>` | 大于 | `print(2 > 3)` | `False` |
+
+  | `>=` | 大于或等于 | `print(2>=3)` | `False` |
+
+  | `in` | 成员资格 | `x=2` `print(x in (2,3,5))` | `True` |
+
+
+  ## 逻辑运算符、成员运算符和身份运算符
+
+
+  逻辑运算符用于表示两个条件或表达式之间的关系，判断它们是否同时为真、至少一个为真，或者条件是否应被反转。表 5-3 展示了三种类型的运算符：逻辑运算符、成员运算符和身份运算符。
+
+
+  成员运算符用于检查某个值是否是集合或序列（如列表或字符串）的一部分。
+
+
+  身份运算符用于判断两个变量在内存中是否为同一个对象，而不仅仅是值相等。
+
+
+  **表 5-3** 逻辑运算符、成员运算符和身份运算符
+
+
+  | 运算符 | 含义 | 示例 | 结果 |
+
+  | --- | --- | --- | --- |
+
+  | `and` | 如果两个语句都为真，则返回 `True` | `x=5` `x < 5 and x < 10` | `False` |
+
+  | `or` | 如果其中一个语句为真，则返回 `True` | `x=5` `x < 5 or x < 4` | `False` |
+
+  | `not` | 反转结果，如果结果为真则返回 `False` | `x=5` `not(x < 5 and x < 10)` | `True` |
+
+  | `in` | 如果对象中存在包含指定值的序列，则返回 `True` | `y=[''bus'',''car'',''walk'']` `x=''car''`
+  `x in y` | `True` |
+
+  | `not in` | 如果对象中不存在包含指定值的序列，则返回 `True` | `y=[''bus'',''car'',''walk'']` `x=''car''`
+  `x not in y` | `False` |
+
+  | `is` | 如果两个变量是同一个对象，则返回 `True` | `x=[''bus'',''car'',''walk'']` `y=[''bus'',''car'',''walk'']`
+  `print(x is y)` `print(x==y)` | `False` `True` |
+
+  | `is not` | 如果两个变量不是同一个对象，则返回 `True` | `x=[''bus'',''car'',''walk'']` `y=[''bus'',''car'',''walk'']`
+  `x is not y` | `True` |
+
+
+  Python 中的运算顺序如下：括号、幂运算、一元正号、一元负号、乘法、除法、整除和取模、加法和减法、比较运算、身份和成员运算符、逻辑 `NOT`、`AND`、`OR`。
+
+
+  ## 如何在原始数据中表示缺失值
+
+
+  以下是原始数据中表示缺失值的值，以便 Python 解释器正确读取和存储这些值：
+
+
+  ```
+
+  null,  , NA, nan, NaN
+
+  ```
+
+
+  Python 解释器会将上述值转换为 `NaN` 并将其作为缺失值处理。请注意大小写，因为以下值不会被解释为缺失值：`None`、`none`、`na`、`Null`。
+
+
+  让我们测试这些值，并通过一个示例了解 Python 解释器如何计算它们。在代码清单 5-1 中，我们测试了上述所有值以及其他一些统计编程语言中缺失值的表示形式。例如，“.”
+  在 SAS 中表示缺失值。
+
+
+  ```
+
+  #import the libraries
+
+  import pandas as pd
+
+  import numpy as np
+
+  import matplotlib.pyplot as plt
+
+  #import the dataset
+
+  students_df = pd.read_excel(''../Datasets/Chapter 5/missing.xlsx'')
+
+  #verify that the dataset has been read correctly
+
+  print(students_df)
+
+  #generate the summary statistics
+
+  students_df[''Height''].describe()
+
+  #create a new empty dataframe that has the Height and Missing variables
+
+  new=pd.DataFrame(columns = [''Height'', ''Missing''])
+
+  #Height is equal the Haight column of the dataset
+
+  new[''Height''] = students_df[''Height'']
+
+  #Missing equals the Boolean output of checking of each value is missing or #not
+
+  new[''Missing'']=students_df[''Height''].isnull()
+
+  #print the new dataframe after filling it in
+
+  print(new)
+
+  ```
+
+
+  **代码清单 5-1** 尝试不同的值来表示缺失值，并查看 Python 解释器能够正确读取哪些值
+
+
+  在代码清单 5-1 中，我们首先导入必要的库。然后，导入数据集 `missing.xlsx`。你可以在数据集文件夹中找到它。完整代码位于示例代码文件夹中第 5
+  章的 `5.ipynb` 文件中的代码清单 5-1。图 5-1 显示了数据集的值，其中浅灰色背景表示正确的缺失值表示，深色阴影表示不正确的表示。
+
+
+  ![](img/619569_1_En_5_Fig1_HTML.jpg)
+
+
+  **图 5-1** 缺失值数据集
+
+
+  继续代码清单 5-1，导入上述数据集后，我们将其打印出来以查看值的导入情况。你会发现所有正确的表示都会被读取为 `NaN`。我们使用 `describe()`
+  方法计算该变量的汇总统计信息。在这种情况下，由于存在许多不正确的值，Python 解释器无法计算统计报告。
+
+
+  为了将每个值与 `isnull()` 方法的输出进行并排检查，我们创建了一个名为 `new` 的新 DataFrame。它包含两个变量：`Height` 和 `Missing`。该序列等于
+  `students_df` DataFrame 中的 `Height` 列。`Missing` 等于 `isnull()` 方法的输出。最后，我们打印 DataFrame
+  `new` 以并排查看这些值。输出如图 5-2 所示。
+
+
+  ![](img/619569_1_En_5_Fig2_HTML.jpg)
+
+
+  **图 5-2** 并排检查值
+
+
+  从图 5-2 中，我们验证了 Python 只接受 `null`、` `、`NA`、`nan`、`NaN` 来表示原始数据中的缺失值。
+
+
+  ## 循环
+
+
+  Python 中有两种用于迭代的循环类型：`while` 循环和 `for` 循环。
+
+
+  - **While 循环**：当你不知道迭代次数，并依赖某个条件为假来退出循环时使用。
+
+  - **For 循环**：当你已知迭代次数，或需要遍历某个特定的容器变量，或在特定的数字范围内循环时使用。
+
+
+  让我们探索一些这两种循环的示例。
+
+
+
+
+  ### While 循环
+
+
+  在这个 `while` 循环的示例中，我们持续循环要求用户输入数字，程序将输出该数字是偶数还是奇数。再次强调，使用 `while` 循环时最重要的事情是考虑退出或中断条件，换句话说，就是循环何时结束；否则，它将是一个无限循环并产生错误。在这个示例中，退出条件是当用户输入零时。程序将显示一条退出消息并结束分支。
+
+
+  Python 中的循环有一个其他语言没有的独特特性，即可以在 `while` 和 `for` 循环中使用 `else`。在这个示例中，我们使用 `while-else`
+  来显示退出消息，如代码清单 5-2 所示。
+
+
+  ```
+
+  #在循环前输入用户的第一个数字
+
+  input_no = int(input(''请输入您的数字（输入 0 退出）：''))
+
+  #检查输入值是否等于零；如果不等于，则进入 while 循环
+
+  while input_no != 0:
+
+  #检查除以 2 后的余数是否为零
+
+  if input_no%2==0:
+
+  #如果余数为零，则输入的数字是偶数
+
+  print("您输入的是偶数")
+
+  else:
+
+  print("您输入的是奇数")
+
+  #要求用户输入一个新数字
+
+  input_no = int(input(''请输入您的数字（输入 0 退出）：''))
+
+  else:
+
+  #它会持续循环直到用户输入零。打印此消息并退出
+
+  print("再见，祝您愉快！")
+
+  代码清单 5-2
+
+  While 循环示例
+
+  ```
+
+
+  在代码清单 5-2 中，我们首先要求用户输入第一个值。程序在 `while` 条件中检查它是否等于零。如果输入不等于零，则进入循环并使用 `if` 条件检查数字的模数。如果模数的余数为零，则为偶数；否则为奇数。
+
+
+  如果输入的数字等于零，则进入 `while` 循环的 `else` 部分。程序打印消息并退出。图 5-3 显示了该代码清单的示例输出。
+
+
+  ![](img/619569_1_En_5_Fig3_HTML.jpg)
+
+
+  图 5-3
+
+
+  While 循环示例输出
+
+
+  ### For 循环
+
+
+  `for` 循环比 `while` 循环更常见，用于遍历容器、DataFrame、文件中的行等。在本节中，我们有一些示例来展示 `for` 循环的用法。第一个示例是最标准的循环示例，用于打印数字序列并计算它们的和。第二个示例是遍历一个单词的字母。第三个示例是遍历一个列表，作为容器数据类型示例之一。最后一个示例是遍历一个数据集，将空值替换为零。
+
+
+  #### 遍历数字序列
+
+
+  代码清单 5-3 用于仅将从 1 到 10 的奇数相加，并在每一步打印总和和数字。
+
+
+  ```
+
+  #将 sum 初始化为零
+
+  sum=0
+
+  #从 1 到 10 的 for 循环
+
+  for num in range(1, 10):
+
+  #检查是否为奇数
+
+  if num%2!=0:
+
+  #将数字加到 sum 上
+
+  sum=sum+num
+
+  #打印数字和新的总和
+
+  print(''num='',num)
+
+  print(''sum='',sum)
+
+  代码清单 5-3
+
+  将从 0 到 10 的奇数相加
+
+  ```
+
+
+  Python 中的 `for` 循环语法与其他编程语言不同。语法如下：
+
+
+  ```
+
+  for <变量> in <可迭代对象>:
+
+  ```
+
+
+  Python 中的可迭代对象可以是元组、列表、字符串、序列等。
+
+
+  如代码清单 5-3 所示，我们首先将变量 `sum` 初始化为零。然后，我们使用带有 `range()` 函数的 `for` 循环来生成从 1 到 10 的数字序列。在循环中，我们检查数字是否为奇数。如果为真，我们将该数字加到
+  sum 上，并在每一步打印数字和总和以便追踪。请注意，`range()` 函数在结束的 `number - 1` 处停止。因此，它从 1 开始，到 9 结束，如图
+  5-4 所示。它不考虑 10。
+
+
+  ![](img/619569_1_En_5_Fig4_HTML.jpg)
+
+
+  图 5-4
+
+
+  将从 1 到 10 的奇数相加
+
+
+  #### 遍历字符串
+
+
+  在接下来的两个示例中，我们遍历字符串中的字母，并以相反的顺序打印字符串的字母。完成此任务的方法有很多种；在本节中，我们介绍其中两种。与前面的示例一样，我们遵循使用
+  `in` 运算符的 `for` 循环语法。在代码清单 5-4 中，字符串是“Python”。我们对字符串进行切片，并使用 `-1` 作为步长来反转它。切片方括号的语法如下：`[start
+  :end :step]`。
+
+
+  ```
+
+  for letter in ''Python''[::-1]:
+
+  print(letter)
+
+  代码清单 5-4
+
+  以相反顺序打印字符串的字母
+
+  ```
+
+
+  输出如图 5-5 所示。
+
+
+  ![](img/619569_1_En_5_Fig5_HTML.jpg)
+
+
+  图 5-5
+
+
+  代码清单 5-4 的输出
+
+
+  图 5-5 显示，当我们使用 step=`-1` 时，它从最后一个字母开始，并反转了单词的字母。另外值得一提的是，Python 中的 `print()` 函数默认在每次迭代后换行打印。它相当于
+  C/C++ 编程语言中的 `println()` 函数。稍后在代码清单 5-6 中，我们将看到如何在同一行上打印所有迭代的输出。
+
+
+  在下面的示例中，我们重新使用 `range()` 函数以相反的顺序打印字符串。在代码清单 5-5 中，我们将变量 `p` 初始化为该字符串。然后，我们在从字符串长度到零的范围内循环，步长为
+  -1 以反转顺序。请记住，`range()` 从起始数字循环到结束数字 -1；因此，如果您将 1 而不是 0 放入，循环将不会打印字符串的第一个字母。不过，请随意尝试这些值以了解其工作原理。输出如图
+  5-5 所示。
+
+
+  ```
+
+  p=''Python''
+
+  for i in range(len(p),0,-1):
+
+  print(p[i-1])
+
+  代码清单 5-5
+
+  以相反顺序打印字符串的字母
+
+  ```
+
+
+  代码清单 5-5 的输出与上一个代码清单 5-4 相同。两者都将得到图 5-5 中的输出。
+
+
+  #### 遍历列表
+
+
+  在这个示例中，我们创建一个单词列表并打印它们。如前所述，Python 中的 `print()` 函数默认在每个值后换行打印。为了改变这种样式，让我们在同一行上打印单词，单词之间用“`^`”作为分隔符，如代码清单
+  5-6 所示。
+
+
+  ```
+
+  my_list=[''I'',''Love'',"Python"]
+
+  for c in my_list:
+
+  print(c,end="^")
+
+  代码清单 5-6
+
+  遍历列表的 For 循环
+
+  ```
+
+
+  我们首先用单词初始化列表，如代码清单 5-6 所示。在 Python 中，字符串可以使用单引号或双引号。然后，我们遍历字符串列表并逐个打印单词。为了在同一行上打印，我们使用
+  `end=` 选项并将其设置为分隔符“`^`”，如图 5-6 中的输出所示。
+
+
+  ![](img/619569_1_En_5_Fig6_HTML.jpg)
+
+
+  图 5-6
+
+
+  遍历字符串列表的输出
+
+
+
+
+  ### 遍历 DataFrame
+
+
+  在本章上一节中，我们学习了如何在数据集中表示 `NULL` 值，以便 Python 解释器能正确读取。然而，我们尚未讨论如何处理这些值。Python 提供了多种方法来帮助你替换缺失值，以避免其传播并防止生成错误的分析报告。
+
+
+  在下面的示例（代码清单 5-7）中，我们使用 `fillna()` 方法来填充数据集中的缺失值。首先，我们导入所需的库并加载 Excel 文件。为了验证数据集已被正确读取，我们将其打印出来，并在
+  DataFrame 之后添加三个空行（使用 `"\n\n\n"`），以便轻松区分处理前后的数据。
+
+
+  然后，我们使用 DataFrame 的 `columns` 属性遍历其所有列。在循环内部，我们使用 DataFrame 的 `fillna()` 方法将 `NaN`
+  值替换为零。如何替换空值完全由数据科学家决定。你可以用平均值、最大值、最小值等进行替换。最重要的注意事项是记录新值，并在分析报告中写明你选择该值的理由和依据。在下一章中，我们将更详细地讨论该过程和各种选项。
+
+
+  ```
+
+  import pandas as pd
+
+  import numpy as np
+
+  import matplotlib.pyplot as plt
+
+  students_df = pd.read_excel(''../Datasets/Chapter 5/missing_null.xlsx'')
+
+  print(students_df,''\n\n\n'')
+
+  for i in students_df.columns:
+
+  students_df[i]=students_df[i].fillna(0)
+
+  print(students_df)
+
+  代码清单 5-7
+
+  遍历 DataFrame 的 for 循环
+
+  ```
+
+
+  该代码清单的输出如图 5-7 所示。
+
+
+  ![](img/619569_1_En_5_Fig7_HTML.jpg)
+
+
+  **图 5-7** 处理缺失值前后的数据集
+
+
+  ## 本章小结
+
+
+  本章首先介绍了如何在 Python 程序中编写注释，以及如何使用算术、比较、逻辑、成员和身份运算符。此外，我们还讨论了可用于表示数据集中缺失值的不同值，以便 Python
+  解释器能正确读取它们。同时，我们通过大量示例详细讨论了循环，包括 `while` 和 `for` 循环。在本章末尾，我们学习了如何在 Python 中处理缺失值的一种方法。在下一章中，我们将学习如何为分析做准备，并学习重要的条件语句。
+
+
+  '
+- '# 6. 为分析准备数据
+
+
+  如前所述，在任何编程语言中，你都会学习数据类型、运算符、IF 条件和循环。除了 IF 条件语句外，我们在第 2 章和第 5 章中已经涵盖了所有这些主题。在本章中，我们将学习
+  IF 条件语句以及更高级的数据准备和处理技术。
+
+
+  ## 重命名
+
+
+  在数据分析中，一个关键的第一步是理解数据集中的变量。你需要识别哪些变量是因变量和自变量，并区分数值/连续变量和字符变量。通常，你的客户会在随数据集提供的文本文件中提供这些信息。这个文本文件被称为数据字典，它解释了变量名称及其类型。例如，如果没有数据字典，像
+  `YOB`、`ENROLL` 和 `DT_ACCEPT` 这样的变量名称可能含义不清。数据字典会阐明 `YOB` 代表出生年份（Year Of Birth）。
+
+
+  为了将这些描述性标签添加到数据集中，我们使用重命名列的过程。数据集位于 Datasets 文件夹中，文件名为 `Voter_A.CSV`。上传并导入文件后，我们将数据集重命名为
+  `Voters`。请注意，该数据集是合成的，使用了缅因州州务卿提供的变量名称，但不包含任何真实选民的信息。我为这些练习随机生成了 100 行选民信息。
+
+
+  导入后，我们看到数据集包含 100 行和 9 列。然后我们重命名列以包含描述性标签，使数据集更易读。然而，数据显然需要清洗。例如，`Special Designations`
+  列为空，其他列也存在缺失值。验证数据的有效性并确保其无错误至关重要。我们将在剩余部分学习如何清洗此类杂乱数据。
+
+
+  ```
+
+  import pandas as pd
+
+  df = pd.read_csv(''../Datasets/Chapter 6/Voters_A.csv'')
+
+  print(df.head())
+
+  # 重命名列以添加标签
+
+  df = df.rename(columns={
+
+  ''FIRST_NAME'': ''Name'',
+
+  ''YOB'': ''Year Of Birth'',
+
+  ''ENROLL'': ''Enrollment Code'',
+
+  ''DESIGNATE'': ''Special Designations'',
+
+  ''DT_ACCEPT'': ''Date Accepted (Date of Registration)'',
+
+  ''CG'': ''Congressional District'',
+
+  ''CTY'': ''County ID'',
+
+  ''DT_CHG'': ''Date Changed'',
+
+  ''DT_LAST_VPH'': ''Date Of Last Statewide Election with VPH''
+
+  })
+
+  # 显示 DataFrame
+
+  print(df)
+
+  # 或者，如果需要清晰显示列名
+
+  print("带有标签列的 DataFrame:")
+
+  for column in df.columns:
+
+  print(column)
+
+  # 如果需要，保存修改后的 DataFrame
+
+  # df.to_csv(''voters_labeled.csv'', index=False)
+
+  代码清单 6-1
+
+  rename 方法
+
+  ```
+
+
+  在代码清单 6-1 中，`pd.read_csv(''Voter_A.csv'')` 函数将数据集加载到 Pandas DataFrame 中。`.rename()`
+  方法为列分配描述性标签。为了显示带有新标签的 DataFrame，我们使用 `print(df)` 方法。数据清洗的第一步是通过将缺失值填充为 `"Unknown"`
+  或 `"Missing"` 来处理它们。输出如图 6-1 所示。
+
+
+  可选地，我们可以将清洗后的 DataFrame 保存到一个新的 CSV 文件中。这段 Python 代码实现了理解并重命名变量以提高可读性，以及执行基本数据清洗的目标。
+
+
+  ![](img/619569_1_En_6_Fig1_HTML.jpg)
+
+
+  **图 6-1** 带有新变量名称的输出
+
+
+
+
+  '
+- '# 格式
+
+
+  医疗领域最常见的数据处理练习之一是计算患者在诊所或医院停留的时间，并根据历史数据预测患者的到达时间以减少等待时间。在本例中，即代码清单 6-2，我们创建了一个包含患者
+  ID、年龄、到达日期、到达时间、离开日期、离开时间和就诊费用的数据集。然后，我们计算患者在诊所内停留的时间，并打印一份报告，其中包含时长以及带有美元符号和千位分隔符的金额。此示例旨在学习
+  Python 如何处理日期时间处理和货币格式化。
+
+
+  ```
+
+  import pandas as pd
+
+  import pandas as pd
+
+  from datetime import datetime
+
+  # 示例 DataFrame
+
+  data = {
+
+  ''PatientID'': [1, 2, 3],
+
+  ''Age'': [25, 34, 50],
+
+  ''ArrivingDate'': [''2024-06-10'', ''2024-06-11'', ''2024-06-12''],
+
+  ''ArrivingTime'': [''09:00'', ''10:30'', ''14:45''],
+
+  ''LeavingDate'': [''2024-06-10'', ''2024-06-11'', ''2024-06-12''],
+
+  ''LeavingTime'': [''10:00'', ''11:15'', ''15:30''],
+
+  ''VisitFees'': [100.0, 150.75, 200.5]
+
+  }
+
+  df = pd.DataFrame(data)
+
+  print("原始数据的数据类型：")
+
+  print("\n",df.dtypes)
+
+  print("\n 原始数据集的前几行（",len(df.columns),"列）：")
+
+  print("\n",df.head())
+
+  # 将日期和时间列转换为 datetime 类型
+
+  df[''ArrivingDateTime''] = pd.to_datetime(df[''ArrivingDate''] + '' '' + df[''ArrivingTime''])
+
+  df[''LeavingDateTime''] = pd.to_datetime(df[''LeavingDate''] + '' '' + df[''LeavingTime''])
+
+  # 计算就诊时长
+
+  df[''VisitDuration''] = df[''LeavingDateTime''] - df[''ArrivingDateTime'']
+
+  dummy=df[[''VisitDuration'', ''LeavingDateTime'', ''ArrivingDateTime'']]
+
+  print("\n 计算就诊时长：")
+
+  print("\n",dummy.head())
+
+  # 格式化时长的函数
+
+  def format_duration(duration):
+
+  seconds = duration.total_seconds()
+
+  hours = int(seconds // 3600)
+
+  minutes = int((seconds % 3600) // 60)
+
+  return f"{hours}h {minutes}m"
+
+  # 格式化费用的函数
+
+  def format_fees(fees):
+
+  return ''${:,.2f}''.format(fees)
+
+  # 打印报告
+
+  print("\n 诊所就诊报告：")
+
+  # 显示带有格式化列的 DataFrame 以供参考
+
+  df[''FormattedDuration''] = df[''VisitDuration''].apply(format_duration)
+
+  df[''FormattedFees''] = df[''VisitFees''].apply(format_fees)
+
+  print("\n", df[[''PatientID'', ''Age'', ''FormattedDuration'', ''FormattedFees'']])
+
+  代码清单 6-2
+
+  日期与货币格式化
+
+  ```
+
+
+  让我们解释一下代码清单 6-2 中的代码。首先，我们创建一个包含以下列的 DataFrame：`PatientID`、`Age`、`ArrivingDate`、`ArrivingTime`、`LeavingDate`、`LeavingTime`
+  和 `VisitFees`，并用虚拟值对其进行初始化。
+
+
+  然后，我们使用 `pd.to_datetime()` 方法将 `ArrivingDate` 和 `ArrivingTime` 合并为一个 `ArrivingDateTime`
+  列。类似地，将 `LeavingDate` 和 `LeavingTime` 合并为 `LeavingDateTime` 列。为了计算就诊时长，从 `LeavingDateTime`
+  中减去 `ArrivingDateTime` 来计算 `VisitDuration`。接下来，我们将编写一个函数来格式化这个 `VisitDuration` 变量。
+
+
+  为了格式化时长，我们使用 `def` 关键字定义了一个函数，该函数将时长作为参数并返回格式化后的结果。`format_duration(duration)` 将时长转换为小时和分钟的字符串格式，如图
+  6-2 中的输出所示。
+
+
+  请查看以下链接以了解更多关于日期格式化的信息：[`https://www.w3schools.com/python/python_datetime.asp`](https://www.w3schools.com/python/python_datetime.asp)。
+
+
+  关于货币格式化，我们定义了另一个函数 `format_fees(fees)`，使用 `''${:,.2f}''.format(fees)` 来格式化费用，其中包含美元符号和逗号。其中
+  `$` 用于设置货币符号，`:,` 用于千位分隔符，`.2f` 用于浮点数精度，设置为两位小数。以下是一个了解更多关于货币格式化的链接：[`https://www.geeksforgeeks.org/how-to-format-numbers-as-currency-strings-in-python/`](https://www.geeksforgeeks.org/how-to-format-numbers-as-currency-strings-in-python/)。
+
+
+  最后，我们指定要打印报告的列，如图 6-2 所示。
+
+
+  ![](img/619569_1_En_6_Fig2_HTML.jpg)
+
+
+  **图 6-2** 患者在场馆停留时长的报告
+
+
+  ## 创建新变量
+
+
+  在 Python 中，你不需要预先定义变量。在本例中，我们将继续使用总统选举项目和 `Voters_A.csv` 数据集。该数据集有一个名为 `YOB` 的变量，代表出生年份。根据选民分组可以计算出年龄。在代码清单
+  6-3 中，我们将通过从当前年份减去 `YOB` 来计算选民的年龄。
+
+
+  ```
+
+  import pandas as pd
+
+  df = pd.read_csv(''../Datasets/Chapter 6/Voters_A.csv'')
+
+  print("DataFrame 形状（行，列）：",df.shape)
+
+  print("\n 原始数据-前 5 行：\n",df.head())
+
+  print("\n 原始数据的数据类型：\n")
+
+  print("\n",df.dtypes)
+
+  # 类型转换 - 转换为数值型
+
+  df[''YOB_numeric''] = pd.to_numeric(df[''YOB''], errors=''coerce'')
+
+  print("\n 类型转换后的数据类型：\n")
+
+  print("\n",df.dtypes)
+
+  # 使用 ''YOB_numeric'' 计算年龄
+
+  age = 2024 - df[''YOB_numeric'']
+
+  print("\nage:\n",age.head())
+
+  df[''age'']=age
+
+  print("\n 创建新变量后 DataFrame 的前 5 行：\n",df.head())
+
+  print("\n 添加新列后 DataFrame 的形状（行，列）：",df.shape)
+
+  代码清单 6-3
+
+  创建新变量
+
+  ```
+
+
+  和往常一样，在加载库和数据集之后，你需要通过打印数据集维度（使用 `df.shape()`）、前五行（使用 `df.head()` 方法）以及变量的数据类型（使用
+  `df.types` 属性）来验证数据是否已正确加载，以检查在执行数学运算之前是否需要进行任何类型转换。
+
+
+  如图 6-3 所示，数据集的维度是 100 行 9 列。然而，所有列的数据类型都是 `object`。这个输出表明 `YOB` 列中存在空字符串或非数值，无法直接转换为整数。因此，我们需要将
+  `YOB` 的数据类型更改为数值型，以便对其执行算术运算。如代码清单 6-3 所示，我们使用 `pd.to_numeric()` 方法进行类型转换，并设置 `errors=''coerce''`
+  参数，该参数会将无效的解析结果转换为 `NaN`。这种识别允许我们在计算年龄之前用默认值填充这些 `NaN` 值。不过，在本练习中，我们将保留其为 `NaN`。
+
+
+  如果你想用默认值（例如，2006 年，以获得最低投票年龄 18 岁，或任何合适的值）填充 `YOB` 中的 `NaN` 值，可以使用 `df[''YOB''].fillna(2006,
+  inplace=True)`。它会就地替换 `NaN`。
+
+
+  之后，我们再次打印数据类型以检查新变量 `YOB_numeric` 的数据类型。如图 6-3 所示，它是 `float64`。现在，它是一个数值数据类型，我们可以执行减法来计算
+  `age`。然后，我们使用 `age.head()` 方法打印年龄的前五行。要将这个 Series 作为新列添加到 DataFrame `df` 中，我们使用
+  `df[''age'']=age`。为了最终验证，我们打印了 DataFrame 的前几行和维度，发现列数从 9 增加到了 11。
+
+
+  ![](img/619569_1_En_6_Fig3_HTML.jpg)
+
+
+  **图 6-3** 计算选民的年龄
+
+
+
+
+  '
+- '# 重新排列数据集变量
+
+
+  为了重新排列变量，使 `age` 变量直接位于 `YOB` 列旁边以便于检查，我们使用源 DataFrame 的名称，后跟两个方括号，然后按指定顺序列出要保留的列，各列之间用逗号分隔，每个变量名用引号括起来。
+
+
+  在代码清单 6-4 中，按照上一节的说明导入数据集并计算年龄列后，我们通过将 `age` 列在 `YOB` 之后列出，对 DataFrame 进行了原地重排。我们使用
+  `df.head()` 方法打印前五行以验证更改。
+
+
+  ```
+
+  import pandas as pd
+
+  df = pd.read_csv(''../Datasets/Chapter 6/Voters_A.csv'')
+
+  print("\nRaw data-first 5 rows:\n",df.head())
+
+  df[''YOB_numeric''] = pd.to_numeric(df[''YOB''], errors=''coerce'')
+
+  # 使用 ''YOB_numeric'' 计算年龄
+
+  df[''age''] = 2024 - df[''YOB_numeric'']
+
+  df=df[[''FIRST NAME'', ''YOB'', ''age'', ''ENROLL'', ''DESIGNATE'',''DT ACCEPT'',
+  ''CG'', ''CTY'',''DT CHG'', ''DT LAST VPH'']]
+
+  print("\nThe df after rearranging:\n",df.head())
+
+  代码清单 6-4
+
+  重新排列数据集变量
+
+  ```
+
+
+  输出结果如图 6-4 所示。
+
+
+  ![](img/619569_1_En_6_Fig4_HTML.jpg)
+
+
+  图 6-4
+
+
+  重新排序变量（使年龄列位于 YOB 之后）后的选民数据集
+
+
+  ## IF 语句
+
+
+  `age` 列中有一位选民的年龄值有误，显示为 344 岁。要纠正此问题，如果该数据集是真实数据，我们会有以下几种选择：
+
+
+  1.  通过联系缅因州州务卿办公室或选民本人来获取正确的年龄。
+
+  2.  删除该值，并用 `NaN` 替换，以表示数据缺失，如第 5 章所述。
+
+  3.  删除包含错误值的整行。
+
+  4.  保留原值，尽管它会是异常值，并可能影响年龄、党派归属和投票预测之间关系的分析。
+
+
+  在本例中，我们将把它设为缺失值 `NaN`。在本章后面，我们将学习如何删除整行。
+
+
+  在代码清单 6-5 中，我们像上一节一样，首先加载库和数据集，验证加载情况，并计算年龄列。然后，我们使用 `for` 循环遍历行，并使用 `df.index`
+  属性返回最大行数减 1，因为 Python 从零开始计数。
+
+
+  我们使用 `if df.loc[x, "age"] > 150` 来检查索引 `x` 处 `age` 列的值是否大于 `150`。我们打印出年龄值错误的行，然后用
+  `NaN` 替换它，并使用 `df.loc[x]` 通过索引位置 `x` 再次打印。
+
+
+  ```
+
+  import pandas as pd
+
+  df = pd.read_csv(''../Datasets/Chapter 6/Voters_A.csv'')
+
+  print("\nRaw data-first 5 rows:\n",df.head())
+
+  df[''YOB_numeric''] = pd.to_numeric(df[''YOB''], errors=''coerce'')
+
+  df[''age''] = 2024 - df[''YOB_numeric'']
+
+  for x in df.index:
+
+  if df.loc[x, "age"] > 150:
+
+  print("\nThe rows with the wrong ages:\n",df.loc[x])
+
+  df.loc[x, "age"] = "NaN"
+
+  print("\nReplacing the wrong ages with NaN:\n",df.loc[x])
+
+  代码清单 6-5
+
+  IF 语句
+
+  ```
+
+
+  输出结果如图 6-5 所示。位置打印为第 89 行，因为 Python 从零开始计数。
+
+
+  ![](img/619569_1_En_6_Fig5_HTML.jpg)
+
+
+  图 6-5
+
+
+  IF 语句输出
+
+
+  ## IF-ELIF 语句
+
+
+  现在，我们将分析以下年龄段的选民人数：18–24、25–29、30–39、40–49、50–64 和 65+。
+
+
+  ```
+
+  import pandas as pd
+
+  import matplotlib.pyplot as plt
+
+  df = pd.read_csv(''../Datasets/Chapter 6/Voters_A.csv'')
+
+  print("\nRaw data-first 5 rows:\n",df.head())
+
+  df[''YOB_numeric''] = pd.to_numeric(df[''YOB''], errors=''coerce'')
+
+  df[''age''] = 2024 - df[''YOB_numeric'']
+
+  for x in df.index:
+
+  #if (df.loc[x,''age'']>=18 and df.loc[x,''age'']=65) :
+
+  df.loc[x,''age_group'']=''65+'';
+
+  print("\nchecking age_group:\n",df.head())
+
+  # 直接从 value_counts 创建频率表
+
+  frequency_table = df[''age_group''].value_counts().to_frame(''Frequency'').reset_index()
+
+  # 重命名列以保持一致性
+
+  frequency_table.columns = [''age_group'', ''Frequency'']
+
+  # 按频率排序表格
+
+  frequency_table = frequency_table.sort_values(by=''Frequency'', ascending=False)
+
+  # 打印频率表
+
+  print("\n",frequency_table)
+
+  # 绘制频率图
+
+  plt.figure(figsize=(8, 6))
+
+  plt.bar(frequency_table[''age_group''], frequency_table[''Frequency''], color=''skyblue'')
+
+  plt.xlabel(''age_group'')
+
+  plt.ylabel(''Frequency'')
+
+  plt.title(''Frequency Plot of age_group'')
+
+  plt.show()
+
+  代码清单 6-6
+
+  IF-ELIF 语句
+
+  ```
+
+
+  在代码清单 6-6 中，像往常一样，我们首先加载库和数据集，并通过打印前五行来验证数据集已正确加载。然后，按照本章前几节的说明，我们计算 `age` 列。
+
+
+  为了计算 `age_group` 变量，我们逐行遍历数据集，并使用年龄范围创建嵌套的 `if-elif` 条件，例如 `18<=df.loc[x,''age'']<=24`。Python
+  允许使用范围，也允许像其他编程语言一样使用复合条件语句 `df.loc[x,''age'']>=18 and df.loc[x,''age'']<=24`。此外，您还可以像其他编程语言一样使用
+  `else if` 来代替 `elif` 语句。
+
+
+  之后，按照第 4 章的说明，我们计算 `age_group` 的频率表，并使用条形图绘制其分布。
+
+
+  除了使用嵌套的 `if-elif` 语句之外，我们还可以使用许多其他方法来计算 `age_group`。其中一种方法是使用 `pd.cut()` 方法，这会更符合
+  Python 风格。然而，本节旨在展示如何使用 IF-ELIF 语句。我们可以用以下三行代码替换整个 IF-ELIF 语句部分：
+
+
+  ```
+
+  # 定义年龄分组
+
+  age_bins = [18, 25, 30, 40, 50, 65, float(''inf'')]
+
+  # 定义对应的标签
+
+  age_labels = [''18-24'', ''25-29'', ''30-39'', ''40-49'', ''50-64'', ''65+'']
+
+  # 使用 pd.cut 分配年龄组
+
+  df[''age_group''] = pd.cut(df[''age''], bins=age_bins, labels=age_labels, right=False)
+
+  ```
+
+
+  为了创建 `age_group` 的频率表并为其绘制条形图，我们使用 `to_frame()` 方法将 `value_counts()` 返回的 Series
+  直接转换为 DataFrame，然后一致地重命名列。接着，我们使用 `.columns` 属性重命名 `frequency_table` 的列名，如语句 `frequency_table.columns
+  = [''age_group'', ''Frequency'']` 所示。
+
+
+  在这段代码的末尾，我们打印 `frequency_table` 并使用 `plt.bar(frequency_table[''age_group''], frequency_table[''Frequency''],
+  color="skyblue")` 将其绘制为条形图。之后，我们设置 x 轴和 y 轴的标签以及标题。最后，我们使用这些设置显示图表。图 6-6 显示了代码清单
+  6-6 的输出。
+
+
+  ![](img/619569_1_En_6_Fig6_HTML.jpg)
+
+
+  图 6-6
+
+
+  计算选民的 age_group、其频率表及直方图
+
+
+
+
+  ## 删除行
+
+
+  正如“IF 语句”部分所述，处理错误数据有多种方法。在上一节中，我们了解了如何用缺失值替换它们。在本节中，我们将学习如何删除整行。
+
+
+  ```
+
+  import pandas as pd
+
+  df = pd.read_csv(''../Datasets/Chapter 6/Voters_A.csv'')
+
+  print("Dataframe Shape (rows, columns):",df.shape)
+
+  print("\nRaw data-first 5 rows:\n",df.head())
+
+  df[''YOB_numeric''] = pd.to_numeric(df[''YOB''], errors=''coerce'')
+
+  rows_with_errors = df[df[''YOB_numeric''].isna()]
+
+  print("\nRows with coercing errors in ''YOB'':")
+
+  print(rows_with_errors)
+
+  df.drop([83],axis=0,inplace=True)
+
+  rows_with_errors = df[df[''YOB_numeric''].isna()]
+
+  print("\nChecking if the row with errors was deleted or not:")
+
+  print(rows_with_errors)
+
+  print("Further verification by checking the Dataframe Shape (rows, columns):",df.shape)
+
+  Listing 6-7
+
+  Drop a row
+
+  ```
+
+
+  清单 6-7 一如既往地先加载库和数据集。然后，我们打印数据集维度，如图 6-7 所示，为 100 行 9 列。接着，我们使用 `df.head()` 方法打印前五行。
+
+
+  之后，我们使用 `pd.to_numeric()` 方法将 `YOB` 转换为新的数值列。我们使用 `.isna()` 方法筛选出包含错误的行。如图 6-7 的输出所示，第
+  83 行几乎为空。它只有选民姓名，其他列均为空。
+
+
+  因此，我们使用 `df.drop()` 方法并指定行号来删除整行。然后，我们再次使用 `.isna()` 方法进行验证，现在列表为空，如图 6-7 所示。最后，我们重新打印
+  DataFrame 的维度，发现行数减少了 1 行，变为 99 行。
+
+
+  ![](img/619569_1_En_6_Fig7_HTML.jpg)
+
+
+  图 6-7
+
+
+  删除行
+
+
+  ## 删除列
+
+
+  `DROP` 方法用于从数据集中排除某些变量。在 `Voters_A.csv` 数据集中，`Designate` 列为空。在数据清洗过程中，我们应删除此列；换句话说，就是将其丢弃，如清单
+  6-8 所示。
+
+
+  ```
+
+  import pandas as pd
+
+  import numpy as np
+
+  df = pd.read_csv(''../Datasets/Chapter 6/Voters_A.csv'')
+
+  print("The size of the dataframe:",df.shape)
+
+  df.replace(to_replace=[r''^\s*$'', '''', None], value=np.nan, regex=True, inplace=True)
+
+  print(df.isnull().sum())
+
+  print("The dataframe before dropping:")
+
+  print(df.head())
+
+  df.drop("DESIGNATE",axis = 1, inplace = True)
+
+  print("The size of the dataframe:",df.shape)
+
+  print("The dataframe after dropping:")
+
+  print(df.head())
+
+  Listing 6-8
+
+  Drop method
+
+  ```
+
+
+  使用 `pd.csv()` 方法正确加载文件后，我们验证了 DataFrame 的大小，如图 6-8 所示，为 `(100,9)`。
+
+
+  有时，空单元格可能不会被读取为空字符串（`'' ''`），而是被读取为 `None`、空白字符或其他表示形式。为了处理各种类型的空值并将其替换为 `NaN`，我们可以使用
+  `df.replace(to_replace=[r''^\s*$'', '''', None], value=np.nan, regex=True, inplace=True)`。此方法将所有空值表示形式替换为
+  `NaN`，其中包括一个正则表达式模式，用于匹配仅由空白字符组成的任何字符串：`r''^\s*$''`。同时，它还会替换空字符串和 `None`。
+
+
+  `df.isnull().sum()` 用于统计每列中 `NaN` 值的数量。输出结果如图 6-8 所示，显示 `Designate` 列中的所有行均为 `NaN`。我们使用
+  `.head()` 方法对此进行了验证。
+
+
+  `df.drop("DESIGNATE", axis=1, inplace=True)` 从 DataFrame 中删除名为 `DESIGNATE` 的列。选项
+  `axis=1` 表示要删除的是列（而非行）。在 Pandas 中，`axis=0` 指行，`axis=1` 指列。选项 `inplace=True` 会直接修改原始
+  DataFrame `df`，而不会创建包含新值的新 DataFrame。
+
+
+  我们打印删除列前后的 DataFrame 头部和大小，以验证列数已从 9 列减少到 8 列，如图 6-8 所示。
+
+
+  ![](img/619569_1_En_6_Fig8_HTML.jpg)
+
+
+  图 6-8
+
+
+  删除一列后剩余八列
+
+
+  ## 子集
+
+
+  在 Python 中，有多种方法可以对 Pandas DataFrame 进行子集划分。其中一种是布尔索引。在本例中，我们继续使用前几节的数据集 `Voters_A.CSV`。我们希望创建两个新数据集作为原始数据集的子集，第一个数据集仅包含登记为民主党人的选民，另一个数据集包含登记为共和党人的选民。
+
+
+  ```
+
+  import pandas as pd
+
+  import numpy as np
+
+  df = pd.read_csv(''../Datasets/Chapter 6/Voters_A.csv'')
+
+  democrats=df[df[''ENROLL'']=="D"]
+
+  print(democrats.iloc[:,:6].head())
+
+  print(democrats.shape)
+
+  republicans=df[df[''ENROLL'']=="R"]
+
+  print(republicans.iloc[:,:6].head())
+
+  print(republicans.shape)
+
+  frequency_table = df[''ENROLL''].value_counts().reset_index().rename(columns={''index'':
+  ''ENROLL'', ''ENROLL'': ''Frequency''})
+
+  frequency_table = frequency_table.sort_values(by=''Frequency'', ascending=False)
+
+  print(frequency_table)
+
+  Listing 6-9
+
+  Subset the dataset
+
+  ```
+
+
+  在清单 6-9 中，导入库并加载数据集后，我们使用 `df[df[''ENROLL''] == "D"]` 来过滤 DataFrame，仅保留 `ENROLL`
+  列等于 `"D"` 的行。此子集存储在 `democrats` DataFrame 中。
+
+
+  为了打印 `democrats` DataFrame 的前六列，我们使用 `democrats.iloc[:, :6].head()`。`iloc` 属性用于索引行和列。我们在此处使用它来选择前六列。要获取此数据集中民主党选民的数量，我们使用
+  `democrats.shape`。
+
+
+  我们对共和党重复相同的步骤。最后，我们打印频率表，以计算 `ENROLL` 列的所有唯一级别以及每个级别在此数据集中的出现频率。我们使用 `df[''ENROLL''].value_counts()`
+  来计算 `ENROLL` 列中每个唯一值的频率。`reset_index()` 方法将生成的 Series 转换为 DataFrame 并重置索引。`rename(columns={''index'':
+  ''ENROLL'', ''ENROLL'': ''Frequency''})` 方法用于将列重命名为 `ENROLL` 和 `Frequency`，以提高清晰度。最后，`sort_values(by=''Frequency'',
+  ascending=False)` 方法按 `Frequency` 列对 DataFrame 进行降序排序。
+
+
+  图 6-9 显示了两个较小数据集的前五行，频率表则显示了每种登记类型在数据集中出现的次数。
+
+
+  ![](img/619569_1_En_6_Fig9_HTML.jpg)
+
+
+  图 6-9
+
+
+  子集输出及频率表
+
+
+
+
+  ## 追加
+
+
+  追加数据集等同于垂直合并，即增加行。在 Python 中，你可以使用 `pandas` 库对 DataFrame 进行垂直和水平合并。在本节中，我们将追加两个数据集：`democrats`
+  和 `republicans`，这两个数据集是在上一节中创建的。下一节将给出一个水平合并的示例。
+
+
+  在通过清单 6-10 追加数据集之前，必须先运行清单 6-9 来加载民主党和共和党的数据集。
+
+
+  ```
+
+  import pandas as pd
+
+  ### 垂直连接 DataFrame
+
+  vertical_merged_df = pd.concat([democrats,republicans ], axis=0)
+
+  print("新数据框的大小=",vertical_merged_df.shape)
+
+  print("垂直合并结果:")
+
+  print(vertical_merged_df.iloc[:,:6])
+
+  清单 6-10
+
+  追加两个数据集
+
+  ```
+
+
+  在清单 6-10 中，我们使用 `pd.concat()` 方法垂直合并 DataFrame；换句话说，就是将它们堆叠在一起。`axis=0` 选项指定了连接应沿着行方向进行。这意味着
+  `republicans` DataFrame 的行会被添加到 `democrats` DataFrame 的行中，从而生成一个包含两个 DataFrame 所有行的新
+  DataFrame。这个包含两个数据集所有行的最新数据集被称为 `vertical_merged_df`。
+
+
+  为了验证两个数据集的行是否都在新数据集中，我们使用 `vertical_merged_df.shape` 属性检查其维度。它会返回一个表示 DataFrame
+  维度的元组，显示数据集的大小、行数和列数。图 6-10 显示大小为 `(48,9)`，表明追加操作正确，因为每个数据集都有 24 行，如上一节的频率表所示。
+
+
+  为了使输出看起来更美观，我们只显示前六列，以便标题保持在一行，避免某些列延续到下一行造成混淆。因此，我们使用 `vertical_merged_df.iloc[:,
+  :6]` 通过 `iloc` 方法选择连接后 DataFrame 的前六列。它使用基于整数的索引，其中 `:` 表示所有行，`:6` 表示前六列。这样，我们打印出
+  DataFrame 的选定子集，仅显示新 DataFrame 中所有行的前六列。
+
+
+  ![](img/619569_1_En_6_Fig10_HTML.jpg)
+
+
+  图 6-10
+
+
+  将两个数据集追加为一个
+
+
+  你也可以通过设置 `axis=1`，使用 `pd.concat()` 水平合并 DataFrame（并排放置）。
+
+
+  ## 合并
+
+
+  在上一节中，我们学习了如何追加两个数据集以增加行数。在本节中，我们将学习如何基于一个公共变量合并两个数据集，其中一个数据集包含许多变量，另一个只包含少数几个变量。
+
+
+  在本例中，我们将使用 Zillow 发布的一个 Kaggle 竞赛数据集来进行房价预测。该竞赛包含两个数据集。“多变量”数据集从一个名为 `properties_2016.csv`
+  的 CSV 文件中加载，包含 58 列和约三百万行。“少变量”数据集从另一个名为 `train_2016_v2.csv` 的 CSV 文件中加载，包含三列和超过
+  9 万行。两个文件之间的公共变量是 `parcelid`。你可以通过以下链接下载原始数据集：[`https://www.kaggle.com/competitions/zillow-prize-1/data`](https://www.kaggle.com/competitions/zillow-prize-1/data)。
+
+
+  由于这些文件体积巨大，我只从第一个文件中选取了 3000 行，从第二个文件中选取了 1000 行，并将它们命名为 `many.csv` 和 `few.csv`。你可以在数据集文件夹中找到它们。
+
+
+  ```
+
+  import pandas as pd
+
+  file1 = pd.read_csv(''../Datasets/Chapter 6/many.csv'', low_memory=False)
+
+  file2 = pd.read_csv(''../Datasets/Chapter 6/few.csv'', low_memory=False)
+
+  print("\n 多变量数据集维度:\n",file1.shape)
+
+  print("\n 少变量数据集维度:\n",file2.shape)
+
+  zillow_merged = pd.merge(file1, file2, on=''parcelid'')
+
+  print("\n 合并后数据集维度:\n",zillow_merged.shape)
+
+  print("\n 合并后数据集头部:\n",zillow_merged.head())
+
+  清单 6-11
+
+  合并少变量到多变量数据集
+
+  ```
+
+
+  在清单 6-11 中，我们在加载数据集时使用了 `low_memory=False` 选项以避免分块读取。将此参数设置为 `False` 会使 Pandas 在解析之前将整个文件读入内存。当列包含混合类型时，这可以通过允许
+  Pandas 更准确地推断正确的数据类型来发挥作用。你也可以在加载数据后，通过循环并修复导致错误的列的混合数据类型来手动检查和转换列。但这超出了本练习的范围，因此我们直接使用该参数即可。
+
+
+  为了基于一个关键变量水平连接 DataFrame，我们使用 `pd.merge()` 方法，并在 `on` 参数中指定 `parcelid` 作为关键变量。默认情况下，merge
+  方法使用内连接。因此，它只保留 `parcelid` 同时存在于 `file1` 和 `file2` 中的行。这就是为什么生成的 DataFrame 的行数接近
+  `file2` 的 1004 行。多出的四行是由于 `parcelid` 存在重复值。
+
+
+  你可以使用以下语句删除重复值：
+
+
+  ```
+
+  file1 = file1.drop_duplicates(subset=''parcelid'')
+
+  file2 = file2.drop_duplicates(subset=''parcelid'')
+
+  ```
+
+
+  如果你想包含 `file1` 中的所有行，无论 `file2` 中是否有匹配的 `parcelid`，你可以使用多种类型的连接，例如左连接。语句将是 `zillow_merged
+  = pd.merge(file1, file2, on="parcelid", how="left")`。不匹配的列将显示为 `NaN`。在这种情况下，合并后的
+  DataFrame 的行数将接近“多变量”文件的行数，即 3000 行。
+
+
+  Python 中的合并操作很简单，不需要像其他语言那样按关键标识符进行排序。
+
+
+  输出结果如图 6-11 所示。
+
+
+  ![](img/619569_1_En_6_Fig11_HTML.jpg)
+
+
+  图 6-11
+
+
+  合并少变量到多变量数据集
+
+
+  ## 总结
+
+
+  本章解释了为分析而清理和准备数据的步骤。它讨论了如何重命名变量以及调整报告的格式。还解释了如何创建新变量以及如何在数据集中重新排列它们。它解释了 IF 和 IF-ELIF
+  语句。此外，还描述了如何删除行和列、子集化数据集，以及追加和合并多个数据集。至此，我们已经完成了最常见的数据分析任务，下一章将介绍如何使用回归进行预测。
+
+
+  '
+- "# 7. 回归\n\n线性回归任务拟合一个线性模型，用于根据一个或多个连续或分类预测变量来预测单个连续的因变量。该任务会生成用于解释结果的统计数据和图表。\n\
+  \n\n\n## 简单线性回归\n\n在简单线性回归中，模型中只有一个自变量。其直线方程如下：\n\n`Y = a + b X`\n\n其中，`Y` 是我们想要预测其值的因变量，`a`\
+  \ 是截距，`b` 是系数，`X` 是自变量。误差项被忽略。\n\n原假设是变量之间不存在线性关系。换句话说，`b` 的值为零。备择假设是存在线性关系，且 `b`\
+  \ 不等于零。\n\n`H[0]: b = 0`\n\n`H[a]: b ^= 0`\n\n让我们看看每桶石油价格与黄金价格之间是否存在线性关系。数据集位于 Datasets\
+  \ 文件夹中，文件名为：`sp_oil_gold.xlsx`。\n\n在 Python 中，有多个库可用于执行线性回归。两个常用的库是 `statsmodels`\
+  \ 和 `scikit-learn`。选择使用 `statsmodels` 库中的 `Ordinary Least Squares (OLS)` 还是 `scikit-learn\
+  \ (sklearn)` 中的 `linear regression`，取决于你的具体需求和分析背景。这两个库都提供线性回归功能，但它们的用途和特性有所不同。\n\
+  \n如果你主要关注统计分析、假设检验和详细的诊断信息，并且不需要将模型用于更广泛的机器学习任务，那么 `statsmodels` 可能更适合你。\n\n如果你更侧重于预测建模、与其他机器学习工具的集成以及简洁性，那么\
+  \ `scikit-learn` 是一个可靠的选择。\n\n在某些情况下，分析人员会同时使用这两个库：先用 `statsmodels` 进行初步探索和假设检验，再用\
+  \ `scikit-learn` 构建预测模型，以便轻松集成到更广泛的机器学习工作流中。在我们的代码中，我们将同时包含 `scikit-learn` 和 `statsmodels`，并使用\
+  \ `seaborn` 绘制诊断图，以充分利用每个库的优势。\n\n在下面的示例中，我们将使用 `scikit-learn` 库进行模型拟合和拟合诊断图。\n\n\
+  执行简单线性回归及其拟合诊断的步骤如下：\n\n1. 导入所需的库，加载数据集并进行探索。\n2. 创建模型。\n3. 测试模型并计算预测值和准确率分数。\n\
+  4. 绘制总统选举年份每桶石油价格的五个拟合诊断图：\n   - 预测值与实际值对比图\n   - 残差与拟合值对比图\n   - R-Student 与预测值对比图\n\
+  \   - R-Student 与杠杆值对比图\n   - Cook's D 与观测值对比图\n\n完整代码位于示例代码文件夹中第 7 章的 Listing 7-1.ipynb\
+  \ 文件中。不过，在 Jupyter Notebook 中，代码将按照上述步骤划分到不同的单元格中。现在，我们将解释每个单元格，以编写上述每个步骤的代码，并解释拟合诊断图。\n\
+  \n### 1. 导入库，加载数据集并进行探索\n\n在这一步中，我们导入所需的库，加载数据集并进行探索。为了更深入地探索数据，我们绘制了变量之间的多对双变量分布图。\n\
+  \n```\nimport numpy as np\nimport pandas as pd\nfrom sklearn.linear_model import\
+  \ LinearRegression\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n# 导入\
+  \ r2_score 模块\nfrom sklearn.metrics import r2_score\nfrom sklearn.metrics import\
+  \ mean_squared_error\nfrom sklearn.preprocessing import StandardScaler\nimport statsmodels.api\
+  \ as sm\ndf = pd.read_excel('../Datasets/sp_oil_gold.xlsx')\nprint(df.head())\n\
+  df=df[['oil price','gold_prices']]\nprint(df.head())\n# 将数值数据绘制成配对图\nplt.figure(0)\n\
+  sns.pairplot(df);\nListing 7-1-1\n导入所需的库，加载数据集并进行探索\n```\n\n在 Listing 7-1-1 中，我们首先导入了九个库。`Pandas`、`Numpy`\
+  \ 和 `sklearn.preprocessing` 用于处理数字和矩阵。`Matplotlib` 和 `Seaborn` 用于可视化。`LinearRegression`\
+  \ 是一个机器学习模型。`sklearn.metrics` 库用于模型评估。`statsmodels.api` 用于执行 OLS 并访问影响统计量。\n\n在\
+  \ Python 中，你可以通过多种方式完成同一任务。这里，我们使用 `pd.read_excel()` 函数将数据加载为 DataFrame，因为数据集是一个\
+  \ Excel 文件。不过，你也可以将数据加载为两个 `Numpy` 数组，如下所示，因为数据集很小。\n\n```\noil_prices = np.array([1.63,\
+  \ 1.45, 1.32, 1.82, 11.6, 35.52, 28.2, 14.24, 18.44, 20.29, 27.6, 36.05, 94.1, 109.45,\
+  \ 40.76])\ngold_prices = np.array([35.27, 35.1, 39.31, 58.42, 124.74, 615, 361,\
+  \ 437, 343.82, 387.81, 279.11, 409.72, 871.96, 1668.98, 1250.74])\n```\n\n为了验证数据已正确加载，我们使用\
+  \ `df.head()` 函数打印数据集的标题和前五行。我们只保留 `oil price` 和 `gold_prices` 变量，因为这是一个简单线性回归，只需要一个自变量，我们将删除其余列。我们通过以下语句实现：\n\
+  \n```\ndf=df[['oil price','gold_prices']]\n```\n\n为了探索数据，我们使用 `sns.pairplot(df)`\
+  \ 函数打印变量之间的多对双变量分布图。为了避免图形相互重叠，我们使用 `plt.figure()` 函数对它们进行编号。\n\n![](img/619569_1_En_7_Fig1_HTML.jpg)\n\
+  \n图 7-1\n\nListing 7-1-1 的输出\n\n图 7-1 显示了 Listing 7-1-1 的输出。该图首先显示了数据集中所有列的前五行。然后，它显示了\
+  \ `oil price` 的直方图，以及以 `oil price` 为 y 轴、`gold_price` 为 x 轴的散点图。在图形分布的第二行，散点图再次出现，但这次是以\
+  \ `gold_price` 为 y 轴、`oil price` 为 x 轴，而第二行第二列是 `gold_price` 的直方图。在两个散点图中，都有三个明显的异常值，我们将讨论导致这一现象的原因。\n\
+  \n### 2. 创建模型\n\n在这一步中，我们指定自变量和目标变量。由于数据集很小，我们将跳过训练和测试集的划分步骤。我们将使用整个数据集进行训练和测试。然后，我们创建模型并将数据拟合到模型中。根据参数估计值，我们将写出直线方程。将拟合的直线直观地叠加在变量的散点图上。\n\
+  \n```\nx=df['gold_prices'].values.reshape(-1, 1)\ny=df['oil price'].values\n# 创建\
+  \ LinearRegression 类的对象\nLR = LinearRegression()\n# 拟合数据\nLR.fit(x,y)\n# 参数估计\n\
+  print('intercept:', LR.intercept_)\nprint('slope:', LR.coef_)\nprint('equation of\
+  \ oil prices in the presidential election years=',LR.intercept_,\"+\",LR.coef_[0],\"\
+  *gold_prices\")\n# 绘制拟合直线\nplt.figure(2)\nplt.scatter(x, y)\nplt.xlabel('Gold Prices')\n\
+  plt.ylabel('Oil Price Per Barrel')\nplt.plot(x,LR.intercept_+LR.coef_*x)\nListing\
+  \ 7-1-2\n指定自变量和目标变量\n```\n\n在 Listing 7-1-2 中，我们首先通过使用 `.values` 属性将自变量 `x` 从 DataFrame\
+  \ 转换为 `Numpy` 数组。正如我们之前提到的，在 Python 中可以通过多种方式完成同一任务。我们可以改用 `DataFrame.to_numpy()`\
+  \ 方法。该属性的输出是一个一维数组。\n\n\n\n然而，模型拟合函数需要一个二维数组。因此，我们使用 `reshape(-1,1)` 方法来实现。`reshape`\
+  \ 函数的语法是 `reshape(行数, 列数)`。为了包含所有行而不指定具体数值，我们使用 `-1`。由于这是一个简单的线性回归，意味着我们只有一个自变量，因此我们将列数设为\
+  \ `1`。\n\n对于目标变量 `y`，我们再次使用 `.values` 属性将其类型从 `DataFrame` 转换为 `Numpy`。\n\n现在，我们的变量已经准备好可以拟合到模型中了。我们首先使用\
+  \ `LR = LinearRegression()` 创建一个 `LinearRegression` 类的对象；然后，使用 `LR.fit(x, y)` 拟合变量。\n\
+  \n通过我们的模型属性，我们可以获取参数估计值并写出方程。我们利用这些参数在两个变量的散点图上绘制回归线。\n\n![](img/619569_1_En_7_Fig2_HTML.jpg)\n\
+  \n图 7-2\n\n清单 7-1-2 的输出\n\n图 7-2 显示石油和黄金价格之间存在线性关系。`直线的斜率 = 0.05965`。根据参数估计，直线方程为：\n\
+  \n```\noil_price = 1.98831 + 0.05965 gold_prices\n```\n\n该图由数据的散点图以及叠加在散点图上的回归线组成。\n\
+  \n#### 3. 测试模型并计算预测值与准确率分数\n\n最后，我们使用 R 平方、均方误差和均方根误差来评估模型。\n\n```\n#清单 7-1-3\n\
+  #测试模型：\ny_prediction =  LR.predict(x)\nprint('y_prediction=',y_prediction)\n# 预测准确率分数\n\
+  score=r2_score(y,y_prediction)\nprint('r2 socre = ',score)\nprint('mean_sqrd_error\
+  \ =',mean_squared_error(y,y_prediction))\nprint('root_mean_squared error =',np.sqrt(mean_squared_error(y,y_prediction)))\n\
+  清单 7-1-3\n测试模型，并计算预测值与准确率分数。\n```\n\n在清单 7-1-3 中，我们计算了 `y_prediction` 值，以评估我们模型的准确率，这是通过\
+  \ `r2_score` 实现的。它是 `sklearn.metrics` 模块中的一个函数，`r2_score` 的值在 0 到 100% 之间变化。\n\n\
+  同时，我们还计算了均方误差（MSE），这是一种衡量误差平方平均值的估计量。\n\n![](img/619569_1_En_7_Fig3_HTML.jpg)\n\n\
+  图 7-3\n\n清单 7-1-3 的输出\n\n图 7-3 显示了清单 7-1-3 的输出。\n\n#### 4. 拟合诊断\n\n在清单 7-1-4 中，我们创建诊断图来评估模型的性能。在这段代码中：\n\
+  \n*   R-Student 与预测值图：此图有助于识别可能驱动残差的有影响力的观测值。\n*   R-Student 与杠杆值图：此图有助于识别具有高杠杆值的观测值，这些观测值可能对模型产生不成比例的影响。\n\
+  *   Cook's D 与观测值图：此图有助于识别可能对模型参数产生较大影响的有影响力的观测值。\n\n代码的这一部分使用 `statsmodels` 来拟合一个\
+  \ OLS 模型，然后提取诸如 R-Student、杠杆值和 Cook's D 等影响统计量。代码的最后一部分使用 `seaborn` 创建了 R-Student\
+  \ 与预测值、R-Student 与杠杆值以及 Cook's D 与观测值的诊断图。\n\n```\n#清单 7-1-4\nplt.figure(3)\n# 绘制诊断图\n\
+  plt.figure(figsize=(12, 5))\nresiduals = y - y_prediction\n# 预测值与实际值的散点图\nplt.subplot(1,\
+  \ 2, 1)\nsns.scatterplot(x=y, y=y_prediction)\nplt.title('预测值与实际值')\n# 残差与拟合值图\n\
+  plt.subplot(1, 2, 2)\nsns.scatterplot(x=LR.predict(x), y=residuals)\nplt.axhline(y=0,\
+  \ color='r', linestyle='--')\nplt.title('残差与拟合值')\nplt.tight_layout()\nplt.show()\
+  \                # 完成并渲染图形\n# 使用 statsmodels 执行 OLS 并访问影响统计量\nX_ols = sm.add_constant(x)\n\
+  ols_model = sm.OLS(y, X_ols).fit()\n# 访问影响统计量\ninfluence = ols_model.get_influence()\n\
+  r_student = influence.resid_studentized_internal\nleverage = influence.hat_matrix_diag\n\
+  cook_d = influence.cooks_distance\n# 移除缺失值\nmask = ~np.isnan(r_student) & ~np.isnan(leverage)\n\
+  r_student = r_student[mask]\nleverage = leverage[mask]\n# 绘制 R-Student 与预测值图\nplt.figure(figsize=(12,\
+  \ 4))\nplt.subplot(1, 3, 1)\nsns.scatterplot(x=LR.predict(x), y=r_student)\nplt.axhline(y=0,\
+  \ color='r', linestyle='--')\nplt.title('R-Student 与预测值')\n# 绘制 R-Student 与杠杆值图\n\
+  plt.subplot(1, 3, 2)\nsns.scatterplot(x=leverage, y=r_student)\nplt.axhline(y=0,\
+  \ color='r', linestyle='--')\nplt.title('R-Student 与杠杆值')\n# 绘制 Cook's D 与观测值图\n\
+  plt.subplot(1, 3, 3)\n#print(len(df.index),len(cook_d))\nsns.scatterplot(x=df.index,\
+  \ y=cook_d[0])\nplt.xlim(0, 16)  # 设置 y 轴范围，使其包含零上下的值\n# 设置 x 轴刻度，步长为 1\nplt.xticks(np.arange(min(df.index),\
+  \ 15, 1))\nplt.axhline(y=0, color='r', linestyle='--')\nplt.title(\"Cook's D 与观测值\"\
+  )\nplt.tight_layout()\nplt.show()\n清单 7-1-4\n拟合诊断图\n```\n\n这些图基于统计诊断，可以提供关于单个观测值对模型影响的见解。请根据您的具体分析和需求调整代码。让我们查看输出并对其进行解释。\n\
+  \n![](img/619569_1_En_7_Fig4_HTML.jpg)\n\n图 7-4\n\n拟合诊断图的输出\n\n图 7-4 显示了 `oil_price`\
+  \ 的拟合诊断。因变量（任务）与预测值图可视化了预测中的变异性。在此图中，点分布随机，没有指示误差方差恒定的模式。离群值在此图中清晰可见。\n\n残差与拟合值图显示了点在\
+  \ 0 线上方和下方随机分布的模式，这表明模型是合适的。同样，三个离群值在此处也很明显。\n\nR-Student 与预测值图显示有几个点超出了 ±2 的界限。第三个点位于它们之间，但远离其余的点。\n\
+  \nR-Student 与杠杆值图显示了那些对回归系数计算具有杠杆作用的离群值。\n\nCook's D 图旨在识别离群值。此处，三个点的值非常明显。它们位于第\
+  \ 12、13 和 14 行。我们将在下一节探讨这些离群值及其背后的原因。\n\n这些诊断图有助于评估线性回归模型的假设和性能。它们包括检查线性、同方差性（残差方差恒定）以及有影响力的观测值。这些图可以提供对模型行为的见解，并识别可能需要进一步调查或模型改进的潜在问题。\n\
+  \n\n\n## 多元线性回归\n\n在多元线性回归中，模型包含多个自变量。其直线方程如下：\n\n`Y = a + b[1] X[1] + b[2] X[2]\
+  \ + … + b[i] X[i]`\n\n其中，`Y` 是我们想要预测其值的因变量，`a` 是截距，`b[i]` 是系数，`X[i]` 是自变量。此处忽略了误差项。\n\
+  \n原假设是因变量与任何自变量之间不存在线性关系。换句话说，`b[i]` 的值均为零。备择假设是存在线性关系，且至少有一个 `b[i]` 不等于零。\n\n`H[0]:\
+  \ b[i] = 0`\n\n`H[a]: b[i] ^= 0`\n\n让我们来看一下，在总统选举年份，股票市场表现指数（标普指数）与每桶石油价格和黄金价格之间是否存在线性关系。数据集位于数据集文件夹中，文件名为：`sp_oil_gold.xlsx`。相关代码见示例代码文件夹中第\
+  \ 7 章的 7-2 号清单（`.ipynb` 文件）。\n\n清单 7-2 展示了三个垂直条形图，分别显示了历年（从 1960 年到 2016 年）的石油价格、黄金价格和股票价格，每个变量对应一个独立的图表。这些年份均为总统选举年份。\n\
+  \n```\nimport numpy as np\nimport pandas as pd\nfrom sklearn.linear_model import\
+  \ LinearRegression\nfrom matplotlib import pyplot as plt\ndf = pd.read_excel('../Datasets/sp_oil_gold.xlsx')\n\
+  oil_price = df['oil price']\ngold_prices = df['gold_prices']\nStock_Market_Returns=df['Stock\
+  \ Market Returns']\nyears=df['Year']\n# Figure Size\nplt.figure(0)\n# set width\
+  \ of bar\nbarWidth = 0.25\nfig = plt.subplots(figsize =(20, 8))\nplt.xticks(years)\n\
+  plt.yticks(Stock_Market_Returns)\nplt.axhline(y=0, color='b', linestyle='-')\nplt.title('Stock_Market_Returns')\n\
+  # Bar Plot\nplt.bar(years,Stock_Market_Returns)\n# Show Plot\nplt.show()\nplt.figure(1)\n\
+  # set width of bar\nbarWidth = 0.25\nfig = plt.subplots(figsize =(20, 8))\nplt.xticks(years)\n\
+  plt.yticks(oil_price)\nplt.title('oil_price')\nplt.axhline(y=0, color='b', linestyle='-')\n\
+  # Bar Plot\nplt.bar(years,oil_price)\n# Show Plot\nplt.show()\nplt.figure(2)\n#\
+  \ set width of bar\nbarWidth = 0.25\nfig = plt.subplots(figsize =(20, 8))\nplt.xticks(years)\n\
+  plt.yticks(gold_prices)\nplt.title('gold_prices')\nplt.axhline(y=0, color='b', linestyle='-')\n\
+  # Bar Plot\nplt.bar(years,gold_prices)\n# Show Plot\nplt.show()\nx=df[['oil price','gold_prices']].values\n\
+  y=df['Stock Market Returns'].values\n# creating an object of LinearRegression class\n\
+  LR = LinearRegression()\n# fitting the training data\nLR.fit(x,y)\nprint('intercept:',\
+  \ LR.intercept_)\nprint('slope:', LR.coef_)\nprint('equation of Stock market returns=',LR.intercept_,\"\
+  +\",LR.coef_[0],'* oil price +',LR.coef_[1],\"*gold_prices\")\n清单 7-2\n探索股票、石油和黄金价格\n\
+  ```\n\n输出结果如图 7-5、7-6、7-7 和 7-8 所示。2008 年的金融危机在所有图表中都清晰可见。这场危机是美国自 1929 年大萧条以来最严重的经济灾难。石油和黄金价格在\
+  \ 2012 年飙升。\n\n![](img/619569_1_En_7_Fig7_HTML.jpg)\n\n图 7-7\n探索黄金价格\n\n![](img/619569_1_En_7_Fig6_HTML.jpg)\n\
+  \n图 7-6\n探索石油价格\n\n![](img/619569_1_En_7_Fig5_HTML.jpg)\n\n图 7-5\n探索标普指数\n\n尽管这三个值表现为异常值，但我们不能将其排除，因为它们对公众的投票倾向有直接影响。接下来，如同我们在上一节中所做的那样，我们创建模型并将数据拟合到模型中。最后，我们计算了参数估计值、斜率和截距。\n\
+  \n根据参数估计，直线方程为：\n\n`stock_market_returns = 0.13010 - 0.00671 oil_price + 0.00036367\
+  \ gold_prices`\n\n![](img/619569_1_En_7_Fig8_HTML.jpg)\n\n图 7-8\n输出结果\n\n图 7-8 展示了参数估计值和方程的输出结果。\n\
+  \n您可以重复上一节的相同步骤来绘制拟合诊断图。不过，我们认为这足以演示多元线性回归的概念。\n\n\n\n## 逻辑回归\n\n逻辑回归与线性回归类似，区别在于因变量是二值变量，而非连续变量。该模型方程用于检验因变量中某个离散二值出现的概率。\n\
+  \n二元逻辑回归模型方程如下：\n\n*   `p = e^(b0 + b1*X1 + b2*X2 + ...) / (1 + e^(b0 + b1*X1 +\
+  \ b2*X2 + ...))`\n\n同样，零假设认为变量之间不存在关系，因此所有系数均为零。备择假设则认为因变量与自变量之间存在关系。\n\n在本例中，我们使用泰坦尼克号数据集，以乘客的生存情况为因变量，年龄和乘客等级为自变量，探究它们之间是否存在关系。该数据集位于“Dataset”文件夹中，文件名为\
+  \ `titanic.csv`，你也可以通过以下网址从 OpenDataSoft.com 下载 CSV 文件：[`https://www.kaggle.com/datasets/vinicius150987/titanic3/data`](https://www.kaggle.com/datasets/vinicius150987/titanic3/data)。\n\
+  \n代码位于示例代码文件夹中 Chapter 7.ipynb 文件的清单 7-3。\n\n```\n#清单 7-3-1\nimport pandas as pd\n\
+  from sklearn.linear_model import LogisticRegression\ndf = pd.read_csv('../Datasets/titanic.csv')\n\
+  print(df.head())\ndf['male'] = df['Gender'] == 'male'\nx = df[['Pclass', 'male',\
+  \ 'Age', 'Siblings/Spouses', 'Parents/Children', 'Fare']].values\ny = df['Survived'].values\n\
+  print('x[0:5]=',x[0:5])\nprint('y[0:5]=',y[0:5])\n清单 7-3-1\n逻辑回归\n```\n\n在清单 7-3-1\
+  \ 中，我们首先导入所需的库。然后，加载数据；由于数据集是 CSV 格式，我们使用 `pd.read_csv()` 函数。与前面几节一样，我们通过打印前五行来检查数据集是否已正确加载到\
+  \ `DataFrame`（即 `df`）中。输出结果如图 7-9 所示。\n\n在继续解释代码之前，我们先看一下这段代码的输出。\n\n![](img/619569_1_En_7_Fig9_HTML.jpg)\n\
+  \n图 7-9\n\n清单 7-3-1 的输出\n\n该数据集的所有列都是数值型的，除了 `Gender` 列是 `string`（字符串）类型。我们不能在回归中使用字符串变量。有多种方法可以将字符串变量编码为数值型，例如，序数编码和独热编码。但是，在我们的例子中，我们不需要这些编码，因为性别只有两个值：`male`\
+  \ 和 `female`。因此，更简单的方法是对其中一个值添加掩码，这意味着如果 `mask` 为 `true`，则该值为 `1`；否则，该值为 `0`。\n\n\
+  我们创建一个 `Pandas Series`，它将是一个由 True 和 False 值组成的序列（如果乘客是 `male`，则为 `True`；如果乘客是 `female`，则为\
+  \ `False`）。\n\n```\ndf['Gender']=='male'\n```\n\n现在，我们想创建一个包含此结果的列。要创建新列，我们使用相同的方括号语法\
+  \ `df['male']`，然后将这个新值赋给它。\n\n```\ndf['male'] = df['Gender'] == 'male'\nprint(df.head())\n\
+  ```\n\n接下来，我们在 `DataFrame x` 中设置自变量，在 `Series y` 中设置泰坦尼克号幸存乘客的目标变量。在代码中，我们打印了 `x`\
+  \ 和 `y` 的前五行。\n\n```\n#清单 7-3-2\nmodel = LogisticRegression()\nmodel.fit(x, y)\n\
+  print('model.coef_=',model.coef_)\nprint('model.intercept_=',model.intercept_)\n\
+  清单 7-3-2\n模型\n```\n\n在清单 7-3-2 中，我们创建了一个 `LogisticRegression` 实例，并将 `x` 和 `y` 拟合到该模型。然后，我们打印模型的参数估计值，如图\
+  \ 7-10 所示。\n\n![](img/619569_1_En_7_Fig10_HTML.jpg)\n\n图 7-10\n\n清单 7-3-2 的输出\n\n\
+  图 7-10 显示了参数估计值，你可以将这些值代入逻辑回归方程中。\n\n```\n#清单 7-3-3\nprint('前 5 行的预测值=',model.predict(x[:5]))\n\
+  # [0 1 1 1 0]\nprint('前 5 行的实际 y 值=',y[:5])\n# [0 1 1 1 0]\ny_pred = model.predict(x)\n\
+  print('准确率=',(y == y_pred).sum()/y.shape[0])\nprint('模型评分=',model.score(x,y))\n\
+  清单 7-3-3\n测试模型并计算准确率\n```\n\n在清单 7-3-3 中，我们简单地计算了预测值以及模型预测值与实际值之间的差异。这个计算结果就是模型的准确率。逻辑回归有一个名为\
+  \ `model.score()` 的函数，它可以自动计算这个差异，无需手动计算预测值。\n\n![](img/619569_1_En_7_Fig11_HTML.jpg)\n\
+  \n图 7-11\n\n清单 7-3-3 的输出\n\n图 7-11 显示了清单 7-3-3 的输出。在图中，我们比较了手动计算的准确率和 `model.score()`\
+  \ 函数的输出。如图所示，两者之间没有差异，该模型的准确率约为 81%。\n\n\n\n## 总结\n\n本章讲解了简单线性回归、多元线性回归以及逻辑回归。它详细阐述了诊断矩阵图及其各自含义。此外，还展示了如何通过诊断图中的多个图表轻松识别异常值。\n\
+  \n## 索引\n\nA, B  \nAnaconda 安装  \n算术与赋值运算符  \n\nC  \n注释语句  \n\nD, E, F, G  \n数据分析\
+  \  \n- 年龄分类  \n- 经济  \n- 出口民调  \n- 历史数据  \n- 收入来源  \n- 收入中位数数据  \n- 政治轨迹  \n- 失业率\
+  \  \n- 性别  \n- 历史选民投票率  \n- 议题  \n- 人口分布  \n- 总统选举流程  \n- 流程建模  \n- 民主党 2016 年预测结果\
+  \  \n- 2020 年预测结果  \n- 统计检验  \n- 问题/假设  \n- 种族人口统计  \n- 原始数据  \n- 统计检验  \n- 趋势测量/模式分析\
+  \  \n- 胜率  \n\n数据清洗  \n数据准备/处理技术  \n- 追加数据集  \n- 日期/货币格式设置  \n- 字典  \n- `DROP` 方法\
+  \  \n- 删除行  \n- `IF-ELIF` 语句  \n- `IF` 语句  \n- 合并操作  \n- 重新排列变量  \n- `rename` 方法\
+  \  \n- 子集输出/频率表  \n- 变量创建  \n\nH, I, J, K  \n假设检验  \n- 箱线图/折线图  \n- `CLASS` 数据集\
+  \  \n- 正态性检验  \n- 单样本 T 检验  \n- T 检验  \n- 双样本 T 检验  \n\nL, M  \n线性模型（参见统计分析）  \n\
+  线性回归  \n逻辑回归  \n多元线性回归  \n- 条形图  \n- 线性方程  \n- 参数估计  \n- 垂直条形图  \n- 简单线性回归  \n-\
+  \ 诊断图  \n- 诊断  \n- 自变量/因变量  \n- 库/加载数据集/探索  \n- 线性方程  \n- 模型创建  \n- `scikit-learn`\
+  \ 库  \n- 测试模型  \n\n逻辑回归  \n- CSV 文件  \n- 模型方程  \n- 建模过程  \n- 输出过程  \n- 源代码  \n-\
+  \ 测试  \n\n循环  \n- `for` 循环  \n- `DataFrame.fillna()` 方法  \n- 列表  \n- 缺失值  \n- 逆序\
+  \  \n- 序号  \n- 字符串  \n- 类型  \n- `while` 循环  \n\nN  \n数值 Python (Numpy)  \n- 数组 \
+  \ \n- 索引/切片  \n- 数学函数  \n- 矩阵  \n- 数值计算  \n- 运算  \n- `reshap()` 方法  \n- 平方根/均值 \
+  \ \n- `to_numpy()`  \n\nO  \n普通最小二乘法 (OLS)  \n\nP, Q  \nPandas  \n- `DataFrame`\
+  \  \n- 数据处理/分析  \n- 数据结构/函数  \n- 筛选/修改  \n- 索引  \n- 检查数据  \n- 加载数据  \n- 缺失值  \n\
+  - `pd.DataFrame()`  \n- 序列  \n- 多功能性  \n\nPython 编程语言  \n- 算术/赋值运算符  \n- 单元格/标记\
+  \  \n- 注释语句  \n- 比较运算符  \n- 数据类型分类  \n- `Numpy` 数组  \n- `Pandas` `DataFrame`  \n\
+  - 删除单元格  \n- 插入菜单  \n- 逻辑/成员/身份运算符  \n- 循环  \n- 缺失值/原始数据  \n- `Numpy`  \n- `Pandas`\
+  \  \n- PEMDAS  \n- 类型转换  \n- `dict()`  \n- `list()`  \n- `pd.DataFrame()`  \n- 标量\
+  \  \n- `set()`  \n- `to_numpy()`  \n- `tuple()`  \n- 运行图标  \n\nR  \n回归（参见线性回归） \
+  \ \n\nS, T, U  \n统计分析  \n- 相关分析  \n- 因果关系  \n- 数据集目录  \n- 国内生产总值 (GDP)  \n- `.head()`/`.describe()`/`.corr()`\
+  \ 方法  \n- 库  \n- 线性关系  \n- 皮尔逊相关系数  \n- 散点图  \n- `title()` 方法  \n- 频率表  \n- 假设（参见假设检验）\
+  \  \n- 总结任务  \n\nV, W, X, Y, Z  \n可视化  \n- 条形图  \n- 数据集  \n- 降序  \n- 直方图  \n- 水平条形图\
+  \  \n- NYC OpenData  \n- 排序图表  \n- 垂直条形图  \n- 气泡图  \n- 班级数据集  \n- 初始表示  \n- 输出版本\
+  \  \n- 随机数据直方图任务  \n- CSV 文件  \n- `figure()` 方法  \n- `head()` 方法  \n- 直方图绘制  \n\
+  - 源代码  \n- 散点图代码  \n- 绘图数据文件  \n- 数据集文件夹  \n- `describe()` 方法  \n- `df.head()` 方法\
+  \  \n- `head()` 方法  \n- 库  \n- 线性关系/曲线关系  \n- Matplotlib  \n- 关系  \n- 散点图  \n- 统计定义\
+  \  \n- 变量序列图  \n\n选民人口统计\n"
