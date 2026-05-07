@@ -1,0 +1,160 @@
+name: Thinking in Pandas
+name_cn: Pandas 思考指南
+slug: thinking-in-pandas
+toc:
+- - '#'
+  - 封面
+- - '#'
+  - 简介
+- - '#'
+  - 关于作者
+- - '#'
+  - 关于技术审稿人
+- - '#'
+  - 第 1 章 引言
+- - '##'
+  - 关于 pandas
+- - '##'
+  - '`pandas` 如何帮助构建黑洞图像'
+- - '##'
+  - '`pandas` 如何帮助金融机构对未来市场做出更明智的预测'
+- - '##'
+  - '`pandas` 如何帮助提升内容的可发现性'
+- - '#'
+  - 第 2 章 基础数据访问与合并
+- - '##'
+  - DataFrame 的创建与访问
+- - '###'
+  - '`iloc` 方法'
+- - '###'
+  - '`loc` 方法'
+- - '##'
+  - 使用 `merge` 方法合并 DataFrames
+- - '##'
+  - 使用 `join` 方法合并 DataFrame
+- - '##'
+  - 使用 `concat` 方法合并 DataFrame
+- - '#'
+  - 第 3 章 `pandas` 的工作原理
+- - '##'
+  - Python 数据结构
+- - '##'
+  - CPython 解释器、Python 和 NumPy 的性能
+- - '##'
+  - 线程 1 与线程 2 之间 `total` 递增的竞态条件演示
+- - '##'
+  - pandas 性能简介
+- - '#'
+  - 第 4 章 DataFrame 排版优化
+- - '##'
+  - 选择合适的 DataFrame
+- - '##'
+  - 加载与标准化数据
+- - '###'
+  - '`pd.read_csv`'
+- - '###'
+  - '`read_csv` 参数详解'
+- - '###'
+  - '`pd.read_json`'
+- - '###'
+  - '`pd.read_sql`、`pd.read_sql_table` 和 `pd.read_sql_query`'
+- - '##'
+  - 自定义 SQL 加载代码
+- - '##'
+  - 本章小结
+- - '#'
+  - 第 5 章 pandas 中的基本数据转换
+- - '##'
+  - 数据透视与数据透视表
+- - '###'
+  - Pivot 与 Pivot Table 的对比与重塑操作
+- - '###'
+  - Stack 和 Unstack
+- - '###'
+  - Melt
+- - '###'
+  - 转置
+- - '#'
+  - 第 6 章 `apply` 方法
+- - '##'
+  - 何时不应使用 `apply`
+- - '##'
+  - 何时使用 `apply`
+- - '##'
+  - 使用 Cython 提升 `apply` 的性能
+- - '#'
+  - 第 7 章 `Groupby`
+- - '##'
+  - 正确使用 groupby
+- - '##'
+  - 索引
+- - '##'
+  - 避免使用 groupby
+- - '#'
+  - 第 8 章 超越 pandas 的性能提升
+- - '##'
+  - 计算机架构
+- - '##'
+  - '`NumExpr` 如何提升性能'
+- - '###'
+  - NumExpr is not installed.
+- - '###'
+  - NumExpr is installed.
+- - '####'
+  - Calculate the sum using normal syntax.
+- - '####'
+  - Calculate the sum using eval so that NumExpr optimizes it.
+- - '####'
+  - Calculate the sum using NumExpr directly.
+- - '##'
+  - BLAS 和 LAPACK
+- - '###'
+  - 确保 NumPy 使用优化依赖
+- - '#'
+  - 第 9 章 pandas 的未来
+- - '##'
+  - '`pandas 1.0`'
+- - '##'
+  - '`结论`'
+- - '#'
+  - 脚注
+- - '#'
+  - 索引
+- - '##'
+  - A
+- - '##'
+  - B
+- - '##'
+  - C
+- - '##'
+  - D
+- - '##'
+  - E
+- - '##'
+  - F
+- - '##'
+  - G, H
+- - '##'
+  - I
+- - '##'
+  - J, K
+- - '##'
+  - L
+- - '##'
+  - M
+- - '##'
+  - N
+- - '##'
+  - O
+- - '##'
+  - P, Q
+- - '##'
+  - R
+- - '##'
+  - S
+- - '##'
+  - T
+- - '##'
+  - U, V, W, X, Y, Z
+- - '##'
+  - 脚注

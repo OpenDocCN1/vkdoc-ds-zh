@@ -1,0 +1,4864 @@
+<p><img src="A978-1-4842-3474-7_CoverFigure.jpg"/></p>
+<p></p>
+
+<img src="A978-1-4842-3474-7_CoverFigure.jpg" alt="A978-1-4842-3474-7_CoverFigure.jpg"/>
+
+<p></p>
+
+
+
+Jay Godse
+
+
+Ruby Data ProcessingUsing Map, Reduce, and Select
+
+
+
+<p>
+<img src="A463517_1_En_BookFrontmatter_Figa_HTML.png" alt="A463517_1_En_BookFrontmatter_Figa_HTML.png"/>
+</p>
+
+
+
+
+
+
+
+
+
+Any source code or other supplementary material referenced by the author
+in this book is available to readers on GitHub via the book's product
+page, located at <a href="http://www.apress.com/9781484234730">www.​apress.​com/​9781484234730</a> . For
+more detailed information, please visit <a href="http://www.apress.com/source-code">http://​www.​apress.​com/​source-code</a> .
+
+
+
+ ISBN 978-1-4842-3473-0e-ISBN 978-1-4842-3474-7
+
+
+<a href="https://doi.org/10.1007/978-1-4842-3474-7">https://doi.org/10.1007/978-1-4842-3474-7</a>
+
+
+Library of Congress Control Number: 2018934400
+
+
+© Jay Godse 2018
+
+
+This work is subject to copyright. All rights are reserved by the
+Publisher, whether the whole or part of the material is concerned,
+specifically the rights of translation, reprinting, reuse of
+illustrations, recitation, broadcasting, reproduction on microfilms or
+in any other physical way, and transmission or information storage and
+retrieval, electronic adaptation, computer software, or by similar or
+dissimilar methodology now known or hereafter developed.
+
+
+Trademarked names, logos, and images may appear in this book. Rather
+than use a trademark symbol with every occurrence of a trademarked name,
+logo, or image we use the names, logos, and images only in an editorial
+fashion and to the benefit of the trademark owner, with no intention of
+infringement of the trademark.The use in this publication of trade
+names, trademarks, service marks, and similar terms, even if they are
+not identified as such, is not to be taken as an expression of opinion
+as to whether or not they are subject to proprietary rights.
+
+
+While the advice and information in this book are believed to be true
+and accurate at the date of publication, neither the authors nor the
+editors nor the publisher can accept any legal responsibility for any
+errors or omissions that may be made. The publisher makes no warranty,
+express or implied, with respect to the material contained herein.
+
+
+Printed on acid-free paper
+
+
+Distributed to the book trade worldwide by Springer Science+Business
+Media New York, 233 Spring Street, 6th Floor, New York, NY 10013. Phone
+1-800-SPRINGER, fax (201) 348-4505, email orders-ny@springer-sbm.com, or
+visit www.springeronline.com. Apress Media, LLC is a California LLC and
+the sole member (owner) is Springer Science + Business Media Finance Inc
+(SSBM Finance Inc). SSBM Finance Inc is a Delaware corporation.
+
+
+
+
+Introduction
+
+
+<p>
+I wrote mostly reactive software for many years, but there was always a
+user interface or reporting component that had string manipulation, data
+synthesis, or data formatting. Since I was not trained as a computer
+scientist, I did not learn of higher-order functions such as <code>map()</code> , <code>reduce()</code> , and <code>select()</code> that were found in languages like Lisp
+or Smalltalk. Also, Ruby, Python, C++, and JavaScript were not around
+when I was in school. As a result, I struggled with cumbersome,
+error-prone imperative code for some tasks.
+</p>
+<p>
+A few years after learning Ruby, but while still using the imperative
+programming style for data processing, I discovered the Ruby Enumerable
+library and started using its higher-order functions, such as <code>map()</code> , <code>reduce()</code> , and <code>select()</code> . What
+happened to my data-processing code?
+
+</p>
+
+<ul>
+<li>
+Code became more straightforward because data-processing tasks could be
+expressed with a cascading pipeline of map , reduce , and select stages. Each stage in the
+pipeline was simple to develop and debug.
+</li>
+<li>
+Code volume was reduced by half.
+</li>
+<li>
+Code was naturally more robust, and debugging took much less time.
+</li>
+<li>
+By thinking of solutions in terms of map , reduce , and select , I was able to envision and
+solve more complex problems.
+</li>
+</ul>
+
+<p>
+However, I couldn’t find any but the most trivial examples of how to use
+these functions to solve data-processing problems. It took me a lot of
+time-consuming trial and error with map , reduce , and select to solve these kinds of problems.
+</p>
+<p>
+I decided to write this book to
+
+</p>
+
+<ul>
+<li>
+codify my learning and help you understand it more quickly and
+effectively than I did; and
+</li>
+<li>
+show you my problem-solving approaches to help you solve your
+data-processing problems.
+</li>
+</ul>
+
+<p>
+I’ll also admit that I was forced to learn many of the programming
+nuances of these functions as I wrote the examples.
+</p>
+
+<h2 class="Heading">Who This Book Can Help</h2>
+<p>
+This book can help those who
+
+</p>
+
+<ul>
+<li>
+want to become more skilled in writing data-processing code by becoming
+more fluent in using map , reduce and select ;
+</li>
+<li>
+are willing to type in all the code in the examples and run the code
+using the irb Ruby command line
+and a text editor;
+</li>
+<li>
+are willing to carefully read and try the examples in this book and to
+reflect and ponder the outputs, and even tweak the programs
+independently to try to understand what is happening;
+</li>
+<li>
+are open to learning a different way to approach data-processing
+problems; and
+</li>
+<li>
+are willing to try failed approaches to learn the nuances of these
+functions.
+</li>
+</ul>
+
+
+
+<h2 class="Heading">Who This Book Might Not Help</h2>
+<p>
+This book might not help you if you want
+
+</p>
+
+<ul>
+<li>
+recipes for standard problems via a cookbook; or
+</li>
+<li>
+a reference for data-processing solutions.
+</li>
+</ul>
+
+
+
+
+
+
+Prerequisites
+
+
+<p>
+You should be familiar with some Ruby programming or at least some
+programming in another language. If you don’t know Ruby, search out the
+book <a href="http://learnrubythehardway.org/book/">
+Learn Ruby the Hard Way
+</a> <a href="#A463517_1_En_BookFrontmatter_OnlinePDF.html#Fn1" id="A463517_1_En_BookFrontmatter_OnlinePDF.html#Fn1_source"><sup>1</sup></a>
+and go through it as prescribed by its author, Zed Shaw.
+</p>
+<p>
+If you are fluent with Python, you might benefit from this book if you
+go slowly and look up Ruby information online as you move through this
+book.
+</p>
+<p>
+An internet connection helps if you want to search for online help using
+Google, Bing, or another search engine.
+</p>
+<p>
+You should have a computer with Ruby 2.2.x installed. Windows works, as
+do Linux and Mac OSX.
+</p>
+<p>
+You should have a good syntax-highlighting text editor. I recommend
+Notepad++ on Windows or gedit on Linux or Macintosh, both of which are
+free. Sublime works on Windows, Linux, or Macintosh and is slightly
+better, but costs about $70 at the time of this writing.
+</p>
+
+
+
+
+Acknowledgments
+
+
+<p>
+I would like to acknowledge a few people who helped make me a better
+programmer and a better writer. Thanks go to Kevin Szabo and Ronnie
+Taylor, both of whom helped me be a better programmer, and to Christina
+Hardy, who helped me to become a better writer. And thanks also go to
+Mark Powers and the publication team at Apress who helped produce this
+book.
+</p>
+
+
+
+
+
+Table of Contents
+
+
+
+
+
+ <a href="#A463517_1_En_1_Chapter.html">Chapter 1:​
+Basic Ruby</a> 1
+
+
+
+ <a href="#A463517_1_En_1_Chapter.html#Sec1">The
+Command Line</a> 1
+
+
+
+
+ <a href="#A463517_1_En_1_Chapter.html#Sec2">Object
+Scope</a> 3
+
+
+
+
+ <a href="#A463517_1_En_1_Chapter.html#Sec3">String</a> 4
+
+
+
+
+ <a href="#A463517_1_En_1_Chapter.html#Sec4">Array</a> 6
+
+
+
+ <a href="#A463517_1_En_1_Chapter.html#Sec5">Special
+Methods</a> 6
+
+
+
+
+
+ <a href="#A463517_1_En_1_Chapter.html#Sec6">Hash</a> 8
+
+
+
+
+ <a href="#A463517_1_En_1_Chapter.html#Sec7">Block-passing Syntax</a> 9
+
+
+
+
+ <a href="#A463517_1_En_1_Chapter.html#Sec8">Reading
+from Files</a> 11
+
+
+
+
+
+ <a href="#A463517_1_En_2_Chapter.html">Chapter 2:​
+Function Overview and Simple Examples</a> 13
+
+
+
+ <a href="#A463517_1_En_2_Chapter.html#Sec1">Map</a> 13
+
+
+
+
+ <a href="#A463517_1_En_2_Chapter.html#Sec2">Reduce</a> 15
+
+
+
+
+ <a href="#A463517_1_En_2_Chapter.html#Sec3">Simple
+Reduce Examples</a> 19
+
+
+
+ <a href="#A463517_1_En_2_Chapter.html#Sec4">uniq</a> 19
+
+
+
+
+ <a href="#A463517_1_En_2_Chapter.html#Sec5">reverse</a> 20
+
+
+
+
+ <a href="#A463517_1_En_2_Chapter.html#Sec6">max</a> 21
+
+
+
+
+
+ <a href="#A463517_1_En_2_Chapter.html#Sec7">Select</a> 23
+
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html">Chapter 3:​
+Complex Solutions</a> 25
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec1">Debugging Blocks for Map, Reduce, and
+Select</a> 25
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec2">Debugging Map Blocks</a> 25
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec3">Debugging Reduce Blocks</a> 26
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec4">Debugging Select Blocks</a> 27
+
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec5">FizzBuzz</a> 27
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec6">Sum of
+Odd Cubes</a> 30
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec7">Sort a
+List of Names by Surname</a> 33
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec8">Convert
+a List of Names to CSV</a> 36
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec9">Generate a Random List of Names</a>
+39
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec10">Clean
+a Data Set</a> 42
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec11">Annotate a Sequence of Sales with Running
+Total</a> 46
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec12">Pascal’s Triangle</a> 48
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec13">Reverse Polish Notation Parser</a>
+55
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec14">Generate a List of Team Name Bars</a>
+62
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec15">Find
+Intersection Points of Two Functions</a> 67
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec16">Group
+by Area Code</a> 75
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec17">Sliding Window Average</a> 77
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec18">Denormalize a Data Set</a> 82
+
+
+
+
+ <a href="#A463517_1_En_3_Chapter.html#Sec19">Pythagorean Triplets</a> 84
+
+
+
+
+
+ <a href="#A463517_1_En_4_Chapter.html">Chapter 4:​
+Reverse-Engineering Complex Solutions</a> 89
+
+
+
+ <a href="#A463517_1_En_4_Chapter.html#Sec1">Solution for Pascal’s Triangle</a>
+90
+
+
+
+
+Index97
+
+
+
+
+
+
+About the Author and About the Technical Reviewer
+
+
+
+
+
+
+About the Author
+
+
+
+
+
+
+
+About the Technical Reviewer
+
+
+
+
+
+
+
+
+Footnotes
+
+
+<a href="#A463517_1_En_BookFrontmatter_OnlinePDF.html#Fn1_source">1</a>
+
+<p>
+<a href="http://learnrubythehardway.org/book/">http://​learnrubythehard​way.​org/​book/​</a>
+</p>
+
+
+ 
+
+
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">1. Basic Ruby</h1>
+
+
+<!--End Abstract-->
+
+<p>
+This section will acquaint or refresh you with basic ways to use the
+Ruby command line, as well as some relevant Ruby coding.
+</p>
+<p>
+If you are comfortable programming in Ruby and understand the Ruby
+Enumerable Library reasonably well, you can skip this section.
+</p>
+
+<h2 class="Heading">The Command Line</h2>
+<p>
+After you install Ruby, you can fire up the interactive command line  in Windows,
+Linux, or Mac OSX. I’m using Windows.
+</p>
+<p>
+
+</p>
+<pre>C:\&gt;  irb
+irb(main):001:0&gt;</pre>
+<p>
+For brevity, I won’t write the full <code>irb</code> prompt every
+time.
+</p>
+<p>
+You can execute Ruby statements line by line. The value returned by each
+expression is preceded by <code>⇒</code>.
+</p>
+<p>
+
+</p>
+<pre>irb&gt; a = 4
+=&gt; 4
+irb&gt; a
+=&gt; 4
+irb&gt; a + 7
+=&gt; 11</pre>
+<p>
+You can choose to put multiple statements on one line, separated by a
+semicolon.
+</p>
+<p>
+
+</p>
+<pre>irb&gt; list = ["one", "two","three"];1
+=&gt;1
+irb&gt; list
+=&gt;["one", "two", "three"]</pre>
+<p>
+You can also have a statement that spans multiple lines.
+</p>
+<p>
+
+</p>
+<pre>irb&gt; [2,3,4,5].each do |n|
+irb&gt;    if n%2==0
+irb&gt;        puts "even"
+irb&gt;    else
+irb&gt;        puts "odd"
+irb&gt;    end
+irb&gt; end
+=&gt; "even"
+=&gt; "odd"
+=&gt; "even"
+=&gt; "odd"</pre>
+<p>
+You can put the code into a file called <code>sample.rb</code>, located in
+the same directory or folder from which you ran  <code>irb</code> .
+</p>
+<p>
+
+</p>
+<pre>1  [2,3,4,5].each do |n|
+2      if n%2 == 0
+3          puts "even"
+4      else
+5          puts "odd"
+6      end
+7  end</pre>
+<p>
+Then, with <code>irb</code>:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; load "sample.rb"
+irb&gt; end
+=&gt; "even"
+=&gt; "odd"
+=&gt; "even"
+=&gt; "odd"
+irb&gt;</pre>
+<p>
+You could also copy
+ the code block from your text editor and paste it directly into
+your command line and get the same result, as long as you use only
+spaces for indentation. (Using tabs for indentation will work fine if
+you load the file from the command prompt, but if you paste tabs
+directly into <code>irb</code>, it will generate
+errors).
+</p>
+<p>
+You can either type the code samples from this book into <code>irb</code> directly or type
+them into a text editor and then load the file as just shown.
+</p>
+
+
+<h2 class="Heading">Object Scope</h2>
+<p>
+When you are in a Ruby program, the general method of executing a method
+<code>f</code> on an object  <code>obj</code> is as follows:
+</p>
+<p>
+
+</p>
+<pre>obj.f</pre>
+<p>
+That is true whether you are in a Ruby program or the command line. When
+code is in the main program file, or in the <code>irb</code> command-line
+interpreter, there is an implied context for many functions, such as
+<code>puts</code>. That is
+why you can do this:
+</p>
+<p>
+
+</p>
+<pre>puts "Hello world"</pre>
+<p>
+You don’t need to specify a class to qualify <code>puts</code>, because <code>puts</code> is a method of
+the underlying context object.
+</p>
+
+
+<h2 class="Heading">String</h2>
+<p>
+Strings are basic constructs in all languages. Let’s look at a few basic
+operations used in this book. Try them out on the <code>irb</code> command line for
+yourself.
+</p>
+<p>
+length or size
+
+</p>
+
+<ul>
+<li>
+This yields the size of the string.
+</li>
+</ul>
+
+<p>
+downcase
+
+</p>
+
+<ul>
+<li>
+This converts all letters to lowercase.
+</li>
+</ul>
+
+<p>
+upcase
+
+</p>
+
+<ul>
+<li>
+This converts all letters to uppercase.
+</li>
+</ul>
+
+<p>
+capitalize
+
+</p>
+
+<ul>
+<li>
+This capitalizes the first letter of a string.
+</li>
+</ul>
+
+<p>
+ split() 
+
+</p>
+
+<ul>
+<li>
+This searches a substring for the argument string and splits the string
+into a array comprising substrings on both sides of the <code>split</code> argument, while
+the substring of the <code>split</code> argument is
+discarded. If there are no matches, an array is returned with the whole
+string:
+
+
+
+<pre>irb&gt; base_string = "abc def  ghi"
+irb&gt; base_string.split(" ")
+=&gt; ["abc","def","ghi"]
+irb&gt; base_string.split("  ")
+=&gt; ["abc def","ghi"]
+irb&gt; base_string.split(" d")
+=&gt; ["abc","ef ghi"]
+irb&gt; base_string.split("efghi")
+=&gt; ["abc def ghi"]</pre>
+</li>
+</ul>
+
+<p>
+ join() 
+
+</p>
+
+<ul>
+<li>
+This joins each element of an array of strings with the string in the
+<code>join</code> argument
+as the separator.
+
+
+
+<pre>irb&gt; stringlist = ["This", "is", "a", "sentence"]
+irb&gt; stringlist.join(" ")
+=&gt; "This is a sentence"
+irb&gt; stringlist.join(",")
+=&gt; "This,is,a,sentence"
+irb&gt; stringlist.join(" A SPACE ")
+=&gt; "This A SPACE is A SPACE a A SPACE sentence "</pre>
+</li>
+</ul>
+
+<p>
+string  interpolation 
+
+</p>
+
+<ul>
+<li>
+This lets you define a string template with parameters. The string <code>#{}</code> gives you a place
+to put a variable.
+
+
+
+<pre>irb&gt; first = "Jack"; last = "Black"
+irb&gt; full_name = "#{first} #{last}"
+=&gt; "Jack Black"</pre>
+</li>
+<li>
+This is especially useful for iterating over a list:
+
+
+
+<pre>irb&gt; smith_brothers = ["Terry", "Jerry", "Harry"]
+irb&gt; smith_brothers.each{|brother| puts "#{brother} Smith"}
+Terry Smith
+Jerry Smith
+Harry Smith
+=&gt; ["Terry", "Jerry", "Harry"]</pre>
+</li>
+<li>
+C/C++ programmers will recognize string interpolation as being similar
+to the <code>sprintf</code>
+function in the C standard library.
+</li>
+</ul>
+
+
+
+<h2 class="Heading">Array</h2>
+<p>
+Arrays  in Ruby are
+like arrays in other languages. They are a collection of things indexed
+by a whole number (e.g., 0,1,2,…). In Ruby, an array can contain any
+Ruby object at an index. Array indices in Ruby start at <code>0</code>.
+</p>
+<p>
+Arrays implement the Ruby Enumerable interface, so they will have key
+methods such as <code>each</code>, <code>map</code>, <code>reduce</code>, <code>select</code>, and others.
+</p>
+
+<h3 class="Heading">Special Methods</h3>
+<p>
+ compact() 
+
+</p>
+
+<ul>
+<li>
+This method on an array gets rid of nil members. For example:
+
+
+
+<pre>irb&gt; [1,nil,2,nil,nil,3,nil,[]].compact
+=&gt; [1,2,3,[]]</pre>
+</li>
+</ul>
+
+<p>
+ flatten() 
+
+</p>
+
+<ul>
+<li>
+This method gets rid of inner arrays to an arbitrary depth. It is often
+useful when dealing with nested <code>map</code> and <code>reduce</code> statements.
+For example:
+
+
+
+<pre>irb&gt; [[1,[2,3]],4,[5,6]].flatten
+=&gt; [1,2,3,4,5,6]</pre>
+</li>
+</ul>
+
+<p>
+ push() 
+
+</p>
+
+<ul>
+<li>
+This method pushes an element onto the end of an array and returns a new
+array. For example:
+
+
+
+<pre>irb&gt; [1,2,3,4,5].push(666)
+=&gt; [1,2,3,4,5,666]</pre>
+</li>
+</ul>
+
+<p>
+ pop 
+
+</p>
+
+<ul>
+<li>
+This method removes the last element of an array and returns that
+element and returns a new array. For example:
+
+
+
+<pre>irb&gt; the_array = [1,2,3,4,5]
+irb&gt; tail = the_array.pop
+irb&gt; tail
+=&gt; 5
+irb&gt; the_array
+=&gt; [1, 2, 3, 4]</pre>
+</li>
+</ul>
+
+<p>
+ unshift() 
+
+</p>
+
+<ul>
+<li>
+This method pushes an element onto the beginning of an array and returns
+a new array. For example:
+
+
+
+<pre>irb&gt; the_array = [1,2,3,4,5]
+irb&gt; the_array.unshift(666)
+=&gt; [666, 1, 2, 3, 4, 5]</pre>
+</li>
+</ul>
+
+<p>
+ shift 
+
+</p>
+
+<ul>
+<li>
+This method removes the first element of an array and returns that
+element and modifies the old array. For example:
+
+
+
+<pre>irb&gt; the_array = [1,2,3,4,5]
+irb&gt; head = the_array.shift
+irb&gt; head
+=&gt; 1
+irb&gt; the_array
+=&gt; [2, 3, 4, 5]</pre>
+</li>
+</ul>
+
+
+
+
+<h2 class="Heading">Hash
+</h2>
+<p>
+Another term for hash is an “associative array,” or even a “dictionary”,
+Hashes are indexed by a key object, and there is a value (another
+object) for each key object.
+</p>
+<p>
+
+</p>
+<pre>irb&gt; newhash = Hash.new
+=&gt; {}
+irb&gt; newhash2 = {}
+=&gt; {}</pre>
+<p>
+These are two ways of creating a new hash. The key of a hash can be any
+object or symbol .
+</p>
+<p>
+
+</p>
+<pre>irb&gt; newhash = {key1: "some_value", key2: 2}
+=&gt; {:key1=&gt; "some_value", :key2=&gt;2}
+irb&gt; newhash2 = {}
+irb&gt; newhash2[:key1] = "key1_symbol"
+irb&gt; newhash2["key1"] = "key3_string"
+irb&gt; newhash2[3] = 3
+irb&gt; newhash2[:key4] = [4,"44"]
+irb&gt; newhash2[[3,"33"]] = "wow"
+irb&gt; newhash2
+=&gt; {:key1=&gt;"key1_symbol", "key2"=&gt;"key2_string", 2=&gt;1, :key4=&gt;[4,"44"], [3,"33]=\
+"wow" }</pre>
+<p>
+The key can be any object, including symbols, strings, numbers, hashes,
+arrays, or anything. When iterating through a hash using <code>each</code> or <code>map</code>, it emits a
+single array with the key as the first element and the value as the
+second element, or it can emit two elements, which are the key and the
+value. (Note that <code>inspect</code> is how you
+can inspect the content of any object).
+</p>
+<p>
+
+</p>
+<pre>irb&gt; newhash = {a: 1, b: 2, c: 3}
+irb&gt; newhash.each{|e| puts e.inspect}
+[:a, 1]
+[:b, 2]
+[:c, 3]
+=&gt; {:a =&gt; 1, :b =&gt; 2, :c =&gt; 3}
+irb&gt; newhash.map{|key, value| "The key is #{key} and the value is #{value}"}
+=&gt; ["The key is a and the value is 1", "The key is b and the value is 2", "The key is c and the value is 3"]</pre>
+
+
+<h2 class="Heading">Block-passing Syntax
+</h2>
+<p>
+Ruby is one of many languages that allow lexical closures, otherwise
+known (kind of) as anonymous functions or blocks. These functions are
+dynamically created. The function can take the form of a defined
+function. For example:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; def plus_two(a,b)
+irb&gt;    a + b + 2
+irb&gt; end
+irb&gt; plus_two(3,4)
+=&gt; 9</pre>
+<p>
+Or, you could define it as follows:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; plus_two = -&gt;(a,b) do
+irb&gt;    a + b + 2
+irb&gt; end</pre>
+<p>
+Or, you could define it this way:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; plus_three = -&gt;(a,b){a + b + 3}
+irb&gt; plus_three.call(5,7)
+=&gt; 15</pre>
+<p>
+Now, anonymous functions or blocks can be passed to other functions as
+parameters. A function that takes a function (defined or anonymous) as a
+parameter will optionally execute the function in its program flow.
+Suppose there is a function called <code>printit()</code> defined as
+follows:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; printit = -&gt;(a) do
+irb&gt;    puts a.inspect
+irb&gt; end</pre>
+<p>
+Now, suppose you want to print  each element of a
+range. You will call <code>each</code> on the array,
+which will run the block passed to <code>each</code> for each element
+of the array.
+</p>
+<p>
+
+</p>
+<pre>irb&gt; (1..5).each(&amp;printit)
+1
+2
+3
+4
+5
+=&gt; (1..5)</pre>
+<p>
+You could also pass an actual block of code to run. The block is
+surrounded by <code>do</code> and <code>end</code> or <code>{</code> and <code>}</code>. Objects between
+the vertical bars are optionally passed to the block (depending on the
+definition of the block), and they are used by the block to execute. The
+return value of a block is the value of the last expression in the
+block.
+</p>
+<p>
+
+</p>
+<pre>irb&gt; (1..5).each do |num|
+irb&gt;    puts num.inspect
+irb&gt; end</pre>
+<p>
+You will get the same output as earlier. Ditto for the following:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; (1..5).each{|num| puts num.inspect }</pre>
+<p>
+In Ruby, <code>map</code>,
+<code>reduce</code>, and
+<code>select</code> all take
+a code block as a parameter, and the code block is executed as defined
+by the function. In this book, I will use the <code>do</code>-<code>end</code> syntax most
+often, and sometimes the <code>{ }</code> syntax.
+</p>
+
+
+<h2 class="Heading">Reading from Files </h2>
+<p>
+A common operation in data processing is reading from files and writing
+to files. Suppose you have <code>names.txt</code>, which
+looks like this:
+</p>
+<p>
+
+</p>
+<pre>1,John
+2,Jack
+3,Jim
+4,Jared
+5,John</pre>
+<p>
+To read it, you would do the following:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; names = File.open("names.txt").read</pre>
+<p>
+Now, on some computers, new lines are split by a carriage return (“\n”),
+and on other computers lines are split by a line feed and a carriage
+return (“\r\n”).
+</p>
+<p>
+If you want to split this file into rows, you would do the following:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; names.split("\n")</pre>
+<p>
+That could yield
+</p>
+<p>
+
+</p>
+<pre>=&gt;["1,John\r", "2,Jack\r", "3,Jim\r", "4,Jared\r", "5,John\r"]</pre>
+<p>
+or
+</p>
+<p>
+
+</p>
+<pre>=&gt;["1,John", "2,Jack", "3,Jim", "4,Jared", "5,John"]</pre>
+<p>
+To ensure consistency, use the <code>chomp</code> method, which
+removes whitespace characters if they exist. For example:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; "John\r".chomp
+=&gt; "John"
+irb&gt; "John".chomp
+=&gt; "John"</pre>
+<p>
+So, for our array, just to ensure that we don’t pick up stray line
+feeds, we do the following:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; names.split("\n").map{|row| row.chomp}
+=&gt;["1,John", "2,Jack", "3,Jim", "4,Jared", "5,John"]</pre>
+<p>
+I assume that the examples in this book don’t use “\r\n”, but rather
+just “\n”. If that doesn’t work on your operating system, use the <code>chomp()</code> method as
+shown before working with the array.
+</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">2. Function Overview and Simple
+Examples</h1>
+
+
+<!--End Abstract-->
+
+<p>
+The Ruby library includes the module Enumerable. This library contains
+<code>map()</code>, <code>reduce()</code>, <code>select()</code> , and other functions. This section will
+outline the syntax and meanings of the different parts of code that use
+these three functions.
+</p>
+<p>
+If you can get through this section comfortably, both typing the code
+into <code>irb</code> and
+understanding the results, then you will be in a good position to deepen
+your understanding with the complex examples and reverse engineering
+that follow in the next chapters.
+</p>
+
+<h2 class="Heading">Map
+</h2>
+<p>
+This function of the Ruby Enumerable library is simple but profound. The
+<code>map()</code> method is
+applied to an array or a hash. The job of <code>map()</code> is to apply a
+function or block to each member of the array and return a new array.
+</p>
+<p>
+So, when you see
+</p>
+<p>
+
+</p>
+<pre>def f(x)
+x*x
+end
+output_array =
+[1,2,3,4,5].map do |number|
+f(number)
+end</pre>
+<p>
+you read, for each  <code>number</code>  in
+<code>[1,2,3,4,5]</code>
+apply <code>f(x)</code> to
+return the array <code>[f(1), f(2), f(3), f(4), f(5)]</code>. In this case, the answer is [1,4,9,16,25].
+</p>
+<p>
+One could encode it in traditional imperative programming as follows:
+</p>
+<p>
+
+</p>
+<pre>output_array = []
+for number in 1..5
+output_array.push( f(number) )
+end</pre>
+<p>
+Using <code>map</code>, for
+example:
+</p>
+<p>
+
+</p>
+<pre>output_array =
+[1,2,3,4,5].map do |number|
+number*number
+end</pre>
+<p>
+Or, you could encode it as follows:
+</p>
+<p>
+
+</p>
+<pre>output_array =
+[1,2,3,4,5].map{|element| element*element}</pre>
+<p>
+<code>[1,2,3,4,5]</code> is
+the array. The function (or block) to be applied to each element is
+<code>{|element| element*element }</code>.
+</p>
+<p>
+With the <code>{ }</code>
+syntax, or the <code>do</code>-<code>end</code> syntax, the
+object in the vertical bars (represented by <code>element</code>) is the
+element of the array currently being acted upon by the block, and the
+last object in any function or block is the return value, so <code>element*element</code> is
+returned . The net
+result is the following:
+</p>
+<p>
+
+</p>
+<pre>[1,4,9,16,25]</pre>
+<p>
+Suppose you wanted to provide data to a graphing program that plotted
+the square of the value.
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].map{|element| [element, element*element]}</pre>
+<p>
+In this case, each “point” is a tuple (array) with an element and its
+square. This returns the following:
+</p>
+<p>
+
+</p>
+<pre>[[1,1],[2,4],[3,9],[4,16],[5,25]]</pre>
+<p>
+The difference is that the block returns an array each time with the
+number and its square, so the result is an array of arrays.
+</p>
+<p>
+Since <code>map</code>
+returns an array, you can cascade <code>map</code> calls. For
+example, you could have a map block square each element, and then a
+second map block add 100. For example:
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].map do |number|
+number*number
+end.map do |square|
+square + 100
+end
+=&gt; [101, 104, 109, 116, 125]</pre>
+<p>
+A number of the more complex operations can be solved by cascading with
+<code>map</code> calls.
+</p>
+
+
+<h2 class="Heading">Reduce</h2>
+<p>
+This function of the Ruby Enumerable library is more complex than map()
+and is quite powerful. The method is applied to a collection (for
+example, an array or a hash). The job of <code>reduce()</code> is to apply
+a function cumulatively to each member of the collection and then return
+an object (which could be an array, a single value, a hash, or
+anything).
+</p>
+<p>
+For example:
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].reduce(0, :+)</pre>
+<p>
+This is like saying for each member of the list, add (<code>:+</code>) the member to
+<code>memo</code> and save
+the <code>memo</code> for
+the next element. The initial value of <code>memo</code> is <code>0</code> (the first
+parameter). Another way to code it is as follows:
+</p>
+<p>
+
+</p>
+<pre>memo = 0
+[1,2,3,4,5].each{|element| memo = memo.+(element)}</pre>
+<p>
+Or, you can pass <code>reduce</code> a block of
+code to run. The block comes after the closing parenthesis and is
+surrounded by a <code>do</code>-<code>end</code> construct, or a
+<code>{}</code> construct.
+The emitted variables are always the <code>memo</code> first and the
+<code>element</code> second.
+(In this case, the initial value of <code>memo</code> is 33).
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].reduce(33) do |memo, element|
+memo.+(element)
+end
+memo
+=&gt; 48</pre>
+<p>
+(You don’t have to call them “memo” or “element ,” but that is
+how they behave). After each iteration, the memo takes the value of the
+last object in the block. For example:
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].reduce(33) do |memo, element|
+memo.+(element)
+77.7
+end
+=&gt; 77.7</pre>
+<p>
+This returned 77.7, because that was the last object in the block.
+</p>
+<p>
+Another thing to remember is that the memo returned by the block has to
+be of the same class as the memo emitted by the <code>reduce</code> function. For
+example, when you are using  <code>reduce()</code> to build
+ a Hash object, you must return the whole Hash object:
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].reduce({}) do |memo, element|
+memo[element] = element.to_s
+end
+IndexError: index 2 out of string</pre>
+<p>
+There is an error because the first run of the iteration returned <code>memo[element]</code>, which
+is a <code>String</code>
+class, but the input expects it to be a <code>Hash</code>. To correct it,
+make sure that the <code>memo</code> of class <code>Hash</code> is explicitly
+the last object returned, as follows:
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].reduce({}) do |memo, element|
+memo[element] = element.to_s
+memo
+end
+=&gt; {1=&gt;"1", 2=&gt;"2", 3=&gt;"3", 4=&gt;"4", 5=&gt;"5"}</pre>
+<p>
+This worked because <code>memo</code> is a <code>Hash</code> class and was
+returned every time.
+</p>
+<p>
+You can think of the <code>reduce</code> operation as
+operating on each element and saving some kind of memo to carry forward
+to the operation on the next element. In the preceding example, where
+you calculate the sum of five numbers,
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].reduce(0,:+)</pre>
+<p>
+or
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].reduce(0) do |memo, element|
+memo + element
+end</pre>
+<p>
+you are initializing the remembered  quantity with
+a 0 and telling it to remember to add the current element to the
+previously reduced quantity and save it. The initial value of <code>memo</code> is an integer,
+and the last object returned by the <code>reduce</code> block is also
+an integer.
+</p>
+<p>
+You could remember other things in the memo too. For example, you could
+save the last two numbers of a sequence. You would start with an initial
+value of [nil,nil] for the last two remembered things. On every
+iteration, you would push the element onto the memo (end of the array),
+and then you would shift off the first element of the array.
+</p>
+<p>
+
+</p>
+<pre>initial_memo = [nil,nil]
+last_2 =
+(1..10).reduce(initial_memo) do |memo, element|
+initial_memo.push( element )
+initial_memo.shift
+initial_memo
+end
+=&gt; [9,10]</pre>
+<p>
+In general, if you have to remember something about the previously used
+elements when operating on the current element, use <code>reduce()</code>. If you
+don’t need to remember anything, use <code>map()</code>.
+</p>
+<p>
+Sometimes <code>reduce</code> returns an
+array, in which case you can cascade it with other <code>reduce</code> calls or <code>map</code> calls. For
+example, if you want to add the sum of squares, you can use a <code>map</code> call to square  each element, and
+then a <code>reduce</code>
+call to add them. For example:
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].map do |number|
+number*number
+end.reduce(0) do |sum, square|
+sum + square
+end
+=&gt; 55</pre>
+<p>
+Or, perhaps you want to find the odd numbers of the last five in a
+sequence:
+</p>
+<p>
+
+</p>
+<pre>sequence = [1,2,3,455,5,6,4,3,45,66,77,54,23,4,55,6,7]
+sequence.reduce([nil,nil,nil,nil,nil]) do |memo, number|
+memo.push(number)
+memo.shift
+memo
+end.select do |one_of_last_5|
+one_of_last_5%2 == 1
+end
+=&gt; [23, 55, 7]</pre>
+<p>
+If this seems complex and idiomatic, don’t worry, because we’ll explore
+these programming mechanics later in the book. It suffices to say that
+<code>reduce</code> can be
+used on both sides of a data-processing cascade. And please always
+remember that the input memo must be of the same class or structure as
+the output memo.
+</p>
+
+
+<h2 class="Heading">Simple Reduce Examples</h2>
+<p>
+I’ll show you here how to implement some functions already available for
+arrays, but using <code>reduce()</code>, <code>map()</code>, and <code>select()</code>.
+</p>
+
+<h3 class="Heading">uniq
+</h3>
+<p>
+This function finds a set of unique elements in an array. For example:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; [1,3,5,6,7,8,6,6,1,1].uniq
+=&gt; [1,3,5,6,7,8]</pre>
+<p>
+To implement <code>uniq</code>, we need a way
+to identify unique elements. First, realize that a hash <code>Hash</code> is keyed by
+unique values. So, as we run <code>reduce</code>, we just have
+to put each element as the key of a hash. If the element already exists,
+the value in the hash is overwritten. So, the initial value of the memo
+should be <code>{}</code>.
+</p>
+<p>
+
+</p>
+<pre>[1,3,5,6,7,8,6,6,1,1].reduce({}) do |memo, element|
+memo[element]=element
+memo
+end
+⇒ {1⇒1, 3⇒3, 5⇒5, 6⇒6, 7⇒7, 8⇒8}</pre>
+<p>
+Almost. Now, we just have to pick off the keys using <code>map</code>:
+</p>
+<p>
+
+</p>
+<pre>[1,3,5,6,7,8,6,6,1,1].reduce({}) do |memo, element|
+memo[element]=element
+memo
+end.map do |key, value|
+key
+end
+=&gt; [1, 3, 5, 6, 7, 8]</pre>
+
+
+<h3 class="Heading">reverse </h3>
+<p>
+This function reverses the order of the elements in an array:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; [1,3,5,6,7,8,6,0].reverse
+=&gt; [0, 6, 8, 7, 6, 5, 3, 1]</pre>
+<p>
+One way to solve this is to keep pushing each element on a stack. A
+stack is just an array where you
+use <code>unshift</code> to
+push an element onto the front, and <code>shift</code> to pop elements
+off the front. The initial value of the <code>reduce</code> memo is a
+blank array. I put a <code>print</code> statement so
+you can see for yourself how the memo builds up.
+</p>
+<p>
+
+</p>
+<pre>[1,3,5,6,7,8,6,0].reduce([]) do |memo, element|
+memo.unshift element
+puts "After unshifting element: #{element}, the memo is: #{memo.inspect}"
+memo
+end</pre>
+<p>
+The output is as follows:
+</p>
+<p>
+
+</p>
+<pre>After unshifting element: 1, the memo is: [1]
+After unshifting element: 3, the memo is: [3, 1]
+After unshifting element: 5, the memo is: [5, 3, 1]
+After unshifting element: 6, the memo is: [6, 5, 3, 1]
+After unshifting element: 7, the memo is: [7, 6, 5, 3, 1]
+After unshifting element: 8, the memo is: [8, 7, 6, 5, 3, 1]
+After unshifting element: 6, the memo is: [6, 8, 7, 6, 5, 3, 1]
+After unshifting element : 0, the memo is: [0, 6, 8, 7, 6, 5, 3, 1]
+=&gt; [0, 6, 8, 7, 6, 5, 3, 1]</pre>
+
+
+<h3 class="Heading">max
+</h3>
+<p>
+This function finds the largest element in an array:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; [1,3,5,6,7,8,6,0].max
+=&gt; 8</pre>
+<p>
+<code>Reduce</code> will
+work here because as you iterate through the array, you save the largest
+value in the memo. This example does not even need an explicit initial
+value, because the first element is the default value for the memo.
+</p>
+<p>
+
+</p>
+<pre>[4,3,5,6,7,8,6,0].reduce do |memo, element|
+if element &gt; memo
+memo = element
+else
+memo = memo
+end
+puts "The largest element after checking #{element} is #{memo}"
+memo
+end
+The largest element after checking 3 is 4
+The largest element after checking 5 is 5
+The largest element after checking 6 is 6
+The largest element after checking 7 is 7
+The largest element after checking 8 is 8
+The largest element after checking 6 is 8
+The largest element after checking 0 is 8
+=&gt; 8</pre>
+<p>
+Of course, the terse way to encode this is as follows:
+</p>
+<p>
+
+</p>
+<pre>[4,3,5,6,7,8,6,0].reduce do |memo, element|
+(element &gt; memo) ? element : memo
+end
+=&gt; 8</pre>
+
+
+
+<h2 class="Heading">Select</h2>
+<p>
+This function of the Ruby Enumerable library is very simple. The  <code>select()</code> 
+method is applied to an array or a hash. The job of <code>select()</code> is to select
+elements that return <code>true</code> for a predicate
+applied to the element. (A predicate is an expression that
+returns <code>true</code> or
+<code>false</code>, and it
+runs in the block passed to <code>select</code>).
+</p>
+<p>
+The following trivial example has the predicate always return <code>true</code>, and therefore
+all members of the set are selected. In this case, the set is <code>[1,2,3,4,5]</code> and the
+predicate is <code>true</code>:
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].select do |element|
+true
+end
+=&gt; [1,2,3,4,5]</pre>
+<p>
+A slightly less trivial example selects even numbers (i.e., where the
+predicate is <code>**element % 2 == 0 **</code> ) from the original set of <code>[1,2,3,4,5]</code>:
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].select do |element|
+element % 2 == 0
+end
+=&gt; [2,4]</pre>
+<p>
+<code>Select</code>s can be
+cascaded. Suppose you want to find the even numbers between 1 and 100
+starting with a 7. First, you select the even numbers. Then, you select
+the numbers starting
+ with a 7:
+</p>
+<p>
+
+</p>
+<pre>irb&gt;  (1..100).select{|number| number % 2 == 0}\
+irb*&gt; .select{|even_number| even_number.to_s[0] == "7"}
+=&gt; [70,72.74,76,78]</pre>
+<p>
+You could also reverse the cascade:
+</p>
+<p>
+
+</p>
+<pre>irb&gt;  (1..100).select{|number| number.to_s[0] == "7"}\
+irb*&gt; .select{|seven_number| seven_number % 2 == 0}
+=&gt; [70,72.74,76,78]</pre>
+<p>
+Since <code>select</code>
+returns an array, you can cascade <code>select</code> calls. For
+example, you could have a <code>select</code> block select
+even numbers and then square them using a <code>map</code> call. For
+example:
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].select do |number|
+number%2==0
+end.map do |even_number|
+even_number * even_number
+end
+=&gt; [4, 16]</pre>
+<p>
+A number of the more complex operations  can be
+solved by cascading with <code>select</code> calls.
+</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">3. Complex Solutions</h1>
+
+
+<!--End Abstract-->
+
+<p>
+This section’s examples will show you how to approach and solve more
+complex problems using <code>map</code>, <code>reduce</code>, and <code>select</code>. I will start
+off with a section on debugging and then follow it with complex
+solutions. Please go through the debugging section first because this is
+the key to understanding your problem and to developing a better
+understanding of <code>map</code>, <code>reduce</code>, and <code>select</code>.
+</p>
+
+<h2 class="Heading">Debugging Blocks for Map, Reduce, and Select</h2>
+<p>
+The best way to learn about your problem as you solve it is to insert
+print statements like <code>puts</code> to see what
+happens as you execute the loop.
+</p>
+
+<h3 class="Heading">Debugging Map Blocks </h3>
+<p>
+The thing to remember is that <code>map</code> operates on each
+element of the collection for each run of the block. When debugging, you
+want to see how the block operated on each element.
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].map do |number|
+result = number*number
+puts "The result of the function on element: #{element} is #{result}"
+result
+end</pre>
+<p>
+It is important to save the result in a local variable so that you can
+return it as the last statement of the block . If you don’t, the
+result of the <code>puts</code> statement will
+be returned (usually <code>nil</code>).
+</p>
+
+
+<h3 class="Heading">Debugging Reduce Blocks </h3>
+<p>
+Debugging <code>reduce</code> is a bit
+different because the memo is carried from element to element.
+Therefore, you want to print out the element as well as the memo.
+</p>
+<p>
+
+</p>
+<pre>final_answer =
+[1,2,3,4,5].reduce(0) do |memo, number|
+memo = memo + number
+puts "After operating on number: #{number}, the memo is #{memo.inspect} "
+memo
+end
+After operating on number: 1, the memo is 1
+After operating on number: 2, the memo is 3
+After operating on number: 3, the memo is 6
+After operating on number: 4, the memo is 10
+After operating on number: 5, the memo is 15
+=&gt; 15</pre>
+<p>
+Again, make sure that you save the memo before printing it, then return
+it at the end of the block.
+</p>
+<p>
+If you are using <code>memo</code> to build a
+different data structure as a part of the <code>reduce</code> block,
+inspecting the memo becomes extremely useful in converging on a good
+solution .
+</p>
+
+
+<h3 class="Heading">Debugging Select Blocks </h3>
+<p>
+Debugging <code>select</code> is easy
+because the only thing you need to know is whether the predicate was
+true for a particular element.
+</p>
+<p>
+For example, a <code>select</code> filter that
+only keeps even numbers (<code>number%2==0</code>) could be
+debugged like this:
+</p>
+<p>
+
+</p>
+<pre>[1,2,3,4,5].select do |number|
+predicate = number%2==0
+puts "The predicate is #{predicate} for number #{number}"
+predicate
+end
+The predicate is false for number 1
+The predicate is true for number 2
+The predicate is false for number 3
+The predicate is true for number 4
+The predicate is false for number 5
+=&gt; [2, 4]</pre>
+<p>
+Here, you can see that only the numbers for which the predicate was true
+ended up in the answer (<code>[2,4]</code>).
+</p>
+
+
+
+<h2 class="Heading">FizzBuzz </h2>
+<p>
+This program is used as a programming question. Write a program to go
+through a list of integers 1..N.
+If the number is divisible by 2, print “fizz”; if it is divisible by 3,
+print “buzz”; if it is divisible by 2 and 3, print “fizzbuzz”;
+otherwise, print the number.
+</p>
+<p>
+The input can be modeled as a range: (1..15).
+</p>
+<p>
+The output should look like this:
+</p>
+<p>
+
+</p>
+<pre>1
+fizz
+buzz
+fizz
+5
+fizzbuzz
+7
+fizz
+buzz
+fizz
+11
+fizzbuzz
+13
+fizz
+buzz</pre>
+<p>
+The data structure for the output should be an array. We want to do
+something to each element of the array to get the output. Let’s start
+with fizz, which requires that
+the number be divisible by 2 (<code>n%2==0</code>):
+</p>
+<p>
+
+</p>
+<pre>(1..15).map do |n|
+if n%2 == 0
+"fizz"
+else
+n.to_s
+end
+end</pre>
+<p>
+That gives us the following:
+</p>
+<p>
+
+</p>
+<pre>=&gt; ["1", "fizz", "3", "fizz", "5", "fizz", "7", "fizz", "9", "fizz", "11", ... \ and so on</pre>
+<p>
+That is close, but we didn’t address the buzz:
+</p>
+<p>
+
+</p>
+<pre>(1..15).map do |n|
+if n%2 == 0
+"fizz"
+elsif n%3 ==0
+"buzz"
+else
+n.to_s
+end
+end</pre>
+<p>
+That gives us the following:
+</p>
+<p>
+
+</p>
+<pre>=&gt; ["1", "fizz", "buzz", "fizz", "5", "fizz", "7", "fizz", "buzz", "fizz", "11",\
+"fizz", "13", "fizz", "buzz"]</pre>
+<p>
+That’s close, but the 
+fizzbuzz  examples didn’t
+happen at 6 and 12. Let’s add in another clause. To be divisible by 2
+and 3 implies that it must be divisible by 6:
+</p>
+<p>
+
+</p>
+<pre>fizzbuzz_list =
+(1..15).map do |n|
+if n%2 == 0
+"fizz"
+elsif n%3 ==0
+"buzz"
+elsif n%6 == 0
+"fizzbuzz"
+else
+n.to_s
+end
+end</pre>
+<p>
+This yielded the same result as the previous attempt. A closer inspection  of the code
+suggests that if the number is divisible by 6, it will always be even
+and will be caught by the <code>n%2==0</code> clause.
+However, if we catch the <code>n%6==0</code> clause first,
+what happens?
+</p>
+<p>
+
+</p>
+<pre>fizzbuzz_list =
+(1..15).map do |n|
+if n%6 == 0
+"fizzbuzz"
+elsif n%3 ==0
+"buzz"
+elsif n%2 == 0
+"fizz"
+else
+n.to_s
+end
+end</pre>
+<p>
+That yields the following:
+</p>
+<p>
+
+</p>
+<pre>=&gt; ["1", "fizz", "buzz", "fizz", "5", "fizzbuzz", "7", "fizz", "buzz", "fizz", "\
+11", "fizzbuzz", "13", "fizz", "buzz"]</pre>
+<p>
+To print it, just do the following:
+</p>
+<p>
+
+</p>
+<pre>fizzbuzz_list.each{|e| puts e}</pre>
+
+
+<h2 class="Heading">Sum of Odd Cubes     </h2>
+<p>
+This is a typical math problem that can be solved using <code>map</code>, <code>reduce</code>, and <code>select</code>.
+</p>
+<p>
+You need to sum the cubes of the odd numbers from 1 to 1000. For
+example, for the odd numbers under 10, it would be as follows:
+</p>
+<p>
+
+</p>
+<pre>1**3 + 3**3 + 5**3 + 7**3 + 9**3
+=&gt; 1225</pre>
+<p>
+1225 makes sense because it is 1 + 27 + 125 + 343 + 729.
+</p>
+<p>
+How does one solve it? Start in stages. First, we have to figure out how
+to filter the odd numbers. An odd number is one where when you do a
+<code>modulo-2</code>
+operation, it returns 1. For example:
+</p>
+<p>
+
+</p>
+<pre>num = 15
+num%2
+=&gt; 1
+num = 1000
+num%2
+=&gt; 0</pre>
+<p>
+We could try selecting numbers from a range. For the purposes of this
+exercise, I’m going to restrict myself to numbers under 20.
+</p>
+<p>
+
+</p>
+<pre>(1..20).select do |number|
+number%2 == 1
+end
+=&gt; [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]</pre>
+<p>
+So far, so good. We have selected      only odd numbers. The
+next step is to cube each of those numbers. In other words, we have to
+map each of those numbers to its cube.
+</p>
+<p>
+
+</p>
+<pre>(1..20).select do |number|
+number%2 == 1
+end.map do |odd_number|
+odd_number**3
+end
+=&gt; [1, 27, 125, 343, 729, 1331, 2197, 3375, 4913, 6859]</pre>
+<p>
+This new array is clearly a list of odd cubes. (Do the math by hand for
+a few of them if you don’t believe me). Now, all we have to do is sum
+them up (or reduce the list by adding up the elements). The initial
+value of the sum is 0. For example:
+</p>
+<p>
+
+</p>
+<pre>(1..20).select do |number|
+number%2 == 1
+end.map do |odd_number|
+odd_number**3
+end.reduce(0) do |previous_sum, odd_cube|
+previous_sum + odd_cube
+end
+=&gt; 19900</pre>
+<p>
+Now, I’ll just change the range of numbers to 1000:
+</p>
+<p>
+
+</p>
+<pre>(1..1000).select do |number|
+number%2 == 1
+end.map do |odd_number|
+odd_number**3
+end.reduce(0) do |previous_sum, odd_cube|
+previous_sum + odd_cube
+end
+=&gt; 124999750000</pre>
+<p>
+This answer is concise, but, more importantly, we were able to build      it up by staging the
+data processing with <code>select</code>, <code>map</code>, and <code>reduce</code> operations
+working in a cascade.
+</p>
+
+
+<h2 class="Heading">Sort a List of Names by Surname</h2>
+<p>
+Suppose you have a list
+of names   
+  in a simple text
+file called <code>names.txt</code>.
+</p>
+<p>
+
+</p>
+<pre>John Smith
+Azamat Bagatov
+Hafaz Aladeen
+Ramachandran Balasubrahmaniam
+Ping Li
+Wilfredo Caguiat
+Eriks Ivanans
+Canaan Banana
+Ion Iliescu
+Werner Klempner
+Thierry Giscard
+Joao Soares</pre>
+<p>
+First, you read the file into a giant string.
+</p>
+<p>
+
+</p>
+<pre>names = File.open("names.txt","r").read</pre>
+<p>
+You can split the string into an array like this:
+</p>
+<p>
+
+</p>
+<pre>namelist = names.split("\n")</pre>
+<p>
+That yields an array that looks like this:
+</p>
+<p>
+
+</p>
+<pre>&gt; namelist
+["John Smith", "Azamat Bagatov", "Hafaz Aladeen", "Ramachandran Balasubrahmaniam\
+","Ping Li","Wilfredo Caguiat","Eriks Ivanans","Canaan Banana","Ion Iliescu","We\
+rner Klempner", "Thierry Giscard","Joao Soares"]</pre>
+<p>
+The problem is that we cannot simply sort the list by string, because we
+need to sort by surname. Let us see if we can split off the last names
+and sort them. First, we need to split up the names using the <code>split</code> function on
+strings:
+</p>
+<p>
+
+</p>
+<pre>namelist.map do |fullname|
+fullname.split(" ")
+end</pre>
+<p>
+This yields the following:
+</p>
+<p>
+
+</p>
+<pre>[["John", "Smith"], ["Azamat", "Bagatov"], ["Hafaz","Aladeen"] # and so on]</pre>
+<p>
+From there, we can just peel off the last name by taking the <code>[1]</code> element of the
+name array:
+</p>
+<p>
+
+</p>
+<pre>namelist.map do |fullname|
+fullname.split(" ")
+end.map do |namearray|
+namearray[1]
+end</pre>
+<p>
+Now, we have a list of surnames as follows: [“Smith”, “Bagatov”,
+“Aladeen” # and so on ]
+</p>
+<p>
+We can sort these by calling the <code>sort</code> function:
+</p>
+<p>
+
+</p>
+<pre>namelist.map do |fullname|
+fullname.split(" ")
+end.map do |namearray|
+namearray[1]
+end.sort</pre>
+<p>
+Now, we have a list that looks like this:
+</p>
+<p>
+
+</p>
+<pre>["Aladeen", "Bagatov", "Balasubrahmaniam" #and so on ...
+]</pre>
+<p>
+The challenge 
+    is to get the full
+names printed in order of the surname. One way is to start by annotating
+the array with the sorting key. The sorting key is just the second
+element of the array, which is yielded by splitting the full name. In
+other words:
+</p>
+<p>
+
+</p>
+<pre>fullname.split(" ")[1].
+namelist.map do |fullname|
+[fullname.split(" ")[1], fullname]
+end</pre>
+<p>
+Here, the first call to <code>map</code> yields array
+elements that look like this:
+</p>
+<p>
+
+</p>
+<pre>[ ["Smith", "John Smith"], ["Bagatov"], "Azamat Bagatov"] #...and so on]</pre>
+<p>
+Now, we just have to sort the array based on the first element of the
+array:
+</p>
+<p>
+
+</p>
+<pre>namelist.map do |fullname|
+[fullname.split(" "), fullname]
+end.sort do |a,b|
+a[0]  b[0]
+end</pre>
+<p>
+That yields something that looks like this:
+</p>
+<p>
+
+</p>
+<pre>[["Aladeen", "Hafaz Aladeen"], ["Bagatov", "Azamat Bagatov"], ["Balasubrahmaniam\
+", "Ramachandran Balasubrahmaniam"] #...and so on
+]</pre>
+<p>
+After this operation
+    , it only remains to
+strip off the sorting key to get the original list, and then to
+reconstitute the list.
+</p>
+<p>
+
+</p>
+<pre>namelist.map do |fullname|
+[fullname.split(" "), fullname]
+end.sort do |a,b|
+a[0]  b[0]
+end.map do |key_with_name|
+key_with_name[1]
+end.join("\n")</pre>
+<p>
+The full data-processing operation then looks like this:
+</p>
+<p>
+
+</p>
+<pre>File.open("names.txt","r")
+.read
+.split("\n")
+.map do |fullname|
+fullname.split(" ")
+end.map do |fullname|
+[fullname.split(" ")[1], fullname]
+end.sort do |a,b|
+a[0]  b[0]
+end.map do |key_with_name|
+key_with_name[1]
+end.join("\n")</pre>
+<p>
+This is a pretty elegant solution. This could be coded with <code>for</code> loops and <code>if</code>-<code>then</code>-<code>else</code> statements, but
+it would result in a lot more code.
+</p>
+
+
+<h2 class="Heading">Convert a List of Names to CSV     </h2>
+<p>
+One typical problem is to get a text file that you need to be able to
+import into a CSV file. For example, in <code>names.txt</code> you may
+have the following:
+</p>
+<p>
+
+</p>
+<pre>John Smith
+Azamat Bagatov
+Hafaz Aladeen
+Ramachandran Balasubrahmaniam
+Ping Li
+Wilfredo Caguiat</pre>
+<p>
+But to import it into CSV, you need something that looks like this:
+</p>
+<p>
+
+</p>
+<pre>Surname,First Name
+Smith,John
+Bagatov,Azamat
+Aladeen,Hafaz
+Balasubrahmaniam,Ramachandran
+Li,Ping
+Caguiat,Wilfredo</pre>
+<p>
+The first thing you want to do is read the file:
+</p>
+<p>
+
+</p>
+<pre>file_contents = File.open("names.txt","r")</pre>
+<p>
+The next thing you want to do is split the lines into an array:
+</p>
+<p>
+
+</p>
+<pre>names = file_contents.split("\n")</pre>
+<p>
+That yields something like this:
+</p>
+<p>
+
+</p>
+<pre>["John Smith", "Azamat Bagatov" # etc
+]</pre>
+<p>
+For each name, you want to split      the first and last
+names and reverse them:
+</p>
+<p>
+
+</p>
+<pre>"John Smith".split(" ")</pre>
+<p>
+That yields the following:
+</p>
+<p>
+
+</p>
+<pre>["John","Smith"]</pre>
+<p>
+Reverse it as follows:
+</p>
+<p>
+
+</p>
+<pre>"John Smith".split(" ").reverse</pre>
+<p>
+This yields the following:
+</p>
+<p>
+
+</p>
+<pre>["Smith","John"]</pre>
+<p>
+To make it a good CSV row, you need to join the elements with a comma:
+</p>
+<p>
+
+</p>
+<pre>["Smith","John"].join(",")</pre>
+<p>
+That yields the following:
+</p>
+<p>
+
+</p>
+<pre>"Smith,John"</pre>
+<p>
+Now, we have to do that to each line of the list:
+</p>
+<p>
+
+</p>
+<pre>headerless_names =
+names.map do |name|
+name.split(" ").reverse.join(",")
+end</pre>
+<p>
+That yields everything
+     except the headers. We
+can just use the <code>unshift()</code> method on
+the array to add the header information:
+</p>
+<p>
+
+</p>
+<pre>headered_names
+headerless_names.unshift("Surname,First Name","")</pre>
+<p>
+To join the array into a string writable to a CSV file, do the
+following:
+</p>
+<p>
+
+</p>
+<pre>headered_names.join("\n")</pre>
+<p>
+This yields the desired result. The full computation, then, is as
+follows:
+</p>
+<p>
+
+</p>
+<pre>csv_file_contents =
+File.open("names.txt","r").split("\n").map do |name|
+name.split(" ").reverse.join(",")
+end.unshift("Surname,First  Name"),"").join("\n")</pre>
+
+
+<h2 class="Heading">Generate a Random List of Names 
+   </h2>
+<p>
+You have some data processing to do, and you need a large list of names.
+For example:
+</p>
+<p>
+
+</p>
+<pre>John Smith
+Azamat Bagatov
+Hafaz Aladeen
+Tamir Moufrad</pre>
+<p>
+However, you don’t want to spend a day writing them. Use a computer to
+do it for you.
+</p>
+<p>
+Start with a list of first names      in <code>first.txt</code>. Make this
+list as long as you like. The longer the better.
+</p>
+<p>
+
+</p>
+<pre>Art
+Bart
+Cart
+Dart
+Eart
+Fred
+George
+Harry
+Ian
+John
+Ken
+Lionel
+Mark</pre>
+<p>
+Start with a list of surnames in <code>last.txt</code>:
+</p>
+<p>
+
+</p>
+<pre>Armey
+Burr
+Catherwood
+Donaldson
+Elwood
+Firestone
+Graves
+Harvey
+Illington
+Jask
+Knowles
+Lescon
+Merriweather</pre>
+<p>
+First, you need to read in the names:
+</p>
+<p>
+
+</p>
+<pre>last_name_file_content = File.open("last.txt")
+first_name_file_content = File.open("first.txt")</pre>
+<p>
+Next, you need to split them into an array:
+</p>
+<p>
+
+</p>
+<pre>last_names = last_name_file_content.split("\n")
+first_names = first_name_file_content.split("\n")</pre>
+<p>
+Then, you need to join every first name with every last name. Try
+joining each of the first names with the first last name     :
+</p>
+<p>
+
+</p>
+<pre>test_list = first_names.map do |first_name|
+"#{first_name} Armey"
+end</pre>
+<p>
+So far, so good. That yields an array that looks like this:
+</p>
+<p>
+
+</p>
+<pre>["Art Armey", "Bart Armey", "Cart Armey" ....and so on</pre>
+<p>
+Now, you just have to do this for all the last names:
+</p>
+<p>
+
+</p>
+<pre>test2_list =
+last_names.map do |last_name|
+first_names.map do |first_name|
+"#{first_name} #{last_name}"
+end
+end</pre>
+<p>
+That gives us a list that looks like the following:
+</p>
+<p>
+
+</p>
+<pre>[["Art Armey", "Bart Armey", ... ],["Art Burr", "Bart Burr", ....]]</pre>
+<p>
+That’s close. We just need to flatten the array:
+</p>
+<p>
+
+</p>
+<pre>test2_list.flatten</pre>
+<p>
+That gives us the list of people. After that, we just have to join it to
+get the text to write to a file:
+</p>
+<p>
+
+</p>
+<pre>test2_list.flatten.join("\n")</pre>
+<p>
+The complete computation
+    , then, is as follows:
+</p>
+<p>
+
+</p>
+<pre>last_names = File.open("last.txt").split("\n")
+first_names = File.open("first.txt").split("\n")
+name_list_text =
+last_names.map do |last_name|
+first_names.map do |first_name|
+"#{first_name} #{last_name}"
+end
+end.flatten.join("\n")</pre>
+<p>
+The beauty of this is that for the “price” of typing out 32 first names
+and 32 last names, we can generate 1,024 unique names.
+</p>
+
+
+<h2 class="Heading">Clean a Data Set</h2>
+<p>
+A common problem when analyzing data sets is dirty data. For example,
+you have a CSV list of
+names  and provinces in a file called <code>name_prov.txt</code>.
+</p>
+<p>
+
+</p>
+<pre>John,Ontario
+Azamat,ON
+Hafaz,Alta
+Tamir,QC
+Jacques,Quebec
+Bill,AB
+Bart,Ont
+Carn,Que
+Dave,Alta
+Don,SK
+Fred,Saskatchewan
+Gary,Que
+Hari,Sask
+Ian,SK
+Jerry,Alberta
+Karl,ON</pre>
+<p>
+A Canadian reading
+ this list will often know that any of “ON,” “Ont,” and “Ontario”
+mean Ontario, that “AB,” ”Alta,” and ”Alberta” mean Alberta, and so on
+for other provinces. One way of dealing with this is to clean the data
+set and standardize the province names. The data transformation takes
+any of “ON,” “Ont,” and “Ontario” and replaces it with the standard name
+“Ontario.” (As the data cleaner, you could pick any one. I have chosen
+to go with the full name).
+</p>
+<p>
+The first step is to get a list of provinces:
+</p>
+<p>
+
+</p>
+<pre>province_file = File.open("name_prov.txt").read.split(("\n")</pre>
+<p>
+This yields an array of rows. Now, we will split each row on the comma
+and just take the second one (index 1 in the array)
+</p>
+<p>
+
+</p>
+<pre>provinces = province_file.map do |row|
+row.split(",")[1]
+end
+=&gt; ["Ontario","ON","Alta","QC","Quebec","AB","Ont","Que","Alta","SK","Saskatchew\
+an","Que","Sask","SK","Alberta","ON"]</pre>
+<p>
+This yields an array of province names, but some names are duplicated.
+We need distinct names. To do this, we apply the array method  <code>uniq()</code> :
+</p>
+<p>
+
+</p>
+<pre>provinces.uniq</pre>
+<p>
+This gives us an unduplicated list of province labels.
+</p>
+<p>
+Now, we decide to encode the standardizing rules. We’ll do it in a <code>Hash</code> to look up the
+name and return the standard name.
+</p>
+<p>
+
+</p>
+<pre>standard_name_lookup =
+{ "ON" =&gt; "Ontario",
+"Ont" =&gt; "Ontario",
+"Ontario" =&gt; "Ontario",
+"Alta" =&gt; "Alberta",
+"Alberta" =&gt; "Alberta",
+"AB" =&gt; "Alberta",
+"QC" =&gt; "Quebec",
+"Que" =&gt; "Quebec",
+"Quebec" =&gt; "Quebec",
+"SK" =&gt; "Saskatchewan",
+"Sask" =&gt; "Saskatchewan",
+"Saskatchewan" =&gt; "Saskatchewan"
+}</pre>
+<p>
+Now, if we want to look up the province called “AB,” we just do this:
+</p>
+<p>
+
+</p>
+<pre>standard_name_lookup["AB"]
+=&gt; "Alberta"</pre>
+<p>
+We’ll want to encode those rules in a CSV file called <code>standard_name_lookup.txt</code>
+, which looks like this:
+</p>
+<p>
+
+</p>
+<pre>ON,Ontario
+Ont,Ontario
+Ontario,Ontario
+Alta,Alberta
+Alberta,Alberta
+AB,Alberta
+QC,Quebec
+Que,Quebec
+Quebec,Quebec
+SK,Saskatchewan
+Sask,Saskatchewan
+Saskatchewan,Saskatchewan</pre>
+<p>
+This enables the lookup
+policy data  (encoded in <code>standard_name_lookup.txt</code>)
+to be separate from the source code. That way, you only have to edit
+this file if you wish to change
+the lookup policy—without changing the software.
+</p>
+<p>
+Reading the file and converting it to a Hash then becomes:
+</p>
+<p>
+
+</p>
+<pre>standard_name_lookup =
+File.open("standard_name_lookup.txt","r").read.split("\n").map do |row|
+row.split(",")
+end.reduce({}) do |lookup_table, row|
+lookup_table.merge row[0] =&gt; row[1]
+end</pre>
+<p>
+So, the only job that remains is substituting the varied province labels
+with the standard one:
+</p>
+<p>
+
+</p>
+<pre>standardized_province_file =
+province_file.map do |row|
+row.split(",")
+end.map do |split_row|
+[split_row[0], standard_name_lookup[split_row[1]]
+end</pre>
+<p>
+This yields an array with the names  replaced. From
+there only has to join each row element with a comma and then join each
+row with a carriage return. The full code then becomes as follows:
+</p>
+<p>
+
+</p>
+<pre>standard_name_lookup =
+File.open("standard_name_lookup.txt","r").read.split("\n").map do |row|
+row.split(",")
+end.reduce({}) do |lookup_table, row|
+lookup_table.merge row[0] =&gt; row[1]
+end
+standardized_province_file =
+province_file.map do |row|
+row.split(",")
+end.map do |split_row|
+[split_row[0], standard_name_lookup[split_row[1]]
+end.map do |standardized_split_row|
+standardized_split_row.join(",")
+end.join("\n")</pre>
+
+
+<h2 class="Heading">Annotate a Sequence of Sales      with Running
+Total</h2>
+<p>
+Start with a sequence of numbers—say, representing the dollar value of
+sales.
+</p>
+<p>
+
+</p>
+<pre>sales_data = [1,2,4,7,9,11]</pre>
+<p>
+Annotate each number with the current running total. The final list
+should look like this:
+</p>
+<p>
+
+</p>
+<pre>[[1,1],[2,3],[4,7],[7,14],[9,23],[11,34]</pre>
+<p>
+At first glance, this looks like an application for <code>map()</code>, because we are
+annotating each sales figure with a number. However, the number is a
+cumulative total of previous sales figures     , which intuitively
+suggests using <code>reduce()</code>.
+</p>
+<p>
+For example, one of the following equivalent operations:
+</p>
+<p>
+
+</p>
+<pre>[1,2,4,7,9,11].reduce(0,:+)</pre>
+<p>
+or
+</p>
+<p>
+
+</p>
+<pre>[1,2,4,7,9,11].reduce(0){|run_total, sales_fig| run_total + sales_fig}</pre>
+<p>
+or
+</p>
+<p>
+
+</p>
+<pre>[1,2,4,7,9,11].reduce(0) do |running_total, sales_figure|
+running_total + sales_figure
+end</pre>
+<p>
+This yields a total of 34.
+</p>
+<p>
+Also, we know that our result will be an array of arrays, and our
+initial value will be a blank array. Also, each iteration will have to
+push an array of two elements into the initial array. The first element
+of the inner array holds the current sales figure, while the second one
+holds the running total. Try the following to get the structure right:
+</p>
+<p>
+
+</p>
+<pre>test1 =
+sales_data.reduce([]) do |memo, sales_figure|
+memo.push([sales_figure, 666])
+end</pre>
+<p>
+This yields the following:
+</p>
+<p>
+
+</p>
+<pre>[[1, 666], [2, 666], [4, 666], [7, 666], [9, 666], [11, 666]]</pre>
+<p>
+We’re on the right track, but we now have to figure out how to get the
+running total into the second element of the inner arrays     . The running total, of
+course, is the last cumulative total plus the current sales figure.
+</p>
+<p>
+
+</p>
+<pre>test2 =
+sales_data.reduce([]) do |memo, sales_figure|
+memo.push([sales_figure, memo.last[-1] + sales_figure])
+end</pre>
+<p>
+This throws up an exception because <code>memo.last</code> has nothing
+in it on the first run of the iteration. We need to handle that case by
+assigning it a 0, as follows:
+</p>
+<p>
+
+</p>
+<pre>test2 =
+sales_data.reduce([]) do |memo, sales_figure|
+last_total = memo.last.nil? ? 0 : memo.last[1]
+memo.push([sales_figure, last_total + sales_figure])
+end</pre>
+<p>
+This yields the correct answer:
+</p>
+<p>
+
+</p>
+<pre>[[1, 1], [2, 3], [4, 7], [7, 14], [9, 23], [11, 34]]</pre>
+
+
+<h2 class="Heading">Pascal’s Triangle </h2>
+<p>
+A classic problem in computer science is the one of generating Pascal’s
+triangle. For example, a six-row triangle looks like this:
+</p>
+<p>
+
+</p>
+<pre>1
+1  1
+1  2  1
+1  3  3  1
+1  4  6  4  1
+1  5 10 10  5  1
+1  6 15 20 15  6  1</pre>
+<p>
+In general, if one stores it as a two-dimensional array, the formula is
+as follows:
+</p>
+<p>
+
+</p>
+<pre>a[n][0] = 1   # where n &gt;=0
+a[n][n] = 1
+a[n][m] = a[n-1][m] + a[n-1][m-1]</pre>
+<p>
+First, this is obviously a two-dimensional array. So, it will look
+something like this for a four-row triangle:
+</p>
+<p>
+
+</p>
+<pre>[[1],[1,1],[1,2,1],[1,3,3,1]]</pre>
+<p>
+For convenient printing, we’ll just do this for now:
+</p>
+<p>
+
+</p>
+<pre>triangle.each{|row| p row.inspect}</pre>
+<p>
+Given that we’re building a structure of arrays, it seems like a good
+fit for using <code>reduce()</code>. The initial
+value is [].
+</p>
+<p>
+
+</p>
+<pre>triangle = (0..5).reduce([]) do |memo, n|
+memo.push []
+end
+triangle.each{|row| p row.inspect}
+"[]"
+"[]"
+"[]"
+"[]"
+"[]"
+"[]"
+=&gt; [[], [], [], [], [], []]</pre>
+<p>
+That yields an array
+ of arrays, but not enough is contained in it. However, we know
+that the first and last values are 1. We can default the rest of the
+values to zero. And we know that each array has n-1 elements. (Note that <code>row[-1]</code> is the way to
+denote the last element of an array).
+</p>
+<p>
+
+</p>
+<pre>triangle = (0..5).reduce([]) do |memo, n|
+row = n==0 ? [] : Array.new(n+1)
+row[0] = 1
+row[-1] = 1
+memo  [[1], [1, 1], [1, nil, 1], [1, nil, nil, 1], [1, nil, nil, nil, 1], [1, nil, \
+nil, nil, nil, 1]]</pre>
+<p>
+The structure is taking shape, but we also know that the nth row is a function of the previous
+row. So, we need to dig back to the last row and muck with it to
+generate the next row.
+</p>
+<p>
+
+</p>
+<pre>triangle = (0..5).reduce([]) do |memo, n|
+if n==0
+row = [1]
+else
+prev = acc [-1]
+row = prev  [[1], [1, 1], [1, nil, 1], [1, nil, nil, 1], [1, nil, nil, nil, 1], [1, nil, \
+nil, nil, nil, 1]]</pre>
+<p>
+Or, better yet:
+</p>
+<p>
+
+</p>
+<pre>irb(main):007:0&gt; triangle.each{|row| p row.inspect}
+"[1]"
+"[1, 1]"
+"[1, nil, 1]"
+"[1, nil, nil, 1]"
+"[1, nil, nil, nil, 1]"
+"[1, nil, nil, nil, nil, 1]"
+=&gt; [[1], [1, 1], [1, nil, 1], [1, nil, nil, 1], [1, nil, nil, nil, 1], [1, nil, \
+nil, nil, nil, 1]]</pre>
+<p>
+This is a little better
+. The rows are starting to flesh out. Now, to build the current
+row, you need the previous row.
+</p>
+<p>
+For example, you could <code>reduce</code> the previous
+row to get the current row. To get the last two elements of a row, you
+need to remember them. For example:
+</p>
+<p>
+
+</p>
+<pre>[1,3,3,1].reduce([nil,nil]) do |memo, element|
+memo.push element
+memo.shift
+puts "After pushing #{element}, the memo is #{memo.inspect}"
+memo
+end
+After pushing 1, the memo is [nil, 1]
+After pushing 3, the memo is [1, 3]
+After pushing 3, the memo is [3, 3]
+After pushing 1, the memo is [3, 1]
+=&gt; [3, 1]</pre>
+<p>
+We’re getting close. Let’s save the sum in the memo. Now, remember that
+the structure of the memo must change. We need a place to save the last
+two elements in an array
+, as well as the sum. So, the memo will be a <code>Hash</code>, with <code>:sum</code> and <code>:last_2</code> as keys.
+</p>
+<p>
+
+</p>
+<pre>initial_memo = {sum: 0, last_2: [nil,nil]}
+[1,3,3,1].reduce(initial_memo) do |memo, element|
+memo[:last_2].push element
+memo[:last_2].shift
+memo[:sum] = memo[:last_2].compact.reduce(0,:+)
+puts "After pushing element #{element}, memo is #{memo}"
+memo
+end</pre>
+<p>
+The result is as follows:
+</p>
+<p>
+
+</p>
+<pre>After pushing element 1, memo is {:sum=&gt;1, :last_2=&gt;[nil, 1]}
+After pushing element 3, memo is {:sum=&gt;4, :last_2=&gt;[1, 3]}
+After pushing element 3, memo is {:sum=&gt;6, :last_2=&gt;[3, 3]}
+After pushing element 1, memo is {:sum=&gt;4, :last_2=&gt;[3, 1]}
+=&gt; {:sum=&gt;4, :last_2=&gt;[3, 1]}</pre>
+<p>
+We’re even closer. The sum follows the pattern 1,4,6,4, which is almost
+the next row (missing the last 1). So, now we need to save the next row
+in the memo and then extract it when the computation is done, as
+follows:
+</p>
+<p>
+
+</p>
+<pre>initial_memo = {last_2: [nil,nil], next_row: []}
+[1,3,3,1].reduce(initial_memo) do |memo, element|
+memo[:last_2].push element
+memo[:last_2].shift
+memo[:next_row].push memo[:last_2].compact.reduce(0,:+)
+puts "After pushing element #{element}, memo is #{memo}"
+memo
+end</pre>
+<p>
+The result is as follows:
+</p>
+<p>
+
+</p>
+<pre>After pushing element 1, memo is {:last_2=&gt;[nil, 1], :next_row=&gt;[1]}
+After pushing element 3, memo is {:last_2=&gt;[1, 3], :next_row=&gt;[1, 4]}
+After pushing element 3, memo is {:last_2=&gt;[3, 3], :next_row=&gt;[1, 4, 6]}
+After pushing element 1, memo is {:last_2=&gt;[3, 1], :next_row=&gt;[1, 4, 6, 4]}
+=&gt; {:last_2=&gt;[3, 1], :next_row=&gt;[1, 4, 6, 4]}</pre>
+<p>
+Almost! We just have to extract the <code>:next_row</code> from the
+result and push a 1 to the end of the next row. I’ll also remove the
+<code>puts</code> statement.
+</p>
+<p>
+
+</p>
+<pre>initial_memo = {last_2: [nil,nil], next_row: []}
+[1,3,3,1].reduce(initial_memo) do |memo, element|
+memo[:last_2].push element
+memo[:last_2].shift
+memo[:next_row].push memo[:last_2].compact.reduce(0,:+)
+memo
+end[:next_row].push 1
+=&gt; [1, 4, 6, 4, 1]</pre>
+<p>
+So, we have a formula for each row. Let’s see if it works for a few
+examples. First, the top row:
+</p>
+<p>
+
+</p>
+<pre>initial_memo = {last_2: [nil,nil], next_row: []}
+[1].reduce(initial_memo) do |memo, element|
+memo[:last_2].push element
+memo[:last_2].shift
+memo[:next_row].push memo[:last_2].compact.reduce(0,:+)
+memo
+end[:next_row].push 1
+=&gt; [1, 1]</pre>
+<p>
+How about a blank row (for example, <code>[]</code>)?
+</p>
+<p>
+
+</p>
+<pre>initial_memo = {last_2: [nil,nil], next_row: []}
+[].reduce(initial_memo) do |memo, element|
+memo[:last_2].push element
+memo[:last_2].shift
+memo[:next_row].push memo[:last_2].compact.reduce(0,:+)
+memo
+end[:next_row].push 1
+=&gt; [1]</pre>
+<p>
+This seems to work. What remains is to do this for every row. Again,
+we’ll use <code>reduce</code> because each
+iteration carries a memo to the next one. Try this (say, for seven
+rows):
+</p>
+<p>
+
+</p>
+<pre>inital_memo = [[]]
+(1..7).reduce([[]]) do |memo, num|
+initial_memo = {last_2: [nil,nil], next_row: []}
+memo.push(
+memo[-1].reduce(initial_memo) do |memo, element|
+memo[:last_2].push element
+memo[:last_2].shift
+memo[:next_row].push memo[:last_2].compact.reduce(0,:+)
+memo
+end[:next_row].push(1)
+)
+puts "After processing #{num}, memo is #{memo}"
+memo
+end</pre>
+<p>
+This works. What remains is to get rid of the <code>puts</code> statements and
+print it out properly
+.
+</p>
+<p>
+
+</p>
+<pre>inital_memo = [[]]
+triangle =
+(1..7).reduce([[]]) do |memo, num|
+initial_memo = {last_2: [nil,nil], next_row: []}
+memo.push(
+memo[-1].reduce(initial_memo) do |memo, element|
+memo[:last_2].push element
+memo[:last_2].shift
+memo[:next_row].push memo[:last_2].compact.reduce(0,:+)
+memo
+end[:next_row].push(1)
+)
+puts "After processing #{num}, memo is #{memo}"
+memo
+end
+triangle.each{|row| p row.inspect}
+"[]"
+"[1]"
+"[1, 1]"
+"[1, 2, 1]"
+"[1, 3, 3, 1]"
+"[1, 4, 6, 4, 1]"
+"[1, 5, 10, 10, 5, 1]"
+"[1, 6, 15, 20, 15, 6, 1]"</pre>
+<p>
+A cleaner version would be as follows:
+</p>
+<p>
+
+</p>
+<pre>triangle.each{|row| puts row.join (", ") };1
+1
+1,  1
+1,  2,  1
+1,  3,  3,  1
+1,  4,  6,  4,  1
+1,  5, 10, 10,  5,  1
+1,  6, 15, 20, 15,  6,  1</pre>
+
+
+<h2 class="Heading">Reverse Polish Notation  Parser</h2>
+<p>
+One way to describe arithmetic operations is to use notation where the
+operands for an operation come before the operator. For example, the
+expression
+</p>
+<p>
+
+</p>
+<pre>3 + 2</pre>
+<p>
+would be written as
+</p>
+<p>
+
+</p>
+<pre>3 2 +</pre>
+<p>
+This is called postfix or reverse polish notation. (It was a big
+feature of the Hewlett-Packard calculators used by engineering geeks
+back in the 1980s when I went to school). It lets you avoid using
+parentheses. Processing is easier because one only needs to use a stack.
+As each token (number or operator) is read, it is pushed onto the stack . When an operator
+is pushed on the stack
+, it is a special case. The operator is popped off the stack
+along with the next two elements, which are the operands, and the
+operation is performed. The result is pushed back on the stack.
+</p>
+<p>
+So, for example, the processing of the expression
+</p>
+<p>
+
+</p>
+<pre>3 3 4 * 4 7 8 + - * +</pre>
+<p>
+can be shown as a sequence of stack snapshots, one per line. The stack
+grows to the right as the tokens are scanned, and if an operator is
+pushed on the stack, the RPN interpreter pops off the last three tokens,
+runs the calculation, and pushes the answer back onto the stack.
+</p>
+<p>
+
+</p>
+<pre>3
+3 3
+3 3 4
+3 3 4 *
+3 12                 (12 is 4*3)
+3 12 4
+3 12 4 7
+3 12 4 7 8
+3 12 4 7 8 +
+3 12 4 15            (15 is 7+8)
+3 12 4 15 -
+3 12 -11             (-11 is 4-15)
+3 12 -11 *
+3 -132               (-132 is 12*(-11))
+3 -132 +
+-129                 (-129 is 3 + (-132))</pre>
+<p>
+So, how to solve this? I’ll start by saying that we want to tokenize a
+string by splitting it by a space. (This is not the most robust way to
+tokenize the string, but it’s good enough for this example). Once we
+have an array of tokens from the string, we will probably want to
+remember the stack after each iteration. Now, a Ruby array can be used
+as a stack by just using its <code>push</code> and <code>pop</code> operations. Also,
+the initial value of the stack  is the null
+array. Let’s try the following:
+</p>
+<p>
+
+</p>
+<pre>expression = "1 2 2 + 3 * -"
+answer = expression.split(" ").reduce([]) do |stack, token|
+stack.push(token)
+puts "The stack after pushing #{token} is #{stack.inspect}"
+stack
+end</pre>
+<p>
+This prints out the following:
+</p>
+<p>
+
+</p>
+<pre>The stack after pushing 1 is ["1"]
+The stack after pushing 2 is ["1", "2"]
+The stack after pushing 2 is ["1", "2", "2"]
+The stack after pushing + is ["1", "2", "2", "+"]
+The stack after pushing 3 is ["1", "2", "2", "+", "3"]
+The stack after pushing * is ["1", "2", "2", "+", "3", "*"]
+The stack after pushing - is ["1", "2", "2", "+", "3", "*", "-"]
+=&gt; ["1", "2", "2", "+", "3", "*", "-"]</pre>
+<p>
+So, we’re saving the stack properly after each iteration. Now, we need
+to identify the operators “+”, “-“, “*”, and “/”. Let’s try this:
+</p>
+<p>
+
+</p>
+<pre>expression = "1 2 2 + 3 * -"
+answer = expression.split(" ").reduce([]) do |stack, token|
+stack.push(token)
+puts "The stack after pushing #{token} is #{stack.inspect}"
+if ["+","-","*","/"].include?(token)
+puts " Token #{token} is an operator"
+end
+stack
+end</pre>
+<p>
+That prints out the following:
+</p>
+<p>
+
+</p>
+<pre>The stack after pushing 1 is ["1"]
+The stack after pushing 2 is ["1", "2"]
+The stack after pushing 2 is ["1", "2", "2"]
+The stack after pushing + is ["1", "2", "2", "+"]
+Token + is an operator
+The stack after pushing 3 is ["1", "2", "2", "+", "3"]
+The stack after pushing * is ["1", "2", "2", "+", "3", "*"]
+Token * is an operator
+The stack after pushing - is ["1", "2", "2", "+", "3", "*", "-"]
+Token - is an operator
+=&gt; ["1", "2", "2", "+", "3", "*", "-"]</pre>
+<p>
+Now, as per RPN ,
+we want to do an operation if the token is an operator. To do the
+operation, we have to pop the operator off the stack, then pop the first
+operand, and finally pop the second operand. I’m going to stop this
+iteration the first time we get an operator just to see what the stack
+looks like.
+</p>
+<p>
+
+</p>
+<pre>expression = "1 2 2 + 3 * -"
+answer = expression.split(" ").reduce([]) do |stack, token|
+stack.push(token)
+puts "The stack after pushing #{token} is #{stack.inspect}"
+if ["+","-","*","/"].include?(token)
+puts " Token #{token} is an operator"
+operator = stack.pop
+second_operand = stack.pop
+first_operand = stack.pop
+puts " Second operand is #{second_operand}. First operand is #{first_operand}"
+raise "Stop for a bit"
+end
+stack
+end</pre>
+<p>
+This prints out the following:
+</p>
+<p>
+
+</p>
+<pre>The stack after pushing 1 is ["1"]
+The stack after pushing 2 is ["1", "2"]
+The stack after pushing 2 is ["1", "2", "2"]
+The stack after pushing + is ["1", "2", "2", "+"]
+Token + is an operator
+Second operand is 2. First operand is 2
+Stop for a bit
+(repl):11:in `block in initialize'
+(repl):2:in `each'
+(repl):2:in `reduce'
+(repl):2:in `initialize'</pre>
+<p>
+The <code>Stop for a bit</code> exception only lets us get to the first operator. I just
+wanted to show the operator and operands getting popped off the stack.
+Now, we just have to send the “operator” message to the first operand,
+with the second operand as a parameter. (Remember that both 5 and 7 are
+Ruby objects of class <code>Fixnum</code>, and they both
+have a method called <code>:+</code>). For example,
+</p>
+<p>
+
+</p>
+<pre>5 + 7</pre>
+<p>
+is the same as saying
+</p>
+<p>
+
+</p>
+<pre>5.send(:+,7)</pre>
+<p>
+Try it out on the command
+line  if you don’t believe me.
+</p>
+<p>
+Now, each token popped off the stack is a string. The operands must be
+converted to integers (using <code>to_i</code>), and the
+operator must be converted to a symbol (using <code>to_sym</code>). So, the code
+snippet would look like this:
+</p>
+<p>
+
+</p>
+<pre>first_operand.to_i.send(operator.to_sym, second_operand.to_i)</pre>
+<p>
+This tells the interpreter to call the <code>:+</code> method (because
+<code>"+".to_sym</code> is
+<code>:+</code>) of the 5
+<code>first_operand</code>
+object, which happens to be a <code>Fixnum</code>. Once that
+result is calculated, the result  must be pushed
+back on the stack. (The <code>stack</code> variable is the
+memo of this <code>reduce</code> operation).
+</p>
+<p>
+
+</p>
+<pre>expression = "1 2 2 + 3 * -"
+answer = expression.split(" ").reduce([]) do |stack, token|
+stack.push(token)
+puts "The stack after pushing #{token} is #{stack.inspect}"
+if ["+","-","*","/"].include?(token)
+puts " Token #{token} is an operator"
+operator = stack.pop
+second_operand = stack.pop
+first_operand = stack.pop
+puts " Second operand is #{second_operand}. First operand is #{first_operand}"
+result = first_operand.to_i.send(operator.to_sym, second_operand.to_i)
+puts " The result of this expression is #{result}"
+stack.push(result)
+puts " The stack after evaluating the expression is #{stack.inspect}"
+end
+stack
+end</pre>
+<p>
+This prints out the following:
+</p>
+<p>
+
+</p>
+<pre>The stack after pushing 1 is ["1"]
+The stack after pushing 2 is ["1", "2"]
+The stack after pushing 2 is ["1", "2", "2"]
+The stack after pushing + is ["1", "2", "2", "+"]
+Token + is an operator
+Second operand is 2. First operand is 2
+The result of this expression is 4
+The stack after evaluating the expression is ["1", 4]
+The stack after pushing 3 is ["1", 4, "3"]
+The stack after pushing * is ["1", 4, "3", "*"]
+Token * is an operator
+Second operand is 3. First operand is 4
+The result of this expression is 12
+The stack after evaluating the expression is ["1", 12]
+The stack after pushing - is ["1", 12, "-"]
+Token - is an operator
+Second operand is 12. First operand is 1
+The result of this expression is -11
+The stack after evaluating the expression is [-11]</pre>
+<p>
+Now, to clean up the code and print out the answer, we do the following:
+</p>
+<p>
+
+</p>
+<pre>expression = "1 2 2 + 3 * -"
+answer = expression.split(" ").reduce([]) do |stack, token|
+stack.push(token)
+if ["+","-","*","/"].include?(token)
+operator = stack.pop
+second_operand = stack.pop
+first_operand = stack.pop
+result = first_operand.to_i.send(operator.to_sym, second_operand.to_i)
+stack.push(result)
+end
+stack
+end[0]
+puts "The expression is #{expression}. The answer is #{answer}."</pre>
+
+
+<h2 class="Heading">Generate a List of Team Name Bars</h2>
+<p>
+Suppose you have a list of names in a simple text file called <code>names.txt</code>. These are
+the names of the girls on a basketball team.
+</p>
+<p>
+
+</p>
+<pre>Emily Muller
+Lois Makad
+Sophie Wheaton
+Abby Muller
+Zoe Gee
+Anastasia Semanova
+Iulia Semanova
+Jane Smith
+Megan Sundstrom
+Brunhilda Schmidt
+Sally Park
+Jill Bailey</pre>
+<p>
+You want to generate a list of name bars to put on the player jerseys,
+using only the surnames, unless there are two people with the same
+surname. In that case, you want the name bar      to have the first
+initial and the surname. The list, then, would look like this:
+</p>
+<p>
+
+</p>
+<pre>E. Muller
+Makad
+Wheaton
+A. Muller
+Gee
+A. Semanova
+I. Semanova
+Smith
+Sundstrom
+Schmidt
+Park
+Bailey</pre>
+<p>
+First, you read the file into a giant string     :
+</p>
+<p>
+
+</p>
+<pre>names = File.open("names.txt","r").read</pre>
+<p>
+You can split the string into an array like this:
+</p>
+<p>
+
+</p>
+<pre>namelist = names.split("\n")</pre>
+<p>
+That yields an array that looks like this:
+</p>
+<p>
+
+</p>
+<pre>["Emily Muller", "Lois Makad", "Sophie Wheaton", # and so on
+]</pre>
+<p>
+First, you want to annotate the list with the surname to help:
+</p>
+<p>
+
+</p>
+<pre>annotated_namelist = namelist.map do |name|
+[name.split(" ")[1], name]
+end</pre>
+<p>
+Then, you want to group the names by distinct surname. A Ruby hash is a
+useful way to key by surname:
+</p>
+<p>
+
+</p>
+<pre>grouped_list =
+annotated_namelist.reduce({}) do |memo, annotated_name|
+if memo[annotated_name[0]].nil?
+memo[annotated_name[0]] = [annotated_name[1]]
+else
+memo[annotated_name[0]] &lt;&lt; annotated_name[1]
+end
+memo
+end</pre>
+<p>
+At this point, we have hash-keyed      by distinct surname,
+and it looks like this:
+</p>
+<p>
+
+</p>
+<pre>{"Muller"   =&gt;   ["Emily Muller", "Abby Muller"],
+"Makad"    =&gt;   ["Lois Makad"],
+"Wheaton"  =&gt;   ["Sophie Wheaton"],
+"Gee"      =&gt;   ["Zoe Gee"],
+"Semanova" =&gt;   ["Anastasia Semanova", "Iulia Semanova"],
+"Smith"     =&gt;   ["Jane Smith"]
+"Sundstrom" =&gt;   ["Megan Sundstrom"],
+"Schmidt"   =&gt;   ["Brunhilda Schmidt"],
+"Park"      =&gt;   ["Sally Park"],
+"Bailey"    =&gt;   ["Jill Bailey"]
+}</pre>
+<p>
+We should note that the key is a string and the value is an array of
+name(s). We need to reduce the name to the name bar. If there is one
+element (name) in the array, we just have to split the string and take
+the second element, which is the surname. If there is more than one
+element, we need to split the string, take the first letter of the first
+element, and concatenate it with the second element     . See here:
+</p>
+<p>
+
+</p>
+<pre>grouped_label_names =
+grouped_list.map do |key,value|
+if value.size&gt;1
+res = value.map do |name|
+"#{name.split(' ')[0][0]}. #{name.split(' ')[1]}"
+end
+res
+else
+value[0].split(' ')[1]
+end
+end</pre>
+<p>
+This yields the following:
+</p>
+<p>
+
+</p>
+<pre>[["E. Muller", "A. Muller"], "Makad", "Wheaton", "Gee", ["A. Semanova", "I. Sema\
+nova"], "Smith", "Sundstrom", "Schmidt", "Park", "Bailey"]</pre>
+<p>
+This is almost good. The list just has to be flattened:
+</p>
+<p>
+
+</p>
+<pre>grouped_label_names.flatten</pre>
+<p>
+This yields the following:
+</p>
+<p>
+
+</p>
+<pre>["E. Muller", "A. Muller", "Makad", "Wheaton", "Gee", "A. Semanova", "I. Semanov\
+a", "Smith", "Sundstrom", "Schmidt", "Park", "Bailey"]</pre>
+<p>
+The list can then be reconstituted simply by joining with a carriage
+return, as follows:
+</p>
+<p>
+
+</p>
+<pre>grouped_label_names.flatten.join("\n")</pre>
+<p>
+Once this is done, the array has to be flattened and reconstituted back
+into the text file
+    :
+</p>
+<p>
+
+</p>
+<pre>namebar_names =
+grouped_label_names.flatten.join("\n")</pre>
+<p>
+Thus, the complete data-processing solution is as follows:
+</p>
+<p>
+
+</p>
+<pre>namebar_names =
+File.open("names.txt","r").read.split("\n").map do |name|
+[name.split(" ")[1], name]
+end.inject({}) do |memo, annotated_name|
+if memo[annotated_name[0]].nil?
+memo[annotated_name[0]] = [annotated_name[1]]
+else
+memo[annotated_name[0]] 1
+res = value.map do |name|
+"#{name.split(' ')[0][0]}. #{name.split(' ')[1]}"
+end
+res
+else
+value[0].split(' ')[1]
+end
+end.flatten.join("\n")</pre>
+
+
+<h2 class="Heading">Find Intersection Points of Two Functions</h2>
+<p>
+Suppose you have two functions , y = x and y = 10sin(x). You want to find their
+intersection points. A few facts:
+
+</p>
+
+<ul>
+<li>
+y = 10sin(x) has a period of
+2*pi, or about 6.2, so there is
+an actual zero every half period, or about every 3.14.
+</li>
+<li>
+y = 10sin(x) has a maximum value
+of 10 and a minimum value of -10, so if we are going to search the line
+* y = x*, we can limit x to also be between -10 and 10.
+</li>
+<li>
+From calculus, we know the slope of y =
+10sin(x) is y = 10cos(x),
+and it takes a maximum value of 10 when x=0, as well as at other places.
+</li>
+<li>
+For a slope of 10, if you want to change y by up to some small amount, the
+change in x has to be at most a
+tenth of that amount.
+</li>
+<li>
+Intersection occurs when the difference between y=10sin(x) and y = x is 0. But, in an imperfect
+world, we could say that we want the difference to be less than, say,
+0.02.
+</li>
+<li>
+To guarantee the difference, we must test for intersection in steps 1/10
+the size, or 0.002. Thus, the domain (in other words, the set of x values to test) can be expressed  as follows:
+</li>
+</ul>
+
+<p>
+(-10..10).step(0.002)
+</p>
+<p>
+Print it out by doing this:
+</p>
+<p>
+
+</p>
+<pre>(-10..10).step(0.002).map{|n| n}</pre>
+<p>
+That spits out 2000 values of x
+to test. For each of those values, you want to collect the range for
+both functions. Each of these is an array of three elements comprising
+the x value, the y value of the first function (y=x), and the y value of the second function (y=10sin(x)). See here:
+</p>
+<p>
+
+</p>
+<pre>function_values =
+(-10..10).step(0.002).map do |x|
+[x, x, 10*Math.sin(x)]
+end</pre>
+<p>
+Now, the intersection of these two functions occurs when the difference
+in the two functions (for example, element 1, and 2 in the three-tuple)
+is extremely small. In our example, we stepped the x value by 0.002 every time, so the
+maximum change we would expect is 0.02. So, a difference smaller than
+0.02 can be practically considered a zero. Out of all two-thousand-ish
+of those three-tuples, we only want the ones where elements 1 and 2 (not
+0) are very close. In other words, the absolute value of the difference
+should be less than 0.02. See the following:
+</p>
+<p>
+
+</p>
+<pre>zeroes = function_values.select do  |three_tuple|
+(three_tuple[0] - three_tuple[1]).abs &lt; 0.02
+end</pre>
+<p>
+That yields a set of points in both functions  that are
+small enough to be considered zeroes.
+</p>
+<p>
+
+</p>
+<pre>zeroes =
+(-10..10).step(0.002).map do |x|
+[x, x, 10*Math.sin(x)]
+end.select do |three_tuple|
+(three_tuple[1] - three_tuple[2]).abs &lt; 0.02
+end</pre>
+<p>
+This yields the following (which I have formatted for easy reading):
+</p>
+<p>
+
+</p>
+<pre>=&gt; [
+[-8.426, -8.426, -8.408100860402287],
+[-8.424, -8.424, -8.418910641243016],
+[-8.422, -8.422, -8.429686746452397],
+[-7.07, -7.07, -7.081077089878837],
+[-7.068, -7.068, -7.066940848453371],
+[-7.066, -7.066, -7.052776339273938],
+[-2.8539999999999996, -2.8539999999999996, -2.836445737876892],
+[-2.852, -2.852, -2.855618641886548],
+[-0.001999999999999792, -0.001999999999999792, -0.01999998666666725],
+[2.0816681711721685e-16, 2.0816681711721685e-16, 2.0816681711721685e-15],
+[0.002000000000000208, 0.002000000000000208, 0.019999986666671413],
+[2.8520000000000003, 2.8520000000000003, 2.8556186418865437],
+[2.854, 2.854, 2.8364457378768875],
+[7.066000000000001, 7.066000000000001, 7.0527763392739455],
+[7.0680000000000005, 7.0680000000000005, 7.066940848453377],
+[7.07, 7.07, 7.081077089878837], [8.422, 8.422, 8.429686746452397],
+[8.424000000000001, 8.424000000000001, 8.418910641243006], [8.426, 8.426,
+8\.408100860402287]
+]</pre>
+<p>
+These results are interesting  because
+there are 19 zeroes in this list (admittedly down a lot from 2000
+possible points). However, if you look carefully, they are clustered
+around -8.41, -7.07, -2.84, 0, 2.84, 7.07, and 8.41. The question is
+whether these clusters happen because there are actually that many
+zeroes or because the two functions are close enough (for instance, by
+0.02 or less) without touching for more than one step (0.02). One way to
+answer this question is to collect information to see if the functions
+cross. To do that, we have to gather the difference in functions in the
+ <code>map()</code>  step,
+as follows:
+</p>
+<p>
+
+</p>
+<pre>intersection_points =
+(-10..10).step(0.002).map do |x|
+[x, x, 10*Math.sin(x), x - (10*Math.sin(x))]
+end.select do |four_tuple|
+four_tuple[3].abs  [
+[-8.426, -8.426, -8.408100860402287, -0.017899139597712832],
+[-8.424, -8.424, -8.418910641243016, -0.005089358756983131],
+[-8.422, -8.422, -8.429686746452397, 0.00768674645239642],
+[-7.07, -7.07, -7.081077089878837, 0.011077089878837043],
+[-7.068, -7.068, -7.066940848453371,-0.0010591515466282786],
+[-7.066, -7.066, -7.052776339273938, -0.013223660726061404],
+[-2.8539999999999996, -2.8539999999999996, -2.836445737876892, -0.0175542621\
+23107733],
+[-2.852, -2.852, -2.855618641886548, 0.0036186418865482572],
+[-0.001999999999999792, -0.001999999999999792, -0.01999998666666725, 0.01799\
+998666666746],
+[2.0816681711721685e-16, 2.0816681711721685e-16, 2.0816681711721685e-15, -1.\ 8735013540549517e-15],
+[0.002000000000000208, 0.002000000000000208, 0.019999986666671413, -0.017999\
+986666671207],
+[2.8520000000000003, 2.8520000000000003, 2.8556186418865437, -0.003618641886\
+5433723 ],
+[2.854, 2.854, 2.8364457378768875, 0.01755426212311262],
+[7.066000000000001, 7.066000000000001, 7.0527763392739455, 0.013223660726055\
+186],
+[7.0680000000000005, 7.0680000000000005, 7.066940848453377, 0.00105915154662\
+38377],
+[7.07, 7.07, 7.081077089878837, -0.011077089878837043],
+[8.422, 8.422, 8.429686746452397, -0.00768674645239642],
+[8.424000000000001, 8.424000000000001, 8.418910641243006, 0.0050893587569955\
+66],
+[8.426, 8.426, 8.408100860402287, 0.017899139597712832]
+]</pre>
+<p>
+In all cases, it appears
+ that the functions crossed over an interval of two or three
+steps because the <code>three</code> element changed
+sign. At this point, we need to group the points into distinct clusters . Grouping by
+<code>x</code> value is
+tricky when the <code>x</code> values in a cluster
+are not exactly the same. However, we can adjust the mechanism. In
+general, one could argue that if two <code>x</code>-values of
+intersection points are within 0.01 of each other (for five consecutive
+points), they are in the same cluster. Also, this list of points above
+is ordered by x, so one only has to check the x value of the next point.
+See here:
+</p>
+<p>
+
+</p>
+<pre>intersection_clusters =
+intersection_points.reduce([]) do |cluster_list, zero_four_tuple|
+if !cluster_list[-1].nil?   &amp;&amp;
+cluster_list[-1][0][0] - zero_four_tuple[0] &gt; -0.01
+cluster_list[-1].push zero_four_tuple
+else
+cluster_list.push [zero_four_tuple]
+end
+cluster_list
+end</pre>
+<p>
+This yields an interesting result:
+</p>
+<p>
+
+</p>
+<pre>[
+[
+[-8.426, -8.426, -8.408100860402287, -0.017899139597712832],
+[-8.424, -8.424, -8.418910641243016, -0.005089358756983131],
+[-8.422, -8.422, -8.429686746452397, 0.00768674645239642]
+],
+[
+[-7.07, -7.07, -7.081077089878837, 0.011077089878837043],
+[-7.068, -7.068, -7.066940848453371, -0.0010591515466282786],
+[-7.066, -7.066, -7.052776339273938, -0.013223660726061404]
+],
+[
+[-2.8539999999999996, -2.8539999999999996, -2.836445737876892, -0.017554\
+262123107733],
+[-2.852, -2.852, -2.855618641886548, 0.0036186418865482572 ]
+],
+[
+[-0.001999999999999792, -0.001999999999999792, -0.01999998666666725, 0.0\
+1799998666666746],
+[2.0816681711721685e-16, 2.0816681711721685e-16, 2.0816681711721685e-15,\
+-1.8735013540549517e-15],
+[0.002000000000000208, 0.002000000000000208, 0.019999986666671413, -0.01\
+7999986666671207]
+],
+[
+[2.8520000000000003, 2.8520000000000003, 2.8556186418865437, -0.00361864\
+18865433723],
+[2.854, 2.854, 2.8364457378768875, 0.01755426212311262]
+],
+[
+[7.066000000000001, 7.066000000000001, 7.0527763392739455, 0.01322366072\
+6055186],
+[7.0680000000000005, 7.0680000000000005, 7.066940848453377, 0.0010591515\
+466238377],
+[7.07, 7.07, 7.081077089878837, -0.011077089878837043]
+],
+[
+[8.422, 8.422, 8.429686746452397, -0.00768674645239642],
+[8.424000000000001, 8.424000000000001, 8.418910641243006, 0.005089358756\
+995566],
+[8.426, 8.426, 8.408100860402287, 0.017899139597712832]
+]
+]</pre>
+<p>
+This clearly shows seven clear clusters  of zeroes.
+Now, at this point, you can make a decision to just accept the first
+zero in the cluster as “good enough.”
+</p>
+<p>
+
+</p>
+<pre>intersection_clusters.map do |cluster|
+cluster[0][0]
+end</pre>
+<p>
+Or, you may want the <code>x</code> value to be the
+mean of the <code>x</code>
+values in the cluster, rounded to a pretty-looking number:
+</p>
+<p>
+
+</p>
+<pre>intersection_clusters.map do |cluster|
+(cluster.reduce(0) do |sum, zero_four_tuple|
+sum + zero_four_tuple[0]
+end / cluster.size).round(4)
+end</pre>
+<p>
+This yields the following:
+</p>
+<p>
+
+</p>
+<pre>=&gt; [-8.424, -7.068, -2.853, 0.0, 2.853, 7.068, 8.424]</pre>
+<p>
+The full code is as follows:
+</p>
+<p>
+
+</p>
+<pre>zeroes =
+(-10..10).step(0.002).map do |x|
+[x, x, 10*Math.sin(x), x - (10*Math.sin(x))]
+end.select do |four_tuple|
+four_tuple[3].abs  -0.01
+cluster_list[-1].push zero_four_tuple
+else
+cluster_list.push [zero_four_tuple]
+end
+cluster_list
+end.map do |cluster |
+(cluster.reduce(0) do |sum, zero_four_tuple|
+sum + zero_four_tuple[0]
+end / cluster.size).round(4)
+end</pre>
+<p>
+Eighteen lines of code for a fairly complex calculation is pretty
+impressive.
+</p>
+<p>
+Exercise: You could check for crossovers in a cluster, which happen when
+a cluster of tuples has differences (fourth element in the tuple) that
+are positive and negative.
+</p>
+
+
+<h2 class="Heading">Group by Area Code</h2>
+<p>
+Sometimes, you have a data set that must be grouped by a function of an
+element. Consider this list of phone numbers:
+</p>
+<p>
+
+</p>
+<pre>John,613-555-1234
+Matt,613-555-2345
+Andrew,613-555-3456
+Bob,416-555-2222
+Sheila,905-555-7777
+Sara,416-555-9999
+Grocery,416-492-9999
+Pizza,416-967-1111
+Gabers,613-310-7777
+Shah,905-555-1212</pre>
+<p>
+You want to group the list by area code. In this case, it is the first
+three-digit number in each phone number.
+</p>
+<p>
+The area code 
+can be extracted by performing a <code>split()</code> on the phone
+number and taking the first element (<code>index 0</code>). For
+example:
+</p>
+<p>
+
+</p>
+<pre>phone_number = "613-555-1234"
+area_code = phone_number.split("-")[0]
+=&gt; "613"</pre>
+<p>
+Once you have access to the area code, it can serve as a key to a <code>Hash</code> keyed by the
+area code. In our example:
+</p>
+<p>
+
+</p>
+<pre>area_code_groups[area_code] = phone number</pre>
+<p>
+However, we’ll need an array if there are more numbers. A new array has
+to be created if one doesn’t exist for a new area code, as follows:
+</p>
+<p>
+
+</p>
+<pre>if area_code_groups[area_code].nil?
+area_code_groups[area_code] = [phone_number]
+else
+area_code_groups[area_code].push phone_number
+end</pre>
+<p>
+The complete text, then, is as follows:
+</p>
+<p>
+
+</p>
+<pre>phonelist_text.split("\n").map do |row|
+row.split(",")
+end.map do |split_row|
+[split_row[0], split_row[1].split("-")]
+end.reduce({}) do |area_code_groups, ac_split_row|
+if area_code_groups[ac_split_row[1][0]].nil?
+area_code_groups[ac_split_row[1][0]] = [ [ac_split_row[0], ac_split_row[1]\
+.join("-")].join(",") ]
+else
+area_code_groups[ac_split_row[1][0]].push [ac_split_row[0], ac_split_row[1\
+].join("-")].join(",")
+end
+area_code_groups
+end</pre>
+
+
+<h2 class="Heading">Sliding Window Average </h2>
+<p>
+Sometimes you have a data set that varies widely, but the long-term norm
+follows a set pattern. Suppose you have a list of fall temperatures in
+Ottawa from October 1 through October 31.
+</p>
+<p>
+
+</p>
+<pre>dailytemps = [10,20,22,23,15,18,17,10,10,10,17,20,21,18,8,16,20,8,7,8,8,18,23,24\
+,5,6,15,18,19,0,2]</pre>
+<p>
+You want to get the average of the last five days. For the first four
+days, just take the average of the previous four days. For the first
+three days, just the average of previous three days, and so on.
+</p>
+<p>
+We can use <code>reduce</code> because we’re
+doing operations that require a memo of previous calculations. Let us
+see if we can find the last five temperatures. The memo initializes with
+an array of five <code>nil</code>s. On each
+iteration, we’ll push the temperature onto the end of the memo and shift
+the oldest one off the memo. We’ll only test it on the first seven elements  to save
+space. See here:
+</p>
+<p>
+
+</p>
+<pre>initial_last_5 = [nil,nil,nil,nil,nil]
+dailytemps.first(7).reduce(initial_last_5) do |memo, temperature|
+memo.push temperature
+memo.shift
+puts "After pushing #{temperature}, the last 5 are: #{memo.inspect}"
+memo
+end
+After pushing 10, the last 5 are: [nil, nil, nil, nil, 10]
+After pushing 20, the last 5 are: [nil, nil, nil, 10, 20]
+After pushing 22, the last 5 are: [nil, nil, 10, 20, 22]
+After pushing 23, the last 5 are: [nil, 10, 20, 22, 23]
+After pushing 15, the last 5 are: [10, 20, 22, 23, 15]
+After pushing 18, the last 5 are: [20, 22, 23, 15, 18]
+After pushing 17, the last 5 are: [22, 23, 15, 18, 17]
+=&gt; [22, 23, 15, 18, 17]</pre>
+<p>
+We are saving the last five temperatures successfully after each step.
+Now, we need to save the average as well. To do that, we have to start
+with an initial array of the last five, as well as an initial average. A
+<code>Hash</code> is a good
+structure for the memo. The first key is the average, while the last key
+is the array of the last five elements. When we push the temperature, we
+need to do it to <code>memo[:last_5]</code> instead
+of just to  <code>memo</code> . Also,
+the average of the last five temperatures is the sum of the non-<code>nil</code> elements divided
+by the number of non-<code>nil</code> elements. (<code>compact</code> gets rid of
+non-<code>nil</code>
+elements, and <code>length</code> is the number
+of non-<code>nil</code>
+elements remaining). For example:
+</p>
+<p>
+
+</p>
+<pre>example_5 = [nil,nil,6,8,13]
+average = (example_5.compact.reduce(0,:+)) / (example_5.compact.length)
+=&gt; 9</pre>
+<p>
+Nine is the correct answer for the average of the three non-<code>nil</code> numbers.
+</p>
+<p>
+Now, we’ll apply that to the calculation as follows:
+</p>
+<p>
+
+</p>
+<pre>initial_hash = {average: 0, last_5: [nil,nil,nil,nil,nil]}
+dailytemps.first(7).reduce(initial_hash) do |memo, temperature|
+memo[:last_5].push temperature
+memo[:last_5].shift
+memo[:average] =
+(memo[:last_5].compact.reduce(0,:+)) / (Float(memo[:last_5].compact.leng\
+th))
+puts "After pushing #{temperature}, the last 5 are: #{memo.inspect}"
+memo
+end</pre>
+<p>
+The output looks like this:
+</p>
+<p>
+
+</p>
+<pre>After pushing 10, the memo is: {:average=&gt;10.0, :last_5=&gt;[nil, nil, nil, nil, 10\
+]}
+After pushing 20, the memo is: {:average=&gt;15.0, :last_5=&gt;[nil, nil, nil, 10, 20]}
+After pushing 22, the memo is: {:average=&gt;17.333333333333332, :last_5=&gt;[nil, nil\
+, 10, 20, 22]}
+After pushing 23, the memo is: {:average=&gt;18.75, :last_5=&gt;[nil, 10, 20, 22, 23]}
+After pushing 15, the memo is: {:average=&gt;18.0, :last_5=&gt;[10, 20, 22, 23, 15]}
+After pushing 18, the memo is: {:average=&gt;19.6, :last_5=&gt;[20, 22, 23, 15, 18]}
+After pushing 17, the memo is: {:average=&gt;19.0, :last_5=&gt;[22, 23, 15, 18, 17]}
+=&gt; {:average=&gt;19.0, :last_5=&gt;[22, 23, 15, 18, 17]}</pre>
+<p>
+We’re getting closer. We have the last average and the last five, but we
+need to save all the averages. That means that <code>memo[:average]</code> should
+be saved to an an array of sliding averages, which we push on every
+iteration. See here:
+</p>
+<p>
+
+</p>
+<pre>initial_hash = {average: 0,
+sliding_averages: [],
+last_5: [nil,nil,nil,nil,nil]
+}
+dailytemps.first(7).reduce(initial_hash) do |memo, temperature|
+memo[:last_5].push temperature
+memo[:last_5].shift
+memo[:average] = (memo[:last_5].compact.reduce(0,:+)) / (Float(memo[:last_5]\
+.compact.length))
+memo[:sliding_averages].push memo[:average]
+puts "After pushing #{temperature}, the memo is: #{memo.inspect}"
+memo
+end</pre>
+<p>
+Then, we need to keep only the sliding averages array at the end. We can
+get rid of the first seven and process the whole input  array of
+temperatures, as follows:
+</p>
+<p>
+
+</p>
+<pre>initial_hash = {average: 0,
+sliding_averages: [],
+last_5: [nil,nil,nil,nil,nil]
+}
+dailytemps.reduce(initial_hash) do |memo, temperature|
+memo[:last_5].push temperature
+memo[:last_5].shift
+memo[:average] = (memo[:last_5].compact.reduce(0,:+)) / (Float(memo[:last_5]\
+.compact.length))
+memo[:sliding_averages].push memo[:average]
+puts "After pushing #{temperature}, the memo is: #{memo.inspect}"
+memo
+end[:sliding_averages]</pre>
+<p>
+There is a whole pile of <code>puts</code> statements
+before the final answer is returned. Inspect them to see if the outputs
+after each iteration make sense. The final answer is as follows:
+</p>
+<p>
+
+</p>
+<pre>=&gt; [10.0, 15.0, 17.333333333333332, 18.75, 18.0, 19.6, 19.0, 16.6, 14.0, 13.0, 1\
+2.8, 13.4, 15.6, 17.2, 16.8, 16.6, 16.6, 14.0, 11.8, 11.8, 10.2, 9.8, 12.8, 16.2\
+, 15.6, 15.2, 14.6, 13.6, 12.6, 11.6, 10.8]</pre>
+<p>
+And, to clean up the code , we don’t really
+need to keep <code>memo[:average]</code> or the
+<code>puts</code> statement.
+See the final version here:
+</p>
+<p>
+
+</p>
+<pre>sliding_averages =
+dailytemps.reduce(sliding_averages:[], last_5:[nil,nil,nil,nil,nil]) do |memo, t\ emperature|
+memo[:last_5].push temperature
+memo[:last_5].shift
+memo_average = (memo[:last_5].compact.reduce(0,:+)) / (Float(memo[:last_5].c\
+ompact.length))
+memo[:sliding_averages].push memo_average
+memo
+end[:sliding_averages]</pre>
+
+
+<h2 class="Heading">Denormalize  a Data
+Set</h2>
+<p>
+Sometimes, you have a normalized data set that you want to denormalize
+for human use.
+</p>
+<p>
+For example, you may have a data set extracted from an SQL database. The
+first table is a list of names, uniquely identified by an ID, with each
+row formatted as <code>{id,name}</code>. (Note that
+there are two different Johns).
+</p>
+<p>
+
+</p>
+<pre>1,John
+2,Jack
+3,Jim
+4,Jared
+5,John</pre>
+<p>
+Then, you have a list of phone numbers with a unique ID, and a unique
+user ID, but phone numbers can be duplicated (because two people might
+share a phone); however, each entry is associated with a user. The
+format is <code>{id, user_id, phone_number}</code>. For example:
+</p>
+<p>
+
+</p>
+<pre>1,1,555-2344
+2,1,555-1111
+3,2,555-0000
+4,3,555-0000
+5,4,555-6666
+7,5,555-7777
+8,5,555-2344</pre>
+<p>
+However, you would like the denormalized list to look like this for easy
+user consumption:
+</p>
+<p>
+
+</p>
+<pre>John, 555-2344, 555,1111
+Jack, 555-0000
+Jim, 555-0000
+Jared, 555-6666
+John, 555-7777, 555-2344</pre>
+<p>
+This doesn’t even follow the first normal form for data normalization,
+but that is OK for humans . First of all,
+you have already extracted your data sets into the arrays <code>names</code> and <code>phones</code> as follows:
+</p>
+<p>
+
+</p>
+<pre>irb&gt; names
+=&gt; [[1,"John"],[2,"Jack"],[3,"Jim"],[4,"Jared"],[5,"John"]]
+irb&gt; phones
+=&gt; [[1,1,"555-2344"],[2,1,"555-1111"],[3,2,"555-0000"],[4,3,"555-0000],[5,4,"555\
+-6666"],[7,5,"555-7777"],[8,5,"555-2344"]]</pre>
+<p>
+Now, you want to match each phone number with each name:
+</p>
+<p>
+
+</p>
+<pre>cross_join = names.map do |name|
+phone.map do |phone|
+[name,phone]
+end
+end</pre>
+<p>
+Then, you want to select only name/phone pairs where the <code>user_id</code> of the phone
+(the <code>[1][1]</code>
+index) matches the <code>id</code> of the name (the
+<code>[0][0]</code> index).
+For example:
+</p>
+<p>
+
+</p>
+<pre>name_phones = cross_join.select do |np|
+np[0][0] == np[1][1]
+end</pre>
+<p>
+After that, you want to group by name , but you have to
+take the <code>name_id</code> because there
+are two Johns:
+</p>
+<p>
+
+</p>
+<pre>grouped_name_phones =
+name_phones.reduce({}) do |namelist, np|
+if namelist[np[0]].nil?
+namelist[np[0]] = np[1][2]
+else
+namelist[np[0]].push np[1][2]
+end
+namelist
+end</pre>
+<p>
+After that, you want to just save the name and the phone number in an
+array, as follows:
+</p>
+<p>
+
+</p>
+<pre>grouped_name_phones.map do |name,phones|
+[name[1],phones.map{|p|p[2]}.join(",")]
+end</pre>
+
+
+<h2 class="Heading">Pythagorean Triplets</h2>
+<p>
+The Pythagoras Theorem
+ is an important one in mathematics. It states that, for a right
+triangle, the square of the hypotenuse is the sum of the squares of the
+other two sides. A Pythagorean triplet is one where all three sides of a
+right triangle are integers. For example, [3,4,5] or [5,12,13] or
+[8,15,17]. Math teachers the world over use these to create math tests
+so that they don’t have to be bothered marking inexact long-division or
+square-root calculations.
+</p>
+<p>
+How do you solve this problem of generating pythagorean triplets?
+</p>
+<p>
+First of all, the hypotenuse is the longest side. So, we have to search
+all possible integer values of the hypotenuse. We’ll start at 5, because
+we know that 5 is the length of the hypotenuse of the smallest
+Pythagorean triangle. We know that we have to return a triplet, which
+could be an array of three elements. We’ll start with 5 and end with 17
+for now:
+</p>
+<p>
+
+</p>
+<pre>(5..17).map do |hypotenuse|
+[nil,nil,hypotenuse]
+end
+=&gt; [[nil, nil, 5], [nil, nil, 6], [nil, nil, 7], [nil, nil, 8], [nil, nil, 9], [\
+nil, nil, 10], [nil, nil, 11], [nil, nil, 12], [nil, nil, 13], [nil, nil, 14], [\
+nil, nil, 15], [nil, nil, 16], [nil, nil, 17]]</pre>
+<p>
+So far, so good. However, we need real numbers and not <code>nil</code> for the opposite
+and adjacent sides. We merely have to put them in nested loops. The
+opposite only has to search from 1 until the current hypotenuse, and the
+adjacent only has to search  from 1 to the
+current opposite, as follows:
+</p>
+<p>
+
+</p>
+<pre>(5..17).map do |hypotenuse|
+(1..hypotenuse).map do |opposite|
+(1..opposite).map do |adjacent|
+[adjacent,opposite,hypotenuse]
+end
+end
+end
+=&gt; [[[[1, 1, 5]], [[1, 2, 5], [2, 2, 5]], [[1, 3, 5], [2, 3, 5], [3, 3, 5]], [[1\
+, 4, 5], [2, 4, 5], [3, 4, 5], [4, 4, 5]], [[1, 5, 5], [2, 5, 5], [3, 5, 5], [4,\
+5, 5], [5, 5, 5]]], [[[1, 1, 6]], [[1, 2, 6], [2, 2, 6]], [[1, 3, 6], [2, 3, 6]\
+, [3, 3, 6]], [[1, 4, 6], [2, 4, 6], [3, 4, 6], [4, 4, 6]], [[1, 5, 6], [2, 5, 6\
+], [3, 5, 6], [4, 5, 6], [5, 5, 6]], [[1, 6, 6], [2, 6, 6], [3, 6, 6], [4, 6, 6]\
+, [5, 6, 6], [6, 6, 6]]], [[[1, 1, 7]], [[1, 2, 7], [2, 2, 7]], [[1, 3, 7], [2, \
+3, 7], [3, 3, 7]], [[1, 4, 7], [2, 4, 7], [3, 4, 7], [4, 4, 7]], [[1, 5, 7], [2,\
+5, 7], [3, 5, 7], [4, 5, 7], [5, 5, 7]], [[1, 6, 7], [2, 6, 7], [3, 6, 7], [4, \
+6, 7], [5, 6, 7], [6, 6, 7]], [[1, 7, 7], [2, 7, 7], [3, 7, 7], [4, 7, 7], [5, 7\
+, 7], [6, 7, 7], [7, 7, 7]]], [[[1, 1, 8]], [[1, 2, 8], [2, 2, 8]], [[1, 3, 8], \
+[2, 3, 8], [3, 3, 8]], [[1, 4, 8], [2, 4, 8], [3, 4, 8], [4, 4, 8]], [[1, 5, 8],\
+[2, 5, 8], [3, 5, 8], [4, 5, 8], [5, 5, 8]], [[1, 6, 8], [2, 6, 8], [3, 6, 8], \
+[4, 6, 8], [5, 6, 8] , [6, 6, 8]], [[1, 7, 8], [2, 7, 8], [3, 7, 8], [4, 7, 8], \
+[5, 7, 8], [6, 7, 8], [7, 7, 8]], [[1, 8, 8], [2, 8, 8], [3, 8, 8], [4, 8, 8], .\
+....................</pre>
+<p>
+The returned value is a mess, but it gets all the reasonable combinations . Now,
+once we have all of the numbers, we don’t want to keep numbers that
+aren’t triplets; we only keep the triplets. That means that we should
+only choose values for “opposite” that make a Pythagorean triplet with
+the other two. In other words, the last call to <code>map</code> should be
+preceded by a <code>select</code> where the
+predicate is the Pythagorean triplet rule:
+</p>
+<p>
+
+</p>
+<pre>(5..17).map do |hypotenuse|
+(1..hypotenuse).map do |opposite|
+(1..opposite).select do |adjacent|
+adjacent*adjacent + opposite*opposite == hypotenuse*hypotenuse
+end.map do |selected_adjacent|
+[selected_adjacent,opposite,hypotenuse]
+end
+end
+end
+=&gt; [[[], [], [], [[3, 4, 5]], []], [[], [], [], [], [], []], [[], [], [], [], []\
+, [], []], [[], [], [], [], [],     [], [], []], [[], [], [], [], [], [], [], []\
+, []], [[], [], [], [], [], [], [], [[6, 8, 10]], [], []], [[], [],     [], [], \
+[], [], [], [], [], [], []], [[], [], [], [], [], [], [], [], [], [], [], []], [\
+[], [], [], [], [], [],     [], [], [], [], [], [[5, 12, 13]], []], [[], [], [],\
+[], [], [], [], [], [], [], [], [], [], []], [[], [], [],    [], [], [], [], [\
+], [], [], [], [[9, 12, 15]], [], [], []], [[], [], [], [], [], [], [], [], [], \
+[], [], [],       [],[], [], []], [[], [], [], [], [], [], [], [], [], [], [], [\
+], [], [], [[8, 15, 17]], [], []]]</pre>
+<p>
+This looks better, but we have a lot of blank arrays, and they are
+nested three deep. That is because <code>map</code> always returns an
+array. So, nested <code>map</code> calls will return
+arrays of arrays
+. The first thing to do is try to flatten the outer array, as
+follows:
+</p>
+<p>
+
+</p>
+<pre>(5..17).map do |hypotenuse|
+(1..hypotenuse).map do |opposite|
+(1..opposite).select do |adjacent|
+adjacent*adjacent + opposite*opposite == hypotenuse*hypotenuse
+end.map do |selected_adjacent|
+[selected_adjacent,opposite,hypotenuse]
+end
+end
+end.flatten
+=&gt; [3, 4, 5, 6, 8, 10, 5, 12, 13, 9, 12, 15, 8, 15, 17]</pre>
+<p>
+This is not right, because we went too far in flattening the array of
+arrays of arrays. If we group them in triplets, we actually have the
+Pythagorean triplets from 5 to 17 for the hypotenuse. However, we want
+actual triplets preserved. So, we need to successively flatten the
+results of each <code>map</code>. In Ruby, there
+is a function called <code>flat_map</code> that does
+this. We need to flatten the outer <code>map</code> and the first
+inner <code>map</code> in
+order to have an array of triplet arrays. I’ll also bump up the number
+to 26:
+</p>
+<p>
+
+</p>
+<pre>(5..26).flat_map do |hypotenuse|
+(1..hypotenuse).flat_map do |opposite|
+(1..opposite).select do |adjacent|
+adjacent*adjacent + opposite*opposite == hypotenuse*hypotenuse
+end.map do |selected_adjacent|
+[selected_adjacent,opposite,hypotenuse]
+end
+end
+end
+=&gt; [[3, 4, 5], [6, 8, 10], [5, 12, 13], [9, 12, 15], [8, 15, 17], [12, 16, 20], \
+[15, 20, 25], [7, 24, 25], [10, 24, 26]]</pre>
+<p>
+This is the result we were seeking . You can bump
+the number up higher to see what happens.
+</p>
+
+
+<p></p>
+
+<!--Begin Abstract-->
+
+<h1 class="ChapterTitle" lang="en">4. Reverse-Engineering Complex
+Solutions</h1>
+
+
+<!--End Abstract-->
+
+<p>
+At some point, you will be presented with code that was written by
+others (or by you, a long time ago, and you have since forgotten how it
+works), and you will need to understand what the code did and if it
+needs to be fixed or evolved.
+</p>
+<p>
+Reading a data-processing workflow that uses <code>map</code>, <code>reduce</code>, or <code>select</code> is very
+different from reading typical code written in an imperative coding
+style. In addition, Ruby’s way of passing blocks can be confusing to
+many people unfamiliar with that coding style. I have experienced people
+reading my <code>map</code>/<code>reduce</code>/<code>select</code>
+data-processing cascades and reacting with anger, confusion, and scorn.
+And I myself have felt that way about such code from other people. I
+switched from imperative coding to using this style because I can solve
+my problems with fewer lines of code, and I can solve the problems in a
+disciplined way because each step in the cascade is individually
+debuggable.
+</p>
+<p>
+In this section, I will present an example and walk you through
+reverse-engineering the solution and gaining understanding of the
+techniques used to derive the solution in the first place.
+</p>
+
+<h2 class="Heading">Solution for Pascal’s Triangle   </h2>
+<p>
+I found the following code on the internet (at <a href="http://kellegous.com/j/2006/06/28/post-9/"> <code>http://kellegous.com/j/2006/06/28/post-9/</code>
+</a>) for a Pascal’s triangle (I picked 0..5 to make it
+easier to display). It is used here with the permission of the code’s
+author, Kelly Norton.
+</p>
+<p>
+
+</p>
+<pre>text =
+(0..5).reduce([[1]]) { |a,x|
+a.unshift a.first.reduce([0,[]]) { |b,y|
+[y,b.last &lt;&lt; (b.first + y)]
+}.last + [1]
+}.reduce([]) { |c,z|
+next [z[z.length/2].to_s.length*2,z.length,""] if c.empty?
+[c[0],c[1], z.map { |j|
+j.to_s.center(c[0])
+}.join('').center(c[0]*c[1])+"\n#{c.last}"]
+}.last
+puts text</pre>
+<p>
+When I ran it, I got the following:
+</p>
+<p>
+
+</p>
+<pre>1
+1    1
+1   2    1
+1   3    3    1
+1   4   6    4    1
+1   5   10   10   5   1
+=&gt; nil</pre>
+<p>
+Lovely. It looks like a nicely formatted Pascal’s triangle, and it is a
+lot more concise than the example I wrote.
+</p>
+<p>
+This function seems to be using two cascading <code>reduce</code> steps to build    the result. Let’s see
+what the first stage does:
+</p>
+<p>
+
+</p>
+<pre>text =
+(0..5).reduce([[1]]) { |a,x|
+a.unshift a.first.reduce([0,[]]) { |b,y|
+[y,b.last  [[1, 6, 15, 20, 15, 6, 1], [1, 5, 10, 10, 5, 1], [1, 4, 6, 4, 1], [1, 3, 3, 1\
+], [1, 2, 1], [1, 1], [1]]</pre>
+<p>
+This is interesting. It looks like the Pascal’s triangle array, but in
+reverse. Let’s add a debugging statement. Don’t forget to return the
+memo afterward.
+</p>
+<p>
+
+</p>
+<pre>text =
+(0..5).reduce([[1]]) { |a,x|
+memo =
+a.unshift a.first.reduce([0,[]]) { |b,y|
+[y,b.last  [[1, 6, 15, 20, 15, 6, 1], [1, 5, 10, 10, 5, 1], [1, 4, 6, 4, 1], [1, 3, 3, 1\
+], [1, 2, 1], [1, 1], [1]]</pre>
+<p>
+We can see that each run of <code>reduce</code> adds a row to
+the triangle and saves the triangle    in the memo. Let’s see
+what happens in each of the inner <code>reduce</code> steps by
+printing out key data after each main step:
+</p>
+<p>
+
+</p>
+<pre>text =
+(0..5).reduce([[1]]) { |a,x|
+puts "Before processing a: #{a}  , x: #{x}"
+memo =
+a.unshift a.first.reduce([0,[]]) { |b,y|
+puts " Before processing inner loop, b: #{b}, y: #{y}"
+inner_memo =
+[y,b.last &lt;&lt; (b.first + y)]
+puts "  After processing inner loop y: #{y}, the inner memo is #{inner_mem\
+o}"
+inner_memo
+}.last + [1]
+puts "After processing x: #{x}, the memo is: #{memo}"
+puts ""
+memo
+}</pre>
+<p>
+This yields a lot of output:
+</p>
+<p>
+
+</p>
+<pre>Before processing a: [[1]], x: 0
+Before processing inner loop, b: [0, []], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1]]
+After processing x: 0, the memo is: [[1, 1], [1]]
+Before processing a: [[1, 1], [1]], x: 1
+Before processing inner loop, b: [0, []], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1]]
+Before processing inner loop, b: [1, [1]], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1, 2]]
+After processing x: 1, the memo is: [[1, 2, 1], [1, 1], [1]]
+Before processing a: [[1, 2, 1], [1, 1], [1]], x: 2
+Before processing inner loop, b: [0, []], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1]]
+Before processing inner loop, b: [1, [1]], y: 2
+After processing inner loop y: 2, the inner memo is [2, [1, 3]]
+Before processing inner loop, b: [2, [1, 3]], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1, 3, 3]]
+After processing x: 2, the memo is: [[1, 3, 3, 1], [1, 2, 1], [1, 1], [1]]
+Before processing a: [[1, 3, 3, 1], [1, 2, 1], [1, 1], [1]], x: 3
+Before processing inner loop, b: [0, []], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1]]
+Before processing inner loop, b: [1, [1]], y: 3
+After processing inner loop y: 3, the inner memo is [3, [1, 4]]
+Before processing inner loop, b: [3, [1, 4]], y: 3
+After processing inner loop y: 3, the inner memo is [3, [1, 4, 6]]
+Before processing inner loop, b: [3, [1, 4, 6]], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1, 4, 6, 4]]
+After processing x: 3, the memo is: [[1, 4, 6, 4, 1], [1, 3, 3, 1], [1, 2, 1], [\
+1, 1], [1]]
+Before processing a: [[1, 4, 6, 4, 1], [1, 3, 3, 1], [1, 2, 1], [1, 1], [1]], x\
+: 4
+Before processing inner loop, b: [0, []], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1]]
+Before processing inner loop, b: [1, [1]], y: 4
+After processing inner loop y: 4, the inner memo is [4, [1, 5]]
+Before processing inner loop, b: [4, [1, 5]], y: 6
+After processing inner loop y: 6, the inner memo is [6, [1, 5, 10]]
+Before processing inner loop, b: [6, [1, 5, 10]], y: 4
+After processing inner loop y: 4, the inner memo is [4, [1, 5, 10, 10]]
+Before processing inner loop, b: [4, [1, 5, 10, 10]], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1, 5, 10, 10, 5]]
+After processing x: 4, the memo is: [[1, 5, 10, 10, 5, 1], [1, 4, 6, 4, 1], [1, \
+3, 3, 1], [1, 2, 1], [1, 1], [1]]
+Before processing a: [[1, 5, 10, 10, 5, 1], [1, 4, 6, 4, 1], [1, 3, 3, 1], [1, 2\
+, 1], [1, 1], [1]], x: 5
+Before processing inner loop, b: [0, []], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1]]
+Before processing inner loop, b: [1, [1]], y: 5
+After processing inner loop y: 5, the inner memo is [5, [1, 6]]
+Before processing inner loop, b: [5, [1, 6]], y: 10
+After processing inner loop y: 10, the inner memo is [10, [1, 6, 15]]
+Before processing inner loop, b: [10, [1, 6, 15]], y: 10
+After processing inner loop y: 10, the inner memo is [10, [1, 6, 15, 20]]
+Before processing inner loop, b: [10, [1, 6, 15, 20]], y: 5
+After processing inner loop y: 5, the inner memo is [5, [1, 6, 15, 20, 15]]
+Before processing inner loop, b: [5, [1, 6, 15, 20, 15]], y: 1
+After processing inner loop y: 1, the inner memo is [1, [1, 6, 15, 20, 15, 6]]
+After processing x: 5, the memo is: [[1, 6, 15, 20, 15, 6, 1], [1, 5, 10, 10, 5,\
+1], [1, 4, 6, 4, 1], [1, 3, 3, 1], [1, 2, 1], [1, 1], [1]]
+=&gt; true</pre>
+<p>
+What is apparent is that each step    of the inner loop
+iterates over the last row (the first element of <code>a[]</code>) and unshifts it
+onto the inner memo array (by sliding everything over to the right). It
+then adds that number (<code>y</code>) to the first
+element of <code>b[]</code>
+(which is always an integer or nil) and then pushes it onto the end of
+the last element of <code>b[]</code> (which is always
+an array). The resulting inner memo after processing is a number as the
+first element and a partial row as the second element. The first element
+is needed for the next iteration when it is added to the last element of
+the partial row.
+</p>
+<p>
+After the inner loop runs for the last time, the second element of the
+memo is <code>[1,6,15,20,16,5]</code>,
+which is almost a full row of the triangle. That is why the result of
+the inner loop has <code>[1]</code> pushed onto the
+end of the array, which makes a full row of the triangle.
+</p>
+<p>
+From here, one only has to reverse the result to get the raw data for
+the triangle and then print it out, as I did earlier in this book with
+the example I wrote. I leave it as an exercise for the reader to see how
+this example formats and prints the triangle in a nice symmetrical
+format.
+</p>
+<p>
+Throughout this book, I have tried my best to walk you through the
+mechanics of using map, reduce, and select to solve data processing
+problems. If you have gone through this book, and typed in the examples
+and pondered the results, I sincerely hope that it has stimulated your
+thinking about how to apply these to your own data processing problems.
+I also hope that you can carry these techniques forward to solve your
+own data processing problems in the future.
+</p>
+
+
+<p></p>
+
+
+
+
+Index
+
+
+
+
+
+A, B, C, D, E
+
+
+
+
+Data sets
+
+
+area code
+
+
+denormalize
+
+
+list of names
+
+
+lookup policy data
+
+
+sliding averages
+
+
+uniq()
+
+
+
+
+Debugging
+
+
+map
+
+
+reduce
+
+
+select
+
+
+
+
+
+
+F, G, H
+
+
+
+
+FizzBuzz
+
+
+
+
+
+
+I, J, K, L
+
+
+
+
+Intersection points
+
+
+clusters
+
+
+functions
+
+
+map()
+
+
+
+
+
+
+M, N, O
+
+
+
+
+Map
+
+
+description
+
+
+list of names
+
+
+name bar
+
+
+names to CSV
+
+
+odd cubes
+
+
+random list of names
+
+
+sequence of sales
+
+
+
+
+
+
+P, Q
+
+
+
+
+Pascal’s triangle
+
+
+
+
+Postfix/reverse polish notation
+
+
+command line
+
+
+stack
+
+
+
+
+Pythagoras Theorem
+
+
+
+
+
+
+R
+
+
+
+
+Reduce
+
+
+list of names
+
+
+max
+
+
+memo/element
+
+
+name bar
+
+
+names to CSV
+
+
+odd cubes
+
+
+random list of names
+
+
+reverse
+
+
+sequence of sales
+
+
+uniq
+
+
+
+
+Reverse-engineering
+
+
+Pascal’s triangle
+
+
+
+
+Ruby
+
+
+arrays
+
+
+block-passing syntax
+
+
+command line
+
+
+compact()
+
+
+flatten()
+
+
+hash
+
+
+object
+
+
+pop
+
+
+push()
+
+
+reading files
+
+
+shift
+
+
+string
+
+
+interpolation
+
+
+join()
+
+
+split()
+
+
+unshift()
+
+
+
+
+
+
+S, T, U, V, W, X, Y, Z
+
+
+
+
+Select
+
+
+description
+
+
+list of names
+
+
+name bar
+
+
+names to CSV
+
+
+odd cubes
+
+
+random list of names
+
+
+sequence of sales
+
+
+
+
+

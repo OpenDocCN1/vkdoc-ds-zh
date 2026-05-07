@@ -1,0 +1,3205 @@
+- '
+
+  '
+- "# Pro Ember Data：精通 Ember Data\n\n![](img/978-1-4842-6561-1_CoverFigure.jpg)\n\n\
+  `ISBN 978-1-4842-6560-4` `e-ISBN 978-1-4842-6561-1` [`doi.org/10.1007/978-1-4842-6561-1`](https://doi.org/10.1007/978-1-4842-6561-1)\
+  \ © David Tang 2021 本作品受版权保护。本书全部或部分内容的权利，包括翻译、重印、插图复用、朗诵、广播、微缩胶片或其他任何物理形式的复制、传输或信息存储与检索、电子改编、计算机软件，或使用目前已知或未来开发的类似或不同方法，均由出版商独家授权。本书中通用描述性名称、注册商标、商标、服务标志等的使用，即便未作特别说明，也不意味着这些名称不受相关保护性法律和法规的约束，因而可自由使用。出版商、作者和编辑可合理假定，本书中的建议和信息在出版之日是真实准确的。出版商、作者或编辑均不对书中所含材料或可能存在的任何错误或疏漏作任何明示或暗示的担保。出版商对已出版地图中的管辖权主张和机构归属持中立态度。本书由施普林格科学与商业媒体纽约公司（Springer\
+  \ Science+Business Media New York, 1 New York Plaza, New York, NY 10004）在全球发行。电话：1-800-SPRINGER，传真：(201)\
+  \ 348-4505，电子邮件：`orders-ny@springer-sbm.com`，或访问网址：`www.springeronline.com`。Apress\
+  \ Media, LLC 是一家加利福尼亚有限责任公司，其唯一成员（所有者）是施普林格科学与商业媒体金融公司（SSBM Finance Inc）。SSBM Finance\
+  \ Inc 是一家特拉华州公司。\n\n*本书谨献给我的妻子伊莱恩·林（Elaine Lin），她曾多次因为我想要学习、研究或撰写关于 Ember 的内容而独自入睡。没有你的爱与支持，这本书将无法问世，我将永远心怀感激。*\n\
+  \n## 引言\n\n### 我为何撰写本书？\n\n让我来告诉你我的故事。我之所以被 Ember 吸引，是因为它拥有诸多优点，例如约定优于配置、开箱即用的测试框架，以及稳定而不停滞的特性。我还非常喜欢\
+  \ Ember 通过其配套库 Ember Data，提供了一套有主见的方式来与 API 协作并在 JavaScript 应用中处理数据。Ember Data 具备模型、模型关联和身份映射等功能，这些功能解决了我之前在构建客户端应用时遇到的挑战。我跟着各种教程学习使用\
+  \ Ember Data，这些教程中的 API 都是预先搭建好的。后来，我决定在一个实际项目中使用 Ember，但我并未掌控该项目中的 API。该 API 的请求和响应负载与\
+  \ Ember Data 预期的格式不匹配。例如，我的负载结构如下，这无法与 Ember Data 开箱即用：\n\n```\n{\n\"data\": [\n\
+  { \"id\": 1, \"firstName\": \"Yehuda\" },\n{ \"id\": 2, \"firstName\": \"Tom\" }\n\
+  ]\n}\n```\n\n我进行了一些研究，并开始接触诸如适配器、序列化器、转换器、内嵌记录和快照之类的术语；查阅了庞大的 Ember Data API 文档；以及各种论坛上针对我无法实现的解决方案所提出的建议。我很快就感到不知所措，难以继续推进。我确实考虑过使用在服务中封装的老式\
+  \ `$.ajax` 方法，但我知道那样会错失 Ember Data 中的许多优秀特性，我的应用也会缺乏约定性，而且我可能是在重复造轮子。我最终决定深入钻研 Ember\
+  \ Data，并尽可能多地学习它的相关知识，以便能够充分利用这个神奇库的强大功能。我很庆幸自己做出了这个选择。\n\n那么，我为什么写这本书呢？我想帮助你学会如何让\
+  \ Ember Data 适配你的 API，这样你就不会感到沮丧而放弃 Ember 或 Ember Data。一旦你理解了 Ember Data 的工作原理，我敢打赌你会像我一样欣赏并乐于使用它。\n\
+  \n### 本书适合我吗？\n\n本书适合所有有兴趣深入了解 Ember Data 的读者。也许你一直在使用 `$.ajax`，并希望开始使用 Ember Data。也许你已通过遵循默认约定的\
+  \ API 使用过 Ember Data，并想进一步了解其内部机制。也许你想编写自己的适配器和序列化器来适配特定的后端。本书适合所有对学习 Ember Data\
+  \ 感兴趣的人。如果你以前从未使用过 Ember Data，第 1 章“Ember Data 概述”会提供一个简短的介绍，但我建议你首先阅读 Ember 指南^(¹)\
+  \ 中关于 Ember Data 的章节以熟悉它。\n\n### 工具\n\n要使用本书中的示例应用程序，请安装以下工具：\n\n*   Git（[`https://git-scm.com/`](https://git-scm.com/)）。\n\
+  *   Node.js（含 npm）。任何现代版本均可。我测试时使用的是 `v12.*`，它是本书写作时的 LTS 版本（[`https://nodejs.org/`](https://nodejs.org/)）。\n\
+  *   Google Chrome 浏览器。\n*   Ember Inspector Google Chrome 扩展程序（[`https://github.com/emberjs/ember-inspector`](https://github.com/emberjs/ember-inspector)）。\n\
+  *   Ember CLI（[`https://ember-cli.com/`](https://ember-cli.com/)）。\n\n### 约定\n\n\
+  当我使用“JSON:API”时，我指的是 JSON:API 规范。^(²)\n\n### API 文档\n\n在本书中，我将引用 Ember Data 中的各种\
+  \ API，例如类、函数和混入。如果在任何时候你不确定从哪里导入它们，请查阅 Ember Data API 文档^(³) 或 Ember Data 包 RFC。^(⁴)\n\
+  \n### 勘误\n\n我已尽最大努力确保本书没有拼写和错误。如果你确实发现了错误，请在本书的 GitHub 仓库（[`https://github.com/Apress/pro-ember-data`](https://github.com/Apress/pro-ember-data)）中提交问题。\n\
+  \n### 联系我\n\n你对本书中的任何内容有疑问吗？需要帮助让 API 与 Ember Data 协同工作吗？请随时通过 Twitter 联系我，我的账号是\
+  \ `@iamdtang`，或者发送电子邮件至 `david@thejsguycom`。\n\n## 致谢\n\n我要感谢 Ember 团队以及所有为 Ember\
+  \ 做出贡献的人，感谢你们打造了这样一个高效且令人愉悦的现代 web 应用开发框架。我尤其要感谢克里斯·索伯恩（Chris Thoburn）与我分享他对 Ember\
+  \ Data 的理解。\n\n### 关于作者\n\n### 关于技术审稿人\n\n### 脚注\n\n1  \n2  \n3  \n4\n\n"
+- '# 1. Ember Data 概述
+
+
+  本章旨在提供 Ember Data 的架构概述和基本总结。如果你以前没有使用过 Ember Data，我建议你先阅读 Ember 指南^(⁵) 中关于 Ember
+  Data 的章节以熟悉它。本章将为理解 Ember Data 中所有组件如何协同工作奠定基础，以便你能够开始对其进行自定义，使其适配你的 API。
+
+
+
+
+  ## 架构概览
+
+
+  Ember Data 的架构可通过下图来展示。
+
+
+  ![../images/504826_1_En_1_Chapter/504826_1_En_1_Figa_HTML.jpg](img/504826_1_En_1_Figa_HTML.jpg)
+
+
+  左侧是应用程序，它与存储（store）进行交互。默认情况下，路由和控制器可以访问存储，例如：
+
+
+  ```
+
+  import Route from ''@ember/routing/route'';
+
+  export default class ContactsRoute extends Route {
+
+  model() {
+
+  return this.store.findAll(''contact'');
+
+  }
+
+  }
+
+  ```
+
+
+  存储也可以注入到应用程序的其他部分，例如组件：
+
+
+  ```
+
+  import Component from ''@glimmer/component'';
+
+  import { tracked } from ''@glimmer/tracking'';
+
+  import { inject as service } from ''@ember/service'';
+
+  export default class ContactsListComponent extends Component {
+
+  @service store;
+
+  @tracked contacts;
+
+  constructor() {
+
+  super(...arguments);
+
+  this.store.findAll(''contact'').then((contacts) => {
+
+  this.contacts = contacts;
+
+  });
+
+  }
+
+  }
+
+  ```
+
+
+  ### 存储（Store）
+
+
+  存储是 `Store` 类的一个实例，它是一个服务，充当数据访问层和应用程序中记录（模型实例）的缓存。它负责在客户端实例化模型，并通过 API 保存数据。存储还可以从
+  API 请求数据，并将这些数据转换为丰富的客户端模型，这些模型被称为记录。随后，这些记录会被缓存以备后续检索。
+
+
+  存储还实现了一个身份映射，以防止应用程序中出现同一记录的多个引用。例如，假设我们发起两个请求。第一个请求是获取联系人列表，该列表包含一个 `id` 为 1 的联系人。应用程序其他地方的第二个请求也针对
+  `id` 为 1 的联系人。这意味着内存中存在两个 `id` 为 1 的联系人对象。手动保持这些重复的联系人对象同步通常会导致数据架构不佳，且缺乏可扩展性和可重用性。通过身份映射，存储将跟踪一个
+  `id` 为 1 的单一 `contact` 记录。如果多个 AJAX 请求返回了 `id` 为 1 的联系人，例如 `GET /contacts` 和 `GET
+  /contacts/1`，数据将被映射到存储中的单个 `contact` 记录。通过身份映射，无论你请求多少次，存储都会保持对象身份并返回相同的记录。
+
+
+  ### 适配器（Adapter）
+
+
+  存储将如何与 API 交互的具体细节委托给适配器。这里使用了适配器设计模式。可以把适配器模式想象成出国旅行时处理电源插座的情况。如果你有一个三脚电源插头，它无法插入两孔墙上的插座。相反，你需要使用一个旅行适配器，将现有的三脚插头配置转换为符合你访问国家的插座规格。这里思路相同，但你不是用适配器去适配电源插座，而是用适配器去适配你的
+  API。你的后端可以是一个基于 HTTP 或 WebSocket 协议的 API，甚至是像 Local Storage 或 IndexedDB 这样的浏览器存储技术。通过在适配器中隔离数据来源的具体细节，使其与应用程序的其他部分解耦，如果将来应用程序与后端通信的方式发生变化，只需要修改适配器，而无需修改整个应用程序。
+
+
+  ### 序列化器（Serializer）
+
+
+  位于适配器和 API 之间的是序列化器。序列化器有两项工作。首先，它用于格式化发送到服务器的数据，这也被称为*序列化*。其次，序列化器用于格式化从服务器接收的数据，这被称为*规范化*。正如我们在本书后面会看到的，Ember
+  Data 提供了三种不同的序列化器，它们可以被扩展以适应任何 API。
+
+
+  现在，我们对 Ember Data 的核心组件有了很好的了解，接下来让我们看一个示例。
+
+
+  ### 模型属性和转换器（Transforms）
+
+
+  要开始使用 Ember Data，我们首先需要考虑应用程序中的底层数据，并将其表示为模型。例如，一个猫咪应用程序可能有 `cat`、`home` 和 `owner`
+  模型。我们可以使用 Ember CLI 来生成一个 `cat` 模型类：
+
+
+  ```
+
+  ember generate model cat
+
+  ```
+
+
+  这将生成以下模型类：
+
+
+  *app/models/cat.js*
+
+
+  ```
+
+  import Model from ''@ember-data/model'';
+
+  export default class CatModel extends Model {}
+
+  ```
+
+
+  接下来，我们可以通过属性定义模型的模式，并使用转换器指定它们的类型。转换器允许我们在属性被设置为记录上的属性或发送回服务器之前，转换来自服务器的属性。以下是 `cat`
+  模型使用四个内置转换器（`string`、`number`、`boolean` 和 `date`）的示例：
+
+
+  *app/models/cat.js*
+
+
+  ```
+
+  import Model, { attr } from ''@ember-data/model'';
+
+  export default class CatModel extends Model {
+
+  @attr(''string'') name;
+
+  @attr(''number'') age;
+
+  @attr(''boolean'') adopted;
+
+  @attr(''date'') birthday;
+
+  }
+
+  ```
+
+
+  这些内置转换器列于表 1-1 中。
+
+
+  **表 1-1** 内置转换器
+
+
+  | 转换器名称 | 用法 |
+
+  | --- | --- |
+
+  | String | `attr(''string'')` |
+
+  | Number | `attr(''number'')` |
+
+  | Boolean | `attr(''boolean'')` |
+
+  | Date | `attr(''date'')` |
+
+
+  当模型被创建时，属性会被强制转换为对应的 `attr()` 装饰器调用中指定的类型。例如，假设从服务器接收到一个 `cat` 资源，如下所示：
+
+
+  ```
+
+  {
+
+  "id": 1,
+
+  "name": "Frisky",
+
+  "age": "10",
+
+  "adopted": "true",
+
+  "birthday": "2005-11-05T13:15:30Z",
+
+  "color": "white"
+
+  }
+
+  ```
+
+
+  在 `cat` 记录上，`name` 属性将被设置为字符串，`age` 属性会被强制转换为数字 10，`adopted` 属性会被强制转换为布尔值 `true`，而
+  `birthday` 属性会被强制转换为一个 `Date` 对象。最后，由于 `color` 属性未在模型类中指定，因此它不会被设置在 `cat` 记录上。
+
+
+  在幕后，每个 `attr()` 装饰器调用都映射到一个特定的、继承自 `Transform` 的转换器类。如果我们不向 `attr()` 传递任何参数，则该值将原样传递。这在我们将在第
+  8 章——处理嵌套数据和内嵌记录中看到时非常有用。
+
+
+  内置转换器大部分是不言自明的。`string` 转换器会使用原生的 `String` 构造函数将值强制转换为字符串。`number` 转换器会使用原生的 `Number`
+  构造函数将值强制转换为数字。如果该属性不是数字，则返回 `null`。`boolean` 转换器不仅转换布尔值，而且字符串 "true"、"t" 或 "1"（不区分大小写）以及数字
+  1 都会被强制转换为 `true`，其他所有内容都会被强制转换为 `false`。`date` 转换器会使用原生的 `Date` 构造函数构建一个 `Date`
+  对象。当日期属性被序列化时，例如在保存记录时，该日期将通过 `Date.prototype.toISOString()` 转换为 ISO 8601 格式（YYYY-MM-DDTHH:mm:ss.sssZ）。
+
+
+
+
+  ## API
+
+
+  在继续深入之前，我们先在 Node.js 中用 Express 创建一个符合 JSON:API 规范的 API，它返回硬编码数据。如果你不熟悉 JSON:API，别担心。我们将在第
+  3 章 *API 响应格式与序列化器* 中详细讲解，但如果你想提前了解，可以查阅 JSON:API 规范文档。
+
+
+  创建一个包含 `server.js` 文件的 `api` 文件夹：
+
+
+  ```
+
+  mkdir api
+
+  cd api
+
+  touch server.js
+
+  ```
+
+
+  在 `server.js` 中填入以下内容：
+
+
+  ```javascript
+
+  const express = require(''express'');
+
+  const cors = require(''cors'');
+
+  const app = express();
+
+  app.use(cors());
+
+  app.get(''/api/v1/cats'', (request, response) => {
+
+  response.json({
+
+  data: [
+
+  {
+
+  type: ''cats'',
+
+  id: 1,
+
+  attributes: {
+
+  name: ''Frisky'',
+
+  age: 10,
+
+  adopted: true,
+
+  birthday: ''2005-11-05T13:15:30Z''
+
+  },
+
+  relationships: {
+
+  home: {
+
+  data: { type: ''homes'', id: 1 }
+
+  }
+
+  }
+
+  }
+
+  ]
+
+  });
+
+  });
+
+  app.get(''/api/v1/homes/:id'', (request, response) => {
+
+  response.json({
+
+  data: {
+
+  type: ''homes'',
+
+  id: request.params.id,
+
+  attributes: {
+
+  street: ''123 Purrfect Avenue''
+
+  }
+
+  }
+
+  });
+
+  });
+
+  app.listen(8000, () => {
+
+  console.log(''Listening on port 8000'');
+
+  });
+
+  ```
+
+
+  接下来，安装依赖并运行 API：
+
+
+  ```
+
+  npm install
+
+  node server.js
+
+  ```
+
+
+  如果你访问 `http://localhost:8000/api/v1/cats`，应该会看到一个 JSON 格式的猫咪列表。
+
+
+  ## 使用 Store
+
+
+  现在我们已经有了一个正在运行的 API，并且设置好了 `cat` 模型，接下来开始与 store 交互以从 API 获取数据。如前所述，store 会自动注入到路由中。假设我们有一个路径为
+  `/cats` 的路由：
+
+
+  `app/routes/cats.js`
+
+
+  ```javascript
+
+  import Route from ''@ember/routing/route'';
+
+  export default class CatsRoute extends Route {
+
+  model() {
+
+  return this.store.findAll(''cat'');
+
+  }
+
+  }
+
+  ```
+
+
+  我们使用路由的 `model` 钩子，通过 store 的 `findAll()` 方法从服务器获取一组 `cat` 资源。这只是 store 提供的方法之一，其他常见方法包括表
+  1-2 中列出的那些。
+
+
+  **表 1-2** 常用的 Store 方法
+
+
+  | Store 方法 | 描述 |
+
+  | --- | --- |
+
+  | `findRecord()` | 根据给定类型和 ID 查找单条记录，返回一个 promise |
+
+  | `peekRecord()` | 在 store 中同步查找给定类型和 ID 的记录 |
+
+  | `peekAll()` | 返回 store 中给定类型的所有记录 |
+
+  | `createRecord()` | 创建模型的新实例并将其放入 store |
+
+
+  如果运行应用程序并导航到 `/cats`，我们会在控制台中看到错误，提示找不到 `http://localhost:4200/cats`。这是因为我们还没有告诉
+  Ember Data API 的主机地址。接下来，我们通过创建一个适配器来解决这个问题。
+
+
+  ## 适配器
+
+
+  Ember Data 允许我们创建一个可在整个应用程序中使用的适配器。这被称为 `application` 适配器，可以通过以下命令生成：
+
+
+  ```
+
+  ember generate adapter application
+
+  ```
+
+
+  或者，我们也可以为特定模型创建适配器：
+
+
+  ```
+
+  ember generate adapter cat
+
+  ```
+
+
+  如果存在针对特定模型的适配器，Ember Data 在处理该模型时会优先使用它，而不是 `application` 适配器。否则，将使用 `application`
+  适配器。在这个例子中，我们不需要模型特定适配器的灵活性，所以只需创建一个包含 `host` 和 `namespace` 属性的 `application` 适配器：
+
+
+  `app/adapters/application.js`
+
+
+  ```javascript
+
+  import JSONAPIAdapter from ''@ember-data/adapter/json-api'';
+
+  export default class ApplicationAdapter extends JSONAPIAdapter {
+
+  host = ''http://localhost:8000'';
+
+  namespace = ''api/v1'';
+
+  }
+
+  ```
+
+
+  经过这样的改动，Ember Data 现在可以成功访问我们的 API 了！剩下的渲染 `cat` 记录的工作就交给你了。
+
+
+  Ember Data 默认使用 JSON:API 格式的适配器和序列化器。这就是为什么即使我们没有创建序列化器，应用程序也能正常工作的原因。我们将在后续章节中学习如何创建和扩展序列化器。
+
+
+  基础知识部分差不多要结束了。我们还需要处理关系。
+
+
+  ### 关系
+
+
+  模型可以与其他模型建立关系。我们来看一个非常常见的关系：一对多。
+
+
+  一只猫咪，如果幸运的话，会拥有一个家。假设我们想从 `cat` 记录中获取 `home` 记录。我们可以使用 `belongsTo()` 来指定这种关系：
+
+
+  `app/models/cat.js`
+
+
+  ```javascript
+
+  import Model, { belongsTo } from ''@ember-data/model'';
+
+  export default class CatModel extends Model {
+
+  // ...
+
+  @belongsTo(''home'') home;
+
+  }
+
+  ```
+
+
+  假设我们有一条 `home` 记录，并且想从这条 `home` 记录中获取该家庭的所有 `cats`。这是一对多关系的另一面。我们可以使用 `hasMany()`
+  来指定这种关系，因为一个 `home` 可以拥有一个或多个 `cats`：
+
+
+  `app/models/home.js`
+
+
+  ```javascript
+
+  import Model, { hasMany } from ''@ember-data/model'';
+
+  export default class HomeModel extends Model {
+
+  @hasMany(''cat'') cats;
+
+  }
+
+  ```
+
+
+  Ember Data 允许我们在模型上以同步和异步两种方式定义关系。默认情况下，模型关系是异步的。当访问异步关系时，如果相关记录尚未在 store 中，Ember
+  Data 会触发 fetch 并返回一个 promise，该 promise 解析后会得到相关记录。如果记录已经在 store 中，也会返回一个解析为相关记录的
+  promise。
+
+
+  尝试渲染猫咪家庭所在的街道地址，看看会发生什么。如果这样做，你会注意到会向我们在 `server.js` 中定义的 `/api/v1/homes/:id` 端点发送一个
+  GET 请求。
+
+
+  如前所述，关系也可以声明为同步的。当访问同步关系时，如果相关记录已经在 store 中，将直接返回该记录。如果记录不在 store 中，则会抛出错误。为了实际看到这一点，将
+  `cat` 模型上的 `home` 关系改为同步：
+
+
+  `app/models/cat.js`
+
+
+  ```javascript
+
+  import Model, { belongsTo } from ''@ember-data/model'';
+
+  export default class CatModel extends Model {
+
+  // ...
+
+  @belongsTo(''home'', { async: false }) home;
+
+  }
+
+  ```
+
+
+  接下来，尝试渲染 `cat.home.street`，你会得到以下错误：
+
+
+  ```
+
+  Error
+
+
+  You looked up the ''home'' relationship on a ''cat'' with id 1 but some of the associated
+  records were not loaded. Either make sure they are all loaded together with the
+  parent record, or specify that the relationship is async (belongsTo({ async: true
+  }))
+
+  ```
+
+
+  选择异步关系还是同步关系取决于你的应用程序和 API。就个人而言，我倾向于尽可能使用同步关系，我发现这是最清晰直接的方式。
+
+
+  我们已经涵盖了模型关系的基础知识，但尚未讨论 API 应如何返回关系数据。我们将在第 3 章 *API 响应格式与序列化器* 中进一步探讨。
+
+
+  ## 总结
+
+
+  我们通过一个简单的示例，演示了如何获取资源集合（尽管该集合只包含一个 `cat` 资源）。这个示例并未涵盖所有常见的数据操作，但你可以查阅 Ember 指南，了解更多关于
+  Ember Data 的基础知识，例如创建、更新和删除数据。接下来，让我们进入下一章，深入探讨适配器。
+
+
+
+
+  '
+- '# 2. 通过适配器与 API 通信
+
+
+  在上一章中，我们了解了 Ember Data 的架构。我们简要讨论了适配器的作用，以及它如何负责确定如何向 API 发出请求。在本章中，我们将深入了解适配器并了解其工作原理，以便在后续章节中对其进行自定义。
+
+
+  适配器负责确定如何向 API 发出请求。这包括根据模型名称确定完整的 URL，并使用诸如 `$.ajax`、`fetch` 或 `XMLHttpRequest`
+  之类的 AJAX 技术发出 HTTP 请求。如果你希望将所有数据存储在本地存储中，或通过 WebSockets 与后端数据存储进行通信，这也将是适配器的职责。
+
+
+  我们在上一章中看到，我们可以使用 `host` 和 `namespace` 属性告诉适配器关于我们 API 的信息：
+
+
+  ```
+
+  app/adapters/application.js
+
+  import JSONAPIAdapter from ''@ember-data/adapter/json-api'';
+
+  export default class ApplicationAdapter extends JSONAPIAdapter {
+
+  host = ''http://localhost:8000'';
+
+  namespace = ''api/v1'';
+
+  }
+
+  ```
+
+
+  Ember Data 内置了两个适配器：`RESTAdapter` 和 `JSONAPIAdapter`。从下图可以看出，`RESTAdapter` 继承自基础的
+  `Adapter` 类，而 `JSONAPIAdapter` 继承自 `RESTAdapter`。
+
+
+  ![../images/504826_1_En_2_Chapter/504826_1_En_2_Figa_HTML.jpg](img/504826_1_En_2_Figa_HTML.jpg)
+
+
+  `Adapter` 类是一个抽象类，为编写自定义适配器提供了基础，我们将在第 5 章“从头编写适配器和序列化器”中实践。为了扩展适配器，理解它们默认的工作方式非常重要。让我们先看看
+  `RESTAdapter`，然后了解它与 `JSONAPIAdapter` 的不同之处。
+
+
+  ## `RESTAdapter`
+
+
+  `RESTAdapter` 遵循常见的 REST 惯例。以下是常见 API 操作及其在适配器上映射的方法列表：
+
+
+  表 2-1
+
+
+  | **方法** | **URL** | **适配器方法** | **描述** |
+
+  | --- | --- | --- | --- |
+
+  | GET | `/api/cats` | `findAll()` | 返回 cat 资源集合 |
+
+  | GET | `/api/cats/:id` | `findRecord()` | 返回单个 cat 资源 |
+
+  | POST | `/api/cats` | `createRecord()` | 创建 cat 资源 |
+
+  | PUT | `/api/cats/:id` | `updateRecord()` | 更新 cat 资源 |
+
+  | DELETE | `/api/cats/:id` | `deleteRecord()` | 删除 cat 资源 |
+
+  | GET | `/api/cats?color=black` | `query()` | 返回资源集合 |
+
+  | GET | `/api/cats?color=black` | `queryRecord()` | 返回单个资源 |
+
+
+  请注意，适配器方法名称与你可能熟悉的 store 方法名称非常相似。如果你熟悉 store 的公共方法，那么你对会调用哪些适配器方法会有相当好的了解，这在扩展适配器时会很有用。
+
+
+  表 2-2
+
+
+  | **适配器方法** | **调用者** |
+
+  | --- | --- |
+
+  | `findAll()` | `store.findAll()` |
+
+  | `findRecord()` | `store.findRecord()` |
+
+  | `createRecord()` | `model.save()` |
+
+  | `updateRecord()` | `model.save()`（如果模型有 ID） |
+
+  | `deleteRecord()` | `model.destroyRecord()` |
+
+  | `query()` | `store.query()` |
+
+  | `queryRecord()` | `store.queryRecord()` |
+
+
+  这些适配器方法中的每一个都按照前面概述的 REST 惯例发出请求，并返回一个 promise。
+
+
+  前面的资源类型 `cat` 只是一个单词。如果资源类型包含两个单词，API 路径将采用驼峰式命名。例如，如果我们的模型叫做 `kitty-cat`，则请求的 URL
+  路径将是 `/kittyCats`。
+
+
+  ## `JSONAPIAdapter`
+
+
+  Ember Data 通过 `JSONAPIAdapter` 原生支持 JSON:API 规范^(⁸)。如果你不熟悉 JSON:API，它是关于如何使用 JSON
+  构建 API 以通过遵循共享约定提高团队生产力的规范。此适配器继承自 `RESTAdapter`，因此有很多相似之处。让我们看看不同之处：
+
+
+  1.  **Accept 和 Content-Type 头部**
+
+
+  在所有请求中，`JSONAPIAdapter` 将 `Accept` 头部设置为 `application/vnd.api+json`，而不是 `application/json`。`Accept`
+  头部由客户端用于指定将接受的内容类型。`application/vnd.api+json` 是媒体类型，也被称为 MIME 类型或内容类型，用于 JSON:API。`vnd`
+  表示特定于供应商的 MIME 类型。当数据被发送到服务器时（例如在创建或更新记录时，即 POST、PUT 和 PATCH 请求），`Content-Type`
+  头部也会设置为 `application/vnd.api+json`，这告诉服务器有效载荷包含 JSON:API 文档，以便服务器可以相应地解析它。
+
+
+  2.  **带连字符的 URL**
+
+
+  在 JSON:API 中，URL 中的资源类型使用连字符。因此，`JSONAPIAdapter` 重写了 `pathForType()` 适配器方法，使得资源路径使用连字符，而不是像
+  `RESTAdapter` 中那样使用驼峰式命名。例如，`findAll()` 会触发一个对 `/api/kitty-cats` 的 GET 请求，而不是 `/api/kittyCats`。
+
+
+  3.  **使用 PATCH 代替 PUT**
+
+
+  当更新记录时，使用 PATCH 方法而不是 PUT。为什么用 PATCH？JSON:API 规范指出，HTTP 规范不允许使用 PUT 来*部分更新*资源。PUT
+  本意是用于完全*替换*资源。对于部分更新，应使用 PATCH。过去，PATCH 在 HTTP 客户端中支持不佳，但现在大多数客户端都支持它，如果不支持，也有变通方法。每当我们在客户端更新记录并调用
+  `save()` 时，都会发出 PATCH 请求。
+
+
+  4.  **加载关联关系**
+
+
+  默认情况下，Ember Data 会尝试单独加载相关资源。例如，如果一只猫有三个玩具，并且我们尝试访问这只猫的玩具，则会为每个玩具发出一个单独的请求。如果这只猫有很多玩具，这可能会导致相当多的请求，这可能不是最高效的解决方案。Ember
+  Data 提供了一个选项，可以将这些请求合并为一个请求，这就是 `RESTAdapter` 和 `JSONAPIAdapter` 的区别之处。
+
+
+  想象一下，我们获取了一只猫并收到以下 JSON:API 响应。暂时不必过于担心这种格式，我们将在第 3 章“API 响应格式和序列化器”中详细讨论：
+
+
+  ```
+
+  {
+
+  "data": [
+
+  {
+
+  "type": "cats",
+
+  "id": 1,
+
+  "attributes": {
+
+  "name": "Frisky",
+
+  "age": 10,
+
+  "adopted": true,
+
+  "birthday": "2005-11-05T13:15:30Z"
+
+  },
+
+  "relationships": {
+
+  "toys": {
+
+  "data": [
+
+  {
+
+  "id": 1,
+
+  "type": "toys"
+
+  },
+
+  {
+
+  "id": 2,
+
+  "type": "toys"
+
+  },
+
+  {
+
+  "id": 3,
+
+  "type": "toys"
+
+  }
+
+  ]
+
+  }
+
+  }
+
+  }
+
+  ]
+
+  }
+
+  ```
+
+
+  此有效载荷包含一个 `id` 为 1 的单个 `cat` 资源，并且这只猫有三个玩具，其 id 分别为 1、2 和 3。该有效载荷不包含玩具的实际数据。它只是告诉我们这只猫有玩具以及它们的
+  id。如果需要这些数据，我们必须请求它们。
+
+
+  例如，假设我们想在模板中显示这只猫的每个玩具：
+
+
+  ```
+
+  {{#each cat.toys as |toy|}}
+
+  {{toy.name}}
+
+  {{/each}}
+
+  ```
+
+
+  显示每个玩具将导致发出以下请求：
+
+
+  - GET `http://localhost:8000/api/v1/toys/1`
+
+  - GET `http://localhost:8000/api/v1/toys/2`
+
+  - GET `http://localhost:8000/api/v1/toys/3`
+
+
+  你可以随意使用以下代码更新 `server.js` 以使这些请求成功：
+
+
+  ```
+
+  app.get(''/api/v1/toys/:id'', (request, response) => {
+
+  const { id } = request.params;
+
+  response.json({
+
+  data: {
+
+  type: ''toys'',
+
+  id,
+
+  attributes: {
+
+  name: `Toy ${id}`
+
+  }
+
+  }
+
+  });
+
+  });
+
+  ```
+
+
+  我们可以通过 `coalesceFindRequests` 选项将这些请求分组到一起。
+
+
+
+
+  ```
+
+  import JSONAPIAdapter from ''@ember-data/adapter/json-api'';
+
+  export default class ApplicationAdapter extends JSONAPIAdapter {
+
+  host = ''http://localhost:8000'';
+
+  namespace = ''api/v1'';
+
+  coalesceFindRequests = true;
+
+  }
+
+  ```
+
+
+  当使用 `JSONAPIAdapter` 时，将 `coalesceFindRequests` 设置为 `true` 将产生如下请求：
+
+
+  ```
+
+  GET http://localhost:8000/api/v1/toys?filter[id]=1,2,3
+
+  ```
+
+
+  如果我们使用的是 `RESTAdapter`，将 `coalesceFindRequests` 赋值为 `true` 则会生成如下请求：
+
+
+  ```
+
+  GET http://localhost:8000/api/v1/toys?ids[]=1&ids[]=2&ids[]=3
+
+  ```
+
+
+  注意到查询字符串参数结构的差异了吗？JSON:API 使用 `filter[attribute]` 格式的查询字符串参数进行过滤，其中方括号内的值是我们想要过滤的属性。过滤值是逗号分隔的列表。关于过滤的更多信息，请查阅
+  JSON:API 规范。^(⁹)
+
+
+  ## `ActiveModelAdapter`
+
+
+  同样值得一提的还有 `ActiveModelAdapter`。它曾是 Ember Data 的内置组件，但在 Ember Data 2.x 中被移除，现在可以以插件形式安装。
+
+
+  该适配器同样继承自 `RESTAdapter`，两者非常相似。主要区别在于，该适配器的资源路径使用下划线而非驼峰命名法，例如 `/api/kitty_cats`。
+
+
+  如需安装此插件，请运行以下命令：
+
+
+  ```
+
+  ember install active-model-adapter
+
+  ```
+
+
+  然后，导入适配器并进行继承：
+
+
+  ```
+
+  app/adapters/application.js
+
+  import ActiveModelAdapter from ''active-model-adapter'';
+
+  export default class ApplicationAdapter extends ActiveModelAdapter {
+
+  // 自定义配置
+
+  }
+
+  ```
+
+
+  ## 后台重载
+
+
+  后台重载是指存储中的记录会先被返回给调用者，但会在后台发起请求以检查是否有新数据。这样，存储中的记录就不会过时。如果我们想控制这一行为，适配器中有几个方法可供我们覆盖。这些方法已在基础
+  `Adapter` 类中实现：
+
+
+  表 2-3
+
+
+  | 方法 | 返回值 | 描述 |
+
+  | --- | --- | --- |
+
+  | `shouldBackgroundReloadAll()` | `true` | 在 `findAll` 返回缓存的记录数组后，重新加载该记录数组 |
+
+  | --- | --- | --- |
+
+  | `shouldBackgroundReloadRecord()` | `true` | 在 `findRecord` 返回缓存的记录后，重新加载该记录 |
+
+  | --- | --- | --- |
+
+  | `shouldReloadAll()` | `false` | 当调用 `store.findAll` 时重新加载所有记录 |
+
+  | --- | --- | --- |
+
+  | `shouldReloadRecord()` | `false` | 当调用 `store.findRecord` 时重新加载该记录 |
+
+
+  这些方法仅返回一个布尔值。`shouldReloadAll()` 和 `shouldReloadRecord()` 的优先级高于 `shouldBackgroundReloadAll()`
+  和 `shouldBackgroundReloadRecord()`。例如，如果 `shouldReloadRecord()` 返回 `true`，那么每当调用
+  `store.findRecord()` 时，记录都会从服务器重新加载，因此进行后台重载就没有意义了。只有当存储要返回缓存的记录或缓存的记录数组时，后台重载方法才会被存储检查。
+
+
+  ## 总结
+
+
+  在本章中，我们了解到适配器负责向 API 发起请求，并且 Ember Data 内置提供了两个适配器。现在我们已经了解了内置适配器的工作原理，接下来让我们看看如何使用序列化器处理发往服务器和从服务器接收的数据格式化。
+
+
+  脚注 1 2
+
+
+  '
+- '# 3. API 响应格式与序列化器
+
+
+  Ember Data 中的序列化器用于在客户端和服务器之间传输数据时对其进行格式化。当序列化器格式化响应数据时，此过程称为*规范化*。相反，当序列化器格式化发送到服务器的数据时，此过程称为*序列化*。
+
+
+  Ember Data 内置了三个序列化器：
+
+
+  1. `JSONSerializer`
+
+  2. `RESTSerializer`
+
+  3. `JSONAPISerializer`
+
+
+  每个序列化器都针对特定的 API 载荷结构。为了让自定义 API 能够与 Ember Data 协作，了解每个序列化器所期望的数据格式是有帮助的，这样您就可以选择与您的
+  API 最匹配的一个。选择一个与您的 API 最相似的序列化器，很可能会减少您需要进行的自定义工作量。
+
+
+  ## `JSONSerializer`
+
+
+  `JSONSerializer`（不要与 `JSONAPISerializer` 混淆）是一种可用于具有非常简单的载荷结构的 API 的序列化器。例如，假设我们的应用程序向
+  `/api/contacts/1` 发起请求。预期的 JSON 响应是：
+
+
+  ```
+
+  {
+
+  "id": 1,
+
+  "fullName": "David Tang"
+
+  }
+
+  ```
+
+
+  这个资源对象很简单，仅包含资源的 `id` 和采用驼峰命名法的属性，这些属性映射到模型属性。其中不包含任何额外的元信息。
+
+
+  在创建资源时，我们会发送：
+
+
+  ```
+
+  {
+
+  "fullName": "David Tang"
+
+  }
+
+  ```
+
+
+  在更新资源时，我们会发送：
+
+
+  ```
+
+  {
+
+  "id": 1,
+
+  "fullName": "David Tang"
+
+  }
+
+  ```
+
+
+  那么像返回资源集合的 `/api/contacts` 这样的端点呢？正如您可能猜到的，预期的响应包含一个 `contact` 资源数组：
+
+
+  ```
+
+  [
+
+  { "id": 1, "fullName": "David Tang" },
+
+  { "id": 2, "fullName": "Tom Dale" }
+
+  ]
+
+  ```
+
+
+  这里我们有一个包含 `hasMany` 和 `belongsTo` 关系的模型：
+
+
+  ```
+
+  app/models/contact.js
+
+  import Model, { attr, hasMany, belongsTo } from ''@ember-data/model'';
+
+  export default class ContactModel extends Model {
+
+  @attr(''string'') fullName;
+
+  @hasMany(''pet'', { async: true }) pets;
+
+  @belongsTo(''company'', { async: true }) company;
+
+  }
+
+  ```
+
+
+  为了正确建立这些关系，`contact` 资源应包含以 ID 形式呈现的相关数据：
+
+
+  ```
+
+  {
+
+  "id": 1,
+
+  "fullName": "David Tang",
+
+  "pets": [1, 2, 3],
+
+  "company": 7
+
+  }
+
+  ```
+
+
+  `pets` 和 `company` 属性包含每个宠物和公司的 ID。因为我们已将关系声明为异步，Ember Data 会在我们需要时（例如在模板中通过 `contact`
+  记录访问它们时）异步加载这些相关记录。
+
+
+
+
+  ## `RESTSerializer`
+
+
+  `RESTSerializer` 继承自 `JSONSerializer`，期望的格式与之类似，但结构更丰富。它与 `JSONSerializer` 的区别在于引入了一个与模型名称匹配的额外根键。例如，如果向
+  `/api/contacts/1` 发起请求，预期的 JSON 响应是：
+
+
+  ```
+
+  {
+
+  "contact": {
+
+  "id": 1,
+
+  "fullName": "David Tang",
+
+  "pets": [1, 2, 3],
+
+  "company":  7
+
+  }
+
+  }
+
+  ```
+
+
+  这里的根键是 `contact`，与模型名称匹配。类似地，如果向 `/api/contacts` 发起请求，预期的 JSON 响应是：
+
+
+  ```
+
+  {
+
+  "contact": [
+
+  {
+
+  "id": 1,
+
+  "fullName": "David Tang",
+
+  "pets": [1, 2, 3],
+
+  "company": 7
+
+  },
+
+  {
+
+  "id": 2,
+
+  "fullName": "Tom Dale",
+
+  "pets": [4],
+
+  "company": 7
+
+  }
+
+  ]
+
+  }
+
+  ```
+
+
+  值得注意的是，根键也可以是复数形式（即 `contacts`）。
+
+
+  在之前使用 `JSONSerializer` 格式的 `contact` 资源示例中，`pets` 和 `company` 需要在访问相关数据之前，从服务器异步加载或预先加载到存储中。使用
+  `RESTSerializer` 格式的好处之一是它支持数据侧加载，允许我们在不重复数据的情况下，将相关记录包含在请求的主数据响应中。例如，当向 `/api/contacts/1`
+  发起请求时，一个包含侧加载数据的响应如下所示：
+
+
+  ```
+
+  {
+
+  "contact": {
+
+  "id": 1,
+
+  "fullName": "David Tang",
+
+  "pets": [1, 3],
+
+  "company": 7
+
+  },
+
+  "pet": [
+
+  { "id": 1, "name": "Fiona" },
+
+  { "id": 3, "name": "Biscuit" }
+
+  ],
+
+  "company": [{ "id": 7, "name": "Company A" }]
+
+  }
+
+  ```
+
+
+  该响应包含了与侧加载数据对应的键 `pet` 和 `company`。这在 `JSONSerializer` 格式中是无法实现的。使用侧加载数据还可以让我们通过单个请求使模型关系同步：
+
+
+  ```
+
+  app/models/contact.js
+
+  import Model, { attr, hasMany, belongsTo } from ''@ember-data/model'';
+
+  export default class ContactModel extends Model {
+
+  @attr(''string'') fullName;
+
+  @hasMany(''pet'', { async: false }) pets; // 同步
+
+  @belongsTo(''company'', { async: false }) company; // 同步
+
+  }
+
+  ```
+
+
+  如果我们希望使用 `JSONSerializer` 实现关系的同步，就需要确保在访问相关记录之前，所有公司和宠物都已加载到存储中。
+
+
+  ## `JSONAPISerializer`
+
+
+  与 `RESTSerializer` 类似，`JSONAPISerializer` 也继承自 `JSONSerializer`，它期望数据遵循 JSON:API
+  规范。由于 Ember Data 内部使用 JSON:API 来表示数据，因此即使你的 API 没有遵循 JSON:API，了解 JSON:API 的基础知识也是有用的。
+
+
+  对于返回单个资源的端点，例如 `/api/contacts/1`，一个符合 JSON:API 规范的响应如下所示：
+
+
+  ```
+
+  {
+
+  "data": {
+
+  "type": "contacts",
+
+  "id": "1",
+
+  "attributes": {
+
+  "first-name": "David",
+
+  "last-name": "Tang"
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  JSON:API 资源对象必须包含顶层成员 `id` 和 `type`。`type` 属性包含模型名称，可以是单数或复数形式。你会注意到在 JSON:API 规范的所有示例中，`type`
+  都是复数形式。资源的数据包含在 `attributes` 属性中。属性使用连字符命名，并将映射到我们的模型上的驼峰式属性。例如，`first-name` 和 `last-name`
+  会像这样映射到模型上的 `firstName` 和 `lastName`：
+
+
+  ```
+
+  app/models/contact.js
+
+  import Model, { attr } from ''@ember-data/model'';
+
+  export default class ContactModel extends Model {
+
+  @attr(''string'') firstName;
+
+  @attr(''string'') lastName;
+
+  }
+
+  ```
+
+
+  对于返回资源集合的端点，例如 `/api/contacts`，一个符合 JSON:API 规范的响应如下：
+
+
+  ```
+
+  {
+
+  "data": [
+
+  {
+
+  "type": "contacts",
+
+  "id": "1",
+
+  "attributes": {
+
+  "first-name": "David",
+
+  "last-name": "Tang"
+
+  }
+
+  },
+
+  {
+
+  "type": "contacts",
+
+  "id": "2",
+
+  "attributes": {
+
+  "first-name": "Tom",
+
+  "last-name": "Dale"
+
+  }
+
+  }
+
+  ]
+
+  }
+
+  ```
+
+
+  和之前一样，有一个 `data` 键，但这次它包含的是一个数组而不是对象。数组中的每个元素都是一个资源对象，其结构与获取单个资源对象时相同，即一个包含 `type`、`id`
+  和 `attributes` 键的对象。
+
+
+  ### 关系
+
+
+  关系通过 `relationships` 键来处理：
+
+
+  ```
+
+  {
+
+  "data": {
+
+  "type": "contacts",
+
+  "id": "1",
+
+  "attributes": {
+
+  "first-name": "David",
+
+  "last-name": "Tang"
+
+  },
+
+  "relationships": {
+
+  "pets": {
+
+  "data": [
+
+  { "type": "pets", "id": 1 },
+
+  { "type": "pets", "id": 2 }
+
+  ]
+
+  },
+
+  "company": {
+
+  "data": {
+
+  "type": "companies",
+
+  "id": 1
+
+  }
+
+  }
+
+  }
+
+  }
+
+  }
+
+  ```
+
+
+  在前面的 JSON 中，`relationships` 对象的结构是为一个 `hasMany` 的 `pet` 关系和一个 `belongsTo` 的 `company`
+  关系定义的：
+
+
+  ```
+
+  app/models/contact.js
+
+  import Model, { attr, hasMany, belongsTo } from ''@ember-data/model'';
+
+  export default class ContactModel extends Model {
+
+  @attr(''string'') firstName;
+
+  @attr(''string'') lastName;
+
+  @hasMany(''pet'') pets; // 异步
+
+  @belongsTo(''company'') company; // 异步
+
+  }
+
+  ```
+
+
+  注意 `relationships` 下直接键的形式。这些键的单数或复数形式直接对应我们的模型关系，即 `pets` 和 `company`。不要将其与 `type`
+  的单复数形式混淆，`type` 可以是单数也可以是复数。
+
+
+  还要注意，`data/relationships/pets/data` 是一个数组，而 `data/relationships/company/data` 是一个对象。`data/relationships/pets/data`
+  数组中的每个元素都是一个 `pet` 资源对象，但没有属性。`data/relationships/company/data` 也是如此。这些资源对象只包含 `id`
+  和 `type`，并指明存在关系。`pet` 和 `company` 资源需要从服务器加载，或者通过侧加载的方式加载。
+
+
+  ### 侧加载
+
+
+  相关资源可以通过 `included` 键进行侧加载：
+
+
+  ```
+
+  {
+
+  "data": {
+
+  "type": "contacts",
+
+  "id": "1",
+
+  "attributes": {
+
+  "first-name":  "David",
+
+  "last-name": "Tang"
+
+  },
+
+  "relationships": {
+
+  "pets": {
+
+  "data": [
+
+  { "type": "pets", "id": 1 },
+
+  { "type": "pets", "id": 2 }
+
+  ]
+
+  },
+
+  "company": {
+
+  "data": {
+
+  "type": "companies",
+
+  "id": 1
+
+  }
+
+  }
+
+  }
+
+  },
+
+  "included": [
+
+  {
+
+  "type": "pets",
+
+  "id": "1",
+
+  "attributes": {
+
+  "name": "Fiona"
+
+  }
+
+  },
+
+  {
+
+  "type": "pets",
+
+  "id": "2",
+
+  "attributes": {
+
+  "name": "Biscuit"
+
+  }
+
+  },
+
+  {
+
+  "type": "companies",
+
+  "id": "1",
+
+  "attributes": {
+
+  "name": "Apple"
+
+  }
+
+  }
+
+  ]
+
+  }
+
+  ```
+
+
+  `included` 键是一个用于侧加载资源的数组。`id` 为 1 的 `user` 资源在 `relationships` 下声明了两个 `pet` 资源和一个
+  `company` 资源。`included` 数组中的数据使用相同的 JSON:API 资源对象结构包含相关联的资源，其键为 `type`、`id` 和 `attributes`。现在我们的模型关系可以变为同步的：
+
+
+  ```
+
+  app/models/contact.js
+
+  import Model, { attr, hasMany, belongsTo } from ''@ember-data/model'';
+
+  export default class ContactModel extends Model {
+
+  @attr(''string'') firstName;
+
+  @attr(''string'') lastName;
+
+  @hasMany(''pet'', { async: false }) pets; // 同步
+
+  @belongsTo(''company'', { async: false }) company; // 同步
+
+  }
+
+  ```
+
+
+  ### 规范化的 JSON:API
+
+
+  我之前提到，Ember Data 的内部格式使用规范化的 JSON:API，这就是为什么即使你的 API 没有使用 JSON:API，了解它也是有用的。规范化的
+  JSON:API 是对 JSON:API 的少量调整。当我们规范化载荷时，我们正在将载荷的结构更改为这种规范化的 JSON:API 格式，以便 Ember Data
+  可以使用它。这些少量调整如下：
+
+
+  - `type` 应始终为单数且采用连字符形式。
+
+  - 成员（属性）应为驼峰式。
+
+
+
+
+  ## 基础序列化器 `Serializer`
+
+
+  值得一提的是，还存在另一个序列化器 `Serializer`。它是一个抽象类，`JSONSerializer` 正是继承自它。如果你的 API 与常规差异很大，以至于无法使用内置序列化器，那么可以考虑使用这个。查看
+  `Serializer` 的源码你会发现，它的内容并不多。它只是一个带有少量默认配置的简单 `EmberObject`。在下一章中，我们将从头编写一个继承自 `Serializer`
+  的自定义序列化器，以便更深入地理解序列化器的工作原理。
+
+
+  ## 使用序列化器
+
+
+  我们已经了解了每种序列化器所期望的不同数据格式。要使用 Ember CLI 创建序列化器，可以执行以下命令：
+
+
+  ```
+
+  ember generate serializer application
+
+  ```
+
+
+  该命令会生成一个应用级别的序列化器，它将用于所有模型。如果没有生成 `application` 序列化器，Ember Data 将会使用 `JSONAPISerializer`。或者，我们也可以为特定模型创建序列化器：
+
+
+  ```
+
+  ember generate serializer
+
+  ```
+
+
+  在接下来的几章中，我们将根据具体的定制需求，同时使用模型专属和 `application` 序列化器。如果你认为某项定制适用于所有模型，可以将其设计得足够通用，并放入
+  `application` 序列化器中。如果定制仅针对某个特定模型，则将其放入该模型专属的序列化器中。
+
+
+  ## 总结
+
+
+  Ember Data 开箱即用地提供了三种序列化器。了解这些序列化器所期望的 API 数据格式，可以帮助你确定哪一个与你的 API 最匹配，从而继承该序列化器，并最终尽量减少对适配器和序列化器的自定义修改。现在我们已知晓
+  Ember Data 内置序列化器所期望的有效载荷结构，下一章我们将探讨一些常见的自定义方法。
+
+
+  脚注 1
+
+
+  '
+- "# 常见的适配器和序列化器自定义\n\n到目前为止，你已经了解了 Ember Data 各组件的职责。你可能在想，这很好，但我只想让我的 API 尽快与 Ember\
+  \ Data 协同工作！这正是本章的目的。我无法覆盖所有边缘情况，但本章的目标是向你介绍那些为了将 Ember Data 与自定义 API 集成而经常被重写的方法和属性。\n\
+  \n## 修改 RESTful URL 路径\n\n并非所有 API 都遵循 Ember Data 预期的 RESTful URL 约定（详情参见第 2 章——使用适配器与\
+  \ API 通信）。例如，如果我们的 API URL 使用资源的单数形式而非复数形式，比如使用 `/contact/1` 而不是 `/contacts/1` 呢？如果我们所有的\
+  \ `contact` 端点都遵循这种单数形式约定，我们可以在 `contact` 适配器中重写 `pathForType()` 方法：\n\n```\napp/adapters/contact.js\n\
+  import ApplicationAdapter from './application';\nexport default class ContactAdapter\
+  \ extends ApplicationAdapter {\n  pathForType(modelName) {\n    return modelName;\n\
+  \  }\n}\n```\n\n这里我们直接返回了模型名称，它本身就是单数形式。\n\n如果 API 中所有的 URL 都遵循这种单数资源路径约定，我们可以将此逻辑放在\
+  \ `application` 适配器中：\n\n```\napp/adapters/application.js\nimport RESTAdapter from\
+  \ '@ember-data/adapter/rest';\nexport default class ApplicationAdapter extends RESTAdapter\
+  \ {\n  pathForType(modelName) {\n    return modelName;\n  }\n}\n```\n\n## 为特定操作修改\
+  \ URL\n\n现在，假设我们想要查询某个城市的所有联系人：\n\n```\nthis.store.query('contact', {\n  city: 'Los\
+  \ Angeles'\n});\n```\n\nEmber Data 的默认行为是发起一个 GET 请求，其中城市信息以查询字符串参数的形式呈现，例如 `/api/contacts?city=Los+Angeles`。然而，假设我们的端点期望城市以动态路径段的形式出现，例如\
+  \ `/api/contacts/los-angeles`。因为这只与联系人有关，我们可以创建一个 `contact` 适配器来处理 URL 的修改。我们首先创建\
+  \ `application` 适配器：\n\n```\napp/adapters/application.js\nimport RESTAdapter from\
+  \ '@ember-data/adapter/rest';\nexport default class ApplicationAdapter extends RESTAdapter\
+  \ {\n  host = 'http://myapi.com';\n  namespace = 'api';\n}\n```\n\n接下来，我们可以重写 `urlForQuery()`\
+  \ 方法。每当调用 `store.query()` 时，该方法负责返回 URL：\n\n```\napp/adapters/contact.js\nimport\
+  \ ApplicationAdapter from './application';\nimport { dasherize } from '@ember/string';\n\
+  export default class ContactAdapter extends ApplicationAdapter {\n  urlForQuery(query,\
+  \ modelName) {\n    let city = dasherize(query.city.toLowerCase());\n    delete\
+  \ query.city;\n    return '${this.host}/${this.namespace}/contacts/${city}';\n \
+  \ }\n}\n```\n\n适配器还有其他类似的方法用于常见的 store 操作，例如 `urlForCreateRecord()`、`urlForDeleteRecord()`\
+  \ 和 `urlForFindAll()` 等。\n\n## 将不同命名的载荷键映射到模型属性\n\n如果我们的 API 返回的载荷中，键名不符合 JavaScript\
+  \ 约定的驼峰式（camelCased）命名，该怎么办？这些键可能是下划线式（snake_cased）、标题式（TitleCased）或混合约定。我们可以让模型属性遵循\
+  \ API 的风格和命名约定，但这可能会降低我们 JavaScript 代码的直观性和一致性。假设我们收到以下载荷：\n\n```\n[\n  {\n    \"\
+  id\": 1,\n    \"first_name\": \"David\",\n    \"years_old\": 40\n  }\n]\n```\n\n\
+  我们可以使用序列化器上的 `attrs` 属性来实现载荷键与模型属性之间的相互映射：\n\n```\napp/serializers/contact.js\n\
+  import JSONSerializer from '@ember-data/serializer/json';\nexport default class\
+  \ ContactSerializer extends JSONSerializer {\n  attrs = {\n    firstName: 'first_name',\n\
+  \    age: 'years_old'\n  };\n}\n```\n\n载荷中的 `first_name` 键将被映射到模型上的 `firstName`\
+  \ 属性。类似地，`years_old` 键将被映射到模型上的 `age` 属性。当数据被序列化并发送回服务器时，这些属性将被重新映射回它们原始的键。\n\n\
+  ## 将外键映射到关联关系\n\n如果你想将特定的载荷键映射到模型属性，使用 `attrs` 会很方便。但是，如果我们的 API 暴露了遵循 `XXX_id`\
+  \ 约定的外键，这些外键旨在用于 `belongsTo` 关联关系呢？这在关系型数据库中是非常常见的约定，并且在 API 中也常有体现。例如，每个 `contact`\
+  \ 可能有一个 `company_id` 属性而不是 `company` 属性：\n\n```\n{\n  \"contact\": {\n    \"id\"\
+  : 1,\n    \"name\": \"David\",\n    \"company_id\": 3\n  }\n}\n```\n\n为每个模型都创建模型专属的序列化器并在\
+  \ `attrs` 中指定属性映射可能会很繁琐。相反，更好的方法是在序列化器中重写 `keyForRelationship()` 方法：\n\n```\napp/serializers/application.js\n\
+  import RESTSerializer from '@ember-data/serializer/rest';\nexport default class\
+  \ ApplicationSerializer extends RESTSerializer {\n  keyForRelationship(key, relationship)\
+  \ {\n    if (relationship === 'belongsTo') {\n      return '${key}_id';\n    }\n\
+  \    return super.keyForRelationship(key, relationship);\n  }\n}\n```\n\n现在，像 `company_id`\
+  \ 这样包含每个 `contact` 资源外键的 JSON 载荷，就能映射到我们 `contact` 模型上对应的 `belongsTo` 关联关系了：\n\n\
+  ```\napp/models/contact.js\nimport Model, { attr, belongsTo } from '@ember-data/model';\n\
+  export default class ContactModel extends Model {\n  @attr('string') name;\n  @belongsTo('company')\
+  \ company;\n}\n```\n\n\n\n## 设置主键\n\nEmber Data 要求每条记录都有一个名为 `id` 的属性。如果记录需要使用另一个键作为其\
+  \ `id`，你可以覆盖 `primaryKey` 属性：\n\n```\napp/serializers/contact.js\nimport RESTSerializer\
+  \ from '@ember-data/serializer/rest';\nexport default class ContactSerializer extends\
+  \ RESTSerializer {\nprimaryKey = 'ssn'; // 社会安全号码\n}\n```\n\n这里我们将 `contact` 模型的\
+  \ `id` 更改为使用 `ssn`。我们可以访问任何 `contact` 记录上的 `id` 来获取 `ssn`。如果所有记录都使用像 `_id` 这样的属性作为\
+  \ `id`（例如在 MongoDB 中），那么可以在 `application` 序列化器中覆盖 `primaryKey`，这样它将应用于所有模型。\n\n\
+  ## 规范化响应\n\n假设我们调用了 `store.findAll('contact')`，并且返回了来自第 1 章 —— Ember Data 概述中的示例\
+  \ JSON：\n\n```\n{\n\"data\": [\n{ \"id\": 1, \"firstName\": \"Yehuda\" },\n{ \"\
+  id\": 2, \"firstName\": \"Tom\" }\n]\n}\n```\n\n默认情况下，Ember Data 中的内置序列化器都无法直接处理这种格式的\
+  \ API 负载。这种格式类似于 `JSONSerializer` 所期望的格式，只是多了一个根级别的 `data` 键。我们只需要提取出 `data`，可以通过覆盖\
+  \ `normalizeResponse()` 来实现：\n\n```\napp/serializers/contact.js\nimport JSONSerializer\
+  \ from '@ember-data/serializer/json';\nexport default class ContactSerializer extends\
+  \ JSONSerializer {\nnormalizeResponse(store, primaryModelClass, payload, id, requestType)\
+  \ {\nreturn super.normalizeResponse(\nstore,\nprimaryModelClass,\npayload.data,\n\
+  id,\nrequestType\n);\n}\n}\n```\n\n`normalizeResponse()` 方法用于将来自服务器的负载规范化为规范的 JSON:API\
+  \ 文档，我们在第 3 章 —— API 响应格式和序列化器中讨论过。我们不必直接创建规范的 JSON:API，而是可以修改负载以使其符合 `JSONSerializer`\
+  \ 的结构，并通过 `super` 调用父类上的相同方法，这将为我们返回规范的 JSON:API。这种方法需要编写的代码少得多，无需我们手动将负载转换为规范的\
+  \ JSON:API 格式。如果你想查看规范的 JSON:API，可以执行以下操作：\n\n```\napp/serializers/contact.js\n\
+  import JSONSerializer from '@ember-data/serializer/json';\nexport default class\
+  \ ContactSerializer extends JSONSerializer {\nnormalizeResponse(store, primaryModelClass,\
+  \ payload, id, requestType) {\nlet json = super.normalizeResponse(\nstore,\nprimaryModelClass,\n\
+  payload.data,\nid,\nrequestType\n);\nconsole.log(JSON.stringify(json));\nreturn\
+  \ json;\n}\n}\n```\n\n你应该会在控制台中看到以下规范的 JSON:API 被记录：\n\n```\n{\n\"data\": [\n{\n\
+  \"id\": \"1\",\n\"type\": \"contact\",\n\"attributes\": { \"firstName\": \"Yehuda\"\
+  \ },\n\"relationships\": {}\n},\n{\n\"id\": \"2\",\n\"type\": \"contact\",\n\"attributes\"\
+  : { \"firstName\": \"Tom\" },\n\"relationships\": {}\n}\n],\n\"included\": []\n\
+  }\n```\n\n注意到这种格式与我们第 3 章 —— API 响应格式和序列化器中讨论的规范化 JSON:API 格式是否一致？也就是说，`type` 是单数、短横线命名的形式，像\
+  \ `firstName` 这样的属性是驼峰命名的。\n\n处理此响应的另一种方法是将负载中的 `data` 键更改为模型名称，并使用 `RESTSerializer`：\n\
+  \n```\napp/serializers/contact.js\nimport RESTSerializer from '@ember-data/serializer/rest';\n\
+  export default class ContactSerializer extends RESTSerializer {\nnormalizeResponse(store,\
+  \ primaryModelClass, payload, id, requestType) {\nlet newPayload = {};\nnewPayload[primaryModelClass.modelName]\
+  \ = payload.data;\nreturn super.normalizeResponse(\nstore,\nprimaryModelClass,\n\
+  newPayload,\nid,\nrequestType\n);\n}\n}\n```\n\n如果你回想一下第 3 章 —— API 响应格式和序列化器，对于\
+  \ `RESTSerializer`，根键是模型名称，它可以是单数也可以是复数。在上面的代码中，使用的根键是单数形式的模型名称。与之前类似，我们将在 `normalizeResponse()`\
+  \ 中修改负载结构，使其符合当前序列化器的预期格式，然后调用 `super.normalizeResponse()`。\n\n## 按存储库调用方式规范化响应\n\
+  \n在上一节中，我们通过覆盖 `normalizeResponse()` 来处理负载中的 `data` 键。这将适用于所有 `contact` 负载对应的不同\
+  \ RESTful 操作。如果这个 `data` 键只存在于某些 RESTful 端点呢？我们可以向 `normalizeResponse()` 中添加一些条件逻辑，但这可能会变得混乱。如果我们只想在调用\
+  \ `store.findAll()` 时提取该 `data` 键，我们可以改为覆盖一个特定的序列化器方法，该方法在 `store.findAll()` 被调用时使用。这个方法就是\
+  \ `normalizeFindAllResponse()`：\n\n```\napp/serializers/contact.js\nimport JSONSerializer\
+  \ from '@ember-data/serializer/json';\nexport default class ContactSerializer extends\
+  \ JSONSerializer {\nnormalizeFindAllResponse(store, primaryModelClass, payload,\
+  \ id, requestType) {\nreturn super.normalizeFindAllResponse(\nstore,\nprimaryModelClass,\n\
+  payload.data,\nid,\nrequestType\n);\n}\n}\n```\n\n这与之前完全相同，只是将覆盖 `normalizeResponse()`\
+  \ 改为了覆盖 `normalizeFindAllResponse()`。在上面的代码中，使用了 `JSONSerializer`，但我们也可以像上一节那样使用\
+  \ `RESTSerializer`。\n\n表 4-1 显示了其他序列化器规范化方法及其如何被调用。\n\n**表 4-1** 序列化器规范化方法\n\n|\
+  \ 存储库或模型调用 | 序列化器方法 |\n| --- | --- |\n| `store.findAll()` | `normalizeFindAllResponse()`\
+  \ |\n| `store.findRecord()` | `normalizeFindRecordResponse()` |\n| `model.save()`\
+  \ | `normalizeCreateRecordResponse()` |\n| `store.deleteRecord()` | `normalizeDeleteRecordResponse()`\
+  \ |\n| `store.query()` | `normalizeQueryResponse()` |\n| `store.queryRecord()` |\
+  \ `normalizeQueryRecordResponse()`、`normalizeFindBelongsToResponse()`、`normalizeFindHasManyResponse()`\
+  \ |\n\n当 `belongsTo` 和 `hasMany` 关系被请求时，会调用 `normalizeFindBelongsToResponse()` 和\
+  \ `normalizeFindHasManyResponse()`。\n\n\n\n## 标准化单一资源对象\n\n假设我们的`contact`API 数据负载符合内置序列化器格式之一。例如，`/api/contacts`可能返回：\n\
+  \n```\n[\n  {\n    \"id\": 1,\n    \"name\": { \"first\": \"John\", \"last\": \"\
+  Doe\" }\n  },\n  {\n    \"id\": 2,\n    \"name\": { \"first\": \"Jane\", \"last\"\
+  : \"Doe\" }\n  }\n]\n```\n\n而`/api/contacts/:id`可能返回：\n\n```\n{\n  \"id\": 1,\n\
+  \  \"name\": { \"first\": \"John\", \"last\": \"Doe\" }\n}\n```\n\n这两种数据负载都符合`JSONSerializer`格式，但每个联系人中的`name`是嵌套对象。为了拼接`name.first`和`name.last`，我们可以重写`normalize()`方法，该方法可将数据负载中的单一资源对象标准化为\
+  \ JSON:API 对象：\n\n```javascript\n// app/serializers/contact.js\nimport JSONSerializer\
+  \ from '@ember-data/serializer/json';\n\nexport default class ContactSerializer\
+  \ extends JSONSerializer {\n  normalize(modelClass, resourceHash, prop) {\n    let\
+  \ { name } = resourceHash;\n\n    return {\n      data: {\n        id: resourceHash.id,\n\
+  \        type: 'contact',\n        attributes: {\n          name: `${name.first}\
+  \ ${name.last}`\n        }\n      }\n    };\n  }\n}\n```\n\n在`normalize()`方法中，我们处理了每个`contact`并将其标准化为\
+  \ JSON:API 格式。对于像`/api/contacts/:id`这样的单一资源端点，`normalize()`方法只被调用一次。而对于返回资源集合的端点（如`/api/contacts`），`normalize()`则会为每个资源对象分别调用。\n\
+  \n与其亲手将每个`contact`转换为 JSON:API，我们还可以使用`super`调用父类的同一方法，以更高效的方式实现相同效果：\n\n```javascript\n\
+  // app/serializers/contact.js\nimport JSONSerializer from '@ember-data/serializer/json';\n\
+  \nexport default class ContactSerializer extends JSONSerializer {\n  normalize(modelClass,\
+  \ resourceHash, prop) {\n    let { name } = resourceHash;\n    resourceHash.name\
+  \ = `${name.first} ${name.last}`;\n    return super.normalize(...arguments);\n \
+  \ }\n}\n```\n\n在上述代码中，我们修改了每个作为`resourceHash`传入`normalize()`的对象，然后通过`super`调用父类的原始`normalize()`方法。这种方法不仅代码量更少，而且让\
+  \ Ember Data 自行处理 JSON:API 的具体细节以及我们在处理更复杂响应时未考虑到的其他场景。\n\n## 总结\n\n在本章中，我介绍了一些在适配器和序列化器中常用的自定义方法，以使\
+  \ Ember Data 能与自定义 API 协同工作。如果本章内容恰好解决了你当前的问题，那我很高兴能帮到你！不过，如果你对适配器和序列化器如何协同工作仍有些疑惑，请继续阅读接下来的两章，我们将从零开始构建两个适配器和一个序列化器。\n\
+  \n"
+- "# 5. 从零编写适配器和序列化器\n\n在本章中，我们将学习如何从零编写适配器和序列化器。如果在上一章中没有找到让你的 API 与 Ember Data 配合使用的方法，那么本章和下一章将帮助你更深入地理解适配器和序列化器的协作方式，并向你介绍它们各自的一些核心方法。从零编写适配器和序列化器的过程，将有助于你找到适用于特定边界情况的正确重写方法。此外，如果你需要处理一个差异极大的\
+  \ API，那么你也会知道如何编写自己的适配器和序列化器！\n\n我们将从重建标准 CRUD 操作的`RESTAdapter`和`RESTSerializer`的简化版本开始。\n\
+  \n## 准备工作\n\n我创建了一个简单的联系人应用，它执行所有标准 CRUD 操作。该应用的代码可以在本书源代码的`chapter-5`文件夹中找到。我们将使用这个应用来测试自定义的适配器和序列化器。\n\
+  \nAPI 使用 Ember CLI Mirage ([www.ember-cli-mirage.com/](http://www.ember-cli-mirage.com/))\
+  \ 进行设置。如果你不熟悉 Mirage，它是一个让我们可以模拟后端的库。\n\n## 自定义适配器和序列化器\n\n首先，让我们创建名为`my-rest`的自定义适配器，它继承自基础适配器类`Adapter`：\n\
+  \n```\nember generate adapter my-rest\n```\n\n```javascript\n// app/adapters/my-rest.js\n\
+  import Adapter from '@ember-data/adapter';\n\nexport default class MyRESTAdapter\
+  \ extends Adapter {}\n```\n\n接下来，创建一个`application`适配器，它带有`api`命名空间，并继承自我们的自定义适配器：\n\
+  \n```\nember generate adapter application\n```\n\n```javascript\nimport MyRESTAdapter\
+  \ from './my-rest';\n\nexport default class ApplicationAdapter extends MyRESTAdapter\
+  \ {\n  namespace = 'api';\n}\n```\n\n对序列化器也进行同样的操作。我们将创建一个名为`my-rest`的自定义序列化器，它继承自基础序列化器类`Serializer`：\n\
+  \n```\nember generate serializer my-rest\n```\n\n```javascript\n// app/serializers/my-rest.js\n\
+  import Serializer from '@ember-data/serializer';\n\nexport default class MyRESTSerializer\
+  \ extends Serializer {}\n```\n\n最后，创建一个`application`序列化器，它继承自我们的自定义序列化器：\n\n```\n\
+  ember generate serializer application\n```\n\n```javascript\n// app/serializers/application.js\n\
+  import MyRESTSerializer from './my-rest';\n\nexport default class ApplicationSerializer\
+  \ extends MyRESTSerializer {}\n```\n\n现在我们已经有了一个继承自定义适配器的`application`适配器，以及一个继承自定义序列化器的`application`序列化器，接下来继续实现代码，使`store.findAll()`能够正常工作。\n\
+  \n\n\n### 查找所有记录\n\n启动测试应用，访问 `http://localhost:4200/contacts`，然后打开浏览器控制台。你会发现页面抛出了一个错误。这是因为我们的\
+  \ `application` 适配器和序列化器分别不再继承自内置的 `RESTAdapter` 和 `RESTSerializer`。\n\n让我们从实现必要的方法开始，让\
+  \ `/contacts` 页面正常工作。如果你查看 `contacts` 路由，会看到以下内容：\n\n```\napp/routes/contacts.js\n\
+  import Route from '@ember/routing/route';\nexport default class ContactsRoute extends\
+  \ Route {\nmodel() {\nreturn this.store.findAll('contact');\n}\n}\n```\n\n让我们仔细查看一下错误信息。\n\
+  \n错误\n\n你尝试加载所有记录，但你的适配器没有实现 `findAll`。\n\n请记住，适配器负责确定如何向 API 发起请求。正如第 2 章——使用适配器与\
+  \ API 通信——中讨论的，`store.findAll()` 在后台调用了 `adapter.findAll()`。适配器上的 `findAll()` 方法用于查找给定类型的所有记录。让我们继续实现它：\n\
+  \n```\napp/adapters/my-rest.js\nimport Adapter from '@ember-data/adapter';\nimport\
+  \ { pluralize } from 'ember-inflector';\nimport $ from 'jquery';\nexport default\
+  \ class MyRESTAdapter extends Adapter {\nfindAll(store, type, neverSet, snapshotRecordArray)\
+  \ {\nlet url = '/${this.namespace}/${pluralize(type.modelName)}';\nreturn $.get(url);\n\
+  }\n}\n```\n\n`findAll()` 方法接收了几个参数，但我们特别关注的是 `type`，它包含了模型类，该类有一个属性存储了模型的名称。这里我们获取模型名称并将其复数化，以便向\
+  \ `/api/contacts` 发起 GET 请求。如果我们查看控制台，仍然会看到错误：\n\n错误\n\n`serializer.normalizeResponse\
+  \ is not a function`\n\n`normalizeResponse()` 方法必须在序列化器上实现，它负责将来自服务器的负载规范化为 JSON:API\
+  \ 文档。如前所述，Ember Data 内部使用 JSON:API，即使你的 API 不使用也是如此。目前，我们的 Mirage 后端返回的联系人列表是这样的：\n\
+  \n```\n{\n\"contacts\": [\n{\n\"id\": \"1\",\n\"name\": \"Tom\",\n\"phoneNumber\"\
+  : \"(123) 456-7890\"\n}\n]\n}\n```\n\n让我们继续实现 `normalizeResponse()`，使其接收这个负载并返回一个\
+  \ JSON:API 文档。如果你不熟悉基本的 JSON:API 结构，请返回第 3 章——API 响应格式和序列化器，阅读“JSONAPISerializer”部分：\n\
+  \n```\napp/serializers/my-rest.js\nimport Serializer from '@ember-data/serializer';\n\
+  export default class MyRESTSerializer extends Serializer {\nnormalizeResponse(store,\
+  \ primaryModelClass, payload, id, requestType) {\nreturn {\ndata: payload.contacts.map((resource)\
+  \ => {\nreturn {\nid: resource.id,\ntype: 'contact',\nattributes: resource\n};\n\
+  })\n};\n}\n}\n```\n\n`normalizeResponse()` 方法有多个参数，但我们关注的是 `payload`。序列化器中还有很多方法，但如果只能记住一个，那就是\
+  \ `normalizeResponse()`。如果你需要在负载进入 Ember Data 之前对其进行修改，可以随时覆盖此方法。还有其他方法可以覆盖以更高效地操作负载，但要知道你始终可以使用这个方法。这里我们创建了根\
+  \ `data` 键，其中包含一个联系人列表。每个联系人被重新结构为符合 JSON:API 的格式，包含 `id`、`type` 和 `attributes`。再次检查页面，一切正常！\n\
+  \n我们还没有完成。如果我们尝试将这个序列化器用于其他模型，它会失败，因为我们在 `normalizeResponse()` 中硬编码了 `contact`。让我们修改代码使其更通用：\n\
+  \n```\napp/serializers/my-rest.js\nimport Serializer from '@ember-data/serializer';\n\
+  import { pluralize } from 'ember-inflector';\nexport default class MyRESTSerializer\
+  \ extends Serializer {\nnormalizeResponse(store, primaryModelClass, payload, id,\
+  \ requestType) {\nlet pluralizedModelName = pluralize(primaryModelClass.modelName);\n\
+  return {\ndata: payload[pluralizedModelName].map((resource) => {\nreturn {\nid:\
+  \ resource.id,\ntype: primaryModelClass.modelName,\nattributes: resource\n};\n})\n\
+  };\n}\n}\n```\n\n这里我们利用了 `primaryModelClass` 参数，它是我们正在查找的记录的模型类。我们提取了 `modelName`\
+  \ 并将其复数化，以便动态地从根负载键获取数据。加载联系人列表仍然有效！接下来我们继续处理 `findRecord()`。\n\n\n\n### 查找单条记录\n\
+  \n如果尝试点击某个联系人，我们会发现报错了。在 `contacts.contact` 路由中，我们通过 `id` 动态分段来获取单条联系人的数据：\n\n```python\n\
+  app/routes/contacts/contact.js\nimport Route from '@ember/routing/route';\nexport\
+  \ default class ContactsContactRoute extends Route {\nmodel(params) {\nreturn this.store.findRecord('contact',\
+  \ params.id);\n}\n}\n```\n\n我们需要更新适配器以使 `store.findRecord()` 正常工作。与 `store.findRecord()`\
+  \ 对应的适配器方法，你猜对了，就是 `findRecord()`。让我们来实现它：\n\n```python\napp/adapters/my-rest.js\n\
+  import Adapter from '@ember-data/adapter';\nimport { pluralize } from 'ember-inflector';\n\
+  import $ from 'jquery';\nexport default class MyRESTAdapter extends Adapter {\n\
+  // ...\nfindRecord(store, type, id, snapshot) {\nlet url = '/${this.namespace}/${pluralize(type.modelName)}/${id}';\n\
+  return  $.get(url);\n}\n}\n```\n\n这个实现与我们之前完成的 `findAll()` 实现类似，但这次我们试图查找的记录 `id`\
+  \ 被附加到了 URL 的末尾。不过，现在它仍然无法工作。控制台输出了以下错误：\n\nError\n\nCannot read property ‘map’\
+  \ of undefined\n\n这个错误现在与负载有关。之前，我们在序列化器中实现了 `normalizeResponse()`，并使用 `Array.prototype.map()`\
+  \ 将负载转换为符合 JSON:API 规范的文档。然而，`GET /api/contacts/:id` 端点返回的是单个资源，而不是数组。对于 `/api/contacts/1`\
+  \ 的负载如下所示：\n\n```json\n{\n\"contact\": {\n\"id\": \"1\",\n\"name\": \"Tom\",\n\"\
+  phoneNumber\": \"(123) 456-7890\"\n}\n}\n```\n\n为了适应单个资源的响应，我们可以通过几种不同的方式来实现。还记得我说过，如果你要记住一个序列化器方法，那应该是\
+  \ `normalizeResponse()` 吗？好吧，我们可以在此方法中添加一些逻辑，以测试返回的是对象还是数组：\n\n```python\napp/serializers/my-rest.js\n\
+  import Serializer from '@ember-data/serializer';\nimport { pluralize } from 'ember-inflector';\n\
+  export default class MyRESTSerializer extends Serializer {\nnormalizeResponse(store,\
+  \ primaryModelClass, payload, id, requestType) {\nlet { modelName } = primaryModelClass;\n\
+  let pluralizedModelName = pluralize(modelName);\nif (Array.isArray(payload[pluralizedModelName]))\
+  \ {\nreturn {\ndata: payload[pluralizedModelName].map((resource) => {\nreturn {\n\
+  id: resource.id,\ntype: modelName,\nattributes: resource\n};\n})\n};\n}\nlet resource\
+  \ = payload[modelName];\nreturn {\ndata: {\nid: resource.id,\ntype: modelName,\n\
+  attributes: resource\n}\n};\n}\n}\n```\n\n通过上述代码，我们现在可以点击单个联系人了。不过这个实现仍然不够理想。我们有一些用于生成\
+  \ JSON:API 资源对象的重复代码。原来有一个专门用于规范化单个资源对象的方法叫 `normalize()`。`normalize()` 方法接收类型（模型类）和资源对象。让我们稍微清理一下代码来实现这一点：\n\
+  \n```python\napp/serializers/my-rest.js\nimport Serializer from '@ember-data/serializer';\n\
+  import { pluralize } from 'ember-inflector';\nexport default class MyRESTSerializer\
+  \ extends Serializer {\nnormalizeResponse(store, primaryModelClass, payload, id,\
+  \ requestType) {\nlet { modelName } = primaryModelClass;\nlet pluralizedModelName\
+  \ = pluralize(modelName);\nif (Array.isArray(payload[pluralizedModelName])) {\n\
+  return {\ndata: payload[pluralizedModelName].map((resource) => {\nreturn this.normalize(primaryModelClass,\
+  \ resource);\n})\n};\n}\nreturn {\ndata: this.normalize(primaryModelClass, payload[modelName])\n\
+  };\n}\nnormalize(typeClass, hash) {\nreturn {\nid: hash.id,\ntype: typeClass.modelName,\n\
+  attributes:  hash\n};\n}\n}\n```\n\n在上述代码中，`normalize()` 方法用于将单个资源对象（如下所示）：\n\n\
+  ```json\n{\n\"id\": 1,\n\"name\": \"Tom\",\n\"phoneNumber\": \"(123) 456-7890\"\n\
+  }\n```\n\n转换为符合 JSON:API 规范的资源，如下所示：\n\n```json\n{\n\"id\": 1,\n\"type\": \"contact\"\
+  ,\n\"attributes\": {\n\"name\": \"Tom\",\n\"phoneNumber\": \"(123) 456-7890\"\n\
+  }\n}\n```\n\n## 重新审视 `normalizeResponse()`\n\n在继续创建记录之前，让我们重新审视序列化器上的 `normalizeResponse()`\
+  \ 方法。如果我们查看 `normalizeResponse()` 的实际实现^(¹¹)，会看到类似这样的代码：\n\n```python\nimport Serializer\
+  \ from '@ember-data/serializer';\nexport default Serializer.extend({\n// ...\nnormalizeResponse(store,\
+  \ primaryModelClass, payload, id, requestType) {\nswitch (requestType) {\ncase 'findRecord':\n\
+  return this.normalizeFindRecordResponse(...arguments);\ncase 'queryRecord':\nreturn\
+  \ this.normalizeQueryRecordResponse(...arguments);\ncase 'findAll':\nreturn this.normalizeFindAllResponse(...arguments);\n\
+  case 'findBelongsTo':\nreturn this.normalizeFindBelongsToResponse(...arguments);\n\
+  case 'findHasMany':\nreturn this.normalizeFindHasManyResponse(...arguments);\ncase\
+  \ 'findMany':\nreturn this.normalizeFindManyResponse(...arguments);\ncase 'query':\n\
+  return this.normalizeQueryResponse(...arguments);\ncase 'createRecord':\nreturn\
+  \ this.normalizeCreateRecordResponse(...arguments);\ncase 'deleteRecord':\nreturn\
+  \ this.normalizeDeleteRecordResponse(...arguments);\ncase 'updateRecord':\nreturn\
+  \ this.normalizeUpdateRecordResponse(...arguments);\n}\n}\n});\n```\n\nEmber Data\
+  \ 通过委托给特定请求类型的规范化方法来实现 `normalizeResponse()`。每当调用 `store.findRecord()` 时，序列化器上的\
+  \ `normalizeFindRecordResponse()` 方法就会被调用；每当调用 `store.findAll()` 时，`normalizeFindAllResponse()`\
+  \ 方法就会被调用；以此类推。如果我们需要特定 `requestType` 的自定义规范化方法，可以覆盖这些规范化方法之一。\n\n此外，如果我们想用某种方式处理所有返回资源集合的响应，并用另一种方式处理单个资源，也有专门的方法。这些方法是\
+  \ `normalizeArrayResponse()` 和 `normalizeSingleResponse()`。实际上，每个特定于 `requestType`\
+  \ 的规范化方法在后台都会调用 `normalizeArrayResponse()` 或 `normalizeSingleResponse()`。以下是执行流程（从左到右阅读）：\n\
+  \n```\n| `normalizeFindAllResponse()`     | `normalizeArrayResponse()`     |   \
+  \  |\n| `normalizeFindRecordResponse()`     | `normalizeSingleResponse()`     |\
+  \     |\n| `normalizeCreateRecordResponse()`     | `normalizeSaveResponse()`   \
+  \  | `normalizeSingleResponse()`     |\n| `normalizeDeleteRecordResponse()`    \
+  \ | `normalizeSaveResponse()`     | `normalizeSingleResponse()`     |\n| `normalizeUpdateRecordResponse()`\
+  \     | `normalizeSaveResponse()`     | `normalizeSingleResponse()`     |\n| `normalizeQueryResponse()`\
+  \     | `normalizeArrayResponse()`     |     |\n| `normalizeQueryRecordResponse()`\
+  \     | `normalizeSingleResponse()`     |     |\n| `normalizeFindBelongsToResponse()`\
+  \     | `normalizeSingleResponse()`     |     |\n| `normalizeFindHasManyResponse()`\
+  \     | `normalizeArrayResponse()`     |     |\n```\n\n希望这能让你更深入地了解序列化器中的规范化工作原理。\n\
+  \n既然我们现在已经可以使用 `store.findAll()` 和 `store.findRecord()` 获取数据，接下来让我们继续实现创建记录的功能。\n\
+  \n\n\n### 创建记录\n\n接下来我们学习创建记录。请访问 `http://localhost:4200/contacts/new`，填写并提交新建联系人的表单。此时你会看到以下错误：\n\
+  \n错误\n\n你试图更新一条记录，但你的适配器（针对 `contact`）未实现 `createRecord` 方法\n\n要创建记录，我们需要使用 `store.createRecord()`。但这个方法并不会保存记录。要保存记录，需在记录上调用\
+  \ `save()` 方法，通过 `POST /api/contacts` 请求将变更持久化，示例如下：\n\n```\napp/controllers/contacts/new.js\n\
+  let contact = this.store.createRecord('contact', {\nname: this.name,\nphoneNumber:\
+  \ this.phoneNumber\n});\ncontact.save();\n```\n\n从 `model.save()` 调用的适配器方法是 `createRecord()`。我们的\
+  \ API 期望 JSON 载荷的根键名与模型名称匹配，这与获取单条记录时的规则类似：\n\n```\n{\n\"contact\": {\n\"name\"\
+  : \"David\",\n\"phoneNumber\": \"(310) 123-4567\"\n}\n}\n```\n\n以下是 `createRecord()`\
+  \ 的实现：\n\n```\napp/adapters/my-rest.js\nimport Adapter from '@ember-data/adapter';\n\
+  import { pluralize } from 'ember-inflector';\nimport $ from 'jquery';\nexport default\
+  \ class MyRESTAdapter extends Adapter {\n// ...\ncreateRecord(store, type, snapshot)\
+  \ {\nlet data = {};\nlet serializer = store.serializerFor(type.modelName);\nserializer.serializeIntoHash(data,\
+  \ type, snapshot);\nreturn $.ajax({\ntype: 'POST',\nurl: '/${this.namespace}/${pluralize(type.modelName)}',\n\
+  data:  JSON.stringify(data)\n});\n}\n}\n```\n\n在 `createRecord()` 方法中，我们使用复数形式的模型名构造端点（如\
+  \ `/api/contacts`）来发起 POST 请求，这样便于其他模型复用。如何获取待发送的数据？数据包含在 `snapshot` 参数中。`snapshot`\
+  \ 参数是 `Snapshot` 类的实例，代表某个时间点上的记录快照。我们稍后会详细讨论。现在你只需要知道它是一个包含待保存记录的对象。\n\n请记住，序列化器负责格式化发送给服务器和从服务器接收的数据。我们本可以在适配器中直接格式化快照数据，但正确的做法应在序列化器中完成。要获取模型的序列化器，可以在\
+  \ store 上调用 `serializerFor()` 方法并传入模型名。接着，序列化器提供了 `serializeIntoHash()` 方法，用于格式化请求载荷数据。本例中我们使用\
+  \ `serializeIntoHash()` 来构建 `data` 变量（该变量通过引用修改）。我们稍后实现这个方法。同时传入 `type` 和 `snapshot`\
+  \ 参数。最终 `data` 变量会成为序列化后的 JSON 载荷。\n\n最后，我们需要在序列化器中实现 `serializeIntoHash()` 方法，使发送给服务器的数据符合后端期望的格式：\n\
+  \n```\napp/serializers/my-rest.js\nimport Serializer from '@ember-data/serializer';\n\
+  import { pluralize } from 'ember-inflector';\nexport default class MyRESTSerializer\
+  \ extends Serializer {\n// ...\nserializeIntoHash(hash, typeClass, snapshot) {\n\
+  let serializedData = {};\nsnapshot.eachAttribute((name) => {\nserializedData[name]\
+  \ = snapshot.attr(name);\n});\nhash[typeClass.modelName] = serializedData;\n}\n\
+  }\n```\n\n我们实现的 `serializeIntoHash()` 方法会分析快照中包含的模型数据，生成 API 期望的载荷。快照提供了 `eachAttribute()`\
+  \ 方法，用于遍历模型上的所有属性。通过 `snapshot.attr()` 可以访问记录的属性。在上述代码中，我们遍历所有属性并将其设置到 `serializedData`\
+  \ 对象中，最终发送给服务器。\n\n你可能会疑惑：“为什么 Ember Data 团队要创建这个额外的快照对象，而不是直接使用记录？” 正如之前提到的，快照是\
+  \ Ember Data 中的一种类，代表某个时间点上的记录。处理记录时，你可以检查异步关联，如果这些关联尚未加载，Ember Data 会触发请求去获取数据。与常规记录不同，快照是一个可以检查记录内容而不会产生副作用的对象（例如不会触发请求）。快照上只有少量你可能常用的属性和方法，如表\
+  \ 5-1 所示。\n\n表 5-1\n\n| 快照属性/方法 | 描述 |\n| --- | --- |\n| `snapshot.id` | 获取记录的 ID\
+  \ |\n| `snapshot.attr('name')` | 获取记录的某个属性 |\n| `snapshot.hasMany('emails')` | 获取记录的\
+  \ hasMany 关联，返回另一个快照 |\n| `snapshot.belongsTo('company')` | 获取记录的 belongsTo 关联，返回另一个快照\
+  \ |\n| `snapshot.record` | 获取原始记录 |\n| `snapshot.eachAttribute(callback, binding)`\
+  \ | 遍历所有模型属性，并对每个属性调用回调函数 |\n\n现在如果你查看 `RESTSerializer` 的源码，会发现它实际上将这个功能拆分为两个独立的方法：`serializeIntoHash()`\
+  \ 和 `serialize()`。我们可以调整实现，使其更贴近 Ember Data 的做法：\n\n```\napp/serializers/my-rest.js\n\
+  import Serializer from '@ember-data/serializer';\nimport { pluralize } from 'ember-inflector';\n\
+  export default class MyRESTSerializer extends Serializer {\n// ...\nserializeIntoHash(hash,\
+  \ typeClass, snapshot) {\nhash[typeClass.modelName] = this.serialize(snapshot);\n\
+  }\nserialize(snapshot) {\nlet serializedData = {};\nsnapshot.eachAttribute((name)\
+  \ => {\nserializedData[name] = snapshot.attr(name);\n});\nreturn serializedData;\n\
+  }\n}\n```\n\n`serialize()` 方法负责从快照中提取数据并按需格式化，而 `serializeIntoHash()` 方法则负责自定义根载荷的键名。\n\
+  \n太棒了！现在我们已经能够查找全部记录、查找单条记录以及创建记录。接下来我们继续处理记录的更新操作。\n\n\n\n### 更新记录\n\n请随意点击一个联系人。你将看到一个弹出式模态框，允许我们编辑联系人信息。\n\
+  \n现在我们已经实现了 `createRecord()`，`updateRecord()` 的实现方式与之极为相似。两者的区别在于 URL 和请求类型。首先，URL\
+  \ 需要包含待更新记录的`id`，例如 `/api/contacts/1` 而非 `/api/contacts`。其次，使用 PUT HTTP 方法替代 POST。主要区别仅此而已。\n\
+  \n如果尝试提交表单，将会出现以下错误：\n\n错误\n\n你尝试更新一条记录，但你的适配器（针对联系人）未实现 `updateRecord`\n\n接下来让我们实现该功能：\n\
+  \n```\napp/adapters/my-rest.js\nimport Adapter from '@ember-data/adapter';\nimport\
+  \ { pluralize } from 'ember-inflector';\nimport $ from 'jquery';\nexport default\
+  \ class MyRESTAdapter extends Adapter {\nupdateRecord(store, type, snapshot) {\n\
+  let data = {};\nlet serializer = store.serializerFor(type.modelName);\nserializer.serializeIntoHash(data,\
+  \ type, snapshot);\nreturn  $.ajax({\ntype: 'PUT',\nurl: '/${this.namespace}/${pluralize(type.modelName)}/${snapshot.id}',\n\
+  data: JSON.stringify(data)\n});\n}\n}\n```\n\n我们需要对序列化器做一个小调整，具体来说是 `serialize()`\
+  \ 方法。当前序列化记录时，会创建一个包含所有模型属性的普通对象，但如果存在`id`，则不会包含在内。我们需要添加一个检查逻辑，使得当快照包含`id`时，该`id`也会被包含在序列化后的数据载荷中：\n\
+  \n```\napp/serializers/my-rest.js\nimport Serializer from '@ember-data/serializer';\n\
+  import { pluralize } from 'ember-inflector';\nexport default class MyRESTSerializer\
+  \ extends Serializer {\n// ...\nserializeIntoHash(hash, typeClass, snapshot) {\n\
+  hash[typeClass.modelName] = this.serialize(snapshot);\n}\nserialize(snapshot) {\n\
+  let serializedData = {};\nif (snapshot.id) {\nserializedData.id = snapshot.id;\n\
+  }\nsnapshot.eachAttribute((name) => {\nserializedData[name] = snapshot.attr(name);\n\
+  });\nreturn serializedData;\n}\n}\n```\n\n更新记录就这些内容！现在我们已经能够更新记录，接下来继续实现删除记录的功能。\n\
+  \n### 删除记录\n\n请点击表格中任一联系人的\"删除\"按钮。你应该会看到以下错误：\n\n错误\n\n你尝试更新一条记录，但你的适配器（针对联系人）未实现\
+  \ `deleteRecord`\n\n要删除联系人，我们需要向 `/contacts/:id` 发送一个 DELETE 请求，API 将返回空响应。为此，我们可以调用模型上的\
+  \ `destroyRecord()` 方法。模型上的 `destroyRecord()` 方法会映射到适配器的 `deleteRecord()` 方法。让我们实现它：\n\
+  \n```\napp/adapters/my-rest.js\nimport Adapter from '@ember-data/adapter';\nimport\
+  \ { pluralize } from 'ember-inflector';\nimport $ from 'jquery';\nexport default\
+  \ class MyRESTAdapter extends Adapter {\n// ...\ndeleteRecord(store, type, snapshot)\
+  \ {\nreturn  $.ajax({\ntype: 'DELETE',\nurl: '/${this.namespace}/${pluralize(type.modelName)}/${snapshot.id\
+  \ }'\n});\n}\n}\n```\n\n在 `deleteRecord()` 方法中，我们使用 DELETE HTTP 方法向与 `findRecord()`\
+  \ 和 `updateRecord()` 中相同的 URL 发送 AJAX 请求。试试看，你会发现一切运行正常。\n\n恭喜！你已经为标准的 CRUD 操作完成了自定义\
+  \ REST 适配器和序列化器的开发！\n\n## 总结\n\n本章我们探讨了如何从 Ember Data 提供的基础类开始，从零编写自己的适配器和序列化器。适配器和序列化器中还有其他未在本章涉及的方法。虽然我们可以继续逐一讲解每个适配器和序列化器方法，但我们已经涵盖的内容应该能让你对\
+  \ Ember Data 这两个核心组件如何协同工作有必要的认知。当需要更多功能时，在文档中找到合适的适配器或序列化器方法应该会变得轻而易举。在下一章中，我们将继续使用同一个应用程序，通过简单地更换适配器将后端切换为\
+  \ Local Storage，因为适配器负责确定如何获取数据以及将数据发送到何处进行存储。\n\n脚注 1\n\n"
+- '# 6. 将 API 替换为 Local Storage
+
+
+  通过上一章的学习，我们已经知道如何从零编写适配器和序列化器。假设我们的任务是将后端切换为 Local Storage。我们知道适配器负责通过 RESTful API
+  与后端通信，确定如何检索数据以及将数据发送到何处进行存储。本章我们将用自定义的 Local Storage 适配器替换原有的 `RESTAdapter`，应用程序将继续无缝运行。
+
+
+  ## 创建空适配器
+
+
+  首先，让我们创建一个新的空适配器：
+
+
+  ```
+
+  ember generate adapter local-storage
+
+  app/adapters/local-storage.js
+
+  import Adapter from ''@ember-data/adapter'';
+
+  export default class LocalStorageAdapter extends Adapter {}
+
+  ```
+
+
+  接下来，更新我们的 `application` 适配器，使其继承自 Local Storage 适配器：
+
+
+  ```
+
+  app/adapters/application.js
+
+  import LocalStorageAdapter from ''./local-storage'';
+
+  export default class ApplicationAdapter extends LocalStorageAdapter {
+
+  namespace = ''api'';
+
+  }
+
+  ```
+
+
+  `namespace` 属性仍将被使用，但此时它用于 Local Storage 中存储所有数据的存储键。由于 Local Storage 不存储 JavaScript
+  对象，我们持久化数据时需要先用 `JSON.stringify()` 将 JSON 序列化为字符串。当从 Local Storage 读取数据时，则用 `JSON.parse()`
+  进行解析。数据将以如下结构存储在 Local Storage 中：
+
+
+  ```
+
+  {
+
+  "contacts": [],
+
+  "dogs": [],
+
+  "cats": []
+
+  }
+
+  ```
+
+
+  我们将使用一个简单的对象结构，其中键对应复数形式的模型名称，并包含该类型的所有对象列表。你可能希望在开始前向 Local Storage 预置一些数据。运行以下命令即可：
+
+
+  ```
+
+  localStorage.setItem(
+
+  ''api'',
+
+  JSON.stringify({
+
+  contacts: [
+
+  { id: ''1'', name: ''Tom'', phoneNumber: ''(123) 456-7890'' },
+
+  { id: ''2'', name: ''Leah'', phoneNumber: ''(987) 456-7890'' },
+
+  { id: ''3'', name: ''Yehuda'', phoneNumber: ''(456) 456-7890'' }
+
+  ]
+
+  })
+
+  );
+
+  ```
+
+
+  要查看 Local Storage 中的数据，请打开 Chrome 开发者工具的*Application*面板，点击*Local Storage*。你将看到 Local
+  Storage 键*api*下存储的所有序列化后的 JSON 数据。
+
+
+  现在让我们开始实现 `findAll()` 方法。
+
+
+
+
+  ### 实现 `findAll()`
+
+
+  在适配器上实现 `findAll()` 之前，我们先看看需求。首先，`findAll()` 期望返回一个 promise。在我们自定义的 `RESTAdapter`
+  中，我们是从 `$.get()` 返回 promise 的。由于 Local Storage 是同步的，不会返回 promise，我们可以使用 Ember 的
+  Promise 库 `RSVP` 来创建一个能传递数据结果的 promise。其次，promise 传递的数据需要与我们自定义 `RESTAdapter` 中使用的
+  Mirage 后端具有相同的结构，这样我们才能保留此方法的 API，并继续使用自定义的 `RESTSerializer`。
+
+
+  以下是完整实现：
+
+
+  ```javascript
+
+  app/adapters/local-storage.js
+
+  import Adapter from ''@ember-data/adapter'';
+
+  import { resolve, reject } from ''rsvp'';
+
+  import { pluralize } from ''ember-inflector'';
+
+  export default class LocalStorageAdapter extends Adapter {
+
+  _getDataFromStorage()  {
+
+  let jsonString = localStorage.getItem(this.namespace);
+
+  if (!jsonString) {
+
+  return {};
+
+  }
+
+  return JSON.parse(jsonString);
+
+  }
+
+  findAll(store, type) {
+
+  let json = this._getDataFromStorage();
+
+  let { modelName } = type;
+
+  let storageKeyForModelName = pluralize(modelName);
+
+  let resources = json[storageKeyForModelName];
+
+  if (!resources) {
+
+  json[storageKeyForModelName] = [];
+
+  }
+
+  return resolve(json);
+
+  }
+
+  }
+
+  ```
+
+
+  首先，定义了一个名为 `_getDataFromStorage()` 的“私有”方法，用于从 Local Storage 读取 JSON 字符串并解析它。如果没有数据，则返回一个空对象。这个方法将在我们的其他适配器方法中使用。
+
+
+  由于 JSON 以与 Mirage 后端相同的结构存储在 Local Storage 中，我们只需使用 `resolve()` 将其包装在一个已完成的 promise
+  中并返回即可。
+
+
+  现在我们还需要处理另一种情况，即确保 `findAll()` 在 Local Storage 为空时也能正常工作。如果 Local Storage 为空，我们会为
+  `json` 中正在查找的模型分配一个空数组。这样，对于我们的应用，返回的 promise 会解析为 `{ contacts: [] }`。
+
+
+  访问 `http://localhost:4200/contacts`，你应该会看到存储在 Local Storage 中的三个联系人。不算太难，对吧？接下来我们继续实现
+  `findRecord()`。
+
+
+  ### 实现 `findRecord()`
+
+
+  `findRecord()` 的总体思路与 `findAll()` 类似。`findRecord()` 返回一个已完成的 promise（包含找到的资源），如果资源未找到则返回一个被拒绝的
+  promise：
+
+
+  ```javascript
+
+  app/adapters/local-storage.js
+
+  import Adapter from ''@ember-data/adapter'';
+
+  import { resolve, reject } from ''rsvp'';
+
+  import { pluralize } from ''ember-inflector'';
+
+  export default class LocalStorageAdapter extends Adapter {
+
+  // ...
+
+  findRecord(store, type, id, snapshot) {
+
+  let json = this._getDataFromStorage();
+
+  let { modelName } = type;
+
+  let storageKeyForModelName = pluralize(modelName);
+
+  let resources = json[storageKeyForModelName];
+
+  if (!resources) {
+
+  return reject();
+
+  }
+
+  let foundResource = resources.find((resource) => {
+
+  return resource.id === snapshot.id;
+
+  });
+
+  if (foundResource) { let payload = {};
+
+  payload[modelName] = foundResource;
+
+  return resolve(payload);
+
+  }
+
+  return reject();
+
+  }
+
+  }
+
+  ```
+
+
+  在上述实现中，我们使用了 `Array.prototype.find()` 根据 `id` 查找第一个资源。如果找到了资源，则返回一个已完成的 promise，其中资源的结构与我们的
+  API 响应 `/api/contacts/1` 的方式相同。例如，查找 `id` 为 1 的 `contact` 会得到一个包含以下内容的已完成的 promise：
+
+
+  ```json
+
+  {
+
+  "contact": {
+
+  "id": 1,
+
+  "name": "Tom",
+
+  "phoneNumber": "(123) 456-7890"
+
+  }
+
+  }
+
+  ```
+
+
+  如果未找到资源或该类型没有资源，则使用 `reject()` 返回一个被拒绝的 promise。
+
+
+  访问 `http://localhost:4200/contacts/1`，你应该会看到编辑表单中已填充了 Tom 的信息。
+
+
+  现在 `findRecord()` 已完成，我们来继续实现 `createRecord()`。
+
+
+  ### 实现 `createRecord()`
+
+
+  `createRecord()` 不再通过 AJAX 发起 POST 请求，而是从 Local Storage 中取出所有数据，将新记录推送到对应类型的数组中，然后将数据写回
+  Local Storage。以前向 API 发送 POST 请求时，我们依赖数据库返回新创建记录的 `id`。但 Local Storage 没有自增 ID，所以我们需要自行模拟。记录将按
+  `id` 升序存储在 Local Storage 中。据此，我们可以将新记录的 `id` 设置为最后一条记录的 `id` 加 1。如果该类型没有记录，我们可以将
+  `id` 默认设为字符串 `"1"`。你可能会问，为什么是数字的字符串形式？因为 Ember Data 在后台会自动将 `id` 属性强制转换为字符串，如果我们保持一致，也向
+  Local Storage 写入字符串，实现会更简单。以下是实现代码：
+
+
+  ```javascript
+
+  app/adapters/local-storage.js
+
+  import Adapter from ''@ember-data/adapter'';
+
+  import { resolve, reject } from ''rsvp'';
+
+  import { pluralize } from ''ember-inflector'';
+
+  export default class LocalStorageAdapter extends Adapter {
+
+  // ...
+
+  createRecord(store, type, snapshot) {
+
+  let { modelName } = type;
+
+  let data = {};
+
+  let serializer = store.serializerFor(modelName);
+
+  serializer.serializeIntoHash(data, type, snapshot);
+
+  let resource = data[modelName];
+
+  let json = this._getDataFromStorage();
+
+  let storageKeyForModelName = pluralize(modelName);
+
+  let resources = json[storageKeyForModelName];
+
+  if (resources) {
+
+  let lastResource = resources[resources.length - 1];
+
+  resource.id = String(Number(lastResource.id) + 1);
+
+  resources.push(resource);
+
+  } else {
+
+  resource.id = ''1'';
+
+  json[storageKeyForModelName] = [resource];
+
+  }
+
+  localStorage.setItem(this.namespace, JSON.stringify(json));
+
+  return resolve(data);
+
+  }
+
+  }
+
+  ```
+
+
+  记录保存后，将返回一个包含持久化数据的已完成 promise，其结构与我们的 API 响应 POST 请求的方式相同。例如，创建一个名为 Mary 的联系人，会得到一个包含以下内容的已完成
+  promise：
+
+
+  ```json
+
+  {
+
+  "contact": {
+
+  "id": 4,
+
+  "name": "Mary"
+
+  }
+
+  }
+
+  ```
+
+
+  接下来，我们将处理 `updateRecord()`。
+
+
+
+
+  ### 实现 `updateRecord()`
+
+
+  在我们的适配器中，`updateRecord()` 会发送一个包含更新数据的 PUT 请求，并返回与 `createRecord()` 结构相同的响应负载。在
+  Local Storage 适配器中，我们将使用记录的 `id` 在 Local Storage 中查找它。如果找到，将设置新属性并将数据写回 Local Storage。然后返回一个包含数据的已兑现（fulfilled）Promise。如果未找到资源，则返回一个已拒绝（rejected）的
+  Promise：
+
+
+  ```javascript
+
+  app/adapters/local-storage.js
+
+  import Adapter from ''@ember-data/adapter'';
+
+  import { resolve, reject } from ''rsvp'';
+
+  import { pluralize } from ''ember-inflector'';
+
+  export default class LocalStorageAdapter extends Adapter {
+
+  // ...
+
+  updateRecord(store, type, snapshot) {
+
+  let { modelName } = type;
+
+  let data = {};
+
+  let serializer = store.serializerFor(modelName);
+
+  serializer.serializeIntoHash(data, type, snapshot);
+
+  let storageKeyForModelName = pluralize(modelName);
+
+  let json = this._getDataFromStorage();
+
+  let resources = json[storageKeyForModelName];
+
+  if (!resources) {
+
+  return reject();
+
+  }
+
+  let resourceToUpdate = json[storageKeyForModelName].find((resource) => {
+
+  return resource.id === snapshot.id;
+
+  });
+
+  if (resourceToUpdate) {
+
+  let resourceUpdates = data[modelName];
+
+  Object.assign(resourceToUpdate, resourceUpdates);
+
+  localStorage.setItem(this.namespace, JSON.stringify(json));
+
+  return resolve(data);
+
+  }
+
+  return reject();
+
+  }
+
+  }
+
+  ```
+
+
+  与 `findRecord()` 类似，我们使用 `Array.prototype.find()` 和 `snapshot.id` 来定位要更新的资源。还记得我之前说过，如果我们将
+  `id` 存储为字符串，事情会简单一些吗？`snapshot.id` 总是返回一个字符串。如果我们把 `id` 存储为数字，那么就需要比较作为数字的 `resource.id`
+  和作为字符串的 `snapshot.id`，这就得自己做一些类型转换了。因为我们把 `id` 存储为字符串，所以可以确保 `resource.id` 和 `snapshot.id`
+  都是字符串。
+
+
+  最后，如果找到了资源，则使用 `Object.assign()` 将所有新属性合并到该资源中。
+
+
+  尝试编辑一个联系人。一切应该都能正常运行！
+
+
+  ### 实现 `deleteRecord()`
+
+
+  与通过 AJAX 发起 DELETE 请求不同，`deleteRecord()` 需要先在 Local Storage 中找到该记录，如果找到，则将其从数组中移除。类似于对
+  DELETE 请求返回空响应的 API，我们可以返回一个不包含任何数据就已兑现的 Promise：
+
+
+  ```javascript
+
+  app/adapters/local-storage.js
+
+  import Adapter from ''@ember-data/adapter'';
+
+  import { resolve, reject } from ''rsvp'';
+
+  import { pluralize } from ''ember-inflector'';
+
+  export default class LocalStorageAdapter extends Adapter {
+
+  // ...
+
+  deleteRecord(store, type, snapshot) {
+
+  let json = this._getDataFromStorage();
+
+  let { modelName } = type;
+
+  let storageKeyForModelName = pluralize(modelName);
+
+  let resources = json[storageKeyForModelName];
+
+  if (!resources) {
+
+  return reject();
+
+  }
+
+  let indexOfResourceToDelete = resources.findIndex((resource) => {
+
+  return resource.id === snapshot.id;
+
+  });
+
+  if (indexOfResourceToDelete > -1) {
+
+  resources.splice(indexOfResourceToDelete, 1);
+
+  if (resources.length === 0) {
+
+  delete json[storageKeyForModelName];
+
+  }
+
+  localStorage.setItem(this.namespace, JSON.stringify(json));
+
+  return resolve();
+
+  }
+
+  return reject();
+
+  }
+
+  }
+
+  ```
+
+
+  在上述代码中，首先会检查 Local Storage 中是否存在给定类型的数据。如果没有，则返回一个已拒绝的 Promise。接下来，我们尝试使用 `Array.prototype.findIndex()`
+  查找要删除资源的索引。如果找到了资源，`indexOfResourceToDelete` 将大于 -1，这时可以结合 `Array.prototype.slice()`
+  方法将该资源从资源列表中移除。删除资源后，如果该类型对应的资源列表为空，则删除保存数据的键。然后将 JSON 数据写回 Local Storage，并返回一个已兑现的
+  Promise。最后，如果始终未找到要删除的资源，则返回一个已拒绝的 Promise，这类似于向 `/api/contacts/1` 这类端点发送 DELETE
+  请求时返回 404 状态码的情况。
+
+
+  再次启动应用程序，看看我们所有的 CRUD 操作是否仍然有效。不过这次使用的是 Local Storage！
+
+
+  ## 总结
+
+
+  我们看到，仅通过对适配器进行修改，而不是修改应用程序的其他代码，就可以将后端替换为 Local Storage。让我们继续学习，下一章将介绍如何处理嵌套资源路径和关系链接。
+
+
+  脚注 1
+
+
+  '
+- "# 7. 嵌套资源 URL 路径与关系链接\n\n许多 API 使用嵌套资源 URL 路径来表达关系。嵌套资源 URL 路径的一个例子是 `/contacts/1/pets`，从这个端点返回的\
+  \ `pet` 资源集合属于 `id` 为 1 的 `contact` 资源。这些端点通常被称为关系链接，Ember Data 知道如何使用它们来加载关系。我们先看看\
+  \ Ember Data 如何在响应负载中使用关系链接的默认行为。然后，我们将探讨当 API 中没有提供关系链接时，如何告知 Ember Data 这些链接。\n\
+  \n本章的代码可在本书源代码的 `chapter-7` 文件夹中找到。\n\n### 关系链接的工作原理\n\nEmber Data 为 `RESTAdapter`\
+  \ 和 `JSONAPIAdapter` 提供了开箱即用的关系链接支持。在本节中，我们将具体探讨与 `RESTAdapter` 和 `RESTSerializer`\
+  \ 相关的关系链接，但这些概念同样适用于使用 JSON:API 的情况。\n\n`RESTAdapter` 支持在单个资源上使用名为 `links` 的属性，该属性包含指向相关资源的\
+  \ URL。例如，假设我们有一个 `contact` 模型，它包含异步的 `belongsTo` 和 `hasMany` 关系：\n\n```javascript\n\
+  app/models/contact.js\nimport Model, { attr, hasMany, belongsTo } from '@ember-data/model';\n\
+  export default class ContactModel extends Model {\n@attr('string') name;\n@hasMany('pet',\
+  \ { async: true }) pets;\n@belongsTo('company', { async: true }) company;\n}\n```\n\
+  \n如果我们向 `/api/contacts` 发起请求，并且响应负载符合 `RESTSerializer` 或 `JSONSerializer` 格式，那么响应中的每个\
+  \ `contact` 资源都可以包含一个 `links` 属性：\n\n```json\n{\n\"contacts\": [\n{\n\"id\": 1,\n\
+  \"name\": \"David\",\n\"links\": {\n\"company\": \"/api/contacts/1/company\",\n\"\
+  pets\": \"/api/contacts/1/pets\"\n}\n}\n]\n}\n```\n\n类似地，`links` 属性也可以出现在从 `/api/contacts/1`\
+  \ 等端点返回的单个资源负载中：\n\n```json\n{\n\"contact\": {\n\"id\": 1,\n\"name\": \"David\"\
+  ,\n\"links\": {\n\"company\": \"/api/contacts/1/company\",\n\"pets\": \"/api/contacts/1/pets\"\
+  \n}\n}\n}\n```\n\n如果我们访问 `contact.pets` 或 `contact.company`，Ember Data 将使用 `links`\
+  \ 中定义的 URL 触发一次数据获取。正如 API 文档中所述：\n\n> 注意\n>\n> 你的链接值的格式将通过 `urlPrefix` 方法影响最终的请求\
+  \ URL：以 `//`、`http://`、`https://` 开头的链接将按原样使用，不做任何处理。以单个 `/` 开头的链接，会在其前面加上当前适配器的\
+  \ `host` 值。没有以 `/` 开头的链接，则会通过当前适配器的 `buildURL` 方法，在其前面加上 `parentURL`。\n\n很多 API\
+  \ 虽然提供了遵循嵌套资源 URL 路径约定的端点，但并不会在资源的 `links` 属性中返回这些链接。接下来，我们将了解如何将这类端点告知 Ember Data。\n\
+  \n\n\n## 当 API 不返回关系链接时\n\n在前几章中，我们学习了序列化器中不同的规范化方法，这些方法允许我们在 Ember Data 使用数据之前拦截数据负载。为了处理缺失的`links`属性，我们可以覆盖多种规范化方法中的一种。\n\
+  \n例如，假设调用`store.findRecord('contact', 1)`向`/api/contacts/1`发起请求，并返回以下数据负载：\n\n```\n\
+  {\n  \"contact\": {\n    \"id\": 1,\n    \"name\": \"David\"\n  }\n}\n```\n\n我们想要为`pet`和`company`这两个关联关系向`contact`资源添加`links`。虽然我们可以覆盖几种不同的规范化方法，但最简单的做法是覆盖`normalize()`方法，因为它作用于单个资源：\n\
+  \n```javascript\n// app/serializers/contact.js\nimport RESTSerializer from '@ember-data/serializer/rest';\n\
+  export default class ContactSerializer extends RESTSerializer {\n  normalize(modelClass,\
+  \ resourceHash) {\n    resourceHash.links = {\n      pets: '/api/contacts/${resourceHash.id}/pets',\n\
+  \      company: '/api/contacts/${resourceHash.id}/company'\n    };\n    return super.normalize(...arguments);\n\
+  \  }\n}\n```\n\n就这样！很简单，对吧？\n\n如前所述，JSON:API 也使用`links`，但响应格式略有不同。如果你在使用 JSON:API\
+  \ 时需要手动添加`links`，其过程与本章示例类似。更多详情请访问 JSON:API 规范中关于链接的部分^(¹³)。\n\n## 总结\n\n现在我们已经了解如何处理关系链接，接下来我们将学习处理嵌套数据的不同方法。\n\
+  \n脚注 1\n\n"
+- "# 8. 处理嵌套数据和嵌入式记录\n\n在本章中，我们将探讨处理 API 数据负载中嵌套数据的两种方法。第一种方法涉及定义不带转换的模型属性。第二种方法则利用嵌入式记录。让我们开始吧！\n\
+  \n## 声明无转换的属性\n\n假设我们有以下`contact`资源的 JSON 数据，其中`address`是一个嵌套对象：\n\n```json\n{\n\
+  \  \"id\": 1,\n  \"name\": \"Richard Hendrix\",\n  \"address\": {\n    \"street\"\
+  : \"123 Main St.\",\n    \"zip\": \"90003\"\n  }\n}\n```\n\n在第一章（Ember Data 概述）中，我们学习了四种不同的转换：`string`、`number`、`boolean`和`date`。并没有对象转换。为了在模型中添加一个包含对象的`address`属性，我们可以声明该属性而不指定转换：\n\
+  \n```javascript\n// app/models/contact.js\nimport Model, { attr } from '@ember-data/model';\n\
+  export default class ContactModel extends Model {\n  @attr('string')  name;\n  @attr\
+  \ address;\n}\n```\n\n当不指定转换时，Ember Data 会直接传递该值并将其设置在模型上。\n\n要修改`address`的特定属性，请使用`model.set()`的点符号语法：\n\
+  \n```javascript\nmodel.set('address.street', '1234 New St.');\n```\n\n现在假设我们有如下`contact`资源的\
+  \ JSON 数据：\n\n```json\n{\n  \"id\": 1,\n  \"name\": \"Richard Hendricks\",\n  \"\
+  history\": [\n    { \"url\": \"http://piedpiper.com\", \"time\": \"2015-10-01T20:12:53Z\"\
+  \ },\n    { \"url\": \"http://hooli.com\", \"time\": \"2014-10-01T20:12:53Z\" },\n\
+  \    { \"url\": \"http://endframe.com\", \"time\": \"2013-10-01T20:12:53Z\" }\n\
+  \  ]\n}\n```\n\n这里有一个包含 URL 数组的`history`属性。我们将不在模型上指定转换，以便`history`数据直接传递并设置在记录上：\n\
+  \n```javascript\n// app/models/contact.js\nimport Model, { attr } from '@ember-data/model';\n\
+  export default class ContactModel extends Model {\n  @attr('string') name;\n  @attr\
+  \ history;\n}\n```\n\n让我们看看如何操作`history`属性。你可能会认为可以通过直接修改某个历史项来更新 UI：\n\n```javascript\n\
+  model.history[0].url = 'http://amazon.com';\n```\n\n然而，这样是行不通的。如果需要修改特定的历史项，我们必须使用`set`方法，例如：\n\
+  \n```javascript\nimport { set } from '@ember/object';\nlet googleItem = model.history[0];\n\
+  set(googleItem, 'url', 'http://amazon.com');\n```\n\n使用`set()`会改变属性并通知 Ember 重新渲染。或者，我们可以创建一个新的数组引用并重新赋值`history`属性：\n\
+  \n```javascript\nlet modifiedHistory = [...model.history, 'http://amazon.com'];\n\
+  model.set('history', modifiedHistory);\n```\n\n## 嵌入式记录\n\n带有`id`的嵌套对象也可以使用`EmbeddedRecordsMixin`\
+  \ mixin 作为记录来处理。假设 JSON 现在看起来像这样：\n\n```json\n{\n  \"id\": 1,\n  \"name\": \"Richard\
+  \ Hendricks\",\n  \"skills\": [\n    { \"id\": 1, \"name\": \"Compression\" },\n\
+  \    { \"id\": 2, \"name\": \"Java\" },\n    { \"id\": 3, \"name\": \"Algorithms\"\
+  \ }\n  ]\n}\n```\n\n我们可以将`skills`下的每个对象转换为记录，并在`contact`和`skill`之间建立`hasMany`关系：\n\
+  \n```javascript\n// app/models/contact.js\nimport Model, { attr, hasMany } from\
+  \ '@ember-data/model';\nexport default class ContactModel extends Model {\n  @attr('string')\
+  \ name;\n  @hasMany('skill') skill;\n}\n```\n\n为了让 Ember Data 建立`hasMany`关系，我们可以在序列化器中使用`EmbeddedRecordsMixin`：\n\
+  \n```javascript\n// app/serializers/contact.js\nimport JSONSerializer from '@ember-data/serializer/json';\n\
+  import { EmbeddedRecordsMixin } from '@ember-data/serializer/rest';\nexport default\
+  \ class ContactSerializer extends JSONSerializer.extend(\n  EmbeddedRecordsMixin\n\
+  ) {\n  attrs = {\n    skills: { embedded: 'always' }\n  };\n}\n```\n\n在`attrs`属性中，将`skills`设置为`{\
+  \ embedded: 'always' }`。这同样适用于`belongsTo`关系。此示例使用的是`JSONSerializer`，但相同技术也可应用于基于`RESTSerializer`的\
+  \ API。请注意，`EmbeddedRecordsMixin`不适用于`JSONAPISerializer`。\n\n`EmbeddedRecordsMixin`同样适用于嵌套数据中的嵌套数据！例如，假设每个`skill`现在都有一个嵌入的`category`模型：\n\
+  \n```json\n{\n  \"id\": 1,\n  \"name\": \"Richard Hendricks\",\n  \"skills\": [\n\
+  \    {\n      \"id\": 1,\n      \"name\": \"Compression\",\n      \"category\":\
+  \ {\n        \"id\": 3,\n        \"name\": \"Technology\"\n      }\n    },\n   \
+  \ {\n      \"id\": 2,\n      \"name\": \"Algorithms\",\n      \"category\": {\n\
+  \        \"id\": 6,\n        \"name\": \"Technology\"\n      }\n    }\n  ]\n}\n\
+  ```\n\n与前面的代码类似，创建一个`category`模型并指定关系：\n\n```javascript\n// app/models/skill.js\n\
+  import Model, { attr, belongsTo } from '@ember-data/model';\nexport default class\
+  \ SkillModel extends Model {\n  @attr('string') name;\n  @belongsTo('category',\
+  \ { async: false }) category;\n}\n\n// app/models/category.js\nimport Model, { attr\
+  \ } from '@ember-data/model';\nexport default class CategoryModel extends Model\
+  \ {\n  @attr('string') name;\n}\n```\n\n接下来，创建一个使用`EmbeddedRecordsMixin`的`skill`序列化器：\n\
+  \n```javascript\n// app/serializers/skill.js\nimport RESTSerializer, {\n  EmbeddedRecordsMixin\n\
+  } from '@ember-data/serializer/rest';\nexport default class SkillSerializer extends\
+  \ RESTSerializer.extend(\n  EmbeddedRecordsMixin\n) {\n  attrs = {\n    category:\
+  \ { embedded: 'always' }\n  };\n}\n```\n\n嵌套模型可以递归使用`EmbeddedRecordsMixin`来处理记录中的嵌套记录。\n\
+  \n## 总结\n\n在本章中，我们探讨了几种处理嵌套数据和嵌入式记录的不同方法。如果需要将嵌套数据转换为记录，请使用`EmbeddedRecordsMixin`。否则，直接声明不带转换的属性即可。\n\
+  \n到目前为止，我们一直研究如何处理成功的 API 响应。在下一章中，我们将学习如何处理错误响应。\n\n"
+- "# 9. 处理自定义错误响应\n\n到目前为止，我们一直在研究如何处理返回成功响应的 API。在本章中，我们将了解 Ember Data 如何开箱即用地处理错误，以及我们可以覆盖哪些不同的适配器和序列化器方法来处理自定义错误响应。让我们开始吧！\n\
+  \n\n\n## 验证错误\n\nHTTP 状态码为 422（不可处理的实体）的响应被视为无效错误，换言之，即验证错误。无论使用哪种序列化器，验证错误响应均遵循\
+  \ JSON:API 规范。一个 JSON:API 错误响应如下所示：\n\n```\n{\n  \"errors\": [\n    {\n      \"\
+  id\": \"{此特定出现的唯一标识符}\",\n      \"links\": {\n        \"about\": \"{指向此问题更多详细信息的链接}\"\
+  \n      },\n      \"status\": \"{HTTP 状态码}\",\n      \"code\": \"{应用特定的错误代码}\",\n\
+  \      \"title\": \"{问题的摘要}\",\n      \"detail\": \"{针对此问题出现的具体说明}\",\n      \"\
+  source\": {\n        \"pointer\": \"{指向请求文档中关联实体的 JSON 指针}\",\n        \"parameter\"\
+  : \"{指示哪个 URI 查询参数导致错误的字符串}\"\n      },\n      \"meta\": {}\n    }\n  ]\n}\n```\n\
+  \n响应必须包含一个根键 `errors`，它是一个错误对象数组。每个错误对象可以包含前述的任何属性。要详细了解错误对象的每个属性，请访问 JSON:API 错误文档（14）。JSON:API\
+  \ 指出错误对象*可能*包含这些属性，但 Ember Data 只需要其中的一个子集。\n\n假设我们要创建一个新的 `contact` 记录，并处理验证 `name`\
+  \ 属性时出现错误的场景。错误响应需要两个属性：`detail` 和 `source`：\n\n```\n{\n  \"errors\": [\n    {\n\
+  \      \"detail\": \"名称必须至少 2 个字符。\",\n      \"source\": {\n        \"pointer\"\
+  : \"data/attributes/name\"\n      }\n    }\n  ]\n}\n```\n\n错误对象中 `source.pointer`\
+  \ 的值是一个指向特定属性的 JSON 指针（15），在此例中指向 `name` 属性。JSON 指针是一种使用类似文件路径语法的字符串，用于标识 JSON 文档中特定值的路径。\n\
+  \n当适配器看到 422 响应状态码时，会返回一个包含 `InvalidError` 实例的被拒绝的 Promise，以指示记录未能通过服务器端验证。`InvalidError`\
+  \ 实例会接收来自响应负载的 `errors` 数据。然后可以通过记录的 `errors` 属性检索这些验证错误。例如，我们可以按如下方式渲染记录中 name\
+  \ 属性的验证错误：\n\n```\n{{#each model.errors.name as |error|}}\n  {{error.message}}\n\
+  {{/each}}\n```\n\n我们还可以在 catch 块中访问这些错误以及 `InvalidError` 实例：\n\n```\ntry {\n  await\
+  \ contact.save();\n} catch (invalidError) {\n  console.log(invalidError); // InvalidError\
+  \ 实例\n  console.log(contact.errors); // Errors 实例\n  console.log(contact.get('errors.name'));\
+  \ // name 属性的错误对象数组\n  console.log(contact.isValid); // false\n}\n```\n\n### 控制无效状态码\n\
+  \n你的第一个问题可能是：“如果我的 API 返回的不是 422 状态码怎么办？” 如果我们查看 `RESTAdapter` 源代码，可以看到 `InvalidError`\
+  \ 的创建仅当状态通过 `isInvalid()` 方法被判定为无效时才会发生：\n\n```\nisInvalid(status, headers, payload)\
+  \ {\n  return status === 422;\n},\n\nhandleResponse(status, headers, payload, requestData)\
+  \ {\n  if (this.isSuccess(status, headers, payload)) {\n    return payload;\n  }\
+  \ else if (this.isInvalid(status, headers, payload)) {\n    return new InvalidError(payload.errors);\n\
+  \  }\n  // ...\n  return new AdapterError(errors, detailedMessage);\n}\n```\n\n\
+  我们可以覆盖适配器中的公共方法 `isInvalid()` 来适应非 422 的状态码。例如，我们的 API 可能返回 400 而不是 422：\n\n```\n\
+  app/adapters/application.js\nimport RESTAdapter from '@ember-data/adapter/rest';\n\
+  \nexport default class ApplicationAdapter extends RESTAdapter {\n  namespace = 'api';\n\
+  \n  isInvalid(status) {\n    return status === 400;\n  }\n}\n```\n\n### 控制错误响应负载\n\
+  \n你的第二个问题可能是：“如果我的错误响应负载不遵循 JSON:API 格式怎么办？”\n\n假设我们的错误响应如下所示：\n\n```\n{\n  \"errors\"\
+  : {\n    \"name\": \"名称必须至少 2 个字符。\"\n  }\n}\n```\n\n如果负载包含一个非数组类型的 `errors` 属性，你将在控制台中看到以下错误消息：\n\
+  \n`Error` — `AdapterError` 期望 JSON:API 格式的错误数组。\n\n此错误消息提到的是 `AdapterError` 而非 `InvalidError`\
+  \ 的原因，是因为 `InvalidError` 继承了 `AdapterError` 类。\n\n让我们再次查看 `handleResponse()` 的实现：\n\
+  \n```\nhandleResponse(status, headers, payload, requestData) {\n  if (this.isSuccess(status,\
+  \ headers, payload)) {\n    return payload;\n  } else if (this.isInvalid(status,\
+  \ headers, payload)) {\n    return new InvalidError(payload.errors);\n  }\n  //\
+  \ ...\n  return new AdapterError(errors, detailedMessage);\n}\n```\n\n如你所见，负载的 `errors`\
+  \ 属性被直接传递给 `InvalidError`，如果它不是数组，则会抛出前述错误消息。为了处理 `errors` 不是数组或根本没有 `errors` 属性的自定义错误负载，我们可以在适配器中覆盖\
+  \ `handleResponse()` 方法：\n\n```\napp/adapters/application.js\nimport RESTAdapter\
+  \ from 'ember-data/adapters/rest';\n\nexport default class ApplicationAdapter extends\
+  \ RESTAdapter {\n  namespace = 'api';\n\n  handleResponse(status, headers, payload,\
+  \ requestData) {\n    if (this.isInvalid(status)) {\n      payload.errors = Object.keys(payload.errors).map((attribute)\
+  \ => {\n        return {\n          detail: payload.errors[attribute],\n       \
+  \   source: {\n            pointer: 'data/attributes/${attribute}'\n          }\n\
+  \        };\n      });\n    }\n    return super.handleResponse(status, headers,\
+  \ payload, requestData);\n  }\n}\n```\n\n在上述代码中，如果状态无效，我们会将自定义错误负载转换为符合 JSON:API\
+  \ 规范的格式。然后，调用原始的 `handleResponse()` 方法以创建 `InvalidError` 对象。\n\n现在你的第三个问题可能是：“如果负载确实有一个数组类型的\
+  \ `errors` 属性，但它不符合 JSON:API 规范怎么办？” 假设我们的错误负载如下所示：\n\n```\n{\n  \"errors\": [\n\
+  \    {\n      \"attribute\": \"name\",\n      \"messages\": {\n        \"size\"\
+  : \"名称必须至少 2 个字符。\",\n        \"alpha\": \"名称必须全部由字母组成。\"\n      }\n    }\n  ]\n\
+  }\n```\n\n每个验证规则及其对应的消息都存储在 `errors/messages` 下。要处理此错误负载，我们可以像之前一样覆盖 `handleResponse()`，或者覆盖序列化器上的\
+  \ `extractErrors()` 方法。`extractErrors()` 方法用于在模型上的 `save()` 调用因 `InvalidError` 失败时提取模型错误。`extractErrors()`\
+  \ 方法接收负载作为其参数之一，并期望返回值格式如下：\n\n```\n{\n  name: [\n    '名称必须至少 2 个字符。',\n    '名称必须全部由字母组成。'\n\
+  \  ]\n}\n```\n\n以下是覆盖 `extractErrors()` 以规范化响应中 `errors` 数组的实现示例：\n\n```\napp/serializers/contact.js\n\
+  import ApplicationSerializer from './application';\n\nexport default class ContactSerializer\
+  \ extends ApplicationSerializer {\n  extractErrors(store, typeClass, payload, id)\
+  \ {\n    let extractedErrors = {};\n    payload.errors.forEach((error) => {\n  \
+  \    extractedErrors[error.attribute] = Object.keys(error.messages).map(\n     \
+  \   (rule) => {\n          return error.messages[rule];\n        }\n      );\n \
+  \   });\n    return extractedErrors;\n  }\n}\n```\n\n那么你的第四个问题可能是：“如果所有情况我都能用 `handleResponse()`\
+  \ 处理，为什么还要费心使用 `extractErrors()`？” 这个问题的答案又回到了“哪个类负责格式化请求和响应数据？”这个问题上。答案是序列化器。通常，如果能在序列化器中处理错误响应的规范化，我倾向于这样做。如果无法在序列化器中进行规范化，那么我会在适配器中处理。\n\
+  \n\n\n## 其他错误类型\n\n我们学习了当收到 422 响应时会被实例化的 `InvalidError` 类。Ember Data 也为常见的 HTTP\
+  \ 状态码提供了其他几种错误类型（表 9-1）。\n\n表 9-1 常见 HTTP 状态码\n\n| 错误类 | HTTP 状态码 |\n| --- | ---\
+  \ |\n| InvalidError | 422 |\n| UnauthorizedError | 401 |\n| ForbiddenError | 403\
+  \ |\n| NotFoundError | 404 |\n| ConflictError | 409 |\n| ServerError | 500 |\n\n\
+  当 HTTP 状态码为 401 时，会抛出 `UnauthorizedError`，表示需要授权，但授权失败或未提供授权。当 HTTP 状态码为 403 时，会抛出\
+  \ `ForbiddenError`，表示已认证用户没有执行该请求所需的权限。当 HTTP 状态码为 404 时，会抛出 `NotFoundError`，表示服务器找不到请求的资源。当\
+  \ HTTP 状态码为 409 时，会抛出 `ConflictError`，表示请求与服务器的当前状态存在冲突。例如，如果用户尝试使用过时的数据更新资源，服务器可能会返回\
+  \ 409 状态码。最后，当 HTTP 状态码为 500 时，会抛出 `ServerError`，表示服务器内部发生错误。\n\n所有这些错误类都继承自 `AdapterError`\
+  \ 类。\n\n假设我们的 API 返回了 500 状态码。当这种情况发生时，以下代码将成立：\n\n```\nimport AdapterError, {\n\
+  ServerError,\nTimeoutError\n} from '@ember-data/adapter/error';\n// ...\ntry {\n\
+  await contact.save();\n} catch (serverError) {\nconsole.log(serverError instanceof\
+  \ AdapterError); // true\nconsole.log(serverError instanceof ServerError); // true\n\
+  console.log(serverError instanceof TimeoutError); // false\n}\n```\n\n正如我们在学习 `InvalidError`\
+  \ 时所了解的，预期的错误载荷必须包含一个名为 `errors` 的属性，其值为一个数组。这对于 `AdapterError` 的所有子类都适用。\n\n假设我们的\
+  \ API 响应 500 状态码并返回以下载荷：\n\n```\n{\n\"errors\": [\n{\n\"status\": \"500\",\n\"title\"\
+  : \"There was an error on the server.\",\n\"detail\": \"Oh snap! Something went\
+  \ wrong.\",\n\"foo\": \"bar\"\n},\n{\n\"bar\": \"baz\"\n}\n]\n}\n```\n\n使用此载荷，我们\
+  \ `ServerError` 实例上的 `errors` 属性将是：\n\n```\n[\n{\nstatus: '500',\ntitle: 'There\
+  \ was an error on the server.',\ndetail: 'Oh snap! Something went wrong.',\nfoo:\
+  \ 'bar'\n},\n{\nbar: 'baz'\n}\n];\n```\n\n如果响应中没有 `errors` 键，适配器将为我们的 `ServerError`\
+  \ 实例的 `errors` 属性创建以下内容：\n\n```\n[\n{\nstatus: '500',\ntitle: 'The backend responded\
+  \ with an error', // 此消息由 Ember Data 创建\ndetail: '[object Object]' // 载荷的字符串表示形式\n\
+  }\n];\n```\n\n如果 API 返回一个字符串作为载荷，例如 `\"FAILED\"`，那么 `detail` 将是该字符串：\n\n```\n[\n\
+  {\nstatus: '500',\ntitle: 'The backend responded with an error', // 此消息由 Ember Data\
+  \ 创建\ndetail: 'FAILED'\n}\n];\n```\n\n就我个人而言，我还没有遇到需要规范化非验证错误（`InvalidError`）的载荷的情况，但如果你需要，你可以像之前一样在适配器中覆盖\
+  \ `handleResponse()` 方法。例如，假设 API 返回了 500 状态码和以下响应：\n\n```\n{\n\"status\": \"500\"\
+  ,\n\"title\": \"There was an error on the server.\",\n\"detail\": \"Oh snap! Something\
+  \ went wrong.\",\n\"foo\": \"bar\"\n}\n```\n\n在这种情况下，我们 `ServerError` 实例上的 `errors`\
+  \ 属性将包含：\n\n```\n[\n{\nstatus: '500',\ntitle: 'The backend responded with an error',\
+  \ // 此消息由 Ember Data 创建\ndetail: '[object Object]' // 载荷的字符串表示形式\n}\n];\n```\n\n\
+  我们可以在 `handleResponse()` 中像这样规范化此错误响应：\n\n```\nimport RESTAdapter from '@ember-data/adapter/rest';\n\
+  export default class ApplicationAdapter extends RESTAdapter {\nhandleResponse(status,\
+  \ headers, payload, requestData) {\nif (status === 500) {\nlet normalizedPayload\
+  \ = {\nerrors: [payload]\n};\nreturn super.handleResponse(\nstatus,\nheaders,\n\
+  normalizedPayload,\nrequestData\n);\n}\nreturn super.handleResponse(status, headers,\
+  \ payload, requestData);\n}\n}\n```\n\n这里，我们将原始载荷放入一个对象的 `errors` 数组中。有了这个改变，我们\
+  \ `ServerError` 实例上的 `errors` 属性将包含：\n\n```\n[\n{\nstatus: '500',\ntitle: 'There\
+  \ was an error on the server.',\ndetail: 'Oh snap! Something went wrong.',\nfoo:\
+  \ 'bar'\n}\n];\n```\n\n## 总结\n\n在使用 API 时，处理错误是一个重要的方面，而 Ember Data 足够灵活，可以处理任何错误响应。在本章中，我们研究了\
+  \ Ember Data 中的默认错误处理，并学习了验证错误和其他适配器错误。接下来，我们将学习测试 Ember Data 自定制的不同方法。\n\n"
+- "# 10. 测试适配器和序列化器\n\n在本章中，我们将探讨如何测试适配器和序列化器。\n\n## 测试适配器\n\n每当我们生成一个适配器时，都会同时生成一个对应的单元测试。以下是默认测试：\n\
+  \n```\ntests/unit/adapters/application-test.js\nimport { module, test } from 'qunit';\n\
+  import { setupTest } from 'ember-qunit';\nmodule('Unit | Adapter | application',\
+  \ function (hooks) {\nsetupTest(hooks);\n// 替换为你的真实测试。\ntest('it exists', function\
+  \ (assert) {\nlet adapter = this.owner.lookup('adapter:application');\nassert.ok(adapter);\n\
+  });\n});\n```\n\n适配器非常容易测试。我们可以通过 `this.owner.lookup()` 在容器中查找适配器实例来获取它。然后，我们可以调用任何我们覆盖过的方法。\n\
+  \n在第 9 章\"处理自定义错误响应\"中，我们了解到状态码为 422 的响应被视为服务器端验证错误。如果我们希望所有状态码为 400 或 422 的响应都被视为验证错误，该怎么办？正如我们在上一章中所做的那样，我们可以覆盖\
+  \ `isInvalid()` 方法：\n\n```\napp/adapters/application.js\nimport RESTAdapter from\
+  \ '@ember-data/adapter/rest';\nexport default class ApplicationAdapter extends RESTAdapter\
+  \ {\nisInvalid(status) {\nreturn status === 400 || status === 422;\n}\n}\n```\n\n\
+  要对此进行测试，我们可以使用 400 和 422 状态码调用 `isInvalid()`，并断言返回值为 `true`。我们还可以使用既不是 400 也不是 422\
+  \ 的状态码调用它，并断言返回值为 `false`：\n\n```\ntests/unit/adapters/application-test.js\nimport\
+  \ { module, test } from 'qunit';\nimport { setupTest } from 'ember-qunit';\nmodule('Unit\
+  \ | Adapter | application', function (hooks) {\nsetupTest(hooks);\ntest('isInvalid()\
+  \ 对于 400 状态码返回 true', function (assert) {\nlet adapter = this.owner.lookup('adapter:application');\n\
+  assert.ok(adapter.isInvalid(400));\n});\ntest('isInvalid() 对于 422 状态码返回 true', function\
+  \ (assert) {\nlet adapter = this.owner.lookup('adapter:application');\nassert.ok(adapter.isInvalid(422));\n\
+  });\ntest('isInvalid() 对于 500 状态码返回 false', function (assert) {\nlet adapter = this.owner.lookup('adapter:application');\n\
+  assert.notOk(adapter.isInvalid(500));\n});\n});\n```\n\n单元测试适配器基本上就是这样。在本章后面，我们将探讨如何将适配器和序列化器放在一起进行测试。\n\
+  \n\n\n## 测试序列化器\n\n每次生成序列化器时，都会伴随生成一个包含两个测试的单元测试文件。如果你还没有为 `application` 序列化器创建单元测试，请立即创建一个：\n\
+  \n```\nember generate serializer-test application\n```\n\n你应该会在 `tests/unit/serializers/application-test.js`\
+  \ 中看到以下内容：\n\n```\ntests/unit/serializers/application-test.js\nimport { module,\
+  \ test } from 'qunit';\nimport { setupTest } from 'ember-qunit';\nmodule('Unit |\
+  \ Serializer | application', function (hooks) {\nsetupTest(hooks);\n// 在此处替换为你的实际测试。\n\
+  test('it exists', function (assert) {\nlet store = this.owner.lookup('service:store');\n\
+  let serializer = store.serializerFor('application');\nassert.ok(serializer);\n});\n\
+  test('it serializes records', function (assert) {\nlet store = this.owner.lookup('service:store');\n\
+  let record = store.createRecord('application', {});\nlet serializedRecord = record.serialize();\n\
+  assert.ok(serializedRecord);\n});\n});\n```\n\n第一个测试展示了一个序列化器测试示例，我们可以通过存储实例直接获取序列化器，对其调用方法，并针对结果编写断言。第二个测试展示了一个通过记录测试序列化逻辑的示例。由于\
+  \ `application` 序列化器不绑定特定模型（即不存在 `application` 模型），我们可以删除第二个测试。\n\n现在，让我们编写几个 `application`\
+  \ 序列化器测试，验证载荷是否被正确标准化和序列化。假设我们的 API 遵循 `RESTSerializer` 格式，并且载荷中的所有键都使用蛇形命名法（snake_case）。例如，`GET\
+  \ /api/contacts` 可能返回以下内容：\n\n```\n{\n\"contacts\": [\n{ \"id\": 1, \"first_name\"\
+  : \"Tom\" },\n{ \"id\": 2, \"first_name\": \"Yehuda\" }\n]\n}\n```\n\n让我们编写一个测试来验证像\
+  \ `first_name` 这样的蛇形命名键是否映射到模型上的驼峰命名（camelCase）属性，例如 `firstName`。`keyForAttribute()`\
+  \ 方法可用于定义如何将模型中的属性名称转换为 JSON 载荷中的键的规则：\n\n```\ntests/unit/serializers/application-test.js\n\
+  import { module, test } from 'qunit';\nimport { setupTest } from 'ember-qunit';\n\
+  module('Unit | Serializer | application', function (hooks) {\nsetupTest(hooks);\n\
+  test('snake_cased JSON attribute keys map to camelCased model attributes', function\
+  \ (assert) {\nlet store = this.owner.lookup('service:store');\nlet serializer =\
+  \ store.serializerFor('application');\nassert.equal(serializer.keyForAttribute('firstName'),\
+  \ 'first_name');\n});\n});\n```\n\n此时测试应该会失败。为了让测试通过，让我们在 `application` 序列化器中实现\
+  \ `keyForAttribute()`：\n\n```\napp/serializers/application.js\nimport RESTSerializer\
+  \ from '@ember-data/serializer/rest';\nimport { underscore } from '@ember/string';\n\
+  export default class ApplicationSerializer extends RESTSerializer {\nkeyForAttribute(attr)\
+  \ {\nreturn underscore(attr);\n}\n}\n```\n\n成功！测试现在通过了。\n\n在应用中，假设我们用以下代码更新了某个地方的\
+  \ `contact` 记录：\n\n```\ncontact.firstName = firstName;\ncontact.save();\n```\n\n\
+  发出的 `PUT /contacts/:id` 请求的根键将是：\n\n```\n{\n\"contact\": {\n\"first_name\": \"David\"\
+  \n}\n}\n```\n\n如果我们希望所有发出请求的根键都是复数形式，可以重写 `payloadKeyFromModelName()` 方法。让我们先编写一个测试：\n\
+  \n```\ntests/unit/serializers/application-test.js\nimport { module, test } from\
+  \ 'qunit';\nimport { setupTest } from 'ember-qunit';\nmodule('Unit | Serializer\
+  \ | application', function (hooks) {\nsetupTest(hooks);\ntest('snake_cased JSON\
+  \ attribute keys map to camelCased model attributes', function (assert) {\n// ...\n\
+  });\ntest('the root key for all outgoing requests is plural', function (assert)\
+  \ {\nlet store = this.owner.lookup('service:store');\nlet serializer = store.serializerFor('application');\n\
+  let type = serializer.payloadKeyFromModelName('contact');\nassert.equal(type, 'contacts');\n\
+  });\n});\n```\n\n以下是通过测试的实现代码：\n\n```\napp/serializers/application.js\nimport RESTSerializer\
+  \ from '@ember-data/serializer/rest';\nimport { underscore } from '@ember/string';\n\
+  import { pluralize } from 'ember-inflector';\nexport default class ApplicationSerializer\
+  \ extends RESTSerializer {\n// ...\npayloadKeyFromModelName(modelName) {\nlet rootKey\
+  \ = super.payloadKeyFromModelName(modelName);\nreturn pluralize(rootKey);\n}\n}\n\
+  ```\n\n我发现，像本节所示，通过调用序列化器实例上的方法来测试序列化器，在测试适用于多个模型的通用自定义（如 `application` 序列化器）时非常有用。如果自定义内容非常简单（如前面提到的那些），我的验收测试通常可以覆盖这些情况，因此不需要专门的序列化器测试。无论如何，你现在知道了在需要时如何对序列化器进行单元测试。\n\
+  \n## 联合测试适配器和序列化器\n\n通常，我们不会编写直接与适配器和序列化器交互的代码。我们通过存储间接使用适配器和序列化器。在某些情况下，我们可能需要编写一个更高级别的测试，来验证所有适配器和序列化器的自定义是否协同工作。在这些情况下，编写一个利用存储的测试会很有帮助，就像我们在应用中如何使用存储一样。让我们看几个例子。\n\
+  \n\n\n### 测试规范化\n\n在前面的章节中，我们学习了 `normalizeResponse()` 方法，它用于将服务器返回的负载规范化为 JSON:API\
+  \ 文档。现在，让我们看看如何通过 store 来测试规范化方法。假设我们有一个 `GET /api/contacts` 的 API 端点，它返回如下 JSON：\n\
+  \n```\n{\n\"data\": [\n{ \"id\": 1, \"name\": \"Tom Dale\" },\n{ \"id\": 2, \"name\"\
+  : \"Yehuda Katz\" }\n]\n}\n```\n\n我们希望提取出 `data` 键，就像我们在第 4 章——通用适配器和序列化器定制——中所做的那样，这样当我们调用\
+  \ `store.findAll()` 时，Ember Data 就能正确规范化 `data` 键下的联系人列表。我们先从测试开始：\n\n```\ntests/unit/serializers/contact.js\n\
+  import { module, test } from 'qunit';\nimport { setupTest } from 'ember-qunit';\n\
+  import { setupMirage } from 'ember-cli-mirage/test-support';\nimport { Response\
+  \ } from 'miragejs';\nmodule('单元测试 | 序列化器 | contact', function (hooks) {\nsetupTest(hooks);\n\
+  setupMirage(hooks);\ntest('规范化 findAll()', async function (assert) {\nthis.server.get('/api/contacts',\
+  \ function () {\nreturn new Response(\n200,\n{},\n{\ndata: [\n{ id: 1, name: 'Fiona'\
+  \ },\n{ id: 2, name: 'Steve' }\n]\n}\n);\n});\nlet store = this.owner.lookup('service:store');\n\
+  let contacts = await store.findAll('contact');\nassert.equal(contacts.length, 2);\n\
+  });\n});\n```\n\n这个测试使用 Ember CLI Mirage^((16)) 来模拟 API。对于 `GET /api/contacts` 端点，我们指定了一个静态响应，其格式与\
+  \ API 预期返回的格式相同。接下来，我们可以从容器中获取 store 并调用 `findAll()`。当 promise 解析时，会执行一个断言来验证 `RecordArray`\
+  \ 的长度是否等于响应中 `data` 键下的联系人数量。\n\n现在，让我们编写实现来使测试通过。首先，确保我们的适配器具有 `api` 命名空间：\n\n\
+  ```\napp/adapters/application.js\nimport RESTAdapter from '@ember-data/adapter/rest';\n\
+  export default class ApplicationAdapter extends RESTAdapter {\nnamespace = 'api';\n\
+  }\n```\n\n其次，这是我们序列化器的实现，我们在前面的第 4 章——通用适配器和序列化器定制——中看到过：\n\n```\napp/serializers/contact.js\n\
+  import JSONSerializer from '@ember-data/serializer/json';\nexport default class\
+  \ ContactSerializer extends JSONSerializer {\nnormalizeResponse(store, primaryModelClass,\
+  \ payload, id, requestType) {\nreturn super.normalizeResponse(\nstore,\nprimaryModelClass,\n\
+  payload.data,\nid,\nrequestType\n);\n}\n}\n```\n\n有了这个实现，我们的测试通过了。\n\n我倾向于用这种方式测试适配器和序列化器定制，原因有几个。首先，测试中的代码与我将在应用程序中编写的大部分代码相似。我的应用程序调用\
+  \ store 上的方法，而不是适配器和序列化器上的方法。我发现这种方法通常使我的测试更容易理解。其次，这个测试同时触发了我们的适配器和序列化器。第三，这种类型的测试在重构时创造了更多的灵活性。例如，假设后来我决定只在期望返回数组时才进行规范化，比如调用\
+  \ `store.findAll()` 或 `store.query()` 时。在这种情况下，我应该重写 `normalizeArrayResponse()`\
+  \ 方法，正如我们在第 5 章——从头编写适配器和序列化器——中学到的。更新后的序列化器实现如下所示：\n\n```\napp/serializers/contact.js\n\
+  import JSONSerializer from '@ember-data/serializer/json';\nexport default class\
+  \ ContactSerializer extends JSONSerializer {\nnormalizeArrayResponse(store, primaryModelClass,\
+  \ payload, id, requestType) {\nreturn super.normalizeArrayResponse(\nstore,\nprimaryModelClass,\n\
+  payload.data,\nid,\nrequestType\n);\n}\n}\n```\n\n尽管我更改了规范化实现，但我的测试无需更改。\n\n###\
+  \ 测试序列化\n\n现在，让我们测试序列化器在创建和更新资源时能否正确序列化数据。当我们创建一个新的 `contact` 记录并调用 `save()` 时，我们希望验证请求负载的格式是否符合\
+  \ API 的预期。假设 API 期望 `POST /api/contacts` 的请求负载如下所示：\n\n```\n{\n\"data\": {\n\"firstName\"\
+  : \"Zoey\"\n}\n}\n```\n\n同时，假设 `POST /api/contacts` 的响应负载如下所示：\n\n```\n{\n\"data\"\
+  : {\n\"id\": \"1\",\n\"firstName\": \"Zoey\"\n}\n}\n```\n\n继续上一个示例，其中我们的 `contact`\
+  \ 序列化器继承了 `JSONSerializer`，默认发送给 API 的请求负载如下所示：\n\n```\n{\n\"firstName\": \"Zoey\"\
+  \n}\n```\n\n默认响应负载将是：\n\n```\n{\n\"id\": \"1\",\n\"firstName\": \"Zoey\"\n}\n```\n\
+  \n让我们编写一个测试来捕获我们需要进行的序列化定制：\n\n```\ntests/unit/serializers/contact-test.js\nimport\
+  \ { module, test } from 'qunit';\nimport { setupTest } from 'ember-qunit';\nimport\
+  \ { setupMirage } from 'ember-cli-mirage/test-support';\nimport { Response } from\
+  \ 'miragejs';\nmodule('单元测试 | 序列化器 | contact', function (hooks) {\nsetupTest(hooks);\n\
+  setupMirage(hooks);\ntest('规范化 findAll()', async function (assert) {\n// ...\n});\n\
+  test('序列化', async function (assert) {\nthis.server.post('/api/contacts', function\
+  \ (schema, request) {\nlet requestPayload = JSON.parse(request.requestBody);\nassert.deepEqual(requestPayload,\
+  \ {\ndata: {\nfirstName: 'Zoey'\n}\n});\nreturn new Response(\n201,\n{},\n{\ndata:\
+  \ {\nid: '1',\nfirstName: 'Zoey'\n}\n}\n);\n});\nlet store = this.owner.lookup('service:store');\n\
+  let contact = store.createRecord('contact', {\nfirstName: 'Zoey'\n});\nawait contact.save();\n\
+  assert.equal(contact.id, '1');\n});\n});\n```\n\n在上述测试中，我们模拟了 `POST /api/contacts`\
+  \ 端点，创建了一个 `contact` 记录并保存它。在我们模拟的 Mirage 路由处理程序中，我们对请求负载编写了一个断言。每个请求对象都有一个 `requestBody`\
+  \ 属性，其中包含作为 JSON 字符串的请求负载。通过它，我们可以检查数据是否被正确“发送”。最后，我们返回预期的响应。这个测试还断言从服务器返回的 `id`\
+  \ 已被设置到我们的 `contact` 记录上，这验证了响应被正确规范化。\n\n为了使测试通过，我们需要进行两次序列化器定制。首先，我们需要确保请求负载有一个\
+  \ `data` 根键。正如我们在第 5 章——从头编写适配器和序列化器——中学到的，我们可以重写 `serializeIntoHash()` 方法来控制根键。其次，我们需要规范化响应并从负载中提取根\
+  \ `data` 键，以便 Ember Data 可以使用资源对象并将 `id` 分配给 `contact` 记录。我们可以为此重写 `normalizeCreateRecordResponse()`\
+  \ 方法。以下是两个定制的实现：\n\n```\napp/serializers/contact.js\nimport JSONSerializer from\
+  \ '@ember-data/serializer/json';\nexport default class ContactSerializer extends\
+  \ JSONSerializer {\nserializeIntoHash(hash, type, snapshot, options) {\nhash.data\
+  \ = this.serialize(snapshot, options);\n}\nnormalizeCreateRecordResponse(\nstore,\n\
+  primaryModelClass,\npayload,\nid,\nrequestType\n) {\nreturn super.normalizeCreateRecordResponse(\n\
+  store,\nprimaryModelClass,\npayload.data,\nid,\nrequestType\n);\n}\n}\n```\n\n现在，我们的测试通过了！\n\
+  \n\n\n不过仍有改进空间。观察我们的测试，顶部有一条断言，底部还有一条断言。我个人更倾向于测试遵循“准备-执行-断言（AAA）”模式。如果你不熟悉这种模式，它是一种组织测试不同部分的方式。“准备”阶段包括设置测试环境，比如模拟\
+  \ API 端点。“执行”阶段包括调用被测方法或函数。在这个例子中，“执行”阶段是“`contact.save()`”。“断言”阶段则包含所有断言。遵循这种模式可以提高测试的可读性，并使所有断言都集中在测试的底部。让我们看看如何重构测试以遵循“准备-执行-断言”模式。\n\
+  \n首先，安装 Sinon.js，^((17)) 这是一个为 JavaScript 提供间谍、存根和模拟功能的库：\n\n```\nnpm i sinon --save-dev\n\
+  ```\n\n接着，在测试文件中导入 Sinon：\n\n```\ntests/unit/serializers/contact-test.js\nimport\
+  \ sinon from 'sinon';\n```\n\n以下是重构后的测试：\n\n```\ntest('序列化（使用 sinon）', async function\
+  \ (assert) {\n// 准备\nlet routeHandler = sinon.stub().returns(\n  new Response(\n\
+  \    201,\n    {},\n    {\n      data: {\n        id: '1',\n        firstName: 'Zoey'\n\
+  \      }\n    }\n  )\n);\nthis.server.post('/api/contacts', routeHandler);\nlet\
+  \ store = this.owner.lookup('service:store');\n// 执行\nlet contact = store.createRecord('contact',\
+  \ {\n  firstName: 'Zoey'\n});\nawait contact.save();\n// 断言\nassert.equal(contact.id,\
+  \ '1');\nlet request = routeHandler.getCall(0).args[1];\nlet requestPayload = JSON.parse(request.requestBody);\n\
+  assert.deepEqual(requestPayload, {\n  data: { firstName: 'Zoey' }\n});\n});\n```\n\
+  \n我们修改了测试，使用 Sinon 提供的测试存根来替代 Mirage 路由处理器。测试存根是具有预设行为的函数。在这个例子中，我们创建了一个名为 `routeHandler`\
+  \ 的存根，它在保存新的 `contact` 记录时返回预期的响应。Sinon 中的存根会收集关于其使用方式的信息，例如被调用的次数、每次调用的参数和返回值。在这个场景中，我们特别关注捕获存根被调用时的请求参数，以便访问请求的有效载荷。我们可以通过\
+  \ `routeHandler.getCall(0).args[1]` 获取这些信息。然后，我们解析 `request.requestBody` 并编写断言。\n\
+  \n测试通过了！我们成功地将测试重构为遵循“准备-执行-断言”模式，使得所有断言都集中在测试的末尾，在我看来这样测试更易读。\n\n## 总结\n\n在本章中，我们探讨了如何对适配器和序列化器进行单元测试，以及如何通过存储间接地测试适配器和序列化器的协同工作。归根结底，要采用最适合您、能为应用程序带来最大价值的测试方式。\n\
+  \n"
+- "# 11. JSON:API 的常见自定义设置\n\nJSON:API 规范的目标是在构建 API 时引入更多约定，并减少关于响应格式应如何组织的讨论（希望不至于引发争论）。使用\
+  \ JSON:API 的一大好处是 Ember Data 原生支持它！尽管如此，即使您的 API 遵循规范，也不能保证它能与 Ember Data 完美配合。Ember\
+  \ Data 期望在 JSON:API 之上采用更多约定，这些约定在规范的“建议”^((18))部分有说明。在本章中，我们将探讨可能需要做出的一些自定义设置，以便让\
+  \ Ember Data 能与我们的 JSON:API 正常工作。\n\n## 更改属性命名风格\n\n在第 3 章“API 响应格式和序列化器”中，我们在“JSONAPISerializer”部分讨论过，有效载荷属性应使用连字符分隔。然而，这并非\
+  \ JSON:API 规范的一部分。这个约定仅仅是一个建议。正如 JSON:API 规范的建议页面所指出的：\n\n> **注意**  \n> 成员名称应仅包含字符“a-z”（U+0061\
+  \ 至 U+007A）、“0-9”（U+0030 至 U+0039）以及连字符减号（U+002D HYPHEN-MINUS，“-”）作为单词之间的分隔符。\n\n\
+  由于这只是一个建议，您可能会遇到团队选择使用蛇形命名（snake_case）或驼峰命名（camelCase）属性的情况，因为这对他们特定的服务器端技术可能更合适。\n\
+  \n为了适应采用不同命名风格的有效载荷键，我们可以像第 4 章“常见的适配器和序列化器自定义”中学习的那样，使用 `attrs` 对象来映射属性。这种方法对于少量属性效果不错，但如果需要为每个属性都这样做，就会变得很繁琐。幸运的是，有一种更好的方法，即使用\
+  \ `keyForAttribute()` 方法。此方法可用于将模型属性转换为有效载荷键。例如，假设我们有以下符合 JSON:API 规范的响应，它对两种不同的资源类型\
+  \ `contacts` 和 `pets` 使用了蛇形命名属性：\n\n```\n{\n\"data\": {\n\"type\": \"contacts\"\
+  ,\n\"id\": \"1\",\n\"attributes\": {\n\"first_name\": \"John\",\n\"last_name\":\
+  \ \"Doe\"\n},\n\"relationships\": {\n\"pets\": {\n\"data\": [\n{\n\"id\": 1,\n\"\
+  type\": \"pets\"\n}\n]\n}\n}\n},\n\"included\": [\n{\n\"type\": \"pets\",\n\"id\"\
+  : \"1\",\n\"attributes\": {\n\"first_name\": \"Fiona\"\n}\n}\n]\n}\n```\n\n我们的 `contact`\
+  \ 模型如下所示：\n\n```\napp/models/contact.js\nimport Model, { attr } from '@ember-data/model';\n\
+  export default class ContactModel extends Model {\n@attr('string') firstName;\n\
+  @attr('string') lastName;\n}\n```\n\n我们的 `pet` 模型如下所示：\n\n```\napp/models/pet.js\n\
+  import Model, { attr } from '@ember-data/model';\nexport default class PetModel\
+  \ extends Model {\n@attr('string') firstName;\n}\n```\n\n我们可以在继承自 `JSONAPISerializer`\
+  \ 的 `application` 序列化器中重写 `keyForAttribute()` 方法，以便所有这些蛇形命名属性在模型上被设置为驼峰命名，例如：\n\n\
+  ```\napp/serializers/application.js\nimport JSONAPISerializer from '@ember-data/serializer/json-api';\n\
+  import { underscore } from '@ember/string';\nexport default class ApplicationSerializer\
+  \ extends JSONAPISerializer {\nkeyForAttribute(attr, method) {\nreturn underscore(attr);\n\
+  }\n}\n```\n\n`keyForAttribute()` 方法将为每个模型属性的每个资源对象调用。对于前面的 JSON，`keyForAttribute()`\
+  \ 会针对一个 `contact` 资源对象的 `firstName` 和 `lastName` 调用两次，并针对一个 `pet` 资源对象的 `firstName`\
+  \ 调用一次。\n\n如果关系属性也遵循蛇形命名惯例呢？例如，在以下 JSON:API 响应中，我们有一个关系属性 `inside_pets`：\n\n```\n\
+  {\n\"data\": {\n\"type\": \"contacts\",\n\"id\": \"1\",\n\"attributes\": {\n\"first_name\"\
+  : \"John\",\n\"last_name\": \"Doe\"\n},\n\"relationships\": {\n\"inside_pets\":\
+  \ {\n\"data\": [\n{\n\"id\": 1,\n\"type\": \"pets\"\n}\n]\n}\n}\n},\n\"included\"\
+  : [\n{\n\"type\": \"pets\",\n\"id\": \"1\",\n\"attributes\": {\n\"first_name\":\
+  \ \"Fiona\"\n}\n}\n]\n}\n```\n\n在我们的模型中，我们会将 `insidePets` 声明为 `hasMany` 关系：\n\n\
+  ```\napp/models/contact.js\nimport Model, { attr, hasMany } from '@ember-data/model';\n\
+  export default class ContactModel extends Model {\n@attr('string') firstName;\n\
+  @attr('string') lastName;\n@hasMany('pet', { async: false }) insidePets;\n}\n```\n\
+  \n为了使其能在 `contact` 模型上被设置为 `insidePets`，我们可以在序列化器上重写 `keyForRelationship()` 方法。\n\
+  \n\n\n```\napp/serializers/application.js\nimport JSONAPISerializer from '@ember-data/serializer/json-api';\n\
+  import { underscore } from '@ember/string';\nexport default class ApplicationSerializer\
+  \ extends JSONAPISerializer {\n// ...\nkeyForRelationship(key, relationship, method)\
+  \ {\nreturn underscore(key);\n}\n}\n```\n\n`keyForRelationship()` 方法的行为与 `keyForAttribute()`\
+  \ 方法类似。\n\n如果你需要为符合其他序列化格式的 API 更改属性大小写，可以像本节中所做的那样覆盖这两个方法。\n\n## 覆盖资源对象的类型\n\n\
+  正如我们在第 3 章——API 响应格式与序列化器中所了解的，每个资源对象都有一个必需的 `type` 属性，该属性对应于模型名称。根据所使用的服务器端技术，`type`\
+  \ 可能会基于后端中的类名自动设置。如果这些名称与 Ember Data 模型名称不匹配，则会发生错误。解决此问题的一种方法是覆盖我们学过的序列化器的规范化方法之一。\n\
+  \n这种方法虽然可行，但效率不高。有一种更好的方法，即使用序列化器上的 `modelNameFromPayloadKey()` 方法。\n\n假设我们有以下 JSON:API\
+  \ 响应：\n\n```\n{\n\"data\": {\n\"type\": \"contactModel\",\n\"id\": \"1\",\n\"attributes\"\
+  : {\n\"first-name\": \"John\",\n\"last-name\": \"Doe\"\n}\n}\n}\n```\n\n我们的模型名为\
+  \ `contact`。为了将此资源正确映射到我们的 `contact` 模型，我们可以为 `contact` 创建一个序列化器，并覆盖 `modelNameFromPayloadKey()`：\n\
+  \n```\napp/serializers/contact.js\nimport JSONAPISerializer from '@ember-data/serializer/json-api';\n\
+  export default class ContactSerializer extends JSONAPISerializer {\nmodelNameFromPayloadKey(key)\
+  \ {\nreturn 'contact';\n}\n}\n```\n\n这比覆盖某个规范化方法简单得多。关于此方法需要注意的一点是，它也会为响应中的其他资源对象调用。假设现在的负载包含带有侧加载数据的关系：\n\
+  \n```\n{\n\"data\": {\n\"type\": \"contactModel\",\n\"id\": \"1\",\n\"attributes\"\
+  : {\n\"first-name\": \"John\",\n\"last-name\": \"Doe\"\n},\n\"relationships\": {\n\
+  \"company\": {\n\"data\": {\n\"id\": 1,\n\"type\": \"companyModel\"\n}\n}\n}\n},\n\
+  \"included\": [\n{\n\"type\": \"companyModel\",\n\"id\": \"1\",\n\"attributes\"\
+  : {\n\"name\": \"Apple\"\n}\n}\n]\n}\n```\n\n我们 `contact` 序列化器中的 `modelNameFromPayloadKey()`\
+  \ 方法也会为 `companyModel` 调用。我们可以调整实现，使其在参数 `key` 等于 `companyModel` 时进行处理：\n\n```\n\
+  app/serializers/contact.js\nimport JSONAPISerializer from '@ember-data/serializer/json-api';\n\
+  export default class ContactSerializer extends JSONAPISerializer {\nmodelNameFromPayloadKey(key)\
+  \ {\nif (key === 'companyModel') {\nreturn 'company';\n} else if (key === 'contactModel')\
+  \ {\nreturn 'contact';\n}\nreturn key;\n}\n}\n```\n\n如果我们的 API 遵循一种约定，即 `type` 始终是模型名称加上\
+  \ `Model` 后缀，我们可以通过在 `application` 序列化器中覆盖 `modelNameFromPayloadKey()` 来使其更通用：\n\
+  \n```\napp/serializers/application.js\nimport JSONAPISerializer from '@ember-data/serializer/json-api';\n\
+  export default class ApplicationSerializer extends JSONAPISerializer {\nmodelNameFromPayloadKey(key)\
+  \ {\nreturn key.replace('Model', '');\n}\n}\n```\n\n如果我们将类型规范化了，那么在保存记录时，很可能需要将其改回原始值。我们可以使用\
+  \ `payloadKeyFromModelName(modelName)` 方法来实现这一点：\n\n```\napp/serializers/application.js\n\
+  import JSONAPISerializer from '@ember-data/serializer/json-api';\nexport default\
+  \ class ApplicationSerializer extends JSONAPISerializer {\npayloadKeyFromModelName(modelName)\
+  \ {\nreturn '${modelName}Model';\n}\n}\n```\n\n如果我们保存一条 `contact` 记录，`type` 将被设置为\
+  \ “contactModel”，如下列请求负载所示：\n\n```\n{\n\"data\": {\n\"type\": \"contactModel\",\n\
+  \"attributes\": {\n\"first-name\": \"John\",\n\"last-name\": \"Doe\"\n}\n}\n}\n\
+  ```\n\n## 覆盖 HTTP 方法\n\nJSON:API 规范规定，在更新资源时应使用 PATCH 方法。如果我们使用的 API 仍然使用 PUT 怎么办？在撰写本文时，还没有很好的方式来覆盖\
+  \ HTTP 方法。\n\n如果我们查看 `JSONAPIAdapter` 中 `updatedRecord` 的实现，会发现它与 `RESTAdapter`\
+  \ 中 `updateRecord` 的实现几乎相同。唯一的区别是 “PUT” 被改为了 “PATCH”：\n\n*   `RESTAdapter` 中的 `updateRecord()`^(¹⁹)\n\
+  \n*   `JSONAPIAdapter` 中的 `updateRecord()`^(²⁰)\n\n如果你的 API 基本符合 JSON:API 规范，但仍期望使用\
+  \ PUT 而不是 PATCH，我们可以覆盖私有的 `ajax()` 方法：\n\n```\napp/adapters/application.js\nimport\
+  \ JSONAPIAdapter from '@ember-data/adapter/json-api';\nexport default class ApplicationAdapter\
+  \ extends JSONAPIAdapter {\n// 注意！此方法是私有的！\najax(url, type, options) {\nif (type\
+  \ === 'PATCH') {\ntype = 'PUT';\n}\nreturn super.ajax(url, type, options);\n}\n\
+  }\n```\n\n请注意，`ajax()` 方法是**私有的**，因此将来更新 Ember Data 时可能会遇到问题。\n\n## 总结\n\n在本章中，我们讨论了一些在使用\
+  \ JSON:API 时可能需要进行的自定义设置，尽管 Ember Data 支持 JSON:API。根据我的经验，与使用完全不遵循 JSON:API 的 API\
+  \ 相比，自定义设置的数量要少得多。\n\n脚注 1  2  3\n\n"
+- "# 12. 消费 Reddit API\n\n在本章中，我们将构建一个简单的应用程序，使用 Ember Data 消费 Reddit API。在构建过程中，我们将进行多次适配器和序列化器自定义，并观察它们如何协同工作。让我们开始吧！\n\
+  \n## 设置\n\n我创建了一个简单的 Reddit 应用程序，用于显示来自 `emberjs` 子版块的帖子。该应用程序的代码可以在本书源代码的 chapter-12\
+  \ 文件夹中找到。\n\n\n\n## 我们将使用的 Reddit API\n\n我们将使用两个 Reddit API 来构建 [`https://www.reddit.com/r/emberjs/`](http://www.reddit.com/r/emberjs/)\
+  \ 的精简版本：\n\n1. `GET` `https://www.reddit.com/r/<子版块名称>.json`\n2. `GET` `https://www.reddit.com/api/info.json?id=<子版块\
+  \ ID>`\n\n第一个 API 返回指定子版块名称下的 `post` 资源列表。例如，`GET` [`https://www.reddit.com/r/emberjs.json`](https://www.reddit.com/r/emberjs.json)\
+  \ 会返回 `emberjs` 子版块的所有帖子。此端点的 URL 与您通常访问的 HTML 页面相同，但带有 `.json` 后缀。我们将为这些资源创建一个\
+  \ `post` 模型。\n\n第二个 API 返回单个资源，其中包含指定子版块的相关信息，例如标题、描述、页面 URL、创建时间以及订阅者数量。例如，`GET`\
+  \ [`https://www.reddit.com/api/info.json?id=t5_2tjb2`](https://www.reddit.com/api/info.json%253Fid%253Dt5_2tjb2)\
+  \ 会返回 `emberjs` 子版块的这些详细信息。我们将为此资源创建一个 `subreddit` 模型。现在您可能会想，查询字符串参数 `id` 中的值 `t5_2tjb2`\
+  \ 是从哪里来的。这个值可以在第一个 API 端点的响应中找到，位于每个 `post` 资源的 `subreddit_id` 键下，您将在后面看到。这个键将用于在\
+  \ `post` 记录上设置一个异步的 `belongsTo` 关系，该关系将用于获取 `subreddit` 记录。\n\n以下是每个端点的示例响应。我已删除部分数据，以便更清楚地看到有效负载的结构。\n\
+  \n以下是 `GET` `https://www.reddit.com/r/<子版块名称>.json` 端点的响应示例：\n\n```\n{\n\"kind\"\
+  : \"Listing\",\n\"data\": {\n\"children\": [\n{\n\"kind\": \"t3\",\n\"data\": {\n\
+  \"title\": \"Ember Data：查找记录\",\n\"num_comments\": 2,\n\"subreddit_id\": \"t5_2tjb2\"\
+  ,\n\"url\": \"https://guides.emberjs.com/release/models/finding-records/\"\n},\n\
+  {\n\"kind\": \"t3\",\n\"data\": {\n\"title\": \"Ember Data：定义模型\",\n\"num_comments\"\
+  : 5,\n\"subreddit_id\": \"t5_2tjb2\",\n\"url\": \"https://guides.emberjs.com/release/models/defining-models/\"\
+  \n}\n}\n],\n\"after\": \"t3_fuimy0\",\n\"before\": null\n}\n}\n```\n\n以下是 `GET`\
+  \ `https://www.reddit.com/api/info.json?id=<子版块 ID>` 端点的响应示例：\n\n```\n{\n\"kind\"\
+  : \"Listing\",\n\"data\": {\n\"modhash\": \"aicumd7e1n985f0e542d5e66cf935817c95a95d821cfdcc56b\"\
+  ,\n\"dist\": 1,\n\"children\": [\n{\n\"kind\": \"t5\",\n\"data\": {\n\"display_name\"\
+  : \"emberjs\",\n\"title\": \"ember.js：面向雄心勃勃的 Web 开发者的框架\",\n\"primary_color\":\
+  \ \"#e34c32\",\n\"subscribers\": 3867,\n\"id\": \"2tjb2\",\n\"description\": \"\
+  Ember.js 是一个高效、久经考验的 JavaScript 框架，用于构建现代 Web 应用程序。它包含构建适用于任何设备的丰富 UI 所需的一切。\",\n\
+  \"url\": \"/r/emberjs/\",\n\"created_utc\": 1328907736.0\n}\n}\n],\n\"after\": null,\n\
+  \"before\": null\n}\n}\n```\n\n现在我们已经知道需要访问哪些 API 端点，让我们开始构建应用程序。\n\n## 在子版块中获取帖子\n\
+  \n### 路由\n\n首先，让我们创建一个名为 `reddit` 的路由，当用户访问 `/` 时该路由将被激活：\n\n```\nember generate\
+  \ route reddit --path=\"/\"\n```\n\n在路由的 `model` 钩子中，我们将查询 `emberjs` 子版块的最新帖子：\n\
+  \n```\napp/routes/reddit.js\nimport Route from '@ember/routing/route';\nexport default\
+  \ class RedditRoute extends Route {\n  model() {\n    return this.store.query('post',\
+  \ {\n      subreddit: 'emberjs'\n    });\n  }\n}\n```\n\n### Post 模型\n\n接下来，让我们创建一个\
+  \ `post` 模型：\n\n```\nember generate model post title:string url:string numComments:number\n\
+  \napp/models/post.js\nimport Model, { attr } from '@ember-data/model';\nexport default\
+  \ class PostModel extends Model {\n  @attr('string') title;\n  @attr('string') url;\n\
+  \  @attr('number') numComments;\n}\n```\n\n### Post 和 Reddit 适配器\n\n此时，如果我们查看控制台，将会看到以下错误：\n\
+  \n```\nGET http://localhost:4200/posts?subreddit=emberjs 404 (Not Found)\n```\n\n\
+  正如我们在前几章所了解的，适配器负责确定 API 的 URL。让我们再次查看我们将要使用的两个 API：\n\n1. `GET` `https://www.reddit.com/r/<子版块名称>.json`\n\
+  2. `GET` `https://www.reddit.com/api/info.json?id=<子版块 ID>`\n\n这两个 API 端点具有相同的主机\
+  \ [`https://www.reddit.com`](http://www.reddit.com)，但 URL 路径不同。我们将采取的方法是创建两个适配器。我们将拥有一个\
+  \ `reddit` 适配器，用于设置主机，并可能处理 Reddit API 端点之间的其他共性。然后我们将拥有一个 `post` 适配器，用于处理第一个端点的具体细节：\n\
+  \n```\nember generate adapter reddit\nember generate adapter post\n\napp/adapters/reddit.js\n\
+  import RESTAdapter from '@ember-data/adapter/rest';\nexport default class RedditAdapter\
+  \ extends RESTAdapter {\n  host = 'https://www.reddit.com';\n}\n\napp/adapters/post.js\n\
+  import RedditAdapter from './reddit';\nexport default class PostAdapter extends\
+  \ RedditAdapter {\n  namespace = 'r';\n}\n```\n\n此时，控制台中会出现一个错误，因为我们的应用程序正在向 [`https://www.reddit.com/r/posts?subreddit=emberjs`](http://www.reddit.com/r/posts%253Fsubreddit%253Demberjs)\
+  \ 发起 `GET` 请求，这不是正确的 URL。然而，当我们调用 `store.query('post', { subreddit: 'emberjs' })`\
+  \ 时，这正是我们应预期的 URL。我们想要访问的 URL 是 [`https://www.reddit.com/r/emberjs.json`](https://www.reddit.com/r/emberjs.json)。让我们重写\
+  \ `urlForQuery(query)` 方法，使应用程序能够访问正确的端点：\n\n```\napp/adapters/post.js\nimport RedditAdapter\
+  \ from './reddit';\nexport default class PostAdapter extends RedditAdapter {\n \
+  \ namespace = 'r';\n  urlForQuery(query) {\n    let { subreddit } = query;\n   \
+  \ delete query.subreddit;\n    return `${this.host}/${this.namespace}/${subreddit}.json`;\n\
+  \  }\n}\n```\n\n我们现在正在向正确的 URL 发起请求！\n\n\n\n### 帖子序列化器\n\n尽管我们已经做了处理，但控制台中仍然显示一个错误：\n\
+  \n```\nError\nwhile processing route: reddit Assertion Failed: The response to `store.query`\
+  \ is expected to be an array but it was a single record. Please wrap your response\
+  \ in an array or use `store.queryRecord` to query for a single record.\n```\n\n\
+  出现此错误的原因是，如果没有显式定义序列化器，Ember Data 默认会使用 `JSONAPISerializer`。由于这些 API 并不遵循 JSON:API\
+  \ 规范，我们不希望使用这个默认行为。相反，我们可以继承 `JSONSerializer` 或 `RESTSerializer`。由于此 API 不包含任何侧加载资源，让我们为\
+  \ `post` 模型创建一个序列化器，并继承 `JSONSerializer`：\n\n```bash\nember generate serializer\
+  \ post\n```\n\n```javascript\n// app/serializers/post.js\nimport JSONSerializer\
+  \ from '@ember-data/serializer/json';\nexport default class PostSerializer extends\
+  \ JSONSerializer {}\n```\n\n让我们再来看一下 API 返回的响应：\n\n```json\n{\n  \"kind\": \"Listing\"\
+  ,\n  \"data\": {\n    \"children\": [\n      {\n        \"kind\": \"t3\",\n    \
+  \    \"data\": {\n          \"title\": \"Ember Data: Finding Records\",\n      \
+  \    \"num_comments\": 2,\n          \"subreddit_id\": \"t5_2tjb2\",\n         \
+  \ \"url\": \"https://guides.emberjs.com/release/models/finding-records/\"\n    \
+  \    }\n      },\n      {\n        \"kind\": \"t3\",\n        \"data\": {\n    \
+  \      \"title\": \"Ember Data: Defining Models\",\n          \"num_comments\":\
+  \ 5,\n          \"subreddit_id\": \"t5_2tjb2\",\n          \"url\": \"https://guides.emberjs.com/release/models/defining-models/\"\
+  \n        }\n      }\n    ],\n    \"after\": \"t3_fuimy0\",\n    \"before\": null\n\
+  \  }\n}\n```\n\n因为我们正在调用 `store.query()`，`JSONSerializer` 期望响应中包含一个数组。而这个响应中的资源数组位于\
+  \ `data.children` 中，我们可以通过使用 `normalizeArrayResponse()` 来提取它。现在，如果我们查看每个资源，会发现存在一个额外的\
+  \ `data` 属性。我们还需要将其提取出来，这可以通过使用 `normalize()` 来实现。最终，我们希望标准化后的数据负载看起来像下面这样：\n\n\
+  ```json\n[\n  {\n    \"title\": \"Ember Data: Finding Records\",\n    \"num_comments\"\
+  : 2,\n    \"subreddit_id\": \"t5_2tjb2\",\n    \"url\": \"https://guides.emberjs.com/release/models/finding-records/\"\
+  \n  },\n  {\n    \"title\": \"Ember Data: Defining Models\",\n    \"num_comments\"\
+  : 5,\n    \"subreddit_id\": \"t5_2tjb2\",\n    \"url\": \"https://guides.emberjs.com/release/models/defining-models/\"\
+  \n  }\n]\n```\n\n一旦我们将响应标准化为此格式，我们的 `post` 序列化器就能正常工作。让我们继续实现它：\n\n```javascript\n\
+  // app/serializers/post.js\nimport JSONSerializer from '@ember-data/serializer/json';\n\
+  export default class PostSerializer extends JSONSerializer {\n  normalizeArrayResponse(store,\
+  \ primaryModelClass, payload, id, requestType) {\n    return super.normalizeArrayResponse(\n\
+  \      store,\n      primaryModelClass,\n      payload.data.children,\n      id,\n\
+  \      requestType\n    );\n  }\n\n  normalize(typeClass, hash) {\n    return super.normalize(typeClass,\
+  \ hash.data);\n  }\n}\n```\n\n### 渲染帖子\n\n现在错误已经解决，让我们更新模板并渲染数据：\n\n```handlebars\n\
+  {{!-- app/templates/reddit.hbs --}}\n\n{{#each @model as |post|}}\n  {{post.title}}\
+  \ ({{post.numComments}} comments)\n{{/each}}\n```\n\n### 修复帖子序列化器\n\n如果我们查看页面，会发现帖子的\
+  \ `url` 和 `title` 能够正常渲染，但 `numComments` 没有显示。如果我们打开 Ember 检查器中的“数据”选项卡并查看一条 `post`\
+  \ 记录，可以看到 `numComments` 为 `undefined`。正如我们在第 3 章 – API 响应格式与序列化器中学到的，当使用 `JSONSerializer`\
+  \ 时，默认情况下 JSON 键预期是驼峰式命名（camelCased）。让我们通过重写 `keyForAttribute()` 来更新 `post` 序列化器，以处理蛇形命名（snake_cased）的键：\n\
+  \n```javascript\n// app/serializers/post.js\nimport JSONSerializer from '@ember-data/serializer/json';\n\
+  import { underscore } from '@ember/string';\n\nexport default class PostSerializer\
+  \ extends JSONSerializer {\n  keyForAttribute(attr) {\n    return underscore(attr);\n\
+  \  }\n\n  normalizeArrayResponse(store, primaryModelClass, payload, id, requestType)\
+  \ {\n    return super.normalizeArrayResponse(\n      store,\n      primaryModelClass,\n\
+  \      payload.data.children,\n      id,\n      requestType\n    );\n  }\n\n  normalize(typeClass,\
+  \ hash) {\n    return super.normalize(typeClass, hash.data);\n  }\n}\n```\n\n完成这些之后，API\
+  \ 返回的所有数据都被正确地标准化，我们的页面也按照预期渲染了！现在让我们继续获取并展示 `emberjs` 子版块的详细信息。\n\n## 获取子版块详情\n\
+  \n在页面顶部，我们想要展示关于 `emberjs` 子版块的详细信息，这些信息可以从第二个 API 端点 `GET https://www.reddit.com/api/info.json?id=<subreddit_id>`\
+  \ 获取。如前所述，`subreddit_id` 的值可以从第一次 API 调用中每个 `post` 资源的 `subreddit_id` 字段获取。\n\n\
+  ### 子版块模型\n\n首先，让我们创建另一个名为 `subreddit` 的模型：\n\n```bash\nember generate model subreddit\
+  \ title:string description:string subscribers:number\n```\n\n```javascript\n// app/models/subreddit.js\n\
+  import Model, { attr } from '@ember-data/model';\n\nexport default class SubredditModel\
+  \ extends Model {\n  @attr('string') title;\n  @attr('string') description;\n  @attr('number')\
+  \ subscribers;\n}\n```\n\n接下来，我们将在 `post` 模型上创建一个名为 `subreddit` 的 `belongsTo` 关系。该关系将用于使用\
+  \ `subreddit_id` 字段异步加载 `subreddit` 资源：\n\n```javascript\n// app/models/post.js\n\
+  import Model, { attr, belongsTo } from '@ember-data/model';\n\nexport default class\
+  \ PostModel extends Model {\n  @attr('string') title;\n  @attr('string') url;\n\
+  \  @attr('number') numComments;\n  @belongsTo('subreddit', { async: true }) subreddit;\n\
+  }\n```\n\n### 更新帖子序列化器\n\n如果你还记得第 4 章 – 常见适配器与序列化器自定义，其中的“将外键映射到关联”部分，为了让 `JSONSerializer`\
+  \ 能够建立 `subreddit` 关联，我们需要将 API 响应中的 `subreddit_id` 映射到 `subreddit`。我们可以使用 `attrs`\
+  \ 来实现，它允许我们将 API 中的 JSON 键映射到模型的属性或关联上：\n\n```javascript\n// app/serializers/post.js\n\
+  import JSONSerializer from '@ember-data/serializer/json';\nimport { underscore }\
+  \ from '@ember/string';\n\nexport default class PostSerializer extends JSONSerializer\
+  \ {\n  attrs = {\n    subreddit: 'subreddit_id'\n  };\n  // ...\n}\n```\n\n\n\n\
+  ### 加载异步的 Subreddit 关联\n\n我们将此关联设为异步，以便在模板中访问 `subreddit` 记录时，让 Ember Data 自动加载该记录：\n\
+  \n```handlebars\n{{!-- app/templates/reddit.hbs --}}\n{{#let @model.firstObject.subreddit\
+  \ as |subreddit|}}\n{{subreddit.title}}\n{{subreddit.description}}\nMembers: {{subreddit.subscribers}}\n\
+  {{/let}}\n\n{{!-- ... --}}\n```\n\n由于所有帖子的 `subreddit` 记录都是同一份，我们可以访问其中任意一个。在上面的模板中，我们通过第一个\
+  \ `post` 记录来获取 `subreddit` 记录。\n\n如果打开控制台，会看到以下错误：\n\n```text\nGET http://localhost:4200/subreddits/t5_2tjb2\
+  \ 404 (Not Found)\n```\n\n这并不是我们期望应用用来加载 `subreddit` 记录的正确 URL。仔细观察，这个 URL 使用的子版块\
+  \ ID 是正确的，而且如果换成 `store.findRecord('subreddit', 't5_2tjb2')` 调用，URL 看起来也符合预期。这暗示我们需要重写哪个适配器方法。现在让我们为\
+  \ `subreddit` 模型创建一个适配器，它继承自 `RedditAdapter`，需要设置 `namespace` 并重写 `urlForFindRecord()`\
+  \ 方法：\n\n```bash\nember generate adapter subreddit\n```\n\n```javascript\n// app/adapters/subreddit.js\n\
+  import RedditAdapter from './reddit';\nexport default class SubredditAdapter extends\
+  \ RedditAdapter {\n  namespace = 'api';\n\n  urlForFindRecord(id) {\n    return\
+  \ `${this.host}/${this.namespace}/info.json?id=${id}`;\n  }\n}\n```\n\n现在适配器已向正确的\
+  \ `https://www.reddit.com/api/info.json?id=t5_2tjb2` 发出请求，不过仍会出现一些警告。\n\n**警告**\n\
+  \n> 在载荷中遇到 \"kind\"，但未找到对应的模型 \"kind\"（通过 `DS.RESTSerializer.modelNameFromPayloadKey(\"\
+  kind\")` 解析模型名）。\n>\n> 在载荷中遇到 \"data\"，但未找到对应的模型 \"datum\"（通过 `DS.RESTSerializer.modelNameFromPayloadKey(\"\
+  data\")` 解析模型名）。\n\n由于这些警告与序列化器有关，这意味着我们需要创建一个 `subreddit` 序列化器：\n\n```bash\nember\
+  \ generate serializer subreddit\n```\n\n```javascript\n// app/serializers/subreddit.js\n\
+  import JSONSerializer from '@ember-data/serializer/json';\nexport default class\
+  \ SubredditSerializer extends JSONSerializer {}\n```\n\n现在我们需要规范化 `findRecord()`\
+  \ 的响应，这与之前在 `post` 序列化器中的做法类似。让我们再看看这个响应：\n\n```json\n{\n  \"kind\": \"Listing\"\
+  ,\n  \"data\": {\n    \"modhash\": \"aicumd7e1n985f0e542d5e66cf935817c95a95d821cfdcc56b\"\
+  ,\n    \"dist\": 1,\n    \"children\": [\n      {\n        \"kind\": \"t5\",\n \
+  \       \"data\": {\n          \"display_name\": \"emberjs\",\n          \"title\"\
+  : \"ember.js: a framework for ambitious web developers\",\n          \"primary_color\"\
+  : \"#e34c32\",\n          \"subscribers\": 3867,\n          \"id\": \"2tjb2\",\n\
+  \          \"description\": \"Ember.js is a productive, battle-tested JavaScript\
+  \ framework for building modern web applications. It Includes everything you need\
+  \ to build rich UIs that work on any device.\",\n          \"url\": \"/r/emberjs/\"\
+  ,\n          \"created_utc\": 1328907736.0\n        }\n      }\n    ],\n    \"after\"\
+  : null,\n    \"before\": null\n  }\n}\n```\n\n`subreddit` 资源似乎位于 `data.children[0].data`\
+  \ 中，我们可以通过 `normalizeFindRecordResponse()` 将其提取出来：\n\n```javascript\n// app/serializers/subreddit.js\n\
+  import JSONSerializer from '@ember-data/serializer/json';\nexport default class\
+  \ SubredditSerializer extends JSONSerializer {\n  normalizeFindRecordResponse(\n\
+  \    store,\n    primaryModelClass,\n    payload,\n    id,\n    requestType\n  )\
+  \ {\n    return super.normalizeFindRecordResponse(\n      store,\n      primaryModelClass,\n\
+  \      payload.data.children[0].data,\n      id,\n      requestType\n    );\n  }\n\
+  }\n```\n\n现在 `emberjs` 子版块的所有详细信息都正确渲染了！\n\n### 修复警告信息\n\n马上就要完成了！如果打开控制台，会看到以下警告：\n\
+  \n**警告**\n\n> 您请求的 record 类型为 \"subreddit\"，id 为 \"t5_2tjb2\"，但适配器返回的载荷中主要数据的 id\
+  \ 是 \"2tjb2\"。\n>\n> 当请求的 id 与适配器返回的 id 相同时，请使用 `store.findRecord()`。在其他情况下，请改用\
+  \ `store.queryRecord()`。\n\n看来响应返回的 `id` 是 `2tjb2` 而不是 `t5_2tjb2`。让我们通过将资源中的 `id`\
+  \ 更新为我们请求的 `id` 来解决这个问题：\n\n```javascript\n// app/serializers/subreddit.js\nimport\
+  \ JSONSerializer from '@ember-data/serializer/json';\nexport default class SubredditSerializer\
+  \ extends JSONSerializer {\n  normalizeFindRecordResponse(\n    store,\n    primaryModelClass,\n\
+  \    payload,\n    id,\n    requestType\n  ) {\n    let resource = payload.data.children[0].data;\n\
+  \    resource.id = id;\n    return super.normalizeFindRecordResponse(\n      store,\n\
+  \      primaryModelClass,\n      resource,\n      id,\n      requestType\n    );\n\
+  \  }\n}\n```\n\n更新 `id` 轻而易举，因为 `normalizeFindRecordResponse()` 将其作为参数提供了。\n\n至此，我们的应用已无任何错误或警告地正常运行！\n\
+  \n## 总结\n\n在本章中，我们通过使用 `RESTAdapter` 和 `JSONSerializer`，利用 Ember Data 消费了两个 Reddit\
+  \ API。我们无需编写大量代码就实现了这一目标。我们自定义了几个适配器和序列化器的属性与方法，并见证了它们如何协同工作，从而消费一个初看起来可能令人望而生畏的非标准\
+  \ API。\n\n"
+- "# 13. 多态关联\n\n在本章中，我们将探讨多态性及其与 Ember Data 的关系。如果查看多态性在编程中的定义，我们会看到它被描述为“对象能够呈现多种形态的能力”。例如，一个产品可以表现为一本书或一门课程。在\
+  \ Ember 应用中，我们会有一个 `book` 模型和一个 `course` 模型，它们都继承自基础的 `product` 模型。如果将多态性的定义延伸到\
+  \ Ember Data 模型的关联中，这意味着我们的关联可以包含不同类型但共享相同接口的对象，比如都继承自同一个 `product` 模型。让我们看看本章将要介绍的两个示例。\n\
+  \n## 示例 1 - 已购产品\n\n假设我们有一个网站，用户可以在上面购买不同的产品，比如课程和书籍。我们会创建一个 `course` 模型和一个 `book`\
+  \ 模型，它们都继承自基础的 `product` 模型。同时还会有一个 `user` 模型来表示当前用户。通常在这类网站上，会有一个页面列出已认证用户购买的所有产品。我们可以将用户与他们购买的各种产品之间的关系表达为一个\
+  \ `hasMany` 关联。\n\n回到多态性的定义：用户购买的产品可以呈现多种形态，例如课程或书籍。这是一个多态 `hasMany` 关联的例子，因为该关联可以包含多种类型、且都继承自基础\
+  \ `product` 类的记录。\n\n## 示例 2 - 带评论的内容\n\n假设我们的应用还提供博客文章和视频形式的内容。我们希望用户能够对每种类型的内容进行评论。因此，我们会有一个\
+  \ `post` 模型和一个 `video` 模型，它们都继承自基础的 `content` 模型。同时还会有一个 `comment` 模型。帖子和视频可以拥有多条评论。然而，一条评论只能属于单一内容，在我们的应用中，该内容可以是帖子或视频。我们可以将评论与内容之间的关系表达为一个多态\
+  \ `belongsTo` 关联，因为与评论关联的内容可以是不同类型，只要该记录继承自我们的基础 `content` 类即可。\n\n现在我们已经有了几个概念性的示例，接下来看看如何在\
+  \ Ember Data 中实现这种数据模型。\n\n\n\n## 搭建环境\n\n我已经创建了一个简单的应用来实现前文示例。该应用的代码位于本书源代码的 `chapter-13-restserializer`\
+  \ 文件夹中。我们将使用这个应用来测试模型定义和多态关系。\n\n与之前的章节类似，API 通过 Ember CLI Mirage 进行模拟。^((21)) 在本章中，我们的模拟\
+  \ API 将遵循 `RESTSerializer` 规范，但所涉及的模式和技术同样适用于遵循 `JSONSerializer` 和 `JSONAPISerializer`\
+  \ 规范的 API，仅存在一些细微差异。如果你希望查看使用 `JSONSerializer` 时的应用代码，请参阅本书源代码的 `chapter-13-jsonserializer`\
+  \ 文件夹。如果你希望查看使用 `JSONAPISerializer` 时的应用代码，请参阅本书源代码的 `chapter-13-jsonapiserializer`\
+  \ 文件夹。\n\n## 多态 `hasMany` 关系\n\n首先，我们定义示例 1 中的模型，其中包括一个 `product` 模型、一个 `course`\
+  \ 模型和一个 `book` 模型：\n\n```\napp/models/product.js\nimport Model, { attr } from '@ember-data/model';\n\
+  export default class ProductModel extends Model {\n@attr('string') title;\n}\napp/models/course.js\n\
+  import ProductModel from './product';\nimport { attr } from '@ember-data/model';\n\
+  export default class CourseModel extends ProductModel {\n@attr('string') length;\n\
+  }\napp/models/book.js\nimport ProductModel from './product';\nimport { attr } from\
+  \ '@ember-data/model';\nexport default class BookModel extends ProductModel {\n\
+  @attr('number') pages;\n}\n```\n\n如前所述，`course` 和 `book` 模型将继承自基础 `product` 模型，该基础模型包含所有产品共有的功能，例如\
+  \ `title` 属性。\n\n前面我们讨论过，一个用户可以拥有多个已购买产品。我们可以将此关系实现为 `hasMany` 关系：\n\n```\napp/models/user.js\n\
+  import Model, { attr, hasMany } from '@ember-data/model';\nexport default class\
+  \ UserModel extends Model {\n@hasMany('product', {\npolymorphic: true,\nasync: false\n\
+  })\npurchasedProducts;\n}\n```\n\n`purchasedProducts` 关系是一个标准的 `hasMany` 关系，但带有一个\
+  \ `polymorphic` 选项。这将允许我们存储不同类型的记录，只要它们继承自 `product` 模型。我在示例应用中将此关系设置为同步关系，但该关系也可以是异步的。\n\
+  \n接下来，让我们看看如果我们获取一个已购买产品的用户，预期的响应负载是什么。同样，我们的模拟 API 将遵循 `RESTSerializer` 规范。\n\n\
+  在我们的示例应用中，有以下端点用于返回当前用户：\n\n```\nmirage/config.js\nthis.get('/users/:id', function\
+  \ () {\nreturn {\nusers: {\nid: '1',\nname: 'David',\npurchasedProducts: [\n{ id:\
+  \ '5', type: 'course' },\n{ id: '10', type: 'book' }\n]\n}\n};\n});\n```\n\n正如我们在第\
+  \ 3 章“API 响应格式与序列化器”中所学，当使用 `RESTSerializer`或 `JSONSerializer` 时，`hasMany` 关系在 API\
+  \ 负载中应表示为 ID 数组。为了使用多态关系，`purchasedProducts` 必须是一个 JSON:API 资源标识符对象数组，即包含 `id` 和\
+  \ `type` 属性的对象。`type` 属性对应 Ember Data 模型的单数或复数形式名称，在本例中为 `course` 或 `book`。\n\n\
+  通过这个 API 响应，我们的 `purchasedProducts` `hasMany` 关系将是多态的。也就是说，`purchasedProducts` 可以包含\
+  \ `course` 记录和 `book` 记录。\n\n正如我们在第 1 章“Ember Data 概述”中所学，如果访问 `purchasedProducts`\
+  \ 关系但相关记录未加载到存储中，则会抛出错误，因为该关系已被声明为同步。在示例应用中，我们有以下端点用于将相关的 `course` 和 `book` 记录加载到存储中：\n\
+  \n```\nmirage/config.js\nthis.get('/products', function () {\nreturn {\ncourses:\
+  \ [\n{\nid: '5',\ntitle: 'Introduction to Ember Octane',\nlength: '2 hours'\n}\n\
+  ],\nbooks: [\n{\nid: '10',\ntitle: 'Ember Data in the Wild',\npages: 100\n}\n]\n\
+  };\n});\n```\n\n在使用 `RESTSerializer` 时，我们也可以将这些资源放在一个 `products` 键下返回：\n\n```\n\
+  mirage/config.js\nthis.get('/products', function () {\nreturn {\nproducts: [\n{\n\
+  id: '5',\ntype: 'course',\ntitle: 'Introduction to Ember Octane',\nlength: '2 hours'\n\
+  },\n{\nid: '10',\ntype: 'book',\ntitle: 'Ember Data in the Wild',\npages: 100\n\
+  }\n]\n};\n});\n```\n\n这里唯一的要求是每个 `product` 资源中需要包含一个 `type` 属性，该属性对应“产品”子类的模型名称。\n\
+  \n## 多态 `belongsTo` 关系\n\n现在让我们看看如何在示例 2 中实现多态 `belongsTo` 关系。我们将从定义 `content`、`post`\
+  \ 和 `video` 模型开始：\n\n```\napp/models/content.js\nimport Model, { attr, hasMany }\
+  \ from '@ember-data/model';\nexport default class ContentModel extends Model {\n\
+  @attr('string') title;\n@hasMany('comment', { async: false }) comments;\n}\napp/models/post.js\n\
+  export default class PostModel extends ContentModel {\n@attr('number') wordCount;\n\
+  }\napp/models/video.js\nimport { attr } from '@ember-data/model';\nimport ContentModel\
+  \ from './content';\nexport default class VideoModel extends ContentModel {\n@attr('number')\
+  \ length;\n}\n```\n\n`post` 和 `video` 模型将继承自基础 `content` 模型，该基础模型包含 `comments` 关系。\n\
+  \n一条评论将属于单一内容，该内容可以是帖子或视频。我们可以将此关系实现为多态 `belongsTo` 关系，如下所示：\n\n```\napp/models/comment.js\n\
+  import Model, { attr, belongsTo } from '@ember-data/model';\nexport default class\
+  \ CommentModel extends Model {\n@attr('string') body;\n@belongsTo('content', {\n\
+  polymorphic: true,\nasync: false\n})\ncontent;\n}\n```\n\n`content` 关系是一个标准的 `belongsTo`\
+  \ 关系，但带有一个 `polymorphic` 选项。这将允许我们将不同类型的 `content` 记录分配给 `content` 关系，只要这些记录继承自\
+  \ `content` 模型。\n\n接下来，让我们看看返回用户所有评论的端点预期响应负载：\n\n```\nmirage/config.js\nthis.get('/comments',\
+  \ function () {\nreturn {\ncomments: [\n{\nid: '1',\nbody: 'Looking forward to using\
+  \ all the new features!',\ncontent: {\nid: '1',\ntype: 'post'\n}\n},\n{\nid: '2',\n\
+  body: 'Great video! Please make more!',\ncontent: {\nid: '2',\ntype: 'video'\n}\n\
+  }\n],\nposts: [\n{\nid: '1',\ntitle: 'Ember Octane Released',\nwordCount: 300,\n\
+  comments: ['1']\n}\n],\nvideos: [\n{\nid: '2',\ntitle: 'Introduction to Ember.js',\n\
+  length: 300,\ncomments: ['2']\n}\n]\n};\n});\n```\n\n请注意，`comments` 下的每个资源都在 `content`\
+  \ 属性中包含一个 JSON:API 资源标识符对象。与多态 `hasMany` 关系类似，`id` 和 `type` 将用于与正确的 `content` 子类记录建立\
+  \ `belongsTo` 关系。\n\n\n\n## 自定义多态关系序列化\n\n在最后两节中，我们学习了如何定义模型和预期的响应格式，以便`hasMany`和`belongsTo`多态关系能够正确关联。现在，我们将探讨当\
+  \ API 不遵循多态关系的默认约定时，如何自定义序列化器。\n\n在示例应用中，访问`http://localhost:4200/recent-comments`并向其中一个项目添加评论。如果打开浏览器控制台，您将看到类似以下结构的请求负载：\n\
+  \n```\n{\n  \"comment\": {\n    \"body\": \"我的新评论\",\n    \"content\": \"1\",\n\
+  \    \"contentType\": \"post\"\n  }\n}\n```\n\n这个序列化的负载与序列化任何`belongsTo`关系时的预期结果类似，只是多了一个新键`contentType`。当序列化多态`belongsTo`关系时，`RESTSerializer`的默认行为是创建一个键，其中`Type`被追加到多态关系的名称后面。在这个例子中，我们的多态关系名为`content`，因此新键就变成了`contentType`。\n\
+  \n假设我们希望多态键为`type`，而不是遵循`*Type`的模式。我们可以在序列化器中覆盖`keyForPolymorphicType()`方法：\n\n\
+  ```\napp/serializers/application.js\nexport default class ApplicationSerializer\
+  \ extends RESTSerializer {\n  keyForPolymorphicType(key, typeClass, method) {\n\
+  \    return 'type';\n  }\n}\n```\n\n现在，请求负载将如下所示：\n\n```\n{\n  \"comment\": {\n\
+  \    \"body\": \"我的新评论\",\n    \"content\": \"1\",\n    \"type\": \"post\"\n  }\n\
+  }\n```\n\n也许我们希望请求负载包含一个 JSON:API 资源标识符对象，以使请求和响应负载之间保持对称，例如：\n\n```\n{\n  \"comment\"\
+  : {\n    \"body\": \"我的新评论\",\n    \"content\": {\n      \"id\": \"1\",\n      \"\
+  type\": \"post\"\n    }\n  }\n}\n```\n\n我们可以通过覆盖`serializePolymorphicType()`方法来实现这一点：\n\
+  \n```\napp/serializers/application.js\nexport default class ApplicationSerializer\
+  \ extends RESTSerializer {\n  serializePolymorphicType(snapshot, json, relationship)\
+  \ {\n    super.serializePolymorphicType(snapshot, json, relationship);\n    let\
+  \ { name } = relationship.meta;\n    json[name] = {\n      id: json[name],\n   \
+  \   type: json[`${name}Type`]\n    };\n    delete json[`${name}Type`];\n  }\n}\n\
+  ```\n\n在上述代码中，我们调用了`super.serializePolymorphicType()`来执行默认的序列化行为。这将导致`json`变量包含一个结构类似于以下的对象：\n\
+  \n```\n{\n  comment: {\n    body: '我的新评论',\n    content: '1',\n    contentType:\
+  \ 'post'\n  }\n}\n```\n\n然后，我们将`comment.content`属性覆盖为`{ id: '1', type: 'post' }`，并删除`comment.contentType`属性。\n\
+  \n正如我们在前几章中学到的，我们也可以将此逻辑添加到序列化器的`serialize()`方法中，但使用`keyForPolymorphicType()`和`serializePolymorphicType()`方法很可能会减少多态关系序列化所需的代码量。\n\
+  \n## 自定义多态关系反规范化\n\n想象一下，API 以`type:id`的形式序列化每个`comment`资源中的多态`content`关系。如果我们的示例应用是这种情况，`GET\
+  \ /comments`将返回以下 JSON：\n\n```\n{\n  \"comments\": [\n    {\n      \"id\": \"1\"\
+  ,\n      \"body\": \"期待使用所有新功能！\",\n      \"content\": \"post:1\"\n    },\n    {\n\
+  \      \"id\": \"2\",\n      \"body\": \"很棒的视频！请多制作一些！\",\n      \"content\": \"\
+  video:2\"\n    }\n  ],\n  \"posts\": [\n    {\n      \"id\": \"1\",\n      \"title\"\
+  : \"Ember Octane 发布\",\n      \"comments\": [\"1\"]\n    }\n  ],\n  \"videos\":\
+  \ [\n    {\n      \"id\": \"2\",\n      \"title\": \"Ember.js 简介\",\n      \"comments\"\
+  : [\"2\"]\n    }\n  ]\n}\n```\n\n我知道这个例子有点牵强，但谁知道在实际中会遇到什么样的 API！之前，`content`包含一个\
+  \ JSON:API 资源标识符对象，例如`{ \"id\": \"1\", \"type\": \"post\" }`。我们如何规范化我们的多态`content`关系？我们可以覆盖我们在前几章中介绍的众多规范化方法之一，或者我们可以覆盖`extractPolymorphicRelationship()`方法。这个方法会为使用`polymorphic:\
+  \ true`选项声明的关系调用，并返回一个 JSON:API 资源标识符对象。\n\n假设我们的多态关系既遵循这种自定义约定，也遵循标准约定。我们可以在我们的`application`序列化器中覆盖`extractPolymorphicRelationship()`来处理这两种情况：\n\
+  \n```\napp/serializers/application.js\nexport default class ApplicationSerializer\
+  \ extends RESTSerializer {\n  extractPolymorphicRelationship(\n    relationshipType,\n\
+  \    relationshipHash,\n    relationshipOptions\n  ) {\n    if (typeof relationshipHash\
+  \ === 'string') {\n      let [type, id] = relationshipHash.split(':');\n      return\
+  \ { id, type };\n    }\n    return super.extractPolymorphicRelationship(...arguments);\n\
+  \  }\n}\n```\n\n在上面的实现中，对于前面的响应，`relationshipHash`将包含`post:1`和`video:2`。我们可以按冒号分割，创建一个符合\
+  \ JSON:API 资源标识符对象结构的新对象，并在使用自定义多态关系约定时返回该对象。否则，我们将通过`super.extractPolymorphicRelationship(...arguments)`让默认的多态提取行为运行。\n\
+  \n## 总结\n\n多态是一个强大的概念，它允许我们拥有通过继承相互关联的模型，而 Ember Data 的关系可以支持这一点。最终，这允许一个`belongsTo`关系通过单一关系包含不同类型的记录，只要这些记录继承自一个共同的基类。同样，这也允许一个`hasMany`关系包含多种类型的记录，只要这些记录继承自一个共同的基类。\n\
+  \n在本章中，我们研究了如何设置模型和 API 以支持多态关系。然后，我们探讨了如果您的 API 不遵循 Ember Data 期望的默认约定，如何自定义多态关系的序列化和反规范化。尽管我们使用`RESTSerializer`研究了多态关系的实现，但如果您使用其他内置序列化器之一，模型定义是相同的。此外，我们覆盖的序列化器方法也相同，除了`JSONSerializer`和`JSONAPISerializer`不支持`keyForPolymorphicType()`方法。`JSONSerializer`和`JSONAPISerializer`的默认\
+  \ API 约定也有一些细微差别。尽管存在这些细微差异，但本章涵盖的模式和技术应该能使您处理多态关系，无论您的应用程序使用哪个序列化器。\n\n嗯，到这里就结束了。感谢阅读我的书！希望这本书能帮助到您，并让您处于一个能够很好地处理\
+  \ Ember Data 和任何自定义 API 的位置。如果您有任何问题，请通过 Twitter @iamdtang 或发送电子邮件至 david@thejsguy.com\
+  \ 联系我。我很乐意听到您使用 Ember Data 的经验。您也可以在我的博客 [`https://davidtang.io`](https://davidtang.io)\
+  \ 上了解我的 Ember 开发之旅的最新动态。\n\n\n\n脚注¹  \n\n## 索引\n\n### A\n\n`ActiveModelAdapter`\
+  \  \n`Adapters`  \n`ActiveModelAdapter` 后台重载 主机/命名空间属性  \n`JSONAPIAdapter` 参见 `JSONAPIAdapter`\
+  \ 方法  \n`RESTAdapter`  \n\n架构分析 适配器设计模式  \n适配器 API 异步/同步  \n`attr()` 装饰器  \n\n###\
+  \ B\n\n`belongsTo()` 方法  \n内置转换  \n组件构造函数  \n\n### C\n\n`findAll()` 方法  \n模型 关系\
+  \ 路由与控制器  \n序列化 server.js 文件  \nStore（数据仓库）  \n\n`belongsTo` 关系  \n\n### D\n\n`createRecord()`\
+  \ 方法  \n自定义 适配器 应用适配器  \n外键/关系 `keyForRelationship()`  \n标准化 载荷键  \n`primaryKey`\
+  \ 属性  \nRESTful URL 路径  \n`store.query()`  \n`urlForQuery()` 方法  \n\n数据处理错误  \n\
+  `AdapterError`  \n`ConflictError`  \n错误响应 参见 错误响应  \n`ForbiddenError`  \n`handleResponse()`\
+  \  \nHTTP 状态码  \n`InvalidError` 类  \n无效状态码  \n`NotFoundError`  \n`ServerError` \
+  \ \n`UnauthorizedError`  \n验证错误  \n`deleteRecord()` 方法  \n\n### E\n\n嵌入式记录  \n分类模型\
+  \  \n`EmbeddedRecordsMixin`  \n`hasMany` 关系  \nJSON 数据  \n序列化器  \n\n空适配器  \n错误响应\
+  \  \n错误消息  \n`extractErrors()` 方法  \n`handleResponse()`  \n载荷  \n\n### F, G\n\n\
+  `findAll()` 方法  \n`findRecord()` 方法  \n\n### H\n\n`hasMany` 关系  \n实现  \n`JSONSerializer`\
+  \  \n`purchasedProducts`  \n`RESTSerializer`  \n\n### I\n\n`isInvalid()` 方法  \n\n\
+  ### J, K\n\n`JSONAPIAdapter`  \n接受头  \nAPI 响应格式  \n`coalesceFindRequests` 选项  \n\
+  差异  \n带连字符的 URL  \n加载关系  \nMIME/内容类型  \n`PATCH` 方法  \n`pathForType()` 方法  \n请求模板\
+  \  \n\n`JSONAPISerializer`  \nAPI 资源  \n驼峰式属性  \n`hasMany`/`belongsTo`  \n标准化 JSON:API\
+  \  \n关系  \n同步加载旁路资源  \n\nJSON:API 规范  \n属性大小写  \n联系人模型  \n`hasMany` 关系  \n`keyForAttribute()`\
+  \ 方法  \n`keyForRelationship()` 方法  \n载荷键  \n宠物模型  \n资源覆盖 HTTP 方法  \n资源对象  \n`companyModel`\
+  \  \n`contactModel`  \n`modelNameFromPayloadKey()` 方法  \n`payloadKeyFromModelName()`\
+  \ 方法  \n旁路加载的数据  \n\n### L, M\n\n本地存储适配器  \n`createRecord()` 方法  \n`deleteRecord()`\
+  \ 方法  \n空适配器  \n`findAll()` 方法  \n`findRecord()` 方法  \n`updateRecord()` 方法  \n\n\
+  ### N, O\n\n嵌套数据  \n联系人资源  \n嵌入式记录历史  \n数据/属性  \n`model.set()`  \n资源转换  \n\n嵌套资源\
+  \ URL 路径  \n标准化  \nJSON:API 格式  \n含义  \n`normalize()` 方法  \n`normalizeFindAllResponse()`\
+  \ 方法  \n`normalizeResponse()` 方法  \n多态关系  \n`RESTSerializer`  \n序列化器方法  \n单个资源对象\
+  \  \n`store.findAll()`  \n`normalizeResponse()` 方法  \n\n### P, Q\n\n`pathForType()`\
+  \ 方法  \n多态关系  \n`belongsTo` 关系  \n内容/评论  \n`hasMany` 关系  \n实现  \n`JSONSerializer`\
+  \  \n模型定义  \n`purchasedProducts`  \n`RESTSerializer`  \n`hasMany` 关系  \n`keyForPolymorphicType()`\
+  \ 方法  \n标准化  \n购买的产品  \n序列化  \n`serializePolymorphicType()` 方法  \n设置  \n\n### R\n\
+  \n记录适配器方法  \n联系人请求  \n`createRecord()` 方法  \n`deleteRecord()` 方法  \n`destroyRecord()`\
+  \ 方法  \n错误  \n`POST` 请求  \n属性/方法  \n`serialize()` 方法  \n`serializeIntoHash()` 方法\
+  \  \n`serializerFor()` 方法  \n`updateRecord()` 方法  \n\nReddit 应用设置  \n精简版  \n子版块/`POST`\
+  \ 参见 子版块/`POST` 应用  \n\n关系链接  \n分析  \n`belongsTo`/`hasMany` 关系  \n链接属性  \n`normalize()`\
+  \ 方法  \n`RESTAdapter` 返回载荷  \n`RESTAdapter` RESTful URL 路径  \n`RESTSerializer` JSON\
+  \ 响应  \n同步加载旁路数据  \n\n### S\n\n从头创建的适配器类  \nCRUD 操作  \n`findAll()` 方法  \n内置  \n\
+  联系人页面  \n实现  \n`normalizeResponse()` 方法  \n`normalizeResponse()` 方法  \n记录 参见 记录\
+  \  \n序列化器类  \n设置  \n\n序列化  \n抽象类  \n内置命令  \n`JSONAPISerializer` 参见 `JSONAPISerializer`\
+  \  \n`JSONSerializer`  \n模型  \n多态关系  \n`RESTSerializer`  \n序列化器 后测试  \n\n子版块应用,\
+  \ Ember.js  \n子版块/`POST` 应用适配器  \n异步 `findRecord()` 响应  \n`normalizeFindRecordResponse()`\
+  \  \n序列化器模板  \n`urlForFindRecord()` 方法  \n警告消息  \n`belongsTo` 关系创建错误  \n`JSONSerializer`/`RESTSerializer`\
+  \  \n`keyForAttribute()` 标准化  \n`normalizeArrayResponse()`  \n帖子模型创建 模板/渲染  \n更新属性/关系\
+  \  \n`urlForQuery()`  \n\n### T\n\n测试适配器  \n默认测试  \n`isInvalid()` 方法  \n重写的方法  \n\
+  标准化自定义  \n`normalizeArrayResponse()` 方法  \n`normalizeResponse()` 方法  \n从头创建的 `store.findAll()`\
+  \  \n序列化  \n排列-动作-断言（AAA）模式  \n内容  \n自定义  \n`JSONSerializer`  \n`keyForAttribute()`\
+  \ 方法  \n`normalizeCreateRecordResponse()`  \n通过实现  \n`payloadKeyFromModelName()`\
+  \ 方法  \n`POST` 请求  \n`requestBody` 属性  \n`RESTSerializer` 根键  \n`serializeIntoHash()`\
+  \ 方法  \n`Sinon.js` 单元测试  \n\n### U\n\n`updateRecord()` 方法  \n\n### V, W, X, Y, Z\n\
+  \n验证错误  \n`detail`/`source`  \n`InvalidError` 实例  \nJSON:API 错误响应\n"

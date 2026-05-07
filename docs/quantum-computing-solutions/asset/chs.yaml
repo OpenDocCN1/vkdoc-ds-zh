@@ -1,0 +1,2313 @@
+- "\n![](img/978-1-4842-6516-1_CoverFigure.jpg)\n\nISBN 978-1-4842-6515-4 电子版 ISBN\
+  \ 978-1-4842-6516-1 [`doi.org/10.1007/978-1-4842-6516-1`](https://doi.org/10.1007/978-1-4842-6516-1)\
+  \  \n© 2020 Bhagvan Kommadi 版权所有\n\n本书受版权保护。出版商保留所有权利，无论涉及整体还是部分资料，具体包括翻译权、重印权、插图重用权、朗诵权、广播权、微缩胶片或其他物理方式的复制权、传输或信息存储与检索权、电子改编权、计算机软件改编权，以及使用目前已知或未来开发的任何相似或不同方法进行使用的权利。\n\
+  \n在本出版物中使用通用描述性名称、注册商标名称、商标、服务标志等，即使未作明确声明，也不意味着此类名称不受相关保护性法律法规的约束，因此可供公众自由使用。\n\
+  \n出版商、作者及编辑假定，本书中的建议和信息在出版之日是真实准确的。出版商、作者及编辑均不对本书所含内容或可能存在的任何错误或疏漏提供明示或暗示的保证。对于已出版地图中的管辖权主张及机构隶属关系，出版商保持中立立场。\n\
+  \n本书全球图书贸易分销由 Springer Science+Business Media New York 负责，地址：1 NY Plaza, New York\
+  \ NY 10004。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮箱：orders-ny@springer-sbm.com，或访问网站\
+  \ www.springeronline.com。Apress Media, LLC 是一家加利福尼亚有限责任公司，其唯一股东（所有人）为 Springer Science\
+  \ + Business Media Finance Inc (SSBM Finance Inc)。SSBM Finance Inc 是一家特拉华州公司。\n\n\
+  *撰写一本关于量子计算的书，其难度超乎我的想象，但其收获之丰也远超我的预期。没有父母的支持，这一切都不可能实现。*\n\n"
+- '# 关于作者
+
+  '
+- '# 关于技术审校者
+
+
+  '
+- '# 第一部分 引言
+
+
+  '
+- "# 1. 量子解决方案概述\n\n## 引言\n\n> *量子计算……是一种利用自然的全新方式。它将是第一项通过与平行宇宙协作来执行有用任务的技术。*\n>\
+  \ \n> —戴维·多伊奇\n\n本章概述了量子解决方案。您将看到量子计算如何应用于实际生活。问题与解决方案均会呈现，并附带解决方案的优势。这些优势包括自动化、成本降低与利润提升、效率提升以及缺陷减少。\n\
+  \n本章涵盖的解决方案涉及密码学、优化和网络安全等领域。\n\n让我们首先回顾量子计算的历史及迄今取得的关键成就。\n\n理查德·费曼于 1965 年提出了量子电动力学（见图\
+  \ 1-1）。量子电动力学研究电子通过光子的电磁力进行的相互作用。他发明了名为*反粒子*的粒子。反粒子是与镜像粒子电荷相反的粒子。\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig1_HTML.jpg](img/490826_1_En_1_Fig1_HTML.jpg)\n\
+  \n图 1-1 量子计算时间图谱\n\n1980 年，他提出了与量子物理过程相关的新概念。他提出量子态可用二进制数表示。\n\n戴维·多伊奇于 1985 年提出了名为*通用量子计算机*的概念。通用量子计算机基于双态系统，由一组量子门构成。*量子门*是一组基本操作。\n\
+  \n彼得·肖尔于 1994 年发明了基于量子纠缠的质因数分解方法。该方法用于找出大数的质因数。与先前方法相比，该算法的效率大大提高。这项研究激发了其他大学的研究兴趣。\n\
+  \n离子阱概念最初由美国国家标准与技术研究院（NIST）和加州理工学院于 1995 年提出。该概念涉及将离子捕获并降温至量子状态。1996 年，贝尔实验室科学家洛弗·格罗弗提出了格罗弗算法，该算法涉及使用量子算法进行搜索。一个由加州大学、麻省理工学院（MIT）、哈佛大学和\
+  \ IBM 成员组成的研究团队发明了核磁共振技术，用以修改液态下的量子信息。\n\n大卫·迪文森佐提出了真正量子计算机技术的基本特征。在大卫·迪文森佐之前，塞思·劳埃德在洛斯阿拉莫斯国家实验室工作时，发明了分子量子计算机。他的方案基于链状分子结构。该结构具有重复的小块图案（见图\
+  \ 1-2）。\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig2_HTML.jpg](img/490826_1_En_1_Fig2_HTML.jpg)\n\
+  \n图 1-2 链状分子结构\n\n该方案是第一台量子计算机概念的基础。塞思·劳埃德的方案未能实现，但在 2000 年，大卫·迪文森佐为量子计算机技术制定了一份标准清单。这些标准涉及量子计算与通信模型。\n\
+  \n- 量子计算机由特性明确的量子比特组成，并且是一个可扩展的物理系统。\n- 它需要具备创建一组量子比特的能力。\n- 量子计算机能够设置量子比特的初始状态。这类似于台式计算机上的重置按钮。\n\
+  - 量子计算机具有较长的退相干时间。\n- 量子计算机具有与内存数据保留相关的纠错能力。\n- 量子计算机基于一组通用的量子门。量子算法需要能在其上执行。这些算法可能涉及在布洛赫球上旋转量子比特以及纠缠量子比特。\n\
+  - 它需要具备测量量子比特状态的功能。\n- 量子计算机需要具备交换静态与动态量子比特的能力。\n- 信息需要能够远距离传输。量子比特需要在源端和目的端之间传输。\n\
+  - 信息在传输后需要保留在量子比特中。\n\n继迪文森佐之后，范·米特发表了其构建量子计算机的论文。该技术从范·米特的论文演进至物理量子计算机。D-Wave 推出了自己的量子计算机。最新进展是\
+  \ IBM 正在构建一台 53 量子比特的量子计算机。谷歌已拥有一台 72 量子比特的量子计算机。IBM 的量子计算机将可通过其 IBM Bluemix 云环境访问。\n\
+  \n\n\n## 现实问题与解决方案\n\n量子解决方案涉及构建量子算法，以改进量子计算、人工智能、数据科学和机器学习领域的计算任务。与量子计算机的创新相比，量子解决方案的发展正在加速。在本章中，我们将探讨各种解决方案，例如优化问题、量子密码学和网络安全。本章将解释涉及\
+  \ AI 算法的量子解决方案及其在不同领域的应用。本书的其他章节将提供代码示例，这些示例将基于现实问题，例如银行业的风险评估和欺诈检测。在制药领域，我们将探讨药物发现和蛋白质折叠解决方案。在制造业领域，将介绍供应链优化和采购解决方案。在公用事业行业，将详细解释能源分配和优化问题及其解决方案。在媒体和科技领域，将涵盖广告排期和收入优化解决方案。\n\
+  \n量子机器学习正在应用的领域包括纳米粒子、材料发现、化学设计、药物设计、模式识别和分类。适用的用例包括创建可应用于太空技术、可穿戴技术、可再生能源、纳米技术、新药物和化学组合、遗传科学、生物识别、物联网设备和宇宙发现的新材料。\n\
+  \n> **注意**  \n> 罗斯定律指出，量子计算机的计算能力每 12 个月翻一番，而摩尔定律的翻倍周期是 18 个月。\n\n> *“量子计算机有潜力解决那些让经典计算机计算时间超过宇宙年龄的问题。”*\
+  \  \n> ——大卫·多伊奇，牛津大学教授\n\n巴克莱银行、高盛集团等金融机构正在研究量子计算在投资组合优化、资产定价、资本项目预算和数据安全等领域的潜在应用。在航空航天领域，空客公司正在探索其在通信和密码学方面的应用。\n\
+  \n洛克希德·马丁公司正在研究如何验证和确认复杂系统。美国海军计划开发用于优化问题的算法，例如与水下自主机器人相关的数据存储和高能效数据检索。NASA 正在探索其在通信、分布式导航和系统诊断方面的应用。阿里巴巴、谷歌和\
+  \ IBM 等科技公司正在致力于抗黑客密码学、软件调试和机器学习等应用。生命科学公司正在寻求量子计算在个性化医疗和药物发现中的应用。\n\n以下列表展示了来自不同领域的用例。这些用例证明，量子计算可以通过利用量子技术及其高性能处理特性来帮助人类生活。\n\
+  \n- **经济与金融**（见图 1-3）\n  - 分析并模拟股票投资组合以辅助投资决策\n  - 更有效地进行实时欺诈检测和风险优化\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig3_HTML.jpg](img/490826_1_En_1_Fig3_HTML.jpg)\n\
+  *图 1-3 – 股票市场*\n\n- **医学**（见图 1-4）\n  - 医学科学的研究与开发（例如，分析通常规模庞大的 DNA 序列）\n  - 依赖于大量图像处理和分析的生物工程与远程医疗\n\
+  \  - 更快、更准确地诊断癌症等危重疾病\n  - 大规模药物发现与生产\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig4_HTML.jpg](img/490826_1_En_1_Fig4_HTML.jpg)\n\
+  *图 1-4 – 医学科学*\n\n- **自然科学**（见图 1-5）\n  - 预测与时间序列分析\n  - 植物基因组分析\n  - 农业与种植应用\n\n\
+  ![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig5_HTML.jpg](img/490826_1_En_1_Fig5_HTML.jpg)\n\
+  *图 1-5 – 自然科学*\n\n- **信息技术**（见图 1-6）\n  - 大数据仓库的数据搜索与分析\n  - 对当前计算机而言过于复杂和耗时的软件测试与模拟\n\
+  \n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig6_HTML.jpg](img/490826_1_En_1_Fig6_HTML.jpg)\n\
+  *图 1-6 – 信息技术*\n\n- **管理优化**（见图 1-7）\n  - 供应链与采购（关于空间与成本效率、分销渠道、运输优化等方面的情景分析与决策）\n\
+  \  - 资产与资源管理（用于节约成本和生命周期管理的概率建模）\n  - 普遍的分析能力，从而促成更具洞察力的决策过程\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig7_HTML.jpg](img/490826_1_En_1_Fig7_HTML.jpg)\n\
+  *图 1-7 – 优化*\n\n## 解决方案的优势\n\n量子解决方案的基础设施通常提供高度的自动化，并能显著提升性能和弹性。由量子计算框架驱动的平台通过持续学习和深度学习不断演进。在演进过程中，系统将成为一个自主且自给自足的平台。该平台将能够做出关键决策。\n\
+  \n这种新的计算范式将改变软件的编写方式。该框架已从基础编程软件发展为模式和模型。这一范式将改变应用程序的部署和管理方式。这些解决方案基于以深度学习为基础的框架、量子计算平台以及一套新工具。这些量子解决方案框架将使组织能够创建、测试和部署新应用程序，而无需任何人工介入。开发周期将有助于利用深度学习和量子计算算法重建软件。\n\
+  \n量子解决方案的基础设施需要具备高度可扩展性。量子解决方案平台需要高性能的计算能力，以便能够处理数据负载并保证服务保障和性能。当前的应用程序在毫秒级和每秒数百万次循环的级别上缺乏性能和相应的服务水平。高质量的量子解决方案将使用量子算法和量子\
+  \ AI 技术构建。新的量子解决方案基础设施将利用 GPU 级别的计算能力与量子计算相结合。这种基础设施将利用开源软件和云来满足弹性的容量需求。\n\n> **注意**\
+  \  \n> 量子云由量子模拟器和处理应用程序组成。IBM、谷歌、Rigetti 和微软提供用于信息处理的量子云服务。\n\n量子解决方案基础设施将支持物联网。数据连接和实时洞察力是实时量子解决方案的重要因素。该解决方案基础设施将具备保护数据传输、数据摄取和数据处理的功能。数据将从各种数据源获取，以创建实时洞察。物联网解决方案的部署将包括所有连接的设备。政策和治理框架将成为量子解决方案的一部分。\n\
+  \n量子解决方案基础设施需要是安全的。企业将拥有涉及基础设施网络安全的量子解决方案。需要对服务器进行监控，并且需要摄取、集成和存储安全数据以供分析。需要使用无监督学习来过滤安全和监控事件。威胁情报模型已经构建完成，并在服务器上部署了人员、地点和应用程序。通过事件仪表板可以预防威胁。\n\
+  \n\n\n## 自动化手动与半手动流程\n\n量子解决方案涉及业务流程的自动化。自动化通过改变企业运营方式来助力其发展。量子解决方案运用了人工智能、机器学习、机器人流程自动化和业务流程自动化等方法。这些方法能立即为企业带来效益。参见图\
+  \ 1-8。\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig8_HTML.jpg](img/490826_1_En_1_Fig8_HTML.jpg)\n\
+  *图 1-8：流程自动化*\n\n处理大数据是量子解决方案凭借其高性能数据处理能力所能实现的最大自动化成果。在为业务流程添加自动化时，会出现人为错误和问题。预测性和规范性分析是可以为企业业务决策增加价值的解决方案。\n\
+  \n数据来自企业组织中的不同服务器、应用程序、设备和部门。数据需要经过存储、清洗和分析，才能用于制定可执行的决策。量子解决方案有助于处理大数据以及创建仪表盘和报告。\n\
+  \n## 降低成本并提高利润\n\n部署和管理所需的工作量和成本需要与解决方案的质量相平衡。拥有更少的资源、最小化运营成本并交付高质量的解决方案，是企业 IT\
+  \ 的关键目标。量子解决方案通过相比经典算法实现指数级加速，有助于削减基础设施成本。参见图 1-9。\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig9_HTML.jpg](img/490826_1_En_1_Fig9_HTML.jpg)\n\
+  *图 1-9：展示 IT 挑战的三角图*\n\n许多企业面临着与应用程序维护所需资源相关的挑战（占 80%）。已部署解决方案的运营成本是解决方案开发或软件包成本的两倍。开发人员的资源成本与软件服务器成本之比为\
+  \ 18:1。银行每年花费约十亿美元来维护其每周 7 天、每天 24 小时运行的应用和解决方案。这构成了银行 IT 的总体拥有成本及维护挑战。\n\n其他挑战涉及遗留应用和产品、过时的技术平台，以及\
+  \ IT 部门缺乏技能熟练的资源。上市时间在业务的各个方面都是一个重要因素。技术平台不具备满足预期上市速度的能力。变更或需求的量级和复杂性与企业可用的资源不匹配。\n\
+  \n拥有有效的解决方案对于应对已部署解决方案维护成本的指数级增长至关重要。量子解决方案通过提供算法的指数级加速来削减所需资源，从而解决这一问题。\n\n量子解决方案基础设施将具备高性能、安全、可用和弹性的特点，并且能够满足上市时间需求。所需人员只需具备普通技能，但能够轻松部署这些解决方案并进行维护升级。总体而言，企业将能够快速满足客户需求，并更快地开发产品。参见图\
+  \ 1-10。\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig10_HTML.jpg](img/490826_1_En_1_Fig10_HTML.jpg)\n\
+  *图 1-10：数据管理流程*\n\n量子解决方案基础设施将拥有数据模型、模式和算法来快速处理数据。首先，数据可以来自各种来源，处理能力有助于创建报告。利用报告和仪表盘，决策速度将更快。企业的总体拥有成本将会下降。\n\
+  \n其次，这种复杂性是阻碍以应对市场所需的速度执行产品开发的一个重大限制因素。在缺乏周密规划的情况下，技术平台将无法预见交互的复杂性。管理量级和复杂性依赖于高技能的劳动队伍，而对此类人才的需求早已远超供给。\n\
+  \n因此，如果没有有效的解决方案，应用程序的维护成本将呈指数级增长。此外，日益增加的复杂性意味着安全漏洞的风险更高，使组织更容易受到威胁。\n\n## 提高效率并减少缺陷\n\
+  \n解决方案基础设施的可管理性是量子解决方案的关键。由于处理和管理应用程序的复杂性，解决方案基础设施的成本和安全性将受到影响。利用基于深度学习的威胁情报模型，可以实现对已部署应用程序的可视性和监控。新的部署、升级和发布可以通过变更和影响分析来处理。这种分析有助于识别\
+  \ IT 问题，并确保已部署的应用程序无问题、无错误地运行。在生产阶段修复缺陷的成本比设计阶段高出 100 倍。参见图 1-11。\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig11_HTML.jpg](img/490826_1_En_1_Fig11_HTML.jpg)\n\
+  *图 1-11：解决方案开发流程*\n\n## 解决方案\n\n在本节中，我们将探讨密码学、优化和网络安全领域的各种量子解决方案。\n\n\n\n### 密码学\n\
+  \n银行将热衷于保护其支付网关和解决方案，使其免受未来量子计算能力带来的安全威胁。需要使支付解决方案具备“抗量子”能力。此外，基于区块链的银行和金融解决方案也需要通过使用后量子密码算法来改进。\n\
+  \n抗量子账本是面向银行和金融服务的下一代解决方案。量子密码学基于量子密钥分发。量子密钥分发涉及将一个共享的短密钥扩展为无限的共享密钥流。这要求提高后量子密码算法的效率。\n\
+  \n金融公司需要开始投资于后量子密码学。如果基于区块链的解决方案未升级到后量子密码算法，它们将不具备抗量子能力。目前正在运行的密码系统包括 `DES`、`Triple\
+  \ DES`、`AES`、`RSA`、`Merkle hash-tree signatures`、`Merkle–Hellman knapsack encryption`、`Buchmann–Williams\
+  \ class-group encryption`、`ECDSA`、`HFEv-` 等（见图 1-12）。这些系统将在量子算法和计算能力面前失效。`Shor’s\
+  \ algorithm` 是一种量子算法，威胁着 `RSA`、`DSA` 和 `ECDSA` 密码算法。\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig12_HTML.jpg](img/490826_1_En_1_Fig12_HTML.jpg)\n\
+  \n图 1-12 — 密码学模型\n\n基于量子计算机的算法可以通过密钥大小的平方根因子来破解对称密钥密码算法。要找到 256 位哈希函数的原像，量子算法只需花费\
+  \ `2¹²⁸` 时间。`Shor’s algorithm` 有助于大数的量子因子分解。这要求安全系统具备抗量子能力。椭圆曲线密码学已被证明可将破解过程提升 21%。该方法基于多项式乘法并添加随机噪声。\n\
+  \n量子算法优于经典算法，因为它们可以在更快的硬件上执行。量子算法也基于量子力学。理论上，量子力学方法已被证明比经典方法更快。量子力学涉及复杂的亚原子粒子相互作用。亚原子粒子可以是电子。电子可以同时存在于多个离散状态中，这被称为*叠加态*。\n\
+  \n海森堡不确定性原理指出，量子系统包含关于物体速度和位置的信息。任何对速度的测量都会影响位置，因为观察行为会改变状态。亚原子粒子可以处于纠缠态。当一个粒子发生变化时，即使它们彼此分离，也会影响另一个粒子。量子力学使用复数来捕捉电子状态的复杂性。\n\
+  \n`Grover’s algorithm` 可以解决电话簿搜索问题，其步数级别与电话簿号码数的平方根成正比（`O(√n)` 时间）。假设一个电话簿有 1 亿个电话号码。`Grover’s\
+  \ algorithm` 可以用 10,000 步找到一个号码。`Grover’s quantum algorithm` 使用基于量子力学的方法来加速搜索。\n\
+  \n### 优化\n\n优化问题存在于我们日常生活的不同领域，例如金融、银行、医疗保健、物流和汽车行业。在财富管理中，投资组合选择基于寻找最佳资产以平衡风险与预期收益。投资组合选择是一个\
+  \ NP 难问题。NP 难问题对于当前计算机来说是一个难以快速求解但不是不可能的问题。量子退火是一种用于解决这些 NP 难问题的量子算法。\n\n在退火方法中，问题被编码成一个类似的物理问题。系统的最低能量状态与待解决问题的解相同。此系统在退火器中构建，并向最低能量状态演化。在现实中，退火器通过冷却过程达到最低能量。在量子退火中，隧道效应使系统迅速移动到最低点。见图\
+  \ 1-13。\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig13_HTML.jpg](img/490826_1_En_1_Fig13_HTML.jpg)\n\
+  \n图 1-13 — 量子退火过程\n\n量子退火技术有助于寻找最优交易路径。大量交易订单被执行，这会影响到资产价格。在执行交易时需要考虑执行成本。算法需要为大额订单设定交易速率。这有助于平衡交易速度，最小化市场风险敞口，并最小化对市场的影响。\n\
+  \n另一个领域是优化套利机会。套利是利用不同资产价格的差异以较低风险获取利润。典型的例子通常涉及将欧元兑换成美元、美元兑换成日元、日元兑换回欧元。由于价格差异，这种交易可能会产生少量利润。这被称为*跨币种套利*。在不同市场的资产中寻找最优套利机会是一个\
+  \ NP 难问题。量子退火方法有助于找到成本最低的路径。\n\n信用评分是另一个可以使用量子退火解决的领域。个人的信用评分与个人的收入、年龄、财务历史、抵押品和当前负债相关。风险评估会考察客户档案中的各种因素。这是一个计算上具有挑战性的问题，属于\
+  \ NP 难问题。\n\n车辆路径问题是另一个可以使用量子退火解决的优化问题。Dantzig 和 Ramser 于 1959 年提出了车辆路径问题。优化的目标是为服务于客户订单的一组车辆确定最优路线。解决方案是确定从起点到终点交付订单所涉及的一组路线。客户订单所需的车辆数量也是一个优化目标。量子退火是一种用于在一组给定的候选函数中确定局部最小路径的优化技术。这是一种将具有许多局部最小值的函数离散化以确定函数可观测量的方法。量子退火过程不同于模拟退火，因为它基于量子隧道效应。粒子通过能量屏障从高能态隧穿到低能态。\n\
+  \n量子退火从一个系统不同状态的等权重叠加开始。含时薛定谔方程驱动系统随时间演化。随着时间增加，该系统会影响所有状态的振幅。最终，系统达到基态，即系统的瞬时哈密顿量。\n\
+  \n\n\n### 网络安全\n\n后量子安全领域出现了应用于静态、传输中、使用中及动态数据的新应用。这些解决方案涉及数据访问、业务流程、多方身份验证和多方授权。这些产品基于应对中间人检测、量子安全加密、抗钓鱼攻击、生物识别安全、可审计性和职责分离的算法与技术。参见图\
+  \ 1-14。\n\n![../images/490826_1_En_1_Chapter/490826_1_En_1_Fig14_HTML.jpg](img/490826_1_En_1_Fig14_HTML.jpg)\n\
+  \n**图 1-14** 使用中/静态/传输中/动态数据\n\n静态数据可能被内部人员或外部黑客截取和滥用。传输中的数据可能被黑客修改以在网络中滥用。机密业务数据和可识别个人身份信息是传输中数据的典型用例。关键任务数据无法通过基于角色的访问和控制来保障安全。企业需要数据治理来保护和确保数据安全。\n\
+  \n网络安全解决方案涉及对客户交易和数据进行加密、解密、签名和验证。黑客可能截取并窃取安全数据。安全数据包含客户的信用卡号码和社会安全号码等信息。利用量子计算机，黑客拥有更高的计算能力。像`Shor's`这样的量子算法已被证明能够破解当前的密码系统。后量子密码设计者正在提高新型加密和解密算法的效率。需要混合系统和高速度的量子抗性算法来增强后量子密码算法。`McEliece`公钥加密、`NTRU`公钥加密以及基于格密码的公钥加密系统已被证明具有量子抗性。\n\
+  \n## 总结\n\n在本章中，我们研究了密码学、优化和网络安全领域的各种解决方案，以及量子计算如何被应用并开发出相应的解决方案。\n\n"
+- "# 2. 量子计算背后的数学\n\n## 引言\n\n> *数学是神与人对话的语言。*\n> \n> ——柏拉图\n\n在本章中，我们将介绍与量子计算相关的数学概念。我们将研究量子算符、集合、向量、矩阵和张量。\n\
+  \n## 初始设置\n\n你需要安装`Python 3.5`来运行本章的代码示例。你可以从[`https://www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)下载它。\n\
+  \n## 量子算符\n\n二进制形式的数字被用于对经典计算机的门电路进行建模。量子力学原理被用于对量子计算机的量子门和量子操作进行建模。\n\n首先，让我们来看一个希尔伯特空间（记为`H`）。希尔伯特空间是一个由向量内积构成的向量空间。这些向量是单位向量。它们代表了系统的状态。\n\
+  \n图 2-1 定义了两个向量`z`和`u`的内积。该向量定义在希尔伯特空间上，而`z^*`是`z`的复共轭。在希尔伯特空间上定义了一个标准正交基。一个双自旋量子系统由两个标准正交基的状态表示。`H`中的一组标准正交向量集`N`具有空间`N`的元素，其中每个元素都是一个单位向量，并且任意两个不同的元素是正交的。\n\
+  \n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig1_HTML.jpg](img/490826_1_En_2_Fig1_HTML.jpg)\n\
+  \n**图 2-1** 内积\n\n我们来看一下用于表示量子系统基态的狄拉克符号；见图 2-2。狄拉克符号优于计算机计算中使用的基于向量的海森堡符号。\n\n\
+  ![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig2_HTML.jpg](img/490826_1_En_2_Fig2_HTML.jpg)\n\
+  \n**图 2-2** 狄拉克符号\n\n现在，我们来看一下克罗内克积；见图 2-3。克罗内克积与量子比特的组合有关。它用于计算多量子比特系统中量子比特的乘积。\n\
+  \n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig3_HTML.jpg](img/490826_1_En_2_Fig3_HTML.jpg)\n\
+  \n**图 2-3** 克罗内克积\n\n让我们来看看用于量子逻辑和电路设计的量子门。首先，我们来谈谈数字电路和传统的数字门。数字电路分为时序电路和组合电路。时序电路是具有相同系统状态的电路，系统的输入/输出是时间的函数。组合电路是指其输出仅取决于输入的电路。`MUX`、`DEMUX`、编码器和解码器是基于组合电路的优秀应用示例。\n\
+  \n存储寄存器用于存储和处理数据。用于这些电路的传统数字门列举如下：\n\n*   **与门**：逻辑与运算\n*   **或门**：逻辑或运算\n*   **或非门**：逻辑或运算的反向\n\
+  *   **与非门**：逻辑与运算的反向\n*   **异或门**：异或运算\n*   **同或门**：异或运算的反向\n*   **非门**：反相运算\n\n\
+  经典计算机基于算术逻辑单元（`ALU`）和控制器。控制器控制指令流以及周期中任何指令步骤的执行。`ALU`基于数字电路。`ALU`用于执行数学和逻辑运算。中央处理器包含一个`ALU`和一个控制单元（`CU`）。见图\
+  \ 2-4。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig4_HTML.jpg](img/490826_1_En_2_Fig4_HTML.jpg)\n\
+  \n**图 2-4** 数字电路\n\n量子计算机将有一个量子处理单元和用于处理信息的量子电路。量子电路包含一组量子门。量子门用于修改量子比特。量子门用于展示量子比特的量子态随时间的演化。量子比特的量子态在量子门的输出端发生变化。量子计算机遵循范数守恒和可逆性的原则。范数守恒指定了归一化概率幅的平方和应等于应用门之后的状态。未被测量的量子态的演化与可逆性相关。\n\
+  \n> **注意**\n\n\n\n一个*量子处理单元*是一个量子芯片，相当于经典中央处理器。一个量子芯片由 QPU、控制单元和其他组件构成。芯片中的量子比特数量与数字电路的量子电路组件有关。\n\
+  \n量子运算符基于运用量子力学原理的数学函数。它们作用于量子态，而量子态由向量和张量表示。请参见图 2-5。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig5_HTML.jpg](img/490826_1_En_2_Fig5_HTML.jpg)\n\
+  \n图 2-5\n\n量子运算符\n\n量子门可分为 Hadamard 门、相移门以及受控门和不受控门。举例来说，量子门可以是 `X`、`Y`、`Z`、`Rx`、`Ry`、`Rz`、`S`、`T`、`CNOT`、`Toffoli`、`Swap`\
+  \ 和受控相移门。\n\n以下是量子门的完整列表：\n\n- Pauli 门\n  - `I`、`X`、`Y`、`Z`\n- Hadamard 门 `H`\n\
+  - 相位门\n  - `PHASE(theta)`、`S`、`T`\n- 受控相位门\n  - `CZ`\n  - `CPhase00(alpha)`\n  -\
+  \ `CPhase01(alpha)`\n  - `CPhase10(alpha)`\n  - `CPhase(alpha)`\n- 笛卡尔旋转门\n  - `RX(theta)`\n\
+  \  - `RY(theta)`\n  - `RZ(theta)`\n- 受控 X 门\n  - `CNOT`\n  - `CCNOT`\n- 交换门\n  -\
+  \ `SWAP`\n  - `CSWAP`\n  - `ISWAP`\n  - `PSWAP(alpha)`\n\n布洛赫球用于表示量子比特态以及该态经过量子门变换后的结果。旋转发生在三维空间中围绕\
+  \ x 轴、y 轴和 z 轴。请参见图 2-6。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig6_HTML.jpg](img/490826_1_En_2_Fig6_HTML.jpg)\n\
+  \n图 2-6\n\n布洛赫球\n\n表 2-1 列出了布洛赫球上每个量子门及其相关的量子态变换。\n\n表 2-1\n\n量子门变换\n\n| 量子门 | 量子态变换\
+  \ |\n| --- | --- |\n| `X` | 在布洛赫球上绕 x 轴旋转 180 度 |\n| `Y` | 在布洛赫球上绕 y 轴旋转 180 度 |\n\
+  | `Z` | 在布洛赫球上绕 z 轴旋转 180 度 |\n| `H` | `H` 门将 `X` 映射到 `Z`，将 `Z` 映射到 `X` |\n| `I`\
+  \ | 单位门 |\n| `S` | `S` 门将 `X` 映射到 `Y` |\n| `S`† | `S` 门的逆将 `X` 映射到 `-Y`，绕 z 轴旋转\
+  \ -180 度 |\n| `T` | 绕 z 轴旋转 90 度 |\n| `T`† | 绕 z 轴旋转 -90 度 |\n| `Toffoli` | 受控 CNOT\
+  \ 门 |\n| `Swap` | 交换量子比特的状态 |\n| `NOT` | 经典非运算 |\n| `CNOT` | 对目标量子比特执行 Pauli `X`\
+  \ 门操作，不改变控制量子比特 |\n| `Rx` | 绕 x 轴旋转 theta 度 |\n| `Ry` | 绕 y 轴旋转 theta 度 |\n| `Rz`\
+  \ | 绕 z 轴旋转 theta 度 |\n| `X90` | 绕 x 轴旋转 -90 度 |\n| `Y90` | 绕 y 轴旋转 90 度 |\n| `mX90`\
+  \ | 绕 x 轴旋转 -90 度 |\n| `mY90` | 绕 y 轴旋转 -90 度 |\n| `CZ` | Cphase 门 |\n| `CRk` |\
+  \ 参数化的受控相移，角度为 `Pi/2k` 度 |\n| `CR` | 受控相移，角度为 theta 度 |\n\n现在让我们看一个 Python 代码示例，展示量子运算中的\
+  \ Hadamard 门、Swap 门和 Identity 门。\n\n### 代码示例\n\n**`quantum_operations.py`**\n\n\
+  ```python\nimport numpy as nump\ndef multi_quantum_state(*args):\nret = nump.array([[1.0]])\n\
+  for q in args:\nret = nump.kron(ret, q)\nreturn ret\nzero_quantum_state = nump.array([[1.0],\
+  \ [0.0]])\none_quantum_state = nump.array([[0.0], [1.0]])\nHadmard_quantum_gate\
+  \ = 1.0 / 2**0.5 * nump.array([[1, 1], [1, -1]])\nnew_quantum_state = nump.dot(Hadmard_quantum_gate,\
+  \ zero_quantum_state)\nprint(\"dot product : Hadamard quantum gate and zero  quantumstate\"\
+  ,new_quantum_state)\nSWAP_quantum_gate = nump.array([[1,0,0,0],\n[0,0,1,0],\n[0,1,0,0],\n\
+  [0,0,0,1]])\nt0_quantum_state = multi_quantum_state(zero_quantum_state, one_quantum_state)\n\
+  t1_quantum_state = nump.dot(SWAP_quantum_gate, t0_quantum_state)\nprint(\"SWAP Quantum\
+  \  Gate - T1 Quantum state\",t1_quantum_state)\nIdentity_quantum_gate = nump.eye(2)\n\
+  t0_quantum_state = multi_quantum_state(zero_quantum_state, one_quantum_state)\n\
+  t1_quantum_state = nump.dot(multi_quantum_state(Hadmard_quantum_gate, Identity_quantum_gate),\
+  \ t0_quantum_state)\nprint(\"Multi Quantum State of H Quantum gate and I Quantum\
+  \ gate\",t1_quantum_state)\n```\n\n### 执行命令\n\n```bash\npip3 install numpy\npython3\
+  \ quantum_operations.py\n```\n\n### 输出\n\n```text\ndot product : Hadamard quantum\
+  \ gate and zero  quantumstate [[0.70710678] [0.70710678]]\nSWAP Quantum  Gate -\
+  \ T1 Quantum state\n[[0.] [0.] [1.] [0.]]\nMulti Quantum State of H Quantum gate\
+  \ and I Quantum gate\n[[0.] [0.70710678] [0.] [0.70710678]]\n```\n\n## 集合\n\n宇宙中的任何事物都可以是一个对象，它可以是生物或非生物。一个*集合*是一组对象的全体。集合中的对象被称为*成员*（或*元素*）。以下是集合的一些例子：\n\
+  \n- 英语中的辅音字母\n- 质数\n- 算术数列\n\n使用大写字母来表示集合。集合的元素用小写字母表示。一个很好的例子是 `N` 代表自然数集合。集合使用花括号\
+  \ `{ }` 以枚举法表示。例如，`A = {1,2,3,4,5}` 是一个所有小于 6 的整数组成的集合。集合中的每个成员只列出一次，顺序不重要。另一种表示集合的方法是描述法。`C\
+  \ = {y : y` 是英文字母中的辅音字母`}`。\n\n集合分为以下几种类型：\n\n- 空集\n- 有限集\n- 无限集\n- 单元素集\n\n空集的成员数量为\
+  \ 0。单元素集的成员数量为 1。有限集具有有限数量的元素。空集的一个很好例子是平方为 -2 的实数集合。\n\n集合的阶是有限集中唯一成员的数量。这也被称为集合的*基数*。如果两个集合的基数相同，则它们相等。子集是其元素都是超集成员的集合。例如，`A\
+  \ = {1,2}` 和 `B = {1,2,3,4}`。在这种情况下，`A` 是 `B` 的*子集*，而 `B` 是 `A` 的*超集*。\n\n一个*幂集*是给定集合所有子集构成的集合。全集\
+  \ `U` 是给定集合的超集。如果两个集合的交集是空集，则它们不相交。维恩图用于表示集合之间的关系（图 2-7）。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig7_HTML.jpg](img/490826_1_En_2_Fig7_HTML.jpg)\n\
+  \n图 2-7\n\n维恩图\n\n两个集合的*并集*是包含属于 `A` 或 `B` 或两者中所有元素的集合。例如，`A = {1,2,3}`，`B = {4,5,6}`，则\
+  \ `A U B = {1,2,3,4,5,6}`。\n\n两个集合的*交集*是包含两个集合所有公共元素的集合。例如，`A = {1,2,3}`，`B = {2,4,5}`，则\
+  \ `A ∩ B = {2}`。\n\n集合 `A` 和 `B` 的*差集*是属于 `A` 但不属于 `B` 的元素组成的集合。例如，`A = {1,2,3}`，`B\
+  \ = {2,4,5}`，则 `A - B = {1,3}`。\n\n一个集合的*补集*是包含全集 `U` 中但不含有集合 `A` 元素的集合。\n\n现在让我们看一个\
+  \ Python 代码示例，展示并集、交集、差集和对称差集等集合运算。\n\n\n\n### 代码示例\n\n**set_operations.py**\n\n\
+  ```\nprimes11={3,5,7,11,14};\nprimes12={3,5,7,11,13,17,19,34}\nprimes=primes11 &\
+  \ primes12\nprint(\"union of sets\", primes11,\",\",primes12,\" is\")\nprint(primes)\n\
+  primes1={3,5,7,11,13};\nprimes2={3,5,7,11,13,17,19,23}\nprimes=primes1 & primes2\n\
+  print(\"intersection of sets\", primes1,\",\", primes2,\" is\")\nprint(primes)\n\
+  primes3={3,5,7,11,13,17,19}\nprimes4={2,3,5,7,11};\nprimes=primes3-primes4\nprint(\"\
+  difference of sets\",primes3,\",\",primes4,\" is\")\nprint(primes)\nprimes4={3,5,7,11,13,17,19}\n\
+  primes5={3,5,7,11,91,101};\nprimes=primes4 ^ primes5\nprint(\"symmetric difference\
+  \ of sets\",primes4,\",\",primes5,\" is\")\nprint(primes)\n```\n\n### 执行命令\n\n```\n\
+  python3 set_operations.py\n```\n\n### 输出\n\n```\nunion of sets {3, 5, 7, 11, 14}\
+  \ ,{33, 3, 5, 7, 11, 13, 17, 19} is:\n{11, 3, 5, 7}\nintersection of sets {3, 5,\
+  \ 7, 11, 14 {34, 3, 5, 7, 11, 13, 17, 19} is:\n{11, 3, 5, 7}\ndifference of sets\
+  \ {3, 5, 7, 11, 13, 17, 19} ,{2, 3, 5, 7, 11} is:\n{17, 19, 13}\nsymmetric difference\
+  \ of sets {3, 5, 7, 11, 13, 17, 19} ,{3, 5, 101, 7, 11, 91} is:\n{17, 19, 101, 91,\
+  \ 13}\n```\n\n## 向量\n\n*向量*被定义为由 n 个实数构成的有序集合。下面是一个例子：\n\n```\nC = (c1,c2,c3,.....cn)\n\
+  C is an n-dimensional vector.\n```\n\n向量的加法是通过对应维度的元素相加来计算的。类似地，向量的减法是通过各维度元素相减来计算的。\n\
+  \n```\nC = (c1,c2,c3,.....cn)\nD = (d1, d2, d3,... dn)\nC + D = (c1+d1, c2+d2,...,\
+  \ cn+dn)\nC - D = (c1-d1, c2-d2,..., cn-dn)\n```\n\n向量与标量的乘法是通过将标量与每个维度元素相乘来实现的。\n\
+  \n```\nE = sF = (sf1, sf2, .....,sfn)\n```\n\n现在我们来看一个 Python 代码示例，展示向量的运算，如点积、标量乘法、求和、差、积和除法。\n\
+  \n### 代码示例\n\n**vector_operations.py**\n\n```\nfrom numpy import array\nvector1\
+  \ = array([1, 2, 3])\nvector2 = array([2, 3, 4])\nprint(\"dot product of\", vector1,\"\
+  , \",vector2,\"is\")\nproduct = vector1.dot(vector2)\nprint(product)\nscalarval\
+  \ = 0.3\nscalarprod = scalarval*vector1\nprint(\"scalar multiplied\",scalarval,\"\
+  ,\",vector1,\"is\")\nprint(scalarprod)\nprint(\"sum of\", vector1,\", \",vector2,\"\
+  is\")\nsum = vector1 + vector2\nprint(sum)\nprint(\"difference of\", vector1,\"\
+  , \",vector2,\"is\")\ndiff = vector1 - vector2\nprint(diff)\nprint(\"product of\"\
+  , vector1,\", \",vector2,\"is\")\nprod = vector1 * vector2\nprint(prod)\nprint(\"\
+  division of\", vector1,\", \",vector2,\"is\")\ndividedby = vector1 / vector2\nprint(dividedby)\n\
+  ```\n\n### 执行命令\n\n```\npip3 install bumpy\npython3 vector_operations.py\n```\n\n\
+  ### 输出\n\n```\ndot product of [1 2 3] ,  [2 3 4] is\n\nscalar multiplied 0.3 , [1\
+  \ 2 3] is\n[0.3 0.6 0.9]\nsum of [1 2 3] ,  [2 3 4] is\n[3 5 7]\ndifference of [1\
+  \ 2 3] ,  [2 3 4] is\n[-1 -1 -1]\nproduct of [1 2 3] ,  [2 3 4] is\n[ 2  6 12]\n\
+  division of [1 2 3] ,  [2 3 4] is\n[0.5        0.66666667 0.75      ]\n```\n\n##\
+  \ 矩阵\n\n*矩阵*是数字按行和列排列成的矩形阵列。它由圆括号`()`或方括号`[]`表示。矩阵中的条目称为矩阵的*元素*。矩阵的阶定义为行数和列数。例如，对于`A\
+  \ = [1 2]`，`1×2`就是该矩阵的阶。\n\n*行矩阵*是只有一行而列数任意的矩阵。`A = [1,2,3]`就是一个行矩阵。*列矩阵*是只有一列而行数任意的矩阵。\n\
+  \n图 2-8 展示了一个 2×2 矩阵。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig8_HTML.jpg](img/490826_1_En_2_Fig8_HTML.jpg)\n\
+  \n图 2-8\n\n2×2 矩阵\n\n图 2-9 展示了一个列矩阵的例子。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig9_HTML.jpg](img/490826_1_En_2_Fig9_HTML.jpg)\n\
+  \n图 2-9\n\n列矩阵\n\n以下是不同类型的矩阵：\n\n*   行矩阵\n*   列矩阵\n*   单元素矩阵\n*   零矩阵\n*   矩形矩阵\n\
+  *   方阵\n\n*单元素矩阵*是只有一个元素的矩阵。例如，`A = [1]`就是一个单元素矩阵。*零矩阵*是所有元素都为零的矩阵；例如，`A = [0 0]`就是一个零矩阵。*矩形矩阵*是行数不等于列数的矩阵。参见图\
+  \ 2-10。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig10_HTML.jpg](img/490826_1_En_2_Fig10_HTML.jpg)\n\
+  \n图 2-10\n\n矩形矩阵\n\n*方阵*是行数等于列数的矩阵。参见图 2-11。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig11_HTML.jpg](img/490826_1_En_2_Fig11_HTML.jpg)\n\
+  \n图 2-11\n\n方阵\n\n*对角矩阵*是主对角线以外的所有元素都为零的方阵。参见图 2-12。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig12_HTML.jpg](img/490826_1_En_2_Fig12_HTML.jpg)\n\
+  \n图 2-12\n\n对角矩阵\n\n*单位矩阵*是主对角线上的元素为 1 的方阵。参见图 2-13。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig13_HTML.jpg](img/490826_1_En_2_Fig13_HTML.jpg)\n\
+  \n图 2-13\n\n单位矩阵\n\n*标量矩阵*是主对角线上的元素都相等，且所有非对角元素都为零的方阵。参见图 2-14。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig14_HTML.jpg](img/490826_1_En_2_Fig14_HTML.jpg)\n\
+  \n图 2-14\n\n标量矩阵\n\n*三角矩阵*是主对角线以上或以下的元素都为零的方阵。上三角矩阵是主对角线以下的元素为零（见图 2-15），下三角矩阵是主对角线以上的元素为零（见图\
+  \ 2-16）。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig16_HTML.jpg](img/490826_1_En_2_Fig16_HTML.jpg)\n\
+  \n图 2-16\n\n下三角矩阵\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig15_HTML.jpg](img/490826_1_En_2_Fig15_HTML.jpg)\n\
+  \n图 2-15\n\n上三角矩阵\n\n矩阵的*迹*是方阵对角线上元素之和。它用`tr()`表示。例如，矩阵`A`的迹等于`tr(A)`。\n\n只有相同类型的矩阵才能相加，和是通过将矩阵的对应元素相加得到的。类似地，相同类型的矩阵可以进行减法，结果是通过对应元素相减得到的。\n\
+  \n\n\n矩阵乘法可行的条件是，第一个矩阵的列数等于第二个矩阵的行数。矩阵的标量乘法与标量被乘到矩阵的每个元素相关。\n\n矩阵可以通过将行变为列、列变为行来进行转置。转置用上标`^T`表示。\n\
+  \n方阵`matrix A`的行列式为`x1* y2 - x2*y1`。见图 2-17。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig17_HTML.jpg](img/490826_1_En_2_Fig17_HTML.jpg)\n\
+  \n图 2-17 行列式\n\n三阶矩阵的行列式是行或列的元素与各自的余子式乘积之和。见图 2-18。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig18_HTML.jpg](img/490826_1_En_2_Fig18_HTML.jpg)\n\
+  \n图 2-18 三阶矩阵的行列式\n\n```\nx1 X1 +x2 X2 +x3 X3\ny1 Y1 + y2 Y2 + y3 Y3\nz1 Z1 + z2\
+  \ Z2 + z3 Z3\n```\n\n矩阵`A`的逆矩阵定义为`A^(-1)`。因此，`AA^(-1) = I`（单位矩阵）。\n\n```\nA-1 =\
+  \ adj A/ det A\n```\n\n`adj A`是伴随矩阵，通过用对应的余子式替换方阵的元素，然后对得到的矩阵进行转置得到。`det A`是`A`的行列式。\n\
+  \n现在让我们看一个 Python 代码示例，展示矩阵运算，如加法、减法、乘积、点积、除法和转置。\n\n### 代码示例\n\n**matrix_operations.py**\n\
+  \n```\nimport numpy\nmat1 = numpy.array([[1, 3], [4, 6]])\nmat2 = numpy.array([[7,\
+  \ 9], [11, 15]])\nprint (\"Addition of  matrices \", mat1,\",\", mat2,\"is\")\n\
+  print (numpy.add(mat1,mat2))\nprint (\"Subtraction of  matrices \", mat1,\",\",\
+  \ mat2,\"is\")\nprint (numpy.subtract(mat1,mat2))\nprint (\"Product of  matrices\
+  \ \", mat1,\",\", mat2,\"is\")\nprint (numpy.multiply(mat1,mat2))\nprint (\"Dot\
+  \ Product of  matrices \", mat1,\",\", mat2,\"is\")\nprint (numpy.dot(mat1,mat2))\n\
+  print (\"Division of  matrices \", mat1,\",\", mat2,\"is\")\nprint (numpy.divide(mat1,mat2))\n\
+  print (\"Transpose of \", mat1,\"is\")\nprint (mat1.T)\n```\n\n### 执行命令\n\n```\n\
+  pip3 install numpy\npython3 matrix_operations.py\n```\n\n### 输出\n\n```\nAddition\
+  \ of  matrices  [[1 3] [4 6]] , [[ 7  9] [11 15]] is\n[[ 8 12]  [15 21]]\nSubtraction\
+  \ of  matrices  [[1 3] [4 6]] , [[ 7  9] [11 15]] is\n[[-6 -6] [-7 -9]]\nProduct\
+  \ of  matrices  [[1 3] [4 6]] , [[ 7  9] [11 15]] is\n[[ 7 27] [44 90]]\nDot Product\
+  \ of  matrices  [[1 3] [4 6]] , [[ 7  9] [11 15]] is\n[[ 40  54] [ 94 126]]\nDivision\
+  \ of  matrices  [[1 3] [4 6]] , [[ 7  9] [11 15]] is\n[[0.14285714 0.33333333] 0.36363636\
+  \ 0.4       ]]\nTranspose of  [[1 3] [4 6]] is [[1 4] [3 6]]\n```\n\n## 张量\n\n*张量*是一个多维数组（见图\
+  \ 2-19）。一维张量是向量。二维张量是矩阵。\n\n![../images/490826_1_En_2_Chapter/490826_1_En_2_Fig19_HTML.jpg](img/490826_1_En_2_Fig19_HTML.jpg)\n\
+  \n图 2-19 张量示例\n\n加法、减法和乘法运算可以像向量和矩阵一样在张量上执行。\n\n现在让我们看一个 Python 代码示例，展示集合运算，如加法、减法、乘积、除法和点积。\n\
+  \n### 代码示例\n\n**tensor_operations.py**\n\n```\nfrom numpy import array\nfrom numpy\
+  \ import tensordot\ntensor1 = array([\n[[1,2,3],    [4,5,6],    [7,8,9]],\n[[13,12,13],\
+  \ [14,15,16], [17,18,19]],\n[[24,22,23], [24,25,26], [27,28,29]],\n])\ntensor2 =\
+  \ array([\n[[1,4,3],    [4,5,6],    [7,8,9]],\n[[11,13,13], [14,15,16], [17,18,19]],\n\
+  [[21,25,23], [24,26,26], [27,28,29]],\n])\nprint(\"tensor1\",tensor1)\nprint(\"\
+  tensor2\",tensor2)\nprint(\"sum of tensors\", \"is\")\nsum = tensor1 + tensor2\n\
+  print(sum)\nprint(\"difference of tensors\",  \"is\")\ndiff = tensor1 - tensor2\n\
+  print(diff)\nprint(\"product of tensors\",  \"is\")\nprod = tensor1 * tensor2\n\
+  print(prod)\nprint(\"division of tensors\",  \"is\")\ndivision = tensor1 / tensor2\n\
+  print(division)\nprint(\"dot product of tensors\",  \"is\")\ndotproduct = tensordot(tensor1,\
+  \ tensor2, axes=0)\nprint(dotproduct)\n```\n\n### 执行命令\n\n```\npip3 install numpy\n\
+  python3 tensor_operations.py\n```\n\n### 输出\n\n```\ntensor1  [\n[[1,2,3],    [4,5,6],\
+  \    [7,8,9]],\n[[13,12,13], [14,15,16], [17,18,19]],\n[[24,22,23], [24,25,26],\
+  \ [27,28,29]],\n]\ntensor2 [\n[[1,4,3],    [4,5,6],    [7,8,9]],\n[[11,13,13], [14,15,16],\
+  \ [17,18,19]],\n[[21,25,23], [24,26,26], [27,28,29]],\n]\nsum of tensors is [\n\
+  [[ 2  6  6] [ 8 10 12] [14 16 18]]\n[[24 25 26] [28 30 32] [34 36 38]]\n[[45 47\
+  \ 46] [48 51 52] [54 56 58]]\n]\ndifference of tensors is [\n[[ 0 -2  0] [ 0  0\
+  \  0] [ 0  0  0]]\n[[ 2 -1  0] [ 0  0  0] [ 0  0  0]]\n[[ 3 -3  0] [ 0 -1  0] [\
+  \ 0  0  0]]\n]\nproduct of tensors is [\n[[  1   8   9] [ 16  25  36] [ 49  64 \
+  \ 81]]\n[[143 156 169][196 225 256][289 324 361]]\n[[504 550 529] [576 650 676]\
+  \ [729 784 841]]\n]\ndivision of tensors is [\n[[1\\.    0.5    1\\.   ] [1\\. \
+  \  1\\.    1\\.   ][1\\.         1\\.         1\\.  ]]\n[[1.18181818 0.92307692\
+  \ 1\\. ][1\\.   1\\.   1\\. ][1\\.  1\\.   1\\. ]]\n[[1.14285714 0.88       1\\\
+  . ][1\\.  0.96153846 1.][1\\.  1\\.        1\\. ]]\n]\ndot product of tensors is\n\
+  ```\n\n注意，由于张量的大小，输出中没有显示点积。\n\n## 总结\n\n在本章中，我们研究了量子算子、集合、向量、矩阵和张量。这些是量子计算所需的数学概念。\n\
+  \n"
+- '# 第二部分 量子计算基础
+
+
+  '
+- "# 3. 量子子系统与性质\n\n## 引言\n\n> *量子力学数学非常精确地描述了我们的宇宙是如何运作的。*\n> \n> —安东尼·加勒特·利西\n\n\
+  本章涵盖量子子系统及其性质。详细讨论了单量子比特系统和多量子比特系统。本章还介绍了量子态、协议、操作和变换。\n\n量子计算机处理与现实问题相关的信息，并利用量子力学解决这些问题。经典计算机使用要么是`0`要么是`1`的比特。由于它基于经典计算机导线中的电流，我们必须选择这些选项之一。量子单元基于量子叠加原理，其中`0`和`1`是叠加的。这开启了无限的可能状态，这些状态基于`0`和`1`及其在连续范围内的权重。在经典计算机中，基于十进制系统的值被转换为二进制数。类似地，量子单元使用二维希尔伯特空间来定义。见图\
+  \ 3-1。\n\n![../images/490826_1_En_3_Chapter/490826_1_En_3_Fig1_HTML.jpg](img/490826_1_En_3_Fig1_HTML.jpg)\n\
+  \n图 3-1 经典比特与量子比特\n\n## 初始设置\n\n你需要设置 Python 3.5 来运行本章中的代码示例。你可以从 [`https://www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)\
+  \ 下载它。\n\n## 单量子比特系统\n\n量子比特是量子计算框架的基础。通过使用量子比特（*量子位*），量子计算机的性能优于经典计算机。量子计算机将信息存储在量子比特中。一个量子比特代表一个量子粒子，比如一个电子，其电荷可以是`0`或`1`，也可以是`0`和`1`同时存在。布洛赫球面用于显示量子比特状态的位置。该球面半径为一个单位。希尔伯特空间用于对球面表面进行建模。希尔伯特空间与向量空间中向量的内积有关。长度和角度测量在内积中显示。见图\
+  \ 3-2。\n\n![../images/490826_1_En_3_Chapter/490826_1_En_3_Fig2_HTML.jpg](img/490826_1_En_3_Fig2_HTML.jpg)\n\
+  \n图 3-2 布洛赫球面\n\n现在让我们看一个演示单量子比特系统的 Python 代码示例。\n\n\n\n### 代码示例\n\n**single_qubit_system.py**\n\
+  \n```python\nimport numpy as nump\nimport scipy as scip\nimport scipy.linalg\nZero_state\
+  \ = nump.array([[1.0], [0.0]])\nOne_state = nump.array([[0.0], [1.0]])\nNormalizeQuantumState\
+  \ = lambda quantum_state: quantum_state / scip.linalg.norm(quantum_state)\nPlus_State\
+  \ = NormalizeQuantumState(Zero_state + One_state)\nprint(\"normalized quantum state\
+  \ of\",Zero_state, \"+\", One_state,\"is\", Plus_State)\n```\n\n### 执行命令\n\n```bash\n\
+  pip3 install numpy\npip3 install scipy\npython3 single_qubit_system.py\n```\n\n\
+  ### 输出结果\n\n```\nnormalized quantum state of [[1.][0.]] + [[0.][1.]] is\n[[0.70710678][0.70710678]]\n\
+  ```\n\n## 多量子比特系统\n\n多量子比特系统可以通过克罗内克积来表示。我们来看两个量子粒子，`c` 和 `d`。它们的状态可以如下建模：\n\n```\n\
+  |ψc>= α0 |0> + βc |1> (粒子 C)\n|ψdi>= αd|0> + βd |1> (粒子 D)\n```\n\n一个多量子比特寄存器是一个量子系统，其中量子比特处于叠加态。一个包含\
+  \ `s` 个量子比特的经典寄存器有 `2s` 个唯一状态。量子系统将由处于叠加态的 `2p` 个状态组成。该系统可以处于 `2s` 个状态中的一个、两个、三个……甚至全部状态。我们来看一个包含\
+  \ 2 个量子比特及其可能状态的量子系统（见图 3-3）。\n\n![../images/490826_1_En_3_Chapter/490826_1_En_3_Fig3_HTML.jpg](img/490826_1_En_3_Fig3_HTML.jpg)\n\
+  \n图 3-3 — 双量子比特系统\n\n现在，我们来看一个包含 3 个量子比特及其可能状态的系统（见图 3-4）。\n\n![../images/490826_1_En_3_Chapter/490826_1_En_3_Fig4_HTML.jpg](img/490826_1_En_3_Fig4_HTML.jpg)\n\
+  \n图 3-4 — 三量子比特系统\n\n多量子比特系统中量子比特的量子状态将是一个包含复数系数的向量。真实的逻辑状态被称为*可观测量*。对该状态进行测量，并观测结果。量子系统将具有滤波器，用于识别量子状态。基于不同的可观测量集合，可以建模出不同的函数。\n\
+  \n一个 2 量子比特系统由以下方程指定：\n\n`q(0) + q(1) = 1`\n\n单量子比特测量用于建模 2 量子比特的测量操作。量子寄存器可以被部分测量。未测量的剩余部分通过恒等量子操作进行变换。\n\
+  \n## 量子状态\n\n一个量子比特存在于 0、1，或介于 0 与 1 之间的量子状态。这有助于量子计算机通过量子状态建模大量的可能性。`S` 个量子比特相当于\
+  \ `2^S` 个多重状态。介于 0 与 1 之间的状态被称为*量子叠加*。叠加被建模为波函数。一个波函数在数学上可以有无限多个状态。\n\n量子状态是孤立量子系统的状态。它定义了可观测量子比特测量时的概率分布。量子状态分类如下：\n\
+  \n* 纯态\n* 混合态\n\n两个量子状态可以相互混合，以产生另一个量子状态。这类似于物理学中物质波的混合。\n\n布洛赫球面用于表示量子状态（见图 3-5）。一个量子比特可以处于叠加态，如下所示：\n\
+  \n![../images/490826_1_En_3_Chapter/490826_1_En_3_Fig5_HTML.jpg](img/490826_1_En_3_Fig5_HTML.jpg)\n\
+  \n图 3-5 — 布洛赫球面\n\n```\namp1|0> + amp2|1> = |amp>  其中 |0> 和 |1> 是列向量\n```\n\n`amp1`\
+  \ 和 `amp2` 被称为*概率幅*，它们是复数。\n\n量子比特测量的结果中会计算模方和概率。\n\n```\n|amp1²| + |amp2²| = 1\n\
+  ```\n\n叠加态也可以如下表示（见图 3-6）：\n\n![../images/490826_1_En_3_Chapter/490826_1_En_3_Fig6_HTML.jpg](img/490826_1_En_3_Fig6_HTML.jpg)\n\
+  \n图 3-6 — 叠加\n\n```\n|ψ⟩  =   1/√2 * (|0> + |1>)\n```\n\n图 3-6 展示了处于叠加态的量子比特与经典比特的\
+  \ 0 和 1 状态之间的对比。\n\n一个量子粒子的状态被建模为一个量子比特。图 3-7 展示了量子粒子的叠加态。\n\n![../images/490826_1_En_3_Chapter/490826_1_En_3_Fig7_HTML.jpg](img/490826_1_En_3_Fig7_HTML.jpg)\n\
+  \n图 3-7 — 量子粒子的叠加态\n\n现在我们来看一个 Python 代码示例，以展示量子比特和状态的叠加。\n\n### 代码示例\n\n**superposition.py**\n\
+  \n```python\nimport numpy as nump\nzero_quantum_state = nump.array([[1.0], [0.0]])\n\
+  one_quantum_state = nump.array([[0.0], [1.0]])\nquantum_amp1 = 1.0 / 2**0.5\nquantum_amp2\
+  \ = 1.0 / 2**0.5\nsuperposition_quantum_state = quantum_amp1 * zero_quantum_state\
+  \ + quantum_amp2 * one_quantum_state\nprint(\"superposition of\", zero_quantum_state,\
+  \ \" and \", one_quantum_state,\" is \",superposition_quantum_state)\n```\n\n###\
+  \ 执行命令\n\n```bash\npip3 install numpy\npython3 superposition.py\n```\n\n### 输出结果\n\
+  \n```\nsuperposition of [[1.][0.]]  and  [[0.][1.]]  is  [[0.70710678][0.70710678]]\n\
+  ```\n\n## 量子协议\n\n在本节中，我们将讨论基于量子协议的纠缠和隐形传态。\n\n### 量子纠缠\n\n*量子纠缠*是多个量子粒子相互之间的相互作用。这种相互作用导致纠缠，并且这些量子粒子最终可能在空间中分离。\n\
+  \n这种基于量子协议的现象由阿尔伯特·爱因斯坦、鲍里斯·波多尔斯基和内森·罗森于 1935 年在一项量子力学实验中发现。他们试图证明量子力学在逻辑上的不可能性。\n\
+  \n纠缠系统中，基于该系统的量子粒子状态的改变会影响另一个粒子，并且这种影响是可检测的。纠缠系统中的粒子能够感知彼此的状态。见图 3-8。\n\n![../images/490826_1_En_3_Chapter/490826_1_En_3_Fig8_HTML.jpg](img/490826_1_En_3_Fig8_HTML.jpg)\n\
+  \n图 3-8 — 纠缠\n\n## 量子隐形传态\n\n量子隐形传态是将信息从源点传输到目的地。经典通信网络和信道用于传输信息。基于量子协议的隐形传态发生在源点和目的地存在量子粒子纠缠时。当前的记录是\
+  \ 1,400 公里（约 870 英里）的距离。可以在源点和目的地之间创建量子信道。量子粒子的量子状态从源点被隐形传态到目的地。见图 3-9。\n\n![../images/490826_1_En_3_Chapter/490826_1_En_3_Fig9_HTML.jpg](img/490826_1_En_3_Fig9_HTML.jpg)\n\
+  \n图 3-9 — 隐形传态\n\n\n\n## 量子操作\n\n量子操作可以通过布洛赫球面（见图 3-10）进行可视化。一个量子比特的量子态可以用球面上的一个点来表示。球面上的两个刻度盘分别表示球面的角坐标和方位角坐标。球面可以使用希尔伯特空间来建模。如前所述，希尔伯特空间基于两个向量内积的向量空间。内积有助于测量长度和角度。\n\
+  \n![../images/490826_1_En_3_Chapter/490826_1_En_3_Fig10_HTML.jpg](img/490826_1_En_3_Fig10_HTML.jpg)\n\
+  \n**图 3-10** 量子操作：布洛赫球面\n\n**注意**  \n布洛赫球面用于表示量子操作。旋转发生在单位半径三维球面的 x、y 和 z 轴上。\n\n\
+  量子门是使用量子比特的量子操作。量子操作是量子电路的基本构建块。量子电路是构建量子计算机的基础模块。\n\n我们首先来看阿达玛门。阿达玛门是一种对基态进行操作的量子门，它将\
+  \ `|0>` 变为 `(|0>+|1>)* 1/√2`，将 `|1>` 变为 `(|0> - |1>)* 1/√2`。这种门变换会产生叠加态。\n\n阿达玛门可以用矩阵表示，如下所示：\n\
+  \n```\nH = 1/√2 (|0> + |1>)  - |1>) <1|\n```\n\n现在，我们来看交换门。交换门用于交换量子门的量子态。\n\n它可以用矩阵形式表示如下：\n\
+  \n```\nSWAP = |01>\n```\n\n**注意**  \n狄拉克符号用于书写方程。保罗·狄拉克是第一个提出用独特符号表示向量和张量的人。与矩阵相比，这种表示法更为高效。\n\
+  \nX 门是量子版本的 NOT 门。CNOT 门是受控非门。CNOT 门取反一个比特；控制位仅等于 1 时有效。托佛利门是受控非门，是量子版本的 AND 门。如果两个控制位都等于\
+  \ 1，托佛利门则取反一个比特。泡利 X 门是一种将量子比特绕 x 轴旋转 180 度的量子操作。泡利 Z 门是一种将量子比特绕 z 轴旋转 180 度的量子操作。\n\
+  \n现在，我们来看一些 CNOT、X、Z 和测量门的实现，以演示量子门。接下来展示了用 Python 实现 CNOT 门、X 门、Z 门、归一化操作和测量门的代码。\n\
+  \n### 代码示例\n\n**Multi_Qubit_System.py**\n\n```\nimport math\nimport random\ndef\
+  \ ApplyCNOTQuantumGate(zerozero,zeroone,onezero,oneone):\n    onezero, oneone =\
+  \ oneone, onezero\n    return GetQuantumbits(zerozero,zeroone,onezero,oneone)\n\
+  def ApplyHQuantumGate(zerozero,zeroone,onezero,oneone):\n    a = zerozero\n    b\
+  \ = zeroone\n    c = onezero\n    d = oneone\n    zerozero = a + c\n    zeroone\
+  \  = b + d\n    onezero  = a - c\n    oneone   = b - d\n    normalize()\n    return\
+  \ GetQuantumbits(zerozero,zeroone,onezero,oneone)\ndef ApplyXQuantumGate(zerozero,zeroone,onezero,oneone):\n\
+  \    a = zerozero\n    b = zeroone\n    c = onezero\n    d = oneone\n    zerozero\
+  \ = c\n    zeroone  = d\n    onezero  = a\n    oneone   = b\n    return GetQuantumbits(zerozero,zeroone,onezero,oneone)\n\
+  def ApplyZQuantumGate(zerozero,zeroone,onezero,oneone):\n    onezero *= -1\n   \
+  \ oneone  *= -1\n    return GetQuantumbits(zerozero,zeroone,onezero,oneone)\ndef\
+  \ ApplyNormalization(zerozero,zeroone,onezero,oneone):\n    norm = (abs(zerozero)\
+  \ ** 2 + abs(zeroone) ** 2 +\n            abs(onezero) ** 2 + abs(oneone) ** 2)\
+  \ ** 0.5\n    zerozero /= norm\n    zeroone  /= norm\n    onezero  /= norm\n   \
+  \ oneone   /= norm\n    return GetQuantumbits(zerozero,zeroone,onezero,oneone)\n\
+  def MeasureQuantumbit(zerozero,zeroone,onezero,oneone):\n    zerozeroprob = abs(zerozero)\
+  \ ** 2\n    zerooneprob  = abs(zeroone)  ** 2\n    onezeroprob  = abs(onezero) \
+  \ ** 2\n    randomchoice = random.random()\n    if randomchoice < zerozeroprob:\n\
+  \        return (1, 0)\n    elif randomchoice < zerozeroprob + zerooneprob:\n  \
+  \      return (0, 1)\n    elif randomchoice < zerozeroprob + zerooneprob + onezeroprob:\n\
+  \        return (2, 0)\n    else:\n        return (0, 2)\ndef GetQuantumbits(zerozero,zeroone,onezero,oneone):\n\
+  \    comp = []\n    if abs(zerozero) > 0:\n        ls += [comp[0] + \" |00>\"]\n\
+  \    if abs(zeroone)  > 0:\n        ls += [comp[1] + \" |01>\"]\n    if abs(onezero)\
+  \  > 0:\n        ls += [comp[2]  + \" |10>\"]\n    if abs(oneone)   > 0:\n     \
+  \   ls += [comp[3]   + \" |11>\"]\n    comp = \" + \".join(ls)\n    return comp\n\
+  a_quantum_state = 1\nb_quantum_state = 0\nc_quantum_state = 0\nd_quantum_state =\
+  \ 0\nzerozero_quantum_state = complex(a_quantum_state)\nzeroone_quantum_state  =\
+  \ complex(b_quantum_state)\nonezero_quantum_state  = complex(c_quantum_state)\n\
+  oneone_quantum_state   = complex(d_quantum_state)\nresult1 = ApplyCNOTQuantumGate(zerozero_quantum_state,zeroone_quantum_state,onezero_quantum_state,oneone_quantum_state)\n\
+  print(\"cnot gate operation - result\",result1)\nresult2 = ApplyXQuantumGate(zerozero_quantum_state,zeroone_quantum_state,onezero_quantum_state,oneone_quantum_state)\n\
+  print(\"xgate operation - result\",result2)\nresult3 = ApplyZQuantumGate(zerozero_quantum_state,zeroone_quantum_state,onezero_quantum_state,oneone_quantum_state)\n\
+  print(\"zgate operation - result\",result3)\nresult4 = ApplyNormalization(zerozero_quantum_state,zeroone_quantum_state,onezero_quantum_state,oneone_quantum_state)\n\
+  print(\"normalize operation - result\",result4)\nresult5 = MeasureQuantumbit(zerozero_quantum_state,zeroone_quantum_state,onezero_quantum_state,oneone_quantum_state)\n\
+  print(\"measure gate operation - result\",result5)\n```\n\n### 执行命令\n\n```\npython3\
+  \ Multi_Qubit_System.py\n```\n\n### 输出\n\n```\ncnot gate operation - result  |00>\n\
+  xgate operation - result  |10>\nzgate operation - result  |00>\nnormalize operation\
+  \ - result  |00>\nmeasure gate operation - result (0, 0)\n```\n\n## 量子变换\n\n量子变换涉及使用量子比特进行的量子态变换。本节我们将探讨克罗内克变换和测量门。\n\
+  \n### 克罗内克变换\n\n张量积用于对多量子比特系统进行建模。克罗内克积是向量和矩阵的张量积。\n\n多量子态使用多个量子比特和向量来表示。量子态的维度随系统中量子比特数量的增加而呈指数增长。\n\
+  \n**注意**  \n两个量子态之间的张量积使用符号 `⊗` 表示。多量子比特态使用狄拉克符号表示为 `|100>`，这与 `|1> ⊗ |0> ⊗ |0>`\
+  \ 相同。\n\n### 测量门变换\n\n现在我们来看测量门。测量门通过量子操作来变换信息。测量变换可以用以下方程表示：\n\n```\namp1|0> +\
+  \ amp2|1> = |amp>\n```\n\n其中 `amp1` 和 `amp2` 是量子比特的振幅。\n\n你需要定义投影算子来模拟测量变换。\n\n\
+  ```\nProj0 = |0>  <1|\n```\n\n这里定义的状态展示了测量门变换：\n\n```\n|ψ> = (1/4) (|00> + |01>\
+  \ + |10> +|11>)\n```\n\n现在，我们来看一个用 Python 演示克罗内克变换的代码示例。\n\n### 代码示例\n\n**multi_kronecker.py**\n\
+  \n```\nimport numpy as nump\ndef multi_quantum_state(*args):\n    ret = nump.array([[1.0]])\n\
+  \    for q in args:\n        ret = nump.kron(ret, q)\n    return ret\nzero_quantum_state\
+  \ = nump.array([[1.0], [0.0]])\none_quantum_state = nump.array([[0.0], [1.0]])\n\
+  three_quantum_states = nump.kron(nump.kron(zero_quantum_state, one_quantum_state),\
+  \ one_quantum_state)\nprint(\"three  quantum states -kronecker\",three_quantum_states)\n\
+  ```\n\n### 执行命令\n\n```\npip3 install numpy\npython3 multi_kron.py\n```\n\n### 输出\n\
+  \n```\nthree  quantum states -kronecker product\n[[0.][0.]\n [0.][1.]\n [0.][0.]\n\
+  \ [0.][0.]]\n```\n\n## 小结\n\n在本章中，我们研究了单量子比特和多量子比特系统。详细讨论了诸如纠缠、叠加和隐形传态等量子比特系统现象。最后，介绍了量子态、量子门和量子变换。\n\
+  \n"
+- "# 4. 量子信息处理框架\n\n\n\n## 引言\n\n> *“经典计算如同独唱——一条纯净的音调彼此相继。量子计算则像交响乐——众多音调相互干涉。”*\n\
+  > \n> ——塞斯·劳埃德\n\n本章概述了量子信息处理的框架。你将了解量子信息处理框架如何应用于现实生活。针对所讨论的量子算法，本章提供了代码示例。此外，本章还详细讨论了量子电路。\n\
+  \n## 初始设置\n\n你需要安装 Python 3.5 才能运行本章中的代码示例。你可以从 [`https://www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)\
+  \ 下载。\n\n## 量子电路\n\n量子电路是量子计算的关键组成部分。正如我们所知，量子计算基于量子力学原理。例如，叠加态和量子纠缠等量子力学原理在量子计算中被广泛应用。量子比特与经典比特类似。希尔伯特状态空间具有与线性叠加相关的特征值。状态值将是\
+  \ `|0>` 和 `|1>`。这些本征态通过酉操作进行运算。\n\n让我们看看什么是希尔伯特空间。希尔伯特空间类似于有限维复数向量的内积空间。两个复数向量的内积与表示这些向量的两个矩阵的内积相同。现在让我们看看什么是特征值。*特征值*是满足线性方程\
+  \ `B |v > = v|v>` 的复数。`|v>` 是一个非零向量，它是线性算子 `B` 的特征向量。\n\n让我们回顾一下前面章节讨论过的叠加原理。量子力学中的叠加原理与量子系统的状态有关。假设\
+  \ `|u>` 和 `|v>` 是量子系统的两种状态。叠加态 `α|u> + β |v>` 是一个有效的状态，前提是 `|α|² + |β|² = 1`。薛定谔方程是量子计算中使用的另一个量子力学原理。量子系统的状态随时间演化。这种时间演化通过薛定谔方程进行数学解释。\n\
+  \n图 4-1 展示了一个包含哈达玛门的量子电路示例。输入和输出都将以量子比特形式呈现。哈达玛门在前面的章节中已经介绍过。就其使用频率而言，它是一个流行的量子门。它通过在布洛赫球上进行旋转和反射来对单量子比特门进行操作。绕\
+  \ y 轴旋转 90 度，绕 x 轴旋转 180 度。\n\n![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig1_HTML.jpg](img/490826_1_En_4_Fig1_HTML.jpg)\n\
+  \n图 4-1\n\n量子电路\n\n量子电路模型基于量子比特的量子纠缠。量子纠缠没有经典对应物。与经典计算机相比，量子计算机利用叠加原理能够以指数级的规模存储数据。使用\
+  \ `M` 个比特的经典计算机只能存储 `2^(M)` 种组合中的一种。量子计算机则可以存储 `2^(M)` 种信息组合。让我们看看什么是量子纠缠。我们在前面的章节中讨论过量子纠缠。纠缠与一对相互依赖状态的纠缠粒子有关。当它们相隔巨大距离时，也能观察到这种现象。\n\
+  \n量子电路用于构建量子计算机。电路由导线和量子门组成。量子逻辑门基于单量子比特门或多量子比特门。这些门是可逆的。量子门用于传输和修改信息。\n\n现在让我们来看图\
+  \ 4-2 中所示的受控非门电路。受控非门是一种多量子比特逻辑门。它是通用量子比特门之一。CNOT 门有两个输入量子比特。这些量子比特分别是控制量子比特和目标量子比特。同样地，CNOT\
+  \ 算子以两个量子比特作为输入。对于这对输入量子比特，一个被称为*控制*量子比特，另一个被称为*目标*量子比特。当你将控制量子比特变为 `|1>` 时，目标量子比特的值会发生翻转。否则，目标量子比特保持不变。\n\
+  \n![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig2_HTML.jpg](img/490826_1_En_4_Fig2_HTML.jpg)\n\
+  \n图 4-2\n\nCNOT 门电路\n\n图 4-3 展示了矩阵形式的 CNOT 门电路。\n\n![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig3_HTML.jpg](img/490826_1_En_4_Fig3_HTML.jpg)\n\
+  \n图 4-3\n\n矩阵形式的 CNOT 门电路\n\n让我们看看另一种类型的电路。受控-U 门电路基于受控-U 门。该门对两个量子比特的输入进行操作。第一个量子比特是控制量子比特。图\
+  \ 4-4 展示该电路。受控-U 门包含 `U`，它是一个酉矩阵。该酉矩阵对 `m` 个量子比特进行操作。受控-U 门的一个基本示例是受控非门。\n\n![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig4_HTML.jpg](img/490826_1_En_4_Fig4_HTML.jpg)\n\
+  \n图 4-4\n\n受控-U 门电路\n\n图 4-5 展示了矩阵形式的受控-U 门电路。\n\n![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig5_HTML.jpg](img/490826_1_En_4_Fig5_HTML.jpg)\n\
+  \n图 4-5\n\n受控-U 门电路矩阵\n\n托佛利门电路是另一种类型的电路，如图 4-6 所示。托佛利门与哈达玛门组合构成一个三量子比特逻辑门。\n\n\
+  ![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig6_HTML.jpg](img/490826_1_En_4_Fig6_HTML.jpg)\n\
+  \n图 4-6\n\n托佛利门电路\n\n托佛利门有三个输入比特和三个输出比特。在三个输入比特中，两个是控制比特，第三个是目标比特。如果控制比特的值为 1，则目标比特翻转。如果控制比特的值不为\
+  \ 1，则控制比特不变。\n\n图 4-7 展示了矩阵形式的托佛利门电路。\n\n![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig7_HTML.jpg](img/490826_1_En_4_Fig7_HTML.jpg)\n\
+  \n图 4-7\n\n托佛利门电路矩阵\n\n在了解了不同类型的量子电路之后，量子电路模型的最后一步是在计算基上进行的投影测量。这一步是不可逆的。测量有两种类型：延迟测量和隐式测量。*延迟*测量方法允许将量子操作转换为经典等效操作。在这种方法中，测量可以从电路中间阶段移至末端。在*隐式*测量方法中，未被测量的量子比特可以被隐式测量。此方法不会导致通用性损失。\n\
+  \n> **注意**\n> \n> 量子电路对其机械类比——量子寄存器，执行可逆更改。\n\n\n\n## 量子通信\n\n`量子通信`是将量子态从一个点发送到另一个点的过程，如图\
+  \ 4-8 所示。`超密编码`是一种流行的通信协议，由 Bennett 和 Wiesner 于 1992 年首次提出。`量子隐形传态`则涉及无需量子通信即可移动量子态，它是超密编码的一种逆方法。`量子隐形传态`是一种无需在接收方和发送方之间建立量子通信信道即可转移量子态的方法。\n\
+  \n![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig8_HTML.jpg](img/490826_1_En_4_Fig8_HTML.jpg)\n\
+  \n图 4-8\n\n量子通信\n\n在超密编码中，经典信息比特从源端传输到目的地。而在量子隐形传态中，则是利用两个经典比特之间的通信信道来传输量子比特。\n\n\
+  超密协议包含一组指令集和输出结果。如果协议能产生预期的输出，则该协议有效。超密协议基于量子纠缠。当单个公共源可以产生多个量子系统时，就会发生量子纠缠。这些量子系统的状态不遵循贝尔不等式规则。相互纠缠的系统即使相隔遥远距离也会相互影响。\n\
+  \n我们已经了解了超密量子通信协议；其他协议还包括连续变量、卫星和线性光学量子通信协议。入射光的电场通过零差探测器进行测量，测量结果是一个连续值。连续变量量子通信基于零差探测器的测量结果。卫星通信协议则基于地对卫星和卫星对卫星的通信信道。线性光学量子通信协议基于光纤通信信道。\n\
+  \n## 量子噪声\n\n量子噪声的产生源于量子起源的物理实体所具有的不确定性。频谱密度用于测量噪声强度，它以依赖于时间的方式在特定频率下进行测量。量子器件在场被放大时会产生噪声。由于量子场模式的不对易性，量子计算机也会产生噪声。图\
+  \ 4-9 以量子计算形式和波形表示了噪声。\n\n![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig9_HTML.jpg](img/490826_1_En_4_Fig9_HTML.jpg)\n\
+  \n图 4-9\n\n量子噪声\n\nH.B. Callen 和 T.A. Welton 用数学方程表示了频谱密度。Roger H. Koch 首次通过实验测量了量子噪声的频谱实体。频谱密度与时间段的信号周期图相关。在数学上，傅里叶分析是一种通过将函数分解为一组周期图来测量频谱密度的好方法。周期图在数学上是一个时间段序列。\n\
+  \n注意\n\n量子噪声是由于电路中的信号变化而产生的。信号变化是由于电子的离散特性造成的。\n\n## 量子纠错\n\n量子纠错方法有助于保护量子信息免受量子噪声和退相干误差的影响。量子纠错方法最早于\
+  \ 1995 年提出。图 4-10 展示了量子电路中的纠错过程。\n\n![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig10_HTML.jpg](img/490826_1_En_4_Fig10_HTML.jpg)\n\
+  \n图 4-10\n\n量子纠错\n\n让我们看看经典纠错技术，例如编码。编码与数据克隆有关。由于不可克隆原理，这种技术对量子纠错没有帮助。该原理指出，未知的量子态不能被精确复制。量子纠错不允许存在大量副本。由于量子叠加会失效，因此无法通过直接测量来防止错误。量子错误可能由量子比特翻转、相位偏移和连续错误引起。\n\
+  \n现在让我们看看如何修复量子错误。相干技术有助于减少控制误差。由退相干引起的错误是时间依赖性的。对错误进行建模有助于测量误差，而正算子值测度则用于测量这些误差。追踪丢失的量子比特是另一种对量子比特丢失和移除进行建模的方法。纠错首先需要验证系统中量子比特的存在。量子比特的丢失源于重要的控制因素。由\
+  \ Peter Shor 设计的 Shor 码协议有助于识别和修复来自量子比特的错误。\n\n现在让我们看看 Shor 码协议。Shor 码是一组由三个量子比特的相位翻转码和比特翻转码构成的代码。这种量子代码有助于防范量子比特上的错误影响。量子态通过幺正操作进行运算，从而得到基于量子纠错的代码。该结果将是更大希尔伯特空间`D`子空间的一部分。希尔伯特空间是有限维复向量的内积空间。\n\
+  \n### 量子计算的局限性\n\n在探讨不同的量子算法之前，我们先来看一下量子计算的局限性。量子计算机容易因环境而产生错误和问题。退相干的发生是由于对量子比特的状态进行测量导致状态函数坍缩。退相干会在计算中引起错误。量子比特的数量会以指数方式影响退相干的概率。退相干由量子比特翻转、自发对称性破缺和相位翻转编码协议引起。量子比特翻转码根据一定概率翻转量子比特。如果在量子系统上对`F`进行变换可以通过对量子子系统进行变换操作来实现，那么自发对称性破缺协议基于对称群`F`。量子比特相位翻转码则基于根据一定概率进行的相位翻转。\n\
+  \n在经典计算中，小错误可以通过使用纠错协议来消除。而在量子计算中，小错误无法被修复。量子系统与环境纠缠在一起，因此错误在计算开始之前就已经被引入。量子比特的初始化会因幺正变换而引入错误。\n\
+  \n## 量子算法\n\n算法用于计算和数据处理。现实生活中的情境通过启发式方法和各种技术进行建模和求解。一个算法包含一组用于执行任务的指令。量子算法有助于为经典计算机无法解决的复杂问题提供解决方案。\n\
+  \n量子编程语言有助于使用量子算法创建量子软件。量子算法包含以下步骤：将量子数据编码为量子比特、作用于量子比特的幺正量子门链、以及在测量量子比特后终止。幺正量子门类似于作用于量子比特的幺正矩阵。幺正矩阵的逆矩阵等于其共轭转置。\n\
+  \n量子计算基于量子力学特性，例如叠加和纠缠。具体来说，量子算法利用了这些原理。\n\n注意\n\n*算法*一词源于*代数学*一词，以阿拉伯数学家阿尔·花拉子密的名字命名。\n\
+  \n让我们从 Deutsch–Jozsa 算法开始了解一些量子算法。\n\n\n\n## 多伊奇-乔萨算法\n\n多伊奇-乔萨算法由大卫·多伊奇（David Deutsch）和理查德·乔萨（Richard\
+  \ Jozsa）于 1992 年提出。该算法于 1998 年由理查德·克莱夫（Richard Cleve）等人进行了改进。此方法具有非确定性特征，曾为量子计算与经典计算在问题难度之间树立了一道屏障。该技术涉及具有正负值的量子振幅。该算法用于识别黑盒预言函数。图\
+  \ 4-11 展示了一个预言函数的示例。\n\n![../images/490826_1_En_4_Chapter/490826_1_En_4_Fig11_HTML.jpg](img/490826_1_En_4_Fig11_HTML.jpg)\n\
+  \n**图 4-11** 预言函数\n\n该算法使用一个黑盒（预言）函数，该函数接收二进制值作为输入，并输出 0 或 1。该方法用于判断所使用的函数 `g` 是常函数还是平衡函数。\n\
+  \n在接下来的章节中，我们将讨论该算法的实现。首先，让我们来看看量子寄存器。量子寄存器包含一个构造函数、`GetMeasure` 方法和 `ApplyOperation`\
+  \ 方法。`GetMeasure` 方法用于计算量子态及其概率。`ApplyOperation` 方法将类实例变量 `data` 更新为输入门矩阵与数据实例的乘积。\n\
+  \n### 代码示例\n\n**Quantum_Register.py**\n\n```python\nimport numpy as nump\nfrom itertools\
+  \ import product\nfrom Quantum_Gate import Quantum_Gate\n\nclass Quantum_Register:\n\
+  \    def __init__(self, n_qbits, init):\n        self._n = n_qbits\n        assert\
+  \ len(init) == self._n\n        self._data = nump.zeros((2 ** self._n), dtype=nump.complex64)\n\
+  \        self._data[int('0b' + init, 2)] = 1\n\n    def Get_Measure(self):\n   \
+  \     probs = nump.real(self._data) ** 2 + nump.imag(self._data) ** 2\n        states\
+  \ = nump.arange(2 ** self._n)\n        mstate = nump.random.choice(states, size=1,\
+  \ p=probs)[0]\n        return f'{mstate:>0{self._n}b}'\n\n    def Apply_Gate(self,\
+  \ gate):\n        assert isinstance(gate, Quantum_Gate)\n        assert self._n\
+  \ == gate._n\n        self._data = gate._data @ self._data\n```\n\n现在让我们来看看量子门的实现。它包含一个构造函数、矩阵乘法方法和幂方法。矩阵乘法方法对输入数据和实例数据进行运算，返回一个克罗内克积。幂方法接收输入参数并返回量子门。\n\
+  \nI、H、X、Y 和 Z 门在该类中进行了初始化。`U_Quantum_Gate` 门方法根据输入参数创建一个量子门。\n\n### 代码示例\n\n**Quantum_Gate.py**\n\
+  \n```python\nimport numpy as nump\nfrom itertools import product\n\nclass Quantum_Gate:\n\
+  \    def __init__(self, matrix):\n        self._data = nump.array(matrix, dtype=nump.complex64)\n\
+  \        assert len(self._data.shape) == 2\n        assert self._data.shape[0] ==\
+  \ self._data.shape[1]\n        self._n = nump.log2(self._data.shape[0])\n      \
+  \  assert self._n.is_integer()\n        self._n = int(self._n)\n\n    def __matmul__(self,\
+  \ other):\n        return Quantum_Gate(nump.kron(self._data, other._data))\n\n \
+  \   def __pow__(self, n, modulo=None):\n        x = self._data.copy()\n        for\
+  \ _ in range(n - 1):\n            x = nump.kron(x, self._data)\n        return Quantum_Gate(x)\n\
+  \nIGate = Quantum_Gate([[1, 0], [0, 1]])\nHGate = Quantum_Gate(nump.array([[1, 1],\
+  \ [1, -1]]) / nump.sqrt(2))\nXGate = Quantum_Gate([[0, 1], [1, 0]])\nYGate = Quantum_Gate([[0,\
+  \ -1j], [1j, 0]])\nZGate = Quantum_Gate([[1, 0], [0, -1]])\n\ndef U_Quantum_Gate(f,\
+  \ n):\n    m = n + 1\n    U = nump.zeros((2**m, 2**m), dtype=nump.complex64)\n\n\
+  \    def bin2int(xs):\n        r = 0\n        for i, x in enumerate(reversed(xs)):\n\
+  \            r += x * 2 ** i\n        return r\n\n    for xs in product({0, 1},\
+  \ repeat=m):\n        x = xs[:~0]\n        y = xs[~0]\n        z = y ^ f(*x)\n \
+  \       instate = bin2int(xs)\n        outstate = bin2int(list(x) + [z])\n     \
+  \   U[instate, outstate] = 1\n    return Quantum_Gate(U)\n```\n\n函数 `g1_func`、`g2_func`、`g3_func`\
+  \ 和 `g4_func` 如下方代码示例所示。`g1_func` 接收 `v` 并返回 `v`。`g2_func` 接收 `v` 作为输入值，并返回值 1。`g3_func`\
+  \ 接收 `v` 和 `w` 作为输入值，并返回 `v` 和 `w` 的二进制异或结果。`g4_func` 接收 `v`、`w` 和 `x` 作为输入值，并返回零值。`CheckIfConstant`\
+  \ 方法接收输入函数和一个整数，用于验证该函数是常函数还是平衡函数。\n\n### 代码示例\n\n**Deutsch_Jozsa_Algorithm.py**\n\
+  \n```python\nfrom Quantum_Register import Quantum_Register\nfrom Quantum_Gate import\
+  \ HGate, IGate, UGate\n\ndef Check_If_Constant(g, n):\n    qr = Quantum_Register(n\
+  \ + 1, '0' * n + '1')\n    qr.Apply_Gate(HGate ** (n + 1))\n    qr.Apply_Gate(UGate(g,\
+  \ n))\n    qr.Apply_Gate(HGate ** n @ IGate)\n    return qr.Get_Measure()[:~0] ==\
+  \ '0' * n\n\ndef g1_func(v):\n    return v\n\ndef g2_func(w):\n    return 1\n\n\
+  def g3_func(v, w):\n    return v ^ w\n\ndef g4_func(v, w,x):\n    return 0\n\nprint('g(v)\
+  \ = v 是 {}'.format('常函数' if Check_If_Constant(g1_func, 1) else '平衡函数'))\nprint('g(v)\
+  \ = 1 是 {}'.format('常函数' if Check_If_Constant(g2_func, 1) else '平衡函数'))\nprint('g(v,\
+  \ w) = v ^ w 是 {}'.format('常函数' if Check_If_Constant(g3_func, 2) else '平衡函数'))\n\
+  print('g(v, w, x) = 0 是 {}'.format('常函数' if Check_If_Constant(g4_func, 3) else '平衡函数'))\n\
+  ```\n\n### 执行命令\n\n```bash\npip3 install numpy\npython3 Deutsch_Jozsa_Algorithm.py\n\
+  ```\n\n### 输出\n\n```\ng(v) = v 是 平衡函数\ng(v) = 1 是 常函数\ng(v, w) = v ^ w 是 平衡函数\n\
+  g(v, w, x) = 0 是 常函数\n```\n\n**注意：** 一个平衡布尔函数输出的布尔值 0 和 1 的数量相等。常函数的输出值是一个常数。\n\n\
+  ## 西蒙算法\n\n现在让我们来看看西蒙量子算法。该算法有助于识别一个黑盒函数 `h(x)`，其中 `h(x) = h(y)` 且 `x = y ⊕ t`。请注意，`t\
+  \ ∈ {0, 1}^n`，而 `⊕` 表示基于模 2 的按位加法。该算法的目标是通过使用 `h` 来找到 `t`。这个量子算法的性能在指数级上优于其经典对应算法。该算法启发了肖尔（Shor）提出了肖尔算法。\n\
+  \n让我们来看看该算法的 Python 代码实现。\n\n`RetrieveOnetoOneMap` 方法将输入掩码作为参数，并返回输出，该输出是一个位图函数。`RetrieveValidTwoToOneMap`\
+  \ 方法接收搜索掩码和随机种子作为输入参数。它返回的输出是一个二对一映射函数。\n\n\n\n### 代码示例\n\n**Simons_Algorithm.py**\n\
+  \n```python\nfrom collections import defaultdict\nimport numpy as nump\nfrom mock\
+  \ import patch\nfrom collections import defaultdict\nfrom operator import xor\n\
+  from typing import Dict, Tuple, List\nimport numpy.random as rand\nfrom pyquil import\
+  \ Program\nfrom pyquil.api import QuantumComputer\nfrom pyquil.gates import H, MEASURE\n\
+  def RetrieveOnetoOneMap(mask: str) -> Dict[str, str]:\nn_bits = len(mask)\nform_string\
+  \ = \"{0:0\" + str(n_bits) + \"b}\"\nbit_map_dct = {}\nfor idx in range(2**n_bits):\n\
+  bit_string = form_string.format(idx)\nbit_map_dct[bit_string] = InvokeBitwiseXorOperation(bit_string,\
+  \ mask)\nreturn bit_map_dct\ndef RetrieveValidTwotoOneMap(mask: str, random_seed:\
+  \ int = None) -> Dict[str, str]:\nif random_seed is not None:\nrand.seed(random_seed)\n\
+  bit_map = RetrieveOnetoOneMap(mask)\nn_samples = int(len(bit_map.keys()) / 2)\n\
+  range_of_2to1_map = list(rand.choice(list(sorted(bit_map.keys())), replace=False,\
+  \ size=n_samples))\nlist_of_bitstring_tuples = sorted([(k, v) for k, v in bit_map.items()],\
+  \ key=lambda x: x[0])\nbit_map_dct = {}\nfor cnt in range(n_samples):\nbitstring_tup\
+  \ = list_of_bitstring_tuples[cnt]\nval = range_of_2to1_map[cnt]\nbit_map_dct[bitstring_tup[0]]\
+  \ = val\nbit_map_dct[bitstring_tup[1]] = val\nreturn bit_map_dct\n```\n\n`Simons_Algorithm`类用于查找满足一组值的黑盒函数。它有一个构造函数和以下方法：`RetrieveSimonCircuit`、`CalculateUnitaryOracleMatrix`、`RetrieveBitMaskRetrieveSampleIndependentBits`、`RetrieveInverseMaskEquation`、`AppendToDictofIndepBits`、`RetrieveMissingMsbVector`和`CheckValidMaskIfCorrect`。`RetrieveSimonCircuit`方法将量子比特作为输入，并返回输出，即量子电路。\n\
+  \n`Simons_Algorithm`类的`CalculateUnitaryOracleMatrix`方法接受比特字符串的输入映射。输出将是一个稠密矩阵，该矩阵是字典中值的排列。`Simons_Algorithm`类的`RetrieveBitMask`方法接受量子计算机和比特字符串作为输入。输出是一个比特字符串映射。\n\
+  \n`RetrieveSampleIndependentBits`方法接受量子计算机和比特字符串作为输入。独立比特向量会随着比特字符串更新。`RetrieveInverseMaskEquation`方法根据输入函数创建比特掩码。`AppendToDictofIndepBits`方法接受一个数组作为输入。此方法将独立向量添加到字典中。`RetrieveMissingMsbVector`方法在独立比特向量集合中搜索来源值。该方法通过添加单位向量来修改集合。`CheckValidMaskIfCorrect`方法验证给定的掩码是否正确。\n\
+  \n现在来看看什么是独立向量。如果两个向量不为零且不平行，则它们线性无关。线性独立向量通常是非零向量。反过来也是如此。在独立向量之后，我们再看看什么是比特掩码。比特掩码有助于检索给定字节中的比特。\n\
+  \n```python\nclass Simons_Algorithm(object):\ndef __init__(self):\nself.unitary_function_mapping\
+  \ = None\nself.n_qubits = None\nself.n_ancillas = None\nself._qubits = None\nself.computational_qubits\
+  \ = None\nself.ancillas = None\nself.simon_circuit = None\nself._dict_of_linearly_indep_bit_vectors\
+  \ = {}\nself.search_mask = None\nself.bit_map = None\nself.classical_register =\
+  \ None\ndef RetrieveSimonCircuit(self) -> Program:\nsimon_circuit = Program()\n\
+  oracle_name = \"SIMON_ORACLE_FUNCTION\"\nsimon_circuit.defgate(oracle_name, self.unitary_function_mapping)\n\
+  simon_circuit.inst([H(i) for i in self.computational_qubits])\nsimon_circuit.inst(tuple([oracle_name]\
+  \ + sorted(self._qubits, reverse=True)))\nsimon_circuit.inst([H(i) for i in self.computational_qubits])\n\
+  return simon_circuit\ndef _Initialize_Attributes(self, bitstring_map: Dict[str,\
+  \ str]) -> None:\nself.bit_map = bitstring_map\nself.n_qubits = len(list(bitstring_map.keys())[0])\n\
+  self.n_ancillas = self.n_qubits\nself._qubits = list(range(self.n_qubits + self.n_ancillas))\n\
+  self.computational_qubits = self._qubits[:self.n_qubits]\nself.ancillas = self._qubits[self.n_qubits:]\n\
+  self.unitary_function_mapping, _ = self.CalculateUnitaryOracle(bitstring_map)\n\
+  self.simon_circuit = self.RetrieveSimonCircuit()\nself._dict_of_linearly_indep_bit_vectors\
+  \ = {}\nself.search_mask = None\n@staticmethod\ndef CalculateUnitaryOracle(bitstring_map:\
+  \ Dict[str, str]) -> Tuple[nump.ndarray,Dict[str, str]]:\nn_bits = len(list(bitstring_map.keys())[0])\n\
+  ufunc = nump.zeros(shape=(2 ** (2 * n_bits), 2 ** (2 * n_bits)))\nindex_mapping_dct\
+  \ = defaultdict(dict)\nfor b in range(2**n_bits):\npad_str = nump.binary_repr(b,\
+  \ n_bits)\nfor k, v in bitstring_map.items():\nindex_mapping_dct[pad_str + k] =\
+  \ InvokeBitwiseXorOperation(pad_str, v) + k\ni, j = int(pad_str+k, 2), int(InvokeBitwiseXorOperation(pad_str,\
+  \ v) + k, 2)\nufunc[i, j] = 1\nreturn ufunc, index_mapping_dct\ndef RetrieveBitMask(self,\
+  \ qc: QuantumComputer, bitstring_map: Dict[str, str]) -> str:\nself._Initialize_Attributes(bitstring_map)\n\
+  self.RetrieveSampleIndependentBits(qc)\nself.RetrieveInverseMaskEquation()\nif self.CheckValidMaskIfCorrect():\n\
+  return self.search_mask\nelse:\nraise Exception(\"No valid mask found\")\ndef RetrieveSampleIndependentBits(self,\
+  \ quantum_computer: QuantumComputer) -> None:\nwhile len(self._dict_of_linearly_indep_bit_vectors)\
+  \  None:\nmissing_msb = self.RetrieveMissingMsbVector()\nupper_triangular_matrix\
+  \ = nump.asarray(\n[tup[1] for tup in sorted(zip(self._dict_of_linearly_indep_bit_vectors.keys(),\n\
+  self._dict_of_linearly_indep_bit_vectors.values()),\nkey=lambda x: x[0])])\nmsb_unit_vec\
+  \ = nump.zeros(shape=(self.n_qubits,), dtype=int)\nmsb_unit_vec[missing_msb] = 1\n\
+  self.search_mask = RetrieveBinaryBackSubstitute(upper_triangular_matrix, msb_unit_vec).tolist()\n\
+  def AppendToDictofIndepBits(self, z: nump.ndarray) -> None:\nif (z == 0).all() or\
+  \ (z == 1).all():\nreturn None\nmsb_z = RetrieveMostSignificantBit(z)\nif msb_z\
+  \ not in self._dict_of_linearly_indep_bit_vectors.keys():\nself._dict_of_linearly_indep_bit_vectors[msb_z]\
+  \ = z\nelse:\nconflict_z = self._dict_of_linearly_indep_bit_vectors[msb_z]\nnot_z\
+  \ = [xor(conflict_z[idx], z[idx]) for idx in range(len(z))]\nif (nump.asarray(not_z)\
+  \ == 0).all():\nreturn None\nmsb_not_z = most_significant_bit(nump.asarray(not_z))\n\
+  if msb_not_z not in self._dict_of_linearly_indep_bit_vectors.keys():\nself._dict_of_linearly_indep_bit_vectors[msb_not_z]\
+  \ = not_z\ndef RetrieveMissingMsbVector(self) -> int:\nmissing_msb = None\nfor idx\
+  \ in range(self.n_qubits):\nif idx not in self._dict_of_linearly_indep_bit_vectors.keys():\n\
+  missing_msb = idx\nif missing_msb is None:\nraise ValueError(\"Expected a missing\
+  \ provenance, but didn't find one.\")\naugment_vec = nump.zeros(shape=(self.n_qubits,))\n\
+  augment_vec[missing_msb] = 1\nself._dict_of_linearly_indep_bit_vectors[missing_msb]\
+  \ = augment_vec.astype(int).tolist()\nreturn missing_msb\ndef CheckValidMaskIfCorrect(self)\
+  \ -> bool:\nmask_str = ''.join([str(b) for b in self.search_mask])\nreturn all([self.bit_map[k]\
+  \ == self.bit_map[InvokeBitwiseXorOperation(k, mask_str)] for k in self.bit_map.keys()])\n\
+  PADDED_BINARY_BIT_STRING = \"{0:0{1:0d}b}\"\ndef CheckValidIfUnitary(matrix: nump.ndarray)\
+  \ -> bool:\nrows, cols = matrix.shape\nif rows != cols:\nreturn False\nreturn nump.allclose(nump.eye(rows),\
+  \ matrix.dot(matrix.T.conj()))\ndef RetrieveMostSignificantBit(lst: nump.ndarray)\
+  \ -> int:\nreturn nump.argwhere(nump.asarray(lst) == 1)[0][0]\ndef InvokeBitwiseXorOperation(bs0:\
+  \ str, bs1: str) -> str:\nif len(bs0) != len(bs1):\nraise ValueError(\"Bit strings\
+  \ are not of equal length\")\nn_bits = len(bs0)\nreturn PADDED_BINARY_BIT_STRING.format(xor(int(bs0,\
+  \ 2), int(bs1, 2)), n_bits)\ndef RetrieveBinaryBackSubstitute(W: nump.ndarray, s:\
+  \ nump.ndarray) -> nump.ndarray:\nm = nump.copy(s)\nn = len(s)\nfor row_num in range(n\
+  \ - 2, -1, -1):\nrow = W[row_num]\nfor col_num in range(row_num + 1, n):\nif row[col_num]\
+  \ == 1:\nm[row_num] = xor(s[row_num], s[col_num])\nreturn m[::-1]\nsearch_mask =\
+  \ '110'\nbm = RetrieveValidTwotoOneMap(search_mask, random_seed=42)\nexpected_map\
+  \ = {\n'000': '001',\n'001': '101',\n'010': '000',\n'011': '111',\n'100': '000',\n\
+  '101': '111',\n'110': '001',\n'111': '101'\n}\nfor k, v in bm.items():\nassert v\
+  \ == expected_map[k]\nreverse_bitmap = defaultdict(list)\nfor k, v in bm.items():\n\
+  reverse_bitmap[v].append(k)\nexpected_reverse_bitmap = {\n'001': ['000', '110'],\n\
+  '101': ['001', '111'],\n'000': ['010', '100'],\n'111': ['011', '101']\n}\nfor k,\
+  \ v in reverse_bitmap.items():\nassert sorted(v) == sorted(expected_reverse_bitmap[k])\n\
+  with patch(\"pyquil.api.QuantumComputer\") as quantum_computer:\nquantum_computer.run.side_effect\
+  \ = [\n(nump.asarray([0, 1, 1], dtype=int), ),\n(nump.asarray([1, 1, 1], dtype=int),\
+  \ ),\n(nump.asarray([1, 1, 1], dtype=int), ),\n(nump.asarray([1, 0, 0], dtype=int),\
+  \ ),\n]\nsimon_algo = Simons_Algorithm()\nresult_mask = simon_algo.RetrieveBitMask(quantum_computer,\
+  \ bm)\nprint(\"mask\", search_mask,\" result mask\",result_mask)\n```\n\n\n\n###\
+  \ 执行命令\n\n```\npip3 install numpy\npip3 install pyquil\npython3 Simons_Algorithm.py\n\
+  ```\n\n### 输出结果\n\n```\nmask 110  result mask [1, 1, 0]\n```\n\n## 肖尔算法\n\n彼得·肖尔（Peter\
+  \ Shor）于 1994 年率先提出了一种用于整数因式分解的量子算法。肖尔算法能在多项式时间内完成整数`M`的因式分解，其时间复杂度为`O(logN)`，性能优于经典算法。此外，该算法具有破解\
+  \ RSA 加密方法的潜力。\n\n该算法接收一个数字`M`，并在`1`到`M`之间找到一个能整除`M`的整数`q`。算法分为两步：将因式分解问题归约为求阶方法，以及执行求阶技术。\n\
+  \n我们先来看经典解法。对于`b < M`，计算最大公约数`gcd(b,M)`。该计算采用欧几里得方法执行，步骤如下：\n\n- 如果`gcd(b,M) !=\
+  \ 1`，则存在`M`的非平凡因子，问题解决。\n- 如果`gcd(b,M) == 1`，则求`g(x) = ax mod M`的周期，以找到满足`g(x+r)\
+  \ = g(x)`的`r`（此步骤为步骤 1）。\n  - 如果`r`为奇数，则返回步骤 1。\n  - 如果`ar/2 = -1 (mod M)`，则返回步骤\
+  \ 1。\n  - `gcd(ar/2 +- 1, M)`是`M`的一个非平凡因子，问题解决。\n\n接下来看量子算法。该算法的量子电路基于`g(x) = ax\
+  \ mod M`中的`M`和`a`：给定`M`，有`Q= 2q`且`Q/r > M`。输入和输出量子比特分别具有从`0`到`Q-1`的值的叠加态，且各包含`q`个量子比特。`g(x)`函数用于变换量子比特的状态。最终状态将是多个`Q`状态的叠加，即`Q²`个状态。\n\
+  \n我们来看肖尔算法在 Python 中的实现。\n\n肖尔算法用于质因数分解。`QuantumMap`类具有`state`和`amplitude`属性。`QuantumEntanglement`类具有`amplitude`、`register`和`entangled`属性。`QuantumEntanglement`类的`UpdateEntangled`方法接收`state`和`amplitude`等输入参数。`RetrieveEntangles`方法返回纠缠态的列表。\n\
+  \n### 代码示例\n\n**Shors_Algorithm.py**\n\n```\nclass QuantumMap:\ndef __init__(self,\
+  \ state, amplitude):\nself.state = state\nself.amplitude = amplitude\nclass QuantumEntanglement:\n\
+  def __init__(self, amplitude, register):\nself.amplitude = amplitude\nself.register\
+  \ = register\nself.entangled = {}\ndef UpdateEntangled(self, fromState, amplitude):\n\
+  register = fromState.register\nentanglement = QuantumMap(fromState, amplitude)\n\
+  try:\nself.entangled[register].append(entanglement)\nexcept KeyError:\nself.entangled[register]\
+  \ = [entanglement]\ndef RetrieveEntangles(self, register = None):\nentangles = 0\n\
+  if register is None:\nfor states in self.entangled.values():\nentangles += len(states)\n\
+  else:\nentangles = len(self.entangled[register])\nreturn entangles\n```\n\n`QuantumRecord`类具有`numBits`、`numStates`、一个`entangled`列表和一个`states`数组。`QuantumRecord`类的`SetPropagate`属性接收`fromRegister`作为参数，并在该寄存器上设置传播。`UpdateMap`方法接收`toRegister`、`mapping`和`propagate`等输入参数，该方法会设置归一化的`tensorX`和`tensorY`列表。`QuantumRecord`类的`FindMeasure`方法返回输出结果，即最终的`X`状态。`RetrieveEntangles`方法接收`register`作为输入，返回输出结果，即纠缠态的值。`RetrieveAmplitudes`方法返回输出结果，即量子态的振幅数组。\n\
+  \n### 代码示例\n\n```\nclass QuantumRecord:\ndef __init__(self, numBits):\nself.numBits\
+  \ = numBits\nself.numStates = 1  measure:\nfinalState = state\nfinalX = x\nbreak\n\
+  if finalState is not None:\nfor state in self.states:\nstate.amplitude = complex(0.0)\n\
+  finalState.amplitude = complex(1.0)\nself.UpdatePropagate()\nreturn finalX\ndef\
+  \ RetrieveEntangles(self, register = None):\nentangles = 0\nfor state in self.states:\n\
+  entangles += state.entangles(None)\nreturn entangles\ndef RetrieveAmplitudes(self):\n\
+  amplitudes = []\nfor state in self.states:\namplitudes.append(state.amplitude)\n\
+  return amplitudes\n```\n\n`FindListEntangles`方法打印纠缠列表。`FindListAmplitudes`方法打印寄存器振幅的值。`InvokeHadamard`方法接收`lambda\
+  \ x`和量子比特作为输入，返回`codomain`数组作为输出。`InvokeQModExp`方法接收输入参数`aval`、指数`expval`和运算符值`modval`，通过`InvokeModExp`方法计算状态。\n\
+  \n`InvokeQft`方法接收参数`x`和量子比特`Q`作为输入，通过`InvokeQft`方法返回状态与振幅的量子映射。`FindPeriod`方法接收输入`a`和`N`，并返回该函数的周期`r`作为输出。\n\
+  \n`ExecuteShors`方法接收参数`N`、`attempts`、`neighborhood`和`numPeriods`作为输入，该方法应用肖尔算法来找出给定数字`N`的质因数。\n\
+  \n\n```python\ndef FindListEntangles(register):\n    print(\"纠缠态：\" + str(register.RetrieveEntangles()))\n\
+  def FindListAmplitudes(register):\n    amplitudes = register.amplitudes()\n    for\
+  \ x, amplitude in enumerate(amplitudes):\n        print('状态 #' + str(x) + '的振幅值：'\
+  \ + str(amplitude))\ndef InvokeHadamard(x, Q):\n    codomain = []\n    for y in\
+  \ range(Q):\n        amplitude = complex(pow(-1.0, RetrieveBitCount(x & y) & 1))\n\
+  \        codomain.append(QuantumMap(y, amplitude))\n    return codomain\ndef InvokeQModExp(a,\
+  \ exp, mod):\n    state = InvokeModExp(a, exp, mod)\n    amplitude = complex(1.0)\n\
+  \    return [QuantumMap(state, amplitude)]\ndef InvokeQft(x, Q):\n    fQ = float(Q)\n\
+  \    k = -2.0 * math.pi\n    codomain = []\n    for y in range(Q):\n        theta\
+  \ = (k * float((x * y) % Q)) / fQ\n        amplitude = complex(math.cos(theta),\
+  \ math.sin(theta))\n        codomain.append(QuantumMap(y, amplitude))\n    return\
+  \ codomain\ndef DeterminePeriod(a, N):\n    nNumBits = N.bit_length()\n    inputNumBits\
+  \ = (2 * nNumBits) - 1\n    inputNumBits += 1 if ((1 << inputNumBits) < N * N) else\
+  \ 0\n    Q = 1 << inputNumBits\n    print(\"Q = \" + str(Q) + \"\\ta = \" + str(a))\n\
+  \    print(\"寄存器已创建\")\n    print(\"对输入寄存器执行阿达玛变换\")\n    inputRegister = []\n \
+  \   for x in range(Q):\n        inputRegister.append(InvokeHadamard(x, Q))\n   \
+  \ print(\"阿达玛变换已应用\")\n    print(\"将输入寄存器映射到输出寄存器\")\n    outputRegister = []\n\
+  \    for x in range(Q):\n        outputRegister.append(InvokeQModExp(a, x, N))\n\
+  \    print(\"模指数运算已应用\")\n    print(\"对输出寄存器应用量子傅里叶变换\")\n    qftRegister = []\n\
+  \    for x in range(Q):\n        qftRegister.append(InvokeQft(x, Q))\n    print(\"\
+  量子傅里叶变换已应用\")\n    print(\"获取输出寄存器的测量值\")\n    y = random.randint(0, Q - 1)\n  \
+  \  print(\"测量输出寄存器\\ty = \" + str(y))\n    print(\"获取周期寄存器的测量值\")\n    x = random.randint(0,\
+  \ Q - 1)\n    print(\"测量 QFT 寄存器\\tx = \" + str(x))\n    print(\"通过连分数获取周期\")\n\
+  \    r = RetrieveContinuedFraction(x, Q, N)\n    print(\"确定的候选周期\\tr = \" + str(r))\n\
+  \    return r\ndef RetrieveBitCount(x):\n    sumBits = 0\n    while x > 0:\n   \
+  \     sumBits += x & 1\n        x >>= 1\n    return sumBits\ndef RetrieveGcd(a,\
+  \ b):\n    while b != 0:\n        tA = a % b\n        a = b\n        b = tA\n  \
+  \  return a\ndef RetrieveExtendedGCD(a, b):\n    fractions = []\n    while b !=\
+  \ 0:\n        fractions.append(a // b)\n        tA = a % b\n        a = b\n    \
+  \    b = tA\n    return fractions\ndef RetrieveContinuedFraction(y, Q, N):\n   \
+  \ fractions = RetrieveExtendedGCD(y, Q)\n    depth = 2\n    def RetrievePartial(fractions,\
+  \ depth):\n        c = 0\n        r = 1\n        for i in reversed(range(depth)):\n\
+  \            tR = fractions[i] * r + c\n            c = r\n            r = tR\n\
+  \        return c\n    r = 0\n    for d in range(depth, len(fractions) + 1):\n \
+  \       tR = RetrievePartial(fractions, d)\n        if tR == r or tR >= N:\n   \
+  \         return r\n        r = tR\n    return r\ndef InvokeModExp(a, exp, mod):\n\
+  \    fx = 1\n    while exp > 0:\n        if (exp & 1) == 1:\n            fx = fx\
+  \ * a % mod\n        a = (a * a) % mod\n        exp = exp >> 1\n    return fx\n\
+  def RetrieveRandom(N):\n    a = math.floor((random.random() * (N - 1)) + 0.5)\n\
+  \    return a\ndef RetrieveNeighBorCandidates(a, r, N, neighborhood):\n    if r\
+  \ is None:\n        return None\n    for k in range(1, neighborhood + 2):\n    \
+  \    tR = k * r\n        if InvokeModExp(a, a, N) == InvokeModExp(a, a + tR, N):\n\
+  \            return tR\n    for tR in range(r - neighborhood, r):\n        if InvokeModExp(a,\
+  \ a, N) == InvokeModExp(a, a + tR, N):\n            return tR\n    for tR in range(r\
+  \ + 1, r + neighborhood + 1):\n        if InvokeModExp(a, a, N) == InvokeModExp(a,\
+  \ a + tR, N):\n            return tR\n    return None\ndef ExecuteShorsAlgorithm(N,\
+  \ attempts = 1, neighborhood = 0.0, numPeriods = 1):\n    periods = []\n    neighborhood\
+  \ = math.floor(N * neighborhood) + 1\n    print(\"N 值为\" + str(N))\n    print(\"\
+  邻域值为 = \" + str(neighborhood))\n    print(\"周期数为 = \" + str(numPeriods))\n    for\
+  \ attempt in range(attempts):\n        print(\"\\n 尝试 #\" + str(attempt))\n    \
+  \    a = RetrieveRandom(N)\n        while a < 2 or a >= N:\n            a = RetrieveRandom(N)\n\
+  \        d = RetrieveGcd(a, N)\n        if d > 1:\n            print(\"通过经典方式确定因子，重新尝试\"\
+  )\n            continue\n        r = DeterminePeriod(a, N)\n        print(\"验证候选周期、邻近值及其倍数\"\
+  )\n        r = RetrieveNeighBorCandidates(a, r, N, neighborhood)\n        if r is\
+  \ None:\n            print(\"未确定周期，重新尝试\")\n            continue\n        if (r\
+  \ % 2) > 0:\n            print(\"周期为奇数，重新尝试\")\n            continue\n        d\
+  \ = InvokeModExp(a, (r // 2), N)\n        if r == 0 or d == (N - 1):\n         \
+  \   print(\"周期是平凡的，重新尝试\")\n            continue\n        print(\"找到周期\\tr = \"\
+  \ + str(r))\n        periods.append(r)\n        if(len(periods) < numPeriods):\n\
+  \            continue\n        print(\"\\n 确定所有周期的最小公倍数\")\n        r = 1\n    \
+  \    for period in periods:\n            d = RetrieveGcd(period, r)\n          \
+  \  r = (r * period) // d\n        b = InvokeModExp(a, (r // 2), N)\n        f1 =\
+  \ RetrieveGcd(N, b + 1)\n        f2 = RetrieveGcd(N, b - 1)\n        return [f1,\
+  \ f2]\n    return None\nresults = ExecuteShorsAlgorithm(35, 20, 0.01, 2)\nprint(\"\
+  结果为：\\t\" + str(results[0]) + \", \" + str(results[1]))\n```\n\n### 执行命令\n\n```\n\
+  pip3 install numpy\npython3 Shors_Algorithm.py\n```\n\n### 输出\n\n```\nN = 35\n邻域\
+  \ = 1\n周期数 = 2\n尝试 #0\n正在打印周期...\nQ = 2048     a = 4\n寄存器已创建\n对输入寄存器执行阿达玛变换\n阿达玛变换已应用\n\
+  将输入寄存器映射到输出寄存器\n模指数运算已应用\n对输出寄存器应用量子傅里叶变换\n量子傅里叶变换已应用\n获取输出寄存器的测量值\n测量输出寄存器    \
+  \  y = 9\n获取周期寄存器的测量值\n测量 QFT 寄存器      x = 1024\n通过连分数获取周期\nTraceback (most recent\
+  \ call last):\nFile \"Shors_Algorithm.py\", line 384, in <module>\nresults = ExecuteShorsAlgorithm(35,\
+  \ 20, 0.01, 2)\nFile \"Shors_Algorithm.py\", line 343, in ExecuteShorsAlgorithm\n\
+  r = DeterminePeriod(a, N)\nFile \"Shors_Algorithm.py\", line 230, in DeterminePeriod\n\
+  r = RetrieveContinuedFraction(x, Q, N)\nFile \"Shors_Algorithm.py\", line 281, in\
+  \ RetrieveContinuedFraction\ntR = RetrievePartial(fractions, d)\nNameError: name\
+  \ 'RetrievePartial' is not defined\napples-MacBook-Air:chapter4 bhagvan.kommadi$\
+  \ python3 Shors_Algorithm.py\nN 值为 35\n邻域值为 = 1\n周期数为 = 2\n尝试 #0\n周期为...\nQ = 2048\
+  \     a = 24\n寄存器已实例化\n对输入执行阿达玛变换\n已调用阿达玛变换操作\n将输入寄存器映射到输出\n已调用模指数运算\n对输出执行量子傅里叶变换\n\
+  已调用量子傅里叶变换\n获取输出上的测量值\n测量输出寄存器      y = 1\n获取周期性测量值\n测量 QFT       x = 1707\n通过连分数获取周期\n\
+  确定的候选周期     r = 6\n验证候选周期、邻近值及其倍数\n周期是平凡的，重新尝试\n尝试 #1\n通过经典方式确定因子，重新尝试\n尝试 #2\n\
+  周期为...\nQ = 2048     a = 23\n寄存器已实例化\n对输入执行阿达玛变换\n已调用阿达玛变换操作\n将输入寄存器映射到输出\n已调用模指数运算\n\
+  对输出执行量子傅里叶变换\n已调用量子傅里叶变换\n获取输出上的测量值\n测量输出寄存器      y = 16\n获取周期性测量值\n测量 QFT     \
+  \  x = 1196\n通过连分数获取周期\n确定的候选周期     r = 12\n验证候选周期、邻近值及其倍数\n找到周期     r = 12\n尝试\
+  \ #3\n周期为...\nQ = 2048     a = 2\n寄存器已实例化\n对输入执行阿达玛变换\n已调用阿达玛变换操作\n将输入寄存器映射到输出\n\
+  已调用模指数运算\n对输出执行量子傅里叶变换\n已调用量子傅里叶变换\n获取输出上的测量值\n测量输出寄存器      y = 4\n获取周期性测量值\n测量\
+  \ QFT       x = 1365\n通过连分数获取周期\n确定的候选周期     r = 3\n验证候选周期、邻近值及其倍数\n未确定周期，重新尝试\n\
+  尝试 #4\n周期为...\nQ = 2048     a = 19\n寄存器已实例化\n对输入执行阿达玛变换\n已调用阿达玛变换操作\n将输入寄存器映射到输出\n\
+  已调用模指数运算\n对输出执行量子傅里叶变换\n已调用量子傅里叶变换\n获取输出上的测量值\n测量输出寄存器      y = 1\n获取周期性测量值\n测量\
+  \ QFT       x = 683\n通过连分数获取周期\n确定的候选周期     r = 3\n验证候选周期、邻近值及其倍数\n周期是平凡的，重新尝试\n\
+  尝试 #5\n周期为...\nQ = 2048     a = 29\n寄存器已实例化\n对输入执行阿达玛变换\n已调用阿达玛变换操作\n将输入寄存器映射到输出\n\
+  已调用模指数运算\n对输出执行量子傅里叶变换\n已调用量子傅里叶变换\n获取输出上的测量值\n测量输出寄存器      y = 29\n获取周期性测量值\n测量\
+  \ QFT       x = 1024\n通过连分数获取周期\n确定的候选周期     r = 2\n验证候选周期、邻近值及其倍数\n找到周期     r =\
+  \ 2\n确定所有周期的最小公倍数\n结果为：     1, 35\n```\n\n\n## 格罗弗算法\n\n`Grover` 算法用于搜索数据库。该搜索算法可以在包含\
+  \ `M` 条记录的数据库中，以 `O(√N)` 的时间和 `O(logN)` 的空间找到一条记录。该方法由洛夫·格罗弗于 1996 年发现。他发现，与其他量子算法相比，他的方法能提供二次加速。此外，`Grover`\
+  \ 方法相比经典算法具有指数级的速度提升。\n\n`Grover` 算法用于对函数求逆。假设 `y = g(x)`。`Grover` 算法能够在给定输入 `y`\
+  \ 时找到 `x`。在数据库中搜索 `y` 的值，类似于寻找 `x` 的匹配项。它在通过对可能解集进行穷举搜索来解决 NP 难题时非常流行。你可以使用 `Grover`\
+  \ 算法，在 `√M` 步内，从包含 `M` 条记录的电话簿中搜索一个电话号码。\n\n`Grover` 算法包含以下步骤：\n\n1.  将系统初始化为初始状态。\n\
+  2.  执行格罗弗迭代 `r(M)` 次。\n3.  测量振幅 `Ω`。\n4.  从 `Ωw`（结果）中找到 `w`。\n\n让我们来看看 `Grover`\
+  \ 算法的 Python 实现。\n\n`Grover` 搜索算法通过计算平均振幅和 `Grover` 振幅来搜索一组数据中的目标值。该图表根据 `Grover`\
+  \ 算法推导出的振幅绘制而成。图表展示了具有最高振幅的目标值。`ApplyOracleFunction` 方法接收输入 `x`，并返回 `x` 的十六进制摘要作为输出。`ApplyGrover’s`\
+  \ 算法将目标、对象、`nvalue` 和轮次作为输入，并返回振幅作为输出。\n\n该算法的目标是在字符串对象组 `{'14', '5', '13', '7','9','11','97'}`\
+  \ 中搜索 `9`。根据值 `1 / 集合长度 (9) 的平方根` ，从字典（字符串对象组）中搜索振幅。\n\n### 代码示例\n\n**Grovers_Algorithm.py**\n\
+  \n```python\nimport matplotlib.pyplot as plot\nimport numpy as nump\nimport string\n\
+  import hashlib\nfrom math import sqrt, pi\nfrom collections import OrderedDict\n\
+  from statistics import mean\n\ndef RenderGraph(amplitude_value, n):\n    y_position\
+  \ = nump.arange(n)\n    plot.bar(y_position, amplitude_value.values(), align=\"\
+  center\", color=\"g\")\n    plot.xticks(y_position, amplitude_value.keys())\n  \
+  \  plot.ylabel('Amplitude Value')\n    plot.title('Grovers Algorithm')\n    plot.show()\n\
+  \ndef ApplyOracleFunction(xvalue):\n    return hashlib.sha256(bytes(xvalue, 'utf-8')).hexdigest()\n\
+  \ndef ApplyGroverAlgorithm(target, objects, nvalue, rounds):\n    y_pos = nump.arange(nvalue)\n\
+  \    amplitude = OrderedDict.fromkeys(objects, 1/sqrt(nvalue))\n    for i in range(0,\
+  \ rounds, 2):\n        for k, v in amplitude.items():\n            if ApplyOracleFunction(k)\
+  \ == target:\n                amplitude[k] = v * -1\n        average = mean(amplitude.values())\n\
+  \        for k, v in amplitude.items():\n            if ApplyOracleFunction(k) ==\
+  \ target:\n                amplitude[k] = (2 * average) + abs(v)\n             \
+  \   continue\n            amplitude[k] = v-(2*(v-average))\n    return amplitude\n\
+  \ntarget_algorithm = '9'\nobjects_grover = ('14', '5', '13', '7','9','11','97')\n\
+  number = len(objects_grover)\namplitude_grover = OrderedDict.fromkeys(objects_grover,\
+  \ 1/sqrt(number))\namplitude_grover[target_algorithm] = amplitude_grover[target_algorithm]\
+  \ * -1\nprint(amplitude_grover)\naverage_grover = mean(amplitude_grover.values())\n\
+  print(\"Mean is {}\".format(average_grover))\nfor k, v in amplitude_grover.items():\n\
+  \    if k == target_algorithm:\n        amplitude_grover[k] = (2 * average_grover)\
+  \ + abs(v)\n        continue\n    amplitude_grover[k] = v-(2*(v-average_grover))\n\
+  print(amplitude_grover)\n\nneedle_value = \"2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881\"\
+  \nhaystack_value = string.ascii_lowercase\nnum = len(haystack_value)\nnum_rounds\
+  \ = int((pi / 4) * sqrt(num))\nprint(\"number of rounds are {}\".format(num_rounds))\n\
+  RenderGraph(ApplyGroverAlgorithm(needle_value, haystack_value, num, num_rounds),\
+  \ num)\n```\n\n### 执行命令\n\n```bash\npip3 install numpy\npython3 Grovers_Algorithm.py\n\
+  ```\n\n### 输出\n\n```\nOrderedDict([('4', 0.3779644730092272), ('5', 0.3779644730092272),\
+  \ ('3', -0.3779644730092272), ('7', 0.3779644730092272), ('9', 0.3779644730092272),\
+  \ ('11', 0.3779644730092272), ('97', 0.3779644730092272)])\nMean is 0.26997462357801943\n\
+  OrderedDict([('4', 0.16198477414681167), ('5', 0.16198477414681167), ('3', 0.9179137201652661),\
+  \ ('7', 0.16198477414681167), ('9', 0.16198477414681167), ('11', 0.16198477414681167),\
+  \ ('97', 0.16198477414681167)])\nnumber of rounds are 4\n```\n\n## 量子子程序\n\n量子计算机模拟器旨在模拟一个大小为\
+  \ `n` 个量子比特的量子计算机。现在已有量子计算机模拟软件包，可用于编写量子计算相关的软件。这些软件包就像黑盒一样，抽象了量子算法的方法和技术。量子傅里叶变换、`QPhase`\
+  \ 和矩阵求逆子程序都可在这些软件包中找到，以帮助解决现实世界中的复杂问题。\n\n这些软件包包括 `Project Q`、`IBM Quantum Experience`、`PennyLane`、`QuidPro`、`Liquid`\
+  \ 等。可以使用这些软件包来模拟量子电路，进行分析和计算。\n\n这些应用程序是使用量子子程序包为量子和经典算法开发的。代码被编译，输入文件用于量子算法执行。量子电路使用子程序\
+  \ API 包进行建模。量子电路包含一组控制门，并在模拟的量子电路上执行测量。\n\n量子算法的执行是在一组量子电路上进行的，这些电路代表并建模了现实世界的问题。对结果进行后处理以进行分析。\n\
+  \n## 总结\n\n在本章中，我们探讨了量子电路、量子通信、量子噪声、量子纠错以及量子计算的局限性。详细讨论了 Deutsch–Jozsa 算法、Simon\
+  \ 算法、Shor 算法和 Grover 算法等量子算法。还通过示例介绍了量子子程序和算法。\n\n"
+- "# 5. 量子模拟器\n\n## 引言\n\n> *“未来量子计算最重要的应用很可能是对量子系统的计算机模拟，因为这是一个我们确知经典计算机通常无法有效模拟量子系统的领域。”*\n\
+  > \n> ——戴维·多伊奇\n\n本章概述了量子模拟器。你将看到量子模拟器在现实世界中如何被使用。本章详细介绍了量子模拟器的代码示例，并讨论了量子语言和平台。\n\
+  \n## 初始设置\n\n你需要安装 Python 3.5 来运行本章的代码示例。你可以从 [`https://www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)\
+  \ 下载。\n\n\n\n## 量子语言\n\n肖尔质因数分解算法、格罗弗搜索算法和量子近似优化等量子算法被用于开发实际应用，并通过模拟量子计算机来借助这些应用解决现实问题。当模拟量子计算设备时，软件应用程序会使用量子语言编写，应用程序代码则通过模拟器执行。\n\
+  \n量子语言是一种包含量子指令的典型编程语言（见图 5-1）。量子指令作用于量子电路中的量子门。量子电路在量子模拟器中建模。\n\n![../images/490826_1_En_5_Chapter/490826_1_En_5_Fig1_HTML.jpg](img/490826_1_En_5_Fig1_HTML.jpg)\n\
+  \n图 5-1\n量子语言\n\n量子语言是一种类似 `C` 的语言，拥有数据类型和方法。这些数据类型和方法与经典计算机语言相似。此外，该语言还提供了量子数据类型和方法。\n\
+  \n量子计算机在经典机器上进行模拟，因此量子模拟器具备在经典机器上执行任务的功能。该模拟器基于量子力学原理和量子计算机模型。尤里·马宁和理查德·费曼提出了一个假设：可以利用量子力学原理执行模拟。量子计算机基于离子阱方法和超导量子比特构建。\n\
+  \n离子阱量子计算机基于悬浮在电磁场中的受限离子。每个离子中存储着量子比特。每个离子都具有包含量子比特的电子态。通过利用库仑力，离子的量化运动可用于转移量子信息。超导量子比特是量子计算机的基本单元。\n\
+  \n量子计算机利用量子原理运行，并借助亚原子粒子状态来管理量子信息。叠加是一种量子状态，代表亚原子粒子的可能状态。绝热量子计算是量子计算机的另一种方法，基于绝热定理。这种数学方法用于执行量子计算任务。\n\
+  \nIBM、谷歌、微软和 Rigetti 的量子模拟器都提供了编程 API、软件开发工具包和云服务。量子模拟器帮助程序员执行模拟和计算任务（见图 5-2）。\n\
+  \n![../images/490826_1_En_5_Chapter/490826_1_En_5_Fig2_HTML.jpg](img/490826_1_En_5_Fig2_HTML.jpg)\n\
+  \n图 5-2\n量子模拟器\n\n量子模拟器可以在经典计算机上执行。虽然已有商用量子计算机，但量子比特的数量是不同实现之间的区别所在。\n\n注意\n\n量子计算机不能违反丘奇-图灵论题。因此，可以实现基于图灵机的量子模拟器。\n\
+  \n## 量子比特测量\n\n量子计算任务包含编码信息和量子测量子任务。编码基于用于解决现实问题的量子算法。处于不同状态（如叠加态）的量子比特需要在量子计算任务期间进行测量。\n\
+  \n量子比特测量会产生一个输出，该输出是叠加态。玻恩规则指出，输出将是一个叠加态，且输出与该叠加态系数的平方成正比。重复采样是量子计算软件开发工具包的一个特性。采样直方图基于由结果计数得出的频率来创建。\n\
+  \n## 量子指令集\n\n使用量子语言开发的软件程序通过量子编译器编译，以创建量子指令集（见图 5-3）。编译器以量子汇编语言生成代码。代码优化是编译器的一个特性。\n\
+  \n![../images/490826_1_En_5_Chapter/490826_1_En_5_Fig3_HTML.jpg](img/490826_1_En_5_Fig3_HTML.jpg)\n\
+  \n图 5-3\n量子指令集\n\n量子汇编语言有助于使用量子门和量子操作来建模量子电路。量子处理器有助于在量子计算机上执行指令集。量子计算需要无噪声和无错误。可靠量子比特和容错量子计算方法被用于量子计算。\n\
+  \n注意\n\n量子指令集类似于经典计算机中存在的经典指令集。\n\n### 代码示例\n\n```\nimport cirq\nqbit = cirq.GridQubit(0,\
+  \ 0)\nquantum_circuit = cirq.Circuit.from_ops(\ncirq.X(qbit)**0.5,\ncirq.measure(qbit,\
+  \ key=\"m\")\n)\nprint(\"Quantum Circuit:\", quantum_circuit)\nquantum_simulator\
+  \ = cirq.Simulator()\nresults = quantum_simulator.run(quantum_circuit, repetitions=20)\n\
+  print(\"Results \",results)\n```\n\n### 执行命令\n\n```\npip3 install cirq\npython3\
+  \ quantum_circuit.py\n```\n\n### 输出\n\n```\nQuantum Circuit: (0, 0): ───X⁰.5───M('m')───\n\
+  Results  m=11000011010011101100\n```\n\n现在让我们来看看一个全栈通用量子计算机。全栈通用量子计算机基于经典计算机堆栈。\n\
+  \n## 全栈通用量子模拟器\n\n量子模拟器基于费曼关于用量子系统模拟计算任务的猜想。塞斯·劳埃德提出了可用于全栈通用量子模拟器的量子原理。全栈通用量子模拟器基于量子计算模型的概念。量子设备用于构建量子计算机，它可以与经典计算机并行工作。量子处理器用于执行任何需要加速的计算任务。这种混合方法使用经典计算机和量子计算机来执行任务。见图\
+  \ 5-4。\n\n![../images/490826_1_En_5_Chapter/490826_1_En_5_Fig4_HTML.jpg](img/490826_1_En_5_Fig4_HTML.jpg)\n\
+  \n图 5-4\n全栈通用量子模拟器\n\n量子加速器和量子辅助优化是用于量子计算的最新技术。全栈量子模拟器基于量子计算层和组件。\n\n\n\n### 代码示例\n\
+  \n```python\nimport cirq\nimport random\n\ndef rand2d(rows, cols):\n    return [[random.choice([+1,\
+  \ -1]) for _ in range(cols)] for _ in range(rows)]\n\ndef random_instance(length):\n\
+  \    h = rand2d(length, length)\n    jr = rand2d(length - 1, length)\n    jc = rand2d(length,\
+  \ length - 1)\n    return (h, jr, jc)\n\ndef one_step(h, jr, jc, x_half_turns, h_half_turns,\
+  \ j_half_turns):\n    length = len(h)\n    yield rot_x_layer(length, x_half_turns)\n\
+  \    yield rot_z_layer(h, h_half_turns)\n    yield rot_11_layer(jr, jc, j_half_turns)\n\
+  \ndef rot_x_layer(length, half_turns):\n    rot = cirq.XPowGate(exponent=half_turns)\n\
+  \    for i in range(length):\n        for j in range(length):\n            yield\
+  \ rot(cirq.GridQubit(i, j))\n\ndef rot_z_layer(h, half_turns):\n    gate = cirq.ZPowGate(exponent=half_turns)\n\
+  \    for i, h_row in enumerate(h):\n        for j, h_ij in enumerate(h_row):\n \
+  \           if h_ij == 1:\n                yield gate(cirq.GridQubit(i, j))\n\n\
+  def rot_11_layer(jr, jc, half_turns):\n    gate = cirq.CZPowGate(exponent=half_turns)\n\
+  \    for i, jr_row in enumerate(jr):\n        for j, jr_ij in enumerate(jr_row):\n\
+  \            if jr_ij == -1:\n                yield cirq.X(cirq.GridQubit(i, j))\n\
+  \                yield cirq.X(cirq.GridQubit(i + 1, j))\n            yield gate(cirq.GridQubit(i,\
+  \ j),\n                       cirq.GridQubit(i + 1, j))\n            if jr_ij ==\
+  \ -1:\n                yield cirq.X(cirq.GridQubit(i, j))\n                yield\
+  \ cirq.X(cirq.GridQubit(i + 1, j))\n    for i, jc_row in enumerate(jc):\n      \
+  \  for j, jc_ij in enumerate(jc_row):\n            if jc_ij == -1:\n           \
+  \     yield cirq.X(cirq.GridQubit(i, j))\n                yield cirq.X(cirq.GridQubit(i,\
+  \ j + 1))\n            yield gate(cirq.GridQubit(i, j),\n                      \
+  \ cirq.GridQubit(i, j + 1))\n            if jc_ij == -1:\n                yield\
+  \ cirq.X(cirq.GridQubit(i, j))\n                yield cirq.X(cirq.GridQubit(i, j\
+  \ + 1))\n\nh, jr, jc = random_instance(3)\nlength = 3\nqubits = [cirq.GridQubit(i,\
+  \ j) for i in range(length) for j in range(length)]\nsimulator = cirq.Simulator()\n\
+  circuit = cirq.Circuit()\ncircuit.append(one_step(h, jr, jc, 0.1, 0.2, 0.3))\ncircuit.append(cirq.measure(*qubits,\
+  \ key=\"x\"))\nresults = simulator.run(circuit, repetitions=100)\nprint(results.histogram(key='x'))\n\
+  ```\n\n### 执行命令\n\n```bash\npip3 install cirq\npython3 simulator.py\n```\n\n###\
+  \ 输出\n\n```\nCounter({0: 83, 8: 3, 32: 3, 4: 2, 256: 2, 1: 2, 128: 2, 16: 1, 64:\
+  \ 1, 257: 1})\n```\n\n## 量子汇编编程\n\n量子计算机拥有量子处理器，这些处理器是物理芯片，可以包含一组量子比特。量子计算机有用于控制的电子单元以及用于管理内存和数据的组件。量子处理器可以基于门模型或退火方法。门模型量子处理单元具有量子电路和计算任务，这些任务通过量子门执行。量子退火用于退火量子处理单元。\n\
+  \n量子解释器和编译器用于编译软件代码以生成汇编代码。量子汇编语言用于创建汇编代码，该代码包含可在量子模拟器或量子计算机上执行的量子指令集。参见图 5-5。\n\
+  \n![../images/490826_1_En_5_Chapter/490826_1_En_5_Fig5_HTML.jpg](img/490826_1_En_5_Fig5_HTML.jpg)\n\
+  \n图 5-5\n量子汇编语言\n\n量子物理原理用于创建量子计算机和模拟器。程序员可以借助软件开发工具包，使用量子编程语言开发应用程序。\n\n量子计算机架构基于不同的方法，例如绝热计算模型。量子电路是利用量子汇编中的量子门开发的。这些电路可以在量子模拟器上模拟，以执行量子汇编代码。代码中包含用于操作电路中量子门的指令集。\n\
+  \n### 代码示例\n\n```python\nimport qiskit\n\nclass QASM_JobManager:\n    def __init__(self):\n\
+  \        self.data = []\n\n    def createProgram(self,quantum,classical):\n    \
+  \    qr = qiskit.QuantumRegister(quantum)\n        cr = qiskit.ClassicalRegister(classical)\n\
+  \        program = qiskit.QuantumCircuit(qr, cr)\n        return qr,cr,program\n\
+  \n    def measure(self,program,qr,cr):\n        program.measure(qr,cr)\n\n    def\
+  \ getQASMBackend(self):\n        backend = qiskit.BasicAer.get_backend('qasm_simulator')\n\
+  \        return backend\n\n    def executeProgramOnQASM(self,program,backend):\n\
+  \        job = qiskit.execute( program, backend  )\n        return job\n\njobManager\
+  \ = QASM_JobManager()\nquantumRegister,classicalRegister,program = jobManager.createProgram(1,1)\n\
+  jobManager.measure(program,quantumRegister,classicalRegister)\nbackend = jobManager.getQASMBackend()\n\
+  print(\"The device name:\",backend.name())\njob = jobManager.executeProgramOnQASM(program,backend)\n\
+  print( job.result().get_counts() )\n```\n\n### 执行命令\n\n```bash\npip3 install qiskit\n\
+  python3 quantum_assembly.py\n```\n\n### 输出\n\n```\nThe device name: qasm_simulator\n\
+  {'0': 1024}\n```\n\n## 量子硬件平台\n\n量子硬件平台可由 Google、Rigetti、Microsoft 和 IBM 提供（参见图\
+  \ 5-6）。它们实现量子计算模型来执行量子计算。用于构建量子计算机的方法包括：离子阱、光子学系统和超导量子比特。量子比特是当前的限制因素，也是这些平台之间的区别所在。\n\
+  \n![../images/490826_1_En_5_Chapter/490826_1_En_5_Fig6_HTML.jpg](img/490826_1_En_5_Fig6_HTML.jpg)\n\
+  \n图 5-6\n量子硬件\n\n量子随机存取存储器基于在量子设备上运行的主经典设备。这基于混合量子编程模型，你可以从像 Python 这样的典型编程语言开始，然后使用量子编程语言来处理量子计算任务。在\
+  \ Microsoft 的实现中，C# 用于典型编程任务，而 Q# 用于量子计算。\n\n量子寄存器基于多量子比特系统。它类似于经典计算机寄存器。量子寄存器在量子设备中对量子比特进行操作，是一个由多个量子比特组成的系统。这相当于经典处理器寄存器。量子计算机操纵量子寄存器内的量子比特。它能够模拟量子比特的\
+  \ 2^X 种组合。而经典寄存器只能处理经典比特的 x 种组合。\n\n### 商用量子计算机\n\n商用量子计算平台列举如下：\n\n*   Rigetti\n\
+  *   Google\n*   IBM\n*   Microsoft\n\nRigetti 计算平台包含以下组件：\n\n*   Quil\n*   PyQuil\n\
+  *   QUILC\n*   量子虚拟机 (QVM)\n\nGoogle 量子计算游乐场支持脚本编写，并具有以下特性：\n\n*   基于浏览器的 IDE\n\
+  *   22 个量子比特的量子寄存器\n*   程序与编译\n*   程序中的嵌套逻辑\n*   量子门建模\n*   数学函数支持\n*   可视化模式\n\n\
+  IBM 量子体验包含以下模块：\n\n*   量子电路编辑器\n*   量子电路可视化工具\n*   量子门支持\n*   量子寄存器\n*   Qiskit\
+  \ Notebooks（基于 Jupyter）\n\nMicrosoft 量子开发工具包支持 Microsoft Q# 和 QDK。它包含一个模拟器和开源 AI，供开发者使用量子电路、门和模拟器创建程序。\n\
+  \n## 总结\n\n在本章中，我们探讨了量子语言、量子比特测量、量子指令集、全栈通用量子模拟器、量子汇编编程以及量子硬件平台。本章还提供了关于量子汇编、量子电路和模拟器的代码示例。\n\
+  \n"
+- "# 6. 量子优化算法\n\n## 引言\n\n> “量子理论的数学框架已经通过了无数成功的检验，现在被普遍认为是对所有原子现象的一致且准确的描述。”\n>\n\
+  > ——埃尔温·薛定谔\n\n本章概述了量子优化算法。你将了解量子优化如何在现实生活中应用。文中还提供了量子优化应用程序的代码示例。\n\n\n\n## 初始设置\n\
+  \n你需要安装 `Python 3.5` 才能运行本章中的代码示例。你可以从 [`www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)\
+  \ 下载它。\n\n## 近似优化算法\n\n在本节中，我们将介绍近似算法，例如半定规划和近似组合优化。\n\n近似组合优化有助于快速找到接近最优值的解。然而，该技术可能无法给出最佳解。该方法有助于为旅行商问题找到一条短路径。旅行商问题描述的是，一个推销员需要在\
+  \ `M` 个城市之间旅行。推销员可以每个城市只访问一次，但需要回到起点。经典的解决方案是将第一个城市设为起点和终点。下一步是识别城市的所有可能排列 `(M-1)!`。需要检查每个排列的成本或目标。该问题的目标是识别成本最低的排列。见图\
+  \ 6-1。\n\n![../images/490826_1_En_6_Chapter/490826_1_En_6_Fig1_HTML.jpg](img/490826_1_En_6_Fig1_HTML.jpg)\n\
+  \n*图 6-1 – 近似组合优化*\n\n针对此问题，可以使用动态规划，将其分解为子问题。从第一个城市开始，对于所有其他城市，创建一个从新城市开始的子问题。这些子问题将形成递归，以识别销售人员最便宜的旅行路线。\n\
+  \n近似优化算法通过计算最小生成树的成本来确定最优路线。最小生成树是城市连通路径的一个子集，它没有环路，且总边成本较低。\n\n现在让我们来看一下半定规划算法。\n\
+  \n### 半定规划\n\n半定规划是优化中的一项重要技术。通用性是该方法背后的关键原理。优化问题中的变量矩阵被约束为半正定矩阵。“半定规划”这个术语来源于与半正定性相关的约束条件。\n\
+  \n![../images/490826_1_En_6_Chapter/490826_1_En_6_Fig2_HTML.jpg](img/490826_1_En_6_Fig2_HTML.jpg)\n\
+  \n*图 6-2 – 半定规划*\n\n量子半定规划技术包含以下步骤：\n\n1.  应用预言函数进行违反约束的搜索。\n2.  生成一个密度矩阵。\n3. \
+  \ 计算密度矩阵上酉算子的相位估计。\n    a.  估算 `Tr[e^(-密度矩阵)]`。\n    b.  检查输出是否为 `λ`。如果是，则返回值 `λ\
+  \ -1e^^(-λ)`。\n4.  执行步骤 1，并测量第二个系统的密度矩阵。\n5.  如果输出是 `λ`，则接受它；否则，拒绝它。\n6.  不断迭代，直到这一步被接受。\n\
+  \n```\n密度矩阵 = Σk k λ k | Ψk > < λ k'|\n```\n\n> **注意：** 密度矩阵表示量子系统的统计状态。在经典系统中，概率分布与其等价。\n\
+  \n半定规划可以用数学方式表示。给定 `n` 个实数 `c1, cn ∈ R`，以及 `p × p` 厄米矩阵 `D : B1,..,...,...Bp`，目标是最大化\
+  \ `Transpose (DX)`，满足 `Transpose(B i X) < c i X >= 0`。变量 `X` 被约束为半正定矩阵。\n\n![../images/490826_1_En_6_Chapter/490826_1_En_6_Fig3_HTML.jpg](img/490826_1_En_6_Fig3_HTML.jpg)\n\
+  \n*图 6-3 – 量子退火：半定规划*\n\n通过半定规划方法解决的问题可以是无约束的，也可以是带有等式和不等式等约束条件的。量子半定规划算法的输入包括一个稀疏矩阵、量子态和量子算子。一个典型的稀疏矩阵每行最多有\
+  \ `n` 个非零元素。\n\n量子退火是另一种半定规划技术。它与量子系统的行为相关。这有助于解决 NP 难优化问题。像旅行商这样的优化问题可以使用量子退火来解决。解是物理系统的基态，它基于哈密顿函数。哈密顿函数描述了物理系统的能量和运动。经典的等价算法是模拟退火、随机搜索和梯度下降算法。\n\
+  \n> **注意：** 哈密顿算子与量子粒子的势能和动能之和相关。哈密顿算子是厄米的。厄米算子的特征值是实数，且特征函数是正交的。特征值显示了数据的分布或线性变换的特征向量。\n\
+  \n半定规划与线性规划相关，是通过将向量替换为半正定矩阵来实现的。它基于线性规划和凸二次规划。半定规划通过使用块对角矩阵、对称矩阵和半定矩阵来推广线性规划。这些方法用于结构设计和基于控制理论的应用中。这些方法也用于化学工业，以确定如何最优地混合化学材料。\n\
+  \n最大割问题是一个应用了半定规划的著名问题。最大割问题与在图中识别最大割有关。在一个给定的网络或图中，目标是根据顶点之间边的权重来识别一个顶点子集。最大割问题用于大规模集成电路应用。\n\
+  \n该问题的输入是顶点数、边数和带边权重的邻接表。每条边都有起点和终点。目标是识别具有最高总边权重的割。\n\n现在让我们来看一个 `Python` 中的半定规划示例。\n\
+  \n数学问题如下：\n\n最小化 `Transpose (CX)`\n\n满足 `Transpose(A i X) < b i X >= 0`。变量 `X` 被约束为半正定矩阵。\n\
+  \n在以下 `Python` 代码中，`CMatrix` 是随机生成的。`A` 和 `b` 矩阵也是随机生成的。`CVXPy` 提供了一个用于解决凸优化问题的数学\
+  \ API。针对生成的问题计算最优值。\n\n### 代码示例\n\n```python\nimport cvxpy as cvxp\nimport numpy\
+  \ as nump\nn = 3\np = 3\nnump.random.seed(1)\nCMat = nump.random.randn(n, n)\nAMat\
+  \ = []\nbMat = []\nfor i in range(p):\n    AMat.append(nump.random.randn(n, n))\n\
+  \    bMat.append(nump.random.randn())\nXMat = cvxp.Variable((n,n), symmetric=True)\n\
+  constraints = [XMat >> 0]\nconstraints += [\n    cvxp.trace(AMat[i]@XMat) == bMat[i]\
+  \ for i in range(p)\n]\nproblem = cvxp.Problem(cvxp.Minimize(cvxp.trace(CMat@XMat)),\
+  \ constraints)\nproblem.solve()\nprint(\"The optimal value of the problem is\",\
+  \ problem.value)\nprint(\"A solution X is\")\nprint(XMat.value)\n```\n\n### 命令\n\
+  \n```\npip3 install cvxpy\npip3 install nump\npython3 sdp_cvx.py\n```\n\n### 输出\n\
+  \n```\nThe optimal value of the problem is 2.654351510231541\nA solution X is\n\
+  [[ 1.60805795 -0.59770492 -0.69576152]\n [-0.59770492  0.22229041  0.24689363]\n\
+  \ [-0.69576152  0.24689363  1.39679885]]\n```\n\n类似地，现实生活中的问题可以是最大化或最小化问题。它们可以像前面代码一样建模，并将约束条件建模为线性方程。\n\
+  \n\n\n## QAOA\n\n量子近似优化算法与使用多项式时间方法识别优化问题的解有关（见图 6-4）。QAOA 解决的典型问题是 NP 困难问题。\n\n\
+  QAOA 方法在量子虚拟机上执行。诸如最大割和图分割等问题均使用 QAOA 来解决。QAOA 方法包含以下步骤：\n\n1.  使用泡利算符对成本函数进行编码。\n\
+  2.  使用量子计算框架和算法对问题进行建模。\n3.  使用采样计算基态解。\n\n**提示**\n\n泡利算符与角动量运算相关。角动量运算表示量子粒子在三个空间方向上的自旋。\n\
+  \n![../images/490826_1_En_6_Chapter/490826_1_En_6_Fig4_HTML.jpg](img/490826_1_En_6_Fig4_HTML.jpg)\n\
+  \n图 6-4 – 量子近似优化\n\n最大割问题可以使用 QAOA 方法解决，且与在图论中寻找最大割有关。基态使用哈密顿函数建模，并对状态进行测量。测量多体量子态，从而以更高的概率获得最大割解。在给定的网络或图中，目标是根据顶点之间的边的规模来识别顶点的子群。\n\
+  \n让我们来看一个可以应用 QAOA 的现实问题（见图 6-5）。交通运输中的交通建模依赖于交通分区、出行表、公路网络、车辆容量和土地利用模型。土地利用模型包括趋势、土地利用和分区规划、活动区域以及地图。交通系统包含街道、公路、停车、速度、出行时间和限速。交通网络将包含交通量和车辆容量。出行模式识别了交通方式选择、典型的源到目的路径以及出行特征。沃德罗普第一原理基于网络和道路使用者平衡。所有被使用路径的出行时间相等，且比任何一条未被使用的路径的出行时间短一条车的通行时间。该原理有助于最小化一次出行的平均时间。还有其他原理和算法来平衡道路使用者和网络交通流。\n\
+  \n![../images/490826_1_En_6_Chapter/490826_1_En_6_Fig5_HTML.jpg](img/490826_1_En_6_Fig5_HTML.jpg)\n\
+  \n图 6-5 – 交通规划：因素\n\n### 交通规划：因素\n\n出行是基于起点、目的地、车辆和城市交通网络生成的。该网络在不同时区和空间中拥有不断移动的车辆、骑自行车的人和行人。交通规划是一项持续的活动，街道网络基础设施也在不断更新。交通建模使用诸如仿真和机器学习等技术完成。交通控制则利用历史数据，估计某个时间段内的车辆数量，并管理整个网络的交通流。\n\
+  \n![../images/490826_1_En_6_Chapter/490826_1_En_6_Fig6_HTML.jpg](img/490826_1_En_6_Fig6_HTML.jpg)\n\
+  \n图 6-6 – 交通规划：人工智能与机器学习\n\n最大流-最小割方法用于最大化交通网络中的交通流。该方法基于从起点到目的地的最大交通流，等同于将起点与目的地分开的最小割。此方法可应用于计算机网络数据包流。\n\
+  \n通过网络的数据包流可以使用最大流-最小割方法进行建模。网络中的信息流经过节点到达目的地。目标是最大化能够流经一个计算机网络的数据包数量。\n\n![../images/490826_1_En_6_Chapter/490826_1_En_6_Fig7_HTML.jpg](img/490826_1_En_6_Fig7_HTML.jpg)\n\
+  \n图 6-7 – 数据包流：计算机网络\n\n类似地，此方法也可用于为学生分配宿舍，前提是每个学生都想住进自己选择的宿舍。目标是最大化获得宿舍的学生数量。\n\
+  \n让我们看看如何在 Python 中使用 QAOA 解决最大割问题。以下示例使用了 Grove 框架和 PyQuil。\n\n### 代码示例\n\n```python\n\
+  import numpy as nump\nfrom grove.pyqaoa.maxcut_qaoa import maxcut_qaoa\nimport pyquil.api\
+  \ as pyquilapi\n\nqvm_session = pyquilapi.QVMConnection()\nconfiguration_ring =\
+  \ [(0,1),(1,2),(2,3),(3,0)]\nsteps = 2\ninst = maxcut_qaoa(graph=configuration_ring,\
+  \ steps=steps)\nbetas, gammas = inst.get_angles()\nt = nump.hstack((betas, gammas))\n\
+  param_program = inst.get_parameterized_program()\nprogram = param_program(t)\nwave_function\
+  \ = qvm_session.wavefunction(program)\nwave_function = wave_function.amplitudes\n\
+  for state_index in range(inst.nstates):\n    print(inst.states[state_index], nump.conj(wave_function[state_index])*wave_function[state_index])\n\
+  ```\n\n### 命令\n\n```bash\npip3 install nump\npip3 install grove\npip3 install pyquil\n\
+  qvm  -S  （单独的终端窗口 1）\npython3 qaoa.py  （终端窗口 2）\n```\n\n### 输出\n\n```text\n0000\
+  \ (5.030591151913648e-10+0j)\n0001 (7.986230289234977e-06+0j)\n0010 (7.986230289234498e-06+0j)\n\
+  0011 (2.2019121467156433e-07+0j)\n0100 (7.98623028923483e-06+0j)\n0101 (0.49996761419335345+0j)\n\
+  0110 (2.2019121467149302e-07+0j)\n0111 (7.98623028923475e-06+0j)\n1000 (7.98623028923475e-06+0j)\n\
+  1001 (2.2019121467149302e-07+0j)\n1010 (0.49996761419335345+0j)\n1011 (7.98623028923483e-06+0j)\n\
+  1100 (2.2019121467156433e-07+0j)\n1101 (7.986230289234498e-06+0j)\n1110 (7.986230289234977e-06+0j)\n\
+  1111 (5.030591151913648e-10+0j)\n```\n\n`0101` 和 `1010` 的波函数振幅为 `0.499`。这些就是该配置中的最大割。图\
+  \ 6-8 展示了 `0101` 配置。\n\n![../images/490826_1_En_6_Chapter/490826_1_En_6_Fig8_HTML.jpg](img/490826_1_En_6_Fig8_HTML.jpg)\n\
+  \n图 6-8 – `0101` 配置\n\n图 6-9 展示了 `1010` 配置。\n\n![../images/490826_1_En_6_Chapter/490826_1_En_6_Fig9_HTML.jpg](img/490826_1_En_6_Fig9_HTML.jpg)\n\
+  \n图 6-9 – `1010` 配置\n\n类似地，交通网络和计算机网络也可以像之前代码中那样表示。约束条件可以通过交通限制和网络节点容量来添加。在这种情况下的目标是最大化流量并最小化割。\n\
+  \n现在让我们来看组合优化算法。\n\n## 组合优化\n\n组合优化用于解决现实问题，例如旅行商问题和个人的饮食计算。优化算法使用可能的输入，并找出最大或最小的输出。假设\
+  \ `c(x)` 是目标函数。如果目标是最大化 `c(x)`，并且建模的约束条件是 `d(x)` 和 `b(x)`，那么我们有以下条件：\n\n```text\n\
+  d(x) < 0\nb(x) = 0\n```\n\n组合优化算法通过离散值找到使目标函数最大化的解。如果目标函数和约束条件是线性的，这种优化算法被称为*线性规划*。\n\
+  \n经典优化算法在量子优化中有其对应方法。我们将在下一节中探讨量子半定规划方法。\n\n现在让我们来看基于量子半定规划的量子非确定性多项式算法。\n\n\n\n\
+  ## 量子 NP (BQNP)\n\n有界误差量子多项式时间算法是可在量子计算机上运行的多项式时间级技术。计算纽结不变量和量子模拟算法都属于 BQNP 算法。\n\
+  \nBQNP 算法的一个典型例子是肖尔算法。该算法基于素数乘积的因式分解。它能够在多项式时间内以有界误差执行。执行时间取决于肖尔算法的操作数量。\n\n肖尔算法以数学家彼得·肖尔的名字命名，是一种用于整数因式分解的量子算法。该量子算法于\
+  \ 1994 年提出。它涉及这样一个问题：“给定一个整数 `K`，找出其质因数。”\n\n在量子计算机上，对整数 `K` 进行因式分解时，肖尔算法以多项式时间运行。其执行时间与\
+  \ `log K` 成多项式关系。该算法的输入大小为 `log K`。确切地说，它的时间复杂度为 `O((log N)3)`。整数的因式分解问题可以使用 BQP\
+  \ 算法在量子计算机上建模。该算法比经典算法快指数级。肖尔算法的效率等同于量子傅里叶变换算法的效率。\n\n## 总结\n\n在本章中，我们研究了与近似优化、半定规划、组合优化和量子非确定性多项式算法相关的技术。此外，我们还详细讨论了近似优化算法。\n\
+  \n"
+- '# 第三部分 量子解决方案
+
+
+  '
+- "# 7. 量子算法\n\n## 引言\n\n> *“如果你不能对它编程，你就没有理解它。”*\n> \n> ——大卫·多伊奇\n\n本章为你概述量子算法。你将看到量子算法在现实世界中是如何实现的。本章还提供了量子算法的代码示例，例如量子最小二乘拟合和量子排序。\n\
+  \n## 初始设置\n\n你需要安装 Python 3.5 来运行本章的代码示例。你可以从 [`https://www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)\
+  \ 下载。\n\n## 量子最小二乘拟合\n\n在本节中，我们将研究一种名为*量子最小二乘拟合*的算法。\n\n量子信息论有助于高效地解决回归和预测问题。基于量子力学原理的量子算法增强了最小二乘拟合算法的效率。在量子状态层析成像中，量子状态被拟合到一组函数上。量子状态层析成像与量子状态的重构相关。在层析成像过程中，测量量子状态，并创建相同量子状态的系综。\n\
+  \n> **提示**\n> \n> 量子状态层析成像是检查量子状态的方法。\n\n经典的最小二乘拟合适用连续函数。一个连续函数在每个区间内都是连续的。在每个区间内，值都是连续的。连续性有三个规则，如下所示：\n\
+  \n- 函数需要在某点有定义。\n- 函数在某点需要有单侧极限。\n- 函数在某点的左极限或右极限需要等于该点的函数值。\n\n例如，`f(x) = x²` 是一个连续函数。连续函数的图形是连续的，没有跳跃和渐近线。*渐近线*是函数趋于无穷大的点。定义域包含一组函数有值的点。假设\
+  \ `f(x)` 是 `y` 的一个线性函数。那么 `x = A^(-1)y`，其中 `A` 是一个方阵。`A` 的伪逆定义如下：\n\n`A^(+) = (A^(T)A)^(-1)\
+  \ A^(T)`\n\n现在，我们来看看最小二乘拟合方法的量子对应形式。量子最小二乘拟合方法基于寻找一个简单的、连续的函数，该函数能够拟合 `M` 个（定义域）点的离散集合\
+  \ `{x[j], y[j]}`。该函数可以是非线性的，但需要强制进行线性拟合。该函数用数学形式表示如下：\n\n`f(x, λ) = Σ [j=1]^(M)\
+  \ fjλ[j]`\n\n其中 `λ[j]` 是一个分量，属于 `λ` 和 `f(x, λ)`。\n\n最小二乘拟合算法分为三个步骤。\n\n1. 使用量子算法求伪逆。\n\
+  2. 使用算法评估拟合质量。\n3. 使用学习算法确定拟合参数 `λ`。\n\n适应度函数衡量解的质量。这是通过衡量解与最优解的接近程度来完成的。适应度得分通过使用适应度参数计算得出。欧几里得距离和曼哈顿距离方法用于计算适应度。欧几里得距离通过计算垂直距离平方和得出。两点\
+  \ `(x[1], y[1])` 和 `(x[2], y[2])` 之间的欧几里得距离如下：\n\n`√ (x[1]-x[2])² + (y[1]-y[2])²`\n\
+  \n> **提示**\n> \n> 曼哈顿距离定义为点与直线之间的最小距离。点 `(x[1], y[1])` 到直线 `cx + dy + e = 0` 的曼哈顿距离计算如下：`|cx[1]+dy[1]+e|\
+  \ / max(|c|, |d|)`。\n\n该算法需要以下提到的输入：\n\n- 期望数据向量\n- 基矩阵\n- 权重向量\n- 拟合矩阵\n- 拟合矩阵的迹\n\
+  \n现在，我们来详细了解算法中使用的一些术语。\n\n基矩阵的元素是线性无关的。它由线性无关的向量组合而成。假设我们有一个矩阵 `B`，定义如下：\n\n![矩阵\
+  \ B](img/490826_1_En_7_Fig1_HTML.jpg)\n\n*图 7-1: 矩阵 B*\n\n矩阵 `B` 的列是线性无关的。移除冗余的列向量以找到矩阵的基。如果你尝试移除第一列，张成空间将移至\
+  \ y 轴。矩阵 `W` 的基使用重要且关键的列定义如下：\n\n![矩阵 B 的基](img/490826_1_En_7_Fig2_HTML.jpg)\n\n\
+  *图 7-2: 矩阵 B 的基*\n\n向量数据类型是固定大小的列表。数学向量是具有起点和方向的特定长度的线段。向量的例子包括功、力、加速度和速度。在二维空间中，向量的一个例子是\
+  \ `b[1]i + b[2]j`。在三维空间中，向量表示为 `b[1]i + b[2]j + b[3]k`。n 维向量定义为 `b[0] + b[1]t[1]\
+  \ + b[2]t[2] + ... + b[n]t[n]`。\n\n让我们看看矩阵迹的定义。矩阵的迹是从左上角到右下角的对角线元素之和。它等于矩阵特征值之和。\n\
+  \n假设我们有一个矩阵 `B`，定义如下：\n\n![矩阵的迹](img/490826_1_En_7_Fig3_HTML.jpg)\n\n*图 7-3: 矩阵的迹*\n\
+  \n该矩阵的迹定义为 `x[1] + y[2] + z[3]`。\n\n回到算法本身，该算法通过量子最小二乘拟合为数据提供了更好的拟合。图 7-4 展示了量子最小二乘拟合。经典的最小二乘拟合算法可能更接近于一条穿过数据的平均曲线。量子最小二乘拟合则试图最小化不同数据点之间的偏差。\n\
+  \n现在让我们研究一下偏差的计算。*偏差*是真实值与预测数据均值之间的差异。产生偏差是因为假设线性函数是拟合函数。量子最小二乘拟合有助于降低偏差，如图 7-4\
+  \ 所示。\n\n![量子最小二乘拟合](img/490826_1_En_7_Fig4_HTML.jpg)\n\n*图 7-4: 量子最小二乘拟合*\n\n\n\
+  \n### 代码示例\n\n```python\nimport numpy as nump\nfrom scipy import linalg as lina\n\
+  from scipy.linalg import lstsq\n\ndef get_least_squares_fit(data, basis_matrix,\
+  \ weights=None, PSD=False, trace=None):\n    c_mat = basis_matrix\n    d_mat = nump.array(data)\n\
+  \    if weights is not None:\n        w = nump.array(weights)\n        c_mat = w[:,\
+  \ None] * c_mat\n        d_mat = w * d_mat\n    rho_fit_mat, _, _, _ = lstsq(c_mat.T,\
+  \ d_mat)  # Fitting calculation\n    print(rho_fit_mat)\n    size = len(rho_fit_mat)\n\
+  \    dim = int(nump.sqrt(size))\n    if dim * dim != size:\n        raise ValueError(\"\
+  fitted vector needs to be a square matrix\")\n    rho_fit_mat = rho_fit_mat.reshape(dim,\
+  \ dim, order=\"F\")\n    if PSD is True:\n        rho_fit_mat = convert_positive_semidefinite_matrix(rho_fit_mat)\n\
+  \    if trace is not None:\n        rho_fit_mat *= trace / nump.trace(rho_fit_mat)\n\
+  \    return rho_fit_mat\n\ndef convert_positive_semidefinite_matrix(mat, epsilon=0):\n\
+  \    if epsilon < 0:\n        raise ValueError('epsilon needs to be positive')\n\
+  \    dim = len(mat)\n    v, w = lina.eigh(mat)\n    for j in range(dim):\n     \
+  \   if v[j] < epsilon:\n            tmp = v[j]\n            v[j] = 0.\n        \
+  \    x = 0.\n            for k in range(j + 1, dim):\n                x += tmp /\
+  \ (dim - (j + 1))\n                v[k] = v[k] + tmp / (dim - (j + 1))\n    matrix_psd\
+  \ = nump.zeros([dim, dim], dtype=complex)\n    for j in range(dim):\n        matrix_psd\
+  \ += v[j] * nump.outer(w[:, j], nump.conj(w[:, j]))\n    return matrix_psd\n\ndata\
+  \ = [12, 21, 23.5, 24.5, 25, 33, 23, 15.5, 28, 19]\nu_matrix = nump.arange(0, 10)\n\
+  basis_matrix = nump.array([u_matrix, nump.ones(10)])\nrho_fit_val = get_least_squares_fit(data,\
+  \ basis_matrix)\n```\n\n### 命令\n\n```\npip3 install numpy\npip3 install scipy\n\
+  python3 quantum_least_squares_fit.py\n```\n\n### 输出\n\n```\n[ 0.45757576 20.39090909]\n\
+  ```\n\n解为 `v = 0.4575u + 20.39`。\n\n**提示：** 你可以修改之前用于经典方法和量子方法的代码，用于季节性销售数据预测：`v\
+  \ = w[1]u + c`。\n\n## 量子排序\n\n排序算法按照指定顺序对一组元素进行排列。经典排序方法有不同类型：\n\n- 冒泡排序\n- 选择排序\n\
+  - 归并排序\n- 插入排序\n- 快速排序\n- 堆排序\n\n冒泡排序、选择排序和堆排序通过将元素逐一移动到最终位置来操作。插入排序、快速排序等方法将元素放置在接近最终位置的临时位置上，如图\
+  \ 7-5 所示。\n\n![经典排序方法](img/490826_1_En_7_Fig5_HTML.jpg)\n\n**图 7-5** 经典排序方法\n\n\
+  在现实生活中，电话目录和字典分别是按姓名和字母顺序排序的例子。排序可分为两种不同的技术：\n\n- 原地排序\n- 非原地排序\n\n原地排序是指在组内移动元素，不占用额外内存或空间。非原地排序是指使用额外空间来排序元素。冒泡排序基于原地排序，而归并排序基于非原地排序。\n\
+  \n让我们来看看 Python 中的快速排序算法。快速排序算法选取一组元素，将其按升序排列。程序的输入为 `4, 9, 18, 11, 3, 2, 0`。排序后的元素为\
+  \ `0, 2, 3, 4, 9, 11, 18`。\n\n### 代码示例\n\n```python\ndef sort_quick_sort_method(group):\n\
+  \    if len(group) <= 1:\n        return group\n    pivot_value = group[len(group)\
+  \ // 2]\n    left_value = [x for x in group if x < pivot_value]\n    middle_value\
+  \ = [x for x in group if x == pivot_value]\n    right_value = [x for x in group\
+  \ if x > pivot_value]\n    return sort_quick_sort_method(left_value) + middle_value\
+  \ + sort_quick_sort_method(right_value)\n\nprint(sort_quick_sort_method([4, 9, 18,\
+  \ 11, 3, 2, 0]))\n```\n\n### 命令\n\n```\npython3 quick_sort_method.py\n```\n\n###\
+  \ 输出\n\n```\n[0, 2, 3, 4, 9, 18, 11]\n```\n\n数据按升序排列。\n\n量子排序方法的性能可能为 `O(M log M)`，与经典排序方法类似。在空间受限的排序中，量子排序方法优于经典方法，如图\
+  \ 7-6 所示。量子算法有助于使用量子比特对复杂问题进行建模；当空间受限时，这些方法非常适用。\n\n![量子排序](img/490826_1_En_7_Fig6_HTML.jpg)\n\
+  \n**图 7-6** 量子排序\n\n我们将探讨量子算法中排序效率优于经典算法的方法。量子排序方法使用量子算法对元素进行排序，只需 `0.526 log M\
+  \ + O(M)` 步，而经典插入排序的效率为 `O(M log M)`。Ambainis 下界方法具有 `O(M)` 的效率，用于识别下界。该算法通过 Grover\
+  \ 搜索算法找到最小值并在列表上迭代。此方法由 Christoph Durr 和 Peter Hoyer 发现。\n\nGrover 搜索算法可用于在电话目录中查找电话号码。电话目录包含人员、公司和企业的姓名。目录将存储在数据库中。当使用浏览器在线搜索时，基于输入的名称，必须在数据库中进行搜索。数据大多数情况下是未排序的。它可能基于某个标识符进行索引，以提高性能。输入可以是名字、中间名和姓氏。让我们看看一种改进的量子排序算法，它有助于加速这一过程。字典结构可以具有排序后的键（使用量子排序算法）以加快搜索速度。\n\
+  \n上述量子算法的另一个版本经过以下步骤：\n\n1. 识别并存储组中的最小元素。\n2. 使用这些元素创建一个堆。\n3. 将 `k` 从 `1` 迭代到 `m`，从堆中找到最小值，并将该元素插入到位置\
+  \ `k` 处的另一个堆中。\n\n该算法的效率为 `O(√M log(1/queries))`。\n\n量子纠缠发生在量子粒子相互作用并分离时。它们共享相同的量子力学状态。这些纠缠的粒子成对连接。量子系统中的量子粒子包括电子、原子、光子和分子。量子粒子的状态与位置、自旋、动量和偏振有关。这种远程连接粒子的现象挑战了相对论。当状态发生变化时，纠缠的伙伴会相互影响。这被用于量子密码学和基于量子隐形传态的应用中。\n\
+  \n量子纠缠是量子粒子叠加态的一个独特属性。现在让我们看看叠加的定义。当量子系统可以处于多个状态（多于一个）时，就会发生叠加状态。叠加状态可以表示为波函数。在数学上，波函数是量子态与复数系数的线性组合。在纠缠的情况下，孪生粒子的波函数无法分离。数学上，量子系统的波函数不等于粒子波函数的乘积。\n\
+  \n两个量子比特的纠缠状态可以表示为：\n\n`|E1> = (1/√2) (|00> ± |11>)`\n\n`|E2> = (1/√2) (|01> ± |10>)`\n\
+  \n量子比特的状态可以是 `|00>`、`|11>`、`|01>` 和 `|10>`。\n\n回到使用量子算法进行排序，量子纠缠原理可用于对包含 `M` 个元素的数组进行排序。该原理基于量子纠缠的特性：如果我们识别出其中一个量子比特，就能知道另一个量子比特。该算法经过以下步骤：\n\
+  \n1. 输入为一个包含 `M` 个元素的列表。\n\n\n好的，作为一名高级文档工程师和翻译员，我将严格遵循您的注意事项和示例，将给定的英文文本翻译成中文。\n\
+  \n\n### 2. 元素可以转换为二进制表示。\n\n### 3. 在每个元素的最高有效位上加 1。\n\n### 4. 基于纠缠特性创建两个集合。\n\n\
+  ### 5. 将列表分成两个集合。\n\n### 6. 删除两个最高有效位。\n\n### 7. 从步骤 3 开始迭代，直到找到单个比特。应用一个量子单比特比较门。\n\
+  \n现在，让我们来看看算法中提到的几个术语。一个数的二进制表示是该数在基数为 2 的计数系统中的表示。它使用数字 1 和 0 表示。零值在二进制形式中是 0，一值在二进制状态中相当于\
+  \ 1，10 在二进制数系统中相当于 2。类似地，3、4 和其他数字通过在二进制系统的左右数位上加或减来表示。\n\n让我们看看最高有效位的定义。最高有效位是二进制形式中值最大的位。例如，二进制数`01000100`的最高有效位是\
+  \ 0（即该数最左边的起始位）。\n\n现在，我们来看量子单比特比较器的定义。在经典计算中，XNOR 门是比较门。该门接收两个比特作为输入，如果比特相等则输出\
+  \ 1。量子比较器会翻转目标中的量子比特。这个量子比特是基于量子输入寄存器选择的。比较器检查两个量子态，并选择值较大的那个。\n\n量子排序提高了从数据库中排序数据的效率，类似于\
+  \ Grover 搜索算法。Grover 搜索有助于以`O(√M)`的阶数搜索大型数据存储，而经典搜索算法则需要`O(M)`。举例来说，在包含 100 万条记录的电话簿中搜索，需要\
+  \ 1000 步。搜索市场规模约为 200 亿美元，许多像谷歌和 IBM 这样的大公司正专注于使用量子算法进行搜索优化。Grover 算法在挑战对称密码学方面潜力巨大。\n\
+  \n现在让我们看一下对称密码算法。对称密码算法的一个例子是高级加密标准（AES）。AES 算法基于对称密钥和对称分组密码。AES 算法提供 128 位、192\
+  \ 位和 256 位的密钥来加密和解密数据。密钥的对称性在于使用相同的密钥进行加密和解密。\n\n现在回到量子排序，我们来看看 Python 中的 Grover\
+  \ 搜索算法。\n\n#### 代码\n\n```python\nimport numpy as nump\nimport string\nimport hashlib\n\
+  from math import sqrt, pi\nfrom collections import OrderedDict\nfrom statistics\
+  \ import mean\n\ndef GetOracleFunction(xvalue):\n    return hashlib.sha256(bytes(xvalue,\
+  \ 'utf-8')).hexdigest()\n\ndef ExecuteGroverAlgorithm(target, objects, nvalue, rounds):\n\
+  \    y_pos = nump.arange(nvalue)\n    amplitude = OrderedDict.fromkeys(objects,\
+  \ 1/sqrt(nvalue))\n    for i in range(0, rounds, 2):\n        for k, v in amplitude.items():\n\
+  \            if GetOracleFunction(k) == target:\n                amplitude[k] =\
+  \ v * -1\n        average = mean(amplitude.values())\n        for k, v in amplitude.items():\n\
+  \            if GetOracleFunction(k) == target:\n                amplitude[k] =\
+  \ (2 * average) + abs(v)\n                continue\n            amplitude[k] = v-(2*(v-average))\n\
+  \    return amplitude\n\ntarget_algorithm = '3'\nobjects_grover = ('4', '5', '3',\
+  \ '7','9','11','97')\nnumber = len(objects_grover)\namplitude_grover = OrderedDict.fromkeys(objects_grover,\
+  \ 1/sqrt(number))\namplitude_grover[target_algorithm] = amplitude_grover[target_algorithm]\
+  \ * -1\naverage_grover = mean(amplitude_grover.values())\nprint(\"Mean is {}\".format(average_grover))\n\
+  \nfor k, v in amplitude_grover.items():\n    if k == target_algorithm:\n       \
+  \ amplitude_grover[k] = (2 * average_grover) + abs(v)\n        continue\n    amplitude_grover[k]\
+  \ = v-(2*(v-average_grover))\n\nprint(amplitude_grover)\n\nneedle_value = \"2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881\"\
+  \nhaystack_value = string.ascii_lowercase\nnum = len(haystack_value)\nnum_rounds\
+  \ = int((pi / 4) * sqrt(num))\nprint(\"number of rounds are {}\".format(num_rounds))\n\
+  \namplitude_grover = ExecuteGroverAlgorithm(needle_value, haystack_value, num, num_rounds)\n\
+  print(amplitude_grover)\n```\n\n### 命令\n\n```\npip3 install numpy\npip3 install\
+  \ hashlib\npython3 quantum_sort.py\n```\n\n### 输出\n\n```\nMean is 0.26997462357801943\
+  \ OrderedDict([('4', 0.16198477414681167), ('5', 0.16198477414681167), ('3', 0.9179137201652661),\
+  \ ('7', 0.16198477414681167), ('9', 0.16198477414681167), ('11', 0.16198477414681167),\
+  \ ('97', 0.16198477414681167)])\nnumber of rounds are 4\nOrderedDict([('a', 0.11024279785874247),\
+  \ ('b', 0.11024279785874247), ('c', 0.11024279785874247), ('d', 0.11024279785874247),\
+  \ ('e', 0.11024279785874247), ('f', 0.11024279785874247), ('g', 0.11024279785874247),\
+  \ ('h', 0.11024279785874247), ('i', 0.11024279785874247), ('j', 0.11024279785874247),\
+  \ ('k', 0.11024279785874247), ('l', 0.11024279785874247), ('m', 0.11024279785874247),\
+  \ ('n', 0.11024279785874247), ('o', 0.11024279785874247), ('p', 0.11024279785874247),\
+  \ ('q', 0.11024279785874247), ('r', 0.11024279785874247), ('s', 0.11024279785874247),\
+  \ ('t', 0.11024279785874247), ('u', 0.11024279785874247), ('v', 0.11024279785874247),\
+  \ ('w', 0.11024279785874247), ('x', 0.8343639122151143), ('y',0.11024279785874247),\
+  \ ('z', 0.11024279785874247)])\n```\n\n> **提示**  \n> Oracle 函数是一个黑盒，是算法的一部分。Oracle\
+  \ 函数将作为另一个算法的输入。\n\n现在让我们看看量子本征求解器。\n\n## 量子本征求解器\n\n量子本征求解器有助于识别矩阵 `G` 的特征值。该求解器计算特定哈密顿量的最低特征值的上限。该方法在性能上优于迭代量子相位估计和量子相位估计技术。量子相位估计技术用于计算分子的基态能量。\n\
+  \n> **提示**  \n> 哈密顿矩阵用于表示系统可能的能量。它代表了系统的不同状态。\n\n上下文中的系统可以存在于多个状态中，每个状态都有一个特定的能量值。特征值是系统的状态值，它们代表与系统状态相关的能量。\n\
+  \n现在，让我们看看量子半定规划。\n\n## 量子半定规划\n\n量子半定规划与凸优化有关。凸优化基于线性函数和约束。约束是数学等式或不等式。量子半定规划在第\
+  \ 6 章中通过代码示例进行了详细讨论。\n\n## 总结\n\n在本章中，我们研究了与量子算法相关的技术，例如量子最小二乘拟合和量子排序。详细讨论了量子本征求解器的概念。\n\
+  \n"
+- "# 8. 量子神经网络算法\n\n## 引言\n\n> *“受我们这个时代的科学和科幻小说的双重激励，我们这一代研究人员和工程师在成长过程中不断追问：如果这样会怎样？下一步是什么？我们继而投身于计算机视觉、人工智能、实时语音翻译、机器学习和量子计算等新兴学科。”*\
+  \  \n> —伊丽莎白·贝尔\n\n本章将介绍量子神经网络这一主题。您将看到量子神经网络如何在现实生活中实现。本文提供了与量子人工神经网络（ANN）、量子联想记忆、量子点、量子生成对抗网络（GAN）和量子随机存取存储器相关的量子神经网络主题的代码示例。\n\
+  \n## 初始设置\n\n您需要安装 Python 3.5 才能运行本章中的代码示例。您可以从[`https://www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)下载它。\n\
+  \n\n\n## 量子人工神经网络\n\n在本节中，我们将探讨量子人工神经网络。量子神经网络是经典神经网络在量子领域的对应物，其基础是量子力学原理。量子神经网络建立在量子信息处理与大脑量子效应之上。量子人工神经网络常用于模式分类算法。\n\
+  \n> **提示**  \n> 模式分类是指针对给定输入值，在多个可能的分组中识别出正确归属类别的过程。\n\n让我们先来了解经典神经网络。\n\n## 经典神经网络\n\
+  \n神经网络包含输入层、输出层和隐藏层。网络会根据输出层的使用方式对输入进行调整。神经网络的概念源于对人脑的模拟。自 20 世纪 40 年代以来，神经网络就已属于人工智能的一部分。其发展得益于反向传播方法——当输出的预期值与输入的结果不相等时，该方法有助于调整隐藏层。\n\
+  \n例如，一个旨在识别板球的神经网络可能会出错，反而识别出网球。深度学习神经网络是多层的高级神经网络，它通过提取多种特征来识别上下文中的物体。\n\n深度学习神经网络就像一条传送带，将粗糙的铁棒逐渐加工成特定的零件。在深度学习的每个阶段，网络都具备识别和提取特征的能力。人工神经网络基于数学模型，由相互连接的“神经元”组成。神经元携带的信息与加权连接相对应。作为输入值的神经元信号通过神经连接传递，这些连接是带有权重的。深度学习神经网络能够利用适当的权重对输入数据进行学习、调整和归一化。\n\
+  \n## 神经网络的量子类比\n\n在了解经典神经网络之后，我们现在可以探讨其在量子领域的对应物。经典人工神经网络具备并行处理大数据的能力，从而拥有强大的计算力。量子神经网络因基于量子力学原理的量子并行性，也能处理类似规模的大数据。一个包含\
+  \ M 个量子比特的量子寄存器，拥有量子计算机可处理的多种不同配置。\n\n量子纠缠和量子叠加是测量量子比特状态的关键原理。一个量子神经网络由相互连接的输入神经元、隐藏神经元和输出神经元构成。霍普菲尔德模型就是量子神经网络的一个例子。霍普菲尔德模型于\
+  \ 1982 年被引入人工神经网络领域。约翰·霍普菲尔德发现了神经网络中的对称键和量子自旋玻璃现象。\n\n> **提示**  \n> 霍普菲尔德网络可应用于图像处理与分析，以及医学图像分析与修复。\n\
+  \n神经计算方法基于数据处理的非线性技术。量子计算方法具有进化特性，因为它基于量子力学的进化算子。哥本哈根诠释指出，在量子系统中，进化行为与非进化行为是相互融合的。模式召回并非进化算子，而是一个非幺正过程。费曼对量子力学的诠释采用了路径积分方法。伊丽莎白·贝尔曼和格策尔提出了一种量子神经网络的时序模型。见图\
+  \ 8-1。\n\n![../images/490826_1_En_8_Chapter/490826_1_En_8_Fig1_HTML.jpg](img/490826_1_En_8_Fig1_HTML.jpg)\n\
+  \n图 8-1  \n量子神经网络\n\n量子神经网络在其模型中使用量子点分子和光学光子。QNN 的时序模型由虚拟神经元的数学方程构建。QNN 中虚拟神经元的数量由时间离散化参数决定。威奇塔州立大学创建了一个基于\
+  \ QNN 空间模型的新模型，该空间模型使用量子点分子阵列。\n\n来自萨塞克斯大学的罗恩·克里斯利提出了一种不同的方法，该方法与依赖于狭缝位置的网络权重有关。一种基于神经计算的量子神经网络被用于现实生活中的模式识别。\n\
+  \n### 代码示例\n\n```python\nimport pennylane as qnnL\nfrom pennylane import numpy as\
+  \ numcal\nfrom pennylane.optimize import AdamOptimizer as AdamO\ntry:\n    device\
+  \ = qnnL.device('strawberryfields.fock', wires=1, cutoff_dim=10)\nexcept:\n    print(\"\
+  please install the package strawberryfields\")\ndef GetQNNLayer(varr):\n    \"\"\
+  \" 量子神经网络的一层\n    \"\"\"\n    qnnL.Rotation(varr[0], wires=0)\n    qnnL.Squeezing(varr[1],\
+  \ 0., wires=0)\n    qnnL.Rotation(varr[2], wires=0)\n    qnnL.Displacement(varr[3],\
+  \ 0., wires=0)\n    qnnL.Kerr(varr[4], wires=0)\n@qnnL.qnode(device)\ndef GetQNN(vars,\
+  \ xcoor=None):\n    \"\"\" 返回量子神经网络\n    \"\"\"\n    qnnL.Displacement(xcoor, 0.,\
+  \ wires=0)\n    for var in vars:\n        GetQNNLayer(var)\n    return qnnL.expval.X(0)\n\
+  def GetQNNSquareLoss(labelValues, predictionValues):\n    \"\"\" 获取平方损失函数\n    \"\
+  \"\"\n    lossValue = 0\n    for label, prediction in zip(labelValues, predictionValues):\n\
+  \        lossValue = lossValue + (label - prediction) ** 2\n    lossValue = lossValue\
+  \ / len(labelValues)\n    return lossValue\ndef GetQNNCost(variables, featureValues,\
+  \ labelValues):\n    \"\"\" 最小化成本函数\n    \"\"\"\n    predictions = [GetQNN(variables,\
+  \ xcoor=x) for x in featureValues]\n    return GetQNNSquareLoss(labelValues, predictions)\n\
+  sincurvevalues = numcal.loadtxt(\"sin_curve_values.txt\")\nxcoordinate= sincurvevalues[:,\
+  \ 0]\nycoordinate = sincurvevalues[:, 1]\nnumcal.random.seed(0)\nlayer_recount =\
+  \ 4\nvariable_initial = 0.05 * numcal.random.randn(layer_recount, 5)\noptimizer\
+  \ = AdamO(0.01, beta1=0.9, beta2=0.999)\nvariable = variable_initial\nfor iteration\
+  \ in range(500):\n    var_cost = optimizer.step(lambda v: GetQNNCost(v, xcoordinate,\
+  \ ycoordinate), variable)\n    print(\"Iteration value: {:5d} | Cost is: {:0.7f}\
+  \ \".format(iteration + 1, GetQNNCost(var_cost, xcoordinate, ycoordinate)))\n```\n\
+  \n### 命令\n\n```bash\npip3 install numpy\npip3 install pennylane\npython3 qnn.py\n\
+  ```\n\n### 输出\n\n```\nIteration value:     1 | Cost is: 0.2689702\nIteration value:\
+  \     2 | Cost is: 0.2768397\nIteration value:     3 | Cost is: 0.2801266\nIteration\
+  \ value:     4 | Cost is: 0.2819382\nIteration value:     5 | Cost is: 0.2830613\n\
+  Iteration value:     6 | Cost is: 0.2837995\nIteration value:     7 | Cost is: 0.2842974\n\
+  Iteration value:     8 | Cost is: 0.2846337\nIteration value:     9 | Cost is: 0.2848555\n\
+  Iteration value:    10 | Cost is: 0.2849926\n...........................................\n\
+  ...........................................\n...........................................\n\
+  Iteration value:   494 | Cost is: 0.2406537\nIteration value:   495 | Cost is: 0.2406112\n\
+  Iteration value:   496 | Cost is: 0.2405687\nIteration value:   497 | Cost is: 0.2405263\n\
+  Iteration value:   498 | Cost is: 0.2404840\nIteration value:   499 | Cost is: 0.2404417\n\
+  Iteration value:   500 | Cost is: 0.2403996\n```\n\n\n\n## 量子联想记忆\n\n量子联想记忆基于一种量子神经计算方法。记忆与回忆是模式联想过程的组成部分。模式在记忆步骤中被持久化存储。回忆步骤则由模式联想和模式补全组成。\n\
+  \n记忆是一种量子算法，它使用 `m` 个量子比特创建量子态，以建模 `q` 个模式。该算法使用多项式数量的基本操作，这些操作涉及 1、2 和 3 个量子比特。算法使用受控非门和弗雷德金量子门进行数学运算。为了使用\
+  \ `m` 个量子神经元建模 `q` 个模式，该算法按 `mq` 步的数量级执行。\n\n量子联想记忆中的回忆步骤基于格罗弗搜索算法。该搜索算法在包含 `m`\
+  \ 个项目的数据库中，以 `√m` 时间量级找到目标项目。记忆和回忆算法被融合在一起，形成了量子联想记忆过程。\n\n量子联想记忆算法由丹·文图拉和托尼·马丁内斯创建。该算法与基于量子电路的计算机上的联想记忆模拟相关。在量子联想记忆中，量子比特处于叠加态。格罗弗算法可以通过量子联想记忆算法进行修改，以便根据搜索输入，通过记忆状态进行搜索。\n\
+  \n量子联想记忆在神经网络领域应用广泛。这种记忆的存储容量与神经网络中神经元的数量呈指数关系。该记忆模型基于人脑的记忆方式，人脑中的处理过程就是基于神经网络的。\n\
+  \n> **提示**\n> \n> 量子联想记忆算法基于一个多项式时间算法，该算法使用基于训练数据集的量子比特集来创建量子态。\n\n现在，让我们来看一个叫做*量子点*的概念。\n\
+  \n## 量子点\n\n量子点是尺寸在纳米级别的粒子。这些粒子在受到光照时会发光。粒子发射光的波长可以通过量子点的大小、形状和材料来改变。尺寸为 2 到 3 纳米的量子点会产生蓝绿光谱区域。尺寸为\
+  \ 5 到 6 纳米的量子点则发射与橙色、红色和红外光谱区域相关的光。量子点的大小与发射光的寿命相关。量子点越大，寿命越长。\n\n纳米粒子比量子点尺寸更大。纳米粒子的尺寸为\
+  \ 8 到 100 纳米。量子点器件基于量子点构建。在量子点器件中，量子点通过隧穿效应与引线连接。计算稳态粒子的电流时，会使用多种一阶方法。泡利、林德布拉德、雷德菲尔德和冯·诺依曼所采用的方法被用于计算库仑阻塞效应。还有一些二阶方法，例如冯·诺依曼的\
+  \ `-2vN` 方法，可用于分析协同隧穿、双粒子隧穿以及展宽效应。\n\n> **提示**\n> \n> 量子点有助于制造荧光和基于 FRET 的生物传感器。这些生物传感器用于识别生物分子，例如酸、酶、糖类、抗体和抗原。\n\
+  \n现在，我们来看一下量子随机存取存储器的概念。\n\n## 量子随机存取存储器\n\n量子随机存取存储器基于 `m` 个量子比特，来创建包含 `2^m` 个不同存储单元的地址空间。该内存模型用于实现\
+  \ `m` 个存储单元的叠加。与传统的量子 RAM 设计不同，该模型基于 `O(log 2^m)` 个开关。该模型有助于使用更低的功耗进行寻址。这是通过利用纠缠原理实现的。\n\
+  \n`QRAM` 是量子计算机的基础。基于量子比特的地址寄存器和输出寄存器有助于管理 `QRAM` 中的内存。内存访问算法基于相干量子叠加。`QRAM` 用于量子搜索、碰撞识别、元素唯一性检测、信号的相干路由以及加密数据搜索。\n\
+  \n让我们来看一下量子生成对抗网络算法。\n\n## 量子 GAN\n\n在经典机器学习中，生成对抗网络是一种工具。生成器用于生成数据的统计特征。它试图模仿当前的数据集。判别器则用于区分真实数据和伪造数据。生成器和判别器的学习过程会收敛。当生成器生成的统计特征使得判别器无法区分真实数据和生成数据时，收敛便发生了。见图\
+  \ 8-2。\n\n![../images/490826_1_En_8_Chapter/490826_1_En_8_Fig2_HTML.jpg](img/490826_1_En_8_Fig2_HTML.jpg)\n\
+  \n**图 8-2** QGAN\n\n量子生成对抗网络（`QGANs`）是使用了量子处理器的生成对抗网络。塞斯·劳埃德和克里斯蒂安·韦德·布鲁克首先提出了这种对抗学习算法。该算法运行在具有包含量子比特的量子寄存器的量子计算机上。量子比特存在于\
+  \ 0 和 1 两种状态。量子计算机在非常高维的向量空间中处理向量。这些向量承载着需要被处理的信息。\n\n让我们来看一个量子生成对抗网络的实现。该实现基于两个量子电路：一个生成器和一个判别器。\n\
+  \n\n\n### 代码示例\n\n```python\nimport pennylane as qganPenny\nfrom pennylane import\
+  \ numpy as numcal\nfrom pennylane.optimize import GradientDescentOptimizer as GDO\n\
+  \ndevice = qganPenny.device('default.qubit', wires=3)\n\ndef GetQGANReal(phi, theta,\
+  \ omega):\n    qganPenny.Rot(phi, theta, omega, wires=0)\n\ndef GetQGANGenerator(wireArray):\n\
+  \    qganPenny.RX(wireArray[0], wires=0)\n    qganPenny.RX(wireArray[1], wires=1)\n\
+  \    qganPenny.RY(wireArray[2], wires=0)\n    qganPenny.RY(wireArray[3], wires=1)\n\
+  \    qganPenny.RZ(wireArray[4], wires=0)\n    qganPenny.RZ(wireArray[5], wires=1)\n\
+  \    qganPenny.CNOT(wires=[0,1])\n    qganPenny.RX(wireArray[6], wires=0)\n    qganPenny.RY(wireArray[7],\
+  \ wires=0)\n    qganPenny.RZ(wireArray[8], wires=0)\n\ndef GetQGANDiscriminator(wireArray):\n\
+  \    qganPenny.RX(wireArray[0], wires=0)\n    qganPenny.RX(wireArray[1], wires=2)\n\
+  \    qganPenny.RY(wireArray[2], wires=0)\n    qganPenny.RY(wireArray[3], wires=2)\n\
+  \    qganPenny.RZ(wireArray[4], wires=0)\n    qganPenny.RZ(wireArray[5], wires=2)\n\
+  \    qganPenny.CNOT(wires=[1,2])\n    qganPenny.RX(wireArray[6], wires=2)\n    qganPenny.RY(wireArray[7],\
+  \ wires=2)\n    qganPenny.RZ(wireArray[8], wires=2)\n\n@qganPenny.qnode(device)\n\
+  def GetQGANRealDiscCircuit(phi, theta, omega, discWeights):\n    GetQGANReal(phi,\
+  \ theta, omega)\n    GetQGANDiscriminator(discWeights)\n    return qganPenny.expval.PauliZ(2)\n\
+  \n@qganPenny.qnode(device)\ndef GetQGANDiscCircuit(genWeights, discWeights):\n \
+  \   GetQGANGenerator(genWeights)\n    GetQGANDiscriminator(discWeights)\n    return\
+  \ qganPenny.expval.PauliZ(2)\n\ndef GetQGANRealTrue(discWeights):\n    trueDiscriminatorOutput\
+  \ = GetQGANRealDiscCircuit(phi, theta, omega, discWeights)\n    probabilityRealTrue\
+  \ = (trueDiscriminatorOutput + 1) / 2\n    return probabilityRealTrue\n\ndef GetQGANFakeTrue(genWeights,\
+  \ discWeights):\n    fakeDiscriminatorOutput = GetQGANDiscCircuit(genWeights, discWeights)\n\
+  \    probabilityFakeTrue = (fakeDiscriminatorOutput + 1) / 2\n    return probabilityFakeTrue\n\
+  \ndef GetQGANDiscriminatorCost(discWeights):\n    cost = GetQGANFakeTrue(genWeights,\
+  \ discWeights) - GetQGANRealTrue(discWeights)\n    return cost\n\ndef GetQGANGeneratorCost(genWeights):\n\
+  \    return -GetQGANFakeTrue(genWeights, discWeights)\n\nphi = numcal.pi / 6\ntheta\
+  \ = numcal.pi / 2\nomega = numcal.pi / 7\nnumcal.random.seed(0)\nepsValue = 1e-2\n\
+  genWeights = numcal.array([numcal.pi] + [0] * 8) + numcal.random.normal(scale=epsValue,\
+  \ size=[9])\ndiscWeights = numcal.random.normal(size=[9])\ngdo = GDO(0.1)\n\nprint(\"\
+  训练判别器 \")\nfor iteration in range(50):\n    discriminator_weights = gdo.step(GetQGANDiscriminatorCost,\
+  \ discWeights)\n    discriminator_cost = GetQGANDiscriminatorCost(discriminator_weights)\n\
+  \    if iteration % 5 == 0:\n        print(\"迭代 {}: 判别器成本 = {}\".format(iteration+1,\
+  \ discriminator_cost))\n        print(\" 判别器 - 真实为真: \", GetQGANRealTrue(discWeights))\n\
+  \        print(\"判别器 - 生成为真: \", GetQGANFakeTrue(genWeights, discWeights))\n\nprint(\"\
+  训练生成器.\")\nfor iteration in range(200):\n    generator_weights = gdo.step(GetQGANGeneratorCost,\
+  \ genWeights)\n    generator_cost = -GetQGANGeneratorCost(generator_weights)\n \
+  \   if iteration % 5 == 0:\n        print(\"迭代次数 {}: 生成器成本 = {}\".format(iteration,\
+  \ generator_cost))\n        print(\"判别器 - 真实为真: \", GetQGANRealTrue(discWeights))\n\
+  \        print(\"判别器 - 生成为真: \", GetQGANFakeTrue(genWeights, discWeights))\n   \
+  \     print(\"成本为: \", GetQGANDiscriminatorCost(discriminator_weights))\n```\n\n\
+  ### 命令\n\n```bash\npip3 install numpy\npip3 install pennylane\npython3 qgan.py\n\
+  ```\n\n### 输出\n\n```\nTraining the discriminator\nIteration num 1: discriminator\
+  \ cost is = -0.10942017805789161\nIteration num 6: discriminator cost is = -0.10942017805789161\n\
+  Iteration num 11: discriminator cost is = -0.10942017805789161\nIteration num 16:\
+  \ discriminator cost is = -0.10942017805789161\nIteration num 21: discriminator\
+  \ cost is = -0.10942017805789161\nIteration num 26: discriminator cost is = -0.10942017805789161\n\
+  Iteration num 31: discriminator cost is = -0.10942017805789161\nIteration num 36:\
+  \ discriminator cost is = -0.10942017805789161\nIteration num 41: discriminator\
+  \ cost is = -0.10942017805789161\nIteration num 46: discriminator cost is = -0.10942017805789161\n\
+  discriminator - real true:  0.1899776355995153\ndiscriminator - fake true:  0.13399334520305328\n\
+  Training the generator.\nIteration num 0: generator cost is = 0.1339934177809623\n\
+  Iteration num 5: generator cost is = 0.1339934177809623\nIteration num 10: generator\
+  \ cost is = 0.1339934177809623\nIteration num 15: generator cost is = 0.1339934177809623\n\
+  Iteration num 20: generator cost is = 0.1339934177809623\nIteration num 25: generator\
+  \ cost is = 0.1339934177809623\nIteration num 30: generator cost is = 0.1339934177809623\n\
+  Iteration num 35: generator cost is = 0.1339934177809623\nIteration num 40: generator\
+  \ cost is = 0.1339934177809623\nIteration num 45: generator cost is = 0.1339934177809623\n\
+  Iteration num 50: generator cost is = 0.1339934177809623\nIteration num 55: generator\
+  \ cost is = 0.1339934177809623\nIteration num 60: generator cost is = 0.1339934177809623\n\
+  Iteration num 65: generator cost is = 0.1339934177809623\nIteration num 70: generator\
+  \ cost is = 0.1339934177809623\nIteration num 75: generator cost is = 0.1339934177809623\n\
+  Iteration num 80: generator cost is = 0.1339934177809623\nIteration num 85: generator\
+  \ cost is = 0.1339934177809623\nIteration num 90: generator cost is = 0.1339934177809623\n\
+  Iteration num 95: generator cost is = 0.1339934177809623\nIteration num 100: generator\
+  \ cost is = 0.1339934177809623\nIteration num 105: generator cost is = 0.1339934177809623\n\
+  Iteration num 110: generator cost is = 0.1339934177809623\nIteration num 115: generator\
+  \ cost is = 0.1339934177809623\nIteration num 120: generator cost is = 0.1339934177809623\n\
+  Iteration num 125: generator cost is = 0.1339934177809623\nIteration num 130: generator\
+  \ cost is = 0.1339934177809623\nIteration num 135: generator cost is = 0.1339934177809623\n\
+  Iteration num 140: generator cost is = 0.1339934177809623\nIteration num 145: generator\
+  \ cost is = 0.1339934177809623\nIteration num 150: generator cost is = 0.1339934177809623\n\
+  Iteration num 155: generator cost is = 0.1339934177809623\nIteration num 160: generator\
+  \ cost is = 0.1339934177809623\nIteration num 165: generator cost is = 0.1339934177809623\n\
+  Iteration num 170: generator cost is = 0.1339934177809623\nIteration num 175: generator\
+  \ cost is = 0.1339934177809623\nIteration num 180: generator cost is = 0.1339934177809623\n\
+  Iteration num 185: generator cost is = 0.1339934177809623\nIteration num 190: generator\
+  \ cost is = 0.1339934177809623\nIteration num 195: generator cost is = 0.1339934177809623\n\
+  discriminator - real true:  0.1899776355995153\ndiscriminator -  fake true:  0.13399334520305328\n\
+  Cost is:  -0.10942017805789161\n```\n\n## 总结\n\n在本章中，我们探讨了与量子神经网络算法相关的技术，例如量子神经网络和量子生成对抗网络。本章详细讨论了量子点、量子联想记忆和量子随机存取存储器的概念。\n\
+  \n"
+- "# 9. 量子分类算法\n\n## 引言\n\n> 重点已不再是量子力学是一种极其（对爱因斯坦而言，是难以接受的）奇特的理论，而在于世界本身就是一个极其奇特的地方。\n\
+  > \n> — N. David Mermin\n\n本章涵盖量子分类算法的主题。你将了解量子分类算法在现实生活中的实现方式。本章提供了不同算法的代码示例，例如量子分类器、支持向量机和稀疏支持向量机。\n\
+  \n## 初始设置\n\n你需要安装 Python 3.5 才能运行本章中的代码示例。你可以从 [`www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)\
+  \ 下载。\n\n\n\n## 分类器\n\n在经典计算中，通过使用机器学习算法来识别模式。量子机器学习技术有助于将机器学习方法转化为算法。算法是量子计算的基本单元。量子计算领域正在进行新的研究；具体而言，量子计算正通过融入数据挖掘技术而不断发展。模式识别可以使用量子计算算法来完成。监督学习方法作用于带标签的输入数据集和特征向量。这些方法有助于识别特征向量的标签。参见图\
+  \ 9-1。\n\n![../images/490826_1_En_9_Chapter/490826_1_En_9_Fig1_HTML.jpg](img/490826_1_En_9_Fig1_HTML.jpg)\n\
+  \n图 9-1\n\n线性可分\n\n线性可分的数据集，可以通过一个平面、一条直线或一个超平面将输入集分割开来。一个集合的点位于第一个半空间中，第二个集合的点位于另一个半空间中。\n\
+  \n量子机器学习方法基于监督学习和无监督学习。振幅修正方法应用于`k-nearest neighbor`（K 近邻）和聚类量子算法中。量子矩阵计算用于量子核方法。量子核方法支持向量机和高斯过程。监督式量子机器学习是变分量子分类器方法的基础。\n\
+  \n我们来详细了解一下量子分类器。\n\n## 量子分类器\n\n量子分类器由编码器和处理器等组件构成（见图 9-2）。编码器将数据向量转换为量子态。经典预处理器将输入数据转换为量子电路。量子电路初始化为零量子态。处理器组件从编码后的量子态中检索信息。量子态变换器将量子电路中编码后的量子态，转换为通过测量和后处理检索到的信息。\n\
+  \n![../images/490826_1_En_9_Chapter/490826_1_En_9_Fig2_HTML.jpg](img/490826_1_En_9_Fig2_HTML.jpg)\n\
+  \n图 9-2\n\n量子分类器\n\n我们使用 `QClassify` 框架来演示量子分类器。`QClassifiers` 是变分量子分类器。该包包含用于分类器任务的类。分类器任务基于量子门。使用云端的量子模拟器来模拟量子电路上的量子门。\n\
+  \n一个量子电路包含一个哈达玛门和两个单量子比特测量门。测量门作用于一个辅助比特和指定的量子比特。量子方法将数据修改为编码后的放大数据格式。使用 `QClassifier`\
+  \ 来构建具体的电路。`QClassify` 对象包含组件信息。该包用于根据问题的上下文进行定制。量子二元分类器基于量子核方法。\n\n**提示**\n\n核函数是用于计算图形或文本中任意两点之间距离的数学函数。\n\
+  \n让我们看一个与二维点集二元分类相关的示例。该示例被建模为一个包含 2 个量子比特的量子电路。处理器具有多个选项，例如 `layer_xyz`、`measure_top`\
+  \ 和 `prob_one`。量子比特可以取值 0 或 1，也可以处于 0 和 1 的叠加态。编码器选项也同样被设置。使用选定的量子比特和分类器选项创建分类器。\n\
+  \n输入向量具有 `[1,1]` 矩阵值。参数值为 3.067 和 3.3311。使用 `input_vector` 和 `parameters` 创建量子电路。该程序是量子电路的输出。\n\
+  \n我们来看一个量子分类器的代码实现。\n\n### 代码示例\n\n```\nimport qclassify\nfrom qclassify.preprocessing\
+  \ import *\nfrom qclassify.encoding_circ import *\nfrom qclassify.qclassifier import\
+  \ QClassifier as QuantumClassifier\nfrom qclassify.proc_circ import *\nfrom qclassify.postprocessing\
+  \ import *\nencoding_opts={\n'preprocessing':id_func,\n'encoding_circ':x_product,\n\
+  }\nprocess_opts={\n'proc_circ':layer_xz,\n'postprocessing':{\n'quantum':measure_top,\n\
+  'classical':prob_one,\n}\n}\nquantum_bits = [0, 1]\nclassify_opts = {\n'encoder_options':encoding_opts,\n\
+  'proc_options':process_opts,\n}\nqCircuit = QuantumClassifier(quantum_bits, classify_opts)\n\
+  circuit_values = [1, 1]\nparams = [2.0672044712460114, 1.3311348339721203]\nquantum_circuit_prog\
+  \ = qCircuit.circuit(circuit_values, params)\nprint(quantum_circuit_prog)\n```\n\
+  \n### 命令\n\n```\npip3 install qclassify\npython3 quantum_classifier.py\n```\n\n\
+  ### 输出\n\n```\nRX(1) 0\nRX(1) 1\nCZ 0 1\nRX(3.0672044712460114) 0\nRX(3.3311348339721203)\
+  \ 1\nDECLARE ro BIT[1]\nMEASURE 0 ro[0]\n```\n\n现在，让我们详细了解一下变分量子分类器。\n\n\n\n## 变分量子分类器\n\
+  \n量子算法在量子比特和量子逻辑门的基础上运行。算法需要无差错的逻辑门和量子比特。变分量子电路被用于机器学习。在这些电路中，逻辑门参数通过学习方法进行训练。输入向量是训练模型的特征。它们与量子系统的振幅是等价的。一个变分量子电路包含单量子比特门和双量子比特门。它有一个用于分类输入的单量子比特测量门。训练方法基于量子方法。见图\
+  \ 9-3。\n\n![../images/490826_1_En_9_Chapter/490826_1_En_9_Fig3_HTML.jpg](img/490826_1_En_9_Fig3_HTML.jpg)\n\
+  \n**图 9-3** – 量子电路\n\n让我们来看看鸢尾花问题，即识别不同鸢尾花物种的模式。鸢尾花有三种不同类型：山鸢尾、维吉尼亚鸢尾和杂色鸢尾。在这些花中识别出的模式是花瓣和花萼的长与宽。其尺寸以厘米为单位测量。数据被分为训练数据集和验证数据集。每个数据集都包含不同类别花朵的花瓣长度、花瓣宽度、花萼宽度和花萼长度。见图\
+  \ 9-4。\n\n![../images/490826_1_En_9_Chapter/490826_1_En_9_Fig4_HTML.jpg](img/490826_1_En_9_Fig4_HTML.jpg)\n\
+  \n**图 9-4** – 鸢尾花（来源：[`pixabay.com/photos/iris-flower-flora-blue-blossom-2339883/`](https://pixabay.com/photos/iris-flower-flora-blue-blossom-2339883/)）\n\
+  \n分类解决方案对数据集进行迭代，当使用量子机器学习模型和数据时，便能达到所需的准确率。变分量子分类器算法基于监督学习。\n\n我们可以使用`PennyLane`框架进行量子计算和优化（见图\
+  \ 9-5）。该包包含一个用于执行量子电路的量子模拟器。变分量子电路是在参数经过训练的量子电路上进行模拟的。`PennyLane`具有与逻辑门、状态操作和测量门相关的特性。它可以处理多种类型的测量门。该包包含基于不同变分量子电路的模板，用于创建和训练机器学习模型。嵌入、层、子程序以及状态制备是多种类型的量子电路。这些电路被称为*拟设电路*。\n\
+  \n![../images/490826_1_En_9_Chapter/490826_1_En_9_Fig5_HTML.jpg](img/490826_1_En_9_Fig5_HTML.jpg)\n\
+  \n**图 9-5** – PennyLane 框架\n\n量子优化器用于修改量子机器学习模型。该包包含多种类型的优化器，例如梯度下降优化器、基于涅斯捷罗夫动量的梯度下降优化器、自适应学习优化器以及均方根传播优化器。\n\
+  \n变分量子分类器算法基于监督学习。一个包含单量子比特门和双量子比特门的量子电路在量子设备上进行建模和模拟。下一节的代码示例展示了计算量子态旋转角的实现过程。该类包含基于两个量子比特振幅对四维向量进行编码的方法。\n\
+  \n该类中的方法具有创建变分分类器、基于变分分类器创建量子电路、计算预测损失、预测准确率以及计算成本的功能。数据集包含坐标`x`、`y`以及填充值。代码运行 80\
+  \ 步以进行优化。每次迭代都会输出准确率和成本函数。\n\n让我们来看一个变分量子分类器的代码示例。\n\n### 代码示例\n\n```python\nimport\
+  \ pennylane as quantumPenny\nfrom pennylane import numpy as nump\nfrom pennylane.optimize\
+  \ import  NesterovMomentumOptimizer as NMO\ndevice = quantumPenny.device('default.qubit',\
+  \ wires=2)\ndef CalcAngles(xval):\nbeta0_val = 2 * nump.arcsin(nump.sqrt(xval[1])\
+  \ ** 2 / nump.sqrt(xval[0] ** 2 + xval[1] ** 2 + 1e-12) )\nbeta1_val = 2 * nump.arcsin(nump.sqrt(xval[3])\
+  \ ** 2 / nump.sqrt(xval[2] ** 2 + xval[3] ** 2 + 1e-12) )\nbeta2_val = 2 * nump.arcsin(nump.sqrt(xval[2]\
+  \ ** 2 + xval[3] ** 2) / nump.sqrt(xval[0] ** 2 + xval[1] ** 2 + xval[2] ** 2 +\
+  \ xval[3] ** 2))\nreturn nump.array([beta2_val, -beta1_val / 2, beta1_val / 2, -beta0_val\
+  \ / 2, beta0_val / 2])\ndef CalcState(arr):\nquantumPenny.RY(arr[0], wires=0)\n\
+  quantumPenny.CNOT(wires=[0, 1])\nquantumPenny.RY(arr[1], wires=1)\nquantumPenny.CNOT(wires=[0,\
+  \ 1])\nquantumPenny.RY(arr[2], wires=1)\nquantumPenny.PauliX(wires=0)\nquantumPenny.CNOT(wires=[0,\
+  \ 1])\nquantumPenny.RY(arr[3], wires=1)\nquantumPenny.CNOT(wires=[0, 1])\nquantumPenny.RY(arr[4],\
+  \ wires=1)\nquantumPenny.PauliX(wires=0)\ndef CalcLayer(Warr):\nquantumPenny.Rot(Warr[0,\
+  \ 0], Warr[0, 1], Warr[0, 2], wires=0)\nquantumPenny.Rot(Warr[1, 0], Warr[1, 1],\
+  \ Warr[1, 2], wires=1)\nquantumPenny.CNOT(wires=[0, 1])\n@quantumPenny.qnode(device)\n\
+  def FindCircuit(weight, angle=None):\nCalcState(angle )\nfor W in weight:\nCalcLayer(W)\n\
+  return quantumPenny.expval(quantumPenny.PauliZ(0))\ndef GetVariationalClassifier(var,\
+  \ angle=None):\nweight = var[0]\nbias_val = var[1]\nreturn FindCircuit(weight, angle=angle)\
+  \ + bias_val\ndef CalcSquareLoss(label, prediction):\nloss_val = 0\nfor l, p in\
+  \ zip(label, prediction):\nloss_val = loss_val + (l - p) ** 2\nloss_val = loss_val\
+  \ / len(label)\nreturn loss_val\ndef CalcAccuracy(label, prediction):\nloss_val\
+  \ = 0\nfor l, p in zip(label, prediction):\nif abs(l - p) < 1e-5:\nloss_val = loss_val\
+  \ + 1\nloss_val = loss_val / len(label)\nreturn loss_val\ndef CalcCost(weight, feature,\
+  \ label):\nprediction = [GetVariationalClassifier(weight, angle=f) for f in feature]\n\
+  return CalcSquareLoss(label, prediction)\ndata_iris_flowers = nump.loadtxt(\"iris_flower_data.txt\"\
+  )\nXVal = data_iris_flowers[:, 0:2]\npad = 0.3 * nump.ones((len(XVal), 1))\nXPad\
+  \ = nump.c_[nump.c_[XVal, pad], nump.zeros((len(XVal), 1)) ]\nnorm = nump.sqrt(nump.sum(XPad\
+  \ ** 2, -1))\nX_norm = (XPad.T / norm).T\nftrs = nump.array([CalcAngles(x) for x\
+  \ in X_norm])\nYVal = data_iris_flowers[:, -1]\nnump.random.seed(0)\nnum_data =\
+  \ len(YVal)\nnum_train = int(0.75 * num_data)\nindex = nump.random.permutation(range(num_data))\n\
+  feats_train = ftrs[index[:num_train]]\nYValT = YVal[index[:num_train]]\nftrs_val\
+  \ = ftrs[index[num_train:]]\nY_val = YVal[index[num_train:]]\nquantumbits = 2\n\
+  layers = 6\nvarinit = (0.01 * nump.random.randn(layers, quantumbits, 3), 0.0)\n\
+  opt = NMO(0.01)\nbatsize = 5\nvar = varinit\nfor it in range(50):\nbat_index = nump.random.randint(0,\
+  \ num_train, (batsize, ))\nfeatures_train_batch = feats_train[bat_index]\nYtrainbat\
+  \ = YValT[bat_index]\nvar = opt.step(lambda v: CalcCost(v, features_train_batch,\
+  \ Ytrainbat), var)\npredict_train = [nump.sign(GetVariationalClassifier(var, angle=f))\
+  \ for f in feats_train]\npredict_val = [nump.sign(GetVariationalClassifier(var,\
+  \ angle=f)) for f in ftrs_val]\naccuracy_train = CalcAccuracy(YValT, predict_train)\n\
+  accuracy_val = CalcAccuracy(Y_val, predict_val)\nprint(\"it value: {:5d} | Cost\
+  \ Features: {:0.7f} | Accuracy training: {:0.7f} | Accuracy for validation: {:0.7f}\
+  \ \"\n\"\".format(it+1, CalcCost(var, ftrs, YVal), accuracy_train, accuracy_val))\n\
+  ```\n\n### 命令\n\n```bash\npip3 install pennylane\npython3 variational_classifier.py\n\
+  ```\n\n\n\n### 输出\n\n```\nit value:     1 | Cost Features: 1.4490948 | Accuracy\
+  \ training: 0.4933333 | Accuracy for validation: 0.5600000\nit value:     2 | Cost\
+  \ Features: 1.3309953 | Accuracy training : 0.4933333 | Accuracy for validation:\
+  \ 0.5600000\nit value:     3 | Cost Features: 1.1582178 | Accuracy training: 0.4533333\
+  \ | Accuracy for validation: 0.5600000\nit value:     4 | Cost Features: 0.9795035\
+  \ | Accuracy training: 0.4800000 | Accuracy for validation: 0.5600000\nit value:\
+  \     5 | Cost Features: 0.8857893 | Accuracy training: 0.6400000 | Accuracy for\
+  \ validation: 0.7600000\nit value:     6 | Cost Features: 0.8587935 | Accuracy training:\
+  \ 0.7066667 | Accuracy for validation: 0.7600000\nit value:     7 | Cost Features:\
+  \ 0.8496204 | Accuracy training: 0.7200000 | Accuracy for validation: 0.6800000\n\
+  it value:     8 | Cost Features: 0.8200972 | Accuracy training: 0.7333333 | Accuracy\
+  \ for validation: 0.6800000\nit value:     9 | Cost Features: 0.8027511 | Accuracy\
+  \ training: 0.7466667 | Accuracy for validation: 0.6800000\nit value:    10 | Cost\
+  \ Features: 0.7695152 | Accuracy training: 0.8000000 | Accuracy for validation:\
+  \ 0.7600000\n...........................................................................\n\
+  ...........................................................................\nit\
+  \ value:    47 | Cost Features: 0.5413240 | Accuracy training: 0.9466667 | Accuracy\
+  \ for validation: 1.0000000\nit value:    48 | Cost Features: 0.5239643 | Accuracy\
+  \ training: 0.9466667 | Accuracy for validation: 1.0000000\nit value:    49 | Cost\
+  \ Features: 0.5100842 | Accuracy training: 0.9466667 | Accuracy for validation:\
+  \ 1.0000000\nit value:    50 | Cost Features: 0.5006861 | Accuracy training: 0.9466667\
+  \ | Accuracy for validation: 1.0000000\n```\n\n训练数据和测试数据约占数据集的 75%。验证集约占数据集值的 25%。训练数据用于拟合模型的参数，测试数据用于评估模型的性能。验证数据用于微调机器学习模型。\n\
+  \n损失和准确率是在训练数据和验证数据集上衡量的。当验证损失相对于训练损失增加时，模型会出现过拟合。目标是相对于损失，验证准确率较高。需要选择具有代表性的数据集以避免数据源偏差。偏差可以基于数据总体中的统计期望值和实际值来估计。需要根据度量均方误差来计算观察到的模型误差。均方误差需要被最小化。\n\
+  \n## 经典支持向量机\n\n经典支持向量机（SVM）基于监督机器学习。SVM 使用数据进行训练，并用于预测输入是否属于特定类别。训练数据包含 SVM 所要预测的类别集合。SVM\
+  \ 中使用支持向量来最大化类别集合之间的距离。见图 9-6。\n\n![../images/490826_1_En_9_Chapter/490826_1_En_9_Fig6_HTML.jpg](img/490826_1_En_9_Fig6_HTML.jpg)\n\
+  \n图 9-6\n\n支持向量机\n\nSVM 的量子对应版本使用特征映射来呈现量子电路信息。核函数概念被用于分类方法中。特征映射修饰了特征。特征是上下文中所讨论主题的可测量属性。分类是关于寻找输入信息各个类别之间的距离。\n\
+  \n量子支持向量机基于量子处理器来求解问题。它基于监督学习。多类分类器建立在量子支持向量机之上。量子处理器拥有用于处理内存中量子比特的量子随机存取存储器（QRAM）。\n\
+  \n提示\n\nQRAM 由三个组件组成：存储器阵列、输入寄存器和输出寄存器。存储器阵列可以是经典的或基于量子的。寄存器由量子比特组成。\n\n让我们详细了解一下量子稀疏支持向量机。\n\
+  \n## 量子稀疏支持向量机\n\n有多种技术，如最小二乘法，可用于模拟量子稀疏支持向量机。Harrow-Hassidim-Lloyd（HHL）算法用于求解基于线性方程组的系统，以利用训练好的量子比特进行预测。这是经典计算技术和量子计算技术的混合算法。\n\
+  \n正则化是稀疏支持向量机技术的一部分。它与目标函数中对参数权重施加的惩罚有关。由特征组成的高维空间可用于获得准确的预测。L2 范数惩罚被用作正则化算法，而 L1\
+  \ 范数优于 L2 范数。支持向量机中的目标函数使用带有 L1 范数的合页损失最小化。见图 9-7。\n\n![../images/490826_1_En_9_Chapter/490826_1_En_9_Fig7_HTML.jpg](img/490826_1_En_9_Fig7_HTML.jpg)\n\
+  \n图 9-7\n\n量子支持向量机\n\n线性规划是半定规划（SDP）的一种形式，它使用了稀疏支持向量机的公式。量子稀疏支持向量机使用量子半定规划求解器。求解半定规划的算法步骤如下所示：\n\
+  \n1.  在字典中创建参数。\n2.  将数据集创建为输入对象。\n3.  算法基于输入数据集和参数执行。\n4.  打印包含成功率和详细信息的结果。\n5.\
+  \  在输出中打印预测标签。\n\n提示\n\n正半定矩阵是厄米特矩阵，它具有正特征值。\n\nReNomQ 是一个基于量子原理的机器学习框架。可以使用此框架对量子电路进行建模。可以使用该软件包执行量子计算。量子支持向量机是使用绝热量子计算模型建模的。\n\
+  \n让我们看一个量子支持向量机的例子。\n\n### 代码示例\n\n```\nimport renom_q.ml.quantum_svm\nquantum_svm\
+  \ = renom_q.ml.quantum_svm.QSVM()\nxval = [[3, 4], [5, 6], [7, 9], [8, 6]]\nyval\
+  \ = [1, -1, 1, -1]\nquantum_svm.plot_graph(xval, yval)\n```\n\n### 命令\n\n```\npip3\
+  \ install renorm_q\npython3 quantum_svm.py\n```\n\n### 输出\n\n图 9-8 显示了输出。\n\n![../images/490826_1_En_9_Chapter/490826_1_En_9_Fig8_HTML.jpg](img/490826_1_En_9_Fig8_HTML.jpg)\n\
+  \n图 9-8\n\n输出\n\n## 总结\n\n在本章中，我们研究了与量子分类器算法相关的技术，例如量子分类器、变分量子分类、量子支持向量机和量子稀疏向量机。\n\
+  \n"
+- "# 10. 量子数据处理\n\n## 引言\n\n> *“量子注意力函数是量子机器学习的关键。”*\n> \n> ——Amit Ray\n\n本章涵盖了量子数据处理这一主题（见图\
+  \ 10-1）。您将看到量子数据处理算法如何在日常生活中得以实现。文中提供了诸如 k-means、k-medians 和量子聚类等算法的代码示例。\n\n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig1_HTML.jpg](img/490826_1_En_10_Fig1_HTML.jpg)\n\
+  \n图 10-1\n\n数据处理\n\n## 初始设置\n\n您需要安装 Python 3.5 才能运行本章中的代码示例。您可以从 [`https://www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)\
+  \ 下载它。\n\n\n\n## 经典 K-Means\n\n经典 K-Means 技术将输入数据划分为 k 个簇。这 k 个簇必须互不相同，且每个数据点仅属于一个簇。簇的选取基于质心与数据点之间**最小**的平方距离之和。参见图\
+  \ 10-2。\n\n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig2_HTML.jpg](img/490826_1_En_10_Fig2_HTML.jpg)\n\
+  \n图 10-2\n\nK-Means\n\n伪算法的步骤如下所示：\n\n1.  初始化后，随机选取 k 个质心。\n2.  根据数据点与质心之间的最小距离，为每个数据点选择一个质心。\n\
+  3.  基于每个簇中数据点的平均值，重新计算每个簇的质心。\n4.  重复前两个步骤。\n\n数据集的选择需要满足均值为 0、标准差为 1 的条件。此技术适用于初始选取的不同质心簇，计算基于\
+  \ K-Means 算法。通过比较执行的迭代次数，来选取最佳解决方案。当簇质心的数量与数据集中的不同类型相关联时，便可采用此技术。当变量较多时，该技术的性能更优。该方法面临的挑战在于预测\
+  \ k 值。\n\n**提示**\n\n在 K-Means 中，*k* 代表输入数据中的簇数量。\n\n我们来看一下 K-Means 算法的代码实现。\n\n\
+  ### 代码示例\n\n```\nimport matplotlib.pyplot as plot\nimport seaborn as seasns; seasns.set()\n\
+  import numpy as nump\nfrom sklearn.cluster import KMeans as skKMeans\nfrom sklearn.datasets.samples_generator\
+  \ import make_blobs\nX, y_true = make_blobs(n_samples=250, centers=4,\ncluster_std=0.60,\
+  \ random_state=0)\nplot.scatter(X[:, 0], X[:, 1], s=50);\nplot.show()\nkmeans_res\
+  \ = skKMeans(n_clusters=4)\nkmeans_res.fit(X)\ny_val_kmeans = kmeans_res.predict(X)\n\
+  plot.scatter(X[:, 0], X[:, 1], c=y_val_kmeans, s=50, cmap=\"viridis\")\ncenters\
+  \ = kmeans_res.cluster_centers_\nplot.scatter(centers[:, 0], centers[:, 1], c=\"\
+  grey\", s=200, alpha=0.5);\nplot.show()\n```\n\n### 命令\n\n```\npip3 install seaborn\n\
+  pip3 install numpy\npython3 k-means.py\n```\n\n### 输出结果\n\n样本数据绘制并展示在图 10-3 的图表中。\n\
+  \n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig3_HTML.jpg](img/490826_1_En_10_Fig3_HTML.jpg)\n\
+  \n图 10-3\n\nK-Means 样本\n\n应用 K-Means 算法后，其绘图结果展示在图 10-4 的图表中。\n\n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig4_HTML.jpg](img/490826_1_En_10_Fig4_HTML.jpg)\n\
+  \n图 10-4\n\nK-Means 结果\n\n现在，我们来看一下量子 K-Means 数据处理技术。\n\n## 量子 K-Means\n\n量子 K-Means\
+  \ 技术（见图 10-5）是使用一个可包含训练向量的量子电路来应用的。训练向量是初始质心，并且在每一步之后都会重新计算质心。通过使用旋转后的训练向量可以改变电路。训练向量的数量根据簇的数量增加。伪算法步骤如下所示：\n\
+  \n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig5_HTML.jpg](img/490826_1_En_10_Fig5_HTML.jpg)\n\
+  \n图 10-5\n\n量子 K-Means\n\n1.  输入 k 个簇组，并输入数据点。\n2.  随机初始化 k 个质心。\n3.  遍历所有输入的数据点，为其确定所属的簇组。\n\
+  4.  计算量子干涉电路。\n5.  筛选干涉概率。\n6.  将高概率质心添加到字典中。\n7.  对数据点集计算上述三个步骤。\n\n对于 k 个簇，可以为量子\
+  \ K-Means 技术建模 N 台量子机器。量子态由算法结果得到的质心组构成。可以通过将输入数据分解为不同的数据集，分配给每台量子机器执行算法，从而实现并行化。对量子态进行聚合，并用于迭代。\n\
+  \n上一章讨论的鸢尾花数据集可以基于花瓣和花萼的宽度与高度，聚类成三个组（setosa、versicolor、virginica）。该技术试图识别簇内变异较小的簇组。另一个应用是根据人们的收入和支出将其划分为\
+  \ k 个簇。\n\n**提示**\n\n迹距离和保真度是量子计算中使用的量子距离度量方法。\n\n我们来看一下代码实现。\n\n### 代码示例\n\n```\n\
+  import matplotlib.pyplot as plot\nimport pandas as pand\nfrom qiskit import QuantumRegister,\
+  \ ClassicalRegister\nfrom qiskit import QuantumCircuit\nfrom qiskit import Aer,\
+  \ execute\nfrom numpy import pi\nfigure, axis = plot.subplots()\naxis.set(xlabel='特征\
+  \ 1', ylabel='特征 2')\ndata_input = pand.read_csv('kmeans_input.csv',\nusecols=['特征\
+  \ 1', '特征 2', '类别'])\nisRed = data_input['类别'] == 'Red'\nisGreen = data_input['类别']\
+  \ == 'Green'\nisBlack = data_input['类别'] == 'Black'\n### 筛选数据\nredData = data_input[isRed].drop(['类别'],\
+  \ axis=1)\ngreenData = data_input[isGreen].drop(['类别'], axis=1)\nblackData = data_input[isBlack].drop(['类别'],\
+  \ axis=1)\ny_p = 0.141\nx_p = -0.161\nxgc = sum(redData['特征 1']) / len(redData['特征\
+  \ 1'])\nxbc = sum(greenData['特征 1']) / len(greenData['特征 1'])\nxkc = sum(blackData['特征\
+  \ 1']) / len(blackData['特征 1'])\n### 计算质心的 y 坐标\nygc = sum(redData['特征 2']) / len(redData['特征\
+  \ 2'])\nybc = sum(greenData['特征 2']) / len(greenData['特征 2'])\nykc = sum(blackData['特征\
+  \ 2']) / len(blackData['特征 2'])\n### 绘制质心\nplot.plot(xgc, ygc, 'rx')\nplot.plot(xbc,\
+  \ ybc, 'gx')\nplot.plot(xkc, ykc, 'kx')\nplot.plot(x_p, y_p, 'bo')\n### 设置坐标轴范围\n\
+  plot.axis([-1, 1, -1, 1])\nplot.show()\n### 计算 theta 和 phi 值\nphi_list = [((x +\
+  \ 1) * pi / 2) for x in [x_p, xgc, xbc, xkc]]\ntheta_list = [((x + 1) * pi / 2)\
+  \ for x in [y_p, ygc, ybc, ykc]]\nquantumregister = QuantumRegister(3, 'quantumregister')\n\
+  classicregister = ClassicalRegister(1, 'classicregister')\nquantum_circuit = QuantumCircuit(quantumregister,\
+  \ classicregister, name=\"qc\")\nbackend = Aer.get_backend('qasm_simulator')\nquantum_results_list\
+  \ = []\nfor i in range(1, 4):\nquantum_circuit.h(quantumregister[2])\nquantum_circuit.u3(theta_list[0],\
+  \ phi_list[0], 0, quantumregister[0])\nquantum_circuit.u3(theta_list[i], phi_list[i],\
+  \ 0, quantumregister[1])\nquantum_circuit.cswap(quantumregister[2], quantumregister[0],\
+  \ quantumregister[1])\nquantum_circuit.h(quantumregister[2])\nquantum_circuit.measure(quantumregister[2],\
+  \ classicregister[0])\nquantum_circuit.reset(quantumregister )\njob = execute(quantum_circuit,\
+  \ backend=backend, shots=1024)\nresult = job.result().get_counts(quantum_circuit)\n\
+  quantum_results_list.append(result['1'])\nprint(quantum_results_list)\nclass_list\
+  \ = ['Red', 'Green', 'Black']\nquantum_p_class = class_list[quantum_results_list.index(min(quantum_results_list))]\n\
+  distances_list = [((x_p - i[0])**2 + (y_p - i[1])**2)**0.5 for i in [(xgc, ygc),\
+  \ (xbc, ybc), (xkc, ykc)]]\nclassical_p_class = class_list[distances_list.index(min(distances_list))]\n\
+  print(\"\"\"使用量子距离算法，\n该新数据点属于\"\"\", quantum_p_class,\n'类别。\\n')\nprint('欧几里得距离列表如下：',\
+  \ distances_list, '\\n')\nprint(\"\"\"基于欧几里得距离计算，\n该新数据点与\"\"\", classical_p_class,\n\
+  '类别相关。')\n```\n\n### 命令\n\n```\npip3 install qiskit\npip3 install qiskit-ibmq-provider\n\
+  pip3 install pandas\npip3 install matlab\npython3 quantum_k_means.py\n```\n\n\n\n\
+  ### 输出结果\n\n输入数据点从包含红色、绿色和黑色的 Excel 文件中读取。新增一个数据点，使用量子 k-means 算法判断其所属的颜色类别。图 10-6\
+  \ 展示了输出结果。\n\n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig6_HTML.jpg](img/490826_1_En_10_Fig6_HTML.jpg)\n\
+  \n图 10-6 输出结果\n\n利用量子距离算法，新数据点`[72, 60, 125]`被归为绿色类别。测量所得的距离基于欧几里得距离。\n\n```\n[0.520285324797846,\
+  \ 0.4905204028376393, 0.7014755294377704]\n```\n\n现在，让我们来看看经典的 k-中位数算法。\n\n## 经典\
+  \ K-中位数算法\n\nk-中位数技术（见图 10-7）基于数据集的中位数选择质心。k-means 算法则选择簇内数据点的均值作为质心。从质心到簇内数据点的距离计算采用曼哈顿度量。两点`(x1,y1)`和`(x2,\
+  \ y2)`之间的欧几里得距离公式如下：\n\n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig7_HTML.jpg](img/490826_1_En_10_Fig7_HTML.jpg)\n\
+  \n图 10-7 K-中位数算法\n\n```\n√(x2-x1)²+(y2-y1)²\n```\n\n曼哈顿度量的公式如下：\n\n```\n|x2-x1|\
+  \ + |y2-y1|\n```\n\n**提示**\n\nk-中位数与 k-means 的区别在于簇中心的选择方式。k-means 选择均值作为质心，而 k-中位数则选择簇内数据点的中位数。\n\
+  \n让我们来看一下 k-中位数算法的代码实现。\n\n### 代码示例\n\n```\nimport numpy as nump\nfrom k_medians_utils\
+  \ import *\nPREFIX = ''\nFILE = PREFIX + 'iris.data.txt'\n[xval, yval] = read(FILE)\n\
+  [n, d] = nump.shape(xval)\nk = len(nump.unique(yval))\nmi = nump.min(xval, axis=0)\n\
+  ma = nump.max(xval, axis=0)\ndi = ma - mi\nstop = 0\nc = nump.zeros(n)\nmedian =\
+  \ nump.random.rand(k, d) * nump.ones((k, d))\nmedian = median * di\nmedian = median\
+  \ + mi\nmed_t = nump.copy(median)\nimax = 100\nfor i in range(imax):\nmed_t = nump.copy(median)\n\
+  for j in range(n):\ndist = nump.sqrt(nump.sum(nump.power(xval[j,:] - median, 2),\
+  \ axis=1))\nidx = nump.argmin(dist)\nval = nump.min(dist)\nc[j] = idx\nfor j in\
+  \ range(k):\na = nump.arange(n)\nidx = a[c == j]\nl = len(idx)\nif l:\nmedian[j,:]\
+  \ = nump.median(xval[idx,:], axis=0)\nelse:\nmedian[j,:] = median[j,:] + (nump.random.rand(d)\
+  \ * di)\nstop = nump.sum(nump.sum(nump.power(median - med_t,2), axis=0))\nif(stop\
+  \ = imax):\nbreak\naccur = getAccuracy(c, yval, k)\nsilhou = getSilhouette(xval,\
+  \ c, median)\nprint(accur, silhou)\n```\n\n**`k_medians_utils.py`**\n\n```\nimport\
+  \ numpy as nump\nimport os\nVERBOSE = False\ndef read(FILE):\nif os.path.isfile(FILE):\n\
+  file = open(FILE, 'r')\nlines = tuple(file)\nfile.close()\ndata = []\nfor line in\
+  \ lines:\ndata.append(line.rstrip().split(\",\"))\nif VERBOSE:\nprint(data[-1])\n\
+  else:\nprint(FILE, 'does not exist')\nexit(0)\ndata = nump.array(data)\nx = data[:,0:-1]\n\
+  x = x.astype(nump.float)\ny = nump.zeros(len(data))\nuniq = nump.unique(data[:,-1])\n\
+  for i in range(0,len(uniq)):\nidx = (data[:,-1] == uniq[i])\nif any(idx):\ny[idx]\
+  \ = i\nreturn(x, y)\ndef getAccuracy(c, y, k):\nif VERBOSE:\nprint(c)\nprint(y)\n\
+  n = len(y)\nkk = nump.zeros(k)\no = 0\ne = 0\nidxx = []\nfor i in range(k):\na =\
+  \ nump.arange(n)\nidxa = a[y == i]\nfor j in range(len(idxa)):\nkk[int(c[j+o])]\
+  \ = kk[int(c[j+o])] + 1\nif idxx:\nfor l in idxx:\nkk[l] = 0\no = o + len(idxa)\n\
+  idx = nump.argmax(kk)\nidxx.append(idx)\nval = kk[idx]\ne = e + (val/len(y[y ==\
+  \ i]))\nkk = nump.zeros(k)\ne = e/k\nreturn(e)\ndef accuracy_(c, y, k1, k2):\nif\
+  \ VERBOSE:\nprint(c)\nprint(y)\nn = len(y)\nkk = nump.zeros(k2)\no = 0\ne = 0\n\
+  idxx = []\nfor i in range(k1):\na = nump.arange(n)\nidxa = a[y == i]\nfor j in range(len(idxa)):\n\
+  kk[int(c[j+o])] = kk[int(c[j+o])] + 1\nif idxx:\nfor l in idxx :\nkk[l] = 0\no =\
+  \ o + len(idxa)\nidx = nump.argmax(kk)\nidxx.append(idx)\nval = kk[idx]\ne = e +\
+  \ (val/len(y[y == i]))\nkk = nump.zeros(k2)\ne = e/k1\nreturn(e)\ndef getSilhouette(x,\
+  \ c, me):\nif VERBOSE:\nprint(c)\nprint(y)\nn = len(c)\ns = nump.zeros((n,3))\n\
+  for i in range(n):\ndist = nump.sqrt(nump.sum(nump.power(x[i,:] - me,2), axis=1))\n\
+  dd = nump.argsort(dist)\naa = nump.arange(n)\nfor j in range(2):\naa = nump.arange(n)\n\
+  idx = aa[c == dd[j]]\nl = len(idx)\nif l:\nfor o in idx :\ns[o,j] = s[o,j] + nump.sqrt(nump.sum(nump.power(x[i,:]\
+  \ - x[o,:] ,2)))\ns[o,j] = s[o,j]/l\ns = nump.mean((s[:,0] - s[:,1])/nump.amax(s[:,0:2],\
+  \ axis=1))\nreturn(s)\ndef actionselection(action, probability, numactions, numdims):\n\
+  for i in range(numdims):\na = nump.random.choice(nump.arange(0, numactions), p =\
+  \ probability[:,i])\nmask = nump.zeros(numactions,dtype=bool)\n#print(i, a, mask)\n\
+  mask[a] = True\naction[mask,i] = 1\naction[~mask,i] = 0\nreturn(action)\ndef probabilityupdate(action,\
+  \ probability, numactions, numdims, signal, alpha, beta):\nif(numactions > 1):\n\
+  for i in range(numdims):\na = nump.where(action[:,i] == 1)\nmask = nump.zeros(numactions,dtype=bool)\n\
+  mask[a] = True\nif not signal[i]:\nprobability[mask,i] = probability[mask,i] + alpha\
+  \ * (1 - probability[mask,i])\nprobability[~mask,i] = (1 - alpha) * probability[~mask,i]\n\
+  else:\nprobability[mask,i] = (1 - beta) * probability[mask,i]\nprobability[~mask,i]\
+  \ = (beta/(numactions-1)) + (1-beta) * probability[~mask,i]\nreturn(probability)\n\
+  ```\n\n### 命令\n\n```\npip3 install nump\npython3 k-medians.py\n```\n\n### 输出结果\n\
+  \n```\n0.9 -0.2609494581992614\n```\n\n上一章讨论的鸢尾花数据集可根据花瓣和花萼的宽度与高度聚为三个不同的组（山鸢尾、变色鸢尾、维吉尼亚鸢尾）。k-中位数聚类算法在将数据点聚类至山鸢尾、变色鸢尾和维吉尼亚鸢尾这三个组时，准确率达到\
+  \ 90%。\n\n接下来详细探讨量子 k-中位数算法。\n\n## 量子 K-中位数算法\n\n量子 k-中位数技术通过使用数据点的中位数来计算簇组中的簇质心。中位数基于所有数据点的最小距离进行计算。该技术与最小化数据点与数据集的中位数之间距离的总和相关。距离的最小化基于使用\
+  \ Grover 搜索的量子最小化算法进行计算。点之间的欧几里得距离被用作距离算法。\n\n伪算法的步骤如下所示：\n\n1.  输入为`k`个簇组和输入数据点。\n\
+  2.  基于数据点的中位数，随机初始化`k`个质心。\n3.  遍历所有输入数据点，以确定其所属的簇组。\n4.  计算量子干涉电路。\n5.  筛选干涉概率。\n\
+  6.  将高概率的质心添加到字典中。\n7.  对数据点集合重复前三个步骤。\n\n**提示**\n\nGrover 搜索算法使用酉 oracle 函数，基于函数`f(x)`创建叠加态。\n\
+  \n现在让我们来看一下经典的聚类算法。\n\n## 经典聚类\n\n经典聚类技术用于根据一组特征将输入数据划分为多个组。一个组将包含具有共同点的数据点。会创建多个组来处理不同的数据点。这基于无监督机器学习技术。聚类在一组未标记的输入数据中识别模式和特征。\n\
+  \n以下是不同类型的经典聚类技术：\n\n*   基于划分\n*   基于层次\n*   基于密度\n*   基于网格\n*   基于模型\n\n经典聚类技术用于图像处理、计算生命科学、医疗保健和经济学应用。见图\
+  \ 10-8。\n\n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig8_HTML.jpg](img/490826_1_En_10_Fig8_HTML.jpg)\n\
+  \n图 10-8 聚类\n\n现在开始探究量子聚类技术。\n\n\n\n## 量子聚类\n\n量子聚类算法（见图 10-9）基于梯度下降技术。它用于在恒定学习率下寻找量子势，并计算聚类中心。通过利用基于量子力学的原理，量子聚类技术能够发现具有复杂形状的群组。该技术通过计算群组中心来识别任意形状的群组。\n\
+  \n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig9_HTML.jpg](img/490826_1_En_10_Fig9_HTML.jpg)\n\
+  \n**图 10-9** 量子聚类\n\n量子聚类基于量子力学中的逆问题。量子聚类技术有助于获得一个基于势函数估计的粒子分布。该算法会找到群组中心，并为每个中心群组分配其中心。波函数通过薛定谔方程的解来识别。\n\
+  \n接下来，我们来看看量子聚类算法的步骤：\n\n1.  识别每个数据特征的权重，并根据输入数据选择参数。\n2.  将群组数量/测量尺度设置为零。\n3. \
+  \ 基于量子聚类距离方法计算加权度量。\n4.  估计参数以及基于数据的势能。\n5.  群组编号加 1。\n6.  在群组中心处识别出最小势能。\n7.  通过距离度量对所有数据点进行分组，且该距离需小于测量尺度。当符合距离度量标准的数据点数量为零时，算法结束。否则，算法返回步骤\
+  \ 5。\n\n量子聚类算法只有一个参数。该算法基于划分，是一种无监督学习技术。由于分组需要预处理，处理时间较长。测量尺度是静态的，且该方法不依赖于特征。在这种方法中，分组的精度取决于学习量。\n\
+  \n> **提示：** 量子系统在时间和空间上是确定性的，并由波函数描述。\n\n接下来，我们看一个量子聚类技术的代码示例。\n\n\n\n### 代码示例\n\
+  \n```python\nimport numpy as nump\nimport quantum_cluster\n\ntypes = ['f8', 'f8',\
+  \ 'f8','f8','U50']\ndata_res = nump.loadtxt('iris_input.csv', delimiter=',')\nprint(data_res)\n\
+  data_res = data_res[:,:4]\nsigma_val=0.55\nrepetitionsVal=100\nstepSizeVal=0.1\n\
+  clusteringTypeVal='v'\nisRecalculate=False\nisReturnHistory=True\nisStopCondition=True\n\
+  voxelSizeVal = None\nxval,xHistoryVal = quantum_cluster.getGradientDescent(data_res,\
+  \ sigma=sigma_val, repetitions=repetitionsVal, stepSize=stepSizeVal, clusteringType=clusteringTypeVal,\
+  \ recalculate=isRecalculate, returnHistory=isReturnHistory, stopCondition=isStopCondition,\
+  \ voxelSize=voxelSizeVal)\nclusters_res = quantum_cluster.PerformFinalClusteringAlgo(xval,\
+  \ stepSizeVal)\nquantum_cluster.displayClusteringValues(xHistoryVal, clusters_res)\n\
+  ```\n\n**quantum_cluster.py**\n\n```python\nimport numpy as nump\nfrom scipy.spatial\
+  \ import distance as spatDistance\nfrom sklearn.decomposition import PCA as decomPCA\n\
+  import matplotlib.pyplot as plot\nfrom mpl_toolkits.mplot3d import Axes3D as mplAxes3D\n\
+  \ndef getVGradient(data:nump.ndarray, sigma, x:nump.ndarray=None, coeffs:nump.ndarray=None):\n\
+  \    if x is None:\n        x = data.copy()\n    if coeffs is None:\n        coeffs\
+  \ = nump.ones((data.shape[0],))\n    twoSigmaSquared = 2*sigma**2\n    data = data[nump.newaxis,:,:]\n\
+  \    x = x[:,nump.newaxis,:]\n    differences = x-data\n    squaredDifferences =\
+  \ nump.sum(nump.square(differences), axis=2)\n    gaussian = nump.exp(-(1/twoSigmaSquared)*squaredDifferences)\n\
+  \    laplacian = nump.sum(coeffs*gaussian*squaredDifferences, axis=1)\n    parzen\
+  \ = nump.sum(coeffs*gaussian, axis=1)\n    v = 1 + (1/twoSigmaSquared)*laplacian/parzen\n\
+  \    dv = -1*(1/parzen[:,nump.newaxis])*nump.sum(differences*((coeffs*gaussian)[:,:,nump.newaxis])*(twoSigmaSquared*(v[:,nump.newaxis,nump.newaxis])-(squaredDifferences[:,:,nump.newaxis])),\
+  \ axis=1)\n    v = v-1\n    return v, dv\n\ndef getSGradient(data:nump.ndarray,\
+  \ sigma, x:nump.ndarray=None, coeffs:nump.ndarray=None):\n    if x is None:\n  \
+  \      x = data.copy()\n    if coeffs is None:\n        coeffs = nump.ones((data.shape[0],))\n\
+  \    twoSigmaSquared = 2 * sigma ** 2\n    data = data[nump.newaxis, :, :]\n   \
+  \ x = x[:, nump.newaxis, :]\n    differences = x - data\n    squaredDifferences\
+  \ = nump.sum(nump.square(differences), axis=2)\n    gaussian = nump.exp(-(1 / twoSigmaSquared)\
+  \ * squaredDifferences)\n    laplacian = nump.sum(coeffs*gaussian * squaredDifferences,\
+  \ axis=1)\n    parzen = nump.sum(coeffs*gaussian, axis=1)\n    v = (1 / twoSigmaSquared)\
+  \ * laplacian / parzen\n    s = v + nump.log(nump.abs(parzen))\n    ds = (1 / parzen[:,\
+  \ nump.newaxis]) * nump.sum(differences * ((coeffs*gaussian)[:, :, nump.newaxis])\
+  \ * (\n        twoSigmaSquared * (v[:, nump.newaxis, nump.newaxis]) - (squaredDifferences[:,\
+  \ :, nump.newaxis])), axis=1)\n    return s, ds\n\ndef getPGradient(data:nump.ndarray,\
+  \ sigma, x:nump.ndarray=None, coeffs:nump.ndarray=None):\n    if x is None:\n  \
+  \      x = data.copy()\n    if coeffs is None:\n        coeffs = nump.ones((data.shape[0],))\n\
+  \    twoSigmaSquared = 2 * sigma ** 2\n    data = data[nump.newaxis, :, :]\n   \
+  \ x = x[:, nump.newaxis, :]\n    differences = x - data\n    squaredDifferences\
+  \ = nump.sum(nump.square(differences), axis=2)\n    gaussian = nump.exp(-(1 / twoSigmaSquared)\
+  \ * squaredDifferences)\n    p = nump.sum(coeffs*gaussian, axis=1)\n    dp = -1*nump.sum(differences\
+  \ * ((coeffs*gaussian)[:, :, nump.newaxis]) * twoSigmaSquared, axis=1)\n    return\
+  \ p, dp\n\ndef getApproximateParzenValues(data:nump.ndarray, sigma, voxelSize):\n\
+  \    newData = getUniqueRows(nump.floor(data/voxelSize)*voxelSize+voxelSize/2)[0]\n\
+  \    nMat = nump.exp(-1*spatDistance.squareform(nump.square(spatDistance.pdist(newData)))/(4*sigma**2))\n\
+  \    mMat = nump.exp(-1 * nump.square(spatDistance.cdist(newData, data)) / (4 *\
+  \ sigma ** 2))\n    cMat = nump.linalg.solve(nMat, mMat)\n    coeffs = nump.sum(cMat,\
+  \ axis=1)\n    coeffs = data.shape[0]*coeffs/sum(coeffs)\n    return newData, coeffs\n\
+  \ndef getUniqueRows(x):\n    y = nump.ascontiguousarray(x).view(nump.dtype((nump.void,\
+  \ x.dtype.itemsize * x.shape[1])))\n    _, inds, indsInverse, counts = nump.unique(y,\
+  \ return_index=True, return_inverse=True, return_counts=True)\n    xUnique = x[inds]\n\
+  \    return xUnique, inds, indsInverse, counts\n\ndef getGradientDescent(data, sigma,\
+  \ repetitions=1, stepSize=None, clusteringType='v', recalculate=False, returnHistory=False,\
+  \ stopCondition=True, voxelSize=None):\n    n = data.shape[0]\n    useApproximation\
+  \ = (voxelSize is not None)\n    if stepSize is None:\n        stepSize = sigma/10\n\
+  \    if clusteringType == 'v':\n        gradientFunction = getVGradient\n    elif\
+  \ clusteringType == 's':\n        gradientFunction = getSGradient\n    else:\n \
+  \       gradientFunction = getPGradient\n    if useApproximation:\n        newData,\
+  \ coeffs = getApproximateParzenValues(data, sigma, voxelSize)\n    else:\n     \
+  \   coeffs = None\n    if recalculate:\n        if useApproximation:\n         \
+  \   x = nump.vstack((data, newData))\n            data = x[data.shape[0]:]\n   \
+  \     else:\n            x = data\n    else:\n        if useApproximation:\n   \
+  \         x = data\n            data = newData\n        else:\n            x = data.copy()\n\
+  \    if returnHistory:\n        xHistory = nump.zeros((n, x.shape[1], repetitions+1))\n\
+  \        xHistory[:,:,0] = x[:n,:].copy()\n    if stopCondition:\n        prevX\
+  \ = x[:n].copy()\n    for i in range(repetitions):\n        if ((i>0) and (i%10==0)):\n\
+  \            if stopCondition:\n                if nump.all(nump.linalg.norm(x[:n]-prevX,\
+  \ axis=1) < 1e-5):\n                    break\n                prevX = x[:n].copy()\n\
+  \        gradientValue, _ = gradientFunction(data, sigma, x=x, coeffs=coeffs)\n\
+  \        x = x - stepSize * gradientValue\n        if returnHistory:\n         \
+  \   xHistory[:,:,i+1] = x[:n,:].copy()\n    if returnHistory:\n        xHistory\
+  \ = xHistory[:,:,:i+1]\n        return x, xHistory\n    else:    \n        return\
+  \ x, None\n\ndef PerformFinalClusteringAlgo(x, stepSize):\n    clusters = nump.zeros((x.shape[0],))\n\
+  \    clusterIndex = 0\n    for i in range(x.shape[0]):\n        if clusters[i]==0:\n\
+  \            clusterIndex = clusterIndex+1\n            clusters[i] = clusterIndex\n\
+  \            temp = nump.argwhere(clusters==0)\n            spatDistances = nump.linalg.norm(x[temp[:,0]]-x[i],\
+  \ axis=1)\n            temp = nump.argwhere(spatDistances<=(stepSize/2))\n     \
+  \       if temp.shape[0]>0:\n                clusters[temp[:,0]] = clusterIndex\n\
+  \    clusters[clusters==0] = clusterIndex\n    return clusters\n\ndef displayClusteringValues(xHistory,\
+  \ clusters):\n    plot.ion()\n    if xHistory.shape[1] > 3:\n        pca = decomPCA(3)\n\
+  \        pca.fit(xHistory[:,:,0])\n        newXHistory = nump.zeros((xHistory.shape[0],\
+  \ 3, xHistory.shape[2]))\n        for i in range(xHistory.shape[2]):\n         \
+  \   newXHistory[:,:,i] = pca.transform(xHistory[:,:,i])\n        xHistory = newXHistory\n\
+  \    ax = plot.axes(projection='3d')\n    sc = ax.scatter(xHistory[:, 0, 0], xHistory[:,\
+  \ 1, 0], xHistory[:, 2, 0], c=clusters, s=20)\n    ax.set_xlim((nump.min(xHistory[:,\
+  \ 0, :]), nump.max(xHistory[:, 0, :])))\n    ax.set_ylim((nump.min(xHistory[:, 1,\
+  \ :]), nump.max(xHistory[:, 1, :])))\n    ax.set_zlim((nump.min(xHistory[:, 2, :]),\
+  \ nump.max(xHistory[:, 2, :])))\n    for i in range(xHistory.shape[2]):\n      \
+  \  sc._offsets3d = (nump.ravel(xHistory[:, 0, i]), nump.ravel(xHistory[:, 1, i]),\
+  \ nump.ravel(xHistory[:, 2, i]))\n        plot.gcf().suptitle('step #' + str(i)\
+  \ + '/' + str(xHistory.shape[2]-1))\n        plot.pause(0.01)\n    plot.ioff()\n\
+  \    plot.close()\n```\n\n### 命令\n\n```\npip3 install nump\npython3 QCAlgo.py\n\
+  ```\n\n### 输出\n\n使用量子聚类算法，可以创建聚类。图 10-10 显示了第四步之后的输出。\n\n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig10_HTML.jpg](img/490826_1_En_10_Fig10_HTML.jpg)\n\
+  \n**图 10-10** 四步后的量子聚类输出\n\n图 10-11 显示了 29 步后的输出，图 10-12 显示了 46 步后的输出。\n\n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig12_HTML.jpg](img/490826_1_En_10_Fig12_HTML.jpg)\n\
+  \n**图 10-12** 46 步后的输出\n\n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig11_HTML.jpg](img/490826_1_En_10_Fig11_HTML.jpg)\n\
+  \n**图 10-11** 29 步后的输出\n\n图 10-13 显示了 50 步结束时的输出。\n\n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig13_HTML.jpg](img/490826_1_En_10_Fig13_HTML.jpg)\n\
+  \n**图 10-13** 50 步后的输出\n\n## 量子流形嵌入\n\n量子流形嵌入（见图 10-14）包含若干为欧几里得空间的片段。欧几里得空间代表了量子系统中的量子态。该欧几里得空间有与\
+  \ `m` 个维度相关的 `m` 个向量。经典流形是嵌入在高维欧几里得系统中的 `m` 维形状。`Isomap` 是流形嵌入算法的一个示例。`Isomap` 有助于利用底层的流形找到全局最优解。\n\
+  \n![../images/490826_1_En_10_Chapter/490826_1_En_10_Fig14_HTML.jpg](img/490826_1_En_10_Fig14_HTML.jpg)\n\
+  \n**图 10-14** 流形嵌入\n\n## 小结\n\n在本章中，我们研究了与量子数据处理算法相关的技术，例如量子 k-means、量子 k-medians、量子聚类和量子流形嵌入。\n\
+  \n"
+- "# 11. 量子人工智能算法\n\n\n\n## 引言\n\n> *“如果我们把量子理论当真，视之为对真实事件的描绘，那么每一次测量就不仅仅是扰动：它会深刻地重塑现实的根基。”*\n\
+  >\n> —尼克·赫伯特\n\n本章将涵盖量子人工智能算法的主题。你将了解量子人工智能算法在日常生活中的实现方式。文中针对特定算法（如量子概率、量子行走、量子搜索、量子深度学习和量子并行）提供了代码示例。\n\
+  \n## 初始设置\n\n你需要安装 `Python` 3.5 才能运行本章的代码示例。你可以从 [`https://www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)\
+  \ 下载。\n\n## 量子概率\n\n量子计算框架具有基于概率的事件，这些事件被建模为希尔伯特多维子空间。所讨论的系统在希尔伯特空间中被称为*态矢量*。事件概率通过使用矢量在子空间上的投影并计算投影长度的平方来得出。\n\
+  \n现在，我们来详细看看希尔伯特空间。它是一个数学矢量空间，具有矢量的点积或内积。该空间与距离函数相关，被称为*内积空间*。\n\n量子概率（见图 11-1）基于数学量子理论。一个量子概率空间代表一个在物理空间中尚不为人所熟知的系统。\n\
+  \n![../images/490826_1_En_11_Chapter/490826_1_En_11_Fig1_HTML.jpg](img/490826_1_En_11_Fig1_HTML.jpg)\n\
+  \n图 11-1\n\n量子概率\n\n量子概率空间是一对 `(B, ρ)`，其中 `B` 是一个 Q-代数，`ρ : B → D` 是一个满足以下性质的函数：\n\
+  \n(a) `ρ(aB + bC) = aρ(B) + bρ(C)`（B, C ∈ A, a, b ∈ D），\n\n(b) `ρ(B∗ ) = ρ(B) ∗`（B\
+  \ ∈ B），\n\n(c) `ρ(B∗B) ≥ 0`（B ∈ B）\n\n一个投影 `Q ∈ B` 是系统上的一个观测量。一个作为单位分解的测量划分 `{Q1,\
+  \ ..., Qm}` 会产生测量结果 `Q1, …, Qm`。`ρ(Q)` 越大，测量结果为 `Q` 的可能性就越大。\n\n概率定律基于 `ρ(Q)`，其中\
+  \ `Q ∈ B`。如果 `ρ(Q)=1`，则结果 `Q` 将是 `Q` 值的测量结果。\n\n> **提示**  \n> 量子概率基于冯·诺依曼公理以及基于柯尔莫哥洛夫概率的松弛约束。\n\
+  \n## 经典随机行走\n\n经典随机行走（见图 11-2）基于粒子在线上穿行的行为。粒子的运动基于概率规则。最简单的粒子行走被建模为以单位步长向左或向右移动的时间步长。该运动向左的概率为\
+  \ `q`，向右的概率为 `1-q`。这些概率与之前的位置无关。\n\n![../images/490826_1_En_11_Chapter/490826_1_En_11_Fig2_HTML.jpg](img/490826_1_En_11_Fig2_HTML.jpg)\n\
+  \n图 11-2\n\n经典随机行走\n\n现在，让我们来看看量子行走技术。\n\n## 量子行走\n\n量子行走（见图 11-3）基于处于叠加态的量子粒子的穿行。概率与向左和向右的运动相关联。叠加态的概率之和并不单一。量子行走基于粒子的自旋。通过旋转带有自旋的粒子，可以实现随机量子行走。量子行走用于基于量子计算模型创建量子算法。量子行走有两种类型：离散时间和连续时间量子行走。\n\
+  \n![../images/490826_1_En_11_Chapter/490826_1_En_11_Fig3_HTML.jpg](img/490826_1_En_11_Fig3_HTML.jpg)\n\
+  \n图 11-3\n\n量子随机行走\n\n掷硬币行走模型（见图 11-4）基于希尔伯特空间的硬币算子和单位算子。掷硬币行走模型中使用的算子是 `D ⊗ M`，其中\
+  \ `D` 是代表粒子运动的硬币算子，`M` 是希尔伯特空间 `GP` 的单位算子。该行走模型基于抛硬币的过程。该计算模型基于对硬币状态进行建模的量子态的叠加。阿达马算子是最常用的硬币算子。应用硬币算子后，再应用一个位移算子。叠加态由\
+  \ `m=1` 和 `m=-1` 的叠加产生。掷硬币量子行走中的概率分布不是正态分布。这种量子行走的标准差不是 `√s`，而是与步数 `s` 成正比。假设量子粒子向右移动的概率为\
+  \ 1。经过 `s` 步后，粒子位于 `m=s` 处。这种情况被称为*弹道情况*。假设量子粒子的运动具有单位速度。在弹道情况下，量子粒子的速度是自由粒子速度的一半。\n\
+  \n![../images/490826_1_En_11_Chapter/490826_1_En_11_Fig4_HTML.jpg](img/490826_1_En_11_Fig4_HTML.jpg)\n\
+  \n图 11-4\n\n掷硬币行走模型\n\n让我们看一下抛硬币量子行走的代码实现。\n\n### 代码示例\n\n```\nimport math\nimport\
+  \ pylab as pythonLab\ndef GetProbabilities(posn):\nreturn [sum([abs(amp) ** 2 for\
+  \ amp in place]) for place in posn]\ndef ApplyNormalisation(posn):\nN = math.sqrt(sum(GetProbabilities(posn)))\n\
+  return [[amp / N for amp in place] for place in posn]\ndef GetTimeStep(posn):\n\
+  return ApplyNormalisation([[x[0] + x[1], x[0] - x[1]] for x in posn])\ndef GetShift(coin):\n\
+  newposn = [[0, 0] for i in range(len(coin))]\nfor j in range(1, len(position) -\
+  \ 1):\nnewposn[j + 1][0] += coin[j][0]\nnewposn[j - 1][1] += coin[j][1]\nreturn\
+  \ ApplyNormalisation(newposn)\nminval, maxval = -400, 401\nposition = [[0, 0] for\
+  \ i in range(minval, maxval)]\nposition[-minval] = [1 / math.sqrt(2), 1j / math.sqrt(2)]\n\
+  for time in range(-minval):\nposition = GetShift(GetTimeStep(position))\npythonLab.plot(range(minval,\
+  \ maxval), GetProbabilities(position))\npythonLab.show()\n```\n\n### 命令\n\n```\n\
+  pip3 install pylab\npython3 quantum_walk.py\n```\n\n### 输出\n\n图 11-5 展示了量子行走的输出。\n\
+  \n![../images/490826_1_En_11_Chapter/490826_1_En_11_Fig5_HTML.jpg](img/490826_1_En_11_Fig5_HTML.jpg)\n\
+  \n图 11-5\n\n量子行走输出\n\n现在，让我们来看一下连续时间的量子行走。\n\n连续时间量子行走（见图 11-6）基于马尔可夫过程。一个马尔可夫过程被建模为一个图，该图有\
+  \ `M` 个顶点，它们之间通过边相互连接。假设 `γ` 是顶点之间每单位时间的跳跃率。约束条件是行走只能在边上的节点之间进行。行走由随机生成矩阵 `P` 表示。所有顶点上的重叠积分平方和为\
+  \ 1。\n\n![../images/490826_1_En_11_Chapter/490826_1_En_11_Fig6_HTML.jpg](img/490826_1_En_11_Fig6_HTML.jpg)\n\
+  \n图 11-6\n\n连续时间量子行走\n\n量子行走是使用量子力学波函数进行建模的。该波函数是所有可能波路径的相干叠加。概率分布基于量子干涉效应。量子行走有助于解决现实生活中的问题，并且它们在时间多项式阶数上更快。诸如元素区分性、识别三角形和\
+  \ NAND 树评估等问题都可以使用量子行走来解决。格罗弗搜索算法可以建模为量子行走算法。\n\n> **提示**  \n> 量子行走基于量子力学行走，用于模拟量子随机运动物理。\n\
+  \n让我们来看一下抛硬币量子行走的代码实现。\n\n\n\n### 代码示例\n\n```\nfrom qutip import *\nimport numpy\
+  \ as nump\nimport matplotlib.pyplot as matplot\nfrom math import *\nimport seaborn\
+  \ as seabrn\nket0 = basis(2,0).unit()\nket1 = basis(2,1).unit()\npsip = (basis(2,0)+basis(2,1)*1j).unit()\n\
+  psim = (basis(2,0)-basis(2,1)*1j).unit()\ndef GetCoin(coin_angle):\nC_hat = qutip.Qobj([[cos(radians(coin_angle)),\
+  \ sin(radians(coin_angle))],\n[sin(radians(coin_angle)), -cos(radians(coin_angle))]])\n\
+  return C_hat\ndef GetShift(t):\nsites = 2*t+1\nshift_l = qutip.Qobj(nump.roll(nump.eye(sites),\
+  \ 1, axis=0))\nshift_r = qutip.Qobj(nump.roll(nump.eye(sites), -1, axis=0))\nS_hat\
+  \ = tensor(ket0*ket0.dag(),shift_l) + tensor(ket1*ket1.dag(),shift_r)\nreturn S_hat\n\
+  def GetWalk(t,coin_angle):\nsites = 2*t+1\nC_hat = GetCoin(coin_angle)\nS_hat =\
+  \ GetShift(t)\nW_hat = S_hat*(tensor(C_hat,qeye(sites)))\nreturn W_hat\ndef ApplyDephasing(t,qstate,p_c):\n\
+  sites=2*t+1\ndstate = (1-p_c)*qstate+p_c*(tensor(sigmaz(),qeye(sites))*qstate*tensor(sigmaz(),qeye(sites)))\n\
+  return dstate\ndef ApplyDepolarization(t,qstate,p_c):\nsites=2*t+1\ndstate = (1-p_c)*qstate+p_c/3*(tensor(sigmax(),qeye(sites))*(qstate)*tensor(sigmax(),qeye(sites))*\n\
+  tensor(sigmay(),qeye(sites))*(qstate)*tensor(sigmay(),qeye(sites))*\ntensor(sigmaz(),qeye(sites))*(qstate)*tensor(sigmaz(),qeye(sites)))\n\
+  return dstate\ndef GetQWalk_gen_markov(t,qubit_state,coin_angle,p_c):\nsites=2*t+1\n\
+  Position_state = basis(sites,t)\nPsi = ket2dm(tensor(qubit_state,Position_state))\n\
+  W_hat = GetWalk(t,coin_angle)\nfor i in range(t):\nPsi = W_hat*ApplyDephasing(t,Psi,p_c)*W_hat.dag()\n\
+  return Psi\ndef GetMeasurement(t,Psi,z):\nsites=2*t+1\nprob=[]\nfor i in range(0,sites,z):\n\
+  M_p = basis(sites,i)*basis(sites,i).dag()\nMeasure = tensor(qeye(2),M_p)\np = abs((Psi*Measure).tr())\n\
+  prob.append(p)\nreturn prob\ndef GetPlotParticlePos(P_p):\nlattice_positions = range(-len(P_p)+1,len(P_p)+1,2)\n\
+  matplot.plot(lattice_positions,P_p)\nmatplot.xlim([-len(P_p)+1,len(P_p)+1])\nmatplot.ylim([min(P_p),max(P_p)+0.01])\n\
+  matplot.ylabel(r'$Probablity Distribution$')\nmatplot.xlabel(r'$Particle \\ position$')\n\
+  matplot.show()\nPsi_t = GetQWalk_gen_markov(150,psip,65,0.01)\nP_p  = GetMeasurement(150,Psi_t,2)\n\
+  GetPlotParticlePos(P_p)\n```\n\n### 命令\n\n```\npip3 install git+https://github.com/qutip/qutip\n\
+  python3 continuous_quantum_walk.py\n```\n\n### 输出\n\n图 11-7 展示了连续时间量子游走的输出结果。\n\n\
+  ![../images/490826_1_En_11_Chapter/490826_1_En_11_Fig7_HTML.jpg](img/490826_1_En_11_Fig7_HTML.jpg)\n\
+  \n**图 11-7** – 连续量子游走\n\n现在，让我们来看看经典搜索算法。\n\n## 经典搜索\n\n在经典搜索算法中，需要在一个由 `M` 个项目组成的给定集合中，识别出具有特定属性的项目。一个项目可能具备也可能不具备该指定属性。该搜索算法的复杂度与识别特定项目所需的查询次数成正比。这些项目通常存储在数据存储中，并在关系数据库中拆分为不同的实体。如果数据存储是\
+  \ NoSQL 类型的，它们则存储在不同的集合中。这些项目可以分别根据属性或值进行排序或筛选。\n\n让我们来看看量子搜索算法。\n\n## 量子搜索\n\n\
+  量子计算机可用于执行搜索算法。叠加态有助于降低量子算法中的搜索复杂度。量子搜索算法的复杂度与 `√M` 次查询成正比。量子搜索使用波状振幅和干涉概念进行建模。参见图\
+  \ 11-8。\n\n![../images/490826_1_En_11_Chapter/490826_1_En_11_Fig8_HTML.jpg](img/490826_1_En_11_Fig8_HTML.jpg)\n\
+  \n**图 11-8** – 量子搜索\n\n现在，我们来看看多元件天线阵列。在多元件天线阵列中，不同的相位可以在特定方向上产生辐射。阵列分析通过幺正变换进行，振幅的平方得到各个分量的概率。这些变换基于分量的旋转和反射。这个例子类似于量子搜索。量子搜索确定一系列能够找到解决现实问题方案的量子逻辑门。该算法与上下文特定时刻的振幅成正比。量子搜索算法广受欢迎，并解决了许多现实问题。\n\
+  \n> **提示：** 量子搜索算法基于包含 Hadamard 门和 CNOT 门的量子电路。\n\n接下来，让我们详细了解一下量子深度学习。\n\n## 量子深度学习\n\
+  \n量子算法用于解决复杂的现实问题。深度学习是量子算法中常用的一种技术。基于玻尔兹曼机的量子计算框架有助于提供量子深度学习框架。该框架有助于机器学习的模型学习和训练过程。\n\
+  \n量子机器学习基于量子数据和混合量子经典模型。量子数据模型基于量子数据源，并使用量子计算机生成的数据。该模型基于叠加和纠缠原理。一个表示联合概率分布的 `2⁵³`\
+  \ 个元素的希尔伯特空间可以使用量子计算机求解。量子 Tensor Flow 框架拥有创建机器学习模型的基础设施概念，这些模型可以使用量子数据模型和算法。量子数据模型可用于化学模拟、量子物质建模、量子控制、量子通信网络和量子计量学。\n\
+  \n混合量子经典模型用于数据泛化，并使用混合量子经典技术进行求解。量子神经网络就是基于参数化量子计算模型的技术之一。\n\n> **提示：** 量子深度学习用于分类领域的量子模式识别。\n\
+  \n量子机器学习应用于现实场景。例如，量子化学问题与优化高维且困难的目标函数相关。量子计算框架被应用于解决计算上具有挑战性的问题，例如变分量子本征求解器。\n\n\
+  变分量子本征求解器旨在识别某些算子的本征值。本征值识别是一个复杂且具有挑战性的问题。量子相位估计方法可用于计算给定本征向量的本征值。您可以优化一个变分电路，以降低用户定义哈密顿量的期望能量平方值。该哈密顿量可以表示为两个泡利算符之和。\n\
+  \n### 代码示例\n\n```\nimport pennylane as quantumDeepL\nfrom pennylane import numpy\
+  \ as npython\nfrom pennylane.optimize import GradientDescentOptimizer as GDOpt\n\
+  dev = quantumDeepL.device('default.qubit', wires=2)\ndef FindAnsatz():\nquantumDeepL.Rot(0.3,\
+  \ 1.8, 5.4, wires=1)\nquantumDeepL.RX(-0.5, wires=0)\nquantumDeepL.RY( 0.5, wires=1)\n\
+  quantumDeepL.CNOT(wires=[0, 1])\n@quantumDeepL.qnode(dev)\ndef FindCircuitX():\n\
+  FindAnsatz()\nreturn quantumDeepL.expval(quantumDeepL.PauliX(1))\n@quantumDeepL.qnode(dev)\n\
+  def FindCircuitY():\nFindAnsatz()\nreturn quantumDeepL.expval(quantumDeepL.PauliY(1))\n\
+  def getCost(var):\nexpX = FindCircuitX()\nexpY = FindCircuitY()\nreturn (var[0]\
+  \ * expX + var[1] * expY) ** 2\noptimizer = GDOpt(0.5)\nvariables = [0.3, 2.5]\n\
+  variables_gd = [variables]\nfor i in range(20):\nvariables = optimizer.step(getCost,\
+  \ variables)\nvariables_gd.append(variables)\nprint('Cost - step {:5d}: {: .7f}\
+  \ | Variable values: [{: .5f},{: .5f}]'\n.format(i+1, getCost(variables), variables[0],\
+  \ variables[1]) )\n```\n\n### 命令\n\n```\npip3 install nump\npython3 quantum_eigen_solver.py\n\
+  ```\n\n\n好的，作为高级文档工程师和翻译员，我将严格遵循您提供的注意事项和示例，将给定的英文文本翻译成中文。\n\n\n### 输出\n\n```\n\
+  Cost - step     1:  0.3269168 | Variable values: [ 0.95937, 1.49547]\nCost - step\
+  \     2:  0.0461959 | Variable values: [ 1.20723, 1.11786]\nCost - step     3: \
+  \ 0.0065278 | Variable values: [ 1.30040, 0.97591]\nCost - step     4:  0.0009224\
+  \ | Variable values: [ 1.33543, 0.92255]\nCost - step     5:  0.0001303 | Variable\
+  \ values: [ 1.34859, 0.90250]\nCost - step     6:  0.0000184 | Variable values:\
+  \ [ 1.35354, 0.89496]\nCost - step     7:  0.0000026 | Variable values: [ 1.35540,\
+  \ 0.89212]\nCost - step     8:  0.0000004 | Variable values: [ 1.35610, 0.89106]\n\
+  Cost - step     9:  0.0000001 | Variable values: [ 1.35636, 0.89066]\nCost - step\
+  \    10:  0.0000000 | Variable values: [ 1.35646, 0.89051]\nCost - step    11: \
+  \ 0.0000000 | Variable values: [ 1.35650, 0.89045]\nCost - step    12:  0.0000000\
+  \ | Variable values: [ 1.35651, 0.89043]\nCost - step    13:  0.0000000 | Variable\
+  \ values: [ 1.35652, 0.89042]\nCost - step    14:  0.0000000 | Variable values:\
+  \ [ 1.35652, 0.89042]\nCost - step    15:  0.0000000 | Variable values: [ 1.35652,\
+  \ 0.89042]\nCost - step    16:  0.0000000 | Variable values: [ 1.35652, 0.89042]\n\
+  Cost - step    17:  0.0000000 | Variable values: [ 1.35652, 0.89041]\nCost - step\
+  \    18:  0.0000000 | Variable values: [ 1.35652, 0.89041]\nCost - step    19: \
+  \ 0.0000000 | Variable values: [ 1.35652, 0.89041]\nCost - step    20:  0.0000000\
+  \ | Variable values: [ 1.35652, 0.89041]\n```\n\n## 量子并行性\n\n量子并行性建立在量子存储器寄存器的概念之上。量子存储器寄存器可以存在于叠加态中，这有助于实现并行化。如果`m`是寄存器中的量子比特数，则可能的状态数为`2m`。一次量子操作相当于指数数量的经典操作。量子并行组件被建模为在寄存器上执行的函数的参数。\n\
+  \n> **提示**\n> 量子并行性基于存储器寄存器中量子态的叠加。\n\n## 总结\n\n在本章中，我们研究了与量子人工智能算法相关的技术，例如量子概率、量子行走、量子搜索、量子深度学习和量子并行性。\n\
+  \n"
+- "# 12. 量子解决方案\n\n## 引言\n\n> “对我而言，量子计算是一种新的、更深入、更好的方式来理解物理定律，从而理解整个物理现实。”\n> ——大卫·多伊奇\n\
+  \n本章涵盖量子解决方案的主题。您将看到量子人工智能算法如何在不同的实际解决方案中实现。本章涵盖的解决方案包括旅行商问题、任务调度、欺诈检测和分配问题。\n\n\
+  ## 初始设置\n\n您需要安装 Python 3.5 才能运行本章中的代码示例。您可以从 [`www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)\
+  \ 下载。\n\n## 旅行商问题\n\n旅行商问题（图 12-1）是计算机科学领域中的一个优化问题。这个问题属于一组 NP 难题。此问题与销售人员的行程有关，该行程包含\
+  \ `N` 个城市。销售人员每个城市只能访问一次，并且在访问完其他城市后才能返回起始城市。这种只访问一个城市的情景称为哈密顿圈。城市之间的旅行会产生相关的成本。销售人员试图最小化整个行程的旅行成本。\n\
+  \n![../images/490826_1_En_12_Chapter/490826_1_En_12_Fig1_HTML.jpg](img/490826_1_En_12_Fig1_HTML.jpg)\n\
+  \n**图 12-1**\n旅行商问题\n\nJeongho Bang 提出了一种使用 Grover 搜索算法解决旅行商问题的量子技术。旅行商在多個点之间移动，沿途经过多个城市。解决方案包括评估所有可能的路线组合及其相关成本。最佳路线基于成本、距离和时间参数。其他参数与交通类型有关。\n\
+  \n这个问题是指数级的。在指数级问题中，增加单个点会增加复杂度。随着城市数量的不断增加，经典计算框架无法解决该问题。量子计算模型通过使用量子叠加来帮助解决旅行商问题。量子计算机使用量子退火技术。\n\
+  \n> **提示**\n> 旅行商问题是一个 NP 难题，因为要找到连接图上所有点的最低成本路径非常复杂。参见图 12-2。\n\n![../images/490826_1_En_12_Chapter/490826_1_En_12_Fig2_HTML.jpg](img/490826_1_En_12_Fig2_HTML.jpg)\n\
+  \n**图 12-2**\n非确定性：多项式时间（NP-hard）\n\n## 任务调度\n\n在一组资源上调度作业或任务是一个现实的计算挑战。随着约束和资源数量的增加，问题变得\
+  \ NP 难。使用经典计算框架时，线性规划方法可用于解决调度问题。经典的计算方法以 `O(P^Q)` 的时间复杂度顺序解决问题，其中 `P` 是任务数量，`Q`\
+  \ 是资源数量。Grover 搜索算法则在一个包含 `R` 个可搜索项集合的平方根级别上解决问题。\n\n量子调度方法具有以下伪代码：\n\n![../images/490826_1_En_12_Chapter/490826_1_En_12_Fig3_HTML.jpg](img/490826_1_En_12_Fig3_HTML.jpg)\n\
+  \n**图 12-3**\nGrover 算法：Oracle 电路\n\n1.  初始状态在所有可能解的等幅叠加中创建。\n2.  使用量子计算中的算术可逆方法计算特定属性。\n\
+  3.  为调度方法创建一个 Oracle 电路。\n4.  使用 Grover 搜索方法找到所需的解。参见图 12-3。\n\n> **提示**\n> NP 难问题是一个非确定性多项式时间难度问题。\n\
+  \n现在让我们来看看欺诈检测解决方案。\n\n## 欺诈检测\n\n当入侵者在系统中进行欺诈交易时，通常会在数据分析中产生一个异常值。这在异常值意外出现的大数据分析中可以观察到。当使用机器学习方法训练数据模型时，可以检测到异常。这可以在多个领域观察到，例如医学洞察、数据分析、数据清洗和监控。参见图\
+  \ 12-4。\n\n![../images/490826_1_En_12_Chapter/490826_1_En_12_Fig4_HTML.jpg](img/490826_1_En_12_Fig4_HTML.jpg)\n\
+  \n**图 12-4**\n数据处理\n\n为了检测异常，我们可以分析数据并找到与正常数据模式的偏差。量子算法被用于数据分析中以检测异常。量子支持向量机和核主成分分析是用于欺诈检测的两种量子技术。这些技术有助于在量子安全、量子数据传输和量子验证领域发现新的量子观测结果。参见图\
+  \ 12-5。\n\n![../images/490826_1_En_12_Chapter/490826_1_En_12_Fig5_HTML.jpg](img/490826_1_En_12_Fig5_HTML.jpg)\n\
+  \n**图 12-5**\n量子机器学习\n\n> **提示**\n> 根据剑桥词典，欺诈是“通过欺骗他人获取金钱的犯罪行为”。\n\n\n\n## 配送解决方案\n\
+  \n配送规划与优化问题涉及多车场物流、配送计划、车辆路线、物流整合、运输车辆拼载、单点和多点卸货、仓库规划及退货处理。经典技术常用于配送规划和车辆路径规划。参见图\
+  \ 12-6。\n\n![../images/490826_1_En_12_Chapter/490826_1_En_12_Fig6_HTML.jpg](img/490826_1_En_12_Fig6_HTML.jpg)\n\
+  \n图 12-6\n\n配送规划\n\n配送规划涵盖排程路线流程、资源规划、车辆路径与资源分配、报告、假设分析以及重新优化。量子算法有助于创建运输排程。这些算法有助于提升效率，使企业摆脱孤岛式的规划方法。\n\
+  \n以下是配送规划中的约束条件：\n\n*   定义变量来跟踪每个排程的成本（直接成本、机会成本、总成本、逆向机会成本）。\n*   为每个队列（卡车排程）计算成本跟踪变量。\n\
+  *   假设卡车速度以计算从出发地到目的地所需的时间。\n*   订单交付时间是选择排程的重要因素。\n*   机会成本被定义为直接成本的一部分。这与卡车未被充分利用的运力有关。\n\
+  *   逆向机会成本是对卡车尺寸过大时的惩罚。\n*   对于每个排程，单次运行的最长时间是优化的最重要因素。\n*   对于每次运行，卡车根据运力拣选订单，并将返回出发地。\n\
+  *   对于优化而言，卡车的数量是一个重要因素。\n\n对于给定的一天，基于多个出发点和多个目的地之间的预订信息，确定货物交付的最优路线。解决方案应输出以下内容：\n\
+  \n*   所有可能的路线组合及其相关成本\n*   基于成本（距离、时间、最少卡车数量）的最优路线\n*   通过累积交付日期得出的备选方案\n\n该问题本质上是指数级的，这意味着出发地/目的地每增加一个点，需要评估的组合数量就会呈指数级增长。例如，有三出发点时，存在八种不同的组合需要评估；出发点每增加一个，不同的组合数量就会翻倍，达到\
+  \ 16 种。\n\n虽然经典计算机可以解决初期阶段的问题，但随着出发地/目的地点数量的增加，其性能会逐渐下降，最终崩溃。而量子计算机可以利用量子叠加的特性，提供稳定且更优的性能。\n\
+  \n在车辆路径优化中，目标是找到多辆车访问一组地点时的最优路线。当只有一辆车时，问题简化为旅行商问题。最优路线是总距离最短的路线。然而，如果没有其他约束，最优解决方案是只分配一辆车访问所有地点，并为这辆车找到最短路线。\n\
+  \n定义最优路线的一个更好方法是最小化所有车辆中最长单一路线的长度。如果目标是尽快完成所有交付，那么这就是正确的定义。我们可以通过对车辆增加约束来泛化车辆路径问题，包括以下内容：\n\
+  \n*   *容量约束*：车辆需要在它们访问的每个地点取货，但具有最大承载能力。\n\n配送规划解决方案的目标是最小化配送车辆的最长单一路线。想象一家公司需要在一个由相同矩形街区组成的城市中拜访其客户。\n\
+  \n要解决这个问题，你需要创建一个距离维度，用于计算每辆车沿着其路线行驶的累计距离。然后，你可以设置一个与每条路线上最大总距离成比例的成本。路径规划程序使用维度来跟踪车辆路线上累积的量。距离矩阵由出发地和目的地的配对计算得出。解决方案的运行需要提供取货点和送货点的输入数据。\n\
+  \n量子退火技术（见图 12-7）被用于配送规划问题。数据通过 JSON 文件传入和传出程序。量子退火过程目前支持没有时间窗约束的最优车辆路径问题。送货地点目前以与车场的距离（英里）表示，车场假设位于坐标\
+  \ (0,0) 处。\n\n量子退火过程类似于模拟退火。模拟退火中的热激活被量子隧穿效应所取代。该技术用于计算实际生活中的问题（如配送规划）的最小值和最大值。\n\
+  \n![../images/490826_1_En_12_Chapter/490826_1_En_12_Fig7_HTML.jpg](img/490826_1_En_12_Fig7_HTML.jpg)\n\
+  \n图 12-7\n\n量子退火\n\n坐标在 `data.json` 文件中指定。输出的是最短路线距离。卡车信息在 `trucks.json` 中。取货和送货信息在\
+  \ `pickup_deliveries.json` 中。\n\n提示\n\n配送解决方案与货物从制造商到仓库以及从仓库到门店的交付相关。\n\n让我们看看应用于配送规划的量子退火技术。\n\
+  \n\n\n### 代码示例\n\n```python\nimport time\nimport math\nimport numpy as np\nimport\
+  \ os\nimport random\nimport json\nimport argparse\n\ndef distance(point1, point2):\n\
+  \    return math.sqrt((point1[1] - point2[1]) ** 2 + (point1[0] - point2[0]) **\
+  \ 2)\n\ndef calcuatetSpinConfiguration():\n    def Spin_config_at_a_time_in_a_TROTTER_DIM(tag):\n\
+  \        config = list(-np.ones(NCITY, dtype=np.int))\n        config[tag] = 1\n\
+  \        return config\n\n    def Spin_config_in_a_TROTTER_DIM(Tag):\n        spin\
+  \ = []\n        spin.append(Config_at_init_time)\n        for i in range(TOTAL_TIME\
+  \ - 1):\n            spin.append(list(Spin_config_at_a_time_in_a_TROTTER_DIM(Tag[i])))\n\
+  \        return spin\n\n    Spin = []\n    for i in range(TROTTER_DIM):\n      \
+  \  Tag = np.arange(1, NCITY)\n        np.random.shuffle(Tag)\n        Spin.append(Spin_config_in_a_TROTTER_DIM(Tag))\n\
+  \    return Spin\n\ndef calculateShortestRoute(Config, max_distance):\n    Length\
+  \ = []\n    for i in range(TROTTER_DIM):\n        Route = []\n        for j in range(TOTAL_TIME):\n\
+  \            Route.append(Config[i][j].index(1))\n        Length.append(calculateTotaldistance(Route,\
+  \ max_distance))\n    min_Tro_dim = np.argmin(Length)\n    Best_Route = []\n   \
+  \ for i in range(TOTAL_TIME):\n        Best_Route.append(Config[min_Tro_dim][i].index(1))\n\
+  \    return Best_Route\n\ndef calculateTotaldistance(route, max_distance):\n   \
+  \ Total_distance = 0\n    for i in range(TOTAL_TIME):\n        Total_distance +=\
+  \ distance(POINT[route[i]], POINT[route[(i + 1) % TOTAL_TIME]]) / max_distance\n\
+  \    return Total_distance\n\ndef calculateRealTotaldistance(Route):\n    Total_distance\
+  \ = 0\n    for i in range(TOTAL_TIME):\n        Total_distance += distance(POINT[Route[i]],\
+  \ POINT[Route[(i + 1) % TOTAL_TIME]])\n    return Total_distance\n\ndef calculateRealdistance(Route):\n\
+  \    Total_distance = 0\n    for i in range(len(Route)):\n        if i < len(Route)\
+  \ - 1:\n            Total_distance += distance(POINT[Route[i]], POINT[Route[(i +\
+  \ 1)]])\n    return Total_distance\n\ndef moveQuantumMonteCarlo(config, Ann_para):\n\
+  \    c = np.random.randint(0, TROTTER_DIM)\n    a_ = list(range(1, TOTAL_TIME))\n\
+  \    a = np.random.choice(a_)\n    a_.remove(a)\n    b = np.random.choice(a_)\n\
+  \    p = config[c][a].index(1)\n    q = config[c][b].index(1)\n    delta_cost =\
+  \ delta_costc = delta_costq_1 = delta_costq_2 = delta_costq_3 = delta_costq_4 =\
+  \ 0\n    for j in range(NCITY):\n        l_p_j = distance(POINT[p], POINT[j]) /\
+  \ max_distance\n        l_q_j = distance(POINT[q], POINT[j]) / max_distance\n  \
+  \      delta_costc += 2 * (-l_p_j * config[c][a][p] - l_q_j * config[c][a][q]) *\
+  \ (config[c][a - 1][j] + config[c][(a + 1) % TOTAL_TIME][j]) + 2 * (-l_p_j * config[c][b][p]\
+  \ - l_q_j * config[c][b][q]) * (config[c][b - 1][j] + config[c][(b + 1) % TOTAL_TIME][j])\n\
+  \    para = (1 / BETA) * math.log(math.cosh(BETA * Ann_para / TROTTER_DIM) / math.sinh(BETA\
+  \ * Ann_para / TROTTER_DIM))\n    delta_costq_1 = config[c][a][p] * (config[(c -\
+  \ 1) % TROTTER_DIM][a][p] + config[(c + 1) % TROTTER_DIM][a][p])\n    delta_costq_2\
+  \ = config[c][a][q] * (config[(c - 1) % TROTTER_DIM][a][q] + config[(c + 1) % TROTTER_DIM][a][q])\n\
+  \    delta_costq_3 = config[c][b][p] * (config[(c - 1) % TROTTER_DIM][b][p] + config[(c\
+  \ + 1) % TROTTER_DIM][b][p])\n    delta_costq_4 = config[c][b][q] * (config[(c -\
+  \ 1) % TROTTER_DIM][b][q] + config[(c + 1) % TROTTER_DIM][b][q])\n    delta_cost\
+  \ = delta_costc / TROTTER_DIM + para * (delta_costq_1 + delta_costq_2 + delta_costq_3\
+  \ + delta_costq_4)\n    if delta_cost <= 0:\n        config[c][a][p] *= -1\n   \
+  \     config[c][a][q] *= -1\n        config[c][b][p] *= -1\n        config[c][b][q]\
+  \ *= -1\n    elif np.random.random() < np.exp(-BETA * delta_cost):\n        config[c][a][p]\
+  \ *= -1\n        config[c][a][q] *= -1\n        config[c][b][p] *= -1\n        config[c][b][q]\
+  \ *= -1\n    return config\n\ndef verifyRouteConfiguration(routes, pick_deliveries):\n\
+  \    for i in range(len(routes)):\n        route = routes[i]\n        for j in range(len(route)):\n\
+  \            route_index = route[j]\n            for k in range(len(pick_deliveries)):\n\
+  \                pick_delivery = pick_deliveries[k]\n                pick = pick_delivery[\"\
+  pickup\"]\n                delivery = pick_delivery[\"delivery\"]\n            \
+  \    if route_index == delivery and route_index != 0:\n                    check\
+  \ = verifyPick(pick, delivery, route)\n                    if not check:\n     \
+  \                   return False\n    return True\n\ndef verifyPick(pick_index,\
+  \ delivery_index, route):\n    picked = False\n    delivery_passed = False\n   \
+  \ for i in range(len(route)):\n        route_i = route[i]\n        if pick_index\
+  \ == route_i:\n            picked = True\n        if delivery_index == route_i and\
+  \ picked:\n            return True\n    return False\n\nif __name__ == '__main__':\n\
+  \    parser = argparse.ArgumentParser()\n    parser.add_argument(\"-i\", \"--inputs\"\
+  , type=argparse.FileType('r'), help=\"以 JSON 文件形式输入的参数\")\n    parser.add_argument(\"\
+  -d\", \"--distances\", type=argparse.FileType('r'), help=\"以 JSON 文件形式输入的距离数据\"\
+  )\n    parser.add_argument(\"-t\", \"--trucks\", type=argparse.FileType('r'), help=\"\
+  以 JSON 文件形式输入的卡车数据\")\n    parser.add_argument(\"-p\", \"--pickups\", type=argparse.FileType('r'),\
+  \ help=\"以 JSON 文件形式输入的取货数据\")\n    args = parser.parse_args()\n\n    REDUC_PARA\
+  \ = 0.99\n    inputs = json.load(args.inputs)\n    distances = json.load(args.distances)\n\
+  \    trucks = json.load(args.trucks)\n    pickup_deliveries = json.load(args.pickups)\n\
+  \n    TROTTER_DIM = int(inputs[\"trotter_dimension\"])\n    ANN_PARA = float(inputs[\"\
+  initial_annealing\"])\n    ANN_STEP = int(inputs[\"annealing_step\"])\n    MC_STEP\
+  \ = int(inputs[\"montecarlo_step\"])\n    BETA = float(inputs[\"inverse_temperature\"\
+  ])\n    NCITY = len(distances)\n    POINT = [[0] * 2] * NCITY\n    TOTAL_TIME =\
+  \ NCITY\n    num_trucks = len(trucks)\n\n    for i in range(NCITY):\n        distance_node\
+  \ = distances.pop()\n        node = [0] * 2\n        node[0] = float(distance_node[\"\
+  x\"])\n        node[1] = float(distance_node[\"y\"])\n        POINT[NCITY - 1 -\
+  \ i] = node\n\n    max_distance = 0\n    for i in range(NCITY):\n        for j in\
+  \ range(NCITY):\n            node_distance = distance(POINT[i], POINT[j])\n    \
+  \        if max_distance <= distance(POINT[i], POINT[j]):\n                max_distance\
+  \ = distance(POINT[i], POINT[j])\n\n    Config_at_init_time = list(-np.ones(NCITY,\
+  \ dtype=np.int))\n    Config_at_init_time[0] = 1\n\n    print(\"开始退火过程 ...\")\n\
+  \    t0 = time.clock()\n    np.random.seed(100)\n    spin = calcuatetSpinConfiguration()\n\
+  \    LengthList = []\n    truck_routes = []\n    check = False\n\n    for t in range(ANN_STEP):\n\
+  \        for i in range(MC_STEP):\n            con = moveQuantumMonteCarlo(spin,\
+  \ ANN_PARA)\n            rou = calculateShortestRoute(con, max_distance)\n     \
+  \       length = calculateRealTotaldistance(rou)\n            nprou = np.array(rou)\n\
+  \            truck_routes = np.split(nprou, num_trucks)\n            check = verifyRouteConfiguration(truck_routes,\
+  \ pickup_deliveries)\n            LengthList.append(length)\n        print(\"第 {}\
+  \ 步：退火过程参数：{}\".format(t + 1, ANN_PARA))\n        ANN_PARA *= REDUC_PARA\n\n   \
+  \ check = verifyRouteConfiguration(truck_routes, pickup_deliveries)\n    if check:\n\
+  \        truck = 0\n        for route in truck_routes:\n            route_distance\
+  \ = calculateRealdistance(route)\n            print(\"卡车\", truck, \"的路线\", route,\
+  \ \"，距离\", route_distance)\n            truck = truck + 1\n\n    Route = calculateShortestRoute(spin,\
+  \ max_distance)\n    Total_Length = calculateRealdistance(Route)\n    Elapsed_time\
+  \ = time.clock() - t0\n    print(\"最短路线：{}\".format(Route))\n    print(\"最短距离：{}\"\
+  .format(Total_Length))\n    print(\"处理时间：s {}\".format(Elapsed_time))\n```\n\n###\
+  \ 命令\n\n```bash\npip3 install nump\npython3 quantum_annealer.py -i input.json -d\
+  \ data.json -t trucks.json -p pickup_deliveries.json\n```\n\n\n\n### 输入\n\n输入文件包含以下属性：\n\
+  \n- `trotter_dimension`：离散经典自旋的维度\n- `initial_annealing`：退火因子的初始值\n- `annealing_step`：退火步数\n\
+  - `montecarlo_step`：蒙特卡洛模拟步数\n- `inverse_temperature`：初始反温度\n\n示例输入 JSON 文件如下所示：\n\
+  \n**input.json**\n\n```json\n{\n\"trotter_dimension\": 11,\n\"initial_annealing\"\
+  : 1,\n\"annealing_step\": 1,\n\"montecarlo_step\": 12000,\n\"inverse_temperature\"\
+  :39\n}\n```\n\n**data.json**\n\n数据文件包含以下属性：\n\n```json\nid : 订单标识符\nquantity : 订单数量\n\
+  x :  x 坐标\ny : y 坐标\n[{\"id\": 0,\"x\": 15.048516730800019, \"y\": 20.81882158337833},\n\
+  {\"id\": 1,\"x\": 21.47333104880339, \"y\": 27.44976598047904},\n{\"id\": 2,\"x\"\
+  : 8.733804547248988, \"y\": 5.190413472062651},\n{\"id\": 3,\"x\": 32.984718431911894,\
+  \ \"y\": 19.850028824298047},\n{\"id\": 4,\"x\": 20.482480291595763, \"y\": 1.3540523373289077},\n\
+  {\"id\": 5,\"x\": 28.030738187870487, \"y\": 14.783008504999733},\n{\"id\": 6,\"\
+  x\": 14.594496509157707, \"y\": 2.2840975315280936},\n{\"id\": 7,\"x\": 14.988697645586926,\
+  \ \"y\": 29.21707544497128},\n{\"id\": 8,\"x\": 5.553788771696674, \"y\": 22.21852944451273},\n\
+  {\"id\": 9,\"x\": 31.95387042131473, \"y\": 9.878857190484847},\n{\"id\": 10,\"\
+  x\": 15.52849215384657, \"y\": 10.543857553552229},\n{\"id\": 11,\"x\": 28.837242557836202,\
+  \ \"y\": 14.368927860603366},\n{\"id\": 12,\"x\": 22.776355118030853, \"y\": 26.698862282083887},\n\
+  {\"id\": 13,\"x\": 13.377480255985654, \"y\": 24.833880312965892},\n{\"id\": 14,\"\
+  x\": 26.031165662014942, \"y\": 16.32287381266326},\n{\"id\": 15,\"x\": 22.609038273840298,\
+  \ \"y\": 18.014879226920108},\n{\"id\": 16,\"x\": 32.28095220079001, \"y\": 34.223176908480426},\n\
+  {\"id\": 17,\"x\": 0.4255279487934993, \"y\": 26.28113259271511},\n{\"id\": 18,\"\
+  x\": 20.032208383820727, \"y\": 17.778060168894424},\n{\"id\": 19,\"x\": 10.227058813719593,\
+  \ \"y\": 5.158935686180674}]\n```\n\n**pickup_deliveries.json**\n\n`pickup_deliveries`\
+  \ 数据文件包含以下属性：\n\n```json\nid :   订单标识符\npickup :   取货点索引\ndelivery :  送货点索引\n[{\"\
+  pickup\":0, \"delivery\":13,\"quantity\": 4},\n{\"pickup\":13, \"delivery\":18,\"\
+  quantity\": 5},\n{\"pickup\":18, \"delivery\":12,\"quantity\": 5},\n{\"pickup\"\
+  :12, \"delivery\":1,\"quantity\": 5},\n{\"pickup\":16, \"delivery\":3,\"quantity\"\
+  : 5},\n{\"pickup\":3, \"delivery\":15,\"quantity\": 5},\n{\"pickup\":15,\"delivery\"\
+  :14,\"quantity\": 5},\n{\"pickup\":14,\"delivery\":11,\"quantity\": 5},\n{\"pickup\"\
+  :9,\"delivery\":5,\"quantity\": 5},\n{\"pickup\":5,\"delivery\":4,\"quantity\":\
+  \ 5},\n{\"pickup\":4,\"delivery\":6,\"quantity\": 5},\n{\"pickup\":6,\"delivery\"\
+  :2,\"quantity\": 5},\n{\"pickup\":19,\"delivery\":10,\"quantity\": 5},\n{\"pickup\"\
+  :10,\"delivery\":17,\"quantity\": 5},\n{\"pickup\":17,\"delivery\":7,\"quantity\"\
+  : 5},\n{\"pickup\":7,\"delivery\":8,\"quantity\": 5}\n]\n```\n\n**trucks.json**\n\
+  \n卡车数据文件包含以下属性：\n\n```json\nid : 卡车标识符\ncapacity: 卡车容量\n[{\"id\": 0,\"capacity\"\
+  : 11185},\n{\"id\": 1,\"capacity\": 11195},\n{\"id\": 2,\"capacity\": 11195},\n\
+  {\"id\": 3,\"capacity\": 11195}\n]\n```\n\n### 输出\n\n```\nt0  =  time.clock ()\n\
+  No: Step: 1, Annealing process Parameter: 1.0\nRoute for truck 0   [ 0 13 18 12\
+  \  1] distance  24.885118421529263\nRoute for truck 1   [16  3 15 14 11] distance\
+  \  32.16401175641577\nRoute for truck 2   [9 5 4 6 2] distance  34.18795492132374\n\
+  Route for truck 3   [19 10 17  7  8] distance  55.9719642261916\nquantum_annealer.py:225:\
+  \ DeprecationWarning: time.clock has been deprecated in Python 3.3 and will be removed\
+  \ from Python 3.8: use time.perf_counter or time.process_time instead\nElapsed_time\
+  \  =  time.clock () - t0\nSHORTEST ROUTE : [0, 13, 18, 12, 1, 16, 3, 15, 14, 11,\
+  \ 9, 5, 4, 6, 2, 19, 10, 17, 7, 8]\nSHORTEST DISTANCE: 166.92311095246916\nPROCESSING\
+  \ TIME: s 22.243867\n```\n\n## 总结\n\n在本章中，我们探讨了应用不同量子技术的量子解决方案。我们结合代码示例详细介绍了配送规划解决方案。\n\
+  \n"
+- "# 13. 演化中的量子解决方案\n\n## 引言\n\n> “量子力学打破了先前框架——经典力学的模式，它确立了科学的预测必然是概率性的。”\n> \n>\
+  \ ——布赖恩·格林\n\n本章涵盖演化中的量子解决方案这一主题。你将看到量子人工智能算法如何在不同真实场景的解决方案中实现。本章涵盖的解决方案涉及量子退火、量子密钥分发和量子隐形传态。\n\
+  \n## 初始设置\n\n你需要安装 Python 3.5 来运行本章的代码示例。你可以从 [`www.python.org/downloads/release/python-350/`](https://www.python.org/downloads/release/python-350/)\
+  \ 下载。\n\n## 量子退火\n\n量子退火过程与计算低能量解决方案的真实问题相关。量子比特代表具有低值的超导环的能量状态。量子处理单元由超导环构成。每个量子比特在量子退火过程结束后都会达到叠加态。叠加态的值可以是\
+  \ 0 或 1。在量子退火过程中，能量从最小值移动到更高值，形成一个谷底，能量图看起来像一个带有两个谷底的双势阱（见图 13-1）。\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig1_HTML.jpg](img/490826_1_En_13_Fig1_HTML.jpg)\
+  \  \n图 13-1：量子退火\n\n量子比特处于零或一状态的概率是相同的。这可以通过对量子比特施加外部磁场来改变。具有两个谷底的双势阱是由反相磁场产生的。偏置与外部磁场的定量值相关。耦合器用于将量子比特连接到偏置。（见图\
+  \ 13-2。）\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig2_HTML.jpg](img/490826_1_En_13_Fig2_HTML.jpg)\
+  \  \n图 13-2：量子比特级受控场\n\n每个量子比特都有一个偏置。量子比特受到耦合器的影响。对于每个问题，用户可以自主选择偏置和耦合器的值。在量子退火过程中，能量景观由偏置和耦合构成。\n\
+  \n> **提示**  \n> 量子退火由 Tadashi Kadowaki 和 Hidetoshi Nishimori 于 1998 年提出。\n\n\n\n\
+  ## 量子密钥分发\n\n量子密钥分发（见图 13-3）与企业长期安全相关。它基于量子密码学，而量子密码学又建立在量子物理学基础之上。它有助于加密对称密钥的安全分发。量子粒子通过光网络进行传输，这些粒子即光子。\n\
+  \n量子密钥分发是指基于密码技术和协议来分发与共享秘密密钥。这些秘密密钥是私有的，并在双方之间交换。如果密钥被篡改，其量子特性将不再有效。企业安全解决方案基于开源的量子密钥分发软件。目前这些安全技术仍处于研究阶段。针对使用量子密钥分发软件的系统发起的安全攻击是一个特殊的研究领域。\n\
+  \n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig3_HTML.jpg](img/490826_1_En_13_Fig3_HTML.jpg)\n\
+  \n图 13-3\n\n量子密码学\n\n研究中使用的量子密码技术基于完全混合和高速抵抗方法。以下方法，如 `McEliece`、`NTRU` 和基于格的加密，在应对使用量子方法的安全攻击方面仍处于研究阶段。量子方法基于哈希、编码、格和多元二次算法。见图\
+  \ 13-4。\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig4_HTML.jpg](img/490826_1_En_13_Fig4_HTML.jpg)\n\
+  \n图 13-4\n\n量子密码技术\n\n量子密钥分发基于光纤或自由空间量子信道。该量子信道用于将光的量子态从源发送端传输到目标接收端。在这种情况下，量子信道并非安全。双方之间的量子通信链路通过身份验证来确保安全。量子密钥交换协议基于量子特性。\n\
+  \n新兴的量子互联网基于量子密码应用、量子密钥分发和安全标识。量子密钥分发利用了量子力学的力量。在基于量子密钥分发的通信中检测到的干扰很难被改变，这有助于保护信息安全。\n\
+  \n量子密钥分发方法基于离散变量和连续变量。例如，`Silberhorn` 和 `Grangier` 是量子密钥分发方法。`Frodo` 和 `Sike` 基于量子密钥交换。`Picnic`\
+  \ 和 `Tesla` 使用签名方法。量子密码系统基于多元、椭圆、格、同源、哈希和混合签名。\n\n**提示**\n\n量子密钥分发基于光子（即数据比特）的密码数据交换。\n\
+  \n现在，让我们来看一下量子隐形传态技术。\n\n## 量子隐形传态\n\n量子隐形传态是将量子态从源位置传输到目标位置，且不改变其实际状态的过程。量子隐形传态基于量子物理学中的量子纠缠原理。纠缠涉及多个粒子具有互斥状态的情况。互斥意味着找到一个粒子的状态，用于计算下一个粒子的状态。两个量子纠缠的光子可以知晓对方光子的状态。见图\
+  \ 13-5。\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig5_HTML.jpg](img/490826_1_En_13_Fig5_HTML.jpg)\n\
+  \n图 13-5\n\n量子纠缠\n\n每个光子可以具有以下四种不同的贝尔态：\n\n- `00 + 11`\n- `00 – 11`\n- `01 + 10`\n\
+  - `01 – 10`\n\n量子隐形传态过程始于在量子信道中纠缠一对光子。光子 `X` 由爱丽丝发送，光子 `Y` 发送给接收者鲍勃。当爱丽丝对 `X` 执行操作时，鲍勃可以看到\
+  \ `Y` 的状态变化。假设爱丽丝拥有量子态未知的光子 `Z`，她希望将此状态隐形传态到光子 `Y` 中。对光子 `X` 和 `Z` 进行贝尔测量。由于 `X`\
+  \ 和 `Y` 是纠缠的，`Y` 的量子态可以转变为 `Z` 的量子态。鲍勃可以利用爱丽丝的贝尔测量结果完成隐形传态。爱丽丝通过经典通信信道发送贝尔测量结果，鲍勃据此知道如何将\
+  \ `Y` 变为 `Z` 的状态。见图 13-6。\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig6_HTML.jpg](img/490826_1_En_13_Fig6_HTML.jpg)\n\
+  \n图 13-6\n\n量子纠缠\n\n让我们来看另一种形式的量子纠缠。爱因斯坦-波多尔斯基-罗森（EPR）对由处于最大纠缠态的光子组成。爱丽丝拥有其中一个 EPR\
+  \ 光子，鲍勃拥有另一个。在量子隐形传态和量子纠缠中，粒子可以是任意类型的光子、原子和轻子。粒子可以具有两个自由度。粒子的量子态可以编码为量子比特。\n\n量子隐形传态过程基于不可克隆定理。不可克隆定理有助于确保不存在任何方法可以将未知量子态从一个系统复制到另一个系统。见图\
+  \ 13-7。\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig7_HTML.jpg](img/490826_1_En_13_Fig7_HTML.jpg)\n\
+  \n图 13-7\n\n量子纠缠\n\n**提示**\n\n量子隐形传态由陆朝阳、潘建伟及其同事于 2015 年发现。\n\n现在让我们开始探讨量子纠缠和量子隐形传态的实现。首先介绍布洛赫球面，它用于可视化量子比特向量。见图\
+  \ 13-8。\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig8_HTML.jpg](img/490826_1_En_13_Fig8_HTML.jpg)\n\
+  \n图 13-8\n\n布洛赫球面\n\n让我们通过代码来了解布洛赫球面。\n\n### 代码示例\n\n```\nfrom qiskit import Aer\
+  \ as qisAer\nfrom qiskit import QuantumCircuit as QC\nfrom qiskit import execute\n\
+  from matplotlib import pyplot as plot\nfrom qiskit.tools.visualization import plot_bloch_multivector\
+  \ as bloch_state_vector\nquantum_circuit = QC(1, 1)\nquantum_circuit.x(0)\nsimulator\
+  \ = qisAer.get_backend('statevector_simulator')\nresult = execute(quantum_circuit,\
+  \ backend=simulator).result()\nstatevector = result.get_statevector()\nprint('\\\
+  n statevector is ', statevector)\nbloch_state_vector(statevector)\nplot.savefig(\"\
+  images/statevector.png\")\nplot.show()\nsimulator = qisAer.get_backend('unitary_simulator')\n\
+  result = execute(quantum_circuit, backend=simulator).result()\nunitary_matrix =\
+  \ result.get_unitary()\nprint('\\nunitary matrix is \\n', unitary_matrix)\n```\n\
+  \n### 命令\n\n```\npip3 install qiskit\npython3 BlochSphere.py\n```\n\n### 输出\n\n\
+  ```\nstatevector is  [0.+0.j 1.+0.j]\nunitary matrix is\n[[0.+0.j 1.+0.j]\n[1.+0.j\
+  \ 0.+0.j]]\n```\n\n图 13-9 展示了布洛赫球面的绘图。\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig9_HTML.jpg](img/490826_1_En_13_Fig9_HTML.jpg)\n\
+  \n图 13-9\n\n布洛赫球面绘图\n\n现在，让我们来看一下量子纠缠。\n\n\n\n### 代码示例\n\n```python\nfrom qiskit\
+  \ import IBMQ as Quantum_Simulator\nfrom qiskit import QuantumRegister as QReg\n\
+  from qiskit import ClassicalRegister as CReg\nfrom qiskit import QuantumCircuit\n\
+  from qiskit import Aer\nfrom qiskit import *\nfrom qiskit.tools.monitor import job_monitor\
+  \ as tools_monitor\nfrom qiskit.tools.visualization import plot_histogram\nfrom\
+  \ matplotlib import pyplot as plot\n\ndef create_circuit():\n    qr = QReg(4)\n\
+  \    cr = CReg(4)\n    circuit = QuantumCircuit(qr, cr)\n    circuit.h(qr[0])\n\
+  \    circuit.cx(qr[0], qr[1])\n    circuit.cx(qr[1], qr[2])\n    circuit.measure(qr,\
+  \ cr)\n    return circuit\n\ndef execute_simulator(circuit, shots=1024):\n    print('\\\
+  n executing the qasm simulator...\\n')\n    simulator = Aer.get_backend('qasm_simulator')\n\
+  \    result = execute(circuit, backend=simulator, shots=shots).result()\n    return\
+  \ result\n\ndef execute_machine(circuit, device_name=\"ibmq_essex\", shots=1024):\n\
+  \    print('\\nexecuting on the {}...\\n'.format(device_name))\n    Quantum_Simulator.load_account()\n\
+  \    provider = Quantum_Simulator.get_provider('ibm-q')\n    device = provider.get_backend(device_name)\n\
+  \    job = execute(circuit, backend=device, shots=shots)\n    tools_monitor(job)\n\
+  \    return job.result()\n\ndef create_circuit_diagram(circuit, title=''):\n   \
+  \ circuit.draw(output='mpl')\n    plot.title(title)\n    plot.savefig(\"images/qe_circ.png\"\
+  )\n    plot.show()\n\ndef create_results(circuit, result, title=''):\n    counts\
+  \ = result.get_counts(circuit)\n    print(counts)\n    plot_histogram(counts)\n\
+  \    plot.title(title)\n    plot.savefig(\"images/qe_res.png\")\n    plot.show()\n\
+  \nif __name__ == '__main__':\n    circ = create_circuit()\n    res = execute_simulator(circ)\n\
+  \    create_circuit_diagram(circ, '4 quantum bits based qauntum entaglement circuit')\n\
+  \    create_results(circ, res, '4 quantum bits based qauntum entaglement')\n```\n\
+  \n### 命令\n\n```\npip3 install qiskit\npython3 Quantum_Entanglement.py\n```\n\n###\
+  \ 输出\n\n```\nexecuting the qasm simulator...\n{'0000': 526, '0111': 498}\n```\n\n\
+  图 13-10 展示了量子纠缠，图 13-11 展示了量子概率。\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig11_HTML.jpg](img/490826_1_En_13_Fig11_HTML.jpg)\n\
+  \n*图 13-11*\n\n量子概率\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig10_HTML.jpg](img/490826_1_En_13_Fig10_HTML.jpg)\n\
+  \n*图 13-10*\n\n量子纠缠\n\n现在让我们来看看量子隐形传态。\n\n### 代码示例\n\n```python\nfrom qiskit import\
+  \ QuantumCircuit as QC\nfrom qiskit import IBMQ as Quantum_Simulator\nfrom qiskit\
+  \ import Aer as Quantum_AER\nfrom qiskit import execute\nimport matplotlib.pyplot\
+  \ as plot\nfrom qiskit.tools.monitor import job_monitor as tools_monitor\nfrom qiskit.tools.visualization\
+  \ import plot_histogram as histogram\n\ndef create_circuit():\n    circ = QC(4,\
+  \ 4)\n    circ.x(0)\n    circ.barrier()\n    circ.h(1)\n    circ.cx(1, 2)\n    circ.cx(0,\
+  \ 1)\n    circ.h(0)\n    circ.barrier()\n    circ.measure(0, 0)\n    circ.measure(1,\
+  \ 1)\n    circ.barrier()\n    circ.cx(1, 3)\n    circ.cz(0, 3)\n    circ.barrier()\n\
+  \    circ.measure(2, 2)\n    return circ\n\ndef execute_simulator(circ, shots=1024):\n\
+  \    print('\\nexecute the qasm simulator...\\n')\n    sim = Quantum_AER.get_backend('qasm_simulator')\n\
+  \    result = execute(circ, backend=sim, shots=shots).result()\n    return result\n\
+  \ndef execute_machine(circ, device_name=\"ibmq_essex\", shots=1024):\n    print('\\\
+  nexecuting on {}...\\n'.format(device_name))\n    Quantum_Simulator.load_account()\n\
+  \    provider = Quantum_Simulator.get_provider('ibm-q')\n    device = provider.get_backend(device_name)\n\
+  \    job = execute(circ, backend=device, shots=shots)\n    tools_monitor(job)\n\
+  \    return job.result()\n\ndef create_circuit_diagram(circ, title=''):\n    circ.draw(output='mpl')\n\
+  \    plot.title(title)\n    plot.savefig(\"images/qt_circ.png\")\n    plot.show()\n\
+  \ndef create_results_plot(result, title=''):\n    counts = result.get_counts()\n\
+  \    print('\\ncounts are : {}\\n'.format(counts))\n    histogram(counts)\n    plot.title(title)\n\
+  \    plot.savefig(\"images/qt_res.png\")\n    plot.show()\n\nif __name__ == '__main__':\n\
+  \    circ = create_circuit()\n    create_circuit_diagram(circ, ' quantum teleportation\
+  \ circuit')\n    result = execute_simulator(circ)\n    create_results_plot(result,\
+  \ ' quantum teleportation output')\n```\n\n### 命令\n\n```\npip3 install qiskit\n\
+  python3 Quantum_Teleportation.py\n```\n\n### 输出\n\n```\nexecute the qasm simulator...\n\
+  counts are : {'0100': 230, '0010': 229, '0101': 296, '0011': 269}\n```\n\n图 13-12\
+  \ 展示了量子隐形传态，图 13-13 展示了量子隐形传态的结果。\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig13_HTML.jpg](img/490826_1_En_13_Fig13_HTML.jpg)\n\
+  \n*图 13-13*\n\n量子隐形传态结果\n\n![../images/490826_1_En_13_Chapter/490826_1_En_13_Fig12_HTML.jpg](img/490826_1_En_13_Fig12_HTML.jpg)\n\
+  \n*图 13-12*\n\n量子隐形传态\n\n## 总结\n\n在本章中，我们探讨了在现实生活中用于创建量子解决方案的量子技术。我们通过示例详细介绍了量子隐形传态。\n\
+  \n"
+- '# 14. 下一步行动
+
+
+  本章涵盖后续步骤。我们将讨论最佳实践、案例研究、信息来源以及量子软件的未来。
+
+
+
+
+  ## 最佳实践
+
+
+  本节介绍的最佳实践专门针对量子计算框架。首先，通过针对具体问题或痛点设计来构建量子电路。然后，在服务器上使用不同的模拟器执行这些试验。最后，汇总试验结果并收集统计数据，形成总结。试验结果会借助软件工具进行可视化展示。
+
+
+  一个与量子计算相关的软件框架将包含包导入、变量初始化 API、门控修改 SDK、电路可视化器、试验模拟器和结果可视化器。如你所知，量子计算基于量子比特。而经典计算则基于比特。量子比特代表量子粒子的状态值。叠加态指的是量子比特同时拥有多个值的状态。纠缠则是指两个量子比特及其数值变化之间的关系。
+
+
+  让我们来看看量子计算框架。
+
+
+  首先，`Strawberry Fields` 框架用于创建与图形和网络相关的程序。该框架支持机器学习功能，并用于解决现实中的化学问题。其次，由谷歌开发的 `Cirq`，用于创建量子电路并在这些电路上模拟现实问题。`Cirq`
+  具备与互操作功能相关的特性。另一个框架，`TensorFlow Quantum`，拥有机器学习的相关功能。你可以轻松地增强现有的 `TensorFlow` 应用程序，使其适用于基于量子的解决方案。`TensorFlow
+  Quantum` 框架使用了混合量子经典方法和技术，例如量子卷积神经网络。微软的 `Q#` 语言有助于利用 `F#` 和 `C#` 库创建应用程序。最后，`Qiskit`
+  是一个基于 IBM 的框架，有助于创建用于模拟现实应用的流水线和量子电路。
+
+
+  让我们来看看创建量子计算库的最佳实践。
+
+
+  -   库需要公开专注于使用量子计算模型解决现实应用的 API。函数和方法是为基于量子计算技术实现的算法和方法而创建的。
+
+  -   库的设计应首先基于重要的用例，以确保 SDK 简单易用。SDK 中的不同组件处理不同的用例。并为每个组件的使用创建了示例。
+
+  -   库需要为向前兼容性而创建。不推荐使用旧的 SDK 以避免兼容性问题。为已弃用的方法提供了填充操作和方法。
+
+  -   库的每个方法和操作都需要有明确的目标和用途。
+
+  -   库可以包含经典的确定性方法。
+
+  -   库需要具有可重复使用的方法和操作。
+
+  -   方法和函数的参数需要根据算法或方法的输入和输出参数来选择。
+
+  -   库需要具有能帮助开发者理解方法、操作和类型用途的命名空间名称。
+
+
+  ## 案例分析
+
+
+  英特尔、IBM、微软和谷歌已开始对量子算法进行研究。具体来说，IBM、英特尔和谷歌正专注于量子计算机。量子算法研究领域包括机器学习和人工智能技术及方法。语音助手、数字助理和聊天机器人可以使用量子自然语言处理算法来提高输入处理的效率和速度。量子计算机有助于药物设计、材料科学、分子建模和物流优化。人工智能可以与量子机器学习融合的关键领域包括监督学习、支持向量机和神经网络。
+
+
+  量子算法和量子计算机将应用于复杂的现实场景。经典计算机将继续用于流程自动化、常规任务执行和简单算法等领域。量子计算机将应用于量子模拟、优化、量子人工智能和量子密码学等领域。它们将应用于制药、网络安全、金融、材料科学和电信等不同垂直行业。
+
+
+  现在，让我们考虑量子计算正在被应用的不同场景。
+
+
+  ### 典型应用
+
+
+  以下是正在开发应用程序的领域：
+
+
+  -   量子机器学习
+
+  -   计算化学
+
+  -   金融投资组合优化
+
+  -   物流与调度
+
+  -   药物设计
+
+  -   网络安全
+
+  -   量子密码学
+
+  -   电路、软件和系统故障模拟
+
+
+  量子计算机可以在几秒钟内解决现实问题，而经典超级计算机则需要数小时。在金融服务领域，可以模拟不同的投资组合。在日常生活中，客户进行金融投资，但投资回报是不可预测的。他们可能需要一些建议来获得更好的回报。量子人工智能模拟器是一个基于量子人工智能的工作系统。量子计算机可以根据客户的风险策略模拟其金融投资组合，以预测回报。
+
+
+
+
+  ### 金融投资组合管理
+
+
+  客户在选择不同风险策略时拥有多种选项。
+
+
+  *   *保护者*：极低风险
+
+  *   *稳定者*：低风险
+
+  *   *优化者*：低至中等风险
+
+  *   *创造者*：中高风险
+
+  *   *最大化者*：高风险
+
+
+  模拟基于交易情境的数学模型。决策变量以及带有假设条件的模型会被明确指定。针对不同场景，提供了初始条件和备选方案。
+
+
+  投资组合管理是指根据风险策略，选择最佳资产进行投资以获得更高回报。这是一个 NP 难题。NP 难题的复杂性和难度至少与最难的非确定性多项式时间问题相当。量子退火是用于解决此
+  NP 难题的量子人工智能技术。退火是将玻璃降至最低能态的等效方法。这是模拟退火人工智能技术中使用的一种经典方法。难题的解将处于最低能态。当退火器收敛到最低能态时，就可以确定问题的最小值。
+
+
+  研究发现，量子退火能够解决 NP 难题，并且它具有由玻尔兹曼分布定义的概率模型的估计平均值。量子退火利用量子现象来加速 NP 难题的求解。
+
+
+  量子退火是一种寻找函数最小值和最大值的优化方法。它会提供一组候选函数来寻找最优的最小值和最大值。量子退火与量子隧穿过程有关。这是一个粒子从高能态穿过势垒到达低能态的过程。量子退火的初始条件是叠加态。系统基于含时薛定谔方程演化。这会影响时间增加时的系统状态振幅。系统的哈密顿量源自系统的基态。
+
+
+  量子退火用于训练玻尔兹曼机和量子深度神经网络。用于寻找概率平均值的采样方法是基于马尔可夫链的蒙特卡洛算法。玻尔兹曼模型和方程是分子动力学理论的基础。最概然速率、平均速率和均方根速率使用玻尔兹曼分布进行计算。
+
+
+  交易问题需要通过定义目标和业务场景来表征。解决问题的方法将是一种基于模拟退火的量子人工智能算法。部署将在交易和财富管理公司中进行。通过收集解决方案指标来进行持续评估。
+
+
+  交易问题的特征包括股票价格、共同基金价格、模拟和预测时间以及不同的备选路径。模拟中使用的方法是量子退火。模型包含的实体是股票和共同基金。模型变量是股票和共同基金的价格。解决方案将是行权价格和要为投资组合选择的资产。部署将在交易和财富管理公司的基础设施上进行。环境将包括能够处理所需内存、计算处理能力和磁盘空间的服务器。系统规模调整是为了处理客户投资组合（数量级为一万只股票）并对其进行超过
+  10 年的模拟。通过在服务器上执行解决方案来进行解决方案的持续评估。收集解决方案的指标，包括所选的投资组合以及基于风险状况的预期收益。
+
+
+  基于量子人工智能模拟的退火器将包含一个知识库、推理引擎、数据存储和解释模块。知识库将是股票和共同基金的历史数据。推理引擎将包含交易和投资组合管理的规则和事实。数据存储用于投资组合管理。解释模块有助于根据目标、风险策略和所选初始投资组合来衡量指标。
+
+
+  在金融世界中，基于蒙特卡洛的采样方法用于评估股票和共同基金的价值。模拟资产价格的随机波动。蒙特卡洛方法用于发现交易和投资策略中的风险度量。它们有助于为基于风险的投资策略寻找路径依赖的回报。使用蒙特卡洛量子方法估算股票、共同基金、期权和期货组合的收益和风险。波动率有助于识别变异，可以通过对数收益的标准差来计算。
+
+
+  量子人工智能模拟会沿着时间向前推进的步骤进行。初始资产价格取自用户输入或股票市场网站。量子人工智能模型包含资产价格演变过程。使用随机过程或离散化方法来解决问题。由于随机数据生成，资产价格可能存在预期之外的相关性。准随机数生成器有助于替代完全随机数生成器。准随机数基于准随机序列，这种序列具有低差异的特性。
+
+
+  量子蒙特卡洛方法有助于使用随机布朗运动来模拟股票价格。该模型包含大量没有交易价格的零散和大额资产。模型中的假设包括允许卖空和不支付股息的股票。模型的目标是风险价值。它与客户投资组合的预期损失相关。
+
+
+  例如，期权价格从 11.4 到 11.2 之间的值开始。期权的行权价大约为 15。期权的到期期限大约为 1 年。股票价格的预期波动率约为 0.2（20%）。针对
+  0.15 到 0.25 之间的不同波动率值进行计算模拟。一次模拟中的步数约为 10,000 步。
+
+
+  蒙特卡洛模拟基于马尔可夫链。它们与量子行走相关，而量子行走类似于随机行走。量子蒙特卡洛方法应用于股票定价、基于风险的投资策略、收益计算、投资组合收益计算以及资产投资影响分析。
+
+
+  量子人工智能模拟有助于预测不确定的结果。一个包含数据存储中所有状态的随机行走可以演变成一个包含多种股票和共同基金的交易系统。从可能的状态中得出概率平均值是模拟的目标。基于蒙特卡洛方法的量子算法会被计算
+  m 次，以获得客户投资组合中股票和共同基金的 m 种随机组合。
+
+
+  一个量子人工智能模拟器可以针对超过 10,000 个未来场景执行模拟。这些场景将不会包含以下关键因素：
+
+
+  *   市场崩盘
+
+  *   公司特定事件
+
+  *   政治意外
+
+  *   意外加息
+
+
+  模拟结果并不准确，因为这些关键因素可能会破坏交易市场的稳定性，带来下跌风险和上涨潜力。量子人工智能模拟可以处理股票、共同基金以及美式、欧式、亚式、回溯式和百慕大式等期权。模拟模型将包含以下变量：
+
+
+  *   今日股票价格
+
+  *   行权价
+
+  *   到期年限
+
+  *   无风险利率
+
+  *   波动率
+
+  *   模拟次数
+
+  *   步数
+
+
+  影响模拟的其他参数包括商品价格、通货膨胀率以及交易市场中的其他资产。从数学上讲，使用正态分布的模拟如下所示：
+
+
+  ```
+
+  Stock_Price(t+1) = Stock_Price(t) *Pow(e, (drift+random_value))
+
+  drift = average_stock_price - (variance/2)
+
+  random_value = ( standard_deviation * normal_inverse)
+
+  normal_inverse 是正态分布的逆函数。
+
+  ```
+
+
+  分布可以用 `Q(x)` 建模为频率分布，或者用密度函数 `r(x)` 建模（x 是连续的）。
+
+
+  如果有一个实值函数 `f(X)`，其频率的概率分布为 `Q(x)`，那么 `f(X)` 的期望值如下：
+
+
+  ```
+
+  E(f(x)) = Σ f(x) Q(x) 其中 Q(x) > 0 且 Σ Q(x) = 1
+
+  ```
+
+
+  X 是离散的。
+
+
+  `f(X)` 的平均值是 `(1/n) Σ f(xi)`，其中 i 的范围是 1 到 N。
+
+
+  模拟模型中的投资期限通常在 1 到 25 年之间。资产的下跌和上涨价格是输入项。该模型模拟包含股票、共同基金和期权的投资组合的风险中性路径。Bumping 与更改模型中参数的敏感性并执行模拟有关。
+
+
+  量子人工智能模拟器中复杂的部分是知识库、推理引擎和解释模块。
+
+
+  知识库是通过将来自不同来源的领域专业知识转换和迁移到一个语义模型中创建的。该领域包含普遍发生的一般原则、实体和事件。领域中的实体可能具有关系和底层结构。知识库捕获了操作员在领域中不同职能级别执行的任务。组织模型包含职能级别。任务模型详细描述了操作员的任务。应用模型将包含与操作员系统相关的信息。本体论是知识库的关键部分。静态本体论与领域实体及其关系相关。动态本体论与实体的状态和转换规则相关。认知本体论与状态转换指南相关。领域动作、谓词、过程、对象层次结构和有限状态表是模型的一部分。
+
+
+  一个基于知识的系统可以是一个预测天气的系统，它拥有气象学知识。它可以高精度地预报天气。作为气象学家的知识工程师会以事实和规则的形式添加他们的知识。类似地，军事战略家可以利用国防知识库提出军事策略。知识库将包含一套标准的攻防策略。参见图
+  14-1。
+
+
+  ![../images/490826_1_En_14_Chapter/490826_1_En_14_Fig1_HTML.jpg](img/490826_1_En_14_Fig1_HTML.jpg)
+
+
+  图 14-1
+
+
+  投资组合管理
+
+
+  与交易和咨询知识库相关的统计模型将根据历史数据和股票市场的最新趋势而演变。市场事件、交易领域中的对象、可观察的模式、交易策略和业务策略都是交易系统知识库的一部分。知识库将包含结构性知识、策略性知识和支持性知识类型。结构性知识将包含交易领域中不同的抽象级别。策略性知识与解决交易世界中不同问题的方法和技术相关。支持性知识用于处理交易领域中的意外情况和问题原因。
+
+
+  推理引擎执行规则，知识库需要根据这些规则识别对象状态和实体属性的变化。引擎根据知识库中的规则解决问题。推理引擎有助于回答模拟过程中出现的问题。
+
+
+  解释模块包含用于衡量解决方案有效性的陈述性规则。解释涉及评估系统结果并通过推理确定原因。解释和推理基于不同的规则类型，例如因果规则、触发规则、数据规则、假设规则和筛选规则。量子人工智能模拟器基于一组事件识别要执行的场景。参见图
+  14-2。
+
+
+  ![../images/490826_1_En_14_Chapter/490826_1_En_14_Fig2_HTML.jpg](img/490826_1_En_14_Fig2_HTML.jpg)
+
+
+  图 14-2
+
+
+  人工智能模型开发
+
+
+  从银行业转到其他垂直领域，比如医疗保健。在医疗保健领域，量子人工智能可用于分析基因 DNA 序列。基因组序列的规模很大。量子人工智能可用于生物工程和远程医疗中的图像处理和分析。癌症等危重疾病可以通过这些技术进行诊断。它还有助于药物发现和研究。这些技术提供了更好的预测和时间序列分析。
+
+
+  量子处理能力有助于交通管理、传感器数据分析、供应链规划、采购决策、大数据搜索、运输优化、资源规划和资产管理。与比特类似，量子比特是量子计算机的计算基础。
+
+
+  现在让我们来看看交通管理。
+
+
+
+
+  ### 交通管理
+
+
+  交通领域中的交通建模依赖于交通区域、出行表格、高速公路网络、车辆容量以及土地利用模型。土地利用模型包含趋势、土地利用与分区规划、活动区域以及地图。一个交通系统涵盖街道、高速公路、停车设施、出行时间以及限速要求。交通网络将具有交通流量和车辆容量。出行模式指明了使用方式、典型的起点到终点路径以及出行特征。沃德罗普第一原理基于网络和道路使用者平衡。所有使用中的路径的行程时间相等，且比未使用的路径少一辆车的时间。该原理有助于最小化单次出行的平均时间。还存在其他原理和算法来平衡道路使用者与网络交通流量。参见图
+  14-3。
+
+
+  ![../images/490826_1_En_14_Chapter/490826_1_En_14_Fig3_HTML.jpg](img/490826_1_En_14_Fig3_HTML.jpg)
+
+
+  图 14-3
+
+
+  出行规划
+
+
+  出行是基于起点、终点、车辆和城市交通网络生成的。该网络包含车辆、骑行者、行人，他们在不同的时区和空间中持续移动。交通规划是一项持续的活动，街道网络基础设施也在不断更新。交通建模通过仿真和机器学习等技术完成。交通控制则利用历史数据、估算一段时间内的车辆数量，并管理整个网络中的交通流量。
+
+
+  ![../images/490826_1_En_14_Chapter/490826_1_En_14_Fig4_HTML.jpg](img/490826_1_En_14_Fig4_HTML.jpg)
+
+
+  图 14-4
+
+
+  交通规划
+
+
+  最大流-最小割方法被用于最大化交通网络中的车流量。这种方法基于从起点到终点的最大交通流量，等同于将起点与终点分离的最小割。该方法也可应用于计算机网络的数据包流量。
+
+
+  通过网络的数据包流量可以使用最大流-最小割方法进行建模。网络中，信息流经各个节点到达目的地。目标是最大化能够流经计算机网络的数据包数量。类似地，这种方法也可以用于为大学生分配宿舍，前提是每个学生都希望住到自己选择的宿舍中。目标是最大化获得宿舍的学生人数。
+
+
+  在其他垂直领域，量子算法和技术被用于预测分析。在医疗保健领域，量子退火方法有助于优化蛋白质折叠和药物发现中的非不良效应。其他领域包括药物设计和个性化医疗。在制造业中，量子计算技术可用于解决供应链优化问题。典型问题涉及分销、生产、采购和物流。在媒体行业，量子方法被应用于安排广告和优化收入。
+
+
+  让我们来看一下在智慧城市中实现的量子算法和技术。
+
+
+  ### 智慧城市
+
+
+  智慧城市中的问题包括大数据处理，并需要实时分析与决策。一个城市包含汽车（自动驾驶和人工驾驶）、卡车、三轮车、公交车以及其他交通工具。交通信号灯位于城市的不同街道上。每条街道的交通历史数据可用于规划工作日和周末不同出行时间的行程。智慧城市交通管理和驾驶规划解决方案帮助市民规划行程。
+
+
+  现在，让我们来看一下量子计算和算法的局限性。
+
+
+  ### 量子计算的局限性
+
+
+  量子计算硬件存在振动以及辐射、光和其他因素等外部交互的问题。退相干与在不同点测量状态并导致量子态坍缩有关。退相干的概率随着量子比特数量的增加呈指数级增长。相位误差由使用量子方法引入。经典方法可以通过使用纠错方法来导致小误差。测试是一个问题，因为无法创建未知状态的多个副本。量子计算方法需要叠加态，但可以实现一个现实模型，因为叠加需要降低系统熵。
+
+
+  ## 量子计算新闻来源
+
+
+  以下是有关量子计算的新闻来源：
+
+
+  *   *IBM 研究博客*: [`https://www.ibm.com/blogs/research/category/quantcomp/`](https://www.ibm.com/blogs/research/category/quantcomp/)
+
+  *   *微软量子*: [`https://cloudblogs.microsoft.com/quantum/`](https://cloudblogs.microsoft.com/quantum/)
+
+  *   *滑铁卢研究所量子博客*: [`https://uwaterloo.ca/institute-for-quantum-computing/news`](https://uwaterloo.ca/institute-for-quantum-computing/news)
+
+  *   *ACM SIGARCH*: [`https://www.sigarch.org/tag/quantum-computing/`](https://www.sigarch.org/tag/quantum-computing/)
+
+  *   *量子比特报告*: [`https://qubitreport.com/`](https://qubitreport.com/)
+
+
+  现在，让我们来看一下量子软件及其未来。
+
+
+
+
+  ## 量子计算的未来
+
+
+  量子处理单元上的量子比特数量正持续增长，并在过去十年中每年翻一番。诸如`IBM`等公司的目标，是扩大制造工艺以生产规模达`10,000`个量子比特的量子处理单元。`谷歌`、`IBM`、`微软`和`NASA`正在其研究和公司
+  IT 基础设施中使用量子计算机。
+
+
+  据 D-Wave 公司首席执行官 Vern Brownell 称：
+
+
+  > `谷歌`已经创建了他们所谓的量子人工智能实验室，正在那里探索利用我们的计算机进行人工智能或学习应用。而`NASA`有一系列正在研究的问题，从寻找系外行星到解决物流问题等。我想在五年内，这项技术将在各行各业得到广泛应用。虽然量子计算领域的商业应用大多还只是理论上的期望，但专家一致认为量子计算在一个领域具有价值：优化。利用量子计算创建一个能够“思考”如何让商业运营更快、更智能、更便宜的程序，可能会彻底改变无数行业。
+
+
+  量子人工智能与受生物大脑和量子力学启发的学习模型相关。这些模型基于对量子比特的数学运算，用于解决现实生活中的问题。分布式系统和基于并行架构的系统用于运行这些算法和模型。由于一个量子比特可以处理`0`和`1`等多种状态，因此可以用`n`个量子比特在短时间内解决巨大的问题。
+
+
+  海森堡不确定性原理利用了关于粒子动量和位置的信息。任何计算位置的观测都会导致粒子动量出现误差。同样，任何动量的计算都会导致位置出现误差。量子人工智能算法基于量子比特的一组变换。计算过程不会测量系统状态，而测量正是导致信息误差的原因。单个量子算法无法找到
+  NP 完全问题的所有解。上下文中问题的结构被用作解决 NP 完全问题的基础。
+
+
+  量子人工智能无法帮助改变日常办公任务，如阅读、写作和数学计算。在读取大数据、撰写报告或执行数学计算时，量子计算机将派不上用场。企业中的顺序操作将需要经典计算机。未来，组织中的复杂算法将在量子计算机上执行。
+
+
+  经典计算机和服务器将用于一系列包含手动和自动化操作的标准流程。这些操作可能与验证、检查、工作流、通信、通知、数据收集和数据存储有关。数据流和推送模型将需要标准计算机来收集数据并流式传输给各个订阅方。
+
+
+  ### 面向量子计算的企业软件和服务
+
+
+  在企业软件和服务领域，与化学、制药和制造相关的解决方案正在不断发展。药物发现以及研发缩减是制药领域应用量子技术和方法的关键领域。量子软件正在被开发用来解决现实生活中的优化问题。另一个应用领域是自动驾驶。网络安全/密码学是量子软件和解决方案正在发展的另一个领域。
+
+
+  ### 量子机器学习
+
+
+  量子机器学习（QML）是另一个正在发展新解决方案和产品的领域。
+
+
+  ## 总结
+
+
+  在本章中，我们探讨了量子技术用于在现实生活中创建量子解决方案的后续步骤。
+
+
+
+
+  '
+- "# 索引 A\n\n## A\n\n- AI 模型开发\n- 反粒子\n- 近似算法\n- 近似组合优化\n- 近似优化算法\n- 算术逻辑单元 (`ALU`)\n\
+  \n## B\n\n- 有界错误量子多项式\n- **C**\n  - 链分子结构\n  - `Cirq`\n  - 经典聚类技术\n  - 经典计算\n  -\
+  \ 经典计算机\n  - 经典纠错技术\n  - 经典*与*量子比特\n  - 经典 `SVM`\n  - 经典搜索算法\n  - 分类器\n  - 代码示例命令输出量子变分量子电路\n\
+  \  - `CNOT` 门电路\n  - 抛硬币行走模型\n  - 列矩阵\n  - 组合优化，125\n  - 连续函数\n  - 连续时间量子行走\n  -\
+  \ 受控量子\n  - 受控-`U` 门电路矩阵\n  - 控制单元 (`CU`)\n  - 跨货币套利\n  - 密码学\n    - 金融公司\n    -\
+  \ 正常运行的密码系统\n    - 格罗弗算法\n    - 海森堡不确定性原理\n    - 模型\n    - 基于量子计算机的算法\n    - 量子密钥分发\n\
+  \    - 量子抗性账本\n    - 叠加态\n- 网络安全\n\n## D\n\n- 数据管理过程\n- 数据处理\n- 深度学习\n- 延迟测量方法\n\
+  - 多伊奇-约萨算法\n- 对角矩阵\n- 狄拉克符号\n- 配送规划\n- 动态规划\n\n## E\n\n- 特征值识别\n- 企业软件及服务\n\n##\
+  \ F\n\n- 欺诈交易\n- 全栈通用量子模拟器\n\n## G\n\n- 格罗弗算法\n- 格罗弗搜索算法\n\n## H\n\n- 哈罗-哈西迪姆-劳埃德\
+  \ (`HHL`) 算法\n- 海森堡不确定性原理\n- 希尔伯特空间\n- 混合量子经典模型\n\n## I, J, K, L\n\n- 单位矩阵\n- 隐式测量方法\n\
+  \n## M\n\n- 机器学习\n- 马尔可夫链\n- 麻省理工学院 (`MIT`)\n- 矩阵\n  - 加法代码\n  - 列命令\n  - 定义\n \
+  \ - 行列式\n  - 对角元素\n  - 示例单位 2×2 矩阵\n  - 乘法\n  - 零\n  - 输出\n  - 矩形\n  - 行\n  - 标量\n\
+  \  - 单一\n  - 方阵\n  - 迹\n  - 三角\n  - 类型\n- 记忆\n- 蒙特卡洛量子方法\n- 多量子比特系统\n  - 三量子比特系统\n\
+  \  - 两量子比特系统\n\n## N\n\n- 国家标准与技术研究院 (`NIST`)\n- 神经计算方法\n- 不可克隆原理\n- 零矩阵\n\n## O\n\
+  \n- 本体论\n- 优化问题\n  - 退火方法\n  - 套利\n  - 信用评分\n  - 目标\n  - `NP` 难问题\n  - 薛定谔方程\n \
+  \ - 车辆路径问题\n\n## P\n\n- 模式\n- 相位估计方法\n- 投资组合管理\n\n## Q\n\n- 量子 `AI` 算法\n- 量子退火过程\n\
+  - 量子退火技术\n- 量子近似优化 (`QAOA`) 算法\n- 量子汇编语言\n- 量子联想记忆\n- 量子比特测量\n- 量子比特\n- 量子电路\n-\
+  \ 量子聚类算法代码示例命令定义输出\n- 量子通信\n- 量子计算框架\n- 量子计算机\n- 量子计算机技术\n- 量子计算\n  - 应用\n  - 硬件\n\
+  \  - 关键因素\n  - 新闻来源\n  - 风险策略\n  - 时间图\n- 量子计算库\n- 量子密码技术\n- 量子数据处理\n  - 经典 `k-means`\n\
+  \  - 经典 `k-medians`\n  - 初始设置\n  - 量子 `k-means`\n  - 量子 `k-means`\n- 量子点\n- 量子本征求解器\n\
+  - 量子纠缠\n- 基于量子纠缠的方法\n- 量子纠错\n- 量子门\n- 量子生成对抗网络 (`QGANs`) 代码示例命令定义输出\n- 量子硬件平台\n\
+  - 量子信息论\n- 量子指令集\n- 量子核方法\n- 量子密钥分发\n- 量子 `k-means` 技术\n- 量子 `k-medians` 技术\n- 量子语言\n\
+  - 量子最小二乘拟合\n  - 基矩阵\n  - 代码\n  - 代码示例\n  - 命令\n  - 连续函数\n  - 适应度函数\n  - 输出\n  -\
+  \ 量子排序\n- 量子机器学习 (`QML`)\n- 量子机器学习技术\n- 量子流形嵌入\n- 量子矩阵计算\n- 量子神经网络算法\n  - `ANN`\n\
+  \  - 经典\n  - 代码示例\n  - 命令\n  - 点\n  - 输出\n  - 量子类比\n  - 初始设置\n- 量子噪声\n- 量子操作\n \
+  \ - 布洛赫球\n  - 代码\n  - 命令\n  - 哈达玛门\n  - 输出\n  - 交换门\n  - `X` 门\n- 量子算子\n  - 布洛赫球\n\
+  \  - 代码\n  - 命令\n  - 数字电路\n  - 数字电路\n  - 狄拉克符号\n  - 门变换\n  - 希尔伯特空间\n  - 内积\n  -\
+  \ 克罗内克积\n  - 存储寄存器\n  - 输出\n  - 量子门\n  - 向量与张量\n- 量子优化算法\n- 量子并行性\n- 量子概率\n- 量子处理单元\n\
+  - 量子编程语言\n- 量子协议\n  - 量子纠缠\n  - 量子隐形传态\n- 量子随机存取存储器\n- 量子抗性账本\n- 量子半定规划\n- 量子模拟器\n\
+  - 量子解决方案\n  - 自动化手动/半手动流程\n  - 成本/利润\n  - 复杂性\n  - 数据管理过程\n  - 开发者资源\n  - 有效解决方案\n\
+  \  - `IT` 挑战\n  - 遗留应用/产品\n  - 经济与金融\n  - 效率/缺陷\n  - 企业因素\n  - 信息技术基础设施\n  - 医学科学\n\
+  \  - 自然科学\n  - 优化\n  - 优化问题\n  - 范式\n  - 现实问题\n  - 使用案例\n- 量子稀疏支持向量机代码示例命令输出正则化\
+  \ `SDP`\n- 量子态\n  - 布洛赫球\n  - 分类\n  - 代码\n  - 命令\n  - 输出\n  - 概率幅\n  - 叠加态\n- 量子子程序\n\
+  - 量子叠加\n- 量子隐形传态\n- 量子变换代码命令克罗内克变换测量门变换输出\n- 量子行走\n- 拟随机数\n\n## R\n\n- 矩形矩阵\n- `ReNomQ`\n\
+  - 行矩阵\n\n## S\n\n- 标量矩阵\n- 作业调度\n- 调度方法\n- 薛定谔方程\n- 搜索算法\n- 半定规划 (`SDP`)\n- 集合\n\
+  \  - 基数\n  - 代码\n  - 命令\n  - 补集\n  - 定义\n  - 示例\n  - 交集\n  - 顺序\n  - 输出\n  - 幂集\n\
+  \  - 类型\n  - 并集\n  - 文氏图\n- 肖尔算法\n- 西蒙量子算法\n- 单量子比特系统\n  - 布洛赫球\n  - 代码\n  - 命令\n\
+  \  - 输出\n- 单一矩阵\n- 智慧城市交通管理\n- 方阵\n- 静态本体论\n- 统计模型\n- Strawberry Fields 框架\n- 监督机器学习\
+  \ (`SVM`)\n\n## T\n\n- TensorFlow 量子框架\n- 张量\n  - 代码\n  - 命令\n  - 定义\n  - 示例\n \
+  \ - 输出\n- `Toffoli` 门电路矩阵\n- 交通建模\n- 交通规划\n- 运输规划\n- 旅行商问题\n- 三角矩阵\n- 行程规划\n\n##\
+  \ U\n\n- 通用量子计算机\n\n## V, W, X, Y, Z\n\n- 向量\n  - 加法\n  - 代码\n  - 命令\n  - 定义\n \
+  \ - 乘法\n  - 输出\n- 车辆路径优化\n"

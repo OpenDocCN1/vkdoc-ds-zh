@@ -1,0 +1,1801 @@
+- '
+
+  '
+- "# 实用 Python 数据可视化\n\n用 Python 学习数据可视化的快速入门方法\n\n—\n\n阿什温·帕扬卡\n\n**实用 Python 数据可视化：用\
+  \ Python 学习数据可视化的快速入门方法**\n\n阿什温·帕扬卡  \n印度，马哈拉施特拉邦，纳西克\n\nISBN-13（平装）：978-1-4842-6454-6\
+  \  \nISBN-13（电子版）：978-1-4842-6455-3  \n[`doi.org/10.1007/978-1-4842-6455-3`](https://doi.org/10.1007/978-1-4842-6455-3)\n\
+  \n版权所有 © 2021 阿什温·帕扬卡\n\n本作品受版权保护。出版商保留所有权利，无论涉及全部或部分材料，具体包括翻译权、重印权、插图再利用权、朗诵权、广播权、缩微胶片复制权或其他任何物理形式的复制权，以及信息存储与检索、电子改编、计算机软件或目前已知或日后开发的任何类似或不同方法的传输权。\n\
+  \n本书中可能出现商标名称、标识和图片。我们未在每次出现商标名称、标识或图片时均使用商标符号，而仅在编辑风格中且为维护商标所有者利益的情况下使用这些名称、标识和图片，无意侵犯相关商标权。\n\
+  \n本出版物中使用的商品名称、商标、服务标志及类似术语，即使未明确标识，也不应被视为对其是否受专有权利保护的立场表达。\n\n尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑和出版商均不对可能存在的任何错误或遗漏承担法律责任。出版商对本书所载内容不作任何明示或暗示的担保。\n\
+  \nApress Media LLC 常务董事：韦尔莫德·斯帕尔  \n采编编辑：阿迪蒂·米拉希  \n开发编辑：詹姆斯·马克姆  \n协调编辑：阿迪蒂·米拉希\
+  \  \n封面设计：eStudioCalamar  \n封面图片设计：Freepik（www.freepik.com）\n\n全球图书发行由 Springer\
+  \ Science+Business Media 1 New York Plaza, New York, NY 10004 负责。电话：1-800-SPRINGER，传真：(201)\
+  \ 348-4505，电子邮件：orders-ny@springer-sbm.com，或访问 www.springeronline.com。Apress Media,\
+  \ LLC 是加利福尼亚州的有限责任公司，其唯一成员（所有者）是 Springer Science + Business Media Finance Inc（SSBM\
+  \ Finance Inc）。SSBM Finance Inc 是一家特拉华州的公司。\n\n有关翻译事宜，请发送电子邮件至 booktranslations@springernature.com；如需重印、平装版或音频版授权，请发送电子邮件至\
+  \ bookpermissions@springernature.com。\n\nApress 图书可批量购买，用于学术、企业或促销用途。大多数图书也提供电子版和许可证。更多信息，请参考我们的印刷版和电子版批量销售网页：http://www.apress.com/bulk-sales。\n\
+  \n作者在本书中引用的任何源代码或其他补充材料，读者可通过图书产品页面（www.apress.com/978-1-4842-6454-6）在 GitHub 上获取。如需更详细信息，请访问\
+  \ http://www.apress.com/source-code。\n\n采用无酸纸印刷\n\n*谨以此书献给印度裔诺贝尔经济学奖得主阿比吉特·班纳吉*\n\
+  \n## 目录\n\n关于作者 … ix  \n关于技术审校者 … xi  \n致谢 … xiii  \n引言 … xv\n\n\n\n"
+- '# 第一章：Python 入门
+
+
+  ## Python 编程语言
+
+
+  ## Python 发展简史
+
+
+  ## Python 增强建议书
+
+
+  ## Python 的应用领域
+
+
+  ## 在不同平台上安装 Python
+
+
+  ### 在 Windows 电脑上安装
+
+
+  ### 在 Ubuntu 及 Debian 衍生版上安装
+
+
+  ## Python 的两种模式
+
+
+  ### 交互模式
+
+
+  ### 脚本模式
+
+
+  ## 本章小结
+
+
+  '
+- '# 第二章：探索 Jupyter Notebook
+
+
+  ## Jupyter Notebook 概述
+
+
+  ## 搭建 Jupyter Notebook 环境
+
+
+  ## 在 Jupyter Notebook 中运行代码
+
+
+  ## 本章小结
+
+
+  '
+- '# 第三章：使用 Leather 进行数据可视化
+
+
+  ## 在 Jupyter Notebook 中运行操作系统命令
+
+
+  ## Leather 简介
+
+
+  ## 更多可视化类型
+
+
+  ## 坐标尺度
+
+
+  ## 样式美化
+
+
+  ## 本章小结
+
+
+  '
+- '# 第四章：科学计算 Python 生态与 NumPy
+
+
+  ## 科学计算 Python 生态
+
+
+  ## NumPy 与 Ndarray
+
+
+  ### 多维数组
+
+
+
+
+  '
+- '# 目录
+
+
+  NumPy 数组属性
+
+
+  NumPy 常量
+
+
+  总结
+
+
+  ## 第 5 章：使用 NumPy 和 Matplotlib 进行数据可视化
+
+
+  Matplotlib
+
+
+  使用 NumPy 和 Matplotlib 进行可视化
+
+
+  单线图
+
+
+  多线图
+
+
+  网格、坐标轴与标签
+
+
+  颜色、样式与标记
+
+
+  总结
+
+
+  vi
+
+
+  目录
+
+
+  ## 第 6 章：可视化图像与 3D 形状
+
+
+  可视化图像
+
+
+  图像操作
+
+
+  3D 可视化
+
+
+  总结
+
+
+  ## 第 7 章：可视化图形与网络
+
+
+  图形与网络
+
+
+  Python 3 中的图形
+
+
+  在 Python 3 中可视化图形
+
+
+  更多图形类型
+
+
+  为节点分配自定义标签
+
+
+  总结
+
+
+  ## 第 8 章：Pandas 入门
+
+
+  Pandas 简介
+
+
+  Pandas 中的 Series
+
+
+  Series 的基本操作
+
+
+  Pandas 中的 DataFrame
+
+
+
+
+  '
+- "# 第一章：Python 入门\n\n欢迎大家开启使用 Python 3 学习数据可视化的激动之旅。本章将详细介绍如何入门 `Python` 编程语言，包括其历史、特性及应用场景。\n\
+  \n本章重点介绍 `Python` 3 的通用信息，以及如何在各种主流操作系统平台上进行安装，例如 Microsoft Windows、Ubuntu 和 Raspberry\
+  \ Pi Raspbian。我们将编写几个基本的 Python 程序，并学习如何在不同的平台上执行它们。以下是本章将要涵盖的主题列表。\n\n-   Python\
+  \ 编程语言\n-   在不同平台上安装 Python\n-   Python 模式\n\n完成本章学习后，你将能够熟练地在各种模式下安装和使用 `Python`\
+  \ 3 编程语言。\n\n## Python 编程语言\n\n`Python` 3 是一种高级、解释型、通用编程语言。本节将围绕 `Python` 编程语言及其设计理念展开一般性讨论。\n\
+  \n© Ashwin Pajankar 2021  \nA. Pajankar 著，《实用 Python 数据可视化》，  \n[`doi.org/10.1007/978-1-4842-6455-3_1`](https://doi.org/10.1007/978-1-4842-6455-3_1#DOI)\n\
+  \n### Python 历史\n\n`Python` 是 `ABC` 编程语言的继任者，而 `ABC` 本身又受到 `ALGOL 68` 和 `SETL` 编程语言的启发。`Python`\
+  \ 由**吉多·范罗苏姆**在 1980 年代末期休假期间作为个人副业项目创建，当时他就职于荷兰的 CWI 数学与信息学中心。从 `Python` 首次发布至\
+  \ 2018 年 7 月，范罗苏姆一直是该项目的主要开发者及终身仁慈独裁者。此后，他进入了永久休假状态，目前担任 `Python` 指导委员会的成员。以下时间线详细列出了\
+  \ `Python` 发布过程中的重要里程碑。\n\n-   1991 年 2 月：范罗苏姆将代码（标记为 0.9.0 版本）发布到 `alt.sources`。\n\
+  -   1994 年 1 月：1.0 版本发布。\n-   2000 年 10 月：Python 2.0 发布。\n-   2006 年 12 月：Python\
+  \ 3.0 发布。\n-   2019 年 12 月：Python 2.x 正式退役，Python 软件基金会不再对其提供支持。\n\n\n\n"
+- '# Python 2.x 版本已退役，不再受支持。此外，`Python 3` 与 `Python 2` 不向后兼容。`Python 3` 是语言的最新且当前受支持的版本。因此，我们在本书中全程使用
+  `Python 3` 来演示数据可视化的程序。
+
+
+  除非特别说明，本书中提到的 `Python` 均指代 `Python 3`。
+
+
+  ## 第 1 章 Python 入门
+
+
+  ### Python 增强提案
+
+
+  为了引导 `Python` 的开发、维护和支持，`Python` 领导团队提出了 `Python` 增强提案（`PEP`）的概念。这是为 `Python` 项目建议新特性和修复问题的主要机制。您可以在以下
+  `URL` 中阅读更多关于 `PEP` 的信息：
+
+
+  - [`www.python.org/dev/peps/`](https://www.python.org/dev/peps/)
+
+  - [`www.python.org/dev/peps/pep-0001/`](https://www.python.org/dev/peps/pep-0001/)
+
+
+  ### Python 的哲学
+
+
+  `Python` 的哲学在 `PEP20` 中进行了详细阐述，被称为“Python 之禅”，可在 [`www.python.org/dev/peps/pep-0020/`](https://www.python.org/dev/peps/pep-0020/)
+  获取。以下是该 `PEP` 中的一些要点：
+
+
+  1.  优美胜于丑陋。
+
+  2.  显式胜于隐式。
+
+  3.  简单胜于复杂。
+
+  4.  复杂胜于凌乱。
+
+  5.  扁平胜于嵌套。
+
+  6.  稀疏胜于密集。
+
+  7.  可读性至关重要。
+
+  8.  特殊情况不应特殊到足以违反规则。
+
+  9.  尽管实用性胜过纯粹性。
+
+  10. 错误不应默默无声地传递。
+
+  11. 除非明确需要静默。
+
+  12. 面对歧义，拒绝猜测的诱惑。
+
+  13. 应该有一种——并且最好只有一种——显而易见的方式来做这件事。
+
+  14. 尽管那种方式一开始可能并不明显，除非你是荷兰人。
+
+  15. 现在做总比永远不做好。
+
+  16. 虽然“永远不做”通常比“*现在*就做”要好。
+
+  17. 如果实现难以解释，那可能是个坏主意。
+
+  18. 如果实现易于解释，那可能是个好主意。
+
+  19. 命名空间是个绝妙的主意——让我们更多地使用它们！
+
+
+  这些是影响 `Python` 编程语言发展并持续发挥作用的一般性哲学指南。
+
+
+  ### Python 的应用
+
+
+  由于 `Python` 是一种通用编程语言，它在以下领域有众多应用：
+
+
+  1.  网页开发。
+
+  2.  图形用户界面（`GUI`）开发。
+
+  3.  科学与数值计算。
+
+  4.  软件开发。
+
+  5.  系统管理。
+
+
+  有关 `Python` 在各种项目中的案例研究，可在 [`www.python.org/success-stories/`](https://www.python.org/success-stories/)
+  获取。
+
+
+  ![] (index-17_1.jpg)
+
+
+  ## 第 1 章 Python 入门
+
+
+  ### 在各种平台上安装 Python
+
+
+  `Python` 实现是一个支持执行用 `Python` 编写的程序的程序或环境。由 Van Rossum 创建的原始实现被称为 `CPython`，并作为参考实现。本书中我们全程使用
+  `CPython`。它可以在 `Python` 官方网站上获得，我们将在本节学习如何安装它。
+
+
+  我倾向于在 `Windows` 电脑或运行 `Raspberry Pi OS` 的 `Raspberry Pi` 电脑上编写 `Python` 程序。让我们学习如何在这两个平台上安装
+  `Python`。
+
+
+  ### 在 Windows 电脑上安装
+
+
+  访问位于 [`www.python.org/downloads/`](https://www.python.org/downloads/) 的 `Python
+  3` 下载页面，下载适用于您电脑的 `Python 3` 安装文件。它会自动检测您电脑上的操作系统并显示合适的可下载文件，如图 [1-1] (#index_split_000.html#p17)
+  所示。
+
+
+  ***图 1-1.** 带有下载选项的 Python 项目主页* 5
+
+
+  ![] (index-18_1.jpg)
+
+
+  ## 第 1 章 Python 入门
+
+
+  运行安装文件以安装 `Python 3`。在安装过程中，选中与将 `Python 3` 添加到 `PATH` 变量（图 1-2）相关的复选框。
+
+
+
+  **图 1-2.** Python 安装向导
+
+
+  点击`自定义安装`，该选项可提供如图 1-3 所示的定制选项。
+
+
+  ![](img/index-19_1.jpg)
+
+
+  ## 第 1 章 Python 简介
+
+
+  **图 1-3.** Python 安装选项
+
+
+  选中所有复选框，然后点击`下一步`继续安装。
+
+
+  完成安装。Python 二进制可执行程序在 Windows 操作系统上的名称是`python`。安装完成后，在 Windows 命令提示符`cmd`中运行以下命令：
+
+
+  ```
+
+  python -V
+
+  ```
+
+
+  该命令将返回 Python 3 的版本，如下所示：
+
+
+  ```
+
+  Python 3.8.1
+
+  ```
+
+
+  我们也可以按如下方式检查`pip3`的版本：
+
+
+  ```
+
+  pip3 -V
+
+  ```
+
+
+  `pip` 代表 Pip installs Python 或 Pip installs Packages；其名称是一个递归缩写。它是 Python 编程语言的包管理器。我们可以使用`pip`工具为我们的演示安装其他所需的
+  Python 库。
+
+
+  ## 第 1 章 Python 简介
+
+
+  要确定 Python 的确切位置，可以按如下方式运行`where`命令：
+
+
+  ```
+
+  where python
+
+  ```
+
+
+  它将返回以下结果：
+
+
+  ```
+
+  C:\Users\Ashwin\AppData\Local\Programs\Python\Python38-32\
+
+  python.exe
+
+  ```
+
+
+  类似地，我们可以通过运行以下命令来了解`pip3`工具的位置：
+
+
+  ```
+
+  where pip3
+
+  ```
+
+
+  ## 在 Ubuntu 和 Debian 衍生版上安装
+
+
+  Debian 是一个流行的发行版。Ubuntu Linux 和 Raspberry Pi OS 是其他基于 Debian 的流行发行版。Python 3 和`pip3`已预装在所有的
+  Debian 发行版及其衍生版（如 Ubuntu 或 Raspberry Pi OS）中，因此我们无需单独安装它们。我在一台 4 GB RAM 的 Raspberry
+  Pi 4B 上使用 Raspberry Pi OS。Python 的两个主要版本，Python 2 和 Python 3，都已预装在 Debian 衍生版中。它们的可执行文件分别命名为`python`（对应
+  Python 2）和`python3`（对应 Python 3）。在我们的演示中必须使用`python3`。
+
+
+  要确定所需二进制可执行文件的版本和位置，请逐一运行以下命令：
+
+
+  ```
+
+  python3 -V
+
+  pip3 -V
+
+  which python3
+
+  which pip3
+
+  ```
+
+
+  几乎所有其他流行的 Linux 发行版也预装了 Python。
+
+
+  ![](img/index-21_1.jpg)
+
+
+  ## 第 1 章 Python 简介
+
+
+  ## Python 模式
+
+
+  Python 有多种模式，我们将逐一讨论。但首先，我们需要了解集成开发与学习环境（IDLE）。这是 Python 软件基金会为 Python 编程开发的一个集成开发环境（IDE）。当我们在
+  Windows 上安装 Python 3 的 CPython 实现时，IDLE 也会被安装。
+
+
+  我们可以通过多种方式在 Windows 操作系统上启动它。第一种方式是在 Windows 搜索栏中键入`IDLE`进行搜索，如图 1-4 所示。
+
+
+  **图 1-4.** Windows 上的 Python IDLE
+
+
+  ![](img/index-22_1.png)
+
+
+  ![](img/index-22_2.jpg)
+
+
+  ## 第 1 章 Python 简介
+
+
+  另一种方式是通过在命令提示符（`cmd`）中运行以下命令来启动它：
+
+
+  ```
+
+  idle
+
+  ```
+
+
+  这将启动如图 1-5 所示的窗口。
+
+
+  **图 1-5.** Python IDLE
+
+
+  在我们继续之前，需要对其进行配置以便于阅读。我们可以通过选择`选项` ➤ `配置 IDLE`来更改字体，如图 1-6 所示。
+
+
+  **图 1-6.** 配置 IDLE
+
+
+  这时会打开如图 1-7 所示的窗口。你可以在其中更改 IDLE 中字符的字体和大小。
+
+
+  ![](img/index-23_1.png)
+
+
+  ## 第 1 章 Python 简介
+
+
+  **图 1-7.** IDLE 配置
+
+
+  ![](img/index-24_1.jpg)
+
+
+  ## 第 1 章 Python 简介
+
+
+  根据你的个人偏好调整字体设置。
+
+
+  并非所有 Linux 发行版都预装了 IDLE。我们可以通过依次运行以下命令在 Debian 及其衍生版（Ubuntu 和 Raspberry Pi OS）上安装它。
+
+
+  ```
+
+  sudo apt-get update
+
+  sudo apt-get install idle3
+
+  ```
+
+
+  安装完成后，我们可以在菜单中找到 IDLE（此处为 Raspberry Pi OS 菜单），如图 1-8 所示。
+
+
+  **图 1-8.** Raspberry Pi OS 菜单中的 IDLE
+
+
+  ![](img/index-25_1.png)
+
+
+
+  '
+- '# 第 1 章 Python 简介
+
+
+  我们也可以在 Linux 上通过运行以下命令来启动 `IDLE`：`idle`
+
+
+  现在让我们来讨论 Python 的各种模式。
+
+
+  ### 交互模式
+
+
+  Python 的交互模式是一种命令行式的 shell，它能执行当前语句并在控制台中立即给出反馈。它会将之前输入的语句保存在活动内存中运行。当新语句被输入并由解释器执行时，代码会被求值。当我们打开
+  `IDLE` 时，会看到一个命令行提示符，这就是 Python 的交互模式。
+
+
+  让我们看一个简单的例子。在交互式提示符中输入常规的 Hello World 程序，如下所示：
+
+
+  ```
+
+  print(''Hello World!'')
+
+  ```
+
+
+  按下回车键，将这一行输入到解释器中并执行它。图 1-9 展示了输出的截图。
+
+
+  **图 1-9.** IDLE 中的 Python 交互模式
+
+
+  ![](img/index-26_1.png)
+
+
+  我们也可以从命令提示符启动 Python 交互模式。在 Linux 命令提示符（例如 `lxterminal`）下，必须运行命令 `python3`；而在 Windows
+  命令提示符 `cmd` 下，则需运行命令 `python` 来启动它。图 1-10 是 Windows 命令提示符下交互模式的截图。
+
+
+  **图 1-10.** Windows 命令提示符下的 Python 交互模式
+
+
+  ### 脚本模式
+
+
+  我们可以编写一个 Python 程序并将其保存到磁盘。然后可以通过多种方式启动它。这被称为脚本模式。让我们在 `IDLE` 中演示一下。我们可以使用任何文本编辑器来编写
+  Python 程序，但由于 `IDLE` 是一个 IDE，使用 `IDLE` 编写和运行 Python 程序非常方便。我们先来看这个。在 `IDLE` 中，选择
+  File ➤ New File 来创建一个新的空白文件。在其中添加以下代码：
+
+
+  ```
+
+  print(''Hello World!'')
+
+  ```
+
+
+  将其保存为 `prog01.py` 文件到磁盘上（图 1-11）。
+
+
+  ![](img/index-27_1.jpg)
+
+
+  ![](img/index-27_2.png)
+
+
+  **图 1-11.** IDLE 代码编辑器中的 Python 程序
+
+
+  在菜单中，点击 Run ➤ Run Module。这会在 IDLE 的提示符下执行该程序，如图 1-12 所示。
+
+
+  **图 1-12.** 在 IDLE 提示符下执行的 Python 程序
+
+
+  我们甚至可以在操作系统的命令提示符下，使用 Python 解释器来启动该程序。打开操作系统的命令提示符，并导航到程序存储的目录。在 Windows 命令提示符下，运行以下命令：
+
+
+  ```
+
+  python prog01.py
+
+  ```
+
+
+  在 Linux 终端上，必须运行以下命令提示符：`python3 prog01.py`
+
+
+  然后解释器会在命令提示符下运行该程序，输出（如果有）会出现在那里。
+
+
+  在 Linux 中，还有一种无需显式使用解释器即可运行程序的方法。我们必须在代码文件的开头添加一个 shebang 行。例如，我们的代码文件如下所示：
+
+
+  ```
+
+  #!/usr/bin/python3
+
+
+  print(''Hello World!'')
+
+  ```
+
+
+  这段代码的第一行被称为 shebang 行。它告诉 shell 要使用哪个解释器及其位置。运行以下命令来更改文件权限，使其对所有者可执行：`chmod 755
+  prog01.py`
+
+
+  然后，我们可以像运行其他可执行文件一样，使用 `./` 直接启动我们的 Python 程序文件，如下所示：
+
+
+  ```
+
+  ./prog01.py
+
+  ```
+
+
+  shell 将执行该程序并将输出打印到终端。
+
+
+  请注意，这仅适用于类 Unix 系统（Linux 和 macOS），因为它们支持以这种方式执行程序。从下一章开始，我们将根据需要逐步学习更多关于 Python
+  编程的知识。
+
+
+  ## 总结
+
+
+  本章从 Python 编程语言的基础知识开始。
+
+
+  你学习了如何编写基本的 Python 程序并以多种方式执行它们。你学习了如何在包括 Windows 和 Linux 在内的各种操作系统上使用 Python。你还了解了
+  Python 的各种模式，以及如何从不同操作系统的命令提示符中启动它们。
+
+
+
+
+  '
+- "# 第 2 章：探索 Jupyter Notebook\n\n在下一章中，我们将学习如何安装 `Jupyter Notebook`，并简要了解 `Jupyter\
+  \ Notebook` 的使用方法。\n\n在第 1 章中，我们熟悉了 Python，并学会了如何用 Python 编写一个非常简单的程序。我们还了解了如何在交互模式和脚本模式下使用\
+  \ Python。本章将探索 `Jupyter Notebook`。在第 1 章中，我们看到交互模式能为我们提供 Python 语句的即时反馈。本书中几乎所有演示都将继续使用\
+  \ Python 的交互模式。不过，我们将不再使用 Python 内置的基于解释器的交互模式，而是使用另一种更强大的工具，即 `Jupyter` 工具。本章的全部内容都将围绕这一主题展开。\n\
+  \n你将学习本章的以下内容：\n\n- `Jupyter Notebook` 概述。\n- 安装 `Jupyter Notebook`。\n- 在 `Jupyter\
+  \ Notebook` 中运行代码。\n\n完成本章学习后，你应该能够熟练使用 `Jupyter Notebook` 进行 Python 编程。\n\n© Ashwin\
+  \ Pajankar 2021  \nA. Pajankar，*实用 Python 数据可视化*，  \n[`doi.org/10.1007/978-1-4842-6455-3_2`](https://doi.org/10.1007/978-1-4842-6455-3_2#DOI)\n\
+  \n## `Jupyter Notebook` 概述\n\n在第 1 章中，你学习了运行 Python 语句的多种方法。我们在脚本中以及解释器的交互模式下运行了\
+  \ Python 语句。使用交互模式的主要优势在于能获得即时反馈。这种模式的主要缺点是，如果在输入语句时犯错并执行了错误语句，我们必须重新输入整条语句才能再次执行。此外，将其保存为程序也比较困难。在解释器的“文件”菜单选项中可以找到保存已执行语句的选项。但是，所有语句及其输出将以纯文本格式保存为\
+  \ `.py` 扩展名的文件。\n\n如果存在图形输出，它会单独显示，无法与语句一并存储。\n\n由于解释器交互模式存在这些局限性，我们将使用一种更好的工具来在网页浏览器中交互式地运行\
+  \ Python 语句：`Jupyter Notebook`。`Jupyter` 是一个服务器程序，可以在网页浏览器中创建交互式笔记本。\n\n`Jupyter`\
+  \ 笔记本是一种基于 Web 的笔记本，用于使用包括 Python、Octave、Julia 和 R 在内的多种语言进行交互式编程。它在科研领域非常受欢迎。`Jupyter`\
+  \ 笔记本可以将代码、可视化结果、输出以及富文本整合到单个文件中。`Jupyter Notebook` 相较于 Python 自带的交互式提示符的优势在于，用户可以编辑代码并立即看到新的输出，这在\
+  \ Python 交互模式下是无法实现的。另一个优势是，我们将代码、富文本元素以及代码的输出（可能是图形或富文本格式）保存在磁盘上的同一个文件中。这使得分发变得非常容易。我们可以通过互联网或便携式存储设备保存并分享这些笔记本。此外，还有许多在线服务可以帮助我们在云服务器上存储和执行\
+  \ `Jupyter Notebook` 脚本。\n\n## 安装 `Jupyter Notebook`\n\n我们可以轻松地在任何计算机上安装 `Jupyter\
+  \ Notebook` 服务器程序，只需在命令提示符下运行以下命令：\n\n```\npip3 install jupyter\n```\n\n让我们探索如何使用\
+  \ `Jupyter Notebook` 来编写和执行 Python 语句。在操作系统命令提示符下运行以下命令，以启动 `Jupyter Notebook` 服务器进程：\n\
+  \n```\njupyter notebook\n```\n\n一旦 `Jupyter notebook` 服务器进程启动，命令提示符窗口将显示服务器日志，如图\
+  \ 2-1 所示。\n\n**图 2-1.** 启动新的 Jupyter Notebook 进程\n\n\n\n"
+- '# 第二章：探索 Jupyter Notebook
+
+
+  它会在操作系统默认浏览器中打开一个网页。如果浏览器窗口已打开，它会在同一浏览器窗口的新标签页中打开该页面。另一种打开页面的方式（如果您不小心关闭了此浏览器窗口）是在浏览器中访问
+  `http://localhost:8888/`，将显示一个类似于图 2-2 所示的页面。
+
+
+  **图 2-2. 使用令牌登录**
+
+
+  令牌可以在服务器日志中找到。以下是包含令牌的服务器日志示例。
+
+
+  要访问笔记本，请在浏览器中打开此文件：
+
+
+  `file:///C:/Users/Ashwin/AppData/Roaming/jupyter/runtime/nbserver-8420-open.html`
+
+
+  或者复制并粘贴以下任一 URL：
+
+
+  `http://localhost:8888/?token=e4a4fab0d8c22cd01b6530d5daced19d32d7e0c3a56f925c`
+
+
+  或者 `http://127.0.0.1:8888/?token=e4a4fab0d8c22cd01b6530d5daced19d32d7e0c3a56f925c`
+
+
+  在这个日志中，我们可以看到几个 URL。它们指向同一个页面（`localhost` 和 `127.0.0.1` 是同一主机）。我们可以直接复制并粘贴这些 URL
+  中的任意一个到浏览器标签页的地址栏中，打开 Jupyter Notebook 首页，或者像之前提到的那样访问 `http://localhost:8888/`，然后粘贴服务器日志中的令牌（本例中为
+  `e4a4fab0d8c22cd01b6530d5daced19d32d7e0c3a56f925c`）并登录，这将带我们进入同一个首页。
+
+
+  请注意，每个 Jupyter Notebook 服务器实例都有其自己的令牌，此处的令牌无法用于您的 Jupyter Notebook。该令牌仅对该服务器进程有效。
+
+
+  按照上述任一方法操作后，您将在浏览器窗口中看到一个首页标签页，如图 2-3 所示。
+
+
+  **图 2-3. Jupyter Notebook 的新首页标签页**
+
+
+  可以看到，网页本身有三个标签页：文件、运行中和集群。"文件"标签页显示了我们启动笔记本服务器时所在目录的目录和文件。在此示例中，我从 Raspberry Pi
+  的 `lxterminal` 执行了命令 `jupyter notebook`。当前工作目录是 pi 用户的主目录（`/home/pi`）。这就是为什么我们在图
+  2-3 的截图中能够看到我的 RPi 计算机主目录中的所有文件和目录。
+
+
+  在右上角，有退出和注销按钮。如果单击注销按钮，您将从当前会话中注销。要再次登录，您将再次需要令牌或嵌入令牌的 URL（来自笔记本服务器日志），如前所述。如果单击退出，将停止在命令提示符下运行的笔记本服务器进程，并显示如图
+  2-4 所示的模式消息框。
+
+
+  **图 2-4. 单击退出后显示的消息**
+
+
+  要再次使用它，我们需要在命令提示符下再次执行命令 `jupyter notebook`。
+
+
+  在右上角，退出和注销按钮的下方，有一个小的刷新按钮。单击该按钮可刷新首页。旁边是新建按钮。单击后，会显示一个下拉菜单，如图 2-5 所示。
+
+
+  **图 2-5. 新建笔记本的选项**
+
+
+  如您所见，下拉菜单分为两个部分，笔记本和其他。在此示例中，您可以选择创建 Octave 和 Python 3 笔记本。如果您的计算机安装了更多 Jupyter
+  Notebook 支持的其他编程语言，这些附加语言也会在此处显示。我们还可以创建文本文件和文件夹。我们可以通过单击终端在 Web 浏览器中打开命令提示符。图 2-6
+  是在单独的 Web 浏览器标签页中运行 `lxterminal` 的截图。
+
+
+  **图 2-6. 浏览器内的新 lxterminal 窗口**
+
+
+  从下拉菜单中选择 Python 3 将创建一个新的 Python 3 笔记本，如图 2-7 所示。
+
+
+  **图 2-7. 一个新的 Python 3 笔记本**
+
+
+  如果单击浏览器中的首页标签页返回首页，然后点击"运行中"标签页，您可以看到对应于终端和 Python 3 笔记本的条目，如图 2-8 所示。
+
+
+  **图 2-8. 当前 Jupyter Notebook 子进程的摘要**
+
+
+  ## 在 Jupyter Notebook 中运行代码
+
+
+  再次转到 Python 3 的 Untitled1 标签页，在文本区域（也称为单元格）中输入以下语句：
+
+
+  ```
+
+  printf("Hello, World!\n");
+
+  ```
+
+
+  单击运行。Jupyter 将把它作为 Python 3 语句执行，并立即在单元格下方显示结果，如图 2-9 所示。
+
+
+  **图 2-9. Jupyter Notebook 中的代码输出**
+
+
+  如您所见，执行后，它会自动在结果下方创建一个新单元格，并将光标放置在该处。我们来讨论一下菜单栏和编程单元格上方的图标。我们可以通过单击软盘图标来保存文件。我们可以通过单击
+  `+` 图标在当前单元格之后添加一个新的空单元格。接下来的三个图标分别是剪切、复制和粘贴。向上和向下箭头可以分别上下移动当前单元格的位置。下一个选项是运行单元格，我们已见过。接下来的三个图标用于中断内核、重启内核以及重启内核并重新运行笔记本中的所有单元格。在它旁边，有一个下拉菜单，允许我们选择单元格应为何种类型。图
+  2-10 是单击下拉菜单时的截图。
+
+
+  **图 2-10. Jupyter Notebook 中的单元格类型**
+
+
+  当您选择代码选项时，该单元格被视为 Python 3 代码单元格。当您选择 Markdown 选项时，它被视为 Markdown 单元格。Markdown 是一种可以创建富文本输出的标记语言。
+
+
+  例如，任何以 `#` 开头的内容都会创建一个标题，以 `##` 开头的内容会创建副标题，以此类推。只需在 Markdown 单元格中输入以下行并执行它：
+
+
+  ```
+
+  # 标题 1
+
+  ## 标题 2
+
+  ```
+
+
+  在我们的 Python 3 演示中，我们主要使用 Markdown 单元格作为标题。但是，您可以自行进一步探索 Markdown。您可以在 [`jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Working%20With%20Markdown%20Cells.html`](https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Working%20With%20Markdown%20Cells.html)
+  找到更多相关信息。前述演示的输出如图 2-11 所示。
+
+
+  **图 2-11. Markdown 中的标题**
+
+
+  您甚至可以通过单击笔记本顶部的名称来更改笔记本文件的名称。单击后，会显示一个用于重命名的模式框，如图 2-12 所示。
+
+
+  **图 2-12. 在 Jupyter 中重命名笔记本**
+
+
+  如果您愿意，可以重命名它。如果我们浏览在命令提示符下启动 Jupyter Notebook 时的磁盘位置，我们会找到扩展名为 `ipynb` 的文件，它代表 IPython
+  Notebook。
+
+
+  同样，我们可以将 Jupyter Notebook 用于支持 Jupyter 的其他编程语言进行交互式编程。
+
+
+
+
+  '
+- '# 我们将主要使用这种笔记本格式来存储交互式会话的代码片段，因为所有内容都保存在单个文件中，如前所述，这便于分享。
+
+
+  我们可以清除某个单元格或整个笔记本的输出。在菜单栏中，选择 `Cell`。在下拉菜单中，`Current Outputs` 和 `All Output` 都提供了
+  `Clear` 选项用于清除单元格的输出。图 2-13 是可用选项的截图。
+
+
+  **图 2-13.** 在 Jupyter 中清除输出
+
+
+  ## 第 2 章：探索 Jupyter Notebook
+
+
+  Jupyter Notebook 最显著的优势之一是，如果存在语法错误，或者你只是想修改代码，都可以编辑已执行的单元格。Jupyter Notebook 就像一个在网页浏览器中运行的
+  IDE，并在同一窗口中生成输出。这种交互性以及在同一文件中保存代码、富文本和输出的能力，使 Jupyter Notebook 在全球广受欢迎。用于运行 Python
+  程序的内核来自 IPython 项目。如前所述，我们也可以将其用于其他编程语言。我甚至用它运行过 GNU Octave 程序。
+
+
+  **注意：** 你可以在以下网址找到关于 Jupyter Notebook 和 IPython 的更多信息：
+
+
+  - [`jupyter.org/`](https://jupyter.org/)
+
+  - [`ipython.org/`](https://ipython.org/)
+
+
+  ## 本章小结
+
+
+  在本章中，我们开始在各平台上安装 Jupyter Notebook。接着探讨了如何在 Jupyter Notebook 中运行简单的 Python 语句。我们了解到，可以将代码及其输出存储在单个文件中，便于在互联网上分享。
+
+
+  在下一章中，我们将使用 Jupyter Notebook，结合 Python 和一款流行的数据可视化库 `leather`，进行简单的可视化操作。
+
+
+  '
+- "# 第 3 章：使用 Leather 进行数据可视化\n\n在第 2 章中，我们使用 Jupyter Notebook 熟悉了 Python 编程。现在，你应该能熟练地使用\
+  \ Jupyter Notebook 编写交互式 Python 程序了。\n\n在本章中，我们将使用 Jupyter Notebook 和 Python，并结合数据可视化库\
+  \ `leather` 来生成基本的可视化图表。以下是本章将涵盖的主题列表：\n\n- `leather` 简介\n- 更多可视化类型\n- 比例\n- 样式设置\n\
+  \n## 在 Jupyter Notebook 中运行操作系统命令\n\n你已经了解了如何使用 Jupyter Notebook 进行 Python 编程。现在我们将探讨如何在笔记本中执行操作系统命令。这很有用，因为我们需要使用\
+  \ `pip` 来安装许多实用程序，我们可以在笔记本中直接运行它。\n\n© Ashwin Pajankar 2021  \nA. Pajankar, *实用\
+  \ Python 数据可视化*,  \n[`doi.org/10.1007/978-1-4842-6455-3_3`](https://doi.org/10.1007/978-1-4842-6455-3_3#DOI)\n\
+  \n---\n\n第 3 章：使用 Leather 进行数据可视化\n\n为本章所有代码创建一个新的 Jupyter 笔记本。我们将在所有章节中遵循此流程，因此到本书结束时，我们将按章节将所有程序都保存在笔记本中。\n\
+  \n要在笔记本单元格中执行操作系统命令，我们必须使用 `!` 符号作为前缀，如下所示：\n\n```\n!dir\n```\n\n该命令的输出如图 3-1 所示。\n\
+  \n**图 3-1.** Jupyter Notebook 中操作系统命令的输出\n\n你可以通过运行以下语句来升级 `pip` 工具：\n\n```\n!pip3\
+  \ install --upgrade pip\n```\n\n使用以下语句安装用于数据可视化演示的 `leather` 库：\n\n```\n!pip3 install\
+  \ leather\n```\n\n这将在计算机上安装 `leather` 数据可视化库。在下一节中，我们将开始使用笔记本进行 Python 和 `leather`\
+  \ 的可视化操作。\n\n---\n\n第 3 章：使用 Leather 进行数据可视化\n\n## Leather 简介\n\n`leather` 是一个易于使用、广受欢迎的\
+  \ Python 数据可视化库。你可以在 Python 包索引 (PyPI) 上找到它，网址为 [`pypi.org/project/leather/`](https://pypi.org/project/leather/)。\n\
+  \n\n\n"
+- "# 第 3 章 使用 leather 进行数据可视化\n\n[org/project/leather/](https://pypi.org/project/leather/)。`PyPI`是一个第三方软件包仓库，可以使用`pip3`工具进行下载。我们也可以在\
+  \ PyPI 上搜索某个包是否可用。在笔记本中运行以下命令：\n\n```\n!pip3 search leather\n```\n\n输出结果如图 3-2 所示。\n\
+  \n***图 3-2.** 使用 pip3 搜索软件包*\n\n在继续之前，我们需要事先了解一些关于 Python 编程语言的知识。在 Python 中，缩进用于表示代码块。在\
+  \ C、C++和 Java 等几种流行的编程语言中，多行代码块用花括号`{}`括起来。Python 则强制程序员缩进代码块，没有其他表示方法。以下面的代码为例。\n\
+  \n```\na = 3\n\nif a%2 == 0:\n\nprint('Even')\n\nelse:\n\nprint('Odd')\n```\n\n\
+  在笔记本中运行该代码并查看结果。还有一件有趣的事情可以尝试。我们已经了解了《Python 之禅》（PEP 20）。Python 的创建者将其作为彩蛋添加在解释器中，你可以通过以下语句调用它：\n\
+  \n```\nimport this\n```\n\n如果在笔记本中运行这行语句，它会在输出中打印《Python 之禅》的所有箴言。\n\n请注意，我们使用 Jupyter\
+  \ Notebook 演示的所有程序，稍加修改后也可以在 IDLE 中运行。我们之所以使用 Jupyter Notebook，是因为它具有即时反馈和交互式功能。现在，让我们使用`import`语句将\
+  \ leather 库添加到笔记本中。\n\n每个会话只需导入一次，它在整个会话期间都可使用。使用以下语句：\n\n```\nimport leather\n\
+  ```\n\n运行后，它会将该库导入到当前的笔记本会话中。最好为每个新主题添加一个标题，但这由你自己决定。你会发现，我在本书配套代码的笔记本中经常使用标题，以便为演示的内容提供上下文和参考。这是一个好习惯，你可能也想效仿。\n\
+  \n让我们编写简单的代码来可视化一些数据点。我们可以在 X-Y 坐标系中定义这些点。我们可以使用元组列表来定义点，如下所示：\n\n```\ndata1 = [(1.5,\
+  \ 2), (2, 3), (4.5, 6), (7.5, 4)]\n```\n\n我们也可以将它们定义为列表的列表：\n\n```\ndata1 = [[1.5,\
+  \ 2], [2, 3], [4.5, 6], [7.5, 4]]\n```\n\n我们还可以将它们定义为元组的元组：\n\n```\ndata1 = ((1.5,\
+  \ 2), (2, 3), (4.5, 6), (7.5, 4))\n```\n\n![](img/index-46_1.jpg)\n\n我们也可以将它们定义为列表的元组：\n\
+  \n```\ndata1 = ([1.5, 2], [2, 3], [4.5, 6], [7.5, 4])\n```\n\n正如你所看到的，leather 库在数据定义方式上并不苛刻，非常灵活。\n\
+  \n让我们按如下方式定义一个图表对象：\n\n```\nchart = leather.Chart('简单的 x-y 坐标对')\n```\n\n接下来，创建一个散点图：\n\
+  \n```\nchart.add_dots(data1)\n```\n\n然后，按如下方式可视化图表：\n\n```\nchart.to_svg()\n```\n\
+  \n它会在同一个笔记本中显示输出结果，如图 3-3 所示。\n\n***图 3-3.** 绘制数据点*\n\n![](img/index-47_1.jpg)\n\
+  \n我们可以使用以下语句将图像保存到磁盘：\n\n```\nchart.to_svg('image1.svg')\n```\n\n然后，我们可以如下方式自定义散点：\n\
+  \n```\nchart = leather.Chart('自定义散点')\nchart.add_dots(data1, fill_color='#00ff00',\
+  \ radius=10)\nchart.to_svg()\n```\n\n让我们定义更多的数据点：\n\n```\ndata2 = [(2, 3), (4, 5),\
+  \ (5, 6), (7, 5)]\n```\n\n我们还可以按如下方式可视化多个序列：\n\n```\nchart = leather.Chart('可视化多个序列')\n\
+  chart.add_dots(data1)\nchart.add_dots(data2)\nchart.to_svg()\n```\n\n输出结果如图 3-4\
+  \ 所示。\n\n***图 3-4.** 绘制多个序列*\n\n![](img/index-48_1.jpg)\n\n如图 3-4 所示，leather 会根据数据点所属的序列自动为它们分配不同的颜色。\n\
+  \n## 更多可视化类型\n\n\n\n我们可以使用连接各点的线段来可视化数据，如下所示：`chart = leather.Chart('Visualizing\
+  \ Lines')`\n\n`chart.add_line(data1)`\n\n`chart.to_svg()`\n\n输出结果如图 3-5 所示。\n\n\
+  ***图 3-5.** 线段可视化*\n\n我们可以按如下方式自定义线段可视化：\n\n`chart = leather.Chart('Customized Line')`\n\
+  \n`chart.add_line(data1, stroke_color='#0000ff', width=3)`\n\n`chart.to_svg()`\n\
+  \n![](img/index-49_1.jpg)\n\n第 3 章 使用 leather 进行数据可视化\n\n图 3-6 显示了输出结果。\n\n***图\
+  \ 3-6.** 自定义线段*\n\n我们可以按如下方式可视化多条线段：\n\n`chart = leather.Chart('Visualizing Multiple\
+  \ Lines')`\n\n`chart.add_line(data1)`\n\n`chart.add_line(data2)`\n\n`chart.to_svg()`\n\
+  \n![](img/index-50_1.jpg)\n\n第 3 章 使用 leather 进行数据可视化\n\n图 3-7 显示了输出结果。\n\n***图\
+  \ 3-7.** 多条线段可视化*\n\n我们可以在单个可视化中展示多种类型，如下所示：`chart = leather.Chart('Visualizing\
+  \ Multiple Types')`\n\n`chart.add_line(data1)`\n\n`chart.add_dots(data2)`\n\n`chart.to_svg()`\n\
+  \n![](img/index-51_1.jpg)\n\n第 3 章 使用 leather 进行数据可视化\n\n图 3-8 显示了输出结果。\n\n***图\
+  \ 3-8.** 多种类型可视化*\n\n我们可以使用条形图进行可视化，如下所示：\n\n```\ndata = [[1, 'A'], [2, 'B'], [3,\
+  \ 'C'], [4, 'D']]\nchart = leather.Chart('Visualizing Bars')\nchart.add_bars(data)\n\
+  chart.to_svg()\n```\n\n在我们的数据集中，其中一个维度是文本数据。可视化结果如图 3-9 所示。\n\n![](img/index-52_1.png)\n\
+  ![](img/index-52_2.jpg)\n\n第 3 章 使用 leather 进行数据可视化\n\n***图 3-9.** 条形图可视化*\n\n我们可以按如下方式自定义条形图：\n\
+  \n`chart = leather.Chart('Customizing Bars')`\n\n`chart.add_bars(data, fill_color='#777777')`\n\
+  \n`chart.to_svg()`\n\n输出结果如图 3-10 所示。\n\n***图 3-10.** 自定义条形图*\n\n![](img/index-53_1.png)\n\
+  \n第 3 章 使用 leather 进行数据可视化\n\n我们可以使用垂直柱状图进行可视化，如下所示：\n\n```\ndata = [('A', 1), ('B',\
+  \ 2), ('C', 3), ('D', 4)]\nchart = leather.Chart('Visualizing Columns')\nchart.add_columns(data)\n\
+  chart.to_svg()\n```\n\n输出结果如图 3-11 所示。\n\n***图 3-11.** 垂直柱状图*\n\n我们可以按如下方式自定义柱状图：\n\
+  \n`chart = leather.Chart('Customizing Columns')`\n\n`chart.add_columns(data, fill_color='#77ff77')`\n\
+  \n`chart.to_svg()`\n\n![](img/index-54_1.jpg)\n\n第 3 章 使用 leather 进行数据可视化\n\n输出结果如图\
+  \ 3-12 所示。\n\n***图 3-12.** 自定义垂直柱状图*\n\n## 刻度\n\n`leather` 库可以自动或通过编程创建多种类型的刻度。序数刻度是为文本数据自动创建的。示例与我们之前看到的相同：`chart\
+  \ = leather.Chart('The Ordinal Scale')`\n\n`chart.add_columns(data)`\n\n`chart.to_svg()`\n\
+  \n当数据是数值型时，会自动创建线性刻度。我们可以按如下方式设置刻度的范围：\n\n```\nchart = leather.Chart('Linear Scale')\n\
+  chart.add_x_scale(1, 8)\nchart.add_y_scale(1, 7)\nchart.add_line(data1)\nchart.to_svg()\n\
+  ```\n\n![](img/index-55_1.jpg)\n\n第 3 章 使用 leather 进行数据可视化\n\n图 3-13 显示了输出结果。\n\n\
+  ***图 3-13.** 自定义范围的线性刻度*\n\n时间刻度是为时间（与时间相关）数据自动创建的：\n\n```\nfrom datetime import\
+  \ date\n\ndata = [\n    (date(2020, 1, 1), 4),\n    (date(2020, 3, 1), 6),\n   \
+  \ (date(2020, 6, 1), 2),\n    (date(2020, 9, 1), 1)\n]\n\nchart = leather.Chart('Temporal\
+  \ Scale')\nchart.add_x_scale(date(2019, 9, 1), date(2020, 12, 1))\nchart.add_line(data)\n\
+  chart.to_svg()\n```\n\n![](img/index-56_1.jpg)\n\n第 3 章 使用 leather 进行数据可视化\n\n输出结果如图\
+  \ 3-14 所示。\n\n***图 3-14.** 自定义范围的时间刻度*\n\n## 样式\n\nLeather 提供了许多样式选项。我们可以根据需求设置坐标轴上的刻度值，如下所示：\n\
+  \n```\nchart = leather.Chart('Ticks Demo')\nchart.add_x_scale(1, 8)\nchart.add_x_axis(ticks=[1,\
+  \ 2, 3, 4, 5, 6, 7, 8])\nchart.add_y_scale(1, 7)\n```\n\n\n\n`chart.add_y_axis(ticks=[1,\
+  \ 2, 3, 4, 5, 6, 7])`\n\n`chart.add_line(data1)`\n\n`chart.to_svg()`\n\n![](img/index-57_1.jpg)\n\
+  \n## 第 3 章 使用 leather 进行数据可视化\n\n输出结果如图 3-15 所示。\n\n***图 3-15.** 自定义刻度值*\n\n我们还可以自定义用于显示数值与序列的字体和颜色。以下是一个简单示例。\n\
+  \n`leather.theme.title_font_family = 'Times New Roman'`\n\n`leather.theme.legend_font_family\
+  \ = 'Times New Roman'`\n\n`leather.theme.tick_font_family = 'Times New Roman'`\n\
+  \n`leather.theme.default_series_colors = ['#ff0000', '#00ff00']`\n\n`chart = leather.Chart('自定义字体')`\n\
+  \n`chart.add_line(data1)`\n\n`chart.add_line(data2)`\n\n`chart.to_svg()`\n\n![](img/index-58_1.jpg)\n\
+  \n## 第 3 章 使用 leather 进行数据可视化\n\n图 3-16 展示了此示例的输出结果。\n\n***图 3-16.** 自定义字体与颜色*\n\
+  \n我们还可以通过以下代码根据数据点的位置为其着色。首先在笔记本中导入随机库：`import random`\n\n我们将使用它生成如下数据点：\n\n```python\n\
+  data = [(random.randint(0, 250),\n         random.randint(0, 250)) for i in range(100)]\n\
+  ```\n\n这会创建 100 个数据点。这 100 个点的 x 轴和 y 轴值均从 0 到 250 的区间中随机选取。我们可以编写一个颜色函数，根据点的位置返回\
+  \ RGB 格式的颜色值。\n\n```python\ndef colorizer(location):\n    return 'rgb(%i, %i, %i)'\
+  \ % (location.x, location.y, 150)\n```\n\n![](img/index-59_1.jpg)\n\n## 第 3 章 使用\
+  \ leather 进行数据可视化\n\n调用此函数来定义点的填充颜色，具体如下：\n\n```python\nchart = leather.Chart('着色点')\n\
+  chart.add_dots(data, fill_color=colorizer)\nchart.to_svg()\n```\n\n输出结果如图 3-17 所示。\n\
+  \n***图 3-17.** 数据点的自定义颜色*\n\n## 本章小结\n\n本章通过使用流行的数据可视化库 leather 演示了如何用 Python 进行数据可视化。我们介绍了不同类型的可视化图表、样式和刻度。Leather\
+  \ 是一个非常简单的数据可视化库，仅能可视化简单的图形。\n\n你的业务需求或科学可视化可能需要更复杂精细的图表。为此，你需要熟悉科学 Python 生态系统。下一章将详细探讨科学\
+  \ Python 生态系统。我们还将学习 NumPy N 维数组（也称为 ndarray）的基础知识。\n\n## 第 4 章\n\n## 科学 Python\
+  \ 生态系统与 NumPy\n\n在第 3 章中，你学习了如何使用 Python 3 和 leather 数据可视化库创建简单的可视化图表。你还了解到，使用 leather\
+  \ 数据可视化库只能准备基本的可视化图表。对于更复杂精细的可视化，我们需要使用具有高级数据处理和可视化功能的库。\n\n本章将探讨科学 Python 生态系统及其组成部分。它还将通过几个代码演示简要介绍\
+  \ NumPy 库。本章探讨以下主题：\n\n- 科学 Python 生态系统\n- NumPy 与 ndarray\n- Ndarray 属性\n- NumPy\
+  \ 常量\n\n在本书的剩余章节中，我们将逐一探讨科学 Python 生态系统的许多组成部分。在整本书中，我们将使用属于这个科学 Python 生态系统的不同库。本章获得的有价值知识将为后续章节奠定基础。由于本章是为一个广泛的生态系统编写的入门章节，我将其保持得简短而实用。\n\
+  \n© Ashwin Pajankar 2021  \nA. Pajankar 著，《实用 Python 数据可视化》，  \n<https://doi.org/10.1007/978-1-4842-6455-3_4>\n\
+  \n## 科学 Python 生态系统\n\n科学 Python 生态系统（SciPy）是一个用于数学、科学和工程的 Python 库集合。SciPy 拥有以下核心组件：\n\
+  \n1.  *Python 编程语言：* 我们在第 1 章中探讨了 Python 3 编程语言的安装和一些基础知识。\n2.  *NumPy：* 这是数值 Python\
+  \ 库，是 Python 中进行数值计算的基础包。它定义了一种 *N* 维数据类型，可用于对多维数据进行数值计算。\n3.  *SciPy 库：* 它包含许多用于数学和科学计算的例程，可用于科学应用。\n\
+  4.  *Matplotlib：* 这是一个受 MATLAB 启发的 Python 3 数据可视化库。\n\n该生态系统中还有几个额外的重要成员库。\n\n1.\
+  \  *Pandas：* 代表 Python 数据分析。它提供了灵活的数据结构，如序列和数据帧。\n2.  *SymPy：* 代表符号 Python。它用于符号数学和代数。\n\
+  3.  *scikit-image：* 该库包含用于图像处理的例程。\n4.  *scikit-learn：* 该库包含用于机器学习的例程。\n\n通常与 SciPy\
+  \ 一起使用的交互环境是 IPython 或 Jupyter Notebook。我们在第 2 章中详细了解了 Jupyter Notebook，并在第 3 章中也使用了它。在本书的其余部分我们将继续使用它。\n\
+  \n下一节将更详细地介绍 NumPy 库。\n\n## NumPy 与 Ndarrays\n\n如前所述，NumPy 是 Python 中进行数值计算的基础包。NumPy\
+  \ 库最有用的特性是称为 ndarray 的多维容器数据结构。\n\nndarray 是一个多维数组（也称为容器），其中包含具有相同数据类型和大小的元素。我们可以在创建\
+  \ ndarray 时定义元素的大小和数据类型。就像列表等其他数据结构一样，我们可以通过索引访问 ndarray 的内容。ndarray 中的索引范围从 0 开始（类似于\
+  \ C 语言中的数组或 Python 中的列表）。我们可以将 ndarray 用于各种计算。\n\nSciPy 中的所有其他库以及其他库也能识别并使用 NumPy\
+  \ ndarray 及相关例程来表示其自身的数据结构并对其进行操作。\n\n让我们从一个动手示例开始。为此章创建一个新的 Jupyter 笔记本，然后运行以下命令安装\
+  \ NumPy 库：\n\n`!pip3 install numpy`\n\n通过运行以下命令将其导入当前笔记本：\n\n```python\nimport numpy\
+  \ as np\n```\n\n你可以创建一个列表，然后像这样用它来创建一个简单的 ndarray：\n\n```python\nl1 = [1, 2, 3]\n\
+  x = np.array(l1, dtype=np.int16)\n```\n\n这里我们从一个列表创建一个 ndarray。成员的数据类型是 16 位整数。你可以在\
+  \ <https://numpy.org/devdocs/user/basics.types.html> 找到所支持数据类型的详细列表。\n\n我们可以将前面的代码写成单行，如下所示：\n\
+  \n```python\nx = np.array(l1, dtype=np.int16)\n```\n\n让我们打印 ndarray 的值及其类型（我们知道，类型是\
+  \ ndarray）。\n\n```python\nprint(x)\nprint(type(x))\n```\n\n输出如下：\n\n```\n[1 2 3]\n\
+  <class 'numpy.ndarray'>\n```\n\n正如我们在输出中观察到的，它属于类 `numpy.ndarray`。正如我们之前所学，索引从 0\
+  \ 开始。让我们通过如下方式访问 ndarray 的元素来演示这一点：\n\n```python\nprint(x[0]); print(x[1]); print(x[2])\n\
+  ```\n\n输出如下：\n\n```\n1\n2\n3\n```\n\n我们甚至可以使用负索引：-1 返回最后一个元素，-2 返回倒数第二个元素，依此类推。示例如下：\n\
+  \n```python\nprint(x[-1])\n```\n\n如果我们提供任何无效的索引值，它会抛出一个错误。\n\n```python\nprint(x[3])\n\
+  ```\n\n\n\n在这个语句中，我们试图访问 `ndarray` 的第四个元素，但它并不存在。因此返回以下错误：`IndexError Traceback\
+  \ (most recent call last)`\n\n```\n<ipython-input-4-d3c02b9c2b5d> in <module>\n\
+  ----> 1 print(x[3])\nIndexError: index 3 is out of bounds for axis 0 with size 3\n\
+  ```\n\n## 多维\n\n数组也可以拥有多个维度，如下所示：`x1 = np.array([[1, 2, 3], [4, 5, 6]], np.int16)`\n\
+  \n这表示一个两行三列的二维矩阵。我们可以按如下方式访问单个元素：\n\n`print(x1[0, 0]); print(x1[0, 1]); print(x1[0,\
+  \ 2]);`\n\n我们甚至可以访问整行：\n\n`print(x1[0, :])`\n`print(x1[1, :])`\n\n输出如下：\n\n```\n\
+  [1 2 3]\n[4 5 6]\n```\n\n我们可以使用以下语法访问整列：\n\n`print(x[:, 0])`\n\n输出如下：\n\n```\n[1\
+  \ 4]\n```\n\n我们甚至可以拥有超过两个维度的 `ndarray`。以下是创建三维 (3D) 数组的语法：\n\n`x2 = np.array([[[1,\
+  \ 2, 3], [4, 5, 6]],[[0, -1, -2], [-3, -4, -5]]], np.int16)`\n\n科学和商业应用经常使用多维数据。Ndarrays\
+  \ 对于存储数值数据非常有用。尝试运行以下命令并检索前面 3D 矩阵中的元素。\n\n`print(x2 [0, 0, 0])`\n`print(x2 [1,\
+  \ 1, 2])`\n`print(x2[:, 1, 1])`\n\n## Ndarray 属性\n\n我们可以通过 ndarray 的属性来了解更多信息。\n\
+  \n首先，我们通过演示来看看所有属性。此示例使用我们之前用过的同一个 3D 矩阵。\n\n`x2 = np.array([[[1, 2, 3], [4, 5,\
+  \ 6]],[[0, -1, -2], [-3, -4, -5]]], np.int16)`\n\n我们可以通过以下语句获取维度数量：`print(x2.ndim)`\n\
+  \n输出返回维度数量。然后，我们可以按如下方式了解 `ndarray` 的形状：\n\n`print(x2.shape)`\n\n形状表示各个维度的大小，如下所示：`(2,\
+  \ 2, 3)`\n\n我们可以按如下方式确定成员的数据类型：\n\n`print(x2.dtype)`\n\n输出如下：\n\n```\nint16\n```\n\
+  \n我们还可以了解大小（元素数量）以及存储所需的内存字节数，如下所示：\n\n`print(x2.size)`\n`print(x2.nbytes)`\n\n\
+  输出如下：\n\n我们可以使用以下代码计算转置：\n\n`print(x2.T)`\n\n## NumPy 常量\n\nNumPy 库包含许多有用的数学和科学常量，您可以在程序中使用它们。以下代码片段打印了所有重要的常量：\n\
+  \n`print(np.inf)`\n`print(np.NAN)`\n`print(np.NINF)`\n`print(np.NZERO)`\n`print(np.PZERO)`\n\
+  `print(np.e)`\n`print(np.euler_gamma)`\n`print(np.pi)`\n\n输出如下：\n\n```\ninf\nnan\n\
+  -inf\n-0.0\n0.0\n2.718281828459045\n0.5772156649015329\n3.141592653589793\n```\n\
+  \n## 总结\n\n本章介绍了 NumPy 和 ndarray 的基础知识。NumPy 库非常庞大，包含许多例程。甚至有专门介绍 NumPy 的书籍。就我们的目的而言，我们将在后续章节中根据可视化演示的需要，探索\
+  \ NumPy 库中更多的例程。\n\n下一章将介绍一些 ndarray 创建例程以及使用 Matplotlib 进行数据可视化的基础知识。\n\n## 第 5\
+  \ 章\n\n## 数据可视化\n\n## 使用 NumPy\n\n## 和 Matplotlib\n\n第 4 章介绍了 NumPy 的基础知识。您学习了如何安装它以及如何创建\
+  \ ndarray。在本章中，我们将继续使用 NumPy，了解一些 ndarray 创建例程。我们还将开始使用科学计算生态系统中的数据可视化库 Matplotlib。我们将使用\
+  \ NumPy 的 ndarray 创建例程来演示如何使用 Matplotlib 进行可视化。本章内容详尽，重点是代码和可视化。本章涵盖以下主题：\n\n• Matplotlib\n\
+  \n• 使用 NumPy 和 Matplotlib 进行可视化\n\n• 单线图\n\n• 多线图\n\n• 网格、坐标轴和标签\n\n• 颜色、样式和标记\n\
+  \n© Ashwin Pajankar 2021\nA. Pajankar，*实用 Python 数据可视化*，\n\n\n\n[`doi.org/10.1007/978-1-4842-6455-3_5`](https://doi.org/10.1007/978-1-4842-6455-3_5#DOI)\n\
+  \n## 第 5 章 使用 `numpy` 和 `matplotlib` 进行数据可视化\n\n在本书的后续章节中，我们将使用 Matplotlib 和 NumPy\
+  \ 来演示数据可视化。\n\n## Matplotlib\n\nMatplotlib 是 SciPy 的重要组成部分，用于数据可视化。它是 NumPy 的扩展，提供了类似\
+  \ MATLAB 的绘图和可视化接口。它最初由 John D Hunter 开发，作为 Python 可用的开源替代方案。\n\n我们可以通过 Jupyter\
+  \ Notebook 按如下方式安装它：\n\n```\n!pip3 install matplotlib\n```\n\n要在 notebook 中使用它进行基本绘图，我们必须按如下方式导入其\
+  \ `pyplot` 模块：\n\n```\nimport matplotlib.pyplot as plt\n```\n\n此外，要在 notebook 中显示\
+  \ Matplotlib 的可视化结果，我们必须运行以下命令：\n\n```\n%matplotlib inline\n```\n\n这强制 Matplotlib\
+  \ 将输出内联显示，直接位于生成该可视化的代码单元格下方。当我们需要使用 Matplotlib 时，总会使用此命令。\n\n我们也来导入 NumPy，如下所示：\n\
+  \n```\nimport numpy as np\n```\n\n你可以在 [`matplotlib.org/`](https://matplotlib.org/)\
+  \ 上阅读关于 Matplotlib 的更多信息。\n\n### 使用 NumPy 和 Matplotlib 进行可视化\n\n现在我们将学习如何使用 `ndarray`\
+  \ 创建例程来创建 NumPy ndarray，然后使用 Matplotlib 对其进行可视化。让我们从创建 `ndarray` 的例程开始。\n\n第一个例程是\
+  \ `arange()`。它使用给定的步长创建均匀间隔的值。必须提供一个终止值参数。起始值和步长参数分别有默认参数 0 和 1。\n\n让我们看一个例子。\n\n\
+  ```\nx = np.arange(5)\n```\n\n在此示例中，终止值为 5，因此它会创建一个从 0 开始到 4 结束的 `ndarray`。该函数返回一个具有半开区间的序列，这意味着终止值不包含在输出中。因为我们没有指定步长，它默认为\
+  \ 1。我们可以查看输出及其数据类型，如下所示：\n\n```\nprint(x)\ntype(x)\n```\n\n输出如下：\n\n```\n[0 1 2\
+  \ 3 4]\nnumpy.ndarray\n```\n\n让我们继续绘制这些数字。对于二维绘图，我们需要 X-Y 对。\n\n我们保持简单，通过运行以下语句设置\
+  \ `y = f(x) = x`：`y=x`\n\n现在，使用函数 `plot()` 来可视化它。它需要 X、Y 的值以及绘图选项。我们将在本章后面学习更多关于绘图选项的内容。\n\
+  \n```\nplt.plot(x, y, 'o--')\nplt.show()\n```\n\n![](img/index-71_1.jpg)\n\n函数 `show()`\
+  \ 用于显示图形。如上所示，我们使用绘图选项 `o--` 进行可视化。这意味着点用实心圆表示，线为虚线，如图 5-1 所示。\n\n***图 5-1.** 可视化\
+  \ `y=f(x)=x`*\n\n让我们看一个带有起始值和终止值参数的函数 `arange()` 调用示例：\n\n```\nnp.arange(2, 6)\n\
+  ```\n\n它返回以下输出（直接打印，我们未将其存储在变量中）：\n\n```\narray([2, 3, 4, 5])\n```\n\n我们甚至可以为步长添加一个参数，如下所示：\n\
+  \n```\nnp.arange(2, 6, 2)\n```\n\n输出如下：\n\n```\narray([2, 4])\n```\n\n![](img/index-72_1.jpg)\n\
+  \n输出显示在图 5-2 中。\n\n***图 5-2.** 带标题的输出*\n\n函数 `linspace(start, stop, number)` 在指定的区间内返回均匀间隔的数字。我们必须向其传递起始值、终止值和值的数量，如下所示：\n\
+  \n```\nN = 11\nx = np.linspace(0, 10, N)\nprint(x)\n```\n\n这段代码创建了 11 个数字（包含 0 到\
+  \ 10），如下所示：\n\n```\n[ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9. 10.]\n```\n\n我们可以通过以下方式可视化它：\n\
+  \n```\ny = x\nplt.plot(x, y, 'o--')\nplt.axis('off')\nplt.show()\n```\n\n![](img/index-73_1.jpg)\n\
+  \n输出显示在图 5-3 中。\n\n***图 5-3.** 使用 `linspace()` 的 `y = x` 输出*\n\n\n\n如你所见，我们通过 `plt.axis('off')`\
+  \ 这一行代码来关闭坐标轴。\n\n类似地，我们可以按如下方式计算并可视化对数空间中的数值：\n\n```\ny = np.logspace(0.1, 1, N)\n\
+  print(y)\nplt.plot(x, y, 'o--')\nplt.show()\n```\n\n![](img/index-74_1.jpg)\n![](img/index-74_2.jpg)\n\
+  \n## 第 5 章 使用 NumPy 和 Matplotlib 进行数据可视化\n\n输出结果如图 5-4 所示。\n\n***图 5-4.** `logspace()`\
+  \ 的输出*\n\n我们甚至可以按如下方式计算等比数列：\n```\ny = np.geomspace(0.1, 1000, N)\nprint(y)\nplt.plot(x,\
+  \ y, 'o--')\nplt.show()\n```\n输出结果显示在图 5-5 中。\n\n***图 5-5.** `geomspace()` 的输出*\n\
+  \n![](img/index-75_1.jpg)\n\n## 第 5 章 使用 NumPy 和 Matplotlib 进行数据可视化\n\n## 单线图\n\n\
+  在本节中，我们将探讨绘制单线图的几种方法。我们之前已使用 `plot()` 函数来绘制图形。当一张图中只使用 `plot()` 函数绘制了一个可视化图形时，这被称为单线图。让我们通过几个示例进一步了解。\n\
+  \n我们也可以使用 Python 列表来可视化图形，如下所示：\n```\nx = [1, 4, 5, 2, 3, 6]\nplt.plot(x)\nplt.show()\n\
+  ```\n输出结果如图 5-6 所示。\n\n***图 5-6.** 简单的单线图*\n\n在此例中，y 轴的值是自动假定的。这是另一个示例：\n```\nx\
+  \ = np.arange(10)\nplt.plot(x)\nplt.show()\n```\n![](img/index-76_1.jpg)\n![](img/index-76_2.jpg)\n\
+  \n## 第 5 章 使用 NumPy 和 Matplotlib 进行数据可视化\n\n输出结果显示在图 5-7 中。\n\n***图 5-7.** 使用 `arange()`\
+  \ 绘制的简单单线图*\n\n接下来，让我们可视化一个二次函数图形 `y = f(x) = x2`。代码如下：\n```\nplt.plot(x, [y**2\
+  \ for y in x])\nplt.show()\n```\n输出结果如图 5-8 所示。\n\n***图 5-8.** `y = f(x) = x2`*\n\
+  \n![](img/index-77_1.jpg)\n\n## 第 5 章 使用 NumPy 和 Matplotlib 进行数据可视化\n\n我们可以用更简洁的方式编写相同的代码：\n\
+  ```\nplt.plot(x, x**2)\nplt.show()\n```\n## 多线图\n\n在同一张可视化图形中显示多个图形是可行的。让我们通过一个简单示例来看看如何在同一张图中显示多条曲线：\n\
+  ```\nx = np.arange(10)\nplt.plot(x, x**2)\nplt.plot(x, x**3)\nplt.plot(x, x*2)\n\
+  plt.plot(x, 2**x)\nplt.show()\n```\n输出结果如图 5-9 所示。\n\n***图 5-9.** 多线图*\n\n![](img/index-78_1.jpg)\n\
+  \n## 第 5 章 使用 NumPy 和 Matplotlib 进行数据可视化\n\n正如我们所看到的，Matplotlib 会自动为每条曲线分配不同的颜色。\n\
+  \n我们可以用更简洁的方式编写相同的代码：\n```\nplt.plot(x, x**2, x, x**3, x, x*2, x, 2**x)\nplt.show()\n\
+  ```\n输出结果将与图 5-9 相同。\n\n这是另一个示例：\n```\nx = np.array([[1, 2, 6, 3], [4, 5, 3, 2]])\n\
+  plt.plot(x)\nplt.show()\n```\n输出结果显示在图 5-10 中。\n\n***图 5-10.** 多线图的另一个示例*\n\n![](img/index-79_1.jpg)\n\
+  \n## 第 5 章 使用 NumPy 和 Matplotlib 进行数据可视化\n\n## 网格、坐标轴和标签\n\n之前，我们了解了如何在可视化图形中启用网格。这可以通过语句\
+  \ `plt.grid(True)` 实现。现在，我们将学习如何操作坐标轴的界限。不过在此之前，我们先快速学习如何将可视化图形保存为图片。请看以下代码：\n```\n\
+  x = np.arange(3)\nplt.plot(x, x**2, x, x**3, x, 2*x, x, 2**x)\nplt.grid(True)\n\
+  plt.savefig('test.png')\nplt.show()\n```\n语句 `plt.savefig('test.png')` 将图片保存在 Jupyter\
+  \ Notebook 文件的当前目录中。输出结果如图 5-11 所示。\n\n***图 5-11.** 多线图*\n\n![](img/index-80_1.jpg)\n\
+  \n## 第 5 章 使用 NumPy 和 Matplotlib 进行数据可视化\n\n我们可以看到，坐标轴的界限是默认设置的。我们可以将它们设置为特定值，如下所示：\n\
+  ```\nx = np.arange(3)\nplt.plot(x, x**2, x, x**3, x, 2*x, x, 2**x)\nplt.grid(True)\n\
+  plt.axis([0, 2, 0, 8])\nprint(plt.axis())\nplt.show()\n```\n输出结果显示在图 5-12 中。\n\n\
+  ***图 5-12.** 设置坐标轴*\n\n语句 `plt.axis([0, 2, 0, 8])` 用于设置坐标轴的值。\n\n\n\n"
+- "# 第 5 章 使用 numpy 和 matplotlib 进行数据可视化\n\n第一对 `(0, 2)` 指的是 x 轴的界限，第二对 `(0, 8)` 指的是\
+  \ y 轴的界限。我们可以使用 `xlim()` 和 `ylim()` 函数以不同的语法编写这段代码，如下所示：\n\n```python\nx = np.arange(3)\n\
+  \nplt.plot(x, x**2, x, x**3, x, 2*x, x, 2**x)\n\nplt.grid(True)\n```\n\n![图 5-12](img/index-81_1.jpg)\n\
+  \n```python\nplt.xlim([0, 2])\n\nplt.ylim([0, 8])\n\nplt.show()\n```\n\n这段代码生成的输出与图\
+  \ 5-12 完全相同。你可以添加标题和轴标签，如下所示：\n\n```python\nx = np.arange(3)\n\nplt.plot(x, x**2,\
+  \ x, x**3, x, 2*x, x, 2**x)\n\nplt.grid(True)\n\nplt.xlabel('x = np.arange(3)')\n\
+  \nplt.xlim([0, 2])\n\nplt.ylabel('y = f(x)')\n\nplt.ylim([0, 8])\n\nplt.title('Simple\
+  \ Plot Demo')\n\nplt.show()\n```\n\n这将生成包含标签和标题的输出，如图 5-13 所示。\n\n**图 5-13.** 轴的标题和标签\n\
+  \n![图 5-13](img/index-82_1.jpg)\n\n我们可以在 `plot()` 函数中为 `label` 参数传递一个实参，然后调用 `legend()`\
+  \ 函数来创建图例，如下所示：\n\n```python\nx = np.arange(3)\n\nplt.plot(x, x**2, label='x**2')\n\
+  \nplt.plot(x, x**3, label='x**3')\n\nplt.plot(x, 2*x, label='2*x')\n\nplt.plot(x,\
+  \ 2**x, label='2**x')\n\nplt.legend()\n\nplt.grid(True)\n\nplt.xlabel('x = np.arange(3)')\n\
+  \nplt.xlim([0, 2])\n\nplt.ylabel('y = f(x)')\n\nplt.ylim([0, 8])\n\nplt.title('Simple\
+  \ Plot Demo')\n\nplt.show()\n```\n\n这将生成带有曲线图例的输出，如图 5-14 所示。\n\n**图 5-14.** 带有图例的输出\n\
+  \n除了将图例字符串作为实参传递给 `plot()` 函数外，我们还可以将字符串列表作为实参传递给 `legend()` 函数，如下所示：\n\n```python\n\
+  x = np.arange(3)\n\nplt.plot(x, x**2, x, x**3, x, 2*x, x, 2**x)\n\nplt.legend(['x**2',\
+  \ 'x**3', '2*x', '2**x'])\n\nplt.grid(True)\n\nplt.xlabel('x = np.arange(3)')\n\n\
+  plt.xlim([0, 2])\n\nplt.ylabel('y = f(x)')\n\nplt.ylim([0, 8])\n\nplt.title('Simple\
+  \ Plot Demo')\n\nplt.show()\n```\n\n它生成的输出与图 5-14 完全相同。\n\n我们还可以通过修改上述代码来更改图例框的位置，如下所示：\n\
+  \n```python\nplt.legend(['x**2', 'x**3', '2*x', '2**x'], loc='upper center')\n```\n\
+  \n输出如图 5-15 所示。\n\n![图 5-15](img/index-84_1.jpg)\n\n**图 5-15.** 图例位于中上位置的输出\n\n\
+  ## 颜色、样式和标记\n\n到目前为止，在多线图的情况下，我们已经看到 Matplotlib 会自动分配颜色、样式和标记。我们也看到了一些自定义它们的例子。在本节中，我们将详细探讨如何自定义它们。\n\
+  \n我们从颜色开始。下面的代码列出了 Matplotlib 支持的所有基本颜色（在本例中，我们没有自定义样式和标记）。\n\n```python\nx = np.arange(5)\n\
+  \ny = x\n\nplt.plot(x, y+1, 'g')\n\nplt.plot(x, y+0.5, 'y')\n\nplt.plot(x, y, 'r')\n\
+  \nplt.plot(x, y-0.2, 'c')\n\nplt.plot(x, y-0.4, 'k')\n\nplt.plot(x, y-0.6, 'm')\n\
+  \nplt.plot(x, y-0.8, 'w')\n\nplt.plot(x, y-1, 'b')\n\nplt.show()\n```\n\n输出如图 5-16\
+  \ 所示。\n\n![图 5-16](img/index-85_1.jpg)\n\n我们也可以将上述代码编写如下：\n\n```python\nplt.plot(x,\
+  \ y+1, 'g', x, y+0.5, 'y', x, y, 'r', x, y-0.2, 'c', x, y-0.4, 'k', x, y-0.6, 'm',\
+  \ x, y-0.8, 'w', x, y-1, 'b')\n\nplt.show()\n```\n\n输出将与图 5-16 完全相同。\n\n**图 5-16.**\
+  \ 颜色演示\n\n我们可以如下自定义线条样式：\n\n```python\nplt.plot(x, y, '-', x, y+1, '--', x, y+2,\
+  \ '-.', x, y+3, ':')\n\nplt.show()\n```\n\n![图 5-17](img/index-86_1.jpg)\n\n**图\
+  \ 5-17.** 线条样式\n\n你甚至可以像这样更改标记：\n\n```python\nplt.plot(x, y, '.')\n\nplt.plot(x,\
+  \ y+0.5, ',')\n\nplt.plot(x, y+1, 'o')\n\nplt.plot(x, y+2, '<')\n\nplt.plot(x, y+3,\
+  \ '>')\n\nplt.plot(x, y+4, 'v')\n\nplt.plot(x, y+5, '^')\n```\n\n\n\n```python\n\
+  plt.plot(x, y+6, '1')\nplt.plot(x, y+7, '2')\nplt.plot(x, y+8, '3')\nplt.plot(x,\
+  \ y+9, '4')\nplt.plot(x, y+10, 's')\nplt.plot(x, y+11, 'p')\nplt.plot(x, y+12, '*')\n\
+  ```\n\n![](img/index-87_1.jpg)\n\n## 第 5 章 使用 NumPy 和 Matplotlib 进行数据可视化\n\n```python\n\
+  plt.plot(x, y+13, 'h')\nplt.plot(x, y+14, 'H')\nplt.plot(x, y+15, '+')\nplt.plot(x,\
+  \ y+16, 'D')\nplt.plot(x, y+17, 'd')\nplt.plot(x, y+18, '|')\nplt.plot(x, y+19,\
+  \ '_')\nplt.show()\n```\n\n输出结果如图 5-18 所示。\n\n***图 5-18.** 标记样式*\n\n所有三个特性（颜色、标记和线条样式）可以组合起来自定义可视化效果，如下所示：\n\
+  \n```python\nplt.plot(x, y, 'mo--')\nplt.plot(x, y+1 , 'g*-.')\nplt.show()\n```\n\
+  \n![](img/index-88_1.jpg)\n\n## 第 5 章 使用 NumPy 和 Matplotlib 进行数据可视化\n\n输出结果如图 5-19\
+  \ 所示。\n\n***图 5-19.** 自定义所有元素*\n\n这些是基本自定义，但你可以更详细地自定义所有内容。例如，使用以下代码自定义其他细节：\n\n\
+  ```python\nplt.plot(x, y, color='g', linestyle='--', linewidth=1.5,\n         marker='^',\
+  \ markerfacecolor='b', markeredgecolor='k',\n         markeredgewidth=1.5, markersize=5)\n\
+  plt.grid(True)\nplt.show()\n```\n\n![](img/index-89_1.jpg)\n\n## 第 5 章 使用 NumPy\
+  \ 和 Matplotlib 进行数据可视化\n\n输出结果如图 5-20 所示。\n\n***图 5-20.** 自定义更多细节*\n\n你甚至可以按如下方式自定义\
+  \ `x` 和 `y` 轴上的刻度值：\n\n```python\nx = y = np.arange(10)\nplt.plot(x, y, 'o--')\n\
+  plt.xticks(range(len(x)), ['a', 'b', 'c', 'd', 'e', 'f', 'g',\n                \
+  \             'h', 'i', 'j'])\nplt.yticks(range(0, 10, 1))\nplt.show()\n```\n\n\
+  ![](img/index-90_1.jpg)\n\n## 第 5 章 使用 NumPy 和 Matplotlib 进行数据可视化\n\n输出结果如图 5-21\
+  \ 所示。\n\n***图 5-21.** 自定义坐标轴刻度*\n\n## 小结\n\n本章重点介绍了可视化可用的各种自定义方法。我们学到了大量关于数据可视化的知识。本章涵盖的概念将在本书中持续用于数据可视化。\n\
+  \n在下一章中，我们将进一步探索数据可视化。\n\n我们将学习可视化图像和 3D 形状，并了解图像操作的基础知识。\n\n## 第 6 章\n\n## 可视化图像\n\
+  \n## 与 3D 形状\n\n在第 5 章中，我们开始使用 Python 3 中的 `Matplotlib` 库进行可视化。在本章中，我们将继续使用 `Matplotlib`\
+  \ 和 `NumPy` 来探索图像和 3D 形状的可视化。让我们通过以下主题继续数据可视化的探索：\n\n-   图像可视化\n-   图像操作\n-   3D\
+  \ 可视化\n\n学完本章后，你将能够处理图像和 3D 形状。\n\n## 图像可视化\n\n在本节中，我们将学习如何可视化图像。我们首先为本章创建一个新的笔记本。`Matplotlib`\
+  \ 的 `imread()` 函数可以读取 `.png` 格式的图像文件。要使其能读取其他格式的文件，你必须安装另一个名为 `pillow` 的图像处理库。在笔记本单元格中运行以下命令来安装它：\n\
+  \n```python\n!pip3 install pillow\n```\n\n© Ashwin Pajankar 2021\nA. Pajankar, *实用\
+  \ Python 数据可视化*,\n[`doi.org/10.1007/978-1-4842-6455-3_6`](https://doi.org/10.1007/978-1-4842-6455-3_6#DOI)\n\
+  \n## 第 6 章 可视化图像与 3D 形状\n\n使用我们在第 5 章中讨论过的魔术命令，让笔记本能够显示 `Matplotlib` 的可视化结果：\n\n\
+  ```python\n%matplotlib inline\n```\n\n使用以下命令导入 `Matplotlib` 的 `Pyplot` 模块：\n\n```python\n\
+  import matplotlib.pyplot as plt\n```\n\n现在，让我们使用 `imread()` 函数将图像读入变量，如下所示：\n\n\
+  ```python\nimg1 = plt.imread('D:\\\\Dataset\\\\4.1.02.tiff')\n```\n\n如果你使用的是 Linux、Unix\
+  \ 或 MacOS 计算机，则需要使用以下文件路径约定：\n\n```python\nimg1 = plt.imread('/home/pi/book/dataset/4.1.02.tiff')\n\
+  ```\n\n你使用的路径必须是绝对路径。如果图像文件与程序位于同一目录下，则只需提供文件名即可。\n\n此函数读取图像并将其存储为 `NumPy ndarray`（数值矩阵）。我们可以通过运行以下代码行来验证这一点：\n\
+  \n```python\nprint(type(img1))\n```\n\n输出如下：\n\n```\n<class 'numpy.ndarray'>\n```\n\
+  \n这证实了科学计算 Python 库将图像视为 `NumPy ndarray`。\n\n我们可以使用 `Matplotlib` 的 `imshow()` 函数显示图像，然后使用\
+  \ `show()` 函数将其作为图形显示，如下所示：\n\n```python\nplt.imshow(img1)\nplt.show()\n```\n\n\
+  ![](img/index-93_1.jpg)\n\n## 第 6 章 可视化图像与 3D 形状\n\n输出结果如图 6-1 所示。\n\n***图 6-1.**\
+  \ 可视化彩色图像*\n\n你可以按如下方式关闭坐标轴：\n\n```python\nplt.imshow(img1)\nplt.axis(False)\nplt.show()\n\
+  ```\n\n**注意** 我用于演示的所有图像均下载自 [`www.imageprocessingplace.com/root_files_V3/image_databases.htm`](http://www.imageprocessingplace.com/root_files_V3/image_databases.htm)。\n\
+  \n让我们按如下方式读取一幅灰度图像：\n\n```python\nimg2 = plt.imread('D:\\\\Dataset\\\\5.3.01.tiff')\n\
+  ```\n\n![](img/index-94_1.jpg)\n\n## 第 6 章 可视化图像与 3D 形状\n\n我们可以使用以下代码显示它：\n\n```python\n\
+  plt.imshow(img2)\nplt.axis(False)\nplt.show()\n```\n\n图 6-2 显示了输出结果。\n\n***图 6-2.**\
+  \ 使用默认颜色映射可视化灰度图像*\n\n正如你所见，颜色看起来有些奇怪，而且这根本不是一幅彩色图像。`Matplotlib` 正在使用默认颜色映射显示灰度图像。我们可以显式指定灰度颜色映射来正确可视化此图像，如下所示：\n\
+  \n```python\nplt.imshow(img2, cmap=plt.cm.gray)\nplt.axis(False)\nplt.show()\n```\n\
+  \n![](img/index-95_1.jpg)\n\n## 第 6 章 可视化图像与 3D 形状\n\n图 6-3 显示了结果。\n\n***图 6-3.**\
+  \ 使用灰度颜色映射可视化灰度图像*\n\n我们也可以按如下方式指定颜色映射：\n\n```python\nplt.imshow(img2, cmap='gray')\n\
+  plt.axis(False)\nplt.show()\n```\n\n接下来，我们转向图像的基本操作。\n\n## 图像操作\n\n我们可以使用 `NumPy`\
+  \ 对图像执行基本操作，并使用 `Matplotlib` 可视化输出结果。首先，我们来学习一些算术运算。我们需要两幅尺寸相同的图像来进行算术运算。让我们按如下方式读取另一幅彩色图像：\n\
+  \n```python\nimg3 = plt.imread('D:\\\\Dataset\\\\4.1.03.tiff')\n```\n\n![](img/index-96_1.jpg)\n\
+  \n## 第 6 章 可视化图像与 3D 形状\n\n我们可以按如下方式将其可视化：\n\n```python\nplt.imshow(img3)\nplt.axis(False)\n\
+  plt.show()\n```\n\n图 6-4 显示了输出结果。\n\n***图 6-4.** 用于图像操作的另一幅彩色图像*\n\n我们可以将两幅图像相加并可视化结果，如下所示：\n\
+  \n```python\nadd = img1+img3\nplt.imshow(add)\nplt.axis(False)\nplt.show()\n```\n\
+  \n![](img/index-97_1.jpg)\n\n## 第 6 章 可视化图像与 3D 形状\n\n图 6-5 显示了输出结果。\n\n***图 6-5.**\
+  \ 两幅图像相加*\n\n加法运算是一种可交换的算术运算。这意味着，如果我们改变操作数的顺序，不会影响输出结果。\n\n```python\nadd1 = img3+img1\n\
+  plt.imshow(add)\nplt.axis(False)\nplt.show()\n```\n\n让我们尝试一下减法运算：\n\n```python\n\
+  sub1= img1-img3\nplt.imshow(sub1)\nplt.axis(False)\nplt.show()\n```\n\n![](img/index-98_1.jpg)\n\
+  \n## 第 6 章 可视化图像与 3D 形状\n\n图 6-6 显示了输出结果。\n\n***图 6-6.** 减法结果*\n\n我们知道减法运算是不可交换的。这意味着，如果我们改变操作数的顺序，结果会不同。\n\
+  \n我们来试试看：\n\n```python\nsub1 = img3-img1\nplt.imshow(sub1)\nplt.axis(False)\nplt.show()\n\
+  ```\n\n如图 6-7 所示的输出结果因此与之前的输出（图 6-6）不同。\n\n![](img/index-99_1.jpg)\n\n## 第 6 章 可视化图像与\
+  \ 3D 形状\n\n***图 6-7.** 减法结果*\n\n\n\n我们已经学习到，在 SciPy 中图像被表示为 NumPy 的 ndarray。彩色图像与灰度图像的区别在于，彩色图像由多个通道组成。这些通道本身也是\
+  \ ndarray。我们可以使用 NumPy 的索引操作拆分彩色图像，并单独可视化其各个通道。彩色图像分别对应红色、绿色和蓝色三个通道。可以通过如下 NumPy\
+  \ 索引来拆分图像：\n\n`r = img3[:, :, 0]`\n\n`g = img3[:, :, 1]`\n\n`b = img3[:, :, 2]`\n\
+  \n下面我们使用 Matplotlib 的 subplots 来可视化原始图像及其各个颜色通道：\n\n`plt.subplots_adjust(hspace=0.4,\
+  \ wspace=0.1)`\n\n`plt.subplot(2, 2, 1)`  \n`plt.title('Original')`  \n`plt.imshow(img3)`\
+  \  \n\n`plt.subplot(2, 2, 2)`  \n`plt.title('Red')`  \n`plt.imshow(r, cmap='gray')`\
+  \  \n\n`plt.subplot(2, 2, 3)`  \n`plt.title('Green')`  \n`plt.imshow(g, cmap='gray')`\
+  \  \n\n`plt.subplot(2, 2, 4)`  \n`plt.title('Blue')`  \n`plt.imshow(b, cmap='gray')`\
+  \  \n\n`plt.show()`\n\n我们来分析一下上述代码。我们使用 `subplot()` 函数创建了一个 2×2 的网格。`subplots_adjust()`\
+  \ 函数用于调整各可视化之间的间距。在 2×2 网格中，左上角位置为 1，同一行中相邻位置为 2，以此类推，右下角是第四个位置。在调用 `imshow()` 或\
+  \ `plot()` 之前使用 `subplot()` 函数，可以指定可视化图应放置的位置。输出结果如图 6-8 所示。\n\n![](img/index-101_1.jpg)\n\
+  \n**图 6-8.** 分离后的颜色通道\n\n这些颜色通道本身是二维矩阵，对于 8 位无符号整数格式的彩色图像，其成员值范围在 0 到 256 之间。当它们组合在一起时，Matplotlib\
+  \ 会将其解释为彩色图像。我们可以使用合适的颜色图谱来可视化，如下所示：\n\n`plt.subplots_adjust(hspace=0.4, wspace=0.1)`\
+  \  \n\n`plt.subplot(2, 2, 1)`  \n`plt.title('Original')`  \n`plt.imshow(img3)` \
+  \ \n\n`plt.subplot(2, 2, 2)`  \n`plt.title('Red')`  \n`plt.imshow(r, cmap='Reds')`\
+  \  \n\n`plt.subplot(2, 2, 3)`  \n`plt.title('Green')`  \n`plt.imshow(g, cmap='Greens')`\
+  \  \n\n`plt.subplot(2, 2, 4)`  \n`plt.title('Blue')`  \n`plt.imshow(b, cmap='Blues')`\
+  \  \n\n`plt.show()`\n\n输出结果如图 6-9 所示。\n\n**图 6-9.** 使用合适颜色图谱可视化的分离颜色通道\n\n我们可以将各个通道组合起来以恢复原始图像，代码如下：\n\
+  \n```\nimport numpy as np\nimg4 = np.dstack((r, g, b))\n```\n\n这里我们使用了 NumPy 库中的\
+  \ `dstack()` 函数。然后使用常规代码可视化输出：\n\n`plt.imshow(img4)`  \n`plt.axis(False)`  \n`plt.show()`\n\
+  \n以上就是执行非常基础的图像处理操作的方法。\n\n我们目前学到的只是图像处理的冰山一角，更深入的演示则需要另外一本书来阐述。\n\n## 3D 可视化\n\n\
+  在本节中，我们将探讨使用 Python 3 进行 3D 可视化的方法。到目前为止，我们都在 notebook 中直接显示可视化结果。这个过程对于 2D 可视化效果良好。然而，对于\
+  \ 3D 可视化，notebook 只会以一个固定的角度进行显示。因此我们需要采用另一种方法。最佳实践是使用另一个魔法命令，在独立的 Qt 窗口中显示可视化，如下所示：\n\
+  \n`%matplotlib qt`\n\n假设您将在整个章节中继续使用同一个 notebook，那么我们已经在前面的单元格中导入了 Matplotlib 的\
+  \ `pyplot` 模块和 NumPy。接下来我们需要通过以下语句导入更多功能：\n\n```\nfrom mpl_toolkits.mplot3d import\
+  \ Axes3D\nfrom mpl_toolkits.mplot3d import axes3d\n```\n\n让我们从简单的开始。我们已经学习了如何绘制简单的二维图，现在我们将以同样的方式绘制三维图。从一条简单的参数曲线开始。首先定义图形和坐标轴：\n\
+  \n`fig = plt.figure()`  \n`ax = fig.gca(projection='3d')`\n\n\n\n对于 3D 可视化，我们通过参数和实参对\
+  \ `projection='3d'` 启用了 3D 投影。接下来，定义数据。\n\n你需要数据点的 `x`、`y` 和 `z` 坐标。首先按如下方式定义数据点的极坐标：\n\
+  \n```\ntheta = np.linspace(-3 * np.pi, 3 * np.pi, 200)\nz = np.linspace(-3, 3, 200)\n\
+  r = z**3 + 1\n```\n\n现在，按如下方式计算 `x` 和 `y` 坐标：\n\n```\nx = r * np.sin(theta)\ny =\
+  \ r * np.cos(theta)\n```\n\n我们使用 NumPy 库中的三角函数来计算 `x` 和 `y`。最后，按如下方式绘制它：\n\n```\n\
+  ax.plot(x, y, z, label='Parametric Curve')\nax.legend()\nplt.show()\n```\n\n输出将显示在一个单独的窗口中，如图\
+  \ 6-10 所示，并且它是可交互的，这样我们就能改变视角。\n\n![图 6-10](img/index-105_1.jpg)\n\n**图 6-10.**\
+  \ 可视化参数曲线\n\n**注意：** 如果单独的输出窗口没有弹出，并且 3D 可视化显示在浏览器本身中，那么你必须重启 Jupyter 内核并重新执行相关单元格。在这种情况下，不要执行包含\
+  \ `%matplotlib inline` 的单元格。\n\n接下来，让我们创建一个 3D 条形图。现在按如下方式计算数据：\n\n```\nx = np.arange(4)\n\
+  y = np.arange(4)\nxx, yy = np.meshgrid(x, y)\nprint(xx);print(yy)\n```\n\n函数 `meshgrid()`\
+  \ 从坐标向量创建并返回坐标矩阵，如下所示：\n\n```\n[[0 1 2 3]\n [0 1 2 3]\n [0 1 2 3]\n [0 1 2 3]]\n\
+  [[0 0 0 0]\n [1 1 1 1]\n [2 2 2 2]\n [3 3 3 3]]\n```\n\n然后使用函数 `ravel()` 来展平这两个矩阵，如下所示：\n\
+  \n```\nX, Y = xx.ravel(), yy.ravel()\nprint(X); print(Y);\n```\n\n这将产生以下输出：\n\n\
+  ```\n[0 1 2 3 0 1 2 3 0 1 2 3 0 1 2 3]\n[0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3]\n```\n\
+  \n现在，计算更多值：\n\n```\ntop = X + Y\nbottom = np.zeros_like(top)\nwidth = depth = 1\n\
+  ```\n\n接下来，创建一个图形和坐标轴，并按如下方式创建条形图：\n\n```\nfig = plt.figure(figsize=(8, 3))\nax1\
+  \ = fig.add_subplot(121, projection='3d')\nax2 = fig.add_subplot(122, projection='3d')\n\
+  ax1.bar3d(X, Y, bottom, width, depth, top, shade=True)\nax1.set_title('Shaded')\n\
+  ax2.bar3d(X, Y, bottom, width, depth, top, shade=False)\nax2.set_title('Not Shaded')\n\
+  plt.show()\n```\n\n![图 6-11](img/index-107_1.jpg)\n\n**图 6-11.** 可视化 3D 条形图\n\n\
+  接下来，让我们按如下方式可视化一个线框图：\n\n```\nfig = plt.figure()\nax = fig.gca(projection='3d')\n\
+  X, Y, Z = axes3d.get_test_data(delta=0.1)\nax.plot_wireframe(X, Y, Z)\nplt.show()\n\
+  ```\n\n在这段代码片段中，我们首先在 3D 模式下创建一个图形和一个坐标轴。然后内置函数 `get_test_data()` 返回测试数据。接下来我们使用函数\
+  \ `plot_wireframe()` 来绘制线框模型。输出如图 6-12 所示。\n\n![图 6-12](img/index-108_1.jpg)\n\n\
+  **图 6-12.** 可视化 3D 线框图\n\n最后，让我们计算并可视化一个曲面。首先，计算 `x` 和 `y` 坐标，然后计算网格：\n\n```\nx\
+  \ = np.arange(-3, 3, 0.09)\ny = np.arange(-3, 3, 0.09)\nX, Y = np.meshgrid(x, y)\n\
+  print(X); print(Y)\n```\n\n输出如下所示：\n\n```\n[[-3.  -2.91 -2.82 ... 2.76 2.85 2.94]\n\
+  \ [-3.  -2.91 -2.82 ... 2.76 2.85 2.94]\n [-3.  -2.91 -2.82 ... 2.76 2.85 2.94]\n\
+  \ ...\n [-3.  -2.91 -2.82 ... 2.76 2.85 2.94]\n [-3.  -2.91 -2.82 ... 2.76 2.85\
+  \ 2.94]\n [-3.  -2.91 -2.82 ... 2.76 2.85 2.94]]\n\n[[-3.  -3.  -3.  ... -3.  -3.\
+  \  -3. ]\n [-2.91 -2.91 -2.91 ... -2.91 -2.91 -2.91]\n [-2.82 -2.82 -2.82 ... -2.82\
+  \ -2.82 -2.82]\n ...\n [ 2.76 2.76 2.76 ... 2.76 2.76 2.76]\n [ 2.85 2.85 2.85 ...\
+  \ 2.85 2.85 2.85]\n [ 2.94 2.94 2.94 ... 2.94 2.94 2.94]]\n```\n\n接下来，按如下方式计算 `z`\
+  \ 坐标：\n\n```\nR = np.sqrt(X**2 + Y**2)\nZ = np.cos(R)\nprint(Z)\n```\n\n最后，创建图形和坐标轴，并可视化\
+  \ 3D 曲面：\n\n```\nfig = plt.figure()\nax = fig.gca(projection='3d')\nsurf = ax.plot_surface(X,\
+  \ Y, Z,\n                       cmap=plt.cm.cool,\n                       linewidth=0,\n\
+  \                       antialiased=False)\nplt.show()\n```\n\n![图 6-13](img/index-110_1.jpg)\n\
+  \n\n\n这将生成如图 6-13 所示的输出。\n\n**图 6-13.** 可视化三维曲面\n\n**总结**\n\n在本章中，你学习并演示了如何可视化图像。\n\
+  \n你还学习并演示了图像的基本操作，例如算术运算以及将彩色图像分割为各个通道。我们还涵盖了编写用于三维可视化的程序，包括曲线、条形图、线框和网格。\n\n下一章将探讨如何可视化网络和图数据结构。\n\
+  \n## 第 7 章\n\n## 可视化图与网络\n\n在第 6 章中，我们演示了如何使用 Python 3 和 Matplotlib 可视化图像和三维对象。我们还学习了一些图像处理知识。\n\
+  \n本章重点介绍一种称为图或网络的数据结构的可视化。让我们通过以下主题继续我们的数据可视化之旅：\n\n-   图与网络\n-   在 Python 3 中可视化图\n\
+  -   更多类型的图\n-   为节点分配自定义标签\n\n完成本章后，你将能够使用 Python 3 可视化图与网络。\n\n## 图与网络\n\n图是一种抽象数据类型，也称为网络。它由一个有限的顶点（也称为节点）集合和一个有限的边（也称为链接）集合组成。当我们指代图时，使用术语“顶点”和“边”；当我们指代相同结构为网络时，则使用“节点”和“链接”。为了保持一致性，本章我将使用术语“图”、“节点”和“边”来指代此数据结构。\n\
+  \n在图中，顶点通过边相互连接。树是图的一个子类型。图中可以存在环，而树中则不能。\n\n我们也可以有有向图和无向图。可以为图中的边赋值，这样的图称为加权图。在本章中，我们将讨论无向且无加权图的可视化。\n\
+  \n### Python 3 中的图\n\n要处理并可视化图，Python 3 有一个名为 `networkx` 的易用库。你可以通过在 Jupyter Notebook\
+  \ 单元格中运行以下命令来安装它：\n\n```\n!pip3 install network\n```\n\n现在，导入它和其他库 Matplotlib。我们还会在笔记本中启用绘图功能：\n\
+  \n```\n%matplotlib inline\nimport networkx as nx\nimport matplotlib.pyplot as plt\n\
+  ```\n\n你可以按如下方式创建一个新的空图：\n\n```\nG = nx.Graph()\n```\n\n让我们按如下方式确定其类型：\n\n```\n\
+  type(G)\n```\n\n输出如下：\n\n```\nnetworkx.classes.graph.Graph\n```\n\n你可以查看节点和边的列表，还可以按如下方式查看它们的数据类型：\n\
+  \n```\nprint(G.nodes())\nprint(G.edges())\nprint(type(G.nodes()))\nprint(type(G.edges()))\n\
+  ```\n\n这将产生以下输出：\n\n```\n[]\n[]\n<class 'networkx.classes.reportviews.NodeView'>\n\
+  <class 'networkx.classes.reportviews.EdgeView'>\n```\n\n你可以按如下方式添加一个节点：\n\n```\n\
+  G.add_node('a')\n```\n\n或者，你也可以添加列表中指定的多个节点：\n\n```\nG.add_nodes_from(['b', 'c'])\n\
+  ```\n\n我们将再次打印节点列表和边列表（由于我们尚未添加任何边，边列表应为空）：\n\n```\nprint('Nodes of the graph G:\
+  \ ')\nprint(G.nodes())\nprint('Edges of the graph G: ')\nprint(G.edges())\n```\n\
+  \n输出看起来像这样：\n\n```\nNodes of the graph G:\n['a', 'b', 'c']\nEdges of the graph G:\n\
+  []\n```\n\n请看以下语句：\n\n```\nG.add_edge(1, 2)\n```\n\n它添加了两个节点和一条相应的边。如果函数调用中的参数已经是图节点列表的一部分，则不会重复添加。以下是另一种添加方式：\n\
+  \n```\nedge = ('d', 'e')\nG.add_edge(*edge)\nedge = ('a', 'b')\nG.add_edge(*edge)\n\
+  ```\n\n让我们再次打印节点和边的列表，如下所示：\n\n```\nprint('Nodes of the graph G: ')\nprint(G.nodes())\n\
+  print('Edges of the graph G: ')\nprint(G.edges())\n```\n\n\n\n"
+- '# 排版后的文档
+
+
+  我们可以通过指定边的列表来将其添加到图中：`G.add_edges_from([(''a'', ''c''), (''c'', ''d''), (''a'',
+  1), (1, ''d''), (''a'', 2)])`
+
+
+  现在，让我们再次打印所有内容：
+
+
+  ```
+
+  print(''Nodes of the graph G: '')
+
+  print(G.nodes())
+
+  print(''Edges of the graph G: '')
+
+  print(G.edges())
+
+  ```
+
+
+  ![](img/index-115_1.jpg)
+
+
+  '
+- '# 第 7 章 可视化图与网络
+
+
+  输出如下：
+
+
+  ```
+
+  Nodes of the graph G:
+
+  [''a'', ''b'', ''c'', 1, 2, ''d'', ''e'']
+
+  Edges of the graph G:
+
+  [(''a'', ''b''), (''a'', ''c''), (''a'', 1), (''a'', 2), (''c'', ''d''), (1, 2),
+  (1, ''d''), (''d'', ''e'')]
+
+  ```
+
+
+  ## 在 Python 3 中可视化图
+
+
+  本节重点介绍如何使用`networkx`库对图进行可视化。
+
+
+  你已在前一节中准备了一个图。现在你可以按如下方式对其进行可视化：
+
+
+  ```
+
+  nx.draw(G)
+
+  plt.show()
+
+  ```
+
+
+  输出如图 7-1 所示。
+
+
+  ***图 7-1.** 图的视觉表示*
+
+
+  请注意，这些可视化是随机生成的，每次运行该语句时，都会为视觉表示生成不同的图像。
+
+
+  然而，这些可视化所表示的图是同构的。
+
+
+  图 7-2 显示了再次执行相同单元格时的输出。
+
+
+  ![](img/index-116_1.jpg)
+
+
+  ![](img/index-116_2.jpg)
+
+
+  '
+- '# 第 7 章 可视化图与网络
+
+
+  ***图 7-2.** 同一张图的另一种视觉表示*
+
+
+  你可以看到这两个可视化是**同构**的，因为它们由同一张图生成。你可能还注意到节点没有显示任何名称。你可以使用以下代码显示节点名称：
+
+
+  ```
+
+  nx.draw(G, with_labels=True)
+
+  plt.show()
+
+  ```
+
+
+  图 7-3 显示了结果。
+
+
+  ***图 7-3.** 带标签的节点*
+
+
+  ![](img/index-117_1.jpg)
+
+
+  '
+- '# 第 7 章 可视化图与网络
+
+
+  要以粗体显示节点标签，请使用以下代码：
+
+
+  ```
+
+  nx.draw(G, with_labels=True, font_weight=''bold'')
+
+  plt.show()
+
+  ```
+
+
+  可视化如图 7-4 所示。
+
+
+  ***图 7-4.** 带粗体标签的节点*
+
+
+  ## 更多类型的图
+
+
+  接下来，我们可以看看更多类型的图及其可视化。
+
+
+  第一种是**线性图或路径图**。图中连接到某个节点的节点数称为该节点的**度**。我们可以说路径图是一种有两个节点度为 1、其余节点度为 2 的图。如果我们在视觉上排列一个路径图，它看起来像一条分段线。要创建路径图，请运行以下代码：
+
+
+  `G = nx.path_graph(4)`
+
+
+  要显示节点和边，请使用以下代码：
+
+
+  ```
+
+  print(''Nodes of the graph G: '')
+
+  print(G.nodes())
+
+  print(''Edges of the graph G: '')
+
+  print(G.edges())
+
+  ```
+
+
+  ![](img/index-118_1.jpg)
+
+
+  '
+- '# 第 7 章 可视化图与网络
+
+
+  输出如下：
+
+
+  ```
+
+  Nodes of the graph G:
+
+  [0, 1, 2, 3]
+
+  Edges of the graph G:
+
+  [(0, 1), (1, 2), (2, 3)]
+
+  ```
+
+
+  接下来，让我们创建它的可视化：
+
+
+  ```
+
+  nx.draw(G, with_labels=True)
+
+  plt.show()
+
+  ```
+
+
+  结果如图 7-5 所示。
+
+
+  ***图 7-5.** 四个节点的路径图*
+
+
+  下一种类型的图是**Petersen 图**，一个具有 10 个顶点和 15 条边的无向图。我们可以使用以下代码创建它并查看边和节点的值：
+
+
+  ```
+
+  G = nx.petersen_graph()
+
+  print(''Nodes of the graph G: '')
+
+  print(G.nodes())
+
+  print(''Edges of the graph G: '')
+
+  print(G.edges())
+
+  ```
+
+
+  ![](img/index-119_1.jpg)
+
+
+  '
+- "# 第 7 章 可视化图与网络\n\n我们可以按如下方式对其进行可视化：\n\n```\nnx.draw(G, with_labels=True)\nplt.show()\n\
+  ```\n\n输出如图 7-6 所示。\n\n***图 7-6.** Petersen 图*\n\n现在，有很多方法可以更好地描绘它。我们可以将其描绘成一个内部带有五角星、带有五个辐条的五边形。以下代码实现了这一点。\n\
+  \n```\nnx.draw_shell(G, nlist=[range(5, 10), range(5)],\n              with_labels=True,\n\
+  \              font_weight='bold')\nplt.show()\n```\n\n这段代码以壳形展示图形。我们在参数`nlist`中指定了按层排列的节点列表。输出如图\
+  \ 7-7 所示，它与前面的输出是同构的。\n\n![](img/index-120_1.jpg)\n\n![](img/index-120_2.png)\n\n"
+- '# 第 7 章 可视化图与网络
+
+
+
+
+  '
+- "# 图形可视化与网络分析\n\n***图 7-7.** 可视化彼得森图为壳形布局*\n\n我们可以自定义图形的展现方式。使用以下代码自定义节点大小和线条宽度：\n\
+  \n```python\noptions = {'node_color': 'black', 'node_size': 100, 'width': 3}\n```\n\
+  \n现在让我们用这些选项可视化彼得森图：\n\n```python\nnx.draw_random(G, **options)\nplt.show()\n```\n\
+  \n图 7-8 展示了输出结果。\n\n***图 7-8.** 自定义节点与边的彼得森图*\n\n110\n\n![图 7-8 输出](img/index-121_1.png)\n\
+  \n**第 7 章 图形与网络可视化**\n\n接下来，我们可以在圆形布局中对其进行可视化：\n\n```python\nnx.draw_circular(G,\
+  \ **options)\nplt.show()\n```\n\n输出结果如图 7-9 所示。\n\n***图 7-9.** 圆形布局中的彼得森图*\n\n我们也可以使用谱布局来描绘彼得森图：\n\
+  \n```python\nnx.draw_spectral(G, **options)\nplt.show()\n```\n\n![谱布局输出 1](img/index-122_1.png)\n\
+  ![谱布局输出 2](img/index-122_2.png)\n\n**第 7 章 图形与网络可视化**\n\n图 7-10 展示了输出结果。\n\n***图\
+  \ 7-10.** 谱布局中的彼得森图*\n\n我们可以使用自定义选项在壳形布局中描绘彼得森图：\n\n```python\nnx.draw_shell(G,\
+  \ nlist=[range(5, 10), range(5)], **options)\nplt.show()\n```\n\n输出结果如图 7-11 所示。\n\
+  \n***图 7-11.** 壳形布局中自定义节点与边的彼得森图*\n\n![自定义节点与边的壳形布局](img/index-123_1.png)\n\n**第\
+  \ 7 章 图形与网络可视化**\n\n我们还可以创建一个十二面体图：\n\n```python\nG = nx.dodecahedral_graph()\n\
+  ```\n\n它可以在壳形布局中可视化如下：\n\n```python\nshells = [[2, 3, 4, 5, 6],\n          [8, 1,\
+  \ 0, 19, 18, 17, 16, 15, 14, 7],\n          [9, 10, 11, 12, 13]]\nnx.draw_shell(G,\
+  \ nlist=shells, **options)\nplt.show()\n```\n\n图 7-12 展示了输出结果。\n\n***图 7-12.** 壳形布局中自定义节点与边的十二面体图*\n\
+  \n您可以使用以下命令将任何图形文件保存到磁盘：\n\n```python\nplt.savefig('graph.png')\n```\n\n这条语句会将文件保存到程序所在位置（与\
+  \ notebook 相同的目录）的磁盘上。\n\n**第 7 章 图形与网络可视化——为节点分配自定义标签**\n\n您可以使用以下代码为节点分配自定义标签：\n\
+  \n```python\nG = nx.path_graph(4)\ncities = {0: 'Mumbai', 1: 'Hyderabad',\n    \
+  \      2: 'Banglore', 3: 'New York'}\nH = nx.relabel_nodes(G, cities)\nprint('Nodes\
+  \ of the graph H: ')\nprint(H.nodes())\nprint('Edges of the graph H: ')\nprint(H.edges())\n\
+  ```\n\n以下是输出结果：\n\n```\nNodes of the graph H:\n['Mumbai', 'Hyderabad', 'Banglore',\
+  \ 'New York']\nEdges of the graph H:\n[('Mumbai', 'Hyderabad'), ('Hyderabad', 'Banglore'),\n\
+  \ ('Banglore', 'New York')]\n```\n\n使用以下代码创建可视化：\n\n```python\nnx.draw(H, with_labels=True)\n\
+  plt.show()\n```\n\n![带标签的线性图](img/index-125_1.jpg)\n\n**第 7 章 图形与网络可视化**\n\n图 7-13\
+  \ 展示了输出结果。\n\n***图 7-13.** 在线性或路径图中重新标记的节点*\n\n## 总结\n\n本章探讨了图的概念，介绍了不同类型的图。您学会了以不同方式将它们可视化。现在您应该能够熟练地使用\
+  \ Python 3 对图数据结构进行可视化。\n\n下一章将介绍 SciPy 的数据科学库——pandas。我们将介绍 pandas 库中多功能的数据结构——Series\
+  \ 和 DataFrame，并附带几个数据可视化的示例。\n\n**第 8 章**\n\n**Pandas 入门**\n\n第 7 章介绍了使用 Python\
+  \ 的 `networkx` 库进行图形可视化。本章将聚焦于 SciPy 数据科学与分析库——pandas 的基础知识。首先，我们将探索该库中的数据结构。您还将学习如何从\
+  \ `.csv` 数据集读取数据。最后，您将学习如何创建简单的可视化演示。以下是本章涵盖的主题：\n\n• pandas 简介\n• pandas 中的 DataFrame\n\
+  • 使用 pandas 进行可视化\n\n完成本章后，您应能熟练使用 pandas 进行基本可视化。\n\n\n\n"
+- '# Pandas 简介
+
+
+  Pandas 是数据分析组件，也是 SciPy 生态系统中不可或缺的一部分。它包含了功能非常丰富的数据结构及其管理例程。此外，它还具备以科学数据格式对数据进行可视化的能力。
+
+
+  © Ashwin Pajankar 2021
+
+
+  A. Pajankar，《实用 Python 数据可视化》,
+
+  [`doi.org/10.1007/978-1-4842-6455-3_8`](https://doi.org/10.1007/978-1-4842-6455-3_8#DOI)
+
+
+  '
+- "# 第 8 章 Pandas 入门\n\n第一步，通过在 Jupyter Notebook 中运行以下命令来将其安装在计算机上：\n\n```\n!pip3\
+  \ install pandas\n```\n\n你可以通过运行以下命令将其导入当前会话：\n\n```\nimport pandas as pd\n```\n\
+  \n你可以在 [`pandas.pydata.org/`](https://pandas.pydata.org/) 上阅读更多关于 pandas 的信息。\n\n\
+  ## Pandas 中的 Series（序列）\n\n序列是一种带标签的一维数组。它可以保存任何类型的数据。这些标签统称为索引。\n\n我们可以按如下方式创建一个序列：\n\
+  \n```\ns1 = pd.Series([1, 2, 3, 5, -3])\n```\n\n要确定其数据类型，请使用以下命令：\n\n```\ntype(s1)\n\
+  ```\n\n你可以使用以下语句查看与其关联的值和索引：\n\n```\nprint(s1)\n```\n\n你可以按如下方式显式指定数据类型：\n\n```\n\
+  s2 = pd.Series([1, 2, 3, 5, -3], dtype=np.int32)\nprint(s2)\n```\n\n要将列表作为参数传递给构造函数以创建序列，请使用以下代码：\n\
+  \n```\nx = [1, 2, 3, 5, -3]\ns3 = pd.Series(x)\n```\n\n我们甚至可以将 NumPy 的 `ndarray`\
+  \ 作为参数传递给构造函数来创建序列，如下所示：\n\n```\nimport numpy as np\ny = np.array(x)\ns4 = pd.Series(y)\n\
+  ```\n\n要显示值，请使用以下代码：\n\n```\nprint(s4.values)\n```\n\n这将提供以下输出：\n\n```\n[ 1 2 3\
+  \ 5 -3]\n```\n\n你可以按如下方式检索索引：\n\n```\nprint(s4.index)\n```\n\n这将产生以下输出：\n\n```\n\
+  RangeIndex(start=0, stop=5, step=1)\n```\n\n要分配自定义索引，请使用以下代码：\n\n```\ns5 = pd.Series(x,\
+  \ index=['a', 'b', 'c', 'd', 'e'])\nprint(s5)\n```\n\n这将提供以下输出：\n\n```\na    1\n\
+  b    2\nc    3\nd    5\ne   -3\ndtype: int64\n```\n\n## Series 上的基本操作\n\n我们可以对序列执行一些基本操作。例如，我们可以按如下方式显示负数：\n\
+  \n```\nprint(s5[s5 < 0])\n```\n\n这将产生以下输出：\n\n```\ne   -3\ndtype: int64\n```\n\n\
+  我们也可以按如下方式检索正数：\n\n```\nprint(s5[s5 > 0])\n```\n\n输出如下所示：\n\n```\na    1\nb    2\n\
+  c    3\nd    5\ndtype: int64\n```\n\n这些是比较操作的示例。要执行乘法运算，请使用以下语法：\n\n```\nc = 3\n\
+  print(s5 * c)\n```\n\n输出如下：\n\n```\na     3\nb     6\nc     9\nd    15\ne    -9\n\
+  dtype: int64\n```\n\n## Pandas 中的 DataFrame（数据框）\n\n数据框是一种带有标签的二维数据结构，其列可以是不同的数据类型。我们可以从序列、`ndarrays`、列表和字典创建数据框。数据框具有标签，这些标签统称为索引。我们可以轻松地查看和操作数据框中的数据。数据以矩形网格格式存储在数据框中。\n\
+  \n我们可以按如下方式从字典数据列表创建数据框：\n\n```\ndata = {'city': ['Mumbai', 'Mumbai', 'Mumbai',\n\
+  \                 'Hyderabad', 'Hyderabad', 'Hyderabad'],\n        'year': [2010,\
+  \ 2011, 2012, 2010, 2011, 2012],\n        'population': [10.0, 10.1, 10.2, 5.2,\
+  \ 5.3, 5.5]}\n```\n\n要由此创建数据框，请使用以下代码：\n\n```\ndf1 = pd.DataFrame(data)\nprint(df1)\n\
+  ```\n\n输出如下：\n\n```\n        city  year  population\n0     Mumbai  2010        10.0\n\
+  1     Mumbai  2011        10.1\n2     Mumbai  2012        10.2\n3  Hyderabad  2010\
+  \         5.2\n4  Hyderabad  2011         5.3\n5  Hyderabad  2012         5.5\n\
+  ```\n\n使用以下代码行显示前五条记录：\n\n```\ndf1.head()\n```\n\n输出如下：\n\n```\n        city  year\
+  \  population\n0     Mumbai  2010        10.0\n1     Mumbai  2011        10.1\n\
+  2     Mumbai  2012        10.2\n3  Hyderabad  2010         5.2\n4  Hyderabad  2011\
+  \         5.3\n```\n\n你也可以将其他数字作为参数传递给函数 `head()`，它将显示数据框中相应数量的顶部记录。\n\n类似地，你可以使用\
+  \ `df1.tail()` 来显示末尾的记录。它的默认参数是 5，但你可以自定义传递给它的参数。\n\n\n\n你可以按如下方式创建一个具有特定列顺序的数据框：\n\
+  \n```\ndf2 = pd.DataFrame(data, columns=['year', 'city', 'population'])\nprint(df2)\n\
+  ```\n\n这将产生以下输出：\n\n```\nyear city population\n0 2010 Mumbai 10.0\n1 2011 Mumbai\
+  \ 10.1\n2 2012 Mumbai 10.2\n3 2010 Hyderabad 5.2\n4 2011 Hyderabad 5.3\n5 2012 Hyderabad\
+  \ 5.5\n```\n\n接下来，让我们创建一个带有额外列和自定义索引的数据框：\n\n```\ndf3 = pd.DataFrame(data, columns=['year',\
+  \ 'city', 'population', 'GDP'],\n                   index = ['one', 'two', 'three',\
+  \ 'four', 'five', 'six'])\nprint(df3)\n```\n\n以下是新的数据框：\n\n```\n          year \
+  \      city  population  GDP\none       2010    Mumbai        10.0  NaN\ntwo   \
+  \    2011    Mumbai        10.1  NaN\nthree     2012    Mumbai        10.2  NaN\n\
+  four      2010  Hyderabad        5.2  NaN\nfive      2011  Hyderabad        5.3\
+  \  NaN\nsix       2012  Hyderabad        5.5  NaN\n```\n\n使用以下命令打印列的列表：\n\n```\n\
+  print(df3.columns)\n```\n\n输出结果如下：\n\n```\nIndex(['year', 'city', 'population',\
+  \ 'GDP'], dtype='object')\n```\n\n我们可以按如下方式打印索引的列表：\n\n```\nprint(df3.index)\n```\n\
+  \n这将输出：\n\n```\nIndex(['one', 'two', 'three', 'four', 'five', 'six'], dtype='object')\n\
+  ```\n\n你可以使用以下语句显示某一列的数据：`print(df3.year)`。另外，你也可以使用以下语句：\n\n```\nprint(df3['year'])\n\
+  ```\n\n输出如下：\n\n```\none      2010\ntwo      2011\nthree    2012\nfour     2010\n\
+  five     2011\nsix      2012\nName: year, dtype: int64\n```\n\n你可以使用以下语句显示某一列的数据类型：`print(df3['year'].dtype)`。你也可以使用这段代码：\n\
+  \n```\nprint(df3.year.dtype)\n```\n\n将输出：\n\n```\nint64\n```\n\n要显示所有列的数据类型，请使用此语句：`print(df3.dtypes)`。输出如下：\n\
+  \n```\nyear           int64\ncity          object\npopulation   float64\nGDP   \
+  \        object\ndtype: object\n```\n\n我们可以按如下方式使用索引检索任何记录：\n\n```\ndf3.loc['one']\n\
+  ```\n\n输出结果如下：\n\n```\nyear           2010\ncity         Mumbai\npopulation    \
+  \   10\nGDP             NaN\nName: one, dtype: object\n```\n\n你可以按如下方式为某一列的所有成员分配相同的值：\n\
+  \n```\ndf3.GDP = 10\nprint(df3)\n```\n\n输出如下所示：\n\n```\n          year       city\
+  \  population  GDP\none       2010    Mumbai        10.0   10\ntwo       2011  \
+  \  Mumbai        10.1   10\nthree     2012    Mumbai        10.2   10\nfour    \
+  \  2010  Hyderabad        5.2   10\nfive      2011  Hyderabad        5.3   10\n\
+  six       2012  Hyderabad        5.5   10\n```\n\n我们可以按如下方式将一个 ndarray 分配给 GDP 列：\n\
+  \n```\nimport numpy as np\ndf3.GDP = np.arange(6)\nprint(df3)\n```\n\n这将输出：\n\n\
+  ```\n          year       city  population  GDP\none       2010    Mumbai      \
+  \  10.0    0\ntwo       2011    Mumbai        10.1    1\nthree     2012    Mumbai\
+  \        10.2    2\nfour      2010  Hyderabad        5.2    3\nfive      2011  Hyderabad\
+  \        5.3    4\nsix       2012  Hyderabad        5.5    5\n```\n\n你也可以按如下方式为其分配一个列表：\n\
+  \n```\ndf3.GDP = [3, 2, 0, 9, -0.4, 7]\nprint(df3)\n```\n\n输出如下：\n\n```\n      \
+  \    year       city  population  GDP\none       2010    Mumbai        10.0  3.0\n\
+  two       2011    Mumbai        10.1  2.0\nthree     2012    Mumbai        10.2\
+  \  0.0\nfour      2010  Hyderabad        5.2  9.0\nfive      2011  Hyderabad   \
+  \     5.3 -0.4\nsix       2012  Hyderabad        5.5  7.0\n```\n\n让我们按如下所示为其分配一个序列：\n\
+  \n```\nval = pd.Series([-1.4, 1.5, -1.3], index=['two', 'four', 'five'])\ndf3.GDP\
+  \ = val\nprint(df3)\n```\n\n以下是输出结果：\n\n```\n          year       city  population\
+  \  GDP\none       2010    Mumbai        10.0  NaN\ntwo       2011    Mumbai    \
+  \    10.1 -1.4\nthree     2012    Mumbai        10.2  NaN\nfour      2010  Hyderabad\
+  \        5.2  1.5\nfive      2011  Hyderabad        5.3 -1.3\nsix       2012  Hyderabad\
+  \        5.5  NaN\n```\n\n## 读取以 CSV 格式存储的数据\n\n我们可以使用 `read_csv()` 方法读取以逗号分隔值（CSV）格式存储的数据。CSV\
+  \ 文件可以存储在远程 URL 或磁盘上的某个位置。以下是一个读取托管在互联网 URL 上的 CSV 文件的示例：\n\n```\ndf = pd.read_csv('https://raw.githubusercontent.com/cs109/2014_data/master/countries.csv')\n\
+  df.head(5)\n```\n\n输出如下：\n\n```\n      Country    Region\n0     Algeria    AFRICA\n\
+  1      Angola    AFRICA\n2       Benin    AFRICA\n3    Botswana    AFRICA\n4   \
+  \  Burkina    AFRICA\n```\n\n我们可以用同样的方式将存储在磁盘上某个文件中的数据读取到数据框中。\n\n## 使用 Pandas 进行可视化\n\
+  \nPandas 数据框具有类似 Matplotlib 的可视化方法。\n\n\n\n基本上，这些方法是对`Matplotlib`中方法的包装。\n\n让我们看看如何使用这些方法来可视化存储在`pandas`数据帧中的数据。\n\
+  \n首先导入`Matplotlib`的`pyplot`模块，并使用魔法命令在笔记本中启用`Matplotlib`可视化，如下所示：\n\n```\n%matplotlib\
+  \ inline\nimport matplotlib.pyplot as plt\n```\n\n`NumPy`函数`randn()`生成一个具有标准正态随机分布的`NumPy`数组。我们将用它来创建一个序列并绘制它，如下所示：\n\
+  \n```\nts = pd.Series(np.random.randn(5))\nts\n```\n\n输出如下（每次执行代码时都会不同，因为它在执行时是随机生成的）：\n\
+  ```\n0    0.257543\n1    1.405170\n2    1.290728\n3    0.068451\n4   -0.923677\n\
+  dtype: float64\n```\n\n![](img/index-138_1.jpg)\n\n**第 8 章 开始使用 pandas**\n\n可以将其可视化为：\n\
+  \n```\nts.plot()\nplt.grid(True)\nplt.show()\n```\n\n它产生如图 8-1 所示的输出。\n\n***图 8-1.**\
+  \ 简单线图*\n\n我们可以使用函数`cumsum()`计算累积和，并将其可视化如下：\n\n```\nts.cumsum().plot()\nplt.grid(True)\n\
+  plt.show()\n```\n\n![](img/index-139_1.jpg)\n\n**第 8 章 开始使用 pandas**\n\n输出如图 8-2\
+  \ 所示。\n\n***图 8-2.** 累积和的简单线图*\n\n现在，像这样创建一个数据帧：\n\n```\ndf1 = pd.DataFrame(np.random.randn(10,\
+  \ 4),\n                   columns=['A', 'B', 'C', 'D'])\nprint(df1)\n```\n\n以下输出是结果：\n\
+  \n```\n          A         B         C         D\n0  0.474219  1.821673 -0.296638\
+  \ -0.566934\n1  1.820044  2.199264  2.196097  0.203744\n2  0.086325 -1.056730  0.937690\
+  \ -1.283733\n3  0.087798  1.145512 -0.407545  0.747684\n4 -0.179241  0.290476  1.823487\
+  \ -0.059593\n5  1.964211 -0.525957  1.615896  0.046840\n6 -0.463331  0.032999  1.130027\
+  \  1.151667\n7  1.805051 -0.338121 -0.397105  0.487373\n8 -1.212102 -0.610992  0.258653\
+  \ -1.885551\n9 -1.052613  1.624191  0.529037  1.081536\n```\n\n![](img/index-140_1.jpg)\n\
+  \n**第 8 章 开始使用 pandas**\n\n我们可以用垂直条形图将其可视化，如下所示：\n\n```\ndf1.plot.bar()\nplt.grid(True)\n\
+  plt.show()\n```\n\n输出如图 8-3 所示。\n\n***图 8-3.** 垂直条形图*\n\n你甚至可以使用水平条形图，如下所示：\n\n\
+  ```\ndf1.plot.barh()\nplt.grid(True)\nplt.show()\n```\n\n![](img/index-141_1.jpg)\n\
+  \n**第 8 章 开始使用 pandas**\n\n图 8-4 显示了输出。\n\n***图 8-4.** 水平条形图*\n\n让我们创建另一个具有相似维度的数据帧。我们将使用`rand()`函数，该函数使用均匀正态分布生成一个`NumPy`\
+  \ ndarray。示例如下：\n\n```\ndf2 = pd.DataFrame(np.random.rand(10, 4), columns=['A',\
+  \ 'B',\n                                                    'C', 'D'])\nprint(df2)\n\
+  ```\n\n输出如下所示：\n\n```\n          A         B         C         D\n0  0.416596  0.725513\
+  \  0.707631  0.286249\n1  0.166804  0.370956  0.680678  0.938911\n2  0.330940  0.426264\
+  \  0.667221  0.741184\n3  0.879112  0.409153  0.460051  0.968562\n4  0.248149  0.021732\
+  \  0.072309  0.186000\n5  0.666609  0.692510  0.574111  0.519540\n6  0.178994  0.437883\
+  \  0.036931  0.063519\n7  0.057269  0.079832  0.025361  0.150671\n```\n\n![](img/index-142_1.jpg)\n\
+  \n**第 8 章 开始使用 pandas**\n\n```\n8  0.099039  0.886589  0.358671  0.431321\n9  0.395520\
+  \  0.262707  0.291207  0.763712\n```\n\n我们可以创建堆叠的垂直条形图，如下所示：\n\n```\ndf2.plot.bar(stacked=True)\n\
+  plt.grid(True)\nplt.show()\n```\n\n这会产生如图 8-5 所示的输出。\n\n***图 8-5.** 垂直堆叠条形图*\n\n\
+  类似地，我们可以生成水平堆叠条形图，如下所示：\n\n```\ndf2.plot.barh(stacked=True)\nplt.grid(True)\nplt.show()\n\
+  ```\n\n![](img/index-143_1.jpg)\n\n![](img/index-143_2.jpg)\n\n**第 8 章 开始使用 pandas**\n\
+  \n输出如图 8-6 所示。\n\n***图 8-6.** 水平堆叠条形图*\n\n要创建面积图，请使用以下代码：\n\n```\ndf2.plot.area()\n\
+  plt.grid(True)\nplt.show()\n```\n\n默认情况下，面积图是堆叠的，如图 8-7 所示。\n\n***图 8-7.** 堆叠面积图*\n\
+  \n![](img/index-144_1.jpg)\n\n**第 8 章 开始使用 pandas**\n\n你可以创建一个非堆叠的重叠面积图，如下所示：\n\n\
+  ```\ndf2.plot.area(stacked=False)\nplt.grid(True)\nplt.show()\n```\n\n\n\n上述代码将生成图\
+  \ 8-8 所示的输出。\n\n*图 8-8.* 重叠面积图\n\n接下来，我们演示饼图。首先按如下方式创建一个简单的数据框：\n\n```\ndf3 = pd.DataFrame(np.random.rand(4),\
+  \ index=['A', 'B', 'C', 'D'])\nprint(df3)\n```\n\n输出结果如下：\n\n```\nA 0.292772\nB\
+  \ 0.569819\nC 0.835805\nD 0.479885\n```\n\n使用以下代码创建饼图：\n\n```\ndf3.plot.pie(subplots=True)\n\
+  plt.show()\n```\n\n结果如图 8-9 所示。\n\n*图 8-9.* 饼图\n\n## 总结\n\n本章探讨了 SciPy 的数据科学库 pandas\
+  \ 的基础知识。你学习了基本 pandas 数据结构（Series 和数据框）的创建与操作基础，还掌握了数据框数据可视化的基本方法，以及如何从 CSV 文件读取数据。\n\
+  \n所有这些概念对于完成下一章的练习将非常有用。下一章将通过处理与当前 COVID-19 疫情相关的数据，为我们数据可视化的学习之旅画上句点，并提供一个有趣的现实案例研究。\n\
+  \n## 第 9 章：处理 COVID-19 数据\n\n第 8 章介绍了 SciPy 数据科学库 pandas 的基础知识。你学习了 Series 和数据框数据结构的基础，以及如何对数据框和\
+  \ Series 中的数据进行可视化。\n\n本章是你在前几章所学知识的集大成者。在本章中，我们将检索真实世界的数据并对其进行可视化。学完本章后，你应该能够熟练地对真实数据集进行可视化。\n\
+  \n## COVID-19 疫情与数据集\n\n在本书撰写之际，世界正面临一场前所未有的自然灾害——一场由严重急性呼吸综合征冠状病毒 2 型（SARS-CoV-2）及其引发的疾病\
+  \ COVID-19 所造成的疫情（一种跨越各大洲传播的传染病）。这种病毒与导致普通感冒等非致命疾病以及非典和中东呼吸综合征等更致命疾病的病毒同属一个病毒家族（冠状病毒）。这些病毒会感染哺乳动物和人类的呼吸道，若未及时治疗，可能致命。\n\
+  \n© Ashwin Pajankar 2021  \nA. Pajankar，《实用 Python 数据可视化》，  \n[`doi.org/10.1007/978-1-4842-6455-3_9`](https://doi.org/10.1007/978-1-4842-6455-3_9#DOI)\n\
+  \n## COVID-19 数据源\n\n许多组织都在追踪全球 COVID-19 病例，并定期在其网站和网络服务上更新数据。其中最著名的是约翰霍普金斯大学（[`coronavirus.jhu.edu/map.html`](https://coronavirus.jhu.edu/map.html)）和\
+  \ World-O-Meter（[`www.worldometers.info/coronavirus/`](https://www.worldometers.info/coronavirus/)）。这些是非常可靠的\
+  \ COVID-19 数据来源，并且它们会非常频繁地（至少每 24 小时一次）更新统计数据，以便下游系统获取最新数据。\n\n我们可以使用 Python 中的自定义库来检索这些数据。其中一个库可以在\
+  \ [`ahmednafies.github.io/covid/`](https://ahmednafies.github.io/covid/) 找到。它可以从约翰霍普金斯大学和\
+  \ World-O-Meter 两者中检索数据。\n\n要安装它，请为本章创建一个新笔记本，并在代码单元格中运行以下命令：\n\n```\n!pip3 install\
+  \ covid\n```\n\n接着，按如下方式导入库：\n\n```\nfrom covid import Covid\n```\n\n你可以使用以下代码获取数据：\n\
+  \n```\ncovid = Covid()\n```\n\n默认情况下，它会从约翰霍普金斯大学获取数据。你也可以显式指定数据源：\n\n```\ncovid\
+  \ = Covid(source=\"john_hopkins\")\n```\n\n要获取 World-O-Meter 的数据，请更改源值：`covid =\
+  \ Covid(source=\"worldometers\")`\n\n你可以使用以下命令显示所有数据：\n\n```\ncovid.get_data()\n\
+  ```\n\n\n\n这将返回一个字典列表，如图 9-1 所示。\n\n***图 9-1.** COVID-19 数据*\n\n我们可以通过以下方式确定数据来源：\n\
+  \n`covid.source`\n\n此情况下的输出如下所示：\n\n`'worldometers'`\n\n你也可以通过国家名称检索状态，操作如下：`covid.get_status_by_country_name(\"\
+  italy\")`\n\n![](img/index-149_1.png)\n\n第 9 章 处理 COVID-19 数据\n\n结果如图 9-2 所示。\n\n\
+  ***图 9-2.** 按国家划分的 COVID-19 数据*\n\n你也可以通过国家 ID 检索数据（此功能仅对 Johns Hopkins 数据源有效），代码如下：\n\
+  \n`covid.get_status_by_country_id(115)`\n\n要检索受 COVID-19 大流行影响的国家列表，请使用以下语法：\n\n\
+  `covid.list_countries()`\n\n![](img/index-150_1.png)\n\n第 9 章 处理 COVID-19 数据\n\n\
+  它返回如图 9-3 所示的列表。\n\n***图 9-3.** 受 COVID-19 影响的国家*\n\n现存的病例总数可以通过以下方式获取：`covid.get_total_active_cases()`\n\
+  \n确诊病例总数可以通过以下方式获取：`covid.get_total_confirmed_cases()`\n\n康复病例总数可以通过以下方式获取：`covid.get_total_recovered()`\n\
+  \n死亡病例总数可以通过以下方式获取：\n\n`covid.get_total_deaths()`\n\n运行这些语句并检查输出。\n\n![](img/index-151_1.png)\n\
+  \n第 9 章 处理 COVID-19 数据\n\n**可视化 COVID-19 数据**\n\n现在，您可以按如下方式将所有数据转换为 pandas 数据帧：\n\
+  \n```\nimport pandas as pd\n\ndf = pd.DataFrame(covid.get_data())\n\nprint(df)\n\
+  ```\n\n输出如图 9-4 所示。\n\n***图 9-4.** 转换为数据帧的 COVID-19 数据*\n\n使用以下代码对数据进行排序：\n\n```\n\
+  sorted = df.sort_values(by=['confirmed'], ascending=False)\n```\n\n该数据也包含各大洲和全球的累积数据。我们可以按如下方式排除全球和各大洲的数据：\n\
+  \n```\nexcluded = sorted[~sorted.country.isin(['Europe', 'South\n\nAmerica', 'Asia',\
+  \ 'World', 'North America', 'Africa'])]\n```\n\n![](img/index-152_1.png)\n\n第 9\
+  \ 章 处理 COVID-19 数据\n\n排名前 10 的国家可以通过以下方式获取：\n\n```\ntop10 = excluded.head(10)\n\n\
+  print(top10)\n```\n\n输出如图 9-5 所示。\n\n***图 9-5.** 受 COVID-19 影响最严重的 10 个国家*\n\n现在我们可以将数据提取到变量中，操作如下：\n\
+  \n```\nx = top10.country\n\ny1 = top10.confirmed\n\ny2 = top10.active\n\ny3 = top10.deaths\n\
+  \ny4 = top10.recovered\n```\n\n现在，我们可以使用结果进行可视化。使用以下命令导入 Matplotlib 并在笔记本中启用绘图功能：\n\
+  \n```\n%matplotlib inline\n\nimport matplotlib.pyplot as plt\n```\n\n![](img/index-153_1.jpg)\n\
+  \n第 9 章 处理 COVID-19 数据\n\n创建一个简单的折线图，操作如下：\n\n```\nplt.plot(x, y1)\n\nplt.xticks(rotation=90)\n\
+  \nplt.show()\n```\n\n结果如图 9-6 所示。\n\n***图 9-6.** 受 COVID-19 影响最严重的 10 个国家（折线图）*\n\
+  \n我们可以按如下方式显示条形图：\n\n```\nplt.bar(x, y1)\n\nplt.xticks(rotation=90)\n\nplt.show()\n\
+  ```\n\n![](img/index-154_1.jpg)\n\n第 9 章 处理 COVID-19 数据\n\n图 9-7 显示了结果。\n\n***图\
+  \ 9-7.** 受 COVID-19 影响最严重的 10 个国家（条形图）*\n\n使用以下代码创建多线图：\n\n```\nplt.plot(x, y1,\
+  \ label='Confirmed')\n\nplt.plot(x, y2, label='Active')\n\nplt.plot(x, y3, label='Deaths')\n\
+  \nplt.plot(x, y4, label='Recovered')\n\nplt.legend(loc='upper right')\n\nplt.xticks(rotation=90)\n\
+  \nplt.show()\n```\n\n![](img/index-155_1.jpg)\n\n第 9 章 处理 COVID-19 数据\n\n输出如图 9-8\
+  \ 所示。\n\n***图 9-8.** 受 COVID-19 影响最严重的 10 个国家（多线图）*\n\n我们可以用更紧凑的代码和更好的格式重写前面的示例，如下所示：\n\
+  \n```\nlabels = ['Confirmed', 'Active', 'Deaths', 'Recovered']\n\nplt.plot(x, y1,\
+  \ x, y2, x, y3, x, y4)\n\nplt.legend(labels, loc='upper right')\n\nplt.xticks(rotation=90)\n\
+  \nplt.grid()\n\nplt.show()\n```\n\n![](img/index-156_1.jpg)\n\n第 9 章 处理 COVID-19\
+  \ 数据\n\n结果如图 9-9 所示。\n\n\n\n### 图 9-9：受 COVID-19 影响最大的 10 个国家（带网格的多线图）\n\n我们可以通过如下方式在垂直多柱状图中展示数据：`df2\
+  \ = pd.DataFrame([y1, y2, y3, y4])`\n\n```\ndf2.plot.bar();\nplt.legend(x, loc='upper\
+  \ center')\nplt.xticks(rotation=90)\nplt.grid()\nplt.show()\n```\n\n![](img/index-157_1.jpg)\n\
+  \n第 9 章 处理 COVID-19 数据\n\n图 9-10 显示了输出结果。\n\n### 图 9-10：排名前 10 的国家的 COVID-19 统计数据（带网格的多柱状图）\n\
+  \n我们可以通过以下代码绘制垂直堆叠柱状图来呈现数据：\n\n```\ndf2.plot.bar(stacked=True);\nplt.legend(x, loc='upper\
+  \ center')\nplt.xticks(rotation=90)\nplt.grid()\nplt.show()\n```\n\n![](img/index-158_1.jpg)\n\
+  \n第 9 章 处理 COVID-19 数据\n\n这会产生如图 9-11 所示的输出。\n\n### 图 9-11：排名前 10 的国家的 COVID-19\
+  \ 统计数据（带网格的垂直堆叠柱状图）\n\n我们可以像这样创建水平柱状图：\n\n```\ndf2.plot.barh();\nplt.legend(x, loc='upper\
+  \ right')\nplt.xticks(rotation=90)\nplt.grid()\nplt.show()\n```\n\n![](img/index-159_1.jpg)\n\
+  \n第 9 章 处理 COVID-19 数据\n\n这会产生如图 9-12 所示的输出。\n\n### 图 9-12：排名前 10 的国家的 COVID-19\
+  \ 统计数据（带网格的水平柱状图）\n\n接下来，使用以下代码创建一个堆叠的水平柱状图：`df2.plot.barh(stacked=True);`\n\n```\n\
+  plt.legend(x, loc='upper right')\nplt.xticks(rotation=90)\nplt.grid()\nplt.show()\n\
+  ```\n\n![](img/index-160_1.jpg)\n\n第 9 章 处理 COVID-19 数据\n\n输出如图 9-13 所示。\n\n###\
+  \ 图 9-13：排名前 10 的国家的 COVID-19 统计数据（带网格的水平堆叠柱状图）\n\n我们甚至可以使用面积图来可视化这些数据。默认情况下，面积图是堆叠的，正如我们所知。我们可以这样创建它：`df2.plot.area();`\n\
+  \n```\nplt.legend(x, loc='upper right')\nplt.xticks(rotation=90)\nplt.grid()\nplt.show()\n\
+  ```\n\n![](img/index-161_1.jpg)\n\n第 9 章 处理 COVID-19 数据\n\n输出如图 9-14 所示。\n\n###\
+  \ 图 9-14：排名前 10 的国家的 COVID-19 统计数据（堆叠面积图）\n\n你甚至可以通过以下方式创建一个重叠的面积图：\n\n```\ndf2.plot.area(stacked=False);\n\
+  plt.legend(x, loc='upper right')\nplt.xticks(rotation=90)\nplt.grid()\nplt.show()\n\
+  ```\n\n![](img/index-162_1.jpg)\n\n第 9 章 处理 COVID-19 数据\n\n图 9-15 展示了结果。\n\n###\
+  \ 图 9-15：排名前 10 的国家的 COVID-19 统计数据（重叠面积图）\n\n要创建一个漂亮的散点图，其中点的大小与数据大小成比例，请使用以下代码：\n\
+  \n```\nfactor=0.0001\nplt.scatter(x, y1, s=y1*factor);\nplt.scatter(x, y2, s=y2*factor);\n\
+  plt.scatter(x, y3, s=y3*factor);\nplt.scatter(x, y4, s=y4*factor);\nplt.legend(labels,\
+  \ loc='upper right')\nplt.xticks(rotation=90)\nplt.grid()\nplt.show()\n```\n\n![](img/index-163_1.jpg)\n\
+  \n第 9 章 处理 COVID-19 数据\n\n输出如图 9-16 所示。\n\n### 图 9-16：排名前 10 的国家的 COVID-19 统计数据（散点图）\n\
+  \n最后，你可以使用以下代码创建一个漂亮的饼图：`plt.pie(y1, labels=x)`\n\n```\nplt.title('Confirmed Cases')\n\
+  plt.show()\n```\n\n![](img/index-164_1.jpg)\n\n第 9 章 处理 COVID-19 数据\n\n输出如图 9-17\
+  \ 所示。\n\n### 图 9-17：排名前 10 的国家的 COVID-19 统计数据（饼图）\n\n## 总结\n\n在本章中，你学习了如何从各种在线来源检索\
+  \ COVID-19 数据，并将数据转换为一个 Pandas DataFrame。你还了解了如何准备各种类型的可视化图表，以图形化的方式呈现这些 COVID-19\
+  \ 数据。\n\n至此，我们使用真实数据进行的可视化之旅就结束了。希望你能像我喜欢编写本书中的示例一样，享受阅读和跟随练习的过程。数据可视化是一个广阔的领域。还有许多其他的\
+  \ Python 数据可视化库供你探索，例如 `ggplot`、`plotly` 和 `seaborn`。\n\n\n\n这些库提供了高级数据可视化能力，可以满足您的业务和科学可视化需求。\n\
+  \n**索引**\n\n**A, B**\n\n`重叠区域图`, 153\n\n`饼图`, 155\n\n`加法运算`, 87\n\n`散点图`, 154\n\n\
+  `arange()`函数, 60\n\n`堆叠区域图`, 152\n\n`算术运算`, 85, 100\n\n`统计`, 148\n\n`分配自定义标签`, 114\n\
+  \n`垂直堆叠条形图`, 149\n\n`可视化数据`, 142\n\n**C**\n\n`cumsum()`函数, 129\n\n`颜色通道`, 89, 91,\
+  \ 92\n\n`逗号分隔值（CSV）`\n\n**D, E, F**\n\n格式, 127\n\n`比较运算`, 120\n\n`数据框`, `Pandas`,\
+  \ 121–127\n\n`构造函数`, 119\n\n`数据可视化库`\n\n`容器`, 51\n\n`颜色`/`样式`/`标记`, 73–79\n\n`COVID-19`,\
+  \ 137\n\n`网格`/`坐标轴`/`标签`, 68–73\n\n`受影响国家`, 141\n\n`Matplotlib`, 58–63\n\n`各国数据`,\
+  \ 140\n\n`多线图`, 66, 67\n\n`数据框`, 142\n\n`Numpy`, 59–63\n\n`数据源`, 138–142\n\n`单线图`,\
+  \ 64, 66\n\n`前 10 个国家`,\n\n类型\n\n`受影响`, 143\n\n`条形图`, 41\n\n`柱状图`, 145\n\n`自定义线条`,\
+  \ 38\n\n`网格`, 147\n\n`线段`, 37\n\n`水平图`, 150\n\n`多线`, 39, 40\n\n`水平堆叠条形`\n\n`垂直柱状`,\
+  \ 42, 43\n\n`图`, 151\n\n`Debian`, 8\n\n`折线图`, 144\n\n`df1.tail()`函数, 122\n\n`多线图`,\
+  \ 146\n\n`十二面体图`, 113\n\n© Ashwin Pajankar 2021\n\nA. Pajankar, *Python 数据可视化实战*,\n\
+  \n[`doi.org/10.1007/978-1-4842-6455-3`](https://doi.org/10.1007/978-1-4842-6455-3#DOI)\n\
+  \n索引\n\n**G**\n\n**L**\n\n`图`, 101\n\n`皮革`\n\n`节点和边`, 107\n\n`代码`, 33, 34\n\n`路径`,\
+  \ 108\n\n`定义`, 33\n\n`绘制点`, 35, 36\n\n**H**\n\n`缩放`, 43, 45\n\n`样式设置`, 45–48\n\n\
+  `head()`函数, 122\n\n`元组`, 34\n\n`水平条形图`, 132\n\n`legend()`函数, 71, 72\n\n`水平堆叠`\n\n\
+  `条形图`, 133, 134\n\n**M**\n\n**I**\n\n`Matplotlib`, 50, 56, 58\n\n`图像运算`, 86\n\n\
+  `meshgrid()`函数, 95\n\n`加法`, 87\n\n`颜色通道`, 91, 92\n\n\n\n"
+- "# 索引\n\n## A\n\n- 减法, 88, 89\n\n## N\n\n- `Ndarray`\n  - 定义, 51, 52\n  - 一维, 53,\
+  \ 54\n  - 属性, 54, 55\n- `Network`, 101\n- `Networkx`, 102, 103, 105, 117\n  - 节点,\
+  \ 101, 102\n- `NumPy`\n  - 常量, 55, 56\n  - 定义, 51\n  - 库, 51, 52\n\n## I\n\n- 集成开发与学习环境（IDLE）,\
+  \ 9\n\n## J, K\n\n- Jupyter Notebook\n  - 定义, 18\n  - 纯文本格式, 18\n  - Python 语句,\
+  \ 18\n  - 运行代码, 25–27, 29\n  - 运行操作系统命令, 31, 32\n  - 搭建环境, 19–23, 25\n\n## O\n\n\
+  - 重叠面积图, 135, 152\n\n## P, Q\n\n- Pandas, 117\n  - 基本操作, 120\n  - 数据框, 121, 124\n\
+  \  - GDP 列, 126\n  - 序列, 118\n  - 可视化, 128\n- 彼得森图, 109\n  - 圆形配置, 111\n  - 边与节点,\
+  \ 108\n  - 节点与边, 110\n  - 外壳布局, 110, 112\n  - 谱配置, 112\n- 饼图, 135, 136, 154, 155\n\
+  - `plot()` 函数, 59, 64, 72\n- Python 3\n  - 应用领域, 4\n  - 图, 102\n  - 历史, 2\n  - 安装\n\
+  \    - Debian/Ubuntu, 8\n    - IDLE, 9, 10, 12\n    - 交互模式, 13, 14\n    - 脚本模式,\
+  \ 14–16\n    - Windows 计算机, 5–8\n  - 节点, 106\n  - 操作系统平台, 1\n  - 哲学理念, 3, 4\n  -\
+  \ 编程语言, 2\n- Python 增强提案（PEPs）, 3\n- Python 包索引（PyPI）, 33\n\n## R\n\n- `randn()`\
+  \ 函数, 128\n- `ravel()` 函数, 96\n\n## S\n\n- 科学 Python 生态系统（SciPy）, 48–50\n- 严重急性呼吸综合征冠状病毒\
+  \ 2（SARS-CoV-2）, 137\n- `show()` 函数, 60, 82\n- 堆叠面积图, 134\n- 减法运算, 87, 88\n\n##\
+  \ T\n\n- 3D 可视化\n  - 柱状图, 95, 97\n  - 数据点, 94\n  - 参数曲线, 95\n  - Qt 窗口, 93\n  -\
+  \ 线框, 98\n\n## U\n\n- Ubuntu Linux 与树莓派操作系统, 8\n\n## V, W, X, Y, Z\n\n- 垂直柱状图, 131\n\
+  - 垂直堆叠柱状图, 133, 148, 149\n- 可视化图像\n  - Matplotlib 的 Pyplot 模块, 82\n  - 颜色, 83\n\
+  \  - 显示, 82\n  - 存储, 82\n  - 灰度, 84, 85\n  - 隐藏坐标轴, 83\n- 可视化图, 105, 106\n\n\n\n"
+- "# 目录\n\n- 第 1 章：Python 简介\n  - Python 编程语言\n    - Python 的历史\n    - Python 增强提案\n\
+  \      - Python 的设计哲学\n    - Python 的应用\n  - 在不同平台上安装 Python\n    - 在 Windows 电脑上安装\n\
+  \    - 在 Ubuntu 及 Debian 衍生版上安装\n  - Python 模式\n    - 交互模式\n    - 脚本模式\n  - 本章小结\n\
+  - 第 2 章：探索 Jupyter Notebook\n  - Jupyter Notebook 概述\n  - 搭建 Jupyter Notebook 环境\n\
+  \  - 在 Jupyter Notebook 中运行代码\n  - 本章小结\n- 第 3 章：使用 Leather 进行数据可视化\n  - 在 Jupyter\
+  \ Notebook 中运行操作系统命令\n  - Leather 简介\n  - 更多可视化类型\n  - 坐标轴刻度\n  - 样式设置\n  - 本章小结\n\
+  - 第 4 章：科学计算 Python 生态系统与 NumPy\n  - 科学计算 Python 生态系统\n  - NumPy 与 Ndarray\n   \
+  \ - 多维数组\n  - Ndarray 属性\n  - NumPy 常量\n  - 本章小结\n- 第 5 章：使用 NumPy 和 Matplotlib\
+  \ 进行数据可视化\n  - Matplotlib\n  - 使用 NumPy 和 Matplotlib 进行可视化\n  - 单线图\n  - 多线图\n \
+  \ - 网格、坐标轴与标签\n  - 颜色、样式与标记点\n  - 本章小结\n- 第 6 章：图像与 3D 形状可视化\n  - 图像可视化\n  - 图像操作\n\
+  \  - 3D 可视化\n  - 本章小结\n- 第 7 章：图形与网络可视化\n  - 图形与网络\n    - Python 3 中的图形\n  - 在 Python\
+  \ 3 中可视化图形\n  - 更多图形类型\n  - 为节点分配自定义标签\n  - 本章小结\n- 第 8 章：Pandas 入门\n  - Pandas\
+  \ 简介\n    - Pandas 中的 Series\n    - Series 基本操作\n  - Pandas 中的 DataFrame\n    -\
+  \ 读取 CSV 格式存储的数据\n  - 使用 Pandas 进行可视化\n  - 本章小结\n- 第 9 章：处理 COVID-19 数据\n  - COVID-19\
+  \ 疫情与数据集\n    - COVID-19 数据来源\n  - 可视化 COVID-19 数据\n  - 本章小结\n- 索引\n"

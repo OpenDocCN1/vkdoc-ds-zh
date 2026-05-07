@@ -1,0 +1,1491 @@
+- fmt: '# The SEO Checklist for Developers
+
+
+    ## Andrea M. Fuller
+
+
+    Copyright © 2023 by Andrea M. Fuller
+
+
+    All rights reserved. No part of this publication may be reproduced, stored or
+    transmitted in any form or by any means, electronic, mechanical, photocopying,
+    recording, scanning, or otherwise without written permission from the publisher.
+    It is illegal to copy this book, post it to a website, or distribute it by any
+    other means without permission.
+
+
+    First edition
+
+
+    This book was professionally typeset on Reedsy
+
+
+    Find out more at `reedsy.com`
+
+
+    ## Contents
+
+
+    [I. PART ONE](#chapter0001.html)
+
+
+    [1. Intro](#chapter0002.html)
+
+
+    [2. Getting Started](#chapter0003.html)
+
+
+    [3. Technical SEO](#chapter0004.html)
+
+
+    [4. Onsite + Content SEO](#chapter0005.html)
+
+
+    [5. Conclusion](#chapter0006.html)
+
+
+    [II. PART TWO](#chapter0007.html)
+
+
+    [6. Bonus: Developer’s Guide to SEO-Friendly Pagination: Tips, Tricks, and Traps](#chapter0008.html)
+
+
+    [7. So, what exactly is pagination?](#chapter0009.html)
+
+
+    [8. What’s the deal with Infinite Scroll?](#chapter0010.html)
+
+
+    [9. A Developer’s Guide to Pagination Best Practices](#chapter0011.html)
+
+
+    [10. A Developer’s Guide to Handling Infinite Scroll](#chapter0012.html)
+
+
+    [11. Common Pagination Mistakes to Avoid](#chapter0013.html)
+
+
+    [12. In a Nutshell](#chapter0014.html)
+
+
+    [About the Author](#chapter0015.html)
+
+
+    [Also by Andrea M. Fuller](#chapter0016.html)
+
+
+    I
+
+
+    Part One
+
+
+    ## 1
+
+
+    ### Intro
+
+
+    We know that as a developer, you’re a master of crafting digital wonders, but
+    have you ever wondered how to make sure your creations get noticed by search engines
+    and the right audience? That’s where this friendly SEO checklist comes to the
+    rescue!
+
+
+    Think of this checklist as your trusty sidekick, your SEO compass in the labyrinth
+    of algorithms and keywords. It’s here to break down the complex world of SEO into
+    bite-sized, developer-centric chunks.
+
+
+    Whether you’re a seasoned developer or just getting started, this checklist is
+    designed to be your go-to resource.
+
+
+    ## 2
+
+
+    ### Getting Started
+
+
+    Set up **Google Search Console** (`GSC`) and **Bing Webmaster Tools**: Get these
+    tools up and running to monitor your site’s health and performance in search engines.
+
+
+    Set up **Google Analytics** (`GA`): Understand your site’s traffic and user behavior
+    by setting up Google Analytics.
+
+
+    Install and Configure SEO Plugin (for WordPress): If you’re using WordPress, choose
+    and set up an SEO plugin to optimize your site’s SEO easily. (Yoast Pro is the
+    best because it allows you to add `301` redirects in it, have full control of
+    archive pages and configure basic schema code.)
+
+
+    Generate and Submit Sitemap: Submit the sitemap to `GSC` and Bing to help search
+    engines navigate your site effectively once the site has been pushed live. Yoast
+    Pro will generate the sitemap for you and continue to automatically update it.
+
+
+    Create `robots.txt`: Craft a `robots.txt` file to guide search engine bots on
+    which parts of your site to crawl and which to avoid.
+
+
+    Check for Manual Actions: Regularly review Webmaster Tools for any manual actions
+    that might affect your site’s search presence.
+
+
+    Ensure Site Indexing: Confirm that search engines are indexing your site’s pages
+    properly. Check Day 2 post-launch and weekly after that for 3 months. After that
+    review monthly with metrics report and `404` check, etc.
+
+
+    ## 3
+
+
+    ### Technical SEO
+
+
+    Ensure **HTTPS** Usage: Secure your site by using HTTPS protocol.
+
+
+    Check for Duplicate Versions: Avoid duplicate content issues by ensuring only
+    one version of your site is accessible. These can occur with Archive pages, tags
+    (which you should never use), and collections pages or product pages on ecommerce
+    sites. Also, some CMSs automatically create them because the canonical is not
+    automatically set for product pages.
+
+
+    Fix Crawl Errors: Identify and resolve any issues that might hinder search engine
+    crawling.
+
+
+    Speed Up Your Site: Improve your site’s loading speed for better user experience
+    and search rankings. Use Google’s free Page Speed Insights checker. Make sure
+    to use a `CDN` to cache the site to help.
+
+
+    Link Checkup: Regularly scan for broken internal and external links.
+
+
+    **HTTP** Links on **HTTPS** Pages: Update any HTTP links found on your HTTPS pages.
+
+
+    SEO-Friendly URLs: Craft URLs that are easily understandable by both users and
+    search engines. Make sure to set the permalinks to include the page hierarchy
+    within the URL and the blog name/category/post-title in the blog URLs.
+
+
+    Add Schema Markup: Enhance your site’s visibility in search results with schema
+    markup. Can be done through Yoast for basic schema, if your site is ecommerce
+    or needs more than the basics then create, test and deploy.
+
+
+    Assess Page Depth: Keep an eye on how many clicks it takes to reach different
+    pages on your site.
+
+
+    Redirect Check: Ensure your redirects (`301`s) are set up correctly. Do NOT use
+    `302`s and make sure to add `410`s to any URLs you fully delete. `301`s are just
+    a “change of address form” not to be used for deleted content.
+
+
+    Add a Security Plugin: Activate a great security plugin or app (depending upon
+    the `CMS`) to help with brute force attacks, scrapping, etc.
+
+
+    ## 4
+
+
+    ### Onsite + Content SEO
+
+
+    **H1** Tag Cleanup: Avoid multiple `H1` tags on a single page to maintain a clear
+    hierarchy. Only the page title should have a `H1` tag.
+
+
+    **H2** Tag Set-up: Make sure that all paragraph headers are set to `H2` and properly
+    styled in the `CSS`. Search engines need to see `H2` tags to gain context and
+    want to see the keyword present in them.
+
+
+    Image Size and File Name: Compress and size properly all images before uploading.
+    Ensure the file name includes the company/organization’s name and a generic description
+    of what it is (adding the keyword for that page is a bonus). Ex: `companyx_aboutus_ceo_janedoe.jpeg`
+
+
+    Image Alt Tags: Add descriptive `alt` tags to images for accessibility and SEO
+    benefits (adding the keyword the page is optimized for is a bonus).
+
+
+    Internal Linking: Strategically link between your site’s pages to improve navigation
+    and SEO.
+
+
+    Pagination & Canonical Tags: Ensure these are properly set and applied across
+    the site. Each `CMS` is slightly different so, check to see they are there and
+    working as they should (Ex: Shopify automatically adds the canonical tag, but
+    doesn’t add the right URL, so you need to update the rule in the Liquid file.)
+
+
+    ## 5
+
+
+    ### Conclusion
+
+
+    And there you have it my developer friends! You’ve just powered through our SEO
+    checklist like a coding maestro. Congrats!
+
+
+    If you ever find yourself lost in the SEO maze or need a friendly nudge in the
+    right direction, remember that this checklist is here to guide you.
+
+
+    Keep coding, keep optimizing, and keep being the awesome developer you are. Cheers
+    to your website’s success and all the great things yet to come!
+
+
+    II
+
+
+    Part Two
+
+
+    ## 6
+
+
+    Bonus: Developer’s Guide to SEO-Friendly Pagination: Tips, Tricks, and Traps
+
+
+    Hey there, my trusty developer friends! In this bonus section we’re diving into
+    the intriguing world of pagination.
+
+
+    You might wonder why this topic is crucial for us in the development realm, so
+    let’s break it down and talk about:
+
+
+    - What pagination is,
+
+    - Its impact on SEO, and
+
+    - Why it’s vital to get it right'
+  raw: '
+
+
+    ![Cover](Images/image-ZSGOJ0HZ.jpg)![Cover](Images/image-ZSGOJ0HZ.jpg)
+
+
+    #### Andrea M. Fuller
+
+
+    ### The SEO Checklist for Developers
+
+
+    Copyright © 2023 by Andrea M. Fuller
+
+
+    All rights reserved. No part of this publication may be reproduced, stored or
+    transmitted in any form or by any means, electronic, mechanical, photocopying,
+    recording, scanning, or otherwise without written permission from the publisher.
+    It is illegal to copy this book, post it to a website, or distribute it by any
+    other means without permission.
+
+
+    First edition
+
+
+    This book was professionally typeset on Reedsy
+
+
+    Find out more at reedsy.com
+
+
+    ## Contents
+
+
+    [I. PART ONE](#chapter0001.html)
+
+
+    [1\. Intro](#chapter0002.html)
+
+
+    [2\. Getting Started](#chapter0003.html)
+
+
+    [3\. Technical SEO](#chapter0004.html)
+
+
+    [4\. Onsite + Content SEO](#chapter0005.html)
+
+
+    [5\. Conclusion](#chapter0006.html)
+
+
+    [II. PART TWO](#chapter0007.html)
+
+
+    [6\. Bonus: Developer’s Guide to SEO-Friendly Pagination: Tips, Tricks, and Traps](#chapter0008.html)
+
+
+    [7\. So, what exactly is pagination?](#chapter0009.html)
+
+
+    [8\. What’s the deal with Infinite Scroll?](#chapter0010.html)
+
+
+    [9\. A Developer’s Guide to Pagination Best Practices](#chapter0011.html)
+
+
+    [10\. A Developer’s Guide to Handling Infinite Scroll](#chapter0012.html)
+
+
+    [11\. Common Pagination Mistakes to Avoid](#chapter0013.html)
+
+
+    [12\. In a Nutshell](#chapter0014.html)
+
+
+    [About the Author](#chapter0015.html)
+
+
+    [Also by Andrea M. Fuller](#chapter0016.html)
+
+
+    I
+
+
+    Part One
+
+
+    ## 1
+
+
+    ### Intro
+
+
+    We know that as a developer, you’re a master of crafting digital wonders, but
+    have you ever wondered how to make sure your creations get noticed by search engines
+    and the right audience? That’s where this friendly SEO checklist comes to the
+    rescue!
+
+
+    Think of this checklist as your trusty sidekick, your SEO compass in the labyrinth
+    of algorithms and keywords. It’s here to break down the complex world of SEO into
+    bite-sized, developer-centric chunks.
+
+
+    Whether you’re a seasoned developer or just getting started, this checklist is
+    designed to be your go-to resource.
+
+
+    ## 2
+
+
+    ### Getting Started
+
+
+    Set up Google Search Console (GSC) and Bing Webmaster Tools: Get these tools up
+    and running to monitor your site’s health and performance in search engines.
+
+
+    Set up Google Analytics (GA): Understand your site’s traffic and user behavior
+    by setting up Google Analytics.
+
+
+    Install and Configure SEO Plugin (for WordPress): If you’re using WordPress, choose
+    and set up an SEO plugin to optimize your site’s SEO easily. (Yoast Pro is the
+    best because it allows you to add 301 redirects in it, have full control of archive
+    pages and configure basic schema code.)
+
+
+    Generate and Submit Sitemap: Submit the sitemap to GSC and Bing to help search
+    engines navigate your site effectively once the site has been pushed live. Yoast
+    Pro will generate the sitemap for you and continue to automatically update it.
+
+
+    Create Robots.txt: Craft a robots.txt file to guide search engine bots on which
+    parts of your site to crawl and which to avoid.
+
+
+    Check for Manual Actions: Regularly review Webmaster Tools for any manual actions
+    that might affect your site’s search presence.
+
+
+    Ensure Site Indexing: Confirm that search engines are indexing your site’s pages
+    properly. Check Day 2 post-launch and weekly after that for 3 months. After that
+    review monthly with metrics report and 404 check, etc.
+
+
+    ## 3
+
+
+    ### Technical SEO
+
+
+    Ensure HTTPS Usage: Secure your site by using HTTPS protocol.
+
+
+    Check for Duplicate Versions: Avoid duplicate content issues by ensuring only
+    one version of your site is accessible. These can occur with Archive pages, tags
+    (which you should never use), and collections pages or product pages on ecommerce
+    sites. Also, some CMSs automatically create them because the canonical is not
+    automatically set for product pages.
+
+
+    Fix Crawl Errors: Identify and resolve any issues that might hinder search engine
+    crawling.
+
+
+    Speed Up Your Site: Improve your site’s loading speed for better user experience
+    and search rankings. Use Google’s free Page Speed Insights checker. Make sure
+    to use a CDN to cache the site to help.
+
+
+    Link Checkup: Regularly scan for broken internal and external links.
+
+
+    HTTP Links on HTTPS Pages: Update any HTTP links found on your HTTPS pages.
+
+
+    SEO-Friendly URLs: Craft URLs that are easily understandable by both users and
+    search engines. Make sure to set the permalinks to include the page hierarchy
+    within the URL and the blog name/category/post-title in the blog URLs.
+
+
+    Add Schema Markup: Enhance your site’s visibility in search results with schema
+    markup. Can be done through Yoast for basic schema, if your site is ecommerce
+    or needs more than the basics then create, test and deploy.
+
+
+    Assess Page Depth: Keep an eye on how many clicks it takes to reach different
+    pages on your site.
+
+
+    Redirect Check: Ensure your redirects (301s) are set up correctly. Do NOT use
+    302s and make sure to add 410s to any URLs you fully delete. 301s are just a “change
+    of address form” not to be used for deleted content.
+
+
+    Add a Security Plugin: Activate a great security plugin or app (depending upon
+    the CMS) to help with brute force attacks, scrapping, etc.,
+
+
+    ## 4
+
+
+    ### Onsite + Content SEO
+
+
+    H1 Tag Cleanup: Avoid multiple H1 tags on a single page to maintain a clear hierarchy.
+    Only the page title should have a H1 tag.
+
+
+    H2 Tag Set-up: Make sure that all paragraph headers are set to H2 and properly
+    styled in the CSS. Search engines need to see H2 tags to gain context and want
+    to see the keyword present in them.
+
+
+    Image Size and File Name: Compress and size properly all images before uploading.
+    Ensure the file name includes the company/organization’s name and a generic description
+    of what it is (adding the keyword for that page is a bonus). Ex: companyx_aboutus_ceo_janedoe.jpeg
+
+
+    Image Alt Tags: Add descriptive alt tags to images for accessibility and SEO benefits
+    (adding the keyword the page is optimized for is a bonus).
+
+
+    Internal Linking: Strategically link between your site’s pages to improve navigation
+    and SEO.
+
+
+    Pagination & Canonical Tags: Ensure these are properly set and applied across
+    the site. Each CMS is slightly different so, check to see they are there and working
+    as they should (Ex: Shopify automatically adds the canonical tag, but doesn’t
+    add the right URL, so you need to update the rule in the Liquid file.)
+
+
+    ## 5
+
+
+    ### Conclusion
+
+
+    And there you have it my developer friends! You’ve just powered through our SEO
+    checklist like a coding maestro. Congrats!
+
+
+    If you ever find yourself lost in the SEO maze or need a friendly nudge in the
+    right direction, remember that this checklist is here to guide you.
+
+
+    Keep coding, keep optimizing, and keep being the awesome developer you are. Cheers
+    to your website’s success and all the great things yet to come!
+
+
+    II
+
+
+    Part Two
+
+
+    ## 6
+
+
+    Bonus: Developer’s Guide to SEO-Friendly Pagination: Tips, Tricks, and Traps
+
+
+    Hey there, my trusty developer friends! In this bonus section we’re diving into
+    the intriguing world of pagination.
+
+
+    You might wonder why this topic is crucial for us in the development realm, so
+    let’s break it down and talk about:
+
+
+    What pagination is,
+
+
+    Its impact on SEO, and
+
+
+    Why it’s vital to get it right'
+  trans: '
+
+    # 开发者搜索引擎优化检查清单
+
+
+    ## 安德莉亚·M·富勒
+
+
+    版权所有 © 2023 安德莉亚·M·富勒
+
+
+    保留所有权利。未经出版商书面许可，不得以任何形式或通过任何方式（电子、机械、影印、录制、扫描或其他方式）复制、存储或传播本出版物的任何部分。未经许可，复制本书、将其上传至网站或以任何其他方式分发均属违法行为。
+
+
+    第一版
+
+
+    本书由 Reedsy 专业排版
+
+
+    了解更多信息，请访问 `reedsy.com`
+
+
+    ## 目录
+
+
+    第一部分
+
+
+    1. 引言
+
+
+    2. 开始行动
+
+
+    3. 技术性搜索引擎优化
+
+
+    4. 站内与内容搜索引擎优化
+
+
+    5. 结论
+
+
+    第二部分
+
+
+    6. 额外内容：面向开发者的搜索引擎优化友好型分页指南：技巧、窍门与陷阱
+
+
+    7. 那么，分页到底是什么？
+
+
+    8. 无限滚动又该如何处理？
+
+
+    9. 开发者分页最佳实践指南
+
+
+    10. 开发者处理无限滚动指南
+
+
+    11. 应避免的常见分页错误
+
+
+    12. 简而言之
+
+
+    关于作者
+
+
+    安德莉亚·M·富勒的其他作品
+
+
+    第一部分
+
+
+    ## 1
+
+
+    ### 引言
+
+
+    我们知道，作为一名开发者，你是打造数字奇观的大师，但你是否曾想过如何确保你的作品能被搜索引擎和正确的受众注意到？这正是这份友好的搜索引擎优化清单大显身手的地方！
+
+
+    请将这份清单视为你可靠的伙伴，是在算法和关键词迷宫中指引你的搜索引擎优化罗盘。它将复杂的搜索引擎优化世界分解为适合开发者的、易于消化的小块内容。
+
+
+    无论你是经验丰富的开发者，还是刚刚起步，这份清单都将是你不可或缺的参考资料。
+
+
+    ## 2
+
+
+    ### 开始行动
+
+
+    设置 **Google Search Console**（`GSC`）和 **Bing 站长工具**：启动并运行这些工具，以监控你站点在搜索引擎中的健康状况和表现。
+
+
+    设置 **Google Analytics**（`GA`）：通过设置 Google Analytics 了解你站点的流量和用户行为。
+
+
+    安装并配置搜索引擎优化插件（针对 WordPress）：如果你使用的是 WordPress，选择并设置一个搜索引擎优化插件，以便轻松优化站点。 （Yoast
+    Pro 是最佳选择，因为它允许你在其中添加 `301` 重定向，完全控制存档页面，并配置基本的结构化数据代码。）
+
+
+    生成并提交站点地图：站点上线后，将站点地图提交给 `GSC` 和 Bing，以帮助搜索引擎有效导航你的站点。Yoast Pro 会自动为你生成站点地图，并持续自动更新。
+
+
+    创建 `robots.txt`：编写一个 `robots.txt` 文件，指导搜索引擎爬虫抓取站点的哪些部分，以及避开哪些部分。
+
+
+    检查人工操作：定期检查站长工具中可能影响站点搜索表现的人工操作。
+
+
+    确保站点被索引：确认搜索引擎正确索引了你站点的页面。上线后第 2 天检查一次，之后每周检查一次，持续 3 个月。之后，结合指标报告和 `404` 检查等，每月审查一次。
+
+
+    ## 3
+
+
+    ### 技术性搜索引擎优化
+
+
+    确保使用 **HTTPS**：通过使用 HTTPS 协议保护你的站点。
+
+
+    检查重复版本：通过确保站点只有一个版本可访问，避免内容重复问题。存档页面、标签（应避免使用）、电商站点的集合页或产品页可能会出现此问题。此外，某些内容管理系统由于未自动为产品页设置规范链接，也会自动创建重复版本。
+
+
+    修复抓取错误：识别并解决可能阻碍搜索引擎爬虫抓取的问题。
+
+
+    加速站点：提高站点的加载速度，以获得更好的用户体验和搜索排名。使用 Google 免费的 Page Speed Insights 工具进行检查。确保使用 `CDN`
+    来缓存站点，以提供帮助。
+
+
+    链接检查：定期扫描损坏的内部和外部链接。
+
+
+    **HTTPS** 页面上的 **HTTP** 链接：更新 HTTPS 页面上发现的任何 HTTP 链接。
+
+
+    搜索引擎优化友好的 URL：编写用户和搜索引擎都能轻松理解的 URL。确保将固定链接设置为在 URL 中包含页面层级，并在博客 URL 中包含博客名称/分类/文章标题。
+
+
+    添加结构化数据标记：通过结构化数据标记提升站点在搜索结果中的可见性。对于基本的结构化数据，可以通过 Yoast 完成；如果你的站点是电商或需要更复杂的结构化数据，则需要创建、测试并部署。
+
+
+    评估页面深度：留意访问站点上不同页面所需的点击次数。
+
+
+    重定向检查：确保你的重定向（`301`）设置正确。不要使用 `302`，并确保为任何完全删除的 URL 添加 `410` 状态码。`301` 只是一种“地址变更通知”，不能用于已删除的内容。
+
+
+    添加安全插件：激活一个优秀的安全插件或应用（取决于 `CMS`），以帮助抵御暴力破解攻击、数据抓取等。
+
+
+    ## 4
+
+
+    ### 站内与内容搜索引擎优化
+
+
+    **H1** 标签清理：避免在单个页面上使用多个 `H1` 标签，以保持清晰的层级结构。只有页面标题应使用 `H1` 标签。
+
+
+    **H2** 标签设置：确保所有段落标题都设置为 `H2`，并在 `CSS` 中正确设置样式。搜索引擎需要看到 `H2` 标签才能获取上下文，并希望在标签中看到关键词。
+
+
+    图片尺寸与文件名：上传前，对所有图片进行压缩并调整到合适尺寸。确保文件名包含公司/组织名称以及对图片的通用描述（若能包含该页面的关键词则更佳）。例如：`companyx_aboutus_ceo_janedoe.jpeg`
+
+
+    图片 Alt 标签：为图片添加描述性的 `alt` 标签，以提高可访问性和搜索引擎优化效果（若能包含该页面所针对的关键词则更佳）。
+
+
+    内部链接：在站点页面之间进行战略性链接，以改善导航和搜索引擎优化。
+
+
+    分页与规范链接标签：确保这些设置在站点上正确配置并应用。每个 `CMS` 略有不同，因此需检查它们是否存在并按预期工作（例如：Shopify 会自动添加规范链接标签，但不会添加正确的
+    URL，因此你需要在 Liquid 文件中更新规则）。
+
+
+    ## 5
+
+
+    ### 结论
+
+
+    看完了，我的开发者朋友们！你们像编程大师一样，轻松完成了我们的搜索引擎优化检查清单。恭喜！
+
+
+    如果有一天你在搜索引擎优化的迷宫中迷失方向，或者需要友好的指引，请记住这份清单会一直在这里指导你。
+
+
+    继续编码，继续优化，继续做那个出色的开发者。为你的网站成功以及未来所有美好的事物干杯！
+
+
+    第二部分
+
+
+    ## 6
+
+
+    额外内容：面向开发者的搜索引擎优化友好型分页指南：技巧、窍门与陷阱
+
+
+    嘿，我可信赖的开发者朋友们！在额外内容部分，我们将深入探讨引人入胜的分页世界。
+
+
+    你可能想知道为什么这个话题对我们在开发领域如此重要，那么让我们分解开来讨论：
+
+
+    - 分页是什么，
+
+    - 它对搜索引擎优化的影响，以及
+
+    - 正确实现它为何至关重要
+
+    '
+- fmt: "# 7\n\n## So, what exactly is pagination?\n\nIt’s the practice of dividing\
+    \ your website’s content into multiple pages. You’ve seen it on news sites, blogs,\
+    \ forums, and almost everywhere in the e-commerce universe.\n\n![Image](Images/image-PLLT4UBU.png)\n\
+    \nPagination is like the bread and butter of website content distribution, but\
+    \ it’s not all sunshine and rainbows. Getting pagination right is crucial for\
+    \ SEO.\n\nHere’s the scoop: The quality of your pagination setup can make or break\
+    \ how search engines index your pages and the content they contain — links, articles,\
+    \ products, and more.\n\nLet’s take a look at an example of pagination. In this\
+    \ example: The series is titled “Awesome Recipes Series” and has a URL and an\
+    \ image associated with it. It includes two pages, “Page 1” and “Page 2,” each\
+    \ with its URL and name. You can add more pages by duplicating the structure and\
+    \ incrementing the `position` and `content` attributes in the meta tags. The pagination\
+    \ metadata specifies that there are 10 pages, starting from page 1, ending at\
+    \ page 10, and the current page is 1.\n\n```\n<div itemscope itemtype=\"http://schema.org/Series\"\
+    >\n  <span itemprop=\"name\">Awesome Recipes Series</span>\n  <link itemprop=\"\
+    url\" href=\"https://example.com/awesome-recipes\">\n  <link itemprop=\"image\"\
+    \ href=\"https://example.com/awesome-recipes-thumbnail.jpg\">\n\n  <!-- Page 1\
+    \ -->\n  <div itemprop=\"hasPart\" itemscope itemtype=\"http://schema.org/WebPage\"\
+    >\n    <a itemprop=\"url\" href=\"https://example.com/awesome-recipes/page/1\"\
+    >\n      <span itemprop=\"name\">Awesome Recipes - Page 1</span>\n    </a>\n \
+    \   <meta itemprop=\"position\" content=\"1\">\n  </div>\n\n  <!-- Page 2 -->\n\
+    \  <div itemprop=\"hasPart\" itemscope itemtype=\"http://schema.org/WebPage\"\
+    >\n    <a itemprop=\"url\" href=\"https://example.com/awesome-recipes/page/2\"\
+    >\n      <span itemprop=\"name\">Awesome Recipes - Page 2</span>\n    </a>\n \
+    \   <meta itemprop=\"position\" content=\"2\">\n  </div>\n\n  <!-- Add more pages\
+    \ here -->\n\n  <!-- Pagination metadata -->\n  <meta itemprop=\"numberOfPages\"\
+    \ content=\"10\">\n  <meta itemprop=\"pageStart\" content=\"1\">\n  <meta itemprop=\"\
+    pageEnd\" content=\"10\">\n  <meta itemprop=\"currentPage\" content=\"1\">\n</div>\n\
+    ```\n\n# 8\n\n## What’s the deal with Infinite Scroll?\n\nIt’s the polar opposite\
+    \ of pagination. Instead of chopping content into separate pages, infinite scroll\
+    \ crams it all onto one page, letting users scroll indefinitely.\n\n![Image](Images/image-14WEIAUL.png)\n\
+    \nSometimes, you’ll see a “Load more” button to reveal the next batch of content,\
+    \ but technically, it’s still one page. Search engines perceive both pagination\
+    \ and infinite scroll as a single page.\n\nInfinite Scroll has its perks, like\
+    \ a sleek look and mobile-friendliness, but from an SEO standpoint, it’s not a\
+    \ silver bullet. Here’s the rub: Googlebot can’t mimic scrolling behavior and\
+    \ definitely can’t click “Load more.” So, search engines struggle to effectively\
+    \ evaluate and index all the content on an infinitely scrolling page. Pagination\
+    \ doesn’t have these issues because crawlers treat each page as a distinct entity.\n\
+    \n# 9\n\n## A Developer’s Guide to Pagination Best Practices\n\nNow, let’s talk\
+    \ about best practices for pagination straight from Google’s playbook:\n\n1. **Sequence\
+    \ of Links to Pages** – Always include a link to the next page using the `<a href>`\
+    \ tag on each page. Also, ensure a link to the first page within the pagination\
+    \ on every page so search engines favour your target result in SERP.\n\n2. **Create\
+    \ the Correct URL** – Use unique URLs with the parameter `?page=n` to show the\
+    \ current page number in the URL. Avoid referring to the first page as canonical;\
+    \ use canonical tags with standalone links for each page.\n\n3. **Data Structure**\
+    \ – Employ micro-markup to indicate to search engines that your site uses pagination.\
+    \ Schema.org is your friend here.\n\n4. **Avoid Duplicate Text** – If you have\
+    \ introductory text in your category during pagination, put it on the first page.\n\
+    \n5. **Say No to URL Fragment Identifiers** – Google ignores fragment identifiers\
+    \ (`#`) in URLs. Make sure your links are crawlable.\n\n6. **Rel=”next” and Rel=”prev”\
+    \ Tags** – Google no longer requires these tags, introduced way back in 2011.\
+    \ Micro-markup is enough.\n\n### Bonus Tips\n\nWant to supercharge your pagination?\
+    \ Consider these extras:\n\n- Use `preload`, `reconnect`, or `prefetch` tags to\
+    \ speed up page transitions for users.\n- There are two visual pagination types:\
+    \ “Next/Previous” and “Page numbering.” Choose the one that suits your content\
+    \ volume best.\n\n# 10"
+  raw: '## 7
+
+
+    ### So, what exactly is pagination?
+
+
+    It’s the practice of dividing your website’s content into multiple pages. You’ve
+    seen it on news sites, blogs, forums, and almost everywhere in the e-commerce
+    universe.
+
+
+    ![Image](Images/image-PLLT4UBU.png)
+
+
+    Pagination is like the bread and butter of website content distribution, but it’s
+    not all sunshine and rainbows.
+
+
+    Getting pagination right is crucial for SEO.
+
+
+    Here’s the scoop:
+
+
+    The quality of your pagination setup can make or break how search engines index
+    your pages and the content they contain — links, articles, products, and more.
+
+
+    Let’s take a look at an example of pagination. In this example:
+
+
+    The series is titled “Awesome Recipes Series” and has a URL and an image associated
+    with it.
+
+
+    It includes two pages, “Page 1” and “Page 2,” each with its URL and name.
+
+
+    You can add more pages by duplicating the structure and incrementing the position
+    and content attributes in the meta tags.
+
+
+    The pagination metadata specifies that there are 10 pages, starting from page
+    1, ending at page 10, and the current page is 1.
+
+
+    <div itemscope itemtype=“http://schema.org/Series”>
+
+
+    <span itemprop=“name”>Awesome Recipes Series</span>
+
+
+    <link itemprop=“url” href=“https://example.com/awesome-recipes”>
+
+
+    <link itemprop=“image” href=“https://example.com/awesome-recipes-thumbnail.jpg”>
+
+
+    <! - Page 1 →
+
+
+    <div itemprop=“hasPart” itemscope itemtype=“http://schema.org/WebPage”>
+
+
+    <a itemprop=“url” href=“https://example.com/awesome-recipes/page/1”>
+
+
+    <span itemprop=“name”>Awesome Recipes - Page 1</span>
+
+
+    </a>
+
+
+    <meta itemprop=“position” content=“1”>
+
+
+    </div>
+
+
+    <! - Page 2 →
+
+
+    <div itemprop=“hasPart” itemscope itemtype=“http://schema.org/WebPage”>
+
+
+    <a itemprop=“url” href=“https://example.com/awesome-recipes/page/2”>
+
+
+    <span itemprop=“name”>Awesome Recipes - Page 2</span>
+
+
+    </a>
+
+
+    <meta itemprop=“position” content=“2”>
+
+
+    </div>
+
+
+    <! - Add more pages here →
+
+
+    <! - Pagination metadata →
+
+
+    <meta itemprop=“numberOfPages” content=“10”>
+
+
+    <meta itemprop=“pageStart” content=“1”>
+
+
+    <meta itemprop=“pageEnd” content=“10”>
+
+
+    <meta itemprop=“currentPage” content=“1”>
+
+
+    </div>
+
+
+    ## 8
+
+
+    ### What’s the deal with Infinite Scroll?
+
+
+    It’s the polar opposite of pagination. Instead of chopping content into separate
+    pages, infinite scroll crams it all onto one page, letting users scroll indefinitely.
+
+
+    ![Image](Images/image-14WEIAUL.png)
+
+
+    Sometimes, you’ll see a “Load more” button to reveal the next batch of content,
+    but technically, it’s still one page.
+
+
+    Search engines perceive both pagination and infinite scroll as a single page.
+
+
+    Infinite Scroll has its perks, like a sleek look and mobile-friendliness, but
+    from an SEO standpoint, it’s not a silver bullet.
+
+
+    Here’s the rub: Googlebot can’t mimic scrolling behavior and definitely can’t
+    click “Load more.” So, search engines struggle to effectively evaluate and index
+    all the content on an infinitely scrolling page.
+
+
+    Pagination doesn’t have these issues because crawlers treat each page as a distinct
+    entity.
+
+
+    ## 9
+
+
+    ### A Developer’s Guide to Pagination Best Practices
+
+
+    Now, let’s talk about best practices for pagination straight from Google’s playbook:
+
+
+    1\. Sequence of Links to Pages
+
+
+    Always include a link to the next page using the <a href> tag on each page.
+
+
+    Also, ensure a link to the first page within the pagination on every page so search
+    engines favour your target result in SERP.
+
+
+    2\. Create the Correct URL
+
+
+    Use unique URLs with the parameter ?page=n to show the current page number in
+    the URL.
+
+
+    Avoid referring to the first page as canonical; use canonical tags with standalone
+    links for each page.
+
+
+    3\. Data Structure
+
+
+    Employ micro-markup to indicate to search engines that your site uses pagination.
+    Schema.org is your friend here.
+
+
+    4\. Avoid Duplicate Text
+
+
+    If you have introductory text in your category during pagination, put it on the
+    first page.
+
+
+    5\. Say No to URL Fragment Identifiers
+
+
+    Google ignores fragment identifiers (#) in URLs. Make sure your links are crawlable.
+
+
+    6\. Rel=”next” and Rel=”prev” Tags
+
+
+    Google no longer requires these tags, introduced way back in 2011. Micro-markup
+    is enough.
+
+
+    Bonus Tips
+
+
+    Want to supercharge your pagination? Consider these extras:
+
+
+    Use preload, reconnect, or prefetch tags to speed up page transitions for users.
+
+
+    There are two visual pagination types: “Next/Previous” and “Page numbering.” Choose
+    the one that suits your content volume best.
+
+
+    ## 10'
+  trans: "\n# 7\n\n## 那么，究竟什么是分页？\n\n分页是指将网站内容划分到多个页面的做法。你在新闻网站、博客、论坛以及电商领域的几乎任何地方都见过它。\n\
+    \n![图片](img/image-PLLT4UBU.png)\n\n分页就像是网站内容分发的基础，但并非总是完美无缺。正确实施分页对搜索引擎优化（SEO）至关重要。\n\
+    \n关键在于：分页设置的质量决定了搜索引擎如何索引你的页面及其包含的内容——链接、文章、产品等等。\n\n我们来看一个分页示例。在这个例子中：该系列标题为“精彩食谱系列”，并关联了\
+    \ URL 和图片。它包含“第 1 页”和“第 2 页”两个页面，每个页面都有自己的 URL 和名称。你可以通过复制结构并递增元标签中的`position`和`content`属性来添加更多页面。分页元数据指定共有\
+    \ 10 页，从第 1 页开始，到第 10 页结束，并且当前页面是第 1 页。\n\n```\n<div itemscope itemtype=\"http://schema.org/Series\"\
+    >\n  <span itemprop=\"name\">精彩食谱系列</span>\n  <link itemprop=\"url\" href=\"https://example.com/awesome-recipes\"\
+    >\n  <link itemprop=\"image\" href=\"https://example.com/awesome-recipes-thumbnail.jpg\"\
+    >\n\n  <!-- 第 1 页 -->\n  <div itemprop=\"hasPart\" itemscope itemtype=\"http://schema.org/WebPage\"\
+    >\n    <a itemprop=\"url\" href=\"https://example.com/awesome-recipes/page/1\"\
+    >\n      <span itemprop=\"name\">精彩食谱 - 第 1 页</span>\n    </a>\n    <meta itemprop=\"\
+    position\" content=\"1\">\n  </div>\n\n  <!-- 第 2 页 -->\n  <div itemprop=\"hasPart\"\
+    \ itemscope itemtype=\"http://schema.org/WebPage\">\n    <a itemprop=\"url\" href=\"\
+    https://example.com/awesome-recipes/page/2\">\n      <span itemprop=\"name\">精彩食谱\
+    \ - 第 2 页</span>\n    </a>\n    <meta itemprop=\"position\" content=\"2\">\n \
+    \ </div>\n\n  <!-- 在此处添加更多页面 -->\n\n  <!-- 分页元数据 -->\n  <meta itemprop=\"numberOfPages\"\
+    \ content=\"10\">\n  <meta itemprop=\"pageStart\" content=\"1\">\n  <meta itemprop=\"\
+    pageEnd\" content=\"10\">\n  <meta itemprop=\"currentPage\" content=\"1\">\n</div>\n\
+    ```\n\n# 8\n\n## 无限滚动是怎么回事？\n\n它恰恰与分页相反。无限滚动不是将内容切分成单独的页面，而是将所有内容塞进一个页面，让用户可以无限滚动下去。\n\
+    \n![图片](img/image-14WEIAUL.png)\n\n有时，你会看到一个“加载更多”按钮来显示下一批内容，但从技术上讲，它仍然是一个页面。搜索引擎会将分页和无限滚动都视为单个页面。\n\
+    \n无限滚动有其优势，比如外观流畅且对移动端友好，但从搜索引擎优化的角度来看，它并非万能灵药。问题在于：谷歌爬虫无法模仿滚动行为，更不能点击“加载更多”。因此，搜索引擎难以有效评估和索引无限滚动页面上的所有内容。分页则没有这些问题，因为爬虫会将每个页面视为一个独立的实体。\n\
+    \n# 9\n\n## 开发者分页最佳实践指南\n\n现在，我们来谈谈谷歌手册中提到的分页最佳实践：\n\n1.  **页面链接序列** – 始终在每个页面上使用`<a\
+    \ href>`标签包含指向下一页的链接。同时，确保每个页面的分页中都包含指向第一页的链接，以便搜索引擎在搜索结果页面（SERP）中优先展示你的目标结果。\n\
+    \n2.  **创建正确的 URL** – 使用带有`?page=n`参数的唯一 URL 来在地址栏中显示当前页码。避免将第一页作为权威页面（canonical）；为每个页面使用带有独立链接的规范标签。\n\
+    \n3.  **数据结构** – 使用微标记向搜索引擎表明你的网站使用了分页。Schema.org 在这里是你的好帮手。\n\n4.  **避免重复文本**\
+    \ – 如果你在分页过程中为分类添加了介绍性文字，请将其放在第一页上。\n\n5.  **对 URL 片段标识符说不** – 谷歌会忽略 URL 中的片段标识符（`#`）。确保你的链接是可爬取的。\n\
+    \n6.  **`rel=”next”`和`rel=”prev”`标签** – 早在 2011 年引入的这些标签，谷歌已不再要求使用。微标记就足够了。\n\n\
+    ### 额外提示\n\n想要给你的分页功能加速吗？考虑这些额外配置：\n\n-   使用`preload`、`reconnect`或`prefetch`标签来加快用户的页面切换速度。\n\
+    -   有两种视觉分页类型：“上一页/下一页”和“页码编号”。选择最适合你内容量的那一种。\n\n# 10\n"
+- fmt: "### A Developer’s Guide to Handling Infinite Scroll\n\nIf you’re leaning towards\
+    \ infinite scroll, remember it’s often powered by AJAX technology.\n\nSearch engines\
+    \ may miss some content since it’s hidden until users scroll or click to load\
+    \ more.\n\nHere’s a JavaScript snippet to give you an idea:\n\n```\nwindow.onscroll\
+    \ = function() {\n  // Check if the user has scrolled to the bottom of the page\n\
+    \  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {\n\
+    \    // You're at the bottom of the page, load more content here.\n    // This\
+    \ is where you would make an AJAX request to fetch additional content.\n    //\
+    \ Once the new content is loaded, you can append it to the existing content on\
+    \ the page.\n    // Don't forget to implement error handling and loading indicators\
+    \ if needed.\n  }\n};\n```\n\nIn this code:\n\n- `window.onscroll` is an event\
+    \ listener that triggers the function when the user scrolls.\n- `window.innerHeight`\
+    \ represents the height of the browser’s viewport.\n- `window.scrollY` indicates\
+    \ how much the page has been scrolled vertically.\n- `document.body.offsetHeight`\
+    \ gives you the total height of the document.\n\nWhen the sum of `window.innerHeight`\
+    \ and `window.scrollY` equals or exceeds `document.body.offsetHeight`, it means\
+    \ the user has scrolled to the bottom of the page, and you can trigger the loading\
+    \ of additional content.\n\nRemember to replace the comment “// Load more content\
+    \ here” with the actual code to load and append new content to your webpage.\n\
+    \nAdditionally, consider adding debounce or throttle mechanisms to avoid excessive\
+    \ calls to the scroll event and improve performance.\n\nIn addition, we need to\
+    \ talk about breaking the content into manageable sections. This ensures accessibility\
+    \ even when JavaScript is disabled and maintains the URL integrity.\n\nHere’s\
+    \ a breakdown:\n\n#### 1. Divide Content for Accessibility\n\nWhen implementing\
+    \ infinite scroll, it’s crucial to divide your content into smaller, accessible\
+    \ sections. This ensures that users with JavaScript disabled can still access\
+    \ and navigate your content seamlessly. Avoid duplicating these sections. Consider\
+    \ these examples:\n\n- Example 1: `site.com/stickers&page=1`\n\nThis URL structure\
+    \ indicates the first content page within the “stickers” category.\n\n- Example\
+    \ 2: `site.com/stickers?lastid=123`\n\nUsing a unique identifier like `lastid`\
+    \ helps maintain URL uniqueness, allowing users to access specific sections directly.\n\
+    \n- Example: `site.com/stickers#1`\n\nWhile using a URL fragment identifier (`#`)\
+    \ isn’t ideal for SEO, it still provides some accessibility. However, using query\
+    \ parameters or clean URLs whenever possible is better.\n\n#### 2. Ensure URL\
+    \ Uniqueness and Functionality\n\nYour URLs should be both unique and functional.\
+    \ They should work independently of user cookies or browsing history. This guarantees\
+    \ a smooth user experience and proper indexing by search engines.\n\nExamples\
+    \ are crucial here:\n\n- Unique and Functional URL: `site.com/stickers&page=2`\n\
+    \nThis URL references the second page of content in the “stickers” category, and\
+    \ it’s both unique and functional.\n\n- Avoid URL Fragment Identifiers:\n\nDon’t\
+    \ rely solely on fragment identifiers like `site.com/stickers#1`, as they may\
+    \ not be as reliable for functionality and indexing.\n\n#### 3. Enhance User Experience\
+    \ with `replaceState` and `pushState`\n\nConsider using `replaceState` and `pushState`\
+    \ to further improve the user experience, depending on user behaviour on your\
+    \ website:\n\n- `replaceState`: Use this method when user actions, like clicking\
+    \ or scrolling, are similar to mouse clicks. It replaces the current URL in the\
+    \ browser’s history without creating a new entry.\n- `pushState`: Employ this\
+    \ method when you want users to be able to return to previously scrolled content\
+    \ easily. It adds a new entry to the browser’s history.\n\nHere’s a quick example:\n\
+    \n```\n// Using pushState\nhistory.pushState({ page: 'scroll' }, 'Scrolled Content',\
+    \ '/teams/giraffes?page=2');\n\n// Using replaceState\nhistory.replaceState({\
+    \ page: 'scroll' }, 'Scrolled Content', 'teams/giraffes?page=3');\n```\n\nBy utilizing\
+    \ these methods strategically, you can provide a more seamless and user-friendly\
+    \ experience when implementing infinite scroll.\n\nIn summary, when optimizing\
+    \ infinite scroll, consider accessibility, URL structure, and user experience\
+    \ enhancements through state manipulation.\n\nThis approach ensures all users,\
+    \ including those with JavaScript disabled, can navigate your content effectively\
+    \ while improving SEO and user engagement.\n\n### Common Pagination Mistakes to\
+    \ Avoid\n\nLastly, steer clear of these common pagination pitfalls:\n\n- Using\
+    \ the `noindex` tag instead of canonical tags can prevent search engines from\
+    \ indexing your pages correctly.\n- Static URLs for pagination are a no-go. Dynamic\
+    \ parameters in URLs are the way to go.\n- Ensure that pages not in the current\
+    \ category return a 404 error.\n\n### In a Nutshell\n\nThe key issue with improper\
+    \ pagination is restricted access to your content. To dodge this pitfall, remember\
+    \ these golden rules:\n\n- Use user-friendly `href` links for pagination that\
+    \ crawlers can access.\n- Ensure only the first page in the sequence is optimized\
+    \ and remove any SEO-specific content from pagination URLs.\n- Remember that Googlebots\
+    \ can’t scroll or click, so ensure all your content is accessible even without\
+    \ JavaScript.\n- Double-check the accessibility of your page URLs in Google Search\
+    \ Console.\n\nGo forth and paginate wisely. Your website’s SEO will thank you!\n\
+    \n![photo of the author](Images/image-CY5D9XQU.jpg)\n\n### About the Author\n\n\
+    Andrea M. Fuller is a seasoned Digital Marketing and SEO expert with over 20 years\
+    \ of experience in multiple industries that have ranged from start-ups to global\
+    \ PR firms.\n\nAndrea’s deep knowledge of technical platforms and passion for\
+    \ strategy allows her to create and execute unique and effective strategies for\
+    \ clients. As a fourth generation entrepreneur, she is passionate about helping\
+    \ businesses succeed by utilizing the online space to create genuine engagement\
+    \ between corporations/organizations and their clients/constituents.\n\nShe owns\
+    \ Fuller Digital Strategy, LLC - a full service Digital Marketing agency and SEO\
+    \ Handy Woman - a online academy teaching DIY website owners how to execute top-line\
+    \ SEO strategies themselves.\n\n- You can connect with me on:\n  - https://fullerdigitalstrategy.com\n\
+    \  - https://www.seohandywoman.com\n- Subscribe to my newsletter:\n  - https://fuller-digital-strategy-llc.ck.page/3b2de93afd\n\
+    \n### Also by Andrea M. Fuller\n\n![The NO B.S. Guide to Shopify SEO](Images/image-I717MFRG.png)\n\
+    \n#### The NO B.S. Guide to Shopify SEO\n\nA must-read for any Shopify entrepreneur\
+    \ who wants to take their online store to the next level.\n\nWritten by renowned\
+    \ SEO expert and entrepreneur Andrea Fuller and sold in more than 5 countries,\
+    \ this guide distills the secrets of SEO that actually drive sales.\n\nYou’ll\
+    \ learn insider tactics and techniques that will help you optimize your store\
+    \ for search engines and boost your rankings, bringing in more traffic and sales."
+  raw: '### A Developer’s Guide to Handling Infinite Scroll
+
+
+    If you’re leaning towards infinite scroll, remember it’s often powered by AJAX
+    technology.
+
+
+    Search engines may miss some content since it’s hidden until users scroll or click
+    to load more.
+
+
+    Here’s a JavaScript snippet to give you an idea:
+
+
+    window.onscroll = function() {
+
+
+    // Check if the user has scrolled to the bottom of the page
+
+
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+
+
+    // You''re at the bottom of the page, load more content here.
+
+
+    // This is where you would make an AJAX request to fetch additional content.
+
+
+    // Once the new content is loaded, you can append it to the existing content on
+    the page.
+
+
+    // Don''t forget to implement error handling and loading indicators if needed.
+
+
+    }
+
+
+    };
+
+
+    In this code:
+
+
+    window.onscroll is an event listener that triggers the function when the user
+    scrolls.
+
+
+    window.innerHeight represents the height of the browser’s viewport.
+
+
+    window.scrollY indicates how much the page has been scrolled vertically.
+
+
+    document.body.offsetHeight gives you the total height of the document.
+
+
+    When the sum of window.innerHeight and window.scrollY equals or exceeds document.body.offsetHeight,
+    itmeans the user has scrolled to the bottom of the page, and you can trigger the
+    loading of additional content.
+
+
+    Remember to replace the comment “// Load more content here” with the actual code
+    to load and append new content to your webpage.
+
+
+    Additionally, consider adding debounce or throttle mechanisms to avoid excessive
+    calls to the scroll event and improve performance.
+
+
+    In addition, we need to talk about breaking the content into manageable sections.
+    This ensures accessibility even when JavaScript is disabled and maintains the
+    URL integrity.
+
+
+    Here’s a breakdown:
+
+
+    1\. Divide Content for Accessibility
+
+
+    When implementing infinite scroll, it’s crucial to divide your content into smaller,
+    accessible sections. This ensures that users with JavaScript disabled can still
+    access and navigate your content seamlessly. Avoid duplicating these sections.
+    Consider these examples:
+
+
+    Example 1: site.com/stickers&page=1
+
+
+    This URL structure indicates the first content page within the “stickers” category.
+
+
+    Example 2: site.com/stickers?lastid=123
+
+
+    Using a unique identifier like “lastid” helps maintain URL uniqueness, allowing
+    users to access specific sections directly.
+
+
+    Example: site.com/stickers#1
+
+
+    While using aURL fragment identifier (#) isn’t ideal for SEO, it still provides
+    some accessibility. However, using query parameters or clean URLs whenever possible
+    is better.
+
+
+    2\. Ensure URL Uniqueness and Functionality
+
+
+    Your URLs should be both unique and functional. They should work independently
+    of user cookies or browsing history. This guarantees a smooth user experience
+    and proper indexing by search engines.
+
+
+    Examples are crucial here:
+
+
+    Unique and Functional URL: site.com/stickers&page=2
+
+
+    This URL references the second page of content in the “stickers” category, and
+    it’s both unique and functional.
+
+
+    Avoid URL Fragment Identifiers:
+
+
+    Don’t rely solely on fragment identifiers like site.com/stickers#1, as they may
+    not be as reliable for functionality and indexing.
+
+
+    3\. Enhance User Experience with replaceState and pushState
+
+
+    Consider using replaceState and pushState to further improve the user experience,
+    depending on user behaviour on your website:
+
+
+    replaceState: Use this method when user actions, like clicking or scrolling, are
+    similar to mouse clicks. It replaces the current URL in the browser’s history
+    without creating a new entry.
+
+
+    pushState: Employ this method when you want users to be able to return to previously
+    scrolled content easily. It adds a new entry to the browser’s history.
+
+
+    Here’s a quick example:
+
+
+    // Using pushState
+
+
+    history.pushState({ page: ''scroll'' }, ''Scrolled Content'', ''/teams/giraffes?page=2'');
+
+
+    // Using replaceState
+
+
+    history.replaceState({ page: ''scroll'' }, ''Scrolled Content'', ''teams/giraffes?page=3'');
+
+
+    By utilizing these methods strategically, you can provide a more seamless and
+    user-friendly experience when implementing infinite scroll.
+
+
+    In summary, when optimizing infinite scroll, consider accessibility, URL structure,
+    and user experience enhancements through state manipulation.
+
+
+    This approach ensures all users, including those with JavaScript disabled, can
+    navigate your content effectively while improving SEO and user engagement.
+
+
+    ## 11
+
+
+    ### Common Pagination Mistakes to Avoid
+
+
+    Lastly, steer clear of these common pagination pitfalls:
+
+
+    Using the “noindex” tag instead of canonical tags can prevent search engines from
+    indexing your pages correctly.
+
+
+    Static URLs for pagination are a no-go. Dynamic parameters in URLs are the way
+    to go.
+
+
+    Ensure that pages not in the current category return a 404 error.
+
+
+    ## 12
+
+
+    ### In a Nutshell
+
+
+    The key issue with improper pagination is restricted access to your content. To
+    dodge this pitfall, remember these golden rules:
+
+
+    Use user-friendly href links for pagination that crawlers can access.
+
+
+    Ensure only the first page in the sequence is optimized and remove any SEO-specific
+    content from pagination URLs.
+
+
+    Remember that Googlebots can’t scroll or click, so ensure all your content is
+    accessible even without JavaScript.
+
+
+    Double-check the accessibility of your page URLs in Google Search Console.
+
+
+    Go forth and paginate wisely. Your website’s SEO will thank you!
+
+
+    ![photo of the author](Images/image-CY5D9XQU.jpg)
+
+
+    ## About the Author
+
+
+    Andrea M. Fuller is a seasoned Digital Marketing and SEO expert with over 20 years
+    of experience in multiple industries that have ranged from start-ups to global
+    PR firms.
+
+
+    Andrea’s deep knowledge of technical platforms and passion for strategy allows
+    her to create and execute unique and effective strategies for clients. As a fourth
+    generation entrepreneur, she is passionate about helping businesses succeed by
+    utilizing the online space to create genuine engagement between corporations/organizations
+    and their clients/constituents.
+
+
+    She owns Fuller Digital Strategy, LLC - a full service Digital Marketing agency
+    and SEO Handy Woman - a online academy teaching DIY website owners how to execute
+    top-line SEO strategies themselves.
+
+
+    You can connect with me on:
+
+
+    https://fullerdigitalstrategy.com
+
+
+    https://www.seohandywoman.com
+
+
+    Subscribe to my newsletter:
+
+
+    https://fuller-digital-strategy-llc.ck.page/3b2de93afd
+
+
+    ## Also by Andrea M. Fuller
+
+
+    ![The NO B.S. Guide to Shopify SEO](Images/image-I717MFRG.png)
+
+
+    ### The NO B.S. Guide to Shopify SEO
+
+
+    A must-read for any Shopify entrepreneur who wants to take their online store
+    to the next level.
+
+
+    Written by renowned SEO expert and entrepreneur Andrea Fuller and sold in more
+    than 5 countries, this guide distills the secrets of SEO that actually drive sales.
+
+
+    You’ll learn insider tactics and techniques that will help you optimize your store
+    for search engines and boost your rankings, bringing in more traffic and sales.'
+  trans: "\n### 开发者应对无限滚动加载指南\n\n如果你倾向采用无限滚动方案，请记住它通常基于 AJAX 技术实现。\n\n搜索引擎可能会遗漏部分内容，因为这些内容需待用户滚动或点击后才能加载。\n\
+    \n以下 JavaScript 代码片段供你参考：\n\n```\nwindow.onscroll = function() {\n  // 检查用户是否已滚动至页面底部\n\
+    \  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {\n\
+    \    // 当前已到达页面底部，在此处加载更多内容\n    // 这里应发起 AJAX 请求以获取额外内容\n    // 新内容加载完成后，可将其追加到页面现有内容中\n\
+    \    // 别忘了按需实现错误处理和加载指示器\n  }\n};\n```\n\n代码说明：\n\n- `window.onscroll` 是一个事件监听器，当用户滚动时会触发相关函数。\n\
+    - `window.innerHeight` 表示浏览器视口的高度。\n- `window.scrollY` 指示页面垂直滚动的距离。\n- `document.body.offsetHeight`\
+    \ 返回文档的总高度。\n\n当 `window.innerHeight` 与 `window.scrollY` 之和大于或等于 `document.body.offsetHeight`\
+    \ 时，说明用户已滚动至页面底部，此时可触发额外内容的加载。\n\n请记得将注释“// 在此处加载更多内容”替换为实际加载并追加新内容的代码。\n\n此外，建议添加防抖或节流机制，避免对滚动事件的过度调用，从而提升性能。\n\
+    \n同时，我们需要讨论如何将内容切分为便于管理的部分。这样能确保即使禁用 JavaScript 也能保持无障碍访问，并维护 URL 的完整性。\n\n具体拆解如下：\n\
+    \n#### 1. 拆分内容以实现无障碍访问\n\n在实现无限滚动时，务必将内容拆解为更小、更易访问的部分。这能确保禁用 JavaScript 的用户仍可顺畅访问和浏览内容。避免重复创建这些部分。参考以下示例：\n\
+    \n- 示例 1：`site.com/stickers&page=1`\n\n此 URL 结构表示“贴纸”分类下的第一个内容页面。\n\n- 示例 2：`site.com/stickers?lastid=123`\n\
+    \n使用像 `lastid` 这样的唯一标识符有助于保持 URL 的唯一性，允许用户直接访问特定部分。\n\n- 示例：`site.com/stickers#1`\n\
+    \n虽然使用 URL 片段标识符（`#`）对 SEO 不理想，但仍能提供一定的可访问性。不过，尽可能使用查询参数或简洁 URL 是更优选择。\n\n####\
+    \ 2. 确保 URL 的唯一性与功能性\n\n你的 URL 需要既唯一又具备功能性。它们应独立于用户 cookies 或浏览历史也能正常工作，这能保证流畅的用户体验以及搜索引擎的合理索引。\n\
+    \n这里的关键示例包括：\n\n- 唯一且功能性的 URL：`site.com/stickers&page=2`\n\n此 URL 指向“贴纸”分类下的第二个内容页面，既唯一又具备功能性。\n\
+    \n- 避免 URL 片段标识符：\n\n不要仅依赖像 `site.com/stickers#1` 这样的片段标识符，因为它们在功能性和索引方面可能不够可靠。\n\
+    \n#### 3. 利用 `replaceState` 和 `pushState` 提升用户体验\n\n根据用户在网站上的行为，考虑使用 `replaceState`\
+    \ 和 `pushState` 进一步改善用户体验：\n\n- `replaceState`：在用户操作（如点击或滚动）类似于鼠标点击时使用此方法。它会替换浏览器历史中的当前\
+    \ URL，但不会创建新记录。\n- `pushState`：当希望用户能轻松返回之前滚动过的内容时使用此方法。它会在浏览器历史中添加一条新记录。\n\n\
+    以下是一个快速示例：\n\n```\n// 使用 pushState\nhistory.pushState({ page: 'scroll' }, '已滚动内容',\
+    \ '/teams/giraffes?page=2');\n\n// 使用 replaceState\nhistory.replaceState({ page:\
+    \ 'scroll' }, '已滚动内容', 'teams/giraffes?page=3');\n```\n\n通过策略性地应用这些方法，可以在实现无限滚动时提供更无缝、更友好的用户体验。\n\
+    \n总而言之，在优化无限滚动时，需考虑可访问性、URL 结构以及通过状态管理提升用户体验。\n\n这种方式能确保包括禁用 JavaScript 用户在内的所有人都能有效浏览内容，同时改善\
+    \ SEO 和用户参与度。\n\n### 应避免的常见分页错误\n\n最后，请避开以下常见分页陷阱：\n\n- 使用 `noindex` 标签而非规范标签，会阻止搜索引擎正确索引你的页面。\n\
+    - 避免使用静态 URL 进行分页，应采用包含动态参数的 URL。\n- 确保当前分类不存在的页面返回 404 错误。\n\n### 简而言之\n\n不当分页的核心问题在于限制了内容的可访问性。为避免这个陷阱，请牢记以下黄金法则：\n\
+    \n- 为分页使用爬虫可访问的用户友好型 `href` 链接。\n- 仅优化序列中的首页，并从分页 URL 中移除任何特定于 SEO 的内容。\n- 请记住，Google\
+    \ 爬虫无法滚动或点击，因此要确保所有内容即使在没有 JavaScript 的情况下也能访问。\n- 在 Google Search Console 中仔细检查页面\
+    \ URL 的可访问性。\n\n请明智地进行分页设计，你的网站 SEO 会因此受益！\n\n![作者照片](img/image-CY5D9XQU.jpg)\n\
+    \n### 关于作者\n\n**Andrea M. Fuller** 是一位经验丰富的数字营销与 SEO 专家，在从初创企业到全球公关公司等多个行业拥有超过\
+    \ 20 年的从业经验。\n\nAndrea 对技术平台的深刻理解以及对策略的热情，使她能够为客户制定并执行独特且有效的方案。作为第四代企业家，她热衷于利用线上空间在企业/组织与其客户/选民之间建立真实互动，助力企业成功。\n\
+    \n她拥有 **Fuller Digital Strategy, LLC**（一家提供全方位服务的数字营销机构）和 **SEO Handy Woman**（一所在线学院，教授\
+    \ DIY 网站所有者如何自行执行顶级 SEO 策略）。\n\n- 您可以通过以下方式联系我：\n  - https://fullerdigitalstrategy.com\n\
+    \  - https://www.seohandywoman.com\n- 订阅我的通讯：\n  - https://fuller-digital-strategy-llc.ck.page/3b2de93afd\n\
+    \n### Andrea M. Fuller 的其他作品\n\n![Shopify SEO 终极指南（无废话版）](img/image-I717MFRG.png)\n\
+    \n#### Shopify SEO 终极指南（无废话版）\n\n任何希望将在线商店提升至新水平的 Shopify 企业家必读之作。\n\n本书由知名 SEO\
+    \ 专家兼企业家 Andrea Fuller 撰写，已在超过 5 个国家销售，揭示了真正能推动销售的 SEO 秘诀。\n\n您将学到内部策略和技巧，帮助您优化商店以迎合搜索引擎，提升排名，从而带来更多流量和销量。\n"

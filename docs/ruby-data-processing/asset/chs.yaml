@@ -1,0 +1,2535 @@
+- '
+
+  '
+- "# ![](img/A978-1-4842-3474-7_CoverFigure.jpg)\n\n![A978-1-4842-3474-7_CoverFigure.jpg](img/A978-1-4842-3474-7_CoverFigure.jpg)\
+  \  \n杰伊·戈德西  \n**Ruby 数据处理：使用 Map、Reduce 和 Select**\n\n![A463517_1_En_BookFrontmatter_Figa_HTML.png](img/A463517_1_En_BookFrontmatter_Figa_HTML.png)\n\
+  \n本书作者引用的任何源代码或其他补充材料，读者均可通过 GitHub 上的图书产品页面获取，地址为 [www.apress.com/9781484234730](http://www.apress.com/9781484234730)。如需更详细信息，请访问\
+  \ [`www.apress.com/source-code`](http://www.apress.com/source-code)。  \nISBN 978-1-4842-3473-0\
+  \  \n电子版 ISBN 978-1-4842-3474-7  \n[`doi.org/10.1007/978-1-4842-3474-7`](https://doi.org/10.1007/978-1-4842-3474-7)\
+  \  \n美国国会图书馆控制编号：2018934400  \n© 杰伊·戈德西 2018  \n本作品受版权保护。出版商保留所有权利，无论是全部还是部分材料，具体包括翻译、重印、插图复用、朗诵、广播、以缩微胶片或任何其他物理形式复制，以及信息存储与检索的传输和电子改编、计算机软件，或当前已知或未来开发的任何类似或不同方法的权利。书中可能出现的商标名称、徽标和图片。我们不会在每个商标名称、徽标或图片出现时都使用商标符号，而是仅以编辑方式使用这些名称、徽标和图片，以维护商标所有者的利益，无意侵犯商标权。\
+  \  \n本出版物中使用的商品名称、商标、服务标记和类似术语，即使未标明为商标，也不应被视为对其是否受专有权利保护的立场表达。尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑和出版商均不对可能存在的任何错误或遗漏承担法律责任。出版商对本书所包含的材料不作任何明示或暗示的担保。\
+  \  \n采用无酸纸印刷  \n由 Springer Science+Business Media New York 负责全球图书发行，地址：233 Spring\
+  \ Street, 6th Floor, New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：orders-ny@springer-sbm.com，或访问\
+  \ www.springeronline.com。Apress Media, LLC 是一家加利福尼亚有限责任公司，其唯一成员（所有者）是 Springer Science\
+  \ + Business Media Finance Inc (SSBM Finance Inc)。SSBM Finance Inc 是一家特拉华州公司。\n\n"
+- '# 引言
+
+
+  多年来，我主要编写响应式软件，但总会有涉及字符串操作、数据合成或数据格式化的用户界面或报表组件。由于我并非计算机科学专业出身，并未学习过像 Lisp 或 Smalltalk
+  这类语言中的高阶函数，如 `map()`、`reduce()` 和 `select()`。而且，在我上学时，Ruby、Python、C++ 和 JavaScript
+  也尚未出现。因此，我在某些任务中不得不使用繁琐且容易出错的命令式代码。
+
+
+  在学习 Ruby 几年后，尽管我仍在使用命令式编程风格进行数据处理，但我发现了 Ruby 的 Enumerable 库，并开始使用其高阶函数，例如 `map()`、`reduce()`
+  和 `select()`。我的数据处理代码发生了怎样的变化呢？
+
+
+  *   代码变得更加直观，因为数据处理任务可以通过由 `map`、`reduce` 和 `select` 阶段组成的级联管道来表达。管道中的每个阶段都易于开发和调试。
+
+  *   代码量减少了一半。
+
+  *   代码自然更加健壮，调试时间也大大缩短。
+
+  *   通过围绕 `map`、`reduce` 和 `select` 来构思解决方案，我能够设想并解决更复杂的问题。
+
+
+  然而，除了最基础的示例外，我找不到任何关于如何使用这些函数来解决数据处理问题的例子。为了解决这类问题，我花费了大量时间在 `map`、`reduce` 和 `select`
+  上进行反复试错。
+
+
+  我决定撰写本书，旨在：
+
+  *   系统化我的学习成果，并帮助你比我更快、更有效地理解它；
+
+  *   向你展示我的问题解决方法，以帮助你解决自己的数据处理问题。
+
+
+  我也承认，在编写示例的过程中，我被迫学习了这些函数在编程中的许多细微之处。
+
+
+  ## 本书适用读者
+
+
+  本书适用于以下人群：
+
+  *   希望通过更熟练地使用 `map`、`reduce` 和 `select` 来提升编写数据处理代码的技能；
+
+  *   愿意亲手输入示例中的所有代码，并使用 `irb` Ruby 命令行和文本编辑器运行代码；
+
+  *   愿意仔细阅读并尝试本书中的示例，思考并反思输出结果，甚至独立调整程序以理解其运行机制；
+
+  *   愿意学习处理数据问题的不同方法；
+
+  *   愿意尝试失败的方法来学习这些函数的细微之处。
+
+
+  ## 本书可能不适用读者
+
+
+  如果你希望：
+
+  *   通过菜谱式的指南获得解决标准问题的方案；或者
+
+  *   获得一个数据处理方案的参考手册。
+
+
+  那么本书可能对您帮助不大。
+
+
+  ## 预备知识
+
+
+  你应该熟悉一些 Ruby 编程知识，或者至少熟悉其他某种语言的编程知识。如果你不了解 Ruby，可以搜索《笨办法学 Ruby》这本书，并按照作者 Zed Shaw
+  的建议通读一遍。
+
+
+  如果你精通 Python，那么在阅读本书时放慢速度，并在线查询 Ruby 相关信息，你可能会从中受益。
+
+
+  如果你想使用 Google、Bing 或其他搜索引擎在线查找帮助，那么互联网连接会很有用。
+
+
+  你应该拥有一台安装了 Ruby 2.2.x 的计算机。Windows、Linux 和 Mac OSX 系统均可。
+
+
+  你应该有一个好的语法高亮文本编辑器。我推荐 Windows 上的 Notepad++ 或 Linux/Macintosh 上的 gedit，这两款都是免费的。Sublime
+  Text 可在 Windows、Linux 或 Macintosh 上运行，性能略优，但在撰写本文时售价约为 70 美元。
+
+
+  ## 致谢
+
+
+  我想感谢几位帮助我成为更好程序员和作家的人。感谢 Kevin Szabo 和 Ronnie Taylor，他们帮助我成为更好的程序员；感谢 Christina
+  Hardy，她帮助我成为更好的作家。同时，也感谢 Mark Powers 和 Apress 的出版团队，他们帮助本书得以出版。
+
+
+
+  '
+- "# 目录\n\n- 第 1 章：基础 Ruby 1\n  - 命令行 1\n  - 对象作用域 3\n  - 字符串 4\n  - 数组 6\n  - 特殊方法\
+  \ 6\n  - 哈希 8\n  - 块传递语法 9\n  - 从文件读取 11\n- 第 2 章：函数概述及简单示例 13\n  - Map 13\n  -\
+  \ Reduce 15\n  - 简单 Reduce 示例 19\n  - uniq 19\n  - reverse 20\n  - max 21\n  - Select\
+  \ 23\n- 第 3 章：复杂解决方案 25\n  - 调试 Map、Reduce 和 Select 的块 25\n  - 调试 Map 块 25\n  -\
+  \ 调试 Reduce 块 26\n  - 调试 Select 块 27\n  - FizzBuzz 27\n  - 奇数立方和 30\n  - 按姓氏排序姓名列表\
+  \ 33\n  - 将姓名列表转换为 CSV 36\n  - 生成随机姓名列表 39\n  - 清理数据集 42\n  - 用累计总额标注销售序列 46\n \
+  \ - 杨辉三角 48\n  - 逆波兰表示法解析器 55\n  - 生成团队名称条形图列表 62\n  - 求两个函数的交点 67\n  - 按区号分组 75\n\
+  \  - 滑动窗口平均值 77\n  - 反规范化数据集 82\n  - 毕达哥拉斯三元组 84\n- 第 4 章：逆向工程复杂解决方案 89\n  - 杨辉三角的解决方案\
+  \ 90\n- 索引 97\n- 关于作者与技术审阅者\n  - 关于作者\n  - 关于技术审阅者\n- 脚注\n\n[`learnrubythehardway.org/book/`](http://learnrubythehardway.org/book/)\n\
+  \n"
+- "# 1. 基础 Ruby\n\n本节将介绍或帮助你回顾使用 Ruby 命令行的基本方式，以及一些相关的 Ruby 编码技巧。\n\n如果你已经熟悉 Ruby\
+  \ 编程并且对 Ruby 的 Enumerable 库有较好的理解，可以跳过本节。\n\n## 命令行\n\n安装 Ruby 后，你可以在 Windows、Linux\
+  \ 或 Mac OSX 上启动交互式命令行。我使用的是 Windows。\n\n```\nC:\\>  irb\nirb(main):001:0>\n```\n\
+  \n为简洁起见，我不会每次都写出完整的 `irb` 提示符。\n\n你可以逐行执行 Ruby 语句。每个表达式返回的值前面都会有 `⇒`。\n\n```\nirb>\
+  \ a = 4\n=> 4\nirb> a\n=> 4\nirb> a + 7\n=> 11\n```\n\n你也可以将多条语句放在同一行，用分号隔开。\n\n\
+  ```\nirb> list = [\"one\", \"two\",\"three\"];1\n=>1\nirb> list\n=>[\"one\", \"\
+  two\", \"three\"]\n```\n\n你也可以编写跨越多行的语句。\n\n```\nirb> [2,3,4,5].each do |n|\nirb>\
+  \    if n%2==0\nirb>        puts \"even\"\nirb>    else\nirb>        puts \"odd\"\
+  \nirb>    end\nirb> end\n=> \"even\"\n=> \"odd\"\n=> \"even\"\n=> \"odd\"\n```\n\
+  \n你可以将代码放入一个名为 `sample.rb` 的文件中，并将其放置在与运行 `irb` 相同的目录或文件夹中。\n\n```ruby\n1  [2,3,4,5].each\
+  \ do |n|\n2      if n%2 == 0\n3          puts \"even\"\n4      else\n5         \
+  \ puts \"odd\"\n6      end\n7  end\n```\n\n然后，在 `irb` 中：\n\n```\nirb> load \"sample.rb\"\
+  \nirb> end\n=> \"even\"\n=> \"odd\"\n=> \"even\"\n=> \"odd\"\nirb>\n```\n\n你也可以从文本编辑器复制代码块并直接粘贴到命令行中，以获得相同的结果，只要你在缩进时只使用空格。（如果从命令提示符加载文件，使用制表符进行缩进是可以正常工作的，但如果直接将制表符粘贴到\
+  \ `irb` 中，则会产生错误）。\n\n你可以将本书中的代码示例直接输入到 `irb` 中，或者输入到文本编辑器中，然后按刚才所示的方式加载文件。\n\n\
+  ## 对象作用域\n\n在 Ruby 程序中，对对象 `obj` 执行方法 `f` 的一般方式如下：\n\n```ruby\nobj.f\n```\n\n无论你是在\
+  \ Ruby 程序中还是在命令行中，情况都是如此。当代码位于主程序文件中，或者位于 `irb` 命令行解释器中时，许多函数（例如 `puts`）都会有一个隐含的上下文。这就是为什么你可以这么做：\n\
+  \n```ruby\nputs \"Hello world\"\n```\n\n你不需要指定一个类来限定 `puts`，因为 `puts` 是底层上下文对象的一个方法。\n\
+  \n## 字符串\n\n字符串是所有语言中的基本构造。让我们看看本书中使用的一些基本操作。请自行在 `irb` 命令行中尝试它们。\n\n`length` 或\
+  \ `size`\n\n*   返回字符串的长度。\n\n`downcase`\n\n*   将所有字母转换为小写。\n\n`upcase`\n\n*   将所有字母转换为大写。\n\
+  \n`capitalize`\n\n*   将字符串的第一个字母大写。\n\n`split()`\n\n*   在子字符串中搜索参数字符串，并将字符串分割成一个数组，该数组包含\
+  \ `split` 参数两侧的子字符串，而 `split` 参数的子字符串被丢弃。如果没有匹配项，则返回包含整个字符串的数组：\n\n    ```\n   \
+  \ irb> base_string = \"abc def  ghi\"\n    irb> base_string.split(\" \")\n    =>\
+  \ [\"abc\",\"def\",\"ghi\"]\n    irb> base_string.split(\"  \")\n    => [\"abc def\"\
+  ,\"ghi\"]\n    irb> base_string.split(\" d\")\n    => [\"abc\",\"ef ghi\"]\n   \
+  \ irb> base_string.split(\"efghi\")\n    => [\"abc def ghi\"]\n    ```\n\n`join()`\n\
+  \n*   将字符串数组的每个元素与 `join` 参数中的字符串作为分隔符连接起来。\n\n    ```\n    irb> stringlist = [\"\
+  This\", \"is\", \"a\", \"sentence\"]\n    irb> stringlist.join(\" \")\n    => \"\
+  This is a sentence\"\n    irb> stringlist.join(\",\")\n    => \"This,is,a,sentence\"\
+  \n    irb> stringlist.join(\" A SPACE \")\n    => \"This A SPACE is A SPACE a A\
+  \ SPACE sentence \"\n    ```\n\n字符串插值\n\n*   允许你定义一个带有参数的字符串模板。字符串 `#{}` 为你提供了一个放置变量的位置。\n\
+  \n    ```\n    irb> first = \"Jack\"; last = \"Black\"\n    irb> full_name = \"\
+  #{first} #{last}\"\n    => \"Jack Black\"\n    ```\n\n*   这在遍历列表时尤其有用：\n\n    ```\n\
+  \    irb> smith_brothers = [\"Terry\", \"Jerry\", \"Harry\"]\n    irb> smith_brothers.each{|brother|\
+  \ puts \"#{brother} Smith\"}\n    Terry Smith\n    Jerry Smith\n    Harry Smith\n\
+  \    => [\"Terry\", \"Jerry\", \"Harry\"]\n    ```\n\n*   C/C++ 程序员会认识到字符串插值与 C\
+  \ 标准库中的 `sprintf` 函数类似。\n\n## 数组\n\nRuby 中的数组与其他语言中的数组类似。它们是由整数（例如 0,1,2,...）索引的事物的集合。在\
+  \ Ruby 中，数组可以在一个索引处包含任何 Ruby 对象。Ruby 中的数组索引从 `0` 开始。\n\n数组实现了 Ruby 的 Enumerable\
+  \ 接口，因此它们将拥有诸如 `each`、`map`、`reduce`、`select` 等关键方法。\n\n\n\n### 特殊方法\n\n`compact()`\n\
+  \n- 此方法可移除数组中的 `nil` 成员。例如：\n\n    ```\n    irb> [1,nil,2,nil,nil,3,nil,[]].compact\n\
+  \    => [1,2,3,[]]\n    ```\n\n`flatten()`\n\n- 此方法可展平任意深度的嵌套数组。处理嵌套的`map`和`reduce`语句时，此方法非常实用。例如：\n\
+  \n    ```\n    irb> [[1,[2,3]],4,[5,6]].flatten\n    => [1,2,3,4,5,6]\n    ```\n\
+  \n`push()`\n\n- 此方法将一个元素推入数组末尾，并返回一个新数组。例如：\n\n    ```\n    irb> [1,2,3,4,5].push(666)\n\
+  \    => [1,2,3,4,5,666]\n    ```\n\n`pop`\n\n- 此方法移除数组的最后一个元素并返回该元素，同时返回一个新数组。例如：\n\
+  \n    ```\n    irb> the_array = [1,2,3,4,5]\n    irb> tail = the_array.pop\n   \
+  \ irb> tail\n    => 5\n    irb> the_array\n    => [1, 2, 3, 4]\n    ```\n\n`unshift()`\n\
+  \n- 此方法将一个元素推入数组的开头，并返回一个新数组。例如：\n\n    ```\n    irb> the_array = [1,2,3,4,5]\n\
+  \    irb> the_array.unshift(666)\n    => [666, 1, 2, 3, 4, 5]\n    ```\n\n`shift`\n\
+  \n- 此方法移除数组的第一个元素并返回该元素，同时修改原数组。例如：\n\n    ```\n    irb> the_array = [1,2,3,4,5]\n\
+  \    irb> head = the_array.shift\n    irb> head\n    => 1\n    irb> the_array\n\
+  \    => [2, 3, 4, 5]\n    ```\n\n## 哈希（Hash）\n\n`Hash`的另一个术语是“关联数组”或“字典”。`Hash`通过键对象进行索引，每个键对象对应一个值（另一个对象）。\n\
+  \n```\nirb> newhash = Hash.new\n=> {}\nirb> newhash2 = {}\n=> {}\n```\n\n这是创建新哈希的两种方法。哈希的键可以是任何对象或符号。\n\
+  \n```\nirb> newhash = {key1: \"some_value\", key2: 2}\n=> {:key1=> \"some_value\"\
+  , :key2=>2}\nirb> newhash2 = {}\nirb> newhash2[:key1] = \"key1_symbol\"\nirb> newhash2[\"\
+  key1\"] = \"key3_string\"\nirb> newhash2[3] = 3\nirb> newhash2[:key4] = [4,\"44\"\
+  ]\nirb> newhash2[[3,\"33\"]] = \"wow\"\nirb> newhash2\n=> {:key1=>\"key1_symbol\"\
+  , \"key2\"=>\"key2_string\", 2=>1, :key4=>[4,\"44\"], [3,\"33]=\\\n\"wow\" }\n```\n\
+  \n键可以是任何对象，包括符号、字符串、数字、哈希、数组等。使用`each`或`map`遍历哈希时，它会发出一个包含两个元素的数组（键作为第一个元素，值作为第二个元素），或者直接发出键和值两个元素。（注意，`inspect`用于检查任何对象的内容。）\n\
+  \n```\nirb> newhash = {a: 1, b: 2, c: 3}\nirb> newhash.each{|e| puts e.inspect}\n\
+  [:a, 1]\n[:b, 2]\n[:c, 3]\n=> {:a => 1, :b => 2, :c => 3}\nirb> newhash.map{|key,\
+  \ value| \"The key is #{key} and the value is #{value}\"}\n=> [\"The key is a and\
+  \ the value is 1\", \"The key is b and the value is 2\", \"The key is c and the\
+  \ value is 3\"]\n```\n\n## 块传递语法\n\nRuby 是支持词法闭包（也称为匿名函数或块）的语言之一。这些函数是动态创建的。函数可以采用已定义函数的形式。例如：\n\
+  \n```\nirb> def plus_two(a,b)\nirb>    a + b + 2\nirb> end\nirb> plus_two(3,4)\n\
+  => 9\n```\n\n或者，可以按如下方式定义：\n\n```\nirb> plus_two = ->(a,b) do\nirb>    a + b + 2\n\
+  irb> end\n```\n\n或者，也可以这样定义：\n\n```\nirb> plus_three = ->(a,b){a + b + 3}\nirb>\
+  \ plus_three.call(5,7)\n=> 15\n```\n\n现在，匿名函数或块可以作为参数传递给其他函数。接受函数（已定义的或匿名的）作为参数的函数可以选择在程序流程中执行该函数。假设有一个名为`printit()`的函数，定义如下：\n\
+  \n```\nirb> printit = ->(a) do\nirb>    puts a.inspect\nirb> end\n```\n\n现在，假设想要打印一个范围内的每个元素。可以调用数组的`each`方法，它将把传递的块应用于数组的每个元素。\n\
+  \n```\nirb> (1..5).each(&printit)\n\n=> (1..5)\n```\n\n也可以直接传递一个代码块来执行。代码块由`do`和`end`或`{`和`}`包围。竖线之间的对象可选地传递给块（取决于块的定义），并由块用于执行。块的返回值是块中最后一个表达式的值。\n\
+  \n```\nirb> (1..5).each do |num|\nirb>    puts num.inspect\nirb> end\n```\n\n你将得到与之前相同的输出。以下方式也是如此：\n\
+  \n```\nirb> (1..5).each{|num| puts num.inspect }\n```\n\n在 Ruby 中，`map`、`reduce`和`select`都接受一个代码块作为参数，该代码块按照函数的定义执行。在本书中，我将最常使用`do`-`end`语法，有时也会使用`{\
+  \ }`语法。\n\n## 从文件读取\n\n数据处理中一个常见的操作是读取和写入文件。假设有一个`names.txt`文件，内容如下：\n\n```\n1,John\n\
+  2,Jack\n3,Jim\n4,Jared\n5,John\n```\n\n读取它的方式如下：\n\n```\nirb> names = File.open(\"\
+  names.txt\").read\n```\n\n在某些计算机上，换行符由回车符（`\\n`）分隔；而在其他计算机上，换行符由换行符和回车符（`\\r\\n`）分隔。\n\
+  \n如果要将此文件拆分为行，可以执行以下操作：\n\n```\nirb> names.split(\"\\n\")\n```\n\n这可能会返回\n\n```\n\
+  =>[\"1,John\\r\", \"2,Jack\\r\", \"3,Jim\\r\", \"4,Jared\\r\", \"5,John\\r\"]\n\
+  ```\n\n或\n\n```\n=>[\"1,John\", \"2,Jack\", \"3,Jim\", \"4,Jared\", \"5,John\"]\n\
+  ```\n\n为了确保一致性，请使用`chomp`方法，它会移除末尾的空白字符（如果存在）。例如：\n\n```\nirb> \"John\\r\".chomp\n\
+  => \"John\"\nirb> \"John\".chomp\n=> \"John\"\n```\n\n因此，针对我们的数组，为了确保不会意外捕获多余的换行符，我们可以这样做：\n\
+  \n```\nirb> names.split(\"\\n\").map{|row| row.chomp}\n=>[\"1,John\", \"2,Jack\"\
+  , \"3,Jim\", \"4,Jared\", \"5,John\"]\n```\n\n我假设本书中的示例不使用`\\r\\n`，而仅使用`\\n`。如果你的操作系统不支持这种换行符，请在处理数组之前使用`chomp()`方法。\n\
+  \n"
+- '# 2. 函数概述与简单示例
+
+
+  Ruby 库包含 `Enumerable` 模块。该库包含 `map()`、`reduce()`、`select()` 等函数。本节将概述使用这三个函数的代码中不同部分的语法和含义。
+
+
+  如果你能轻松地完成本节内容，既能将代码输入 `irb` 又能理解结果，那么你将处于一个有利的位置，能够通过下一章中的复杂示例和逆向工程来加深理解。
+
+
+
+
+  ## Map（映射）
+
+
+  Ruby Enumerable 库的这个函数看似简单，实则意义深远。`map()` 方法应用于数组或哈希。它的任务是将一个函数或代码块应用于数组中的每个成员，并返回一个新数组。
+
+
+  因此，当你看到以下代码时：
+
+
+  ```
+
+  def f(x)
+
+  x*x
+
+  end
+
+  output_array =
+
+  [1,2,3,4,5].map do |number|
+
+  f(number)
+
+  end
+
+  ```
+
+
+  你可以这样理解：对 `[1,2,3,4,5]` 中的每个 `number`，应用 `f(x)`，最终返回数组 `[f(1), f(2), f(3), f(4),
+  f(5)]`。在这个例子中，结果是 `[1,4,9,16,25]`。
+
+
+  用传统的命令式编程可以这样编码：
+
+
+  ```
+
+  output_array = []
+
+  for number in 1..5
+
+  output_array.push( f(number) )
+
+  end
+
+  ```
+
+
+  使用 `map` 的另一个例子：
+
+
+  ```
+
+  output_array =
+
+  [1,2,3,4,5].map do |number|
+
+  number*number
+
+  end
+
+  ```
+
+
+  或者，你也可以这样编码：
+
+
+  ```
+
+  output_array =
+
+  [1,2,3,4,5].map{|element| element*element}
+
+  ```
+
+
+  `[1,2,3,4,5]` 是数组。要应用到每个元素的函数（或代码块）是 `{|element| element*element }`。
+
+
+  使用 `{ }` 语法或 `do`-`end` 语法时，竖线内的对象（由 `element` 表示）是当前正被代码块处理的数组元素，而任何函数或代码块中的最后一个对象就是返回值，因此
+  `element*element` 被返回。最终结果如下：
+
+
+  ```
+
+  [1,4,9,16,25]
+
+  ```
+
+
+  假设你想向一个绘制数值平方的图形程序提供数据：
+
+
+  ```
+
+  [1,2,3,4,5].map{|element| [element, element*element]}
+
+  ```
+
+
+  在这个例子中，每个“点”都是一个包含元素及其平方的元组（数组）。这将返回以下结果：
+
+
+  ```
+
+  [[1,1],[2,4],[3,9],[4,16],[5,25]]
+
+  ```
+
+
+  区别在于，代码块每次都返回一个包含数字及其平方的数组，因此结果是一个数组的数组。
+
+
+  由于 `map` 返回一个数组，你可以级联调用 `map`。例如，你可以先用一个 map 代码块计算每个元素的平方，然后再用第二个 map 代码块加上 100。例如：
+
+
+  ```
+
+  [1,2,3,4,5].map do |number|
+
+  number*number
+
+  end.map do |square|
+
+  square + 100
+
+  end
+
+  => [101, 104, 109, 116, 125]
+
+  ```
+
+
+  许多更复杂的操作都可以通过级联 `map` 调用来解决。
+
+
+  ## Reduce（归约）
+
+
+  Ruby Enumerable 库的这个函数比 `map()` 更复杂，但也非常强大。该方法应用于一个集合（例如，一个数组或哈希）。`reduce()` 的任务是将一个函数累积地应用于集合中的每个成员，然后返回一个对象（可以是数组、单个值、哈希或任何东西）。
+
+
+  例如：
+
+
+  ```
+
+  [1,2,3,4,5].reduce(0, :+)
+
+  ```
+
+
+  这就像是在说：对于列表中的每个成员，将该成员加到 `memo` 上，并为下一个元素保存这个 `memo`。`memo` 的初始值是 `0`（第一个参数）。另一种编码方式如下：
+
+
+  ```
+
+  memo = 0
+
+  [1,2,3,4,5].each{|element| memo = memo.+(element)}
+
+  ```
+
+
+  或者，你可以向 `reduce` 传递一个要运行的代码块。该代码块位于右括号之后，并由 `do`-`end` 结构或 `{}` 结构包围。发出的变量总是第一个是
+  `memo`，第二个是 `element`。（在这个例子中，`memo` 的初始值是 33）。
+
+
+  ```
+
+  [1,2,3,4,5].reduce(33) do |memo, element|
+
+  memo.+(element)
+
+  end
+
+  memo
+
+  => 48
+
+  ```
+
+
+  （你不必非得叫它们 “memo” 或 “element”，但它们的行为模式就是这样）。每次迭代后，memo 会取代码块中最后一个对象的值。例如：
+
+
+  ```
+
+  [1,2,3,4,5].reduce(33) do |memo, element|
+
+  memo.+(element)
+
+  77.7
+
+  end
+
+  => 77.7
+
+  ```
+
+
+  这段代码返回了 77.7，因为它是代码块中的最后一个对象。
+
+
+  另一件要记住的事情是，代码块返回的 memo 必须与 `reduce` 函数发出的 memo 属于同一类。例如，当你使用 `reduce()` 构建一个哈希对象时，你必须返回整个哈希对象：
+
+
+  ```
+
+  [1,2,3,4,5].reduce({}) do |memo, element|
+
+  memo[element] = element.to_s
+
+  end
+
+  IndexError: index 2 out of string
+
+  ```
+
+
+  这里出现了一个错误，因为迭代的第一次运行返回了 `memo[element]`，这是一个 `String` 类，但输入期望它是一个 `Hash`。要纠正它，请确保
+  `Hash` 类的 `memo` 被明确地作为最后一个对象返回，如下所示：
+
+
+  ```
+
+  [1,2,3,4,5].reduce({}) do |memo, element|
+
+  memo[element] = element.to_s
+
+  memo
+
+  end
+
+  => {1=>"1", 2=>"2", 3=>"3", 4=>"4", 5=>"5"}
+
+  ```
+
+
+  这样之所以能成功，是因为 `memo` 是一个 `Hash` 类，并且每次都被返回。
+
+
+  你可以将 `reduce` 操作理解为：对每个元素进行操作，并保存某种备忘录（memo）以传递给下一个元素的操作。在之前计算五个数之和的例子中，
+
+
+  ```
+
+  [1,2,3,4,5].reduce(0,:+)
+
+  ```
+
+
+  或者
+
+
+  ```
+
+  [1,2,3,4,5].reduce(0) do |memo, element|
+
+  memo + element
+
+  end
+
+  ```
+
+
+  你用一个 0 初始化了要记忆的量，并告诉它记住将当前元素加到先前归约的量上并保存它。`memo` 的初始值是一个整数，`reduce` 代码块返回的最后一个对象也是一个整数。
+
+
+  你也可以在 memo 中记住其他东西。例如，你可以保存一个序列的最后两个数字。你可以从初始值 `[nil,nil]` 开始，作为最后两个要记住的东西。在每次迭代中，你将元素推入（push）memo（数组的末尾），然后移出（shift）数组的第一个元素。
+
+
+  ```
+
+  initial_memo = [nil,nil]
+
+  last_2 =
+
+  (1..10).reduce(initial_memo) do |memo, element|
+
+  initial_memo.push( element )
+
+  initial_memo.shift
+
+  initial_memo
+
+  end
+
+  => [9,10]
+
+  ```
+
+
+  一般来说，如果在处理当前元素时需要记住关于之前使用过的元素的信息，请使用 `reduce()`。如果不需要记住任何东西，请使用 `map()`。
+
+
+  有时 `reduce` 会返回一个数组，这种情况下你可以将其与其他 `reduce` 调用或 `map` 调用级联。例如，如果你想计算平方和，你可以使用 `map`
+  调用先计算每个元素的平方，然后使用 `reduce` 调用将它们相加。例如：
+
+
+  ```
+
+  [1,2,3,4,5].map do |number|
+
+  number*number
+
+  end.reduce(0) do |sum, square|
+
+  sum + square
+
+  end
+
+  => 55
+
+  ```
+
+
+  或者，也许你想找出一个序列中最后五个数字里的奇数：
+
+
+  ```
+
+  sequence = [1,2,3,455,5,6,4,3,45,66,77,54,23,4,55,6,7]
+
+  sequence.reduce([nil,nil,nil,nil,nil]) do |memo, number|
+
+  memo.push(number)
+
+  memo.shift
+
+  memo
+
+  end.select do |one_of_last_5|
+
+  one_of_last_5%2 == 1
+
+  end
+
+  => [23, 55, 7]
+
+  ```
+
+
+  如果这看起来复杂且充满惯用法，请不要担心，因为我们会在本书后面探讨这些编程机制。简而言之，`reduce` 可以在数据处理级联的两侧使用。并且请始终记住，输入的
+  memo 必须与输出的 memo 属于相同的类或结构。
+
+
+  ### 简单的 Reduce 示例
+
+
+  我将在这里向你展示如何使用 `reduce()`、`map()` 和 `select()` 来实现一些数组已有的函数。
+
+
+  #### uniq（去重）
+
+
+  这个函数用于找出数组中的一组唯一元素。例如：
+
+
+  ```
+
+  irb> [1,3,5,6,7,8,6,6,1,1].uniq
+
+  => [1,3,5,6,7,8]
+
+  ```
+
+
+  要实现 `uniq`，我们需要一种识别唯一元素的方法。首先，要意识到哈希 `Hash` 的键是唯一的。因此，当我们运行 `reduce` 时，只需将每个元素作为哈希的键放入。如果该元素已经存在，哈希中的值将被覆盖。所以，memo
+  的初始值应该是 `{}`。
+
+
+  ```
+
+  [1,3,5,6,7,8,6,6,1,1].reduce({}) do |memo, element|
+
+  memo[element]=element
+
+  memo
+
+  end
+
+  ⇒ {1⇒1, 3⇒3, 5⇒5, 6⇒6, 7⇒7, 8⇒8}
+
+  ```
+
+
+  差不多了。现在，我们只需使用 `map` 取出所有的键：
+
+
+  ```
+
+  [1,3,5,6,7,8,6,6,1,1].reduce({}) do |memo, element|
+
+  memo[element]=element
+
+  memo
+
+  end.map do |key, value|
+
+  key
+
+  end
+
+  => [1, 3, 5, 6, 7, 8]
+
+  ```
+
+
+
+  好的，作为一名高级文档工程师和翻译员，我将按照您的要求，在保留所有 Markdown 格式和代码内容的前提下，将给定的英文文本翻译成中文。
+
+
+
+  #### `reverse`
+
+
+  该函数用于反转数组中元素的顺序：
+
+
+  ```
+
+  irb> [1,3,5,6,7,8,6,0].reverse
+
+  => [0, 6, 8, 7, 6, 5, 3, 1]
+
+  ```
+
+
+  解决此问题的一种方法是将每个元素推入一个栈中。栈就是一个数组，你使用 `unshift` 将元素推入前端，使用 `shift` 从前端弹出元素。`reduce`
+  备忘录的初始值是一个空数组。我添加了一个 `print` 语句，以便你可以亲眼看到备忘录是如何构建的。
+
+
+  ```
+
+  [1,3,5,6,7,8,6,0].reduce([]) do |memo, element|
+
+  memo.unshift element
+
+  puts "After unshifting element: #{element}, the memo is: #{memo.inspect}"
+
+  memo
+
+  end
+
+  ```
+
+
+  输出如下：
+
+
+  ```
+
+  After unshifting element: 1, the memo is: [1]
+
+  After unshifting element: 3, the memo is: [3, 1]
+
+  After unshifting element: 5, the memo is: [5, 3, 1]
+
+  After unshifting element: 6, the memo is: [6, 5, 3, 1]
+
+  After unshifting element: 7, the memo is: [7, 6, 5, 3, 1]
+
+  After unshifting element: 8, the memo is: [8, 7, 6, 5, 3, 1]
+
+  After unshifting element: 6, the memo is: [6, 8, 7, 6, 5, 3, 1]
+
+  After unshifting element : 0, the memo is: [0, 6, 8, 7, 6, 5, 3, 1]
+
+  => [0, 6, 8, 7, 6, 5, 3, 1]
+
+  ```
+
+
+  #### `max`
+
+
+  该函数用于查找数组中的最大元素：
+
+
+  ```
+
+  irb> [1,3,5,6,7,8,6,0].max
+
+  => 8
+
+  ```
+
+
+  `Reduce` 在这里适用，因为当你遍历数组时，会将最大值保存在备忘录中。这个示例甚至不需要显式的初始值，因为第一个元素就是备忘录的默认值。
+
+
+  ```
+
+  [4,3,5,6,7,8,6,0].reduce do |memo, element|
+
+  if element > memo
+
+  memo = element
+
+  else
+
+  memo = memo
+
+  end
+
+  puts "The largest element after checking #{element} is #{memo}"
+
+  memo
+
+  end
+
+  The largest element after checking 3 is 4
+
+  The largest element after checking 5 is 5
+
+  The largest element after checking 6 is 6
+
+  The largest element after checking 7 is 7
+
+  The largest element after checking 8 is 8
+
+  The largest element after checking 6 is 8
+
+  The largest element after checking 0 is 8
+
+  => 8
+
+  ```
+
+
+  当然，简洁的编码方式如下：
+
+
+  ```
+
+  [4,3,5,6,7,8,6,0].reduce do |memo, element|
+
+  (element > memo) ? element : memo
+
+  end
+
+  => 8
+
+  ```
+
+
+  ## `Select`
+
+
+  Ruby `Enumerable` 库中的这个函数非常简单。`select()` 方法应用于数组或哈希。`select()` 的工作是选择那些对其应用谓词后返回
+  `true` 的元素。（谓词是一个返回 `true` 或 `false` 的表达式，它在传递给 `select` 的代码块中运行）。
+
+
+  下面的简单示例中，谓词总是返回 `true`，因此选择了集合中的所有成员。在此例中，集合是 `[1,2,3,4,5]`，谓词是 `true`：
+
+
+  ```
+
+  [1,2,3,4,5].select do |element|
+
+  true
+
+  end
+
+  => [1,2,3,4,5]
+
+  ```
+
+
+  一个稍微复杂一点的示例是从原始集合 `[1,2,3,4,5]` 中选择偶数（即谓词为 `element % 2 == 0` 的元素）：
+
+
+  ```
+
+  [1,2,3,4,5].select do |element|
+
+  element % 2 == 0
+
+  end
+
+  => [2,4]
+
+  ```
+
+
+  `Select` 可以级联。假设你想找出 1 到 100 之间以 7 开头的偶数。首先，选择偶数。然后，选择以 7 开头的数字：
+
+
+  ```
+
+  irb>  (1..100).select{|number| number % 2 == 0}\
+
+  irb*> .select{|even_number| even_number.to_s[0] == "7"}
+
+  => [70, 72, 74, 76, 78]
+
+  ```
+
+
+  你也可以反转级联顺序：
+
+
+  ```
+
+  irb>  (1..100).select{|number| number.to_s[0] == "7"}\
+
+  irb*> .select{|seven_number| seven_number % 2 == 0}
+
+  => [70, 72, 74, 76, 78]
+
+  ```
+
+
+  由于 `select` 返回一个数组，你可以级联 `select` 调用。例如，你可以使用一个 `select` 代码块选择偶数，然后通过 `map` 调用将它们平方。例如：
+
+
+  ```
+
+  [1,2,3,4,5].select do |number|
+
+  number%2==0
+
+  end.map do |even_number|
+
+  even_number * even_number
+
+  end
+
+  => [4, 16]
+
+  ```
+
+
+  许多更复杂的操作都可以通过与 `select` 调用级联来解决。
+
+
+  '
+- "# 3. 复杂解决方案\n\n本节中的示例将向你展示如何使用 `map`、`reduce` 和 `select` 来解决更复杂的问题。我将从一个关于调试的部分开始，然后介绍复杂的解决方案。请先阅读调试部分，因为这是理解问题以及深入理解\
+  \ `map`、`reduce` 和 `select` 的关键。\n\n## `Map`、`Reduce` 和 `Select` 的调试代码块\n\n在解决问题的过程中，了解问题的最佳方法是插入如\
+  \ `puts` 这样的打印语句，来观察循环执行时发生了什么。\n\n### 调试 `Map` 代码块\n\n需要记住的是，`map` 在每次运行代码块时都会对集合中的每个元素进行操作。调试时，你想看到代码块如何对每个元素进行操作。\n\
+  \n```\n[1,2,3,4,5].map do |number|\nresult = number*number\nputs \"The result of\
+  \ the function on element: #{number} is #{result}\"\nresult\nend\n```\n\n将结果保存在一个局部变量中很重要，这样你才能将它作为代码块的最后一条语句返回。如果不这样做，`puts`\
+  \ 语句的结果将会被返回（通常是 `nil`）。\n\n### 调试 `Reduce` 代码块\n\n调试 `reduce` 稍有不同，因为备忘录会在元素之间传递。因此，你需要打印出元素以及备忘录。\n\
+  \n```\nfinal_answer =\n[1,2,3,4,5].reduce(0) do |memo, number|\nmemo = memo + number\n\
+  puts \"After operating on number: #{number}, the memo is #{memo.inspect} \"\nmemo\n\
+  end\nAfter operating on number: 1, the memo is 1\nAfter operating on number: 2,\
+  \ the memo is 3\nAfter operating on number: 3, the memo is 6\nAfter operating on\
+  \ number: 4, the memo is 10\nAfter operating on number: 5, the memo is 15\n=> 15\n\
+  ```\n\n再次强调，确保在打印备忘录之前保存它，然后在代码块结束时返回它。\n\n如果你在 `reduce` 代码块中使用 `memo` 来构建不同的数据结构，检查备忘录对于收敛到一个好的解决方案变得极其有用。\n\
+  \n### 调试 `Select` 代码块\n\n调试 `select` 很简单，因为你唯一需要知道的是谓词对于特定元素是否为 `true`。\n\n例如，一个只保留偶数（`number%2==0`）的\
+  \ `select` 过滤器可以这样调试：\n\n```\n[1,2,3,4,5].select do |number|\npredicate = number%2==0\n\
+  puts \"The predicate is #{predicate} for number #{number}\"\npredicate\nend\nThe\
+  \ predicate is false for number 1\nThe predicate is true for number 2\nThe predicate\
+  \ is false for number 3\nThe predicate is true for number 4\nThe predicate is false\
+  \ for number 5\n=> [2, 4]\n```\n\n在这里，你可以看到只有那些谓词为 `true` 的数字才会出现在结果中（`[2,4]`）。\n\
+  \n\n\n### FizzBuzz\n\n该程序被用作一道编程题。编写一个程序，遍历整数列表 1..N。如果数字能被 2 整除，则输出“fizz”；如果能被\
+  \ 3 整除，则输出“buzz”；如果能同时被 2 和 3 整除，则输出“fizzbuzz”；否则，输出该数字本身。\n\n输入可以被建模为一个范围：`(1..15)`。\n\
+  \n输出应如下所示：\n\n```\nfizz\nbuzz\nfizz\n\nfizzbuzz\n\nfizz\nbuzz\nfizz\n\nfizzbuzz\n\
+  \nfizz\nbuzz\n```\n\n输出的数据结构应当是一个数组。我们需要对数组中的每个元素进行操作来得到输出。先从 fizz 开始，它要求数字能被 2\
+  \ 整除（`n%2==0`）：\n\n```\n(1..15).map do |n|\n  if n%2 == 0\n    \"fizz\"\n  else\n\
+  \    n.to_s\n  end\nend\n```\n\n这将得到以下结果：\n\n```\n=> [\"1\", \"fizz\", \"3\", \"\
+  fizz\", \"5\", \"fizz\", \"7\", \"fizz\", \"9\", \"fizz\", \"11\", ... \\ 以此类推\n\
+  ```\n\n结果很接近了，但我们还没有处理 buzz：\n\n```\n(1..15).map do |n|\n  if n%2 == 0\n    \"fizz\"\
+  \n  elsif n%3 ==0\n    \"buzz\"\n  else\n    n.to_s\n  end\nend\n```\n\n这将得到以下结果：\n\
+  \n```\n=> [\"1\", \"fizz\", \"buzz\", \"fizz\", \"5\", \"fizz\", \"7\", \"fizz\"\
+  , \"buzz\", \"fizz\", \"11\",\\\n    \"fizz\", \"13\", \"fizz\", \"buzz\"]\n```\n\
+  \n很接近了，但 fizzbuzz 的例子在 6 和 12 处没有出现。让我们添加另一个条件。能被 2 和 3 整除意味着它必须能被 6 整除：\n\n```\n\
+  fizzbuzz_list =\n  (1..15).map do |n|\n    if n%2 == 0\n      \"fizz\"\n    elsif\
+  \ n%3 ==0\n      \"buzz\"\n    elsif n%6 == 0\n      \"fizzbuzz\"\n    else\n  \
+  \    n.to_s\n    end\n  end\n```\n\n这与上一次尝试得到了相同的结果。仔细检查代码会发现，如果一个数字能被 6 整除，它必然是偶数，因此会被\
+  \ `n%2==0` 这个条件捕获。但是，如果我们先捕获 `n%6==0` 条件，会发生什么呢？\n\n```\nfizzbuzz_list =\n  (1..15).map\
+  \ do |n|\n    if n%6 == 0\n      \"fizzbuzz\"\n    elsif n%3 ==0\n      \"buzz\"\
+  \n    elsif n%2 == 0\n      \"fizz\"\n    else\n      n.to_s\n    end\n  end\n```\n\
+  \n这将得到以下结果：\n\n```\n=> [\"1\", \"fizz\", \"buzz\", \"fizz\", \"5\", \"fizzbuzz\"\
+  , \"7\", \"fizz\", \"buzz\", \"fizz\", \"\\\n    11\", \"fizzbuzz\", \"13\", \"\
+  fizz\", \"buzz\"]\n```\n\n要打印它，只需执行以下操作：\n\n```\nfizzbuzz_list.each{|e| puts e}\n\
+  ```\n\n### 奇数立方和\n\n这是一个典型的数学问题，可以使用 `map`、`reduce` 和 `select` 来解决。\n\n你需要计算从 1\
+  \ 到 1000 的奇数的立方和。例如，对于 10 以下的奇数，计算如下：\n\n```\n1**3 + 3**3 + 5**3 + 7**3 + 9**3\n\
+  => 1225\n```\n\n1225 是合理的，因为它是 1 + 27 + 125 + 343 + 729 的结果。\n\n如何解决这个问题？分阶段进行。首先，我们必须找出如何筛选奇数。奇数是指当进行`模\
+  \ 2`运算时，结果为 1 的数字。例如：\n\n```\nnum = 15\nnum%2\n=> 1\nnum = 1000\nnum%2\n=> 0\n```\n\
+  \n我们可以尝试从一个范围中选择数字。出于本练习的目的，我将把数字限制在 20 以下。\n\n```\n(1..20).select do |number|\n\
+  \  number%2 == 1\nend\n=> [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]\n```\n\n到目前为止还不错。我们只筛选出了奇数。下一步是计算每个数的立方。换句话说，我们必须将每个数字映射到它的立方。\n\
+  \n```\n(1..20).select do |number|\n  number%2 == 1\nend.map do |odd_number|\n  odd_number**3\n\
+  end\n=> [1, 27, 125, 343, 729, 1331, 2197, 3375, 4913, 6859]\n```\n\n这个新数组显然是一个奇数立方列表。（如果不相信，可以手动计算几个验证一下。）现在，我们要做的就是将它们求和（或者通过累加元素来缩减列表）。和的初始值为\
+  \ 0。例如：\n\n```\n(1..20).select do |number|\n  number%2 == 1\nend.map do |odd_number|\n\
+  \  odd_number**3\nend.reduce(0) do |previous_sum, odd_cube|\n  previous_sum + odd_cube\n\
+  end\n=> 19900\n```\n\n现在，我将数字范围改为 1000：\n\n```\n(1..1000).select do |number|\n \
+  \ number%2 == 1\nend.map do |odd_number|\n  odd_number**3\nend.reduce(0) do |previous_sum,\
+  \ odd_cube|\n  previous_sum + odd_cube\nend\n=> 124999750000\n```\n\n这个答案很简洁，但更重要的是，我们能够通过使用\
+  \ `select`、`map` 和 `reduce` 操作以级联方式分阶段处理数据来构建它。\n\n### 按姓氏对姓名列表进行排序\n\n假设你有一个简单的文本文件\
+  \ `names.txt`，里面包含一个姓名列表。\n\n```\nJohn Smith\nAzamat Bagatov\nHafaz Aladeen\nRamachandran\
+  \ Balasubrahmaniam\nPing Li\nWilfredo Caguiat\nEriks Ivanans\nCanaan Banana\nIon\
+  \ Iliescu\nWerner Klempner\nThierry Giscard\nJoao Soares\n```\n\n首先，你将文件读入一个巨大的字符串中。\n\
+  \n```\nnames = File.open(\"names.txt\",\"r\").read\n```\n\n你可以像这样将字符串分割成一个数组：\n\n\
+  ```\nnamelist = names.split(\"\\n\")\n```\n\n这将产生一个如下所示的数组：\n\n```\n> namelist\n\
+  [\"John Smith\", \"Azamat Bagatov\", \"Hafaz Aladeen\", \"Ramachandran Balasubrahmaniam\\\
+  \n\", \"Ping Li\", \"Wilfredo Caguiat\", \"Eriks Ivanans\", \"Canaan Banana\", \"\
+  Ion Iliescu\", \"We\\\nrner Klempner\", \"Thierry Giscard\", \"Joao Soares\"]\n\
+  ```\n\n问题是我们不能简单地按字符串排序，因为我们需要按姓氏排序。让我们看看是否可以先拆分出姓氏并对它们进行排序。首先，我们需要使用字符串的 `split`\
+  \ 函数来拆分姓名：\n\n```\nnamelist.map do |fullname|\n  fullname.split(\" \")\nend\n```\n\
+  \n这将得到以下结果：\n\n```\n[[\"John\", \"Smith\"], [\"Azamat\", \"Bagatov\"], [\"Hafaz\"\
+  ,\"Aladeen\"] # 以此类推]\n```\n\n从那里，我们可以通过取姓名数组的 `[1]` 元素来分离出姓氏：\n\n```\nnamelist.map\
+  \ do |fullname|\n  fullname.split(\" \")\nend.map do |namearray|\n  namearray[1]\n\
+  end\n```\n\n现在，我们得到了一个姓氏列表，如下所示：`[\"Smith\", \"Bagatov\", \"Aladeen\" # 以此类推 ]`\n\
+  \n我们可以通过调用 `sort` 函数来对这些姓氏进行排序：\n\n```\nnamelist.map do |fullname|\n  fullname.split(\"\
+  \ \")\nend.map do |namearray|\n  namearray[1]\nend.sort\n```\n\n现在，我们得到了一个如下所示的列表：\n\
+  \n```\n[\"Aladeen\", \"Bagatov\", \"Balasubrahmaniam\" #以此类推 ...\n]\n```\n\n挑战在于按姓氏顺序打印完整的姓名。一种方法是用排序键来注释数组。排序键就是数组的第二个元素，它是通过拆分全名得到的。换句话说：\n\
+  \n```\nfullname.split(\" \")[1].\nnamelist.map do |fullname|\n  [fullname.split(\"\
+  \ \")[1], fullname]\nend\n```\n\n在这里，第一次调用 `map` 会产生如下所示的数组元素：\n\n```\n[ [\"Smith\"\
+  , \"John Smith\"], [\"Bagatov\", \"Azamat Bagatov\"] #...以此类推]\n```\n\n现在，我们只需要根据数组的第一个元素对数组进行排序：\n\
+  \n```\nnamelist.map do |fullname|\n  [fullname.split(\" \"), fullname]\nend.sort\
+  \ do |a,b|\n  a[0]  b[0]\nend\n```\n\n这将产生类似下面的结果：\n\n```\n[[\"Aladeen\", \"Hafaz\
+  \ Aladeen\"], [\"Bagatov\", \"Azamat Bagatov\"], [\"Balasubrahmaniam\\\n\", \"Ramachandran\
+  \ Balasubrahmaniam\"] #...以此类推\n]\n```\n\n在此操作之后，只需剥离排序键即可获得原始列表，然后重新组合列表。\n\n```\n\
+  namelist.map do |fullname|\n  [fullname.split(\" \"), fullname]\nend.sort do |a,b|\n\
+  \  a[0]  b[0]\nend.map do |key_with_name|\n  key_with_name[1]\nend.join(\"\\n\"\
+  )\n```\n\n完整的数据处理操作如下所示：\n\n```\nFile.open(\"names.txt\",\"r\")\n  .read\n  .split(\"\
+  \\n\")\n  .map do |fullname|\n    fullname.split(\" \")\n  end.map do |fullname|\n\
+  \    [fullname.split(\" \")[1], fullname]\n  end.sort do |a,b|\n    a[0] <=> b[0]\n\
+  \  end.map do |key_with_name|\n    key_with_name[1]\n  end.join(\"\\n\")\n```\n\n\
+  这是一个非常优雅的解决方案。这也可以通过 `for` 循环和 `if`-`then`-`else` 语句来编码，但那会导致更多的代码。\n\n\n\n"
+- '# 将姓名列表转换为 CSV 格式
+
+
+  一个常见的问题是需要将文本文件导入为 CSV 格式。例如，在`names.txt`中，你可能有以下内容：
+
+
+  ```
+
+  John Smith
+
+  Azamat Bagatov
+
+  Hafaz Aladeen
+
+  Ramachandran Balasubrahmaniam
+
+  Ping Li
+
+  Wilfredo Caguiat
+
+  ```
+
+
+  但要导入到 CSV 中，你需要类似这样的格式：
+
+
+  ```
+
+  Surname,First Name
+
+  Smith,John
+
+  Bagatov,Azamat
+
+  Aladeen,Hafaz
+
+  Balasubrahmaniam,Ramachandran
+
+  Li,Ping
+
+  Caguiat,Wilfredo
+
+  ```
+
+
+  首先要做的是读取文件：
+
+
+  ```
+
+  file_contents = File.open("names.txt","r")
+
+  ```
+
+
+  接下来要将各行拆分为数组：
+
+
+  ```
+
+  names = file_contents.split("\n")
+
+  ```
+
+
+  这样会得到类似这样的结果：
+
+
+  ```
+
+  ["John Smith", "Azamat Bagatov" # 等等
+
+  ]
+
+  ```
+
+
+  对于每个姓名，你需要拆分名和姓并将它们颠倒顺序：
+
+
+  ```
+
+  "John Smith".split(" ")
+
+  ```
+
+
+  这样会得到以下结果：
+
+
+  ```
+
+  ["John","Smith"]
+
+  ```
+
+
+  如下所示将其颠倒顺序：
+
+
+  ```
+
+  "John Smith".split(" ").reverse
+
+  ```
+
+
+  这会产生以下结果：
+
+
+  ```
+
+  ["Smith","John"]
+
+  ```
+
+
+  要使其成为正确的 CSV 行，需要用逗号连接这些元素：
+
+
+  ```
+
+  ["Smith","John"].join(",")
+
+  ```
+
+
+  这会产生以下结果：
+
+
+  ```
+
+  "Smith,John"
+
+  ```
+
+
+  现在，我们需要对列表的每一行都执行此操作：
+
+
+  ```
+
+  headerless_names =
+
+  names.map do |name|
+
+  name.split(" ").reverse.join(",")
+
+  end
+
+  ```
+
+
+  这样会得到除表头之外的所有内容。我们可以使用数组的`unshift()`方法来添加表头信息：
+
+
+  ```
+
+  headered_names
+
+  headerless_names.unshift("Surname,First Name","")
+
+  ```
+
+
+  要将数组连接成可写入 CSV 文件的字符串，请执行以下操作：
+
+
+  ```
+
+  headered_names.join("\n")
+
+  ```
+
+
+  这样就能得到所需的结果。完整的计算过程如下：
+
+
+  ```
+
+  csv_file_contents =
+
+  File.open("names.txt","r").split("\n").map do |name|
+
+  name.split(" ").reverse.join(",")
+
+  end.unshift("Surname,First  Name"),"").join("\n")
+
+  ```
+
+
+  '
+- '# 生成随机姓名列表
+
+
+  你有数据处理任务要做，需要一个庞大的姓名列表。例如：
+
+
+  ```
+
+  John Smith
+
+  Azamat Bagatov
+
+  Hafaz Aladeen
+
+  Tamir Moufrad
+
+  ```
+
+
+  不过，你不想耗费一整天来手写这些名字。那就用电脑来帮你完成吧。
+
+
+  首先，在`first.txt`中准备一个名字列表。这个列表想写多长就写多长。越长越好。
+
+
+  ```
+
+  Art
+
+  Bart
+
+  Cart
+
+  Dart
+
+  Eart
+
+  Fred
+
+  George
+
+  Harry
+
+  Ian
+
+  John
+
+  Ken
+
+  Lionel
+
+  Mark
+
+  ```
+
+
+  然后在`last.txt`中准备一个姓氏列表：
+
+
+  ```
+
+  Armey
+
+  Burr
+
+  Catherwood
+
+  Donaldson
+
+  Elwood
+
+  Firestone
+
+  Graves
+
+  Harvey
+
+  Illington
+
+  Jask
+
+  Knowles
+
+  Lescon
+
+  Merriweather
+
+  ```
+
+
+  首先，你需要读取这些名字：
+
+
+  ```
+
+  last_name_file_content = File.open("last.txt")
+
+  first_name_file_content = File.open("first.txt")
+
+  ```
+
+
+  接着，你需要将它们拆分为数组：
+
+
+  ```
+
+  last_names = last_name_file_content.split("\n")
+
+  first_names = first_name_file_content.split("\n")
+
+  ```
+
+
+  然后，你需要将每个名字与每个姓氏组合起来。先尝试将每个名字与第一个姓氏组合：
+
+
+  ```
+
+  test_list = first_names.map do |first_name|
+
+  "#{first_name} Armey"
+
+  end
+
+  ```
+
+
+  到目前为止一切顺利。这会生成一个如下所示的数组：
+
+
+  ```
+
+  ["Art Armey", "Bart Armey", "Cart Armey" .... 以此类推
+
+  ```
+
+
+  现在，你只需要对所有姓氏都执行此操作：
+
+
+  ```
+
+  test2_list =
+
+  last_names.map do |last_name|
+
+  first_names.map do |first_name|
+
+  "#{first_name} #{last_name}"
+
+  end
+
+  end
+
+  ```
+
+
+  这样会得到一个如下所示的列表：
+
+
+  ```
+
+  [["Art Armey", "Bart Armey", ... ],["Art Burr", "Bart Burr", ....]]
+
+  ```
+
+
+  已经很接近了。我们只需要展平这个数组：
+
+
+  ```
+
+  test2_list.flatten
+
+  ```
+
+
+  这样我们就得到了人员列表。之后，我们只需要将其连接起来，得到要写入文件的文本：
+
+
+  ```
+
+  test2_list.flatten.join("\n")
+
+  ```
+
+
+  那么，完整的计算过程如下：
+
+
+  ```
+
+  last_names = File.open("last.txt").split("\n")
+
+  first_names = File.open("first.txt").split("\n")
+
+  name_list_text =
+
+  last_names.map do |last_name|
+
+  first_names.map do |first_name|
+
+  "#{first_name} #{last_name}"
+
+  end
+
+  end.flatten.join("\n")
+
+  ```
+
+
+  这样做的美妙之处在于，只需输入 32 个名字和 32 个姓氏，就能生成 1,024 个不重复的姓名。
+
+
+  '
+- '# 清洗数据集
+
+
+  分析数据集时一个常见的问题是脏数据。例如，你有一个名为`name_prov.txt`的 CSV 文件，里面是姓名和省份列表。
+
+
+  ```
+
+  John,Ontario
+
+  Azamat,ON
+
+  Hafaz,Alta
+
+  Tamir,QC
+
+  Jacques,Quebec
+
+  Bill,AB
+
+  Bart,Ont
+
+  Carn,Que
+
+  Dave,Alta
+
+  Don,SK
+
+  Fred,Saskatchewan
+
+  Gary,Que
+
+  Hari,Sask
+
+  Ian,SK
+
+  Jerry,Alberta
+
+  Karl,ON
+
+  ```
+
+
+  加拿大人看到这个列表通常会知道，"ON"、"Ont"和"Ontario"都代表安大略省，"AB"、"Alta"和"Alberta"代表阿尔伯塔省，其他省份也类似。处理这个问题的一种方法是清洗数据集并标准化省份名称。数据转换将接收"ON"、"Ont"和"Ontario"中的任意一个，并将其替换为标准名称"Ontario"。（作为数据清洗者，你可以选择任何一种形式。我这里选择使用全称）。
+
+
+  第一步是获取省份列表：
+
+
+  ```
+
+  province_file = File.open("name_prov.txt").read.split(("\n")
+
+  ```
+
+
+  这会得到一个行数组。现在，我们将每一行按逗号拆分，并只取第二个元素（数组中的索引 1）
+
+
+  ```
+
+  provinces = province_file.map do |row|
+
+  row.split(",")[1]
+
+  end
+
+  => ["Ontario","ON","Alta","QC","Quebec","AB","Ont","Que","Alta","SK","Saskatchew\
+
+  an","Que","Sask","SK","Alberta","ON"]
+
+  ```
+
+
+  这样就得到了一个省份名称数组，但有些名称是重复的。我们需要去重后的名称。为此，我们使用数组方法`uniq()`：
+
+
+  ```
+
+  provinces.uniq
+
+  ```
+
+
+  这样我们就得到了一个无重复的省份标签列表。
+
+
+  现在，我们来编码标准化规则。我们将使用一个`Hash`（哈希表）来查找名称并返回标准名称。
+
+
+  ```
+
+  standard_name_lookup =
+
+  { "ON" => "Ontario",
+
+  "Ont" => "Ontario",
+
+  "Ontario" => "Ontario",
+
+  "Alta" => "Alberta",
+
+  "Alberta" => "Alberta",
+
+  "AB" => "Alberta",
+
+  "QC" => "Quebec",
+
+  "Que" => "Quebec",
+
+  "Quebec" => "Quebec",
+
+  "SK" => "Saskatchewan",
+
+  "Sask" => "Saskatchewan",
+
+  "Saskatchewan" => "Saskatchewan"
+
+  }
+
+  ```
+
+
+  现在，如果我们要查找名为"AB"的省份，只需这样做：
+
+
+  ```
+
+  standard_name_lookup["AB"]
+
+  => "Alberta"
+
+  ```
+
+
+  我们希望将这些规则编码到一个名为`standard_name_lookup.txt`的 CSV 文件中，内容如下所示：
+
+
+  ```
+
+  ON,Ontario
+
+  Ont,Ontario
+
+  Ontario,Ontario
+
+  Alta,Alberta
+
+  Alberta,Alberta
+
+  AB,Alberta
+
+  QC,Quebec
+
+  Que,Quebec
+
+  Quebec,Quebec
+
+  SK,Saskatchewan
+
+  Sask,Saskatchewan
+
+  Saskatchewan,Saskatchewan
+
+  ```
+
+
+  这使得查找策略数据（编码在`standard_name_lookup.txt`中）与源代码分离。这样，如果你想要更改查找策略，只需编辑此文件——无需更改软件。
+
+
+  那么，读取文件并将其转换为`Hash`就变成了：
+
+
+  ```
+
+  standard_name_lookup =
+
+  File.open("standard_name_lookup.txt","r").read.split("\n").map do |row|
+
+  row.split(",")
+
+  end.reduce({}) do |lookup_table, row|
+
+  lookup_table.merge row[0] => row[1]
+
+  end
+
+  ```
+
+
+  因此，剩下的工作就是用标准名称替换各种省份标签：
+
+
+  ```
+
+  standardized_province_file =
+
+  province_file.map do |row|
+
+  row.split(",")
+
+  end.map do |split_row|
+
+  [split_row[0], standard_name_lookup[split_row[1]]
+
+  end
+
+  ```
+
+
+  这会得到一个名称已被替换的数组。接下来只需要用逗号连接每个行的元素，然后再用回车连接每一行。完整的代码就变成如下所示：
+
+
+  ```
+
+  standard_name_lookup =
+
+  File.open("standard_name_lookup.txt","r").read.split("\n").map do |row|
+
+  row.split(",")
+
+  end.reduce({}) do |lookup_table, row|
+
+  lookup_table.merge row[0] => row[1]
+
+  end
+
+  standardized_province_file =
+
+  province_file.map do |row|
+
+  row.split(",")
+
+  end.map do |split_row|
+
+  [split_row[0], standard_name_lookup[split_row[1]]
+
+  end.map do |standardized_split_row|
+
+  standardized_split_row.join(",")
+
+  end.join("\n")
+
+  ```
+
+
+
+
+  '
+- "# 为销售数据序列添加累计总额注释\n\n从一组数字序列开始——例如，表示销售额的美元数值。\n\n```\nsales_data = [1,2,4,7,9,11]\n\
+  ```\n\n为每个数字添加当前的累计总额注释。最终列表应如下所示：\n\n```\n[[1,1],[2,3],[4,7],[7,14],[9,23],[11,34]]\n\
+  ```\n\n乍看之下，这似乎是 `map()` 的一个应用，因为我们正在为每个销售额数据添加注解数字。然而，这个数字是先前销售额数据的累计总和，直觉上表明应该使用\
+  \ `reduce()`。\n\n例如，以下任一等效操作：\n\n```\n[1,2,4,7,9,11].reduce(0,:+)\n```\n\n或\n\n\
+  ```\n[1,2,4,7,9,11].reduce(0){|run_total, sales_fig| run_total + sales_fig}\n```\n\
+  \n或\n\n```\n[1,2,4,7,9,11].reduce(0) do |running_total, sales_figure|\nrunning_total\
+  \ + sales_figure\nend\n```\n\n这将得出总计为 34。\n\n此外，我们知道结果将是一个数组的数组，并且初始值将是一个空数组。同时，每次迭代都必须将一个包含两个元素的数组推入初始数组。内部数组的第一个元素保存当前销售额，第二个元素保存累计总额。尝试以下操作以构建正确的结构：\n\
+  \n```\ntest1 =\nsales_data.reduce([]) do |memo, sales_figure|\nmemo.push([sales_figure,\
+  \ 666])\nend\n```\n\n这将得出以下结果：\n\n```\n[[1, 666], [2, 666], [4, 666], [7, 666],\
+  \ [9, 666], [11, 666]]\n```\n\n我们走对了方向，但现在需要弄清楚如何将累计总额放入内部数组的第二个元素。当然，累计总额就是上次的累计总额加上当前的销售额。\n\
+  \n```\ntest2 =\nsales_data.reduce([]) do |memo, sales_figure|\nmemo.push([sales_figure,\
+  \ memo.last[-1] + sales_figure])\nend\n```\n\n这会引发一个异常，因为在第一次迭代运行时 `memo.last` 中没有任何内容。我们需要通过将其赋值为\
+  \ 0 来处理这种情况，如下所示：\n\n```\ntest2 =\nsales_data.reduce([]) do |memo, sales_figure|\n\
+  last_total = memo.last.nil? ? 0 : memo.last[1]\nmemo.push([sales_figure, last_total\
+  \ + sales_figure])\nend\n```\n\n这将得出正确答案：\n\n```\n[[1, 1], [2, 3], [4, 7], [7, 14],\
+  \ [9, 23], [11, 34]]\n```\n\n## 杨辉三角\n\n计算机科学中的一个经典问题是生成杨辉三角。例如，一个六行的三角形如下所示：\n\n\
+  ```\n1\n1  1\n1  2  1\n1  3  3  1\n1  4  6  4  1\n1  5 10 10  5  1\n1  6 15 20 15\
+  \  6  1\n```\n\n通常，如果将其存储为二维数组，公式如下：\n\n```\na[n][0] = 1   # 其中 n >=0\na[n][n] =\
+  \ 1\na[n][m] = a[n-1][m] + a[n-1][m-1]\n```\n\n首先，这显然是一个二维数组。所以，对于一个四行的三角形，它看起来像这样：\n\
+  \n```\n[[1],[1,1],[1,2,1],[1,3,3,1]]\n```\n\n为了方便打印，我们暂时这样做：\n\n```\ntriangle.each{|row|\
+  \ p row.inspect}\n```\n\n考虑到我们正在构建一个数组的结构，使用 `reduce()` 似乎很合适。初始值是 `[]`。\n\n```\n\
+  triangle = (0..5).reduce([]) do |memo, n|\nmemo.push []\nend\ntriangle.each{|row|\
+  \ p row.inspect}\n\"[]\"\n\"[]\"\n\"[]\"\n\"[]\"\n\"[]\"\n\"[]\"\n=> [[], [], [],\
+  \ [], [], []]\n```\n\n这生成了一个数组的数组，但其中包含的内容不够。不过，我们知道第一个和最后一个值是 1。我们可以将其余的值默认为零。我们还知道每个数组有\
+  \ `n-1` 个元素。（注意 `row[-1]` 是表示数组最后一个元素的方法）。\n\n```\ntriangle = (0..5).reduce([])\
+  \ do |memo, n|\nrow = n==0 ? [] : Array.new(n+1)\nrow[0] = 1\nrow[-1] = 1\nmemo\
+  \ << row\nend\ntriangle.each{|row| p row.inspect}\n```\n\n这得出：\n\n```\n\"[1]\"\n\
+  \"[1, 1]\"\n\"[1, nil, 1]\"\n\"[1, nil, nil, 1]\"\n\"[1, nil, nil, nil, 1]\"\n\"\
+  [1, nil, nil, nil, nil, 1]\"\n=> [[1], [1, 1], [1, nil, 1], [1, nil, nil, 1], [1,\
+  \ nil, nil, nil, 1], [1, nil, nil, nil, nil, 1]]\n```\n\n结构逐渐成形，但我们也知道第 n 行是前一行的一个函数。因此，我们需要回溯到上一行并进行处理以生成下一行。\n\
+  \n```\ntriangle = (0..5).reduce([]) do |memo, n|\nif n==0\nrow = [1]\nelse\nprev\
+  \ = memo[-1]\nrow = prev.each_cons(2).map { |a,b| a+b }\nrow.unshift(1)\nrow.push(1)\n\
+  end\nmemo << row\nend\ntriangle.each{|row| p row.inspect}\n```\n\n这得出：\n\n```\n\"\
+  [1]\"\n\"[1, 1]\"\n\"[1, 2, 1]\"\n\"[1, 3, 3, 1]\"\n\"[1, 4, 6, 4, 1]\"\n\"[1, 5,\
+  \ 10, 10, 5, 1]\"\n=> [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1], [1,\
+  \ 5, 10, 10, 5, 1]]\n```\n\n这好一些了。行开始充实起来。现在，要构建当前行，你需要前一行。\n\n例如，你可以对前一行使用 `reduce`\
+  \ 来得到当前行。要获取一行的最后两个元素，你需要记住它们。例如：\n\n```\n[1,3,3,1].reduce([nil,nil]) do |memo,\
+  \ element|\nmemo.push element\nmemo.shift\nputs \"After pushing #{element}, the\
+  \ memo is #{memo.inspect}\"\nmemo\nend\nAfter pushing 1, the memo is [nil, 1]\n\
+  After pushing 3, the memo is [1, 3]\nAfter pushing 3, the memo is [3, 3]\nAfter\
+  \ pushing 1, the memo is [3, 1]\n=> [3, 1]\n```\n\n我们越来越接近了。让我们把和保存在 `memo` 中。现在，请记住\
+  \ `memo` 的结构必须改变。我们需要一个地方来保存最后两个元素的数组以及它们的和。因此，`memo` 将是一个 `Hash`，以 `:sum` 和 `:last_2`\
+  \ 作为键。\n\n```\ninitial_memo = {sum: 0, last_2: [nil,nil]}\n[1,3,3,1].reduce(initial_memo)\
+  \ do |memo, element|\nmemo[:last_2].push element\nmemo[:last_2].shift\nmemo[:sum]\
+  \ = memo[:last_2].compact.reduce(0,:+)\nputs \"After pushing element #{element},\
+  \ memo is #{memo}\"\nmemo\nend\n```\n\n结果如下：\n\n```\nAfter pushing element 1, memo\
+  \ is {:sum=>1, :last_2=>[nil, 1]}\nAfter pushing element 3, memo is {:sum=>4, :last_2=>[1,\
+  \ 3]}\nAfter pushing element 3, memo is {:sum=>6, :last_2=>[3, 3]}\nAfter pushing\
+  \ element 1, memo is {:sum=>4, :last_2=>[3, 1]}\n=> {:sum=>4, :last_2=>[3, 1]}\n\
+  ```\n\n我们更接近了。这个和遵循模式 1,4,6,4，这几乎就是下一行（缺少最后一个 1）。所以，现在我们需要将下一行保存在 `memo` 中，然后在计算完成时将其提取出来，如下所示：\n\
+  \n```\ninitial_memo = {last_2: [nil,nil], next_row: []}\n[1,3,3,1].reduce(initial_memo)\
+  \ do |memo, element|\nmemo[:last_2].push element\nmemo[:last_2].shift\nmemo[:next_row].push\
+  \ memo[:last_2].compact.reduce(0,:+)\nputs \"After pushing element #{element}, memo\
+  \ is #{memo}\"\nmemo\nend\n```\n\n结果如下：\n\n\n\n```\n推送元素 1 后，memo 为 {:last_2=>[nil,\
+  \ 1], :next_row=>[1]}\n推送元素 3 后，memo 为 {:last_2=>[1, 3], :next_row=>[1, 4]}\n推送元素\
+  \ 3 后，memo 为 {:last_2=>[3, 3], :next_row=>[1, 4, 6]}\n推送元素 1 后，memo 为 {:last_2=>[3,\
+  \ 1], :next_row=>[1, 4, 6, 4]}\n=> {:last_2=>[3, 1], :next_row=>[1, 4, 6, 4]}\n\
+  ```\n\n差不多完成了！我们只需要从结果中提取 `:next_row`，然后在下一行的末尾添加一个 1。同时我也会移除 `puts` 语句。\n\n```\n\
+  initial_memo = {last_2: [nil,nil], next_row: []}\n[1,3,3,1].reduce(initial_memo)\
+  \ do |memo, element|\n  memo[:last_2].push element\n  memo[:last_2].shift\n  memo[:next_row].push\
+  \ memo[:last_2].compact.reduce(0,:+)\n  memo\nend[:next_row].push 1\n=> [1, 4, 6,\
+  \ 4, 1]\n```\n\n于是，我们得到了每一行的公式。来看看它对几个例子是否有效。首先是顶层行：\n\n```\ninitial_memo = {last_2:\
+  \ [nil,nil], next_row: []}\n[1].reduce(initial_memo) do |memo, element|\n  memo[:last_2].push\
+  \ element\n  memo[:last_2].shift\n  memo[:next_row].push memo[:last_2].compact.reduce(0,:+)\n\
+  \  memo\nend[:next_row].push 1\n=> [1, 1]\n```\n\n如果是空行呢（例如 `[]`）？\n\n```\ninitial_memo\
+  \ = {last_2: [nil,nil], next_row: []}\n[].reduce(initial_memo) do |memo, element|\n\
+  \  memo[:last_2].push element\n  memo[:last_2].shift\n  memo[:next_row].push memo[:last_2].compact.reduce(0,:+)\n\
+  \  memo\nend[:next_row].push 1\n=> [1]\n```\n\n看起来没问题。接下来需要对每一行都执行这个操作。我们再次使用 `reduce`，因为每次迭代都会将\
+  \ memo 传递到下一次。尝试如下（比如，七行）：\n\n```\ninital_memo = [[]]\n(1..7).reduce([[]]) do |memo,\
+  \ num|\ninitial_memo = {last_2: [nil,nil], next_row: []}\nmemo.push(\n  memo[-1].reduce(initial_memo)\
+  \ do |memo, element|\n    memo[:last_2].push element\n    memo[:last_2].shift\n\
+  \    memo[:next_row].push memo[:last_2].compact.reduce(0,:+)\n    memo\n  end[:next_row].push(1)\n\
+  )\nputs \"处理第 #{num} 行后，memo 为 #{memo}\"\nmemo\nend\n```\n\n这样可行。接下来需要移除 `puts`\
+  \ 语句并以适当格式打印出来。\n\n```\ninital_memo = [[]]\ntriangle =\n(1..7).reduce([[]]) do |memo,\
+  \ num|\ninitial_memo = {last_2: [nil,nil], next_row: []}\nmemo.push(\n  memo[-1].reduce(initial_memo)\
+  \ do |memo, element|\n    memo[:last_2].push element\n    memo[:last_2].shift\n\
+  \    memo[:next_row].push memo[:last_2].compact.reduce(0,:+)\n    memo\n  end[:next_row].push(1)\n\
+  )\nputs \"处理第 #{num} 行后，memo 为 #{memo}\"\nmemo\nend\ntriangle.each{|row| p row.inspect}\n\
+  \"[]\"\n\"[1]\"\n\"[1, 1]\"\n\"[1, 2, 1]\"\n\"[1, 3, 3, 1]\"\n\"[1, 4, 6, 4, 1]\"\
+  \n\"[1, 5, 10, 10, 5, 1]\"\n\"[1, 6, 15, 20, 15, 6, 1]\"\n```\n\n更简洁的版本如下：\n\n```\n\
+  triangle.each{|row| puts row.join (\", \") };1\n\n1,  1\n1,  2,  1\n1,  3,  3, \
+  \ 1\n1,  4,  6,  4,  1\n1,  5, 10, 10,  5,  1\n1,  6, 15, 20, 15,  6,  1\n```\n\n\
+  ## 逆波兰表示法解析器\n\n描述算术运算的一种方式是使用操作数在前、运算符在后的表示法。例如，表达式\n\n```\n3 + 2\n```\n\n可以写成\n\
+  \n```\n3 2 +\n```\n\n这称为后缀表示法或逆波兰表示法（在我上学时的 1980 年代，这曾是惠普计算器的一大特色，深受工程极客们喜爱）。它可以避免使用括号。处理起来也更简单，因为只需要一个栈。每读取一个词法单元（数字或运算符），就将其压入栈中。当运算符被压入栈时，这是一个特殊情况。运算符会与接下来的两个元素（即操作数）一起弹出栈，执行运算，然后将结果压回栈中。\n\
+  \n例如，表达式\n\n```\n3 3 4 * 4 7 8 + - * +\n```\n\n的处理过程可以用一系列栈快照来表示，每行对应一个快照。随着词法单元的扫描，栈向右增长；如果运算符被压入栈中，RPN\
+  \ 解析器会弹出最后三个词法单元，执行计算，并将答案压回栈中。\n\n```\n3\n3 3\n3 3 4\n3 3 4 *\n3 12           \
+  \      (12 是 4*3)\n3 12 4\n3 12 4 7\n3 12 4 7 8\n3 12 4 7 8 +\n3 12 4 15       \
+  \     (15 是 7+8)\n3 12 4 15 -\n3 12 -11             (-11 是 4-15)\n3 12 -11 *\n3\
+  \ -132               (-132 是 12*(-11))\n3 -132 +\n-129                 (-129 是 3\
+  \ + (-132))\n```\n\n那么如何解决这个问题？首先，我们通过以空格分割字符串来对其进行词法分析（这不是最健壮的词法分析方法，但足以应对这个例子）。一旦从字符串中得到了词法单元数组，我们可能需要在每次迭代后记住栈的状态。在\
+  \ Ruby 中，可以使用数组的 `push` 和 `pop` 操作将其用作栈。此外，栈的初始值为空数组。试试下面的代码：\n\n```\nexpression\
+  \ = \"1 2 2 + 3 * -\"\nanswer = expression.split(\" \").reduce([]) do |stack, token|\n\
+  \  stack.push(token)\n  puts \"推送 #{token} 后栈的状态为 #{stack.inspect}\"\n  stack\n\
+  end\n```\n\n这将输出以下内容：\n\n```\n推送 1 后栈的状态为 [\"1\"]\n推送 2 后栈的状态为 [\"1\", \"2\"]\n\
+  推送 2 后栈的状态为 [\"1\", \"2\", \"2\"]\n推送 + 后栈的状态为 [\"1\", \"2\", \"2\", \"+\"]\n推送\
+  \ 3 后栈的状态为 [\"1\", \"2\", \"2\", \"+\", \"3\"]\n推送 * 后栈的状态为 [\"1\", \"2\", \"2\"\
+  , \"+\", \"3\", \"*\"]\n推送 - 后栈的状态为 [\"1\", \"2\", \"2\", \"+\", \"3\", \"*\", \"\
+  -\"]\n=> [\"1\", \"2\", \"2\", \"+\", \"3\", \"*\", \"-\"]\n```\n\n这样，我们就在每次迭代后正确地保存了栈的状态。现在，我们需要识别运算符\
+  \ `+`、`-`、`*` 和 `/`。试试这个：\n\n```\nexpression = \"1 2 2 + 3 * -\"\nanswer = expression.split(\"\
+  \ \").reduce([]) do |stack, token|\n  stack.push(token)\n  puts \"推送 #{token} 后栈的状态为\
+  \ #{stack.inspect}\"\n  if [\"+\",\"-\",\"*\",\"/\"].include?(token)\n    puts \"\
+  \ 词法单元 #{token} 是一个运算符\"\n  end\n  stack\nend\n```\n\n输出如下：\n\n```\n推送 1 后栈的状态为\
+  \ [\"1\"]\n推送 2 后栈的状态为 [\"1\", \"2\"]\n推送 2 后栈的状态为 [\"1\", \"2\", \"2\"]\n推送 + 后栈的状态为\
+  \ [\"1\", \"2\", \"2\", \"+\"]\n词法单元 + 是一个运算符\n推送 3 后栈的状态为 [\"1\", \"2\", \"2\"\
+  , \"+\", \"3\"]\n推送 * 后栈的状态为 [\"1\", \"2\", \"2\", \"+\", \"3\", \"*\"]\n词法单元 *\
+  \ 是一个运算符\n推送 - 后栈的状态为 [\"1\", \"2\", \"2\", \"+\", \"3\", \"*\", \"-\"]\n词法单元 -\
+  \ 是一个运算符\n=> [\"1\", \"2\", \"2\", \"+\", \"3\", \"*\", \"-\"]\n```\n\n现在，根据 RPN\
+  \ 规则，如果词法单元是运算符，我们需要执行运算。要执行运算，我们必须从栈中弹出运算符，然后弹出第一个操作数，最后弹出第二个操作数。我将在第一次遇到运算符时停止这次迭代，以便查看栈的状态。\n\
+  \n\n\n```ruby\nexpression = \"1 2 2 + 3 * -\"\nanswer = expression.split(\" \").reduce([])\
+  \ do |stack, token|\nstack.push(token)\nputs \"The stack after pushing #{token}\
+  \ is #{stack.inspect}\"\nif [\"+\",\"-\",\"*\",\"/\"].include?(token)\nputs \" Token\
+  \ #{token} is an operator\"\noperator = stack.pop\nsecond_operand = stack.pop\n\
+  first_operand = stack.pop\nputs \" Second operand is #{second_operand}. First operand\
+  \ is #{first_operand}\"\nraise \"Stop for a bit\"\nend\nstack\nend\n```\n\n这会打印出以下内容：\n\
+  \n```\nThe stack after pushing 1 is [\"1\"]\nThe stack after pushing 2 is [\"1\"\
+  , \"2\"]\nThe stack after pushing 2 is [\"1\", \"2\", \"2\"]\nThe stack after pushing\
+  \ + is [\"1\", \"2\", \"2\", \"+\"]\nToken + is an operator\nSecond operand is 2\\\
+  . First operand is 2\nStop for a bit\n(repl):11:in `block in initialize'\n(repl):2:in\
+  \ `each'\n(repl):2:in `reduce'\n(repl):2:in `initialize'\n```\n\n`Stop for a bit`\
+  \ 这个异常只让我们到达了第一个运算符。我只是想展示运算符和操作数从栈中被弹出。现在，我们只需向第一个操作数发送 `\"operator\"` 消息，并将第二个操作数作为参数传递。（请记住，5\
+  \ 和 7 都是 `Fixnum` 类的 Ruby 对象，它们都有一个名为 `:+` 的方法）。例如，\n\n```ruby\n5 + 7\n```\n\n等同于\n\
+  \n```ruby\n5.send(:+,7)\n```\n\n如果你不信，可以在命令行上试试。\n\n现在，从栈中弹出的每个令牌都是字符串。操作数必须转换为整数（使用\
+  \ `to_i`），而运算符必须转换为符号（使用 `to_sym`）。因此，代码片段如下所示：\n\n```ruby\nfirst_operand.to_i.send(operator.to_sym,\
+  \ second_operand.to_i)\n```\n\n这会告诉解释器调用 `5` 这个对象的 `:+` 方法（因为 `\"+\".to_sym` 是 `:+`），该对象恰好是一个\
+  \ `Fixnum`。一旦计算出该结果，就必须将结果重新压入栈中。（`stack` 变量是此次 `reduce` 操作的记忆体）。\n\n```ruby\nexpression\
+  \ = \"1 2 2 + 3 * -\"\nanswer = expression.split(\" \").reduce([]) do |stack, token|\n\
+  stack.push(token)\nputs \"The stack after pushing #{token} is #{stack.inspect}\"\
+  \nif [\"+\",\"-\",\"*\",\"/\"].include?(token)\nputs \" Token #{token} is an operator\"\
+  \noperator = stack.pop\nsecond_operand = stack.pop\nfirst_operand = stack.pop\n\
+  puts \" Second operand is #{second_operand}. First operand is #{first_operand}\"\
+  \nresult = first_operand.to_i.send(operator.to_sym, second_operand.to_i)\nputs \"\
+  \ The result of this expression is #{result}\"\nstack.push(result)\nputs \" The\
+  \ stack after evaluating the expression is #{stack.inspect}\"\nend\nstack\nend\n\
+  ```\n\n这会打印出以下内容：\n\n```\nThe stack after pushing 1 is [\"1\"]\nThe stack after\
+  \ pushing 2 is [\"1\", \"2\"]\nThe stack after pushing 2 is [\"1\", \"2\", \"2\"\
+  ]\nThe stack after pushing + is [\"1\", \"2\", \"2\", \"+\"]\nToken + is an operator\n\
+  Second operand is 2\\. First operand is 2\nThe result of this expression is 4\n\
+  The stack after evaluating the expression is [\"1\", 4]\nThe stack after pushing\
+  \ 3 is [\"1\", 4, \"3\"]\nThe stack after pushing * is [\"1\", 4, \"3\", \"*\"]\n\
+  Token * is an operator\nSecond operand is 3\\. First operand is 4\nThe result of\
+  \ this expression is 12\nThe stack after evaluating the expression is [\"1\", 12]\n\
+  The stack after pushing - is [\"1\", 12, \"-\"]\nToken - is an operator\nSecond\
+  \ operand is 12\\. First operand is 1\nThe result of this expression is -11\nThe\
+  \ stack after evaluating the expression is [-11]\n```\n\n现在，要清理代码并打印结果，我们执行以下操作：\n\
+  \n```ruby\nexpression = \"1 2 2 + 3 * -\"\nanswer = expression.split(\" \").reduce([])\
+  \ do |stack, token|\nstack.push(token)\nif [\"+\",\"-\",\"*\",\"/\"].include?(token)\n\
+  operator = stack.pop\nsecond_operand = stack.pop\nfirst_operand = stack.pop\nresult\
+  \ = first_operand.to_i.send(operator.to_sym, second_operand.to_i)\nstack.push(result)\n\
+  end\nstack\nend[0]\nputs \"The expression is #{expression}. The answer is #{answer}.\"\
+  \n```\n\n## 生成队服姓名条列表\n\n假设你有一个简单的文本文件 `names.txt`，里面包含一个名字列表。这些是篮球队里女孩们的名字。\n\n\
+  ```\nEmily Muller\nLois Makad\nSophie Wheaton\nAbby Muller\nZoe Gee\nAnastasia Semanova\n\
+  Iulia Semanova\nJane Smith\nMegan Sundstrom\nBrunhilda Schmidt\nSally Park\nJill\
+  \ Bailey\n```\n\n你想生成一个姓名条列表，用来放在球员的球衣上。除非有两个人姓氏相同，否则只使用姓氏。如果有同姓的情况，那么姓名条应包含名字首字母和姓氏。因此，列表看起来像这样：\n\
+  \n```\nE. Muller\nMakad\nWheaton\nA. Muller\nGee\nA. Semanova\nI. Semanova\nSmith\n\
+  Sundstrom\nSchmidt\nPark\nBailey\n```\n\n首先，将文件读入一个巨大的字符串：\n\n```ruby\nnames = File.open(\"\
+  names.txt\",\"r\").read\n```\n\n你可以像这样将字符串拆分为数组：\n\n```ruby\nnamelist = names.split(\"\
+  \\n\")\n```\n\n这会生成一个如下所示的数组：\n\n```\n[\"Emily Muller\", \"Lois Makad\", \"Sophie\
+  \ Wheaton\", # 等等\n]\n```\n\n首先，你想用姓氏来注释列表以作辅助：\n\n```ruby\nannotated_namelist =\
+  \ namelist.map do |name|\n[name.split(\" \")[1], name]\nend\n```\n\n然后，你想按不同的姓氏对名字进行分组。Ruby\
+  \ 哈希是一种按姓氏键存储的有用方式：\n\n```ruby\ngrouped_list =\nannotated_namelist.reduce({}) do\
+  \ |memo, annotated_name|\nif memo[annotated_name[0]].nil?\nmemo[annotated_name[0]]\
+  \ = [annotated_name[1]]\nelse\nmemo[annotated_name[0]] << annotated_name[1]\nend\n\
+  memo\nend\n```\n\n此时，我们已经按不同的姓氏建立了哈希键，它看起来像这样：\n\n```\n{\"Muller\"   =>   [\"Emily\
+  \ Muller\", \"Abby Muller\"],\n\"Makad\"    =>   [\"Lois Makad\"],\n\"Wheaton\"\
+  \  =>   [\"Sophie Wheaton\"],\n\"Gee\"      =>   [\"Zoe Gee\"],\n\"Semanova\" =>\
+  \   [\"Anastasia Semanova\", \"Iulia Semanova\"],\n\"Smith\"     =>   [\"Jane Smith\"\
+  ]\n\"Sundstrom\" =>   [\"Megan Sundstrom\"],\n\"Schmidt\"   =>   [\"Brunhilda Schmidt\"\
+  ],\n\"Park\"      =>   [\"Sally Park\"],\n\"Bailey\"    =>   [\"Jill Bailey\"]\n\
+  }\n```\n\n我们应该注意到，键是字符串，值是一个或多个名字的数组。我们需要将名字简化为姓名条。如果数组中只有一个元素（名字），我们只需拆分字符串并取第二个元素，即姓氏。如果有多个元素，我们需要拆分字符串，取第一个元素的第一个字母，并将其与第二个元素连接起来。详见此处：\n\
+  \n```ruby\ngrouped_label_names =\ngrouped_list.map do |key,value|\nif value.size>1\n\
+  res = value.map do |name|\n\"#{name.split(' ')[0][0]}. #{name.split(' ')[1]}\"\n\
+  end\nres\nelse\nvalue[0].split(' ')[1]\nend\nend\n```\n\n这会生成以下内容：\n\n```\n[[\"\
+  E. Muller\", \"A. Muller\"], \"Makad\", \"Wheaton\", \"Gee\", [\"A. Semanova\",\
+  \ \"I. Semanova\"], \"Smith\", \"Sundstrom\", \"Schmidt\", \"Park\", \"Bailey\"\
+  ]\n```\n\n这已经很接近了。列表只需展平即可：\n\n```ruby\ngrouped_label_names.flatten\n```\n\n这会生成以下内容：\n\
+  \n```\n[\"E. Muller\", \"A. Muller\", \"Makad\", \"Wheaton\", \"Gee\", \"A. Semanova\"\
+  , \"I. Semanova\", \"Smith\", \"Sundstrom\", \"Schmidt\", \"Park\", \"Bailey\"]\n\
+  ```\n\n然后，只需通过回车符连接即可重新构建列表，如下所示：\n\n```ruby\ngrouped_label_names.flatten.join(\"\
+  \\n\")\n```\n\n完成后，需要将数组展平并重新构建为文本文件：\n\n```ruby\nnamebar_names =\ngrouped_label_names.flatten.join(\"\
+  \\n\")\n```\n\n因此，完整的数据处理解决方案如下：\n\n```ruby\nnamebar_names =\nFile.open(\"names.txt\"\
+  ,\"r\").read.split(\"\\n\").map do |name|\n[name.split(\" \")[1], name]\nend.inject({})\
+  \ do |memo, annotated_name|\nif memo[annotated_name[0]].nil?\nmemo[annotated_name[0]]\
+  \ = [annotated_name[1]]\nelse\nmemo[annotated_name[0]] << annotated_name[1]\nend\n\
+  memo\nend.map do |key,value|\nif value.size>1\nres = value.map do |name|\n\"#{name.split('\
+  \ ')[0][0]}. #{name.split(' ')[1]}\"\nend\nres\nelse\nvalue[0].split(' ')[1]\nend\n\
+  end.flatten.join(\"\\n\")\n```\n\n\n"
+- "# 求两个函数的交点\n\n假设你有两个函数：`y = x` 和 `y = 10sin(x)`。你想找到它们的交点。一些已知事实如下：\n\n- `y = 10sin(x)`\
+  \ 的周期为 `2*pi`，约等于 6.2，因此每隔半个周期（约 3.14）便有一个真正的零点。\n- `y = 10sin(x)` 的最大值为 10，最小值为\
+  \ -10，因此如果我们要沿着直线 `y = x` 进行搜索，可以将 `x` 的取值范围限制在 -10 到 10 之间。\n- 根据微积分知识，我们知道 `y\
+  \ = 10sin(x)` 的斜率为 `y = 10cos(x)`，当 `x=0` 以及其他一些位置时，斜率达到最大值 10。\n- 对于斜率为 10 的情况，如果你想让\
+  \ `y` 的变化量不超过某个很小的值，那么 `x` 的变化量最多只能是该变化量的十分之一。\n- 当 `y = 10sin(x)` 与 `y = x` 的差值为\
+  \ 0 时，即发生交点。但在不完美的现实条件下，我们可以认为，只要差值小于某个值（例如 0.02），就算作交点。\n- 要保证差值小于 0.02，我们必须以该差值的十分之一（即\
+  \ 0.002）为步长来测试交点。因此，定义域（即要测试的 `x` 值集合）可以表示如下：\n\n`(-10..10).step(0.002)`\n\n通过以下方式打印出来：\n\
+  \n```\n(-10..10).step(0.002).map{|n| n}\n```\n\n这会生成 2000 个待测试的 `x` 值。对于每个这样的值，你需要收集两个函数对应的数值范围。每个范围是一个包含三个元素的数组，由\
+  \ `x` 值、第一个函数的值（`y=x`）和第二个函数的值（`y=10sin(x)`）组成。如下所示：\n\n```\nfunction_values =\n\
+  (-10..10).step(0.002).map do |x|\n  [x, x, 10*Math.sin(x)]\nend\n```\n\n现在，当这两个函数之间的差值（例如，三元组中的第一个元素与第二个元素）极小时，便发生交点。在我们的示例中，我们每次将\
+  \ `x` 值增加 0.002，因此预期的最大变化量为 0.02。因此，差值小于 0.02 的值就可以实际视为零点。在这大约两千个三元组中，我们只需选出元素 1\
+  \ 和元素 2（而不是元素 0）非常接近的那些。换句话说，差值的绝对值应小于 0.02。请看以下代码：\n\n```\nzeroes = function_values.select\
+  \ do |three_tuple|\n  (three_tuple[0] - three_tuple[1]).abs < 0.02\nend\n```\n\n\
+  这会得到一组两个函数中差值足够小，可以视为零点的点。\n\n```\nzeroes =\n(-10..10).step(0.002).map do |x|\n\
+  \  [x, x, 10*Math.sin(x)]\nend.select do |three_tuple|\n  (three_tuple[1] - three_tuple[2]).abs\
+  \ < 0.02\nend\n```\n\n得出如下结果（已格式化以便阅读）：\n\n```\n=> [\n  [-8.426, -8.426, -8.408100860402287],\n\
+  \  [-8.424, -8.424, -8.418910641243016],\n  [-8.422, -8.422, -8.429686746452397],\n\
+  \  [-7.07, -7.07, -7.081077089878837],\n  [-7.068, -7.068, -7.066940848453371],\n\
+  \  [-7.066, -7.066, -7.052776339273938],\n  [-2.8539999999999996, -2.8539999999999996,\
+  \ -2.836445737876892],\n  [-2.852, -2.852, -2.855618641886548],\n  [-0.001999999999999792,\
+  \ -0.001999999999999792, -0.01999998666666725],\n  [2.0816681711721685e-16, 2.0816681711721685e-16,\
+  \ 2.0816681711721685e-15],\n  [0.002000000000000208, 0.002000000000000208, 0.019999986666671413],\n\
+  \  [2.8520000000000003, 2.8520000000000003, 2.8556186418865437],\n  [2.854, 2.854,\
+  \ 2.8364457378768875],\n  [7.066000000000001, 7.066000000000001, 7.0527763392739455],\n\
+  \  [7.0680000000000005, 7.0680000000000005, 7.066940848453377],\n  [7.07, 7.07,\
+  \ 7.081077089878837],\n  [8.422, 8.422, 8.429686746452397],\n  [8.424000000000001,\
+  \ 8.424000000000001, 8.418910641243006],\n  [8.426, 8.426, 8.408100860402287]\n\
+  ]\n```\n\n这些结果很有趣，因为列表中包含了 19 个零点（诚然，从 2000 个可能的点中大大减少了）。然而，如果仔细观察，它们聚集在 -8.41、-7.07、-2.84、0、2.84、7.07\
+  \ 和 8.41 附近。问题是，这些集群的出现是因为确实有那么多零点，还是因为两个函数在超过一个步长（0.02）的范围内足够接近（例如，差值不超过 0.02）但并未相交？解决这个问题的一种方法是在\
+  \ `map()` 步骤中收集函数差值的相关信息，如下所示：\n\n```\nintersection_points =\n(-10..10).step(0.002).map\
+  \ do |x|\n  [x, x, 10*Math.sin(x), x - (10*Math.sin(x))]\nend.select do |four_tuple|\n\
+  \  four_tuple[3].abs < 0.02\nend\n```\n\n得出如下结果：\n\n```\n=> [\n  [-8.426, -8.426,\
+  \ -8.408100860402287, -0.017899139597712832],\n  [-8.424, -8.424, -8.418910641243016,\
+  \ -0.005089358756983131],\n  [-8.422, -8.422, -8.429686746452397, 0.00768674645239642],\n\
+  \  [-7.07, -7.07, -7.081077089878837, 0.011077089878837043],\n  [-7.068, -7.068,\
+  \ -7.066940848453371, -0.0010591515466282786],\n  [-7.066, -7.066, -7.052776339273938,\
+  \ -0.013223660726061404],\n  [-2.8539999999999996, -2.8539999999999996, -2.836445737876892,\
+  \ -0.017554262123107733],\n  [-2.852, -2.852, -2.855618641886548, 0.0036186418865482572],\n\
+  \  [-0.001999999999999792, -0.001999999999999792, -0.01999998666666725, 0.01799998666666746],\n\
+  \  [2.0816681711721685e-16, 2.0816681711721685e-16, 2.0816681711721685e-15, -1.8735013540549517e-15],\n\
+  \  [0.002000000000000208, 0.002000000000000208, 0.019999986666671413, -0.017999986666671207],\n\
+  \  [2.8520000000000003, 2.8520000000000003, 2.8556186418865437, -0.0036186418865433723],\n\
+  \  [2.854, 2.854, 2.8364457378768875, 0.01755426212311262],\n  [7.066000000000001,\
+  \ 7.066000000000001, 7.0527763392739455, 0.013223660726055186],\n  [7.0680000000000005,\
+  \ 7.0680000000000005, 7.066940848453377, 0.0010591515466238377],\n  [7.07, 7.07,\
+  \ 7.081077089878837, -0.011077089878837043],\n  [8.422, 8.422, 8.429686746452397,\
+  \ -0.00768674645239642],\n  [8.424000000000001, 8.424000000000001, 8.418910641243006,\
+  \ 0.005089358756995566],\n  [8.426, 8.426, 8.408100860402287, 0.017899139597712832]\n\
+  ]\n```\n\n在所有情况下，函数似乎都在两个或三个步长的区间内交叉，因为第三个元素（差值）改变了符号。此时，我们需要将这些点划分到不同的集群中。当集群内的\
+  \ `x` 值并不完全相同时，按 `x` 值进行分组会比较棘手。不过，我们可以调整机制。一般来说，如果两个交点的 `x` 值彼此相差在 0.01 以内（连续五个点），则可以认为它们属于同一个集群。此外，上面的点列表是按\
+  \ `x` 排序的，因此只需检查下一个点的 `x` 值即可。如下所示：\n\n```\nintersection_clusters =\nintersection_points.reduce([])\
+  \ do |cluster_list, zero_four_tuple|\n  if !cluster_list[-1].nil? &&\n    cluster_list[-1][0][0]\
+  \ - zero_four_tuple[0] > -0.01\n    cluster_list[-1].push zero_four_tuple\n  else\n\
+  \    cluster_list.push [zero_four_tuple]\n  end\n  cluster_list\nend\n```\n\n这得出一个有趣的结果：\n\
+  \n\n```python\n[\n[\n[-8.426, -8.426, -8.408100860402287, -0.017899139597712832],\n\
+  [-8.424, -8.424, -8.418910641243016, -0.005089358756983131],\n[-8.422, -8.422, -8.429686746452397,\
+  \ 0.00768674645239642]\n],\n[\n[-7.07, -7.07, -7.081077089878837, 0.011077089878837043],\n\
+  [-7.068, -7.068, -7.066940848453371, -0.0010591515466282786],\n[-7.066, -7.066,\
+  \ -7.052776339273938, -0.013223660726061404]\n],\n[\n[-2.8539999999999996, -2.8539999999999996,\
+  \ -2.836445737876892, -0.017554262123107733],\n[-2.852, -2.852, -2.855618641886548,\
+  \ 0.0036186418865482572]\n],\n[\n[-0.001999999999999792, -0.001999999999999792,\
+  \ -0.01999998666666725, 0.01799998666666746],\n[2.0816681711721685e-16, 2.0816681711721685e-16,\
+  \ 2.0816681711721685e-15, -1.8735013540549517e-15],\n[0.002000000000000208, 0.002000000000000208,\
+  \ 0.019999986666671413, -0.017999986666671207]\n],\n[\n[2.8520000000000003, 2.8520000000000003,\
+  \ 2.8556186418865437, -0.003618641886543723],\n[2.854, 2.854, 2.8364457378768875,\
+  \ 0.01755426212311262]\n],\n[\n[7.066000000000001, 7.066000000000001, 7.0527763392739455,\
+  \ 0.013223660726055186],\n[7.0680000000000005, 7.0680000000000005, 7.066940848453377,\
+  \ 0.0010591515466238377],\n[7.07, 7.07, 7.081077089878837, -0.011077089878837043]\n\
+  ],\n[\n[8.422, 8.422, 8.429686746452397, -0.00768674645239642],\n[8.424000000000001,\
+  \ 8.424000000000001, 8.418910641243006, 0.005089358756995566],\n[8.426, 8.426, 8.408100860402287,\
+  \ 0.017899139597712832]\n]\n]\n```\n\n这清晰地显示了七个明显的零点簇。此时，你可以决定只接受簇中的第一个零点，认为其\"\
+  足够好\"。\n\n```ruby\nintersection_clusters.map do |cluster|\ncluster[0][0]\nend\n\
+  ```\n\n或者，你可能希望将 `x` 值设为簇中所有 `x` 值的平均值，并四舍五入到一个美观的数字：\n\n```ruby\nintersection_clusters.map\
+  \ do |cluster|\n(cluster.reduce(0) do |sum, zero_four_tuple|\nsum + zero_four_tuple[0]\n\
+  end / cluster.size).round(4)\nend\n```\n\n这将得到以下结果：\n\n```ruby\n=> [-8.424, -7.068,\
+  \ -2.853, 0.0, 2.853, 7.068, 8.424]\n```\n\n完整代码如下：\n\n```ruby\nzeroes =\n(-10..10).step(0.002).map\
+  \ do |x|\n[x, x, 10*Math.sin(x), x - (10*Math.sin(x))]\nend.select do |four_tuple|\n\
+  four_tuple[3].abs  -0.01\ncluster_list[-1].push zero_four_tuple\nelse\ncluster_list.push\
+  \ [zero_four_tuple]\nend\ncluster_list\nend.map do |cluster |\n(cluster.reduce(0)\
+  \ do |sum, zero_four_tuple|\nsum + zero_four_tuple[0]\nend / cluster.size).round(4)\n\
+  end\n```\n\n对于一个相当复杂的计算来说，只用十八行代码就完成，真是令人印象深刻。\n\n**练习：** 你可以检查一个簇中的交叉点，这种情况发生在某个簇的元组差值（元组中的第四个元素）同时包含正值和负值时。\n\
+  \n## 按区号分组\n\n有时，你需要根据某个元素的函数来对数据集进行分组。考虑以下电话号码列表：\n\n```\nJohn,613-555-1234\nMatt,613-555-2345\n\
+  Andrew,613-555-3456\nBob,416-555-2222\nSheila,905-555-7777\nSara,416-555-9999\n\
+  Grocery,416-492-9999\nPizza,416-967-1111\nGabers,613-310-7777\nShah,905-555-1212\n\
+  ```\n\n你需要根据区号来对列表进行分组。本例中，区号是每个电话号码的前三位数字。\n\n通过对电话号码执行 `split()` 并取第一个元素（`索引 0`），就可以提取出区号。例如：\n\
+  \n```ruby\nphone_number = \"613-555-1234\"\narea_code = phone_number.split(\"-\"\
+  )[0]\n=> \"613\"\n```\n\n一旦获取到区号，它就可以作为以区号为键的 `Hash` 的键。在我们的示例中：\n\n```ruby\narea_code_groups[area_code]\
+  \ = phone number\n```\n\n但是，如果某个区号下有多个号码，我们就需要一个数组。对于新的区号，如果对应的数组不存在，则必须创建一个新数组，如下所示：\n\
+  \n```ruby\nif area_code_groups[area_code].nil?\narea_code_groups[area_code] = [phone_number]\n\
+  else\narea_code_groups[area_code].push phone_number\nend\n```\n\n因此，完整的代码如下：\n\n\
+  ```ruby\nphonelist_text.split(\"\\n\").map do |row|\nrow.split(\",\")\nend.map do\
+  \ |split_row|\n[split_row[0], split_row[1].split(\"-\")]\nend.reduce({}) do |area_code_groups,\
+  \ ac_split_row|\nif area_code_groups[ac_split_row[1][0]].nil?\narea_code_groups[ac_split_row[1][0]]\
+  \ = [ [ac_split_row[0], ac_split_row[1].join(\"-\")].join(\",\") ]\nelse\narea_code_groups[ac_split_row[1][0]].push\
+  \ [ac_split_row[0], ac_split_row[1].join(\"-\")].join(\",\")\nend\narea_code_groups\n\
+  end\n```\n\n\n"
+- '# 滑动窗口平均值
+
+
+  有时，你拥有的数据集波动剧烈，但长期趋势却遵循固定模式。假设你有一份渥太华 10 月 1 日至 31 日的秋季气温列表。
+
+
+  ```
+
+  dailytemps = [10,20,22,23,15,18,17,10,10,10,17,20,21,18,8,16,20,8,7,8,8,18,23,24\
+
+  ,5,6,15,18,19,0,2]
+
+  ```
+
+
+  你希望计算最近五天的平均值。对于前四天，只需计算之前四天的平均值。对于前三天，只需计算之前三天的平均值，以此类推。
+
+
+  我们可以使用`reduce`，因为我们需要进行依赖先前计算记录的运算。让我们看看能否找出最近五天的气温。初始化的记录是一个包含五个`nil`的数组。每次迭代时，我们将当前气温添加到记录末尾，并移除记录中最旧的那个。为节省篇幅，我们只对前七个元素进行测试。示例如下：
+
+
+  ```
+
+  initial_last_5 = [nil,nil,nil,nil,nil]
+
+  dailytemps.first(7).reduce(initial_last_5) do |memo, temperature|
+
+  memo.push temperature
+
+  memo.shift
+
+  puts "After pushing #{temperature}, the last 5 are: #{memo.inspect}"
+
+  memo
+
+  end
+
+  After pushing 10, the last 5 are: [nil, nil, nil, nil, 10]
+
+  After pushing 20, the last 5 are: [nil, nil, nil, 10, 20]
+
+  After pushing 22, the last 5 are: [nil, nil, 10, 20, 22]
+
+  After pushing 23, the last 5 are: [nil, 10, 20, 22, 23]
+
+  After pushing 15, the last 5 are: [10, 20, 22, 23, 15]
+
+  After pushing 18, the last 5 are: [20, 22, 23, 15, 18]
+
+  After pushing 17, the last 5 are: [22, 23, 15, 18, 17]
+
+  => [22, 23, 15, 18, 17]
+
+  ```
+
+
+  成功地在每一步后保存了最近五天的气温。现在，我们还需要保存平均值。为此，我们必须从一个包含最近五天数据的初始数组和一个初始平均值开始。`Hash`是用于记录的良好结构。第一个键是平均值，最后一个键是最近五个元素的数组。当我们添加气温时，需要将其添加到`memo[:last_5]`，而不是直接添加到`memo`。此外，最近五天气温的平均值等于非`nil`元素的总和除以非`nil`元素的个数。（`compact`去除`nil`元素，`length`是剩余非`nil`元素的数量）。例如：
+
+
+  ```
+
+  example_5 = [nil,nil,6,8,13]
+
+  average = (example_5.compact.reduce(0,:+)) / (example_5.compact.length)
+
+  => 9
+
+  ```
+
+
+  9 是对三个非`nil`数字计算平均值的正确结果。
+
+
+  现在，我们将其应用于计算，如下所示：
+
+
+  ```
+
+  initial_hash = {average: 0, last_5: [nil,nil,nil,nil,nil]}
+
+  dailytemps.first(7).reduce(initial_hash) do |memo, temperature|
+
+  memo[:last_5].push temperature
+
+  memo[:last_5].shift
+
+  memo[:average] =
+
+  (memo[:last_5].compact.reduce(0,:+)) / (Float(memo[:last_5].compact.leng\
+
+  th))
+
+  puts "After pushing #{temperature}, the last 5 are: #{memo.inspect}"
+
+  memo
+
+  end
+
+  ```
+
+
+  输出结果如下：
+
+
+  ```
+
+  After pushing 10, the memo is: {:average=>10.0, :last_5=>[nil, nil, nil, nil, 10\
+
+  ]}
+
+  After pushing 20, the memo is: {:average=>15.0, :last_5=>[nil, nil, nil, 10, 20]}
+
+  After pushing 22, the memo is: {:average=>17.333333333333332, :last_5=>[nil, nil\
+
+  , 10, 20, 22]}
+
+  After pushing 23, the memo is: {:average=>18.75, :last_5=>[nil, 10, 20, 22, 23]}
+
+  After pushing 15, the memo is: {:average=>18.0, :last_5=>[10, 20, 22, 23, 15]}
+
+  After pushing 18, the memo is: {:average=>19.6, :last_5=>[20, 22, 23, 15, 18]}
+
+  After pushing 17, the memo is: {:average=>19.0, :last_5=>[22, 23, 15, 18, 17]}
+
+  => {:average=>19.0, :last_5=>[22, 23, 15, 18, 17]}
+
+  ```
+
+
+  我们越来越接近目标了。我们已经得到了最近一次平均值和最近五天的数据，但还需要保存所有平均值。这意味着`memo[:average]`应被保存到一个滑动平均值数组中，并在每次迭代时追加。示例如下：
+
+
+  ```
+
+  initial_hash = {average: 0,
+
+  sliding_averages: [],
+
+  last_5: [nil,nil,nil,nil,nil]
+
+  }
+
+  dailytemps.first(7).reduce(initial_hash) do |memo, temperature|
+
+  memo[:last_5].push temperature
+
+  memo[:last_5].shift
+
+  memo[:average] = (memo[:last_5].compact.reduce(0,:+)) / (Float(memo[:last_5]\
+
+  .compact.length))
+
+  memo[:sliding_averages].push memo[:average]
+
+  puts "After pushing #{temperature}, the memo is: #{memo.inspect}"
+
+  memo
+
+  end
+
+  ```
+
+
+  然后，最终我们只需要保留滑动平均值数组。我们可以去掉前七个数据，并处理整个气温输入数组，如下所示：
+
+
+  ```
+
+  initial_hash = {average: 0,
+
+  sliding_averages: [],
+
+  last_5: [nil,nil,nil,nil,nil]
+
+  }
+
+  dailytemps.reduce(initial_hash) do |memo, temperature|
+
+  memo[:last_5].push temperature
+
+  memo[:last_5].shift
+
+  memo[:average] = (memo[:last_5].compact.reduce(0,:+)) / (Float(memo[:last_5]\
+
+  .compact.length))
+
+  memo[:sliding_averages].push memo[:average]
+
+  puts "After pushing #{temperature}, the memo is: #{memo.inspect}"
+
+  memo
+
+  end[:sliding_averages]
+
+  ```
+
+
+  在返回最终答案之前，有一大堆 `puts` 语句。检查它们，观察每次迭代后的输出是否合理。最终答案如下：
+
+
+  ```
+
+  => [10.0, 15.0, 17.333333333333332, 18.75, 18.0, 19.6, 19.0, 16.6, 14.0, 13.0, 1\
+
+  2.8, 13.4, 15.6, 17.2, 16.8, 16.6, 16.6, 14.0, 11.8, 11.8, 10.2, 9.8, 12.8, 16.2\
+
+  , 15.6, 15.2, 14.6, 13.6, 12.6, 11.6, 10.8]
+
+  ```
+
+
+  为了清理代码，我们实际上不需要保留`memo[:average]`或`puts`语句。最终版本如下：
+
+
+  ```
+
+  sliding_averages =
+
+  dailytemps.reduce(sliding_averages:[], last_5:[nil,nil,nil,nil,nil]) do |memo, t\
+  emperature|
+
+  memo[:last_5].push temperature
+
+  memo[:last_5].shift
+
+  memo_average = (memo[:last_5].compact.reduce(0,:+)) / (Float(memo[:last_5].c\
+
+  ompact.length))
+
+  memo[:sliding_averages].push memo_average
+
+  memo
+
+  end[:sliding_averages]
+
+  ```
+
+
+  '
+- '# 数据集反规范化
+
+
+  有时，你会有一个规范化后的数据集，希望将其反规范化以便于人类使用。
+
+
+  例如，你可能有一个从 SQL 数据库中提取的数据集。第一个表是一个名称列表，通过唯一 ID 标识，每行格式为 `{id,name}`。（注意有两个同名的 John）。
+
+
+  ```
+
+  1,John
+
+  2,Jack
+
+  3,Jim
+
+  4,Jared
+
+  5,John
+
+  ```
+
+
+  然后，你有一个电话号码列表，包含唯一 ID 和唯一用户 ID，但电话号码可以重复（因为两个人可能共用一个电话）；不过，每条记录都与一个用户关联。格式为 `{id,
+  user_id, phone_number}`。例如：
+
+
+  ```
+
+  1,1,555-2344
+
+  2,1,555-1111
+
+  3,2,555-0000
+
+  4,3,555-0000
+
+  5,4,555-6666
+
+  7,5,555-7777
+
+  8,5,555-2344
+
+  ```
+
+
+  然而，你希望反规范化后的列表看起来像下面这样，便于用户使用：
+
+
+  ```
+
+  John, 555-2344, 555,1111
+
+  Jack, 555-0000
+
+  Jim, 555-0000
+
+  Jared, 555-6666
+
+  John, 555-7777, 555-2344
+
+  ```
+
+
+  这甚至不符合数据规范化的第一范式，但对人类来说没问题。首先，你已经将数据集提取到数组 `names` 和 `phones` 中，如下所示：
+
+
+  ```
+
+  irb> names
+
+  => [[1,"John"],[2,"Jack"],[3,"Jim"],[4,"Jared"],[5,"John"]]
+
+  irb> phones
+
+  => [[1,1,"555-2344"],[2,1,"555-1111"],[3,2,"555-0000"],[4,3,"555-0000"],[5,4,"555\
+
+  -6666"],[7,5,"555-7777"],[8,5,"555-2344"]]
+
+  ```
+
+
+  现在，你想要将每个电话号码与每个姓名进行匹配：
+
+
+  ```
+
+  cross_join = names.map do |name|
+
+  phone.map do |phone|
+
+  [name,phone]
+
+  end
+
+  end
+
+  ```
+
+
+  然后，你只想选择那些电话号码的 `user_id`（索引 `[1][1]`）与姓名的 `id`（索引 `[0][0]`）匹配的姓名/电话对。例如：
+
+
+  ```
+
+  name_phones = cross_join.select do |np|
+
+  np[0][0] == np[1][1]
+
+  end
+
+  ```
+
+
+  之后，你需要按姓名分组，但由于存在两个同名的 John，你必须使用 `name_id`：
+
+
+  ```
+
+  grouped_name_phones =
+
+  name_phones.reduce({}) do |namelist, np|
+
+  if namelist[np[0]].nil?
+
+  namelist[np[0]] = np[1][2]
+
+  else
+
+  namelist[np[0]].push np[1][2]
+
+  end
+
+  namelist
+
+  end
+
+  ```
+
+
+  最后，你希望只将姓名和电话号码保存到一个数组中，如下所示：
+
+
+  ```
+
+  grouped_name_phones.map do |name,phones|
+
+  [name[1],phones.map{|p|p[2]}.join(",")]
+
+  end
+
+  ```
+
+
+
+
+  '
+- '# 毕达哥拉斯三元组
+
+
+  勾股定理是数学中的一个重要定理。它指出，对于一个直角三角形，斜边的平方等于另外两条边的平方和。如果直角三角形的三条边长均为整数，那么就构成一个毕达哥拉斯三元组。例如，`[3,4,5]`或`[5,12,13]`或`[8,15,17]`都是这样的例子。世界各地的数学老师会使用这些数组来出题，这样他们就不用费心去批改那些不精确的长除法或平方根计算了。
+
+
+  如何解决生成毕达哥拉斯三元组的问题呢？
+
+
+  首先，斜边是最长的那条边。因此，我们必须搜索斜边所有可能的整数值。我们从 5 开始，因为已知 5 是最小的毕达哥拉斯三角形的斜边长度。我们知道必须返回一个三元组，也就是一个包含三个元素的数组。我们暂时从
+  5 开始，到 17 结束：
+
+
+  ```
+
+  (5..17).map do |hypotenuse|
+
+  [nil,nil,hypotenuse]
+
+  end
+
+  => [[nil, nil, 5], [nil, nil, 6], [nil, nil, 7], [nil, nil, 8], [nil, nil, 9], [\
+
+  nil, nil, 10], [nil, nil, 11], [nil, nil, 12], [nil, nil, 13], [nil, nil, 14], [\
+
+  nil, nil, 15], [nil, nil, 16], [nil, nil, 17]]
+
+  ```
+
+
+  目前为止一切顺利。然而，对于对边和邻边，我们需要的是真实的数字，而不是`nil`。我们只需将它们放入嵌套循环中。对边只需从 1 搜索到当前斜边，而邻边只需从 1
+  搜索到当前对边，如下所示：
+
+
+  ```
+
+  (5..17).map do |hypotenuse|
+
+  (1..hypotenuse).map do |opposite|
+
+  (1..opposite).map do |adjacent|
+
+  [adjacent,opposite,hypotenuse]
+
+  end
+
+  end
+
+  end
+
+  => [[[[1, 1, 5]], [[1, 2, 5], [2, 2, 5]], [[1, 3, 5], [2, 3, 5], [3, 3, 5]], [[1\
+
+  , 4, 5], [2, 4, 5], [3, 4, 5], [4, 4, 5]], [[1, 5, 5], [2, 5, 5], [3, 5, 5], [4,\
+
+  5, 5], [5, 5, 5]]], [[[1, 1, 6]], [[1, 2, 6], [2, 2, 6]], [[1, 3, 6], [2, 3, 6]\
+
+  , [3, 3, 6]], [[1, 4, 6], [2, 4, 6], [3, 4, 6], [4, 4, 6]], [[1, 5, 6], [2, 5, 6\
+
+  ], [3, 5, 6], [4, 5, 6], [5, 5, 6]], [[1, 6, 6], [2, 6, 6], [3, 6, 6], [4, 6, 6]\
+
+  , [5, 6, 6], [6, 6, 6]]], [[[1, 1, 7]], [[1, 2, 7], [2, 2, 7]], [[1, 3, 7], [2,
+  \
+
+  3, 7], [3, 3, 7]], [[1, 4, 7], [2, 4, 7], [3, 4, 7], [4, 4, 7]], [[1, 5, 7], [2,\
+
+  5, 7], [3, 5, 7], [4, 5, 7], [5, 5, 7]], [[1, 6, 7], [2, 6, 7], [3, 6, 7], [4, \
+
+  6, 7], [5, 6, 7], [6, 6, 7]], [[1, 7, 7], [2, 7, 7], [3, 7, 7], [4, 7, 7], [5, 7\
+
+  , 7], [6, 7, 7], [7, 7, 7]]], [[[1, 1, 8]], [[1, 2, 8], [2, 2, 8]], [[1, 3, 8],
+  \
+
+  [2, 3, 8], [3, 3, 8]], [[1, 4, 8], [2, 4, 8], [3, 4, 8], [4, 4, 8]], [[1, 5, 8],\
+
+  [2, 5, 8], [3, 5, 8], [4, 5, 8], [5, 5, 8]], [[1, 6, 8], [2, 6, 8], [3, 6, 8], \
+
+  [4, 6, 8], [5, 6, 8] , [6, 6, 8]], [[1, 7, 8], [2, 7, 8], [3, 7, 8], [4, 7, 8],
+  \
+
+  [5, 7, 8], [6, 7, 8], [7, 7, 8]], [[1, 8, 8], [2, 8, 8], [3, 8, 8], [4, 8, 8], .\
+
+  ....................
+
+  ```
+
+
+  返回的结果很混乱，但它包含了所有合理的组合。现在，我们有了所有数字，但我们不想保留那些不是三元组的数字；我们只保留三元组。这意味着，对于“对边”，我们只应选择那些能与其他两条边构成毕达哥拉斯三元组的值。换句话说，在最后一个`map`调用之前，应该加上一个`select`，其判断条件就是毕达哥拉斯三元组的规则：
+
+
+  ```
+
+  (5..17).map do |hypotenuse|
+
+  (1..hypotenuse).map do |opposite|
+
+  (1..opposite).select do |adjacent|
+
+  adjacent*adjacent + opposite*opposite == hypotenuse*hypotenuse
+
+  end.map do |selected_adjacent|
+
+  [selected_adjacent,opposite,hypotenuse]
+
+  end
+
+  end
+
+  end
+
+  => [[[], [], [], [[3, 4, 5]], []], [[], [], [], [], [], []], [[], [], [], [], []\
+
+  , [], []], [[], [], [], [], [],     [], [], []], [[], [], [], [], [], [], [], []\
+
+  , []], [[], [], [], [], [], [], [], [[6, 8, 10]], [], []], [[], [],     [], [],
+  \
+
+  [], [], [], [], [], [], []], [[], [], [], [], [], [], [], [], [], [], [], []], [\
+
+  [], [], [], [], [], [],     [], [], [], [], [], [[5, 12, 13]], []], [[], [], [],\
+
+  [], [], [], [], [], [], [], [], [], [], []], [[], [], [],    [], [], [], [], [\
+
+  ], [], [], [], [[9, 12, 15]], [], [], []], [[], [], [], [], [], [], [], [], [],
+  \
+
+  [], [], [],       [],[], [], []], [[], [], [], [], [], [], [], [], [], [], [], [\
+
+  ], [], [], [[8, 15, 17]], [], []]]
+
+  ```
+
+
+  看起来好多了，但我们得到了很多空数组，并且它们嵌套了三层深。这是因为`map`总是返回一个数组。因此，嵌套的`map`调用会返回数组的数组。首先要做的是尝试展平外层的数组，如下所示：
+
+
+  ```
+
+  (5..17).map do |hypotenuse|
+
+  (1..hypotenuse).map do |opposite|
+
+  (1..opposite).select do |adjacent|
+
+  adjacent*adjacent + opposite*opposite == hypotenuse*hypotenuse
+
+  end.map do |selected_adjacent|
+
+  [selected_adjacent,opposite,hypotenuse]
+
+  end
+
+  end
+
+  end.flatten
+
+  => [3, 4, 5, 6, 8, 10, 5, 12, 13, 9, 12, 15, 8, 15, 17]
+
+  ```
+
+
+  这是不对的，因为我们在展平数组的数组的数组时做得太过分了。如果我们把它们按三个一组进行分组，实际上得到的正是斜边从 5 到 17 的毕达哥拉斯三元组。但是，我们希望保留实际的三元组。因此，我们需要逐次展平每个`map`的结果。在
+  Ruby 中，有一个叫做`flat_map`的函数可以做到这一点。我们需要展平外层的`map`和第一个内层的`map`，以便得到一个由三元组数组组成的数组。我还将数字上限提高到
+  26：
+
+
+  ```
+
+  (5..26).flat_map do |hypotenuse|
+
+  (1..hypotenuse).flat_map do |opposite|
+
+  (1..opposite).select do |adjacent|
+
+  adjacent*adjacent + opposite*opposite == hypotenuse*hypotenuse
+
+  end.map do |selected_adjacent|
+
+  [selected_adjacent,opposite,hypotenuse]
+
+  end
+
+  end
+
+  end
+
+  => [[3, 4, 5], [6, 8, 10], [5, 12, 13], [9, 12, 15], [8, 15, 17], [12, 16, 20],
+  \
+
+  [15, 20, 25], [7, 24, 25], [10, 24, 26]]
+
+  ```
+
+
+  这就是我们想要的结果。你可以将数字上限调得更高，看看会发生什么。
+
+
+  '
+- '# 逆向工程复杂解决方案
+
+
+  在某些时候，你会遇到由其他人（或者是由很久以前的你自己所写，而你已经忘记了它是如何工作的）编写的代码，你需要理解这段代码做了什么，以及是否需要修复或改进它。
+
+
+  阅读一个使用`map`、`reduce`或`select`的数据处理工作流，与阅读典型的命令式编码风格的代码非常不同。此外，Ruby 传递块的方式可能会让许多不熟悉这种编码风格的人感到困惑。我曾遇到过一些人，他们阅读我的`map`/`reduce`/`select`数据处理级联代码时，表现出愤怒、困惑和轻蔑。而我自己看到其他人写的这类代码时，也曾有过同样的感受。我从命令式编程转向使用这种风格，是因为我可以用更少的代码行解决问题，并且能够有条理地解决问题，因为级联中的每一步都可以单独调试。
+
+
+  在本节中，我将给出一个示例，并引导你逆向工程这个解决方案，从而理解最初用来推导出该方案的技术。
+
+
+
+
+  '
+- "# 帕斯卡三角形的解法\n\n我在互联网上找到了以下代码（来自 [`http://kellegous.com/j/2006/06/28/post-9/`](http://kellegous.com/j/2006/06/28/post-9/)），用于生成帕斯卡三角形（我选取了\
+  \ 0..5 以便更易显示）。此处使用已获得代码作者 Kelly Norton 的许可。\n\n```\ntext =\n(0..5).reduce([[1]])\
+  \ { |a,x|\na.unshift a.first.reduce([0,[]]) { |b,y|\n[y,b.last << (b.first + y)]\n\
+  }.last + [1]\n}.reduce([]) { |c,z|\nnext [z[z.length/2].to_s.length*2,z.length,\"\
+  \"] if c.empty?\n[c[0],c[1], z.map { |j|\nj.to_s.center(c[0])\n}.join('').center(c[0]*c[1])+\"\
+  \\n#{c.last}\"]\n}.last\nputs text\n```\n\n当我运行它时，得到了以下结果：\n\n```\n\n1    1\n1 \
+  \  2    1\n1   3    3    1\n1   4   6    4    1\n1   5   10   10   5   1\n=> nil\n\
+  ```\n\n非常棒。它看起来像一个格式精美的帕斯卡三角形，而且比我之前写的示例简洁得多。\n\n这个函数似乎使用了两个级联的 `reduce` 步骤来构建结果。让我们看看第一阶段做了什么：\n\
+  \n```\ntext =\n(0..5).reduce([[1]]) { |a,x|\na.unshift a.first.reduce([0,[]]) {\
+  \ |b,y|\n[y,b.last  [[1, 6, 15, 20, 15, 6, 1], [1, 5, 10, 10, 5, 1], [1, 4, 6, 4,\
+  \ 1], [1, 3, 3, 1], [1, 2, 1], [1, 1], [1]]\n```\n\n这很有趣。它看起来像帕斯卡三角形的数组，但顺序是反的。让我们添加一条调试语句。别忘了随后要返回\
+  \ memo 对象。\n\n```\ntext =\n(0..5).reduce([[1]]) { |a,x|\nmemo =\na.unshift a.first.reduce([0,[]])\
+  \ { |b,y|\n[y,b.last  [[1, 6, 15, 20, 15, 6, 1], [1, 5, 10, 10, 5, 1], [1, 4, 6,\
+  \ 4, 1], [1, 3, 3, 1], [1, 2, 1], [1, 1], [1]]\n```\n\n我们可以看到，每次 `reduce` 运行都会向三角形中添加一行，并将该三角形保存在\
+  \ memo 中。让我们通过在每个主要步骤后打印关键数据，来看看每个内部 `reduce` 步骤中发生了什么：\n\n```\ntext =\n(0..5).reduce([[1]])\
+  \ { |a,x|\nputs \"处理 a 之前：#{a}，x：#{x}\"\nmemo =\na.unshift a.first.reduce([0,[]])\
+  \ { |b,y|\nputs \" 处理内层循环之前，b：#{b}，y：#{y}\"\ninner_memo =\n[y,b.last << (b.first\
+  \ + y)]\nputs \"  处理内层循环 y：#{y} 之后，内部 memo 为：#{inner_memo}\"\ninner_memo\n}.last\
+  \ + [1]\nputs \"处理 x：#{x} 之后，memo 为：#{memo}\"\nputs \"\"\nmemo\n}\n```\n\n这会产生大量的输出：\n\
+  \n```\n处理 a 之前：[[1]]，x：0\n 处理内层循环之前，b：[0, []]，y：1\n  处理内层循环 y：1 之后，内部 memo 为：[1,\
+  \ [1]]\n处理 x：0 之后，memo 为：[[1, 1], [1]]\n处理 a 之前：[[1, 1], [1]]，x：1\n 处理内层循环之前，b：[0,\
+  \ []]，y：1\n  处理内层循环 y：1 之后，内部 memo 为：[1, [1]]\n 处理内层循环之前，b：[1, [1]]，y：1\n  处理内层循环\
+  \ y：1 之后，内部 memo 为：[1, [1, 2]]\n处理 x：1 之后，memo 为：[[1, 2, 1], [1, 1], [1]]\n处理 a\
+  \ 之前：[[1, 2, 1], [1, 1], [1]]，x：2\n 处理内层循环之前，b：[0, []]，y：1\n  处理内层循环 y：1 之后，内部 memo\
+  \ 为：[1, [1]]\n 处理内层循环之前，b：[1, [1]]，y：2\n  处理内层循环 y：2 之后，内部 memo 为：[2, [1, 3]]\n\
+  \ 处理内层循环之前，b：[2, [1, 3]]，y：1\n  处理内层循环 y：1 之后，内部 memo 为：[1, [1, 3, 3]]\n处理 x：2 之后，memo\
+  \ 为：[[1, 3, 3, 1], [1, 2, 1], [1, 1], [1]]\n处理 a 之前：[[1, 3, 3, 1], [1, 2, 1], [1,\
+  \ 1], [1]]，x：3\n 处理内层循环之前，b：[0, []]，y：1\n  处理内层循环 y：1 之后，内部 memo 为：[1, [1]]\n 处理内层循环之前，b：[1,\
+  \ [1]]，y：3\n  处理内层循环 y：3 之后，内部 memo 为：[3, [1, 4]]\n 处理内层循环之前，b：[3, [1, 4]]，y：3\n\
+  \  处理内层循环 y：3 之后，内部 memo 为：[3, [1, 4, 6]]\n 处理内层循环之前，b：[3, [1, 4, 6]]，y：1\n  处理内层循环\
+  \ y：1 之后，内部 memo 为：[1, [1, 4, 6, 4]]\n处理 x：3 之后，memo 为：[[1, 4, 6, 4, 1], [1, 3,\
+  \ 3, 1], [1, 2, 1], [1, 1], [1]]\n处理 a 之前：[[1, 4, 6, 4, 1], [1, 3, 3, 1], [1, 2,\
+  \ 1], [1, 1], [1]]，x：4\n 处理内层循环之前，b：[0, []]，y：1\n  处理内层循环 y：1 之后，内部 memo 为：[1, [1]]\n\
+  \ 处理内层循环之前，b：[1, [1]]，y：4\n  处理内层循环 y：4 之后，内部 memo 为：[4, [1, 5]]\n 处理内层循环之前，b：[4,\
+  \ [1, 5]]，y：6\n  处理内层循环 y：6 之后，内部 memo 为：[6, [1, 5, 10]]\n 处理内层循环之前，b：[6, [1, 5,\
+  \ 10]]，y：4\n  处理内层循环 y：4 之后，内部 memo 为：[4, [1, 5, 10, 10]]\n 处理内层循环之前，b：[4, [1, 5,\
+  \ 10, 10]]，y：1\n  处理内层循环 y：1 之后，内部 memo 为：[1, [1, 5, 10, 10, 5]]\n处理 x：4 之后，memo\
+  \ 为：[[1, 5, 10, 10, 5, 1], [1, 4, 6, 4, 1], [1, 3, 3, 1], [1, 2, 1], [1, 1], [1]]\n\
+  处理 a 之前：[[1, 5, 10, 10, 5, 1], [1, 4, 6, 4, 1], [1, 3, 3, 1], [1, 2, 1], [1, 1],\
+  \ [1]]，x：5\n 处理内层循环之前，b：[0, []]，y：1\n  处理内层循环 y：1 之后，内部 memo 为：[1, [1]]\n 处理内层循环之前，b：[1,\
+  \ [1]]，y：5\n  处理内层循环 y：5 之后，内部 memo 为：[5, [1, 6]]\n 处理内层循环之前，b：[5, [1, 6]]，y：10\n\
+  \  处理内层循环 y：10 之后，内部 memo 为：[10, [1, 6, 15]]\n 处理内层循环之前，b：[10, [1, 6, 15]]，y：10\n\
+  \  处理内层循环 y：10 之后，内部 memo 为：[10, [1, 6, 15, 20]]\n 处理内层循环之前，b：[10, [1, 6, 15, 20]]，y：5\n\
+  \  处理内层循环 y：5 之后，内部 memo 为：[5, [1, 6, 15, 20, 15]]\n 处理内层循环之前，b：[5, [1, 6, 15, 20,\
+  \ 15]]，y：1\n  处理内层循环 y：1 之后，内部 memo 为：[1, [1, 6, 15, 20, 15, 6]]\n处理 x：5 之后，memo\
+  \ 为：[[1, 6, 15, 20, 15, 6, 1], [1, 5, 10, 10, 5, 1], [1, 4, 6, 4, 1], [1, 3, 3,\
+  \ 1], [1, 2, 1], [1, 1], [1]]\n=> true\n```\n\n\n  \n显而易见，内层循环的每一步都会遍历最后一行（`a[]`的第一个元素），并通过将元素右移将其插入到内部记忆数组的前面。接着，它会将该数字（`y`）与`b[]`的第一个元素（始终是整数或`nil`）相加，然后将结果追加到`b[]`最后一个元素（始终是数组）的末尾。处理完成后得到的内部记忆数组，其第一个元素是一个数字，第二个元素是部分行。这个第一个元素在下一次迭代中需要与部分行的最后一个元素相加时使用。\n\
+  \n内层循环最后一次运行后，记忆数组的第二个元素是`[1,6,15,20,16,5]`，这几乎是三角形的一整行。这就是为什么内层循环的结果会在数组末尾追加`[1]`，从而构成三角形的一个完整行。\n\
+  \n从这里开始，只需反转结果即可得到三角形的原始数据，然后将其打印出来——正如我在本书前面所写的示例那样。我将其留作练习，让读者思考这个例子如何将三角形格式化为漂亮的对称形式并打印出来。\n\
+  \n在本书中，我尽力引导你理解如何使用`map`、`reduce`和`select`来解决数据处理问题。如果你通读了本书，输入了示例并思考了结果，我真诚希望这能激发你思考如何将这些技术应用到自己的数据处理问题中。我也希望你能将这些技巧传承下去，在未来解决自己的数据处理问题。\n\
+  \n索引 A, B, C, D, E 数据集 区域代码 反规范化 名称列表 查找 策略数据 滑动平均值 `uniq()` 调试 `map` `reduce` `select`\
+  \ F, G, H FizzBuzz I, J, K, L 交点 集群 函数 `map()` M, N, O 映射 描述 名称列表 名称柱状图 名称转 CSV\
+  \ 奇数立方 随机名称列表 销售序列 P, Q 帕斯卡三角形 后缀/逆波兰表示法 命令行 栈 毕达哥拉斯定理 R 规约 名称列表 最大值 记忆/元素 名称柱状图\
+  \ 名称转 CSV 奇数立方 随机名称列表 反转 销售序列 `uniq` 逆向工程 帕斯卡三角形 Ruby 数组 块传递语法 命令行 `compact()` `flatten()`\
+  \ 哈希对象 `pop` `push()` 读取文件 `shift` 字符串插值 `join()` `split()` `unshift()` S, T, U,\
+  \ V, W, X, Y, Z 选择 描述 名称列表 名称柱状图 名称转 CSV 奇数立方 随机名称列表 销售序列  \n"
