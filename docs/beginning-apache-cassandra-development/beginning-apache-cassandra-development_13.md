@@ -1,871 +1,575 @@
-# 数据迁移与分析
+# Cassandra 数据安全
 
-数据迁移是在多个存储系统之间传输数据的过程。面对大数据问题，数据迁移的关键点在于从一种存储系统（例如关系型数据库管理系统 RDBMS）升级到另一种（例如 Cassandra），以提升可扩展性和性能。随着近年来众多 NoSQL 数据库的出现，数据迁移已成为评估和实现优选数据库解决方案的重要流程。
+数据库安全意味着保护敏感数据和数据库应用程序免受未经授权的访问。数据的可扩展性和高可用性固然重要，但数据安全也同样关键！例如，金融及其他公共行业需要可扩展、高可用且安全的数据库。也就是说，许多类型的组织，尤其是金融和政府机构，都将安全性置于优先地位。
 
-正如上述应用场景所讨论的，对结构化或非结构化形式的数据进行分析是另一个问题。探索新的业务领域，以及处理因已知局限性而被认为无用的数据，是大数据分析的几个重要因素。
+从 Cassandra 1.2.2 版本开始，我们可以通过两种方式保护 Cassandra 中的数据：访问控制和加密。Cassandra 支持授权和身份验证功能。
 
-数据科学是当今一个新兴领域，涉及从原始数据中过滤和提取信息的研究。它是人工智能和竞争情报的重要组成部分，而数据挖掘和分析则是与数据科学相关的其他实践。
+本章将涵盖以下主题：
 
-数据挖掘的过程是通过使用各种人工智能和自然语言处理相关技术，研究大数据集后提取并定义数据模式。风险分析、行为定向和预测是需要数据挖掘和模式分析的几个大数据应用案例。
+-   Cassandra 的 `system` 和 `system_auth` 键空间
+-   管理用户权限
+-   节点间与客户端-服务器 SSL 加密
 
-关于前端与后端实现的争论已经持续多年。程序员和数据库架构师对此话题各执己见。具备 Java 或其他技术经验的人可以轻松编写这类 MapReduce 实现。同样，精通数据库的开发者总是更倾向于在数据库端实现此类算法。我们来试着看看 MapReduce 任务在后端开发者和应用程序程序员手中会有何不同。
+## 身份验证与授权
 
-图 6-1 展示了在业务层（通过编程方式）按日期统计推文数量，并将输出存储到数据库中的 MapReduce 作业执行过程。此处 MapReduce 算法的实现位于应用程序层面。此类实现可以用 Java 或任何其他语言完成。
+身份验证是指对试图访问数据存储的用户进行控制。在确保与数据库连接安全的同时，必须验证用户身份。身份验证有三种基本类型：
 
-![A978-1-4842-0142-8_6_Fig1_HTML.jpg](img/A978-1-4842-0142-8_6_Fig1_HTML.jpg)
+-   使用内部身份验证时，通常数据存储会通过凭据（如用户 ID 和密码）管理用户登录。
+-   外部身份验证，例如 Kerberos，是一种使用票据系统验证客户端身份的网络协议。
+-   客户端-服务器加密。客户端到服务器或节点到节点的加密是数据在集群中传输的另一种方式。使用加密时，必须将客户端或节点的公共信任证书安装到另一个节点上。
 
-图 6-1. 在业务层实现推文分析的标准方案示意图
+身份验证过程仅限于用户验证和识别。
 
-针对同一场景的另一种实现方式是，后端程序员或数据科学家更倾向于在数据库端编写 MapReduce 脚本或函数，如图 6-2 所示。
+处理用户访问控制被称为授权。数据库授权意味着管理用户对模式、表和列的角色与权限。
 
-![A978-1-4842-0142-8_6_Fig2_HTML.jpg](img/A978-1-4842-0142-8_6_Fig2_HTML.jpg)
+Cassandra 的内部身份验证是一种 SSL 加密机制，我们将通过实践示例来了解它。
 
-图 6-2. 在数据库层实现推文分析的方案示意图
+### `system` 和 `system_auth` 键空间
 
-几乎对所有事情都开发这样的 MapReduce 程序不仅难以维护，而且耗时。正因如此，使用类似 SQL 的语言或编写简单脚本会非常有用。数据库管理员或科学家可能更倾向于采用基于数据库的方法（图 6-2）以实现快速部署。由此可以得出结论，确实存在对这类工具的需求。例如，这些工具对于实现需要从大数据集中提取数据并存储输出的定时任务非常有用。
+`system` 键空间包含有关可用列族、列和集群的信息。`system_auth` 键空间主要包含身份验证信息、用户凭据和权限。我们将在后续的示例中讨论它们。`system` 键空间下的表/列族包括：
 
-这引出了一个问题：是否存在可即用型的工具或开源库？像 Apache Hive、Apache Pig 和 Sqoop 这样的工具正好能满足此类需求。在深入探讨每个工具之前，我们先简要介绍一下它们。
+-   `schema_keyspace`
+-   `schema_columns`
+-   `schema_columnfamilies`
+-   `local`
+-   `peers`
 
-`Apache Pig`允许终端程序员以脚本形式编写 MapReduce 实现。`Apache Pig`会将此 Pig 脚本简单地转换为与 Hadoop 兼容的 MapReduce 实现。`Apache Pig`提供了函数和数据类型支持，能够便捷、可复用地进行集成，从而快速编写由 Pig 驱动的 MapReduce 实现。构建数据管道或 ETL 类解决方案的人倾向于使用`Pig`，因为它支持过程式编程而非声明式。由于其非声明式的特性，你可以在工作流的任何节点创建检查点并插入自定义代码。
+图 4-1 显示了 `system` 键空间的层次结构，其中根节点是 `system` 键空间，下级节点是列族，每个表代表使用这些列族定义的列。
 
-`Apache Hive`使用户能够使用类似 SQL 的查询语言来管理和分析大型数据集。SQL 在业界广受欢迎且应用广泛。它通过提供类查询接口（即 Hive 查询语言，`Hive QL`），使程序员能够快速采用 Hadoop 和 HBase 大数据平台。通常它用于基于 SQL 的即席分析。借助`Hive QL`，我们可以以 SQL 的方式执行各种 DDL 和 DML 操作。数据定义语言（`DDL`）用于执行创建和修改表等任务，数据操作语言（`DML`）则用于插入和删除记录等操作。`DDL`和`DML`的语义与 SQL 类似。有关`DDL`的更多信息，请参考[`https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-DDLOperations`](https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-DDLOperations)。Hive 的数据分区和外部表支持为用户提供了额外优势，可以使用`Hive`在外部文件系统上声明和分析数据。我们将在本章后续部分介绍这一点。
+![A978-1-4842-0142-8_4_Fig1_HTML.jpg](img/A978-1-4842-0142-8_4_Fig1_HTML.jpg)
 
-`Sqoop`意为 SQL 到 Hadoop。基于 RDBMS 构建的解决方案缺乏可扩展性，用户期望迁移至大数据驱动的解决方案。首要任务是将现有生产数据迁移到另一个数据库或文件系统。这正是`Apache Sqoop`大显身手之处，它可以帮助轻松地将数据从一个数据库迁移到另一个数据库。
+图 4-1. 系统键空间及其底层列族和对应列
 
-现在，让我们详细探索这些工具。我们从`Apache Pig`开始。
+在我们开始使用 `system` 和 `system_auth` 键空间管理身份验证和授权之前，让我们先探索一下 `system` 键空间是否可修改！
 
-### Apache Pig
+#### `system` 键空间不可修改
 
-`Apache Pig` 是一个平台，它提供了一种名为 Pig Latin 的简单脚本语言，用于以抽象方式构建 MapReduce 程序。它最初是雅虎研究相关工作的一部分，但后来于 2007 年进入 Apache 孵化器。它以 Pig（猪）命名，因为它几乎可以吞入/读取任何格式的数据。
+在我们深入讨论授权和身份验证之前，让我们先操作一下 `system` 键空间，以验证外部用户是否可以修改它。由于它是由 Cassandra 存储架构内部管理的键空间，外部用户不可能更新/修改 `system` 键空间。下一个简单的练习旨在尝试这些否定场景以进行验证。在设计模式时，通常无需对 Cassandra 进行此类调整，但既然我们在讨论安全性，那就来看看 `system` 键空间的安全程度如何！
 
-#### 安装与配置
+默认情况下，提供对 `system` 键空间的读取访问权限。让我们通过一些练习尝试访问它。
 
-设置 `Apache Pig` 发行版有两种方式。可以手动下载 tarball 包，也可以在 Linux 系统上安装第三方二进制发行版（`.deb` 或 `.rpm`）。
+`system` 键空间配置了 `LocalStrategy` 作为复制选项。
 
-对于 Windows，需要下载并使用 `cygwin` 设置一个类似 Linux 的环境。`Cygwin` 是 Windows 上类 Unix 的环境和命令行接口。`Cygwin` 提供了 Windows 原生应用、数据和系统资源与类 Unix 环境下的应用、软件工具和数据的集成。更多详情，请参考 [`http://en.wikipedia.org/wiki/Cygwin`](http://en.wikipedia.org/wiki/Cygwin)。你可以从 [`www.cygwin.com/install.html`](http://www.cygwin.com/install.html) 下载并设置 `cygwin`。
+-   首先，尝试创建一个复制策略为 `LocalStrategy` 的键空间：
 
-在本章中，我们将使用 tarball 发行版进行安装和配置。要在本地机器上完成设置，请遵循以下步骤：
-
-首先创建一个文件夹：
-
-```
-mkdir pig-dist
-cd pig-dist
-```
-
-然后，下载 tarball 发行版：
-
 ```
-wget http://mirrors.ibiblio.org/apache/pig/pig-0.12.1/pig-0.12.1.tar.gz
+create keyspace system_test with replication = { 'class':'localstrategy','replication_factor':3};
 ```
 
-> 注意：在编写本章时，最新的 tarball 安装版本是 0.12.1。你可以根据最新版本相应修改。
-
-使用以下命令解压下载的 tarball：
-
 ```
-tar -xvf pig 0.12.1.tar.gz
+create keyspace system_test with replication = { 'class':'LocalStrategy'};
 ```
-
-完成第三步后，`pig-dist` 文件夹下将包含解压后的 `pig-0.12.1` 文件夹，如图 6-3 所示。
-
-![A978-1-4842-0142-8_6_Fig3_HTML.jpg](img/A978-1-4842-0142-8_6_Fig3_HTML.jpg)
-
-图 6-3. 解压到本地文件夹后的 tarball 发行版
-
-
-
-#### 理解 Pig
-
-图 6-4 展示了 Apache Pig 的架构及其各个组件。它描绘了 Pig 脚本如何被编译并转换为 MapReduce 作业。根据 Pig 的架构，编写的 Pig 脚本会被编译成 MapReduce 程序，并由 Hadoop 作业管理器作为 MapReduce 作业提交。`Grunt` 命令 shell 是一个用于运行 Pig 脚本的命令行界面，而 Pig API 可用于构建自定义实现。
-
-![A978-1-4842-0142-8_6_Fig4_HTML.jpg](img/A978-1-4842-0142-8_6_Fig4_HTML.jpg)
-
-图 6-4. Apache Pig 组件及 MapReduce 作业转换
-
-在开始示例之前，我们先讨论一下这两种模式，然后介绍一些重要的 Pig 命令和数据类型，这些将在本章后续的练习中使用。
-
-#### Pig 执行模式
-
-Apache Pig 提供了两种执行模式：
-
-*   本地模式 (Local)
-*   MapReduce 模式
-
-##### 本地模式
-
-Pig 有一个交互式 shell，我们可以在本地模式下启动 Pig 的执行，这需要运行以下命令（见图 6-5）：
-
-`pig –x local`
-
-![A978-1-4842-0142-8_6_Fig5_HTML.jpg](img/A978-1-4842-0142-8_6_Fig5_HTML.jpg)
 
-图 6-5. 在本地模式下启动 Pig
+图 4-2 显示我们无法使用 `LocalStrategy` 创建另一个键空间。
 
-##### MapReduce 模式
+-   现在，尝试修改/删除 `system` 键空间：
 
-在 MapReduce 模式下运行 Pig 需要 Hadoop 进程正在运行。（可以参考第 5 章中的“从 HDFS 读取推文并将计数结果存储到 Cassandra”部分。）要以 MapReduce 模式运行 Pig，我们需要运行
+![A978-1-4842-0142-8_4_Fig2_HTML.jpg](img/A978-1-4842-0142-8_4_Fig2_HTML.jpg)
 
-`$ pig`
+图 4-2. `LocalStrategy` 不供公共使用
 
-连接成功后，我们还可以使用 Grunt shell 浏览 HDFS 目录，如下所示：
-
 ```
-grunt> cd hdfs:///
-grunt> ls
-hdfs://0.0.0.0/tweets  <dir>
-hdfs://0.0.0.0/usr     <dir>
+alter keyspace system with replication = { 'class' : 'LocalStrategy'};
+alter keyspace system with replication = { 'class' : 'SimpleStrategy', 'replication_factor':3};
 ```
-
-完成此设置和配置后，我们现在可以探索 Pig 提供的其他配置和功能集了。那么，让我们从数据类型开始。
-
-#### 数据类型
-
-Pig 支持的数据类型可分为简单数据类型和复杂数据类型。
-
-##### 简单数据类型
-
-简单数据类型，例如 `String`、`int` 等，通常是大多数数据库通用的且最常使用的数据类型。表 6-1 展示了 Pig 支持的所有简单数据类型。
-
-表 6-1. Pig 支持的简单数据类型
-
-| 数据类型       | 描述                                     |
-| -------------- | ---------------------------------------- |
-| `charArray`    | UTF-8 编码的字符串（例如，Cassandra）         |
-| `ByteArray`    | 字节数组 (blob)                          |
-| `Double`       | 64 位精度格式（例如，11.9）                   |
-| `Float`        | 32 位精度格式（例如，10.2f）                  |
-| `Int`          | 32 位有符号整数（例如，100）                 |
-| `Long`         | 64 位有符号整数（例如，50L）                 |
-
-##### 复杂数据类型
-
-复杂数据类型，例如存储键值对的 `map`，倾向于某种预定义的数据结构格式。表 6-2 展示了 Pig 支持的所有三种复杂数据类型。
-
-表 6-2. Pig 支持的复杂数据类型
-
-| 数据类型 (Data Type) | 描述                                                                                                                                                                                                                                                                                        |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 元组 (Tuples)       | 元组是一个有序的数据集。可以将元组视为具有多个字段的行，这些字段可以是任何类型，并且可能有数据也可能没有数据。元组用 `()` 括起来。例如，`(Vivek,Apress,6)` 表示一个包含作者姓名、出版社和章节号字段的元组。                                                                             |
-| 包 (Bags)          | 包是元组的集合。一个包可以包含重复的元组，并且每个元组的字段数量及其数据类型可能不同。例如，这是一个包含多个元组的包：`{(Vivek,Apress,6),(Chris,Apress,Reviewer,6),(Melissa,Apress,Coordinator,6),(Brian,Apress,Tech reviewer)}`                                                                             |
-| 映射 (Map)         | 映射是键值对的集合。每个键值对由 `#` 分隔。例如，`[name#vivek,email#vivek.mishra@nomail.com]` 是一个包含两个键值对的映射。第一个元素以 `name` 为键，`vivek` 为值；第二个元素以 `email` 为键，`vivek.mishra@nomail.com` 为值。 |
-
-#### Pig 函数
-
-Pig 内置了许多函数。用户也可以实现自定义用户定义函数 (UDF)。内置的 Pig 函数可以进一步分类为：
-
-*   计算函数 (Eval functions)
-*   数学函数 (Math functions)
-*   字符串函数 (String functions)
-*   存储函数 (Store functions)
-*   包/元组函数 (Bag/tuple functions)
-
-在本节中，让我们来看一些最常用的 Pig 函数。
-
-##### PigStorage
-
-用于以 UTF-8 格式加载数据的默认函数。`PigStorage` 的示例将在接下来的两节中给出。
-
-##### LOAD
-
-`LOAD` 函数从文件系统加载数据。默认情况下，它与 `PigStorage` 函数一起使用，步骤如下所示：
-
-在本地文件系统的一个文件夹（本例中为 `/home/vivek`）中创建一个示例 `tweets.txt` 文件。该文件将包含以下格式的数据：
-
-`apress_team|technology|A whole bunch of new technology books about to come. Watch this space!`
-
-运行以下命令，使用 `PigStorage` 通过 Grunt shell 加载推文文件：
-
-`pipe_input = LOAD '/home/vivek/input/tweets.txt' USING PigStorage('|');`
-
-要转储 `pipe_input` 的输出（如图 6-6 所示），请运行以下命令：
 
-`dump pipe_input;`
+图 4-3 显示无法更改 `system` 键空间的策略。
 
-![A978-1-4842-0142-8_6_Fig6_HTML.jpg](img/A978-1-4842-0142-8_6_Fig6_HTML.jpg)
+![A978-1-4842-0142-8_4_Fig3_HTML.jpg](img/A978-1-4842-0142-8_4_Fig3_HTML.jpg)
 
-图 6-6. MapReduce 程序的输出
+图 4-3. 无法更改 `system` 键空间的策略类
 
-##### STORE
+这意味着我们也无法修改 `system` 键空间。
 
-此函数用于将中间或计算后的 Pig 脚本结果加载到文件系统的输出结果中。在下面的示例中，我们读取包含由 `|` 分隔字段的 `tweets.txt`，并将其存储为包含由 `,` 分隔字段的文件（见图 6-7）。
+-   接下来，尝试删除 `system` 键空间：
 
 ```
-pipe_input = LOAD '/home/vivek/input/tweets.txt' USING PigStorage('|') as (screen_name:chararray, category:chararray, body:chararray);
-csv_output = STORE input into '/home/vivek/output/tweets.csv' USING PigStorage(',');
+drop keyspace system;
 ```
 
-上述命令的输出如图 6-7 所示。
+图 4-4 显示我们同样无法删除 `system` 键空间！
 
-![A978-1-4842-0142-8_6_Fig7_HTML.jpg](img/A978-1-4842-0142-8_6_Fig7_HTML.jpg)
+![A978-1-4842-0142-8_4_Fig4_HTML.jpg](img/A978-1-4842-0142-8_4_Fig4_HTML.jpg)
 
-图 6-7. 读取并将推文存储到 CSV 文件的输出
+图 4-4. 删除 `system` 键空间是不允许的
 
-运行上述命令后，将在 `/home/vivek/output` 文件夹中写入一个新文件（`part-m-00000`），该文件包含逗号分隔的值，如下所示：
+通过这些示例，我们可以得出结论：修改 `system` 键空间是不允许的；但是，我们可以修改 `system` 键空间下列族中存在的数据。
 
-```
-apress_team,technology,A whole bunch of new technology books about to come. Watch this space!
-```
-
-这类文件是由 Pig 脚本执行的 MapReduce 作业生成的输出文件。有关 MapReduce 的更多详细信息，请参考上一章。
-
-请注意，这里我们使用了默认的存储函数 `PigStorage()`，但读者可以创建自己的 UDF，并使用它们进行存储/加载。例如，对于 Cassandra，要加载数据到 Cassandra 文件系统，将使用 `CSVStorage` 和 `CassandraStorage` 函数。我们将在接下来的练习中讨论 Cassandra 特有的 Pig 函数。
-
-##### FILTER
-
-`FILTER` 用于根据提供的条件选择行/元组。让我们描述 `pipe_input` 并根据 `screen_name` 过滤出值为 `apress_team` 的行：
 
-```
-describe pipe_input;
-filter_by_name = FILTER pipe_input BY screen_name matches 'apress_team';
-```
-
-运行此命令将过滤 `pipe_input`，只保留 `screen_name` 值为 `apress_team` 的实例（见图 6-8）。
 
-![A978-1-4842-0142-8_6_Fig8_HTML.jpg](img/A978-1-4842-0142-8_6_Fig8_HTML.jpg)
+## 启用身份验证后访问 system_auth 密钥空间
 
-图 6-8. FILTER 命令的输出
+Cassandra 的二进制发行版附带两种身份验证器：`PasswordAuthenticator` 和 `AllowAllAuthenticator`。启用 `PasswordAuthenticator` 后，Cassandra 会通过用户名和哈希密码来验证用户。这些用户凭据存储在 `system_auth.credentials` 表中。
 
-##### FOREACH
+在本教程中，我们将讨论如何使用 `PasswordAuthenticator` 管理用户凭据并访问 `system_auth` 密钥空间。启用身份验证后，在连接到 Cassandra 服务器时需要提供用户名和密码。Cassandra 会将用户名和哈希密码存储在该密钥空间的 `credentials` 表中。
 
-使用此函数可以遍历结果包并转换为输出或中间结果（见图 6-9）。
+开始之前，我们需要在 `cassandra.yaml` 中启用身份验证，操作如下：
 
 ```
-similar_result = FOREACH pipe_input GENERATE(*);
-result_with_screen_name_only = FOREACH pipe_input GENERATE screen_name;
-dump result_with_screen_name_only;
+authenticator: org.apache.cassandra.auth.PasswordAuthenticator
 ```
-
-![A978-1-4842-0142-8_6_Fig9_HTML.jpg](img/A978-1-4842-0142-8_6_Fig9_HTML.jpg)
-
-图 6-9. 运行 FOREACH 生成中间结果
-
 
+现在身份验证已启用，您可以完成以下步骤：
 
-###### TOTUPLE
+首先，让我们尝试不提供用户名/密码，直接连接服务器并创建一个密钥空间：
 
-`TOTUPLE` 是一个用于生成元组的函数。例如，我们可以使用 `TOTUPLE` 来生成包含列名和值的元组，如图 6-10 所示。
-
 ```
-screen_tuple = FOREACH pipe_input GENERATE TOTUPLE('screen_name',screen_name);
+create keyspace system_temp with replication = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
 ```
-
-![A978-1-4842-0142-8_6_Fig10_HTML.jpg](img/A978-1-4842-0142-8_6_Fig10_HTML.jpg)
-
-图 6-10. 展示了生成的元组，其中 screen_name 为 apress_team
 
-之前，我们讨论了一些基础的 Pig Latin 命令。让我们通过更多示例练习来探索 Apache Pig。在本章的所有练习中，我们将引用包含关于 apress 推文的推文文件。您可以从附件文件夹（`datafiles`）中下载示例推文文件。该文件包含推文数据、屏幕名称和推文正文，它们由 `'\001'` 分隔（见图 6-11）。
+执行上述命令将会产生如图 4-5 所示的错误。
 
-![A978-1-4842-0142-8_6_Fig11_HTML.jpg](img/A978-1-4842-0142-8_6_Fig11_HTML.jpg)
+现在，使用用户名和密码进行连接并创建密钥空间：
 
-图 6-11. 由 `'\001'` 分隔的示例推文文件
+![A978-1-4842-0142-8_4_Fig5_HTML.jpg](img/A978-1-4842-0142-8_4_Fig5_HTML.jpg)
 
-#### 统计推文数量
+**图 4-5.** 连接失败，因为在尝试创建密钥空间之前我们没有进行身份验证
 
-在本例中，我们将演示如何使用交互式 Grunt Shell 运行各种 Pig 命令。对于中等复杂度的 Pig 脚本，我们可能也希望准备并以 Pig 脚本的形式运行它们。运行 Pig 脚本的命令如下：
-
 ```
-Pig –x local myscript.pig
-```
-
-这里的 `myscript.pig` 是一个编译后的 Pig 脚本。我们也可以按如下方式以嵌入式模式执行此类 Pig 脚本：
+// 使用用户名和密码连接。
+$CASSANDRA_HOME/bin/cqlsh -3 -u cassandra -p cassandra
 
+// 创建密钥空间。
+create keyspace system_temp with replication = { 'class' : 'SimpleStrategy', 'replication_factor' : 3 };
 ```
-// 编译为 .class 文件
-javac –cp pig.jar MyScript.java
-// 以嵌入式模式作为 Java 程序运行 Pig 脚本
-java –cp:pig.jar:. MyScript
-```
 
-在本练习中，我们将探索使用 Apache Pig 运行 MapReduce 程序，以统计推文总数和统计特定 `screen_name` 的推文数量。
+图 4-6 显示连接成功。
 
-首先使用 `PigStorage` 加载推文：
+接下来，我们创建一个超级用户和一个非超级用户：
 
-```
-tweets = LOAD '/home/vivek/tweets' USING PigStorage('\ua001') as (date:chararray,screen_name:chararray,body:chararray);
-```
+![A978-1-4842-0142-8_4_Fig6_HTML.jpg](img/A978-1-4842-0142-8_4_Fig6_HTML.jpg)
 
-让我们筛选屏幕名称为 `The News Selector` 的推文。
+**图 4-6.** 使用用户凭据成功连接后
 
 ```
-name = FILTER tweets by screen_name matches 'The News Selector';
+create user normaluser with password 'normal';
+create user 'superuser' with password 'superuser' superuser;
 ```
 
-让我们使用 `GROUP` 命令对 `name` 的所有字段进行分组：
+这将把用户信息存储在 `users` 表中，如图 4-7 所示。
 
-```
-namegroup = group name ALL;
-```
+![A978-1-4842-0142-8_4_Fig7_HTML.jpg](img/A978-1-4842-0142-8_4_Fig7_HTML.jpg)
 
-要统计 `namegroup` 的推文数量，运行带有 `COUNT` 函数的 `FOREACH` 命令：
+**图 4-7.** 已注册用户列表
 
-```
-tweetCount = FOREACH namegroup generate  COUNT(name);
-dump tweetCount;
-```
+此外，您可以查看 `credentials` 表中的密码及其他信息。
 
-图 6-12 显示了将 `tweetCount` 输出到控制台的结果。屏幕名称为 `The News Selector` 的推文数量为 6680。
+至此，我们得出结论：我们可以使用身份验证创建和管理用户凭据。
 
-要将输出存储到文件中，我们可以使用 `CSVExcelStorage` 函数。为此，首先需要将其注册到 Pig 注册表中：
+在上述教程中，我们成功创建了一个超级用户和一个非超级用户。下一个教程将讨论为这两类用户管理并访问不同列族上的用户凭据。
 
-![A978-1-4842-0142-8_6_Fig12_HTML.jpg](img/A978-1-4842-0142-8_6_Fig12_HTML.jpg)
+## 管理用户权限
 
-图 6-12. 在控制台上输出 `tweetCount` 的结果
+Cassandra 提供了管理已验证用户权限和凭据的机制。在本教程中，我们将进一步探讨如何管理/访问用户权限。`cassandra.yaml` 中配置的默认授权器是 `AllowAllAuthorizer`。
 
-```
-register '$PIG_HOME/contrib/piggybank/java/piggybank.jar' ;
-define CSVExcelStorage org.apache.pig.piggybank.storage.CSVExcelStorage();
-```
+首先，我们尝试使用 `normaluser` 进行身份验证并管理其权限：
 
-在 Grunt Shell 上运行这些命令后，该函数将被注册并可供使用。
+```
+// 使用 cqlsh 连接。
+$CASSANDRA_HOME/bin/cqlsh -3 -u normaluser -p normal
 
-继续同一个练习，我们也可以按如下方式存储总的推文数量：
+// 列出用户权限。
+list all permissions of normaluser;
+list all permissions of cassandra;
 
+// 向 normaluser 授予权限。
+grant select on all keyspaces to normaluser;
 ```
-totalGroup = group tweets ALL;
-totalCount = foreach totalGroup generate COUNT(tweets);
-store totalCount into 'totalcount' using CSVExcelStorage(',','YES_MULTILINE');
-```
 
-一个名为 `tweetcount` 的文件夹将在 `PIG_HOME` 目录中被创建，其中将包含一个名为 `part-r-00000` 之类的文件，里面存放着总的推文数量。
+这将会产生如图 4-8 所示的授权错误。因此，我们需要在 `cassandra.yaml` 中启用授权器。
 
-到目前为止，我们已经探索了在本地文件系统上使用 Pig 运行 MapReduce 作业。现在，让我们尝试在 Cassandra 文件系统上运行 Pig MapReduce 脚本。
+现在，让我们尝试使用 `normaluser` 创建一个密钥空间：
 
-需要注意的是，我们可以创建复杂的 Pig 脚本，这些脚本最终可能会运行多个 MapReduce 作业。这类 Pig 脚本的一个问题是，这些作业会按顺序运行，从而失去并行编程的优势。此外，您一定也注意到了在运行 Pig 脚本过程中产生的中间输出，例如加载的推文。
+![A978-1-4842-0142-8_4_Fig9_HTML.jpg](img/A978-1-4842-0142-8_4_Fig9_HTML.jpg)
 
-#### Pig 与 Cassandra
+**图 4-9.** 在 `cassandra.yaml` 中启用 `CassandraAuthorizer`
 
-Cassandra 和 Pig 的集成相当简单。如上所述，要将 Pig Latin 脚本转换为在 Cassandra 上运行的 MapReduce，需要特定于 Cassandra 的存储函数和连接设置。默认情况下，Apache Cassandra 在 `org.apache.cassandra.hadoop.pig` 包下自带了对 Pig 集成的内置函数支持。
+让我们在 `cassandra.yaml` 中启用授权器配置并重启服务器。图 4-9 展示了如何在 `cassandra.yaml` 中启用。
 
-在本节中，我们将使用基于 CQL 的存储函数进行练习。读者也可以使用 `CassandraStorage` 运行相同的练习，该函数主要用于以非 CQL 方式创建的列族。有关 CQL 与 Thrift 的更多详细信息，请参阅第 1 章。
+![A978-1-4842-0142-8_4_Fig8_HTML.jpg](img/A978-1-4842-0142-8_4_Fig8_HTML.jpg)
 
-第一步是为 Cassandra 特定设置配置 Pig：
+**图 4-8.** 不允许使用 `AllowAllAuthorizer` 管理权限
 
 ```
-# cassandra 守护进程主机，
-export PIG_INITIAL_ADDRESS=localhost
-/# thrift rpc 端口
-export PIG_RPC_PORT=9160
-#配置的分区器
-export PIG_PARTITIONER=org.apache.cassandra.dht.Murmur3Partitioner
-#将 thrift 库添加到 pig 的类路径中。
-export PIG_CLASSPATH=/home/vivek/software/apache-cassandra-2.0.4/lib/libthrift-0.9.1.jar
+create keyspace testkeyspace with replication = { 'class' : 'SimpleStrategy', 'replication_factor' : 3};
 ```
 
-##### 数据导入
+我们再次遇到错误（见图 4-10），因为 `normaluser` 没有被授予创建权限。
 
-在本节中，我们将创建一个 Cassandra 表来存储推文，并使用 Apache Pig 将推文加载到 Cassandra 中。
+![A978-1-4842-0142-8_4_Fig10_HTML.jpg](img/A978-1-4842-0142-8_4_Fig10_HTML.jpg)
 
-首先，在 Cassandra 中创建一个键空间和表，如下所示：
+**图 4-10.** 错误：`normaluser` 没有创建密钥空间的权限
 
-```
-create keyspace twitter with replication = {'class':'SimpleStrategy','replication_factor':1};
-use twitter;
-create table twitterdata(screen_name text primary key, tweetdate text, body text);
-```
+此外，`normaluser` 不能将权限授予自身。只有 `superuser` 才能做到！
 
-以本地模式启动 Pig 并加载推文：
+因此，让我们使用 `superuser` 登录：
 
 ```
-tweets = LOAD '/home/vivek/tweets' USING PigStorage('\ua001') as (date:chararray,screen_name:chararray,body:chararray);
+$CASSANDRA_HOME/bin/cqlsh -3 -u superuser -p superuser
 ```
 
-您可能需要根据您的设置更改目录路径。
+现在，创建一个密钥空间并向 `normaluser` 授予权限：
 
-注册 `apache-cassandra-2.0.4.jar`：
-
 ```
-register '$CASSANDRA_HOME/lib/apache-cassandra-2.0.4.jar';
-define CqlStorage org.apache.cassandra.hadoop.pig.CqlStorage();
-```
-
-使用 `TOTUPLE` 生成一个元组：
+// 创建密钥空间。
+create keyspace testkeyspace with replication = { 'class' : 'SimpleStrategy' , 'replication_factor' : 3};
 
+// 将 'testkeyspace' 的所有权限授予 normaluser。
+grant all on keyspace testkeyspace to normaluser;
 ```
-data_to = FOREACH tweets GENERATE TOTUPLE(TOTUPLE('screen_name',screen_name)),TOTUPLE(TOTUPLE('tweetdate',date), body);
-```
 
-最后，使用 `CqlStorage` 函数将生成的元组存储到 Cassandra 中：
-
-```
-STORE data_to INTO 'cql://twitter/twitterdata?output_query=update twitterdata set tweetdate %3D%3F,body %3D%3F' USING CqlStorage();
-```
+向 `normaluser` 授予权限后，服务器会将其权限存储在 `system_auth` 密钥空间下的 `permissions` 表中。
 
-最后，连接到 cql shell 并验证加载的数据（见图 6-13）：
+让我们查看 `normaluser` 的所有已授予权限（见图 4-11）：
 
 ```
-Select * from twitterdata;
+// 列出所有权限。
+list all permissions of normaluser;
 ```
-
-![A978-1-4842-0142-8_6_Fig13_HTML.jpg](img/A978-1-4842-0142-8_6_Fig13_HTML.jpg)
-
-图 6-13. 控制台显示了持久化在 `twitterdata` 表中的数据输出
-
-您一定已经注意到，总的推文数量是 10,020，但 Cassandra 中的 `twitterdata` 表却填充了 11 行。原因是同一个屏幕名称存在多条推文，而该字段被定义为 `twitterdata` 表中的主键。
-
-在现实世界中，数据文件中很可能存在非唯一字段，用户可能希望 Cassandra 负责处理唯一键部分。我们可以通过定义一个 `timeuuid` 类型的隐式主键，并在原始数据文件外部填充它来解决这个问题。在下一个练习中，我们将尝试通过引入一个唯一主键来解决这个问题。
-
 
+让我们创建 `anotherkeyspace` 并在其下创建一个名为 `privileges` 的表：
 
-##### 使用 timeuuid 加载数据
+![A978-1-4842-0142-8_4_Fig11_HTML.jpg](img/A978-1-4842-0142-8_4_Fig11_HTML.jpg)
 
-Pig Latin 不直接支持 Cassandra 的数据类型，例如 `timeuuid` 和 `uuid`。但有一个名为 Pygmalion 的开源项目 [`https://github.com/jeromatron/pygmalion`](https://github.com/jeromatron/pygmalion)，它为 Cassandra 提供了许多 Pig 工具。
+**图 4-11.** 当前 `normaluser` 的权限
 
-你可以 `git clone` 或下载压缩包（[`https://github.com/jeromatron/pygmalion/archive/master.zip`](https://github.com/jeromatron/pygmalion/archive/master.zip)），并在本地机器上构建它。或者，你也可以在本书下载文件的 `jars` 文件夹中找到 `pygmalion-1.1.0-SNAPSHOT.jar`。
-
-首先，我们在 Cassandra 中创建键空间和表，如下所示：
-
-```
-create keyspace twitter with replication = {'class':'SimpleStrategy','replication_factor':1};
-use twitter;
-create table twitterdata(id timeuuid primary key, screen_name text, tweetDate text, body text);
-```
-
-使用 `PigStorage` 加载推文：
-
-```
-tweets = LOAD '/home/vivek/tweets' USING PigStorage('\ua001') as
-(date:chararray,screen_name:chararray,body:chararray);
 ```
+// 创建密钥空间。
+create keyspace anotherkeyspace with replication = { 'class' : 'SimpleStrategy' , 'replication_factor' : 3};
 
-将 jar 包注册到 Pig 注册表中：
-
+// 创建表。
+create table privileges (user_id text PRIMARY KEY, read_write boolean);
 ```
-register /home/vivek/Documents/apress_book/Apress/uuid-3.2.jar;
-register /home/vivek/Documents/apress_book/Apress/hector-core-0.7.0-28.jar;
-register /home/vivek/Documents/apress_book/Apress/pygmalion-1.1.0-SNAPSHOT.jar;
-```
 
-定义 Pig 函数：
+让我们将 `privileges` 表的所有权限授予 `normaluser`：
 
 ```
-define FromCassandraBag org.pygmalion.udf.FromCassandraBag();
-define ToCassandraBag org.pygmalion.udf.ToCassandraBag();
-define CqlStorage org.apache.cassandra.hadoop.pig.CqlStorage();
-define GenerateBinTimeUUID org.pygmalion.udf.uuid.GenerateBinTimeUUID();
+grant all on table anotherkeyspace.privileges to normaluser;
 ```
 
-使用 `GenerateBinTimeUUID` 函数生成一个包含 `timeuuid` 值 ID 的元组，以及来自实际推文文件的其他元组：
+现在，我们再次列出 `normaluser` 的所有权限（见图 4-12）：
 
 ```
-data_to = FOREACH tweets GENERATE TOTUPLE(TOTUPLE('id',GenerateBinTimeUUID())),TOTUPLE(TOTUPLE('tweetdate',date), body);
+// 列出所有权限。
+list all permissions of normaluser;
 ```
 
-最后，将此数据加载到 Cassandra 中：
+接下来，让我们将所有密钥空间的所有权限授予 `superuser`：
 
-```
-STORE data_to INTO 'cql://twitter/twitterdata?output_query=update twitterdata set tweetdate %3D%3F,body %3D%3F' USING CqlStorage();
-```
+![A978-1-4842-0142-8_4_Fig12_HTML.jpg](img/A978-1-4842-0142-8_4_Fig12_HTML.jpg)
 
-现在，你可以探索 `twitterdata` 列族以查看插入的数据：
+**图 4-12.** `normaluser` 的新权限列表
 
 ```
-Select * from twitterdata;
-Select count(*) from twitterdata;
+grant select on all keyspaces to 'superuser';
 ```
-
-到目前为止，我们已经探索了使用 Apache Pig 通过多种方式将数据加载到 Cassandra 并对其运行 MapReduce 程序。Apache Pig 对于开发者来说非常方便，可以快速编写 Pig Latin 脚本来执行 MapReduce 程序，无需编写冗长的原生 MapReduce 程序。
-
-在下一节中，我们将探讨以更常用的 SQL 方式在 Cassandra 上运行 MapReduce 分析。
-
-### Apache Hive
-
-Apache Hive 是一个为存储在 HDFS 上的海量数据提供数据分析支持的平台。Hive 具有多种特性，例如内置的 UDTF（用户自定义表函数）、UDAF（用户自定义聚合函数）、对压缩数据的分析，以及最重要的 Hive 查询语言（Hive QL）。我们将在接下来的章节中讨论这些函数。
-
-最初 Hive 是作为 Facebook 研究计划的一部分而开发的，后来它成为了 Apache 的顶级项目。
-
-在本节中，我们将讨论 Hive 的安装、执行模式以及与 Cassandra 的集成。
-
-#### 安装与配置
-
-要在 MapReduce 模式下设置 Hive，我们需要对 Hadoop 安装进行一些配置步骤。请注意，有关 MapReduce 和 Hadoop 的更多详细信息，你可以参考第 5 章。
 
-对于 Hadoop，请确保 `JAVA_HOME` 已正确配置。你可以通过修改 `$HADOOP_HOME/conf/hadoop-env.sh` 并添加 `JAVA_HOME` 指向 `jdk` 安装目录来配置：
+现在，将 `privileges` 表的 `select` 权限授予 `superuser`：
 
 ```
-export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+grant select on anotherkeyspace.privileges to 'superuser';
 ```
 
-通过运行以下命令启动 Hadoop 安装：
+让我们查看 `privileges` 表上授予的所有权限（见图 4-13）：
 
 ```
-$HADOOP_HOME/bin/start-all.sh
+list all permissions on privileges;
 ```
 
-请确保名称节点已正确格式化。更多详细信息请参阅第 5 章。如果你遇到如下错误：
+我们还可以使用指定符显示特定资源的权限（见图 4-14）。
 
-```
-connect to host localhost port 22: Connection refused
-```
-
-你需要在你的机器上安装一个 SSH 服务器。对于 Ubuntu 系统，你可以通过运行 `sudo apt-get install openssh-server` 来安装。
+![A978-1-4842-0142-8_4_Fig13_HTML.jpg](img/A978-1-4842-0142-8_4_Fig13_HTML.jpg)
 
-![A978-1-4842-0142-8_6_Fig14_HTML.jpg](img/A978-1-4842-0142-8_6_Fig14_HTML.jpg)
+**图 4-13.**
 
-图 6-14。
 
-显示所有 Hadoop 进程正在运行。此后，请验证所有 Hadoop 进程是否正常运行（图 6-14）。
 
-接下来，你需要设置并运行 Hive：
+## 权限及父级资源的权限
 
-首先，从 [`http://apache.mirrors.tds.net/hive/`](http://apache.mirrors.tds.net/hive/) 下载最新的 jar 包。将 tarball 解压到一个本地文件夹，并将该本地文件夹设置为 `HIVE_HOME`。在 `$HIVE_HOME/bin/hive.sh` 文件中设置 `HADOOP_HOME`。当 Hive 的配置完成后，我们可以通过运行 `$HIVE_HOME/bin/hive.sh` 来启动 Hive 终端。
+`list all permissions on privileges NORECURSIVE;`
 
-#### 理解 UDF、UDAF 和 UDTF
+让我们使用 `normaluser` 登录，并尝试查看 `privileges` 表上赋予的所有权限。
 
-Hive 附带内置的用户自定义函数（UDF）、用户自定义聚合函数（UDAF）和用户自定义表函数（UDTF）。使用 Hive 终端，我们可以获取可用函数列表并描述它们：
+![A978-1-4842-0142-8_4_Fig14_HTML.jpg](img/A978-1-4842-0142-8_4_Fig14_HTML.jpg)
 
-```
-SHOW FUNCTIONS;
-DESCRIBE FUNCTION <function_name>;
-DESCRIBE FUNCTION EXTENDED <function_name>;
-```
+图 4-14. 在 `privileges` 表上赋予所有用户的权限列表
 
-Hive 内置的 UDF 包括 `round()`、`pow()` 和 `rand()` 等函数。还有内置的集合函数，例如 `mapkeys` 和 `map_values`，分别用于返回键和值的无序列表。有关 UDF 的更多信息，请参阅 [`https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inFunctions`](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inFunctions)。
+`list all permissions on anotherkeyspace.privileges;`
 
-Hive 支持的内置 UDAF 包括 `count`、`min`、`max` 和 `percentile` 等函数。有关支持的聚合函数的详细列表，你还可以参阅 [`https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inAggregateFunctions(UDAF)`](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inAggregateFunctions(UDAF))。
+我们再次收到“未授权”错误（见图 4-15）。`normaluser` 已被授予 `privileges` 表上的所有权限，但它无法查看所有用户的权限。不过，`normaluser` 可以执行前面提到的其他允许的操作。
 
-此外，还有在多个行和表级别进行操作的表生成型 UDTF。例如，`explode` 函数为每个数组元素生成一行。更多详细信息及其用法，请访问 [`https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inTable-GeneratingFunctions(UDTF)`](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inTable-GeneratingFunctions(UDTF)。
+我们再尝试让 `normaluser` 删除自身和 `superuser`（见图 4-16）。
 
-#### Hive 表
+![A978-1-4842-0142-8_4_Fig15_HTML.jpg](img/A978-1-4842-0142-8_4_Fig15_HTML.jpg)
 
-Hive 提供了创建两种类型表的机制：
+图 4-15. 未授予 `normaluser` 对 `anotherkeyspace` 的权限
 
-*   Hive 管理表
-*   Hive 外部表
+`drop user normaluser;`
+`drop user 'superuser';`
 
-对于 Hive 管理表，Hive 负责管理表的元数据和实际数据。删除此类表将导致数据也被删除。而对于外部表，它不受 Hive 管理，任何删除表的操作都不会导致数据丢失。我们将在接下来的练习中进一步探讨这些类型的表。
+结果如图 4-16 所示，表明 `normaluser` 无法删除、撤销或查看其他用户的权限。但 `superuser` 可以！
 
+因此，我们使用 `superuser` 登录，并尝试撤销赋予特定用户（此处为 `normaluser`）的权限，操作如下：
 
+![A978-1-4842-0142-8_4_Fig16_HTML.jpg](img/A978-1-4842-0142-8_4_Fig16_HTML.jpg)
 
-#### 本地文件系统数据加载
+图 4-16. 非超级用户不允许删除用户
 
-在本节中，我们将进一步讨论 Hive 的 DDL/DML 操作。第一个练习中，我们将在 Hive 中创建一个简单模式，并从本地文件系统加载数据。
+`revoke all permissions on privileges from normaluser;`
+`list all permissions on privileges;`
 
-首先，创建一个数据库：
+图 4-17 显示操作成功。
 
-```
-create database employee_store;
-```
+![A978-1-4842-0142-8_4_Fig17_HTML.jpg](img/A978-1-4842-0142-8_4_Fig17_HTML.jpg)
 
-接着，按如下方式创建表：
+图 4-17. 超级用户在 `privileges` 表上的权限
 
-```
-use employee_store;
-```
+通过这一系列步骤，我们得出结论：
 
-```
-create table employee(person_id string, fname string) row format delimited fields terminated by ',';
-```
+- 非超级用户无法管理、访问或查看其他用户的权限。
+- 权限可以在键空间及特定表/列族上授予。
+- 超级用户可以管理或访问其他用户的权限。
 
-此处，通过表 DDL 操作我们定义了字段以`','`分隔。
+## 使用 `AllowAllAuthorizer` 访问 `system_auth`
 
-我们可以像下面这样从本地文件系统加载数据：
+默认情况下，Cassandra 的认证功能是禁用的，并在 `cassandra.yaml` 配置文件中配置了 `AllowAllAuthenticator` 作为认证器。在前面章节中，我们探讨了使用 `PasswordAuthenticator` 的各种授权技术。本节我们将探讨使用 `AllowAllAuthorizer` 管理用户权限是否可行。本方案旨在让你了解 `AllowAllAuthorizer` 的局限性，纯属实验性质。
 
-```
-load data local inpath '/home/vivek/Documents/apress_book/Apress/datafiles/person_store' overwrite into table employee ;
-```
+如上所述，`system_auth` 键空间包含用户凭据和权限详情。在本方案中，我们将尝试在无认证情况下访问 `system_auth` 键空间并管理用户凭据。
 
-最后，我们可以查看插入的数据（见图 6-15）：
+首先，我们描述一下 `system_auth` 键空间（见图 4-18）。
 
 ```
-select * from employee;
+// 描述键空间。
+describe keyspace system_auth;
 ```
 
-![A978-1-4842-0142-8_6_Fig15_HTML.jpg](img/A978-1-4842-0142-8_6_Fig15_HTML.jpg)
+让我们探索 `users` 表，如图 4-19 所示。
 
-图 6-15. 从 employee 表中获取的行
+![A978-1-4842-0142-8_4_Fig19_HTML.jpg](img/A978-1-4842-0142-8_4_Fig19_HTML.jpg)
 
-我们来讨论一下基于 Hive、Hadoop 和 Cassandra 的架构会是什么样子。图 6-16 中的图片展示了由 Hive 驱动的 MapReduce 作业如何在 Cassandra 数据节点上运行。在这里，每个 Hive 查询都会被转换为一个 MapReduce 作业，并提交给 Hadoop，而 Hadoop 则会依赖名称节点和元数据来识别 Cassandra 数据节点，以在这些数据节点上本地运行相应的 map 和 reduce 任务。
+图 4-19. `users` 表中的默认用户
 
-![A978-1-4842-0142-8_6_Fig16_HTML.jpg](img/A978-1-4842-0142-8_6_Fig16_HTML.jpg)
+首先，尝试删除 `users` 表中的所有数据（见图 4-20）：
 
-图 6-16. 该图描绘了在 Cassandra 数据节点上运行 Hive MapReduce 的架构表示
+![A978-1-4842-0142-8_4_Fig18_HTML.jpg](img/A978-1-4842-0142-8_4_Fig18_HTML.jpg)
 
-值得一提的是，在 HDFS 上运行 Hive MapReduce 作业与图 6-17 所示相同，只是数据块属于 HDFS 而非 Cassandra 节点。
+图 4-18. 描述的 `system_auth` 键空间
 
-#### HDFS 数据加载
+`truncate users;`
 
-我们也可以使用 `load data` 命令从 HDFS 向 Hive 管理的表中加载数据。让我们通过一个简单的练习来探索这部分内容：
+我们成功截断了 `users` 表，但接下来看看能否删除它。
 
-首先使用 `put` 命令将 tweets 文件放到 HDFS 上：
+![A978-1-4842-0142-8_4_Fig20_HTML.jpg](img/A978-1-4842-0142-8_4_Fig20_HTML.jpg)
 
-```
-bin/hadoop fs -put /home/vivek/Documents/apress_book/Apress/datafiles/person_store /usr/vivek/employee_store/infile
-```
-
-我们可以使用 `load` 命令直接向 HDFS 目录加载数据，如下所示：
-
-```
-load data inpath  '/usr/vivek/employee_store/infile' overwrite into table employee ;
-```
+图 4-20. 截断后的 `users` 表
 
-这里的区别是使用了 `load data inpath` 而不是 `load data local inpath`，这使得可以从文件路径映射到 HDFS 目录（例如 `/usr/vivek/employee_store/infile`）。
+`drop table users;`
 
-最后，我们可以查看插入的数据（见图 6-17）：
+图 4-21 显示我们无法执行此操作，因为这是一个系统表，Cassandra 对外部用户进行了限制。
 
-```
-select * from employee;
-```
-
-我们还可以使用条件查询，例如按姓名获取员工（见图 6-18）：
+接下来，重启 Cassandra 服务器以验证 `users` 表是否为空（见图 4-22）：
 
-![A978-1-4842-0142-8_6_Fig17_HTML.jpg](img/A978-1-4842-0142-8_6_Fig17_HTML.jpg)
+![A978-1-4842-0142-8_4_Fig21_HTML.jpg](img/A978-1-4842-0142-8_4_Fig21_HTML.jpg)
 
-图 6-17. 通过 Hive 终端从 employee 表中获取行
+图 4-21. 不允许删除 `users` 表
 
-```
-select * from employee where fname = 'vivek';
-```
+`select * from users;`
 
-![A978-1-4842-0142-8_6_Fig18_HTML.jpg](img/A978-1-4842-0142-8_6_Fig18_HTML.jpg)
+![A978-1-4842-0142-8_4_Fig22_HTML.jpg](img/A978-1-4842-0142-8_4_Fig22_HTML.jpg)
 
-图 6-18. 获取 fname 为 vivek 的行
+图 4-22. 默认用户 `cassandra` 已预填充
 
-运行此类查询时，除非条件列不是分区键，否则它们会被转换为 MapReduce 作业。针对分区键的查询可以直接从数据节点获取数据，并且由于数据已按分区键进行分区，因此不需要 MapReduce 过程。我们可以在创建表时定义分区键，如下所示：
+启用 `AllowAllAuthorizer` 后对 `system_auth` 键空间所做的更改将被 Cassandra 忽略。因此，第 3 步中的更改将不会生效，Cassandra 将填充如图第 2 步所示的默认设置。
 
-```
-CREATE TABLE employee (
-fname  String,
-lname  String,
-emailId   String,
-salary      FLOAT,
-)
-PARTITIONED BY (location STRING, joining_year INT, joining_month INT, joining_day INT) ;
-```
+让我们尝试创建一个用户：
 
-任何针对分区键所有部分的条件查询都将快速定位数据文件夹，因为数据会根据定义的分区键自动排列到不同的文件夹中。
+`create user normaluser with password 'normal';`
+`create user normaluser;`
 
-#### Hive 外部表
+如图 4-23 所示，Cassandra 不允许在启用 `AllowAllAuthenticator` 的情况下创建用户。然而，正如我们之前所见，使用 `PasswordAuthenticator` 则可以。
 
-我们也可以在 HDFS 目录上创建 Hive 外部表。如果不需要由 Hive 管理，则建议创建外部表。
+我们可以按如下方式更改 `system_auth` 键空间的复制策略：
 
-让我们重新审视同一个 tweets 示例，来进行外部表的练习。
+![A978-1-4842-0142-8_4_Fig23_HTML.jpg](img/A978-1-4842-0142-8_4_Fig23_HTML.jpg)
 
-首先使用 `put` 命令将 tweets 文件放到 HDFS 上（见图 6-19）：
+图 4-23. 未登录时尝试使用 `AllowAllAuthenticator` 创建用户
 
-```
-bin/hadoop fs -put /home/vivek/Documents/apress_book/Apress/datafiles/person_store /usr/vivek/employee_store/infile
-```
+`alter keyspace system_auth with replication = {'class':'SimpleStrategy','replication_factor':3};`
 
-然后，我们可以在 Hive 中基于 HDFS 位置创建外部表：
+通过本方案，我们得出结论：我们可以更改 `system_auth` 键空间，但无法在启用 `AllowAllAuthenticator`（认证禁用）的情况下创建用户。当使用默认用户凭据认证 Cassandra 服务器时，必须将一致性级别配置为 `QUORUM`。
 
-![A978-1-4842-0142-8_6_Fig19_HTML.jpg](img/A978-1-4842-0142-8_6_Fig19_HTML.jpg)
+接下来我们将讨论 SSL 加密以及在启用加密的情况下连接 `cqlsh` 和 Thrift 客户端。
 
-图 6-19. 包含员工记录的 Hive 目录
 
-```
-create external table employee_ext(person_id string, fname string) row format delimited fields terminated by ',' location 'hdfs://localhost:9000/usr/vivek/employee_store';
-```
 
-这里的 `hdfs://localhost:9000` 是 `fs.default.name` 属性的值。
+## 准备服务器证书
 
-我们可以查看插入的数据（见图 6-20）：
+近年来，社交媒体和基于互联网的应用使全球范围内的数据访问和共享成为可能。SSL 协议用于通过互联网以安全通信的方式发送加密数据。
 
-```
-select * from employee_ext;
-```
+对于通过 SSL 进行的客户端-服务器或节点间通信，我们需要准备服务器证书。一个文件包含服务器密钥，而另一个文件包含所有客户端或节点的可信 SSL 证书。
 
-![A978-1-4842-0142-8_6_Fig20_HTML.jpg](img/A978-1-4842-0142-8_6_Fig20_HTML.jpg)
+在开始新的教程之前，我们预先讨论一些可能的错误及解决方案。在配置并启动 Cassandra 服务器后，如果收到类似以下的错误，我们需要使用 Java 加密扩展（JCE）来配置已安装的 Java 版本。
 
-图 6-20. 从 employee_ext 外部表中获取记录
+`Cannot support TLS_RSA_WITH_AES_256_CBC_SHA with currently installed providers`
 
+从以下地址下载 JCE 包：
 
+[`http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html`](http://www.oracle.com/technetwork/java/javase/downloads/jce-6-download-429243.html) (Java 6)
 
-#### Hive 与 Cassandra 的集成
+[`http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html`](http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html) (Java 7)
 
-借助外部表支持，通过使用 Cassandra 专用的 `storageHandler` 实现，可以在 Hive 中对 Cassandra 进行数据分析。DataStax ([www.datastax.com](http://www.datastax.com/)) 提供诸如 DataStax Enterprise (DSE) 等商业产品，这些产品能够与 Hive 等工具实现无缝集成。我们将在本章稍后的“Apache Sqoop”部分中，进一步探讨 DSE 提供的功能。
+然后将 `local_policy.jar` 和 `US_export_policy.jar` 复制到 `$JAVA_HOME/jre/lib/security` 文件夹下。
 
-在本节中，我们将讨论开源 Apache Cassandra 与 Hive 的集成。一个开源的实现方案是 Cassandra 专用的存储处理器，可在 [`github.com/tuplejump/cash`](https://github.com/tuplejump/cash) 获取。你可以通过 `git clone` 或下载 zip 源码包并在本地构建以生成 jars 包。或者，你也可以在 `jars` 文件夹中找到作为源码附件的这些 jars 包。
+必要的配置已完成，现在让我们通过一个简单的练习来探索如何准备服务器证书。
 
-在我们的示例中，我们将在 Cassandra 中创建一个表，并在 Hive 上创建外部表，以探索通过 Cassandra 和 Hive 插入的数据。
+首先，使用 `keytool` 为服务器生成一个密钥库：
 
-首先，我们创建一个 `twitter` 键空间和 `twitterdata` 表：
+`keytool -genkey -alias servernode -keystore /home/impadmin/keys/server/server.jks -storepass server -keypass server`
 
-```
-create keyspace twitter with replication={'class':'SimpleStrategy','replication_factor':2};
-```
+这里，`/home/impadmin/keys/server` 是包含密钥库文件的文件夹路径。你可以根据实际情况修改。图 4-24 显示了生成密钥库时需要输入的基本信息。
 
-```
-use twitter;
-```
+从密钥库文件中导出公钥部分：
 
-```
-create table twitterdata(tweet_id timeuuid primary key, body text, tweeted_by text);
-```
+![A978-1-4842-0142-8_4_Fig24_HTML.jpg](img/A978-1-4842-0142-8_4_Fig24_HTML.jpg)
 
-让我们使用 `insert` 命令插入几条记录：
+图 4-24. 生成密钥库时提供的输入信息
 
-```
-insert into twitterdata(tweet_id,body,tweeted_by) values(now(),'my first tweet','@mevivs');
-```
+`keytool -export -alias servernode -file /home/impadmin/keys/publickey.cer -keystore /home/impadmin/keys/server.jks -storepass server`
 
-```
-insert into twitterdata(tweet_id,body,tweeted_by) values(now(),'Cassandra book:beginning cassandra development','@apress_team');
-```
+图 4-25 显示了 `publickey.cer` 存储在 `/home/impadmin/keys` 文件夹中。
 
-```
-insert into twitterdata(tweet_id,body,tweeted_by) values(now(),'Technical review position available for #Parse and #Phonegap related @Apress titles: paid','@apress_team');
-```
+将 `publickey.cer` 作为受信任的证书导入到服务器的文件中：
 
-```
-insert into twitterdata(tweet_id,body,tweeted_by) values(now(),'Android Apps Security http://t.co/5XLSObkk9f','@jhassel');
-```
+![A978-1-4842-0142-8_4_Fig25_HTML.jpg](img/A978-1-4842-0142-8_4_Fig25_HTML.jpg)
 
-接下来，我们通过配置 Cassandra 存储处理器、Thrift 以及 Cassandra 专用的 jars 包来连接到 Hive shell：
+图 4-25. 存储的带有完整路径的公钥证书
 
-```
-/home/vivek/software/hive-0.9.0/bin/hive --auxpath /home/vivek/source/cash/cassandra-handler/target/hive-cassandra-1.2.9.jar:/home/vivek/.m2/repository/org/apache/cassandra/cassandra-all/1.2.9/cassandra-all-1.2.9.jar:/home/vivek/software/apache-cassandra-2.0.4/lib/libthrift-0.9.1.jar:/home/vivek/.m2/repository/org/apache/cassandra/cassandra-thrift/1.2.9/cassandra-thrift-1.2.9.jar
-```
+`keytool -import -v -trustcacerts -alias client -file /home/impadmin/keys/publickey.cer -keystore /home/impadmin/keys/.truststore -storepass client`
 
-成功连接到 Hive shell 后，我们可以按如下方式创建外部表：
+图 4-26 显示证书已成功添加。
 
-```
-CREATE EXTERNAL TABLE twitter.twitterdata(tweet_id string, body string, tweeted_by string) STORED BY 'org.apache.hadoop.hive.cassandra.cql.CqlStorageHandler' WITH SERDEPROPERTIES ("cql.primarykey" = "message_id, author", "comment"="check", "read_repair_chance" = "0.2", "dclocal_read_repair_chance" = "0.14", "gc_grace_seconds" = "989898", "bloom_filter_fp_chance" = "0.2", "compaction" = "{'class' : 'LeveledCompactionStrategy'}", "replicate_on_write" = "false", "caching" = "all");
-```
+![A978-1-4842-0142-8_4_Fig26_HTML.jpg](img/A978-1-4842-0142-8_4_Fig26_HTML.jpg)
 
-请注意，Cassandra 存储处理器项目目前尚不支持 Hive 管理的 Cassandra 表。尝试以下方式创建一个 Hive 管理的表：
+图 4-26. 客户端证书成功添加到服务器的信任库中
 
-```
-CREATE TABLE twitter.twitterdata_hive(tweet_id string, body string, tweeted_by string) STORED BY 'org.apache.hadoop.hive.cassandra.cql.CqlStorageHandler' WITH SERDEPROPERTIES ("cql.primarykey" = "message_id, author", "comment"="check", "read_repair_chance" = "0.2", "dclocal_read_repair_chance" = "0.14", "gc_grace_seconds" = "989898", "bloom_filter_fp_chance" = "0.2", "compaction" = "{'class' : 'LeveledCompactionStrategy'}", "replicate_on_write" = "false", "caching" = "all");
-```
+至此，我们已经准备好了服务器证书。在接下来的几个教程中，我们将使用信任库通过受信任的证书访问服务器。对于节点间通信，我们需要在每个节点上重复上述步骤，并将每个节点的公钥证书复制到每个节点的信任库中。
 
-将会导致如图 6-21 所示的错误。
+图 4-27 以图形方式展示了客户端证书准备以及导入信任库的过程。
 
-![A978-1-4842-0142-8_6_Fig21_HTML.jpg](img/A978-1-4842-0142-8_6_Fig21_HTML.jpg)
+![A978-1-4842-0142-8_4_Fig27_HTML.jpg](img/A978-1-4842-0142-8_4_Fig27_HTML.jpg)
 
-图 6-21 展示了在 Hive 中为 Cassandra 创建内部表时出现的错误。
+图 4-27. 准备并与服务器共享客户端公钥证书的流程
 
-到目前为止，我们已经探讨了通过 Hive 和 Pig 对 Cassandra 执行 MapReduce 算法的各种方法。数据分析的另一个重要方面是数据迁移，其中现有的关系型数据库管理系统（RDBMS）数据需要迁移到 Cassandra 上，以获得更好的可扩展性和性能。
+在 Cassandra 节点间准备和共享证书的过程相同，每个节点都需要将其公钥证书导出并共享给 Cassandra 集群中的所有其他节点。
 
-在下一节中，我们将进一步探讨数据迁移。
+证书准备过程完成后，你需要启用并连接启用 SSL 加密的命令行客户端。下一节将讨论此过程。
 
-### 数据迁移
+## 通过 SSL 加密进行连接
 
-基于传统 RDBMS 构建的旧版应用程序，为了寻求可扩展性和性能而转向 NoSQL 数据库时，可能需要将数据从 RDBMS 迁移到 Cassandra。例如，金融应用希望迁移交易日志，或是在 RDBMS 中存储活动日志的热门网站现在希望将这些日志迁移到 Cassandra。
+上一节讨论了在启用 SSL 的情况下通过 `cqlsh` 进行连接。现在让我们探索如何通过启用 SSL 加密的 `cassandra-cli` 命令行客户端进行连接。
 
-#### 传统方式
+### 通过 Cassandra-cli 连接
 
-这是从 MySQL 等 RDBMS 导出数据的最简单方式：先导出为 CSV 格式文件，再将数据加载到 Cassandra 中。我们通过一个示例练习来进一步讨论。
+让我们启用 Cassandra 以实现加密的客户端到节点加密，并通过 Thrift 方式（使用 `cassandra-cli`）连接到服务器。
 
-首先，在 MySQL 中创建一个数据库和表：
+首先，我们需要为客户端到节点加密配置服务器。
 
 ```
-create schema twitter;
+// 启用服务器
+enabled: true
+// 密钥库路径
+keystore: /home/impadmin/keys/server.jks
+// 密钥库密码
+keystore_password: server
 ```
+
+以下显示了 `cassandra.yaml` 中需要进行的配置更改，以配置密钥库和信任库路径：
 
 ```
-create table twitterdata(id varchar(20) primary key,screen_name varchar(20),body varchar(30));
+# 启用或禁用客户端/服务器加密。
+client_encryption_options:
+  enabled: false
+  keystore: /home/impadmin/keys/server.jks
+  keystore_password: server
+# require_client_auth: false
+# 如果 require_client_auth 为 true，则设置信任库和信任库密码
+  truststore: /home/impadmin/keys/.truststore
+  truststore_password: client
+# 更多高级默认设置如下：
+  protocol: TLS
+  algorithm: SunX509
+  store_type: JKS
+  cipher_suites: [TLS ECDHE RSA WITH AES 256 CBC SHA, TLS DHE RSA WITH AES 128 CBC SHA, TLS ECDH ECDSA WITH AES 128 CBC SHA, TLS DHE RSA WITH AES 256 CBC SHA,
+SSL DHE RSA WITH 3DES EDE CBC SHA, TLS ECDH RSA WITH AES 256 CBC SHA, SSL RSA WITH RC4 128 SHA, TLS ECDH ECDSA WITH 3DES EDE CBC SHA, TLS ECDHE RSA WITH RC4 128 SHA,
+TLS ECDH ECDSA WITH RC4 128 SHA, TLS ECDHE ECDSA WITH RC4 128 SHA, TLS ECDHE RSA WITH AES 128 CBC SHA, TLS ECDHE ECDSA WITH 3DES EDE CBC SHA,
+TLS ECDH RSA WITH RC4 128 SHA, TLS EMPTY RENEGOTIATION INFO SCSV, TLS ECDH RSA WITH 3DES EDE CBC SHA, TLS ECDH RSA WITH AES 128 CBC SHA,
+TLS ECDHE ECDSA WITH AES 256 CBC SHA, TLS ECDHE ECDSA WITH AES 128 CBC SHA, TLS DHE DSS WITH AES 256 CBC SHA, TLS RSA WITH AES 128 CBC SHA,
+TLS ECDH ECDSA WITH AES 256 CBC SHA, TLS RSA WITH AES 256 CBC SHA, TLS ECDHE RSA WITH 3DES EDE CBC SHA, SSL RSA WITH RC4 128 MD5, TLS DHE DSS WITH AES 128 CBC SHA,
+SSI DHF DSS WTTH 3DFS FDF CRC SHA. SSI RSA WTTH 3DFS FDF CRC SHA1]
 ```
 
-插入一些示例推文：
+这里，`cipher_suites` 配置包含所有有效的协议，建议在使用此应用程序进行配置时保持原样。
 
-```
-insert into twitterdata('1','mevivs','my first tweet');
-```
+你可以将 `require_client_auth` 设置为 `true` 以启用客户端证书认证。
 
-```
-insert into twitterdata values('2','jhassel','my first tweet');
-```
+启动 Cassandra 服务器并连接 `cassandra-cli`：
 
-```
-insert into twitterdata values('3','rfernando','my first tweet');
-```
+`$CASSANDRA_HOME/bin/cassandra-cli -h 127.0.0.1 -p 9160 -ts /home/impadmin/keys/.truststore -tf org.apache.cassandra.cli.transport.SSLTransportFactory -tspw client`
 
-接下来，从 `twitterdata` 表中导出数据：
+这里，`-ts`、`-tf` 和 `-tspw` 分别代表信任库、传输工厂和信任库密码。
 
-```
-select * from twitterdata INTO OUTFILE '/tmp/mysql_output.csv' Fields TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
-```
+通过使用传输工厂和信任库配置，以及 SSL 加密，我们可以连接到 Thrift 客户端。接下来，我们将使用启用 SSL 加密的 `cqlsh` 进行连接。
 
-然后，在 Cassandra 中创建一个表和键空间：
+### 通过 cqlsh 连接
 
-```
-create table ntwitterdata(id text primary key, screen_name text, bodt text);
-```
+要连接启用加密的 `cqlsh`，我们需要在 `home` 目录下创建 `.cqlshrc` 文件。此外，我们也可以在 `require_client_auth=false` 的情况下连接 `cqlsh`。在本教程中，我们连接并配置 `cqlsh`。
 
-最后，我们可以通过 cql shell 中的 `copy` 命令，从 csv 文件中复制 `twitterdata`：
+让我们在 `home` 目录下创建针对 SSL 配置的 `.cqlshrc` 文件。
 
 ```
-copy twitterdata from '/tmp/mysql_output.csv';
+factory = cqlshlib.ssl.ssl_transport_factory
+// 信任库文件路径
+certfile = /home/impadmin/source/keys/.truststore
 ```
 
-这样，我们就可以通过传统方式执行数据迁移了。但不幸的是，这种方式是本地化的。
+图 4-28 显示了 `.cqlshrc` 文件中的配置更改。
 
-这看起来很简单，但如果要迁移包含多个表的完整模式呢？仅提供模式名称就足以建立通道并迁移数据吗？Apache Sqoop (SQL 到 Hadoop) 正是这些问题的答案。
+就这样！让我们运行 `cqlsh` 来连接 Cassandra 服务器：
 
-#### Apache Sqoop
+![A978-1-4842-0142-8_4_Fig28_HTML.jpg](img/A978-1-4842-0142-8_4_Fig28_HTML.jpg)
 
-Apache Sqoop 是一个将数据从关系型数据库传输到 NoSQL 数据库（如 Cassandra）或分布式文件系统（如 Hadoop）的工具。Sqoop 自 2012 年起已成为 Apache 顶级项目。当我们需要在 RDBMS 和 NoSQL（例如 Cassandra、Hadoop）之间建立数据迁移通道时，Sqoop 会非常方便。
+图 4-28. `.cqlshrc` 配置更改
 
-在本节中，我们将使用 DataStax 的 DSE 来进行 Sqoop Cassandra 集成的示例。有关 DSE 安装和配置的更多详细信息，请参考：
+`SSL_CERTFILE=/home/impadmin/source/keys/publickey.cer SSL_VALIDATE=$CASSANDRA_HOME/bin/cqlsh -3 -t cqlshlib.ssl.ssl_transport_factory`
 
-[`www.datastax.com/docs/datastax_enterprise3.1/reference/start_stop_dse`](http://www.datastax.com/docs/datastax_enterprise3.1/reference/start_stop_dse)
 
-[`www.datastax.com/docs/datastax_enterprise3.0/install/install_rpm_pkg`](http://www.datastax.com/docs/datastax_enterprise3.0/install/install_rpm_pkg)
 
-你也可以下载并将 tarball 解压到本地文件夹中。
+### 通过 Cassandra Thrift 客户端连接
 
+以下代码片段展示了如何通过基于 Java 的 Cassandra Thrift 客户端，连接到启用了安全机制的服务器：
 
-
-#### 结合 Cassandra 使用 Sqoop
-
-在本练习示例中，我们将沿用之前使用的相同推文文件，并最终利用 DSE Sqoop 支持，将数据从 MySQL 迁移至 Cassandra。
-
-首先，连接到 MySQL 客户端：
-
-`mysql -u root -p –local-infile`
-
-接下来，我们将创建一个键空间 `twitter` 和表 `twitterdata`：
-
-`create keyspace twitter with replication={'class':'SimpleStrategy','replication_factor':2};`
-
-`use twitter;`
-
-`create table twitterdata(tweetdate varchar(50),screen_name varchar(50),body varchar(300), id int NOT NULL AUTO_INCREMENT, PRIMARY KEY(id));`
-
-现在，将推文数据加载到 `twitterdata` 表中（见图 6-22）：
-
-`LOAD DATA LOCAL INFILE '/home/vivek/tweets' INTO TABLE twitterdata FIELDS TERMINATED BY 0x01 LINES TERMINATED BY '\n';`
-
-然后，启动带有 Hadoop 支持的 DSE Cassandra：
-
-![A978-1-4842-0142-8_6_Fig22_HTML.jpg](img/A978-1-4842-0142-8_6_Fig22_HTML.jpg)
-
-图 6-22. 将本地文件系统中的文件加载到 Hive 表中
-
-`bin/dse cassandra -t`
-
-接下来，运行 `sqoop import`，如下所示：
-
-`bin/dse sqoop import --connect jdbc:mysql://localhost/twitter --username root -P --table twitterdata --cassandra-keyspace twitter --cassandra-column-family twitterdata --cassandra-row-key id --cassandra-thrift-host localhost –cassandra-create-schema`
-
-成功导入后，让我们通过 `cassandra-cli` 来探索 `twitterdata` 列族（见图 6-23）：
-
-`$DSE_HOME/bin/cassandra-cli`
-
-你也可以从 `cqlsh` 来探索 `twitterdata` 表（见图 6-24）：
-
-![A978-1-4842-0142-8_6_Fig23_HTML.jpg](img/A978-1-4842-0142-8_6_Fig23_HTML.jpg)
-
-图 6-23. 使用 cassandra-cli 探索已加载的数据
-
-`$DSE_HOME/bin/cqlsh`
-
-![A978-1-4842-0142-8_6_Fig24_HTML.jpg](img/A978-1-4842-0142-8_6_Fig24_HTML.jpg)
+```
+TSSLTransportFactory.TSSLTransportParameters params =
+new TSSLTransportFactory.TSSLTransportParameters();
+params.setTrustStore("信任库路径", "信任库密码");
+transport = TSSLTransportFactory.getClientSocket("localhost", 7001, 10000, params);
+TProtocol protocol = new TBinaryProtocol(transport);
+Cassandra.Client client = new Cassandra.Client(protocol);
+```
 
-图 6-24. 描述 twitterdata 表
+这里的 `7011` 是 SSL 端口。其余部分与 Cassandra-cli 连接方式类似。使用基于 SSL 配置的传输参数（例如，配置信任库路径、密码和 SSL 传输工厂）打开客户端套接字。
 
-至此，我们可以得出结论：Sqoop 可以轻松地与 Cassandra 进行配置，用于数据迁移。
+以上就是我们如何通过命令行客户端和基于 Java 的 Thrift 客户端连接到 Cassandra 服务器的方法。
 
-下一章将继续讨论图数据库相关话题。
+## 总结
 
-### 本章小结
+总而言之，本章讨论的主题如下：
 
-以下是本章讨论内容的总结：
+- 通过超级用户和非超级用户管理用户角色和权限
+- 为客户端-服务器通信和节点间通信准备 SSL 加密证书
+- 通过各种客户端连接到安全的 Cassandra 服务器。
 
-*   配置并运行基于 Hive 的查询，以类似 SQL 的方式集成并运行 MapReduce 作业。
-*   如果读者精通基于脚本的编程，并熟悉编写脚本，那么使用 Pig 会非常方便。
-*   使用 Sqoop 将数据从 HDFS/MySQL 迁移到 Cassandra，反之亦然。
+至此，我们结束了关于 Cassandra 数据安全与用户管理的讨论。
 
-下一章将向前推进，讨论新的范式——基于图的数据库。该章节将讨论为什么、如何以及何时使用图数据库，最重要的是，如何与 Cassandra 结合使用。
+下一章将更深入地探讨大数据分析，我们将讨论如何使用 Hadoop 的 MapReduce 算法进行批处理，以及如何将 Cassandra 文件系统同时用作输入和输出来在 Cassandra 上运行 MapReduce 程序！
 

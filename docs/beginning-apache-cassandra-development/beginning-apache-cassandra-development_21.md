@@ -1,16 +1,4 @@
-# 栈大小限制
+# Rexster
 
-栈大小限制了我们在 Java 虚拟机（JVM）中可以拥有的线程数量。如果你看到类似下面的错误：
-
-```
-The stack size specified is too small, Specify at least 228k
-Error: Could not create the Java Virtual Machine.
-Error: A fatal exception has occurred. Program will exit.
-```
-
-这意味着栈大小设置得太小了。默认分配的值为 180K，按照 Cassandra 的建议，我们可以通过修改 `Cassandra-env.sh` 文件（位于 `conf` 文件夹下）将其设置为 228K，示例如下：
-
-```
-JVM_OPTS="$JVM_OPTS –Xss228k"
-```
+`Rexster` 是一个多功能的图服务器，它通过多种机制（主要侧重于 REST）暴露任何 `Blueprints` 图。它通过 REST API 和 `RexPro` 协议暴露图服务器。`RexPro` 是 `Rexster` 的一种二进制协议，可用于将 `Gremlin` 脚本发送到远程的 `Rexster` 实例。脚本在服务器上处理，结果被序列化并返回给调用客户端。它还提供了基于浏览器的界面工具，称为 Dog House 和 `Rexster` 控制台（后者将在 Titan 生态系统中讨论）。
 

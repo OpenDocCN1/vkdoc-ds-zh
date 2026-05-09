@@ -1,4 +1,4 @@
-# Big Data 与 Power BI 和 Excel 2013 入门指南
+# Power BI 和 Excel 2013 大数据入门指南
 
 > 原文：[Beginning Big Data with Power BI and Excel 2013]()
 > 

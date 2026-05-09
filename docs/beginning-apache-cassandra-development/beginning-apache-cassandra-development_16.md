@@ -1,100 +1,860 @@
-# 9. Cassandra：管理与监控
+# 数据迁移与分析
 
-数据库管理意味着管理一系列活动，例如确保数据库可用性、安全管理、性能调优和备份。然而，“管理”的具体细节已经发生了显著变化。
+数据迁移是在多个存储系统之间传输数据的过程。在大数据场景下，数据迁移的关键点在于为提升可扩展性与性能，从一种存储系统（例如关系型数据库）升级到另一种存储系统（例如 Cassandra）。随着近年来许多 NoSQL 数据库的出现，数据迁移已成为评估与实现首选数据库解决方案的重要流程。
 
-在 NoSQL 世界发展之前，数据库管理员（DBA）被认为是团队中最关键的成员之一。但随着 NoSQL 的普及，管理工作的投入以及对专职数据库管理员团队的需求已大幅减少。在第 1 章中，我们讨论了从关系型数据库管理系统（RDBMS）向 NoSQL 世界的转变。让我们重新回顾一下其中几个关键差异：
+如上述用例所述，对结构化或非结构化数据进行分析是另一个问题。探索新的业务领域，并处理因已知限制而曾被认为无用的数据，是大数据分析的几个重要因素。
 
--   无连接（No joins）
--   无关系型模式（No relational schema）
--   无静态模式（No static schema）
+数据科学是当今一个新兴领域，涉及从原始数据中过滤和提取信息的研究。它是人工智能和竞争情报不可或缺的一部分，而数据挖掘和分析则是与数据科学相关的其他实践。
 
-这意味着，至少从应用设计角度来看，管理工作确实减少了，开发人员和 DBA 之间“谁搞崩了服务器”的争吵可能很快就会消失。
+数据挖掘的过程是利用各种人工智能和自然语言处理相关技术，在研究大数据集后提取并定义一种模式。风险分析、行为定向和预测是部分需要数据挖掘和模式分析的大数据用例。
 
-但这并不意味着完全不需要数据库管理。NoSQL 代表“不仅是 SQL”（Not only SQL），而不是“非 SQL”（No SQL）。我们可能需要在应用建模上投入更少的精力，但核心问题如安全性、性能调优等，仍然需要处理。对于传统的关系型数据库管理系统（RDBMS），我们可能将应用逻辑嵌入到数据库层面，而对于 NoSQL，目前通常不需要这样做，或者至少不常需要。然而，随着 NoSQL 世界的发展和成熟，将需要更多的管理工作来管理那些比添加索引和创建表更重要、更复杂的事物。
+前端实现与后端实现之间的争论已持续多年。程序员和数据库架构师对此话题各有见解。拥有 Java 或其他技术经验的人可以轻松编写此类`MapReduce`实现。同样，精通数据库的开发者总是倾向于在数据库端实现此类算法。让我们尝试设想一下，`MapReduce`作业在后端程序员与应用程序员眼中会有何不同。
 
-本章将涵盖以下主题：
+图 6-1 展示了在业务层（通过编程方式）按日期统计推文数量，并将输出结果存储到数据库的`MapReduce`作业执行过程。此处`MapReduce`算法的实现在应用层。此类实现可以采用 Java 或任何其他语言。
 
--   向 Cassandra 集群添加新节点
--   替换节点
--   数据库备份与恢复
--   监控工具
+![A978-1-4842-0142-8_6_Fig1_HTML.jpg](img/A978-1-4842-0142-8_6_Fig1_HTML.jpg)
 
-### DBA 技能
+图 6-1. 描述在业务层实现推文分析标准流程的图示
 
-随着数据库世界的变化，理解管理员所需的技能集很重要。为了进行正确且有效的数据库管理，需要具备以下基本技能：
+同一用例的另一种实现方式是后端程序员或数据科学家倾向于在数据库端编写`MapReduce`脚本或函数，如图 6-2 所示。
 
--   能够基于提供的逻辑蓝图设计和建模数据库。
--   熟练掌握数据库备份和恢复流程的管理。
--   能够管理数据完整性及其高可用性。
--   确保数据安全的技能。数据库管理员负责管理不同环境（如测试环境、预发布环境和生产环境）中的数据安全层。
+![A978-1-4842-0142-8_6_Fig2_HTML.jpg](img/A978-1-4842-0142-8_6_Fig2_HTML.jpg)
 
-### 向 Cassandra 集群添加节点
+图 6-2. 描述在数据库层实现推文分析的图示
 
-在第 1 章中，我们讨论了在单台机器上配置一个三节点的 Cassandra 集群。在本节中，我们将首先启动一个包含两个节点的 Cassandra 集群，然后添加另一个节点。
+几乎对所有事情都开发此类`MapReduce`程序，不仅难以维护，而且耗时。这时，使用类似 SQL 的语言或编写简单的脚本就会非常有用。数据库管理员或科学家可能更倾向于基于数据库的方法（图 6-2）以实现快速开发。由此我们可以得出结论，此类工具确实有需求空间。例如，这些工具在实现需要对大量数据集进行提取并存储输出的定期任务时非常方便。
 
-首先，对于 `RandomPartitioner`，让我们使用令牌生成器工具为所有三个节点生成初始令牌（tokens）。该工具可以在 `$CASSANDRA_HOME/tools/bin` 目录下找到。
+这就引出了一个问题：是否有现成可用的工具或开源库？像 Apache Hive、Apache Pig 和 Sqoop 这样的工具恰好满足了这类需求。在详细探讨每种工具之前，我们先对它们进行简要介绍。
 
-```
-vivek@vivek-Vostro-3560:∼/software/local-cluster/node1$ tools/bin/token-generator
-RandomPartitioner
-令牌生成器交互模式
---------------------------------
-有多少个数据中心将参与此 Cassandra 集群？ 1
-数据中心 #1 中有多少个节点？ 3
-数据中心 #1：
-节点 #1:                                                0
-节点 #2:   56713727820156410577229101238628035242
-节点 #3:  113427455640312821154458202477256070484
-```
+Apache Pig 允许终端程序员以脚本形式编写`MapReduce`实现。Apache Pig 简单地将这种 Pig 脚本转换为兼容 Hadoop 的`MapReduce`实现。Apache Pig 提供了函数和数据类型支持，便于轻松、可复用地快速编写基于 Pig 的`MapReduce`实现。那些构建数据管道或 ETL 类解决方案的人更喜欢使用 Pig，因为它是过程性的而非声明性的。由于它并非声明性语言，你可以在工作流的任何节点创建检查点并插入自定义代码。
 
-这里 `software/local-cluster/node1` 代表 `$CASSANDRA_HOME`。如果您选择使用 `Murmur3Partitioner`，可以通过执行以下命令来生成令牌值：
+Apache Hive 使用户能够使用类似 SQL 的查询语言来管理和分析大数据集。SQL 在业界广受欢迎并得到广泛应用。通过提供类似查询的接口，即 Hive 查询语言（Hive QL），它使程序员能够快速采用 Hadoop 和 HBase 大数据平台。通常它用于基于 SQL 的即席分析。使用 Hive QL，我们可以像操作 SQL 一样执行各种 DDL 和 DML 操作。数据定义语言（DDL）用于执行创建和修改表等任务，数据操作语言（DML）用于插入和删除记录等操作。DDL 和 DML 的语义与 SQL 类似。关于 DDL 的更多信息，可以参考 [`https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-DDLOperations`](https://cwiki.apache.org/confluence/display/Hive/GettingStarted#GettingStarted-DDLOperations)。Hive 的数据分区和外部表支持为用户带来了额外优势，使其能够使用 Hive 在外部文件系统上声明和分析数据。我们将在本章后面部分讨论这一点。
 
-```
-python -c 'print [str(((2**64 / 3) * i) - 2**63) for i in range(3)]'
-```
+Sqoop 意为 SQL 到 Hadoop。基于关系型数据库构建的解决方案不具备可扩展性，用户期望迁移到基于大数据的解决方案上。首要任务是迁移现有的生产数据到另一个数据库或文件系统。这时 Apache Sqoop 就派上了大用场，可以帮助轻松地将数据从一个数据库迁移到另一个数据库。
 
-它将输出：
+现在，让我们详细探索这些工具中的每一个。先从 Apache Pig 开始。
+
+## Apache Pig
+
+Apache Pig 是一个平台，它提供了一种名为 Pig Latin 的简单脚本语言，以抽象的方式构建`MapReduce`程序。它最初是作为雅虎研究相关项目的一部分开发的，但后来在 2007 年转入了 Apache 孵化器。之所以命名为 Pig（猪），是因为它可以摄入/读取几乎任何格式的数据。
+
+### 安装与设置
+
+有两种方式可以设置 Apache Pig 发行版。可以手动下载 tarball，或者在 Linux 机器上设置第三方二进制发行版（`.deb` 或 `.rpm`）。
+
+对于 Windows，需要下载并使用 `cygwin` 设置一个类 Linux 环境。`Cygwin` 是 Windows 上的一个类 Unix 环境和命令行接口。`Cygwin` 提供了基于 Windows 的应用程序、数据和其他系统资源与类 Unix 环境中的应用程序、软件工具和数据之间的原生集成。更多详情，可以参考 [`http://en.wikipedia.org/wiki/Cygwin`](http://en.wikipedia.org/wiki/Cygwin)。你可以从 [`www.cygwin.com/install.html`](http://www.cygwin.com/install.html) 下载并设置 `cygwin`。
+
+在本章中，我们将使用 tarball 发行版进行设置和其他配置。要在本地机器上进行设置，请遵循以下步骤：
+
+首先创建一个文件夹：
 
 ```
-['-9223372036854775808', '-3074457345618258603', '3074457345618258602']
+mkdir pig-dist
+cd pig-dist
 ```
 
-下一步是配置三个节点以建立集群。关于如何设置的详细说明，请参考第 1 章中的“在单台机器上配置多节点”部分。简而言之，我们需要在相应的 `cassandra.yaml` 中修改 `listen_address`、`rpc_port`、`jmx_port`、数据目录、提交日志目录和 `native_protocol` 等配置。
-
-让我们启动这两个节点并检查环（ring）状态：
+然后，下载 tarball 发行版：
 
 ```
-vivek@vivek-Vostro-3560:∼/software/local-cluster/node2$ bin/nodetool -h 127.0.0.2 -p 7200 ring
-数据中心: datacenter1
-==========
-地址      机架       状态   状态   负载         拥有      令牌
--3074457345618258603
-127.0.0.1  rack1       Up     Normal  36.06 KB     100.00%    -9223372036854775808
-127.0.0.2  rack1       Up     Normal  45.06 KB     100.00%    -3074457345618258603
+wget http://mirrors.ibiblio.org/apache/pig/pig-0.12.1/pig-0.12.1.tar.gz
 ```
 
-您可以看到这两个节点都已启动并运行。
+注意：在撰写本章时，最新的 tarball 版本是 0.12.1。你可以根据最新版本相应地更改。
 
-让我们启动第三个节点并检查环状态：
+使用以下命令解压下载的 tarball：
 
 ```
-vivek@vivek-Vostro-3560:∼/software/local-cluster/node1$ bin/nodetool ring
-数据中心: datacenter1
-==========
-地址      机架       状态   状态   负载         拥有      令牌
-3074457345618258602
-127.0.0.1  rack1       Up     Normal  36.06 KB     66.67%     -9223372036854775808
-127.0.0.2  rack1       Up     Normal  45.06 KB     66.67%     -3074457345618258603
-127.0.0.3  rack1       Up     Normal  43.7 KB      66.67%     3074457345618258602
+tar -xvf pig-0.12.1.tar.gz
 ```
 
-所有三个节点都已启动并运行。至此，我们完成了在运行的 Cassandra 集群上添加节点的示例练习。借助 Cassandra 的环拓扑和对等（peer-to-peer）架构，让一个节点即时加入变得非常简单。此外，除了生成初始令牌值，我们也可以使用虚拟节点（virtual nodes）进行设置。
+在步骤 3 之后，`pig-dist` 文件夹将在 `pig-0.12.1` 文件夹中包含解压后的发行版，如图 6-3 所示。
 
-在 Cassandra 1.2 版本发布之前，我们需要使用令牌生成器工具为每个数据节点手动分配一个令牌范围，但现在借助虚拟节点，我们可以为每个节点分配多个令牌范围。使用 `num_tokens` 属性，我们可以为每个数据节点分配多个虚拟节点，这意味着每个节点持有大量更小的数据范围。当我们需要替换或重建一个死节点时，这非常方便。
+![A978-1-4842-0142-8_6_Fig3_HTML.jpg](img/A978-1-4842-0142-8_6_Fig3_HTML.jpg)
 
-死节点是指一个节点变得无法响应与其他节点的八卦（gossip）/内部通信。这种故障可能由网络或硬件故障引起。每个节点都可以是分布在 Cassandra 集群上的数据的主节点或副本节点。当一个死节点准备重新加入 Cassandra 环时，它必须从副本节点流式传输所有数据。如果没有虚拟节点，连续的令牌分配会引入大量开销，因为数据需要从多个主节点和副本节点流式传输。而使用虚拟节点，分配给每个节点的令牌数量更多，意味着数据分布更小、更异构，这意味着相同数量的数据可以从多个节点同时流式传输进来！显然，这将快得多。
-
-让我们通过一个示例练习来探索如何用新节点替换死节点。
+图 6-3. 本地文件夹中解压后的 tarball 发行版
 
 
+好的，请看下方根据您的要求和格式提供的翻译：
+
+
+### 理解 Pig
+
+图 6-4 展示了 Pig 的架构以及 Apache Pig 的各种组件。它描述了 Pig 脚本是如何被编译并转换为 MapReduce 作业的。通过 Pig 的架构，编写的 Pig 脚本会被编译成 MapReduce 程序，并由 Hadoop 作业管理器作为 MapReduce 作业提交。Grunt 命令 shell 是用于运行 Pig 脚本的命令行界面，而 Pig API 可用于构建自定义实现。
+
+![A978-1-4842-0142-8_6_Fig4_HTML.jpg](img/A978-1-4842-0142-8_6_Fig4_HTML.jpg)
+
+图 6-4. Apache Pig 组件与 MapReduce 作业转换
+
+在开始示例之前，我们先讨论这两种模式，然后讨论一些重要的 Pig 命令和数据类型，这些将在本章后续的练习中使用。
+
+#### Pig 执行模式
+
+Apache Pig 提供两种执行模式：
+- 本地模式
+- MapReduce 模式
+
+##### 本地模式
+
+Pig 有一个交互式 shell，我们可以以本地模式启动 Pig 的执行，这需要运行以下命令（见图 6-5）：
+
+`pig –x local`
+
+![A978-1-4842-0142-8_6_Fig5_HTML.jpg](img/A978-1-4842-0142-8_6_Fig5_HTML.jpg)
+
+图 6-5. 以本地模式启动 Pig
+
+##### MapReduce 模式
+
+在 MapReduce 模式下运行 Pig 需要 Hadoop 进程已启动并正在运行。（您可以参考第 5 章中的“从 HDFS 读取推文并将计数结果存储到 Cassandra”部分。）要以 MapReduce 模式运行 Pig，我们需要运行：
+
+`$ pig`
+
+连接后，我们还可以像下面这样使用 Grunt shell 浏览 HDFS 目录：
+
+```
+grunt> cd hdfs:///
+grunt> ls
+hdfs://0.0.0.0/tweets  <dir>
+hdfs://0.0.0.0/usr     <dir>
+```
+
+完成此设置和配置后，我们现在可以探索 Pig 提供的其他配置和功能集了。让我们从数据类型开始。
+
+#### 数据类型
+
+Pig 支持的数据类型可以分为简单数据类型和复杂数据类型。
+
+##### 简单数据类型
+
+简单数据类型，如 String、int 等，是大多数数据库普遍提供且最常使用的类型。表 6-1 展示了 Pig 支持的所有简单数据类型。
+
+表 6-1. Pig 支持的简单数据类型
+
+| 数据类型      | 描述                                   |
+|------------|--------------------------------------|
+| charArray  | UTF-8 编码的字符串（例如，Cassandra）       |
+| ByteArray  | 字节数组 (blob)                        |
+| Double     | 64 位精度格式（例如，11.9）              |
+| Float      | 32 位精度格式（例如，10.2f）             |
+| Int        | 32 位有符号整数（例如，100）              |
+| Long       | 64 位有符号整数（例如，50L）              |
+
+##### 复杂数据类型
+
+复杂数据类型，例如保存键值对的 map，更倾向于某种预定义的数据结构格式。表 6-2 展示了 Pig 支持的所有三种复杂数据类型。
+
+表 6-2. Pig 支持的复杂数据类型
+
+| 数据类型 | 描述                                                                                                                                                                                                                                |
+|------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Tuples | 元组是一个有序的数据集。可以将元组视为具有多个字段的行，这些字段可以是任何类型，并且可能有数据也可能没有数据。元组用 `()` 括起来。例如，`(Vivek,Apress,6)` 表示一个包含作者姓名、出版社和章节号的元组。                                                                         |
+| Bags  | 包是元组的集合。一个包可以包含重复的元组，并且每个元组的字段数量及其数据类型可能不同。例如，这是一个包含多个元组的包：`{(Vivek,Apress,6),(Chris,Apress,Reviewer,6),(Melissa,Apress,Coordinator,6),(Brian,Apress,Tech reviewer)}` |
+| Map   | 映射是键值对的集合。每个键值对由 `#` 分隔。例如，`[name#vivek,email#vivek.mishra@nomail.com]` 是一个包含两个键值对的映射。第一个元素的键是 `name`，值是 `vivek`；第二个元素的键是 `email`，值是 `vivek.mishra@nomail.com`。                    |
+
+#### Pig 函数
+
+Pig 带有几个内置函数。用户也可以实现自定义的用户自定义函数（UDF）。Pig 的内置函数可以进一步分类为：
+- 求值函数
+- 数学函数
+- 字符串函数
+- 存储函数
+- 包/元组函数
+
+在本节中，让我们看一些最常用的 Pig 函数。
+
+##### PigStorage
+
+以 UTF-8 格式加载数据的默认函数。`PigStorage` 的示例将在接下来的两节中给出。
+
+##### LOAD
+
+`LOAD` 函数从文件系统加载数据。默认情况下，它与 `PigStorage` 函数结合使用，如下所示：
+
+在本地文件系统的一个文件夹中（本例中为 `/home/vivek`）创建一个示例 `tweets.txt` 文件。该文件将包含以下格式的数据：
+
+`apress_team|technology|A whole bunch of new technology books about to come. Watch this space!`
+
+运行以下命令，使用 `PigStorage` 通过 Grunt shell 加载推文文件：
+
+`pipe_input = LOAD '/home/vivek/input/tweets.txt' USING PigStorage('|');`
+
+要转储 `pipe_input` 的输出（如图 6-6 所示），请运行以下命令：
+
+`dump pipe_input;`
+
+![A978-1-4842-0142-8_6_Fig6_HTML.jpg](img/A978-1-4842-0142-8_6_Fig6_HTML.jpg)
+
+图 6-6. MapReduce 程序的输出
+
+##### STORE
+
+此函数用于将中间或计算后的 Pig 脚本结果加载/输出到文件系统中的输出结果中。在以下示例中，我们读取包含由 `'|'` 分隔的字段的 `tweets.txt`，并将其存储为包含由 `','` 分隔的字段的文件（见图 6-7）。
+
+```
+pipe_input = LOAD '/home/vivek/input/tweets.txt' USING PigStorage('|') as (screen_name:chararray,category:chararray,body:chararray);
+csv_output = STORE input into '/home/vivek/output/tweets.csv' USING PigStorage(',');
+```
+
+上述命令的输出如图 6-7 所示。
+
+![A978-1-4842-0142-8_6_Fig7_HTML.jpg](img/A978-1-4842-0142-8_6_Fig7_HTML.jpg)
+
+图 6-7. 读取推文并存储到 csv 文件后的输出
+
+运行上述命令后，将在 `/home/vivek/output` 文件夹中写入一个新文件 (`part-m-00000`)，该文件将包含逗号分隔的值，如下所示：
+
+`apress_team,technology,A whole bunch of new technology books about to come. Watch this space!`
+
+此类文件是由 Pig 脚本执行的 MapReduce 作业生成的输出文件。有关 MapReduce 的更多详细信息，请参考前一章。
+
+请注意，这里我们使用了默认的存储函数 `PigStorage()`，但读者可以创建自己的 UDF 并使用它们进行存储/加载。例如，在 Cassandra 的情况下，为了将数据加载到 Cassandra 文件系统，将使用 `CSVStorage` 和 `CassandraStorage` 函数。我们将在接下来的练习中讨论 Cassandra 的 Pig 特定函数。
+
+##### FILTER
+
+`FILTER` 用于根据提供的条件选择行/元组。让我们描述一下 `pipe_input`，并根据 `screen_name` 的值为 `apress_team` 进行过滤：
+
+```
+describe pipe_input;
+filter_by_name = FILTER pipe_input BY screen_name matches 'apress_team';
+```
+
+运行此命令将过滤 `pipe_input` 中 `screen_name` 值为 `apress_team` 的实例（见图 6-8）。
+
+![A978-1-4842-0142-8_6_Fig8_HTML.jpg](img/A978-1-4842-0142-8_6_Fig8_HTML.jpg)
+
+图 6-8. FILTER 命令的输出
+
+##### FOREACH
+
+使用此函数可以遍历结果包，并将其转换为输出或中间结果（见图 6-9）。
+
+```
+similar_result = FOREACH pipe_input GENERATE(*);
+result_with_screen_name_only = FOREACH pipe_input GENERATE screen_name;
+dump result_with_screen_name_only;
+```
+
+![A978-1-4842-0142-8_6_Fig9_HTML.jpg](img/A978-1-4842-0142-8_6_Fig9_HTML.jpg)
+
+图 6-9. 运行 FOREACH 生成中间结果
+
+
+
+##### TOTUPLE
+
+`TOTUPLE` 是一个用于生成元组的函数。例如，我们可以使用 `TOTUPLE` 生成包含列名和值的元组，如图 6-10 所示。
+
+```
+screen_tuple = FOREACH pipe_input GENERATE TOTUPLE('screen_name',screen_name);
+```
+
+![A978-1-4842-0142-8_6_Fig10_HTML.jpg](img/A978-1-4842-0142-8_6_Fig10_HTML.jpg)
+
+图 6-10. 展示了生成的元组，其中 screen_name 为 apress_team
+
+前面，我们讨论了一些基本的 Pig Latin 命令。接下来，让我们通过更多示例练习来探索 Apache Pig。本章所有练习将引用包含关于 apress 推文的 tweets 文件。您可以从附件文件夹（`datafiles`）下载示例推文文件。该文件包含推文数据、屏幕名称（screen name）以及推文正文，字段之间以 `'\001'` 分隔（见图 6-11）。
+
+![A978-1-4842-0142-8_6_Fig11_HTML.jpg](img/A978-1-4842-0142-8_6_Fig11_HTML.jpg)
+
+图 6-11. 以 `'\001'` 分隔的示例推文文件
+
+### 统计推文数量
+
+在本示例中，我们将演示如何使用交互式 Grunt shell 运行各种 Pig 命令。对于中等复杂度的 Pig 脚本，我们也可能需要编写并直接以 Pig 脚本形式运行。运行 Pig 脚本的命令如下：
+
+`Pig –x local myscript.pig`
+
+此处 `myscript.pig` 是一个编译好的 Pig 脚本。我们也可以按如下方式以嵌入模式执行此类脚本：
+
+```
+// 编译为 .class 文件
+javac –cp pig.jar MyScript.java
+// 以嵌入模式作为 Java 程序运行 Pig 脚本
+java –cp:pig.jar:. MyScript
+```
+
+在本练习中，我们将探索如何使用 Apache Pig 运行 MapReduce 程序，以实现推文总数统计以及特定 `screen_name` 的推文计数。
+
+首先，使用 `PigStorage` 加载推文：
+
+```
+tweets = LOAD '/home/vivek/tweets' USING PigStorage('\ua001') as (date:chararray,screen_name:chararray,body:chararray);
+```
+
+接下来，筛选出屏幕名称为 `The News Selector` 的推文：
+
+```
+name = FILTER tweets by screen_name matches 'The News Selector';
+```
+
+使用 `GROUP` 命令对 `name` 的所有字段进行分组：
+
+```
+namegroup = group name ALL;
+```
+
+要为 `namegroup` 统计推文数量，可运行带有 `COUNT` 函数的 `FOREACH` 命令：
+
+```
+tweetCount = FOREACH namegroup generate  COUNT(name);
+dump tweetCount;
+```
+
+图 6-12 展示了将 `tweetCount` 转储到控制台的输出结果。屏幕名称 `The News Selector` 的推文数量为 6680。
+
+要将输出结果存储到文件中，我们可以使用 `CSVExcelStorage` 函数。为此，需要先在 Pig 注册表中注册该函数：
+
+![A978-1-4842-0142-8_6_Fig12_HTML.jpg](img/A978-1-4842-0142-8_6_Fig12_HTML.jpg)
+
+图 6-12. 在控制台转储 tweetCount 的输出结果
+
+```
+register '$PIG_HOME/contrib/piggybank/java/piggybank.jar' ;
+define CSVExcelStorage org.apache.pig.piggybank.storage.CSVExcelStorage();
+```
+
+在 Grunt shell 中运行这些命令后，该函数将被注册并可供使用。
+
+继续同样的练习，我们也可以按如下方式存储推文总数：
+
+```
+totalGroup = group tweets ALL;
+totalCount = foreach totalGroup generate COUNT(tweets);
+store totalCount into 'totalcount' using CSVExcelStorage(',','YES_MULTILINE');
+```
+
+在 `PIG_HOME` 目录下将创建一个名为 `tweetcount` 的文件夹，其中包含一个名为 `part-r-00000` 的文件，该文件存储了推文总数。
+
+到目前为止，我们已探索了在本地文件系统上使用 Pig 运行 MapReduce 作业。现在，让我们尝试在 Cassandra 文件系统上运行 Pig MapReduce 脚本。
+
+值得注意的是，我们可以创建复杂的 Pig 脚本，这些脚本可能最终会运行多个 MapReduce 作业。这类 Pig 脚本的一个问题是按顺序运行这些作业，从而失去了并行编程的优势。此外，您一定也注意到了在运行 Pig 脚本过程中生成的中间输出，例如加载的推文数据。
+
+### Pig 与 Cassandra 结合使用
+
+Cassandra 与 Pig 的集成相当简单。如前所述，要将 Pig Latin 脚本转换为 Cassandra 上的 MapReduce 作业，需要特定于 Cassandra 的存储函数和连接设置。默认情况下，Apache Cassandra 在其包 `org.apache.cassandra.hadoop.pig` 下提供了内建函数支持，用于与 Pig 集成。
+
+在本节中，我们将使用基于 CQL 的存储函数进行练习。读者也可以使用 `CassandraStorage` 来运行相同的练习，该函数主要针对以非 CQL 方式创建的列族。有关 CQL 与 Thrift 的更多详细信息，请参考第 1 章。
+
+第一步是为 Pig 配置 Cassandra 专用设置：
+
+```
+# cassandra 守护进程主机，
+export PIG_INITIAL_ADDRESS=localhost
+/# thrift rpc 端口
+export PIG_RPC_PORT=9160
+#配置的分区器
+export PIG_PARTITIONER=org.apache.cassandra.dht.Murmur3Partitioner
+#将 thrift 库添加到 Pig 的类路径。
+export PIG_CLASSPATH=/home/vivek/software/apache-cassandra-2.0.4/lib/libthrift-0.9.1.jar
+```
+
+#### 数据导入
+
+在本节中，我们将创建一个 Cassandra 表来存储推文，并使用 Apache Pig 将推文加载到 Cassandra 中。
+
+首先，在 Cassandra 中创建一个键空间（keyspace）和表，如下所示：
+
+```
+create keyspace twitter with replication = {'class':'SimpleStrategy','replication_factor':1};
+use twitter;
+create table twitterdata(screen_name text primary key, tweetdate text, body text);
+```
+
+以本地模式启动 Pig 并加载推文：
+
+```
+tweets = LOAD '/home/vivek/tweets' USING PigStorage('\ua001') as (date:chararray,screen_name:chararray,body:chararray);
+```
+
+您可能需要根据您的设置更改目录路径。
+
+注册 `apache-cassandra-2.0.4.jar`：
+
+```
+register '$CASSANDRA_HOME/lib/apache-cassandra-2.0.4.jar';
+define CqlStorage org.apache.cassandra.hadoop.pig.CqlStorage();
+```
+
+使用 `TOTUPLE` 生成一个元组：
+
+```
+data_to = FOREACH tweets GENERATE TOTUPLE(TOTUPLE('screen_name',screen_name)),TOTUPLE(TOTUPLE('tweetdate',date), body);
+```
+
+最后，使用 `CqlStorage` 函数将生成的元组存储到 Cassandra 中：
+
+```
+STORE data_to INTO 'cql://twitter/twitterdata?output_query=update twitterdata set tweetdate %3D%3F,body %3D%3F' USING CqlStorage();
+```
+
+最后，连接到 cql shell 并验证加载的数据（见图 6-13）：
+
+```
+Select * from twitterdata;
+```
+
+![A978-1-4842-0142-8_6_Fig13_HTML.jpg](img/A978-1-4842-0142-8_6_Fig13_HTML.jpg)
+
+图 6-13. 控制台展示了持久化到 twitterdata 表中的数据输出结果
+
+您一定已经注意到推文总数是 10,020，但 Cassandra 中的 `twitterdata` 表却填充了 11 行。原因是同一个屏幕名称对应多条推文，而该列被定义为 `twitterdata` 表的主键。
+
+在现实世界中，数据文件中完全可能存在非唯一字段，用户可能希望 Cassandra 处理唯一键的部分。我们可以通过定义一个隐式主键（类型为 `timeuuid`）并在原始数据文件外部填充它来解决此问题。在下一个练习中，我们将尝试通过引入唯一主键来解决这个问题。
+
+
+
+#### 使用 timeuuid 加载数据
+
+Pig Latin 本身不直接支持 Cassandra 数据类型，例如 `timeuuid` 和 `uuid`。但有一个名为 Pygmalion (`https://github.com/jeromatron/pygmalion`) 的开源项目，它提供了许多用于 Cassandra 的 Pig 工具。
+
+你可以通过 `git clone` 或下载压缩包 (`https://github.com/jeromatron/pygmalion/archive/master.zip`) 并在本地环境中构建它。或者，你可以在本书下载文件的 `jars` 文件夹中找到 `pygmalion-1.1.0-SNAPSHOT.jar`。
+
+首先，在 Cassandra 中创建键空间和表，步骤如下：
+
+`create keyspace twitter with replication = {'class':'SimpleStrategy','replication_factor':1};`
+
+`use twitter;`
+
+`create table twitterdata(id timeuuid primary key, screen_name text, tweetDate text, body text);`
+
+使用 `PigStorage` 加载推文：
+
+`tweets = LOAD '/home/vivek/tweets' USING PigStorage('\ua001') as`
+
+`(date:chararray,screen_name:chararray,body:chararray);`
+
+向 Pig 注册中心注册 jar 包：
+
+`register /home/vivek/Documents/apress_book/Apress/uuid-3.2.jar;`
+
+`register /home/vivek/Documents/apress_book/Apress/hector-core-0.7.0-28.jar;`
+
+`register /home/vivek/Documents/apress_book/Apress/pygmalion-1.1.0-SNAPSHOT.jar;`
+
+定义 Pig 函数：
+
+`define FromCassandraBag org.pygmalion.udf.FromCassandraBag();`
+
+`define ToCassandraBag org.pygmalion.udf.ToCassandraBag();`
+
+`define CqlStorage org.apache.cassandra.hadoop.pig.CqlStorage();`
+
+`define GenerateBinTimeUUID org.pygmalion.udf.uuid.GenerateBinTimeUUID();`
+
+使用 `GenerateBinTimeUUID` 函数生成一个包含 `timeuuid` 值标识符的元组，并从实际的推文文件中获取其他元组：
+
+`data_to = FOREACH tweets GENERATE TOTUPLE(TOTUPLE('id',GenerateBinTimeUUID())),TOTUPLE(TOTUPLE('tweetdate',date), body);`
+
+最后，将此数据加载到 Cassandra 中：
+
+`STORE data_to INTO 'cql://twitter/twitterdata?output_query=update twitterdata set tweetdate %3D%3F,body %3D%3F' USING CqlStorage();`
+
+现在，你可以查询 `twitterdata` 列族中已插入的数据：
+
+`Select * from twitterdata;`
+
+`Select count(*) from twitterdata;`
+
+到目前为止，我们已经探讨了使用 Apache Pig 将数据加载到 Cassandra 并对其运行 MapReduce 程序的多种方式。对于开发者而言，Apache Pig 非常有用，可以快速编写 Pig Latin 脚本以执行 MapReduce 程序，而无需编写冗长的原生 MapReduce 程序。
+
+在下一节中，我们将探讨如何以更常用的 SQL 方式在 Cassandra 上运行 MapReduce 分析。
+
+## Apache Hive
+
+Apache Hive 是一个为存储在 HDFS 上的海量数据提供数据分析支持的平台。Hive 提供了多种特性，如内置的 UDTF（用户自定义表函数）、UDAF（用户自定义聚合函数）、对压缩数据的分析，以及最重要的 Hive 查询语言（Hive QL）。我们将在后续章节中讨论这些函数。
+
+最初，Hive 是作为 Facebook 研究计划的一部分而开发的，后来成为 Apache 的顶级项目（TLP）。
+
+在本节中，我们将讨论 Hive 的安装、其执行模式以及与 Cassandra 的集成。
+
+### 安装与配置
+
+为了在 MapReduce 模式下安装 Hive，我们需要对 Hadoop 安装进行一些配置。请注意，关于 MapReduce 和 Hadoop 的更多详细信息，可以参考第 5 章。
+
+确保 Hadoop 中的 `JAVA_HOME` 已正确配置。你可以通过修改 `$HADOOP_HOME/conf/hadoop-env.sh` 并添加 `JAVA_HOME` 指向 `jdk` 安装目录来进行配置：
+
+`export JAVA_HOME=/usr/lib/jvm/java-7-oracle`
+
+通过运行以下命令启动 Hadoop 安装：
+
+`$HADOOP_HOME/bin/start-all.sh`
+
+请确保名称节点已正确格式化。更多详细信息请参考第 5 章。如果你遇到类似如下错误：
+
+`connect to host localhost port 22: Connection refused`
+
+你需要在你的机器上安装一个 SSH 服务器。对于 Ubuntu 系统，你可以通过运行 `sudo apt-get install openssh-server` 进行安装。
+
+![A978-1-4842-0142-8_6_Fig14_HTML.jpg](img/A978-1-4842-0142-8_6_Fig14_HTML.jpg)
+
+图 6-14。
+
+显示所有 Hadoop 进程正在运行。之后，请验证所有 Hadoop 进程是否都已正常运行（图 6-14）。
+
+接下来，你需要安装并运行 Hive：
+
+首先，从 `http://apache.mirrors.tds.net/hive/` 下载最新的 jar 包。将 tarball 解压到一个本地文件夹，并将该文件夹设置为 `HIVE_HOME`。在 `$HIVE_HOME/bin/hive.sh` 文件中设置 `HADOOP_HOME`。当 Hive 的此配置完成后，我们可以通过运行 `$HIVE_HOME/bin/hive.sh` 来启动 Hive 客户端。
+
+### 理解 UDF、UDAF 和 UDTF
+
+Hive 自带内置的用户自定义函数（UDF）、用户自定义聚合函数（UDAF）和用户自定义表函数（UDTF）。我们可以通过 Hive 客户端获取可用函数的列表并对其进行描述：
+
+`SHOW FUNCTIONS;`
+
+`DESCRIBE FUNCTION <函数名称>;`
+
+`DESCRIBE FUNCTION EXTENDED <函数名称>;`
+
+Hive 内置的 UDF 包括 `round()`、`pow()` 和 `rand()` 等函数。此外，还有如 `mapkeys` 和 `map_values` 的内置集合函数，分别返回键和值的无序列表。有关 UDF 的更多信息，请参阅 `https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inFunctions`。
+
+Hive 支持的常用内置 UDAF 包括 `count`、`min`、`max` 和 `percentile` 等函数。有关支持的聚合函数的详细列表，你也可以参考 `https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inAggregateFunctions(UDAF)`。
+
+此外，还有一些在表级别对多行数据进行操作的表生成 UDTF。例如，`explode` 函数会为每个数组元素生成一行。更多详细信息和用法，请访问 `https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF#LanguageManualUDF-Built-inTable-GeneratingFunctions(UDTF)`。
+
+### Hive 表
+
+Hive 提供了创建两种类型表的机制：
+
+*   Hive 管理表
+*   Hive 外部表
+
+对于 Hive 管理表，Hive 负责管理表的元数据和实际数据。删除此类表也会导致数据被删除。而对于外部表，其不受 Hive 管理，任何删除表的操作都不会导致数据被删除。我们将在接下来的练习中进一步探讨这些表类型。
+
+
+
+### 本地文件系统数据加载
+
+在本节中，我们将进一步讨论 Hive 的 DDL/DML 操作。在第一个练习中，我们将在 Hive 中创建一个简单的模式，并从本地文件系统加载数据。
+
+首先，我们创建一个数据库：
+
+```sql
+create database employee_store;
+```
+
+接下来，按如下方式创建一个表：
+
+```sql
+use employee_store;
+```
+
+```sql
+create table employee(person_id string, fname string) row format delimited fields terminated by ',';
+```
+
+在这里，通过一个表 DDL 操作，我们定义了字段由 `','` 分隔。
+
+我们可以按如下方式从本地文件系统加载数据：
+
+```sql
+load data local inpath '/home/vivek/Documents/apress_book/Apress/datafiles/person_store' overwrite into table employee ;
+```
+
+最后，我们可以查看已插入的数据（见图 6-15）：
+
+```sql
+select * from employee;
+```
+
+![A978-1-4842-0142-8_6_Fig15_HTML.jpg](img/A978-1-4842-0142-8_6_Fig15_HTML.jpg)
+
+图 6-15. 从员工表中获取的行
+
+我们来讨论一下基于 Hive、Hadoop 和 Cassandra 的架构会是什么样子。图 6-16 中的图像描绘了 Hive 驱动的 MapReduce 作业如何在 Cassandra 数据节点上运行。在这里，每个 Hive 查询都将被转换为一个 MapReduce 作业并提交给 Hadoop，而 Hadoop 又会依赖名称节点和元数据来识别 Cassandra 数据节点，以便在这些数据节点上本地运行相应的映射和归约任务。
+
+![A978-1-4842-0142-8_6_Fig16_HTML.jpg](img/A978-1-4842-0142-8_6_Fig16_HTML.jpg)
+
+图 6-16. 该图描绘了在 Cassandra 数据节点上运行 Hive MapReduce 的架构表示
+
+值得一提的是，在 HDFS 上运行 Hive MapReduce 作业与图 6-17 所示相同，只是数据块属于 HDFS，而非 Cassandra 节点。
+
+### HDFS 数据加载
+
+我们还可以使用 `load data` 命令从 HDFS 加载数据到 Hive 托管表中。让我们通过一个简单的练习来探索这一部分：
+
+我们使用 `put` 命令将推文文件放到 HDFS 上：
+
+```bash
+bin/hadoop fs -put /home/vivek/Documents/apress_book/Apress/datafiles/person_store /usr/vivek/employee_store/infile
+```
+
+我们可以使用 `load` 命令直接将数据加载到 HDFS 目录，如下所示：
+
+```sql
+load data inpath  '/usr/vivek/employee_store/infile' overwrite into table employee ;
+```
+
+这里的区别在于使用的是 `load data inpath` 而不是 `load data local inpath`，这使得可以将文件路径映射到 HDFS 目录（例如，`/usr/vivek/employee_store/infile`）。
+
+最后，我们可以查看已插入的数据（见图 6-17）：
+
+```sql
+select * from employee;
+```
+
+我们还可以使用条件查询，例如根据姓名获取员工信息（见图 6-18）：
+
+![A978-1-4842-0142-8_6_Fig17_HTML.jpg](img/A978-1-4842-0142-8_6_Fig17_HTML.jpg)
+
+图 6-17. 通过 Hive shell 从员工表中获取行
+
+```sql
+select * from employee where fname = 'vivek';
+```
+
+![A978-1-4842-0142-8_6_Fig18_HTML.jpg](img/A978-1-4842-0142-8_6_Fig18_HTML.jpg)
+
+图 6-18. 获取 fname 为 vivek 的行
+
+运行此类查询时，除非条件列不是分区键，否则它们会被转换为 MapReduce 作业。对分区键的查询可以直接从数据节点获取数据，并且由于数据已经按分区键进行了分区，因此不需要 MapReduce 进程。我们可以在创建表时定义分区键，如下所示：
+
+```sql
+CREATE TABLE employee (
+  fname  String,
+  lname  String,
+  emailId   String,
+  salary      FLOAT,
+)
+PARTITIONED BY (location STRING, joining_year INT, joining_month INT, joining_day INT) ;
+```
+
+任何涉及分区键所有部分的条件查询都将快速定位数据文件夹，因为数据会根据所定义的分区键自动排列到不同的文件夹中。
+
+### Hive 外部表
+
+我们还可以在 HDFS 目录上创建 Hive 外部表。如果不需要由 Hive 管理，建议创建外部表。
+
+让我们重新审视同一个推文示例，用于外部表的练习。
+
+我们使用 `put` 命令将推文文件放到 HDFS 上（见图 6-19）：
+
+```bash
+bin/hadoop fs -put /home/vivek/Documents/apress_book/Apress/datafiles/person_store /usr/vivek/employee_store/infile
+```
+
+然后，我们可以在 Hive 中基于 HDFS 位置创建一个外部表：
+
+![A978-1-4842-0142-8_6_Fig19_HTML.jpg](img/A978-1-4842-0142-8_6_Fig19_HTML.jpg)
+
+图 6-19. 包含员工记录的 Hive 目录
+
+```sql
+create external table employee_ext(person_id string, fname string) row format delimited fields terminated by ',' location 'hdfs://localhost:9000/usr/vivek/employee_store';
+```
+
+这里的 `hdfs://localhost:9000` 是 `fs.default.name` 属性的值。
+
+我们可以查看已插入的数据（见图 6-20）：
+
+```sql
+select * from employee_ext;
+```
+
+![A978-1-4842-0142-8_6_Fig20_HTML.jpg](img/A978-1-4842-0142-8_6_Fig20_HTML.jpg)
+
+图 6-20. 从 employee_ext 外部表中获取记录
+
+
+
+### Hive 与 Cassandra 的结合
+
+借助外部表支持，可以通过使用 Cassandra 特有的 `storageHandler` 实现，来利用 Hive 对 Cassandra 进行数据分析。DataStax ([`www.datastax.com`](http://www.datastax.com/)) 提供了诸如 DataStax Enterprise (DSE) 等商业产品，这些产品实现了与 Hive 等工具的无缝集成。在本章稍后的“Apache Sqoop”部分，我们将深入探讨 DSE 的相关功能。
+
+在本节中，我们将讨论开源 Apache Cassandra 与 Hive 的集成。一个可用的开源实现是 Cassandra 特有的存储处理器，可在 [`https://github.com/tuplejump/cash`](https://github.com/tuplejump/cash) 找到。你可以通过 `git clone` 或下载 zip 源码包并在本地构建以获取 jar 包。或者，你可以在 `jars` 文件夹中找到这些 jar 包作为源码附件。
+
+在我们的示例中，我们将先在 Cassandra 中创建一个表，然后在 Hive 中创建外部表，以探索通过 Cassandra 和 Hive 插入的数据。
+
+首先，我们创建一个 `twitter` 键空间和 `twitterdata` 表：
+
+```
+create keyspace twitter with replication={'class':'SimpleStrategy','replication_factor':2};
+```
+
+```
+use twitter;
+```
+
+```
+create table twitterdata(tweet_id timeuuid primary key, body text, tweeted_by text);
+```
+
+让我们使用 `insert` 命令插入几条记录：
+
+```
+insert into twitterdata(tweet_id,body,tweeted_by) values(now(),'my first tweet','@mevivs');
+```
+
+```
+insert into twitterdata(tweet_id,body,tweeted_by) values(now(),'Cassandra book:beginning cassandra development','@apress_team');
+```
+
+```
+insert into twitterdata(tweet_id,body,tweeted_by) values(now(),'Technical review position available for #Parse and #Phonegap related @Apress titles: paid','@apress_team');
+```
+
+```
+insert into twitterdata(tweet_id,body,tweeted_by) values(now(),'Android Apps Security http://t.co/5XLSObkk9f','@jhassel');
+```
+
+现在，通过配置 Cassandra 存储处理器、Thrift 和 Cassandra 特有的 jar 包，连接到 Hive shell：
+
+```
+/home/vivek/software/hive-0.9.0/bin/hive --auxpath /home/vivek/source/cash/cassandra-handler/target/hive-cassandra-1.2.9.jar:/home/vivek/.m2/repository/org/apache/cassandra/cassandra-all/1.2.9/cassandra-all-1.2.9.jar:/home/vivek/software/apache-cassandra-2.0.4/lib/libthrift-0.9.1.jar:/home/vivek/.m2/repository/org/apache/cassandra/cassandra-thrift/1.2.9/cassandra-thrift-1.2.9.jar
+```
+
+成功连接到 Hive shell 后，我们可以按如下方式创建外部表：
+
+```
+CREATE EXTERNAL TABLE twitter.twitterdata(tweet_id string, body string, tweeted_by string) STORED BY 'org.apache.hadoop.hive.cassandra.cql.CqlStorageHandler' WITH SERDEPROPERTIES ("cql.primarykey" = "message_id, author", "comment"="check", "read_repair_chance" = "0.2", "dclocal_read_repair_chance" = "0.14", "gc_grace_seconds" = "989898", "bloom_filter_fp_chance" = "0.2", "compaction" = "{'class' : 'LeveledCompactionStrategy'}", "replicate_on_write" = "false", "caching" = "all");
+```
+
+请注意，Cassandra 存储处理器项目目前尚不支持 Hive 管理的 Cassandra 表。尝试像这样创建一个 Hive 管理表：
+
+```
+CREATE TABLE twitter.twitterdata_hive(tweet_id string, body string, tweeted_by string) STORED BY 'org.apache.hadoop.hive.cassandra.cql.CqlStorageHandler' WITH SERDEPROPERTIES ("cql.primarykey" = "message_id, author", "comment"="check", "read_repair_chance" = "0.2", "dclocal_read_repair_chance" = "0.14", "gc_grace_seconds" = "989898", "bloom_filter_fp_chance" = "0.2", "compaction" = "{'class' : 'LeveledCompactionStrategy'}", "replicate_on_write" = "false", "caching" = "all");
+```
+
+将会导致如图 6-21 所示的错误。
+
+![A978-1-4842-0142-8_6_Fig21_HTML.jpg](img/A978-1-4842-0142-8_6_Fig21_HTML.jpg)
+
+图 6-21.
+
+展示了在 Hive 中为 Cassandra 创建内部表时出现的错误
+
+到目前为止，我们已经探索了通过 Hive 和 Pig 对 Cassandra 执行 MapReduce 算法的多种方式。数据分析的另一个重要方面是数据迁移，即为了可扩展性和性能，需要将现有的关系型数据库管理系统（RDBMS）数据迁移到 Cassandra。
+
+在下一节中，我们将深入探讨数据迁移的相关内容。
+
+## 数据迁移
+
+使用传统 RDBMS 构建的传统应用程序，如果希望借助 NoSQL 数据库实现可扩展性和性能，可能需要将数据从 RDBMS 迁移到 Cassandra。例如，金融应用程序希望迁移交易日志，以及那些将活动日志存储在 RDBMS 中的热门网站现在希望将这些日志迁移到 Cassandra。
+
+### 传统方式
+
+这是从 MySQL 等 RDBMS 以 CSV 格式文件导出数据并加载到 Cassandra 中最简单的方法。让我们通过一个示例练习来更详细地讨论这一点。
+
+首先，在 MySQL 中创建一个数据库和表：
+
+```
+create schema twitter;
+```
+
+```
+create table twitterdata(id varchar(20) primary key,screen_name varchar(20),body varchar(30));
+```
+
+插入一些示例推文：
+
+```
+insert into twitterdata('1','mevivs','my first tweet');
+```
+
+```
+insert into twitterdata values('2','jhassel','my first tweet');
+```
+
+```
+insert into twitterdata values('3','rfernando','my first tweet');
+```
+
+让我们从 `twitterdata` 表中导出数据：
+
+```
+select * from twitterdata INTO OUTFILE '/tmp/mysql_output.csv' Fields TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
+```
+
+接下来，在 Cassandra 中创建一个表和键空间：
+
+```
+create table ntwitterdata(id text primary key, screen_name text, bodt text);
+```
+
+最后，我们可以在 cql shell 中使用 `copy` 命令从 csv 文件复制 `twitterdata`：
+
+```
+copy twitterdata from '/tmp/mysql_output.csv';
+```
+
+这样，我们就可以通过传统方式执行数据迁移。不幸的是，这种方式是本地化的。
+
+这看起来很简单，但迁移包含多个表的完整模式（schema）呢？提供模式名称是否就足以建立隧道并迁移数据？Apache Sqoop（SQL 到 Hadoop）就是这些问题的答案。
+
+### Apache Sqoop
+
+Apache Sqoop 是一个用于将数据从关系数据库传输到 NoSQL 数据库（如 Cassandra）或分布式文件系统（如 Hadoop）的工具。Sqoop 自 2012 年起成为 Apache 的顶级项目（TLP）。当我们需要在 RDBMS 和 NoSQL（例如 Cassandra、Hadoop）之间建立数据迁移隧道时，Sqoop 非常有用。
+
+在本节中，我们将使用 DataStax 的 DSE 来演示 Sqoop 与 Cassandra 的集成。关于 DSE 设置和配置的更多详细信息，请参考以下链接：
+
+[`http://www.datastax.com/docs/datastax_enterprise3.1/reference/start_stop_dse`](http://www.datastax.com/docs/datastax_enterprise3.1/reference/start_stop_dse)
+
+[`http://www.datastax.com/docs/datastax_enterprise3.0/install/install_rpm_pkg`](http://www.datastax.com/docs/datastax_enterprise3.0/install/install_rpm_pkg)
+
+你也可以下载并解压 tarball 到本地文件夹。
+
+
+
+### 使用 Cassandra 的 Sqoop
+
+作为一个练习示例，我们将使用之前用过的相同 tweets 文件，并最终利用 DSE 的 Sqoop 支持，将数据从 MySQL 迁移到 Cassandra。
+
+首先，让我们连接到 MySQL 客户端：
+
+`mysql -u root -p –local-infile`
+
+接下来，我们将创建一个键空间 `twitter` 和表 `twitterdata`：
+
+```sql
+create keyspace twitter with replication={'class':'SimpleStrategy','replication_factor':2};
+use twitter;
+create table twitterdata(tweetdate varchar(50),screen_name varchar(50),body varchar(300), id int NOT NULL AUTO_INCREMENT, PRIMARY KEY(id));
+```
+
+让我们将 tweets 数据加载到 `twitterdata` 表中（见图 6-22）：
+
+```sql
+LOAD DATA LOCAL INFILE '/home/vivek/tweets' INTO TABLE twitterdata FIELDS TERMINATED BY 0x01 LINES TERMINATED BY '\n';
+```
+
+接下来，启动带有 Hadoop 的 DSE Cassandra：
+
+![A978-1-4842-0142-8_6_Fig22_HTML.jpg](img/A978-1-4842-0142-8_6_Fig22_HTML.jpg)  
+
+**图 6-22.** 从本地文件系统将文件加载到 Hive 表中
+
+`bin/dse cassandra -t`
+
+之后，按如下方式运行 `sqoop import`：
+
+`bin/dse sqoop import --connect jdbc:mysql://localhost/twitter --username root -P --table twitterdata --cassandra-keyspace twitter --cassandra-column-family twitterdata --cassandra-row-key id --cassandra-thrift-host localhost –cassandra-create-schema`
+
+成功导入后，让我们通过 `cassandra-cli` 探索 `twitterdata` 列族（见图 6-23）：
+
+`$DSE_HOME/bin/cassandra-cli`
+
+你可以通过 `cqlsh` 探索 `twitterdata` 表（见图 6-24）：
+
+![A978-1-4842-0142-8_6_Fig23_HTML.jpg](img/A978-1-4842-0142-8_6_Fig23_HTML.jpg)  
+
+**图 6-23.** 探索 `cassandra-cli` 中已加载的数据
+
+`$DSE_HOME/bin/cqlsh`
+
+![A978-1-4842-0142-8_6_Fig24_HTML.jpg](img/A978-1-4842-0142-8_6_Fig24_HTML.jpg)  
+
+**图 6-24.** 描述 `twitterdata` 表
+
+由此，我们得出结论，Sqoop 可以很方便地与 Cassandra 配合使用，用于数据迁移。
+
+下一章将讨论图数据库。
+
+## 本章小结
+
+以下是本章讨论主题的总结：
+
+-   配置并运行基于 Hive 的查询，以类 SQL 的方式集成和运行 MapReduce 作业。
+-   如果读者精通脚本编程并熟悉编写脚本，Pig 会非常有用。
+-   使用 Sqoop 将数据从 HDFS/MySQL 迁移到 Cassandra，反之亦然。
+
+下一章将展开新的范式——基于图的数据库的讨论。该章将讨论为什么、如何以及何时使用图数据库，最重要的是，如何结合 Cassandra 使用。
 

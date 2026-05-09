@@ -1,255 +1,402 @@
-# 类与泛型函数
+# R6 类
 
-R 实现面向对象编程的方式是通过泛型函数和类。如引言所述，R 实际上有三种系统来实现这一点，分别称为 `S3`、`S4` 和 `R6`。在本章中，我将只描述三者中最简单的 `S3` 系统，但在后续章节中会介绍另外两种系统。
+我们要看的最后一个对象系统是 R6 系统。这个系统与 S3 和 S4 非常不同，在 R 中通常也不常见，因为它引入了可变数据。在 R 中，数据通常是不可变的，任何看似修改对象的操作实际上都是通过复制数据并构造新对象来实现的。在 R 中，唯一可以修改的是环境；你不能修改数据。然而，R6 系统利用了环境来提供可以修改的对象。这在 R 中并不常见，但其语义类似于大多数其他语言中面向对象的实现方式，即方法修改对象而不是创建新对象。如果你是从其他编程语言转到 R，R6 系统可能更熟悉；但如果你更熟悉 R 本身，它引入的副作用可能会让你感到惊讶。如果有两个引用指向同一个 R6 对象，并通过其中一个变量修改它，那么另一个变量所引用的对象状态也会改变。这种情况在另外两个类系统中是不会发生的。
+
+与内置的引用类（RC）系统（也称为 R5）相比，R6 系统是这种语义的更好实现。R5 是 R 中继 S3 和 S4 对象系统之后实现的下一个对象系统的自然名称，而 S3 和 S4 最初源自 S 语言。由于 R6 具有与 R5 相同的语义，并且被认为是其更好的实现，因此我不再进一步介绍 R5。
 
 
 
-## 通用函数
+## 定义类
 
-术语“通用函数”指的是可用于多种数据类型的函数。由于 R 是动态类型语言，这意味着在运行程序之前不会进行类型一致性检查，类型检查实际上只关系到你是否能够按照函数尝试的方式操作数据。这也被称为“鸭子类型”，源自“如果它走起来像鸭子……”这一短语。如果你能对数据对象执行所需操作，那么它就具有正确的类型。通用函数发挥作用的地方在于，当你希望对不同类型的对象执行相同的语义操作，但操作的实现方式取决于具体类型时。通用函数是在不同类型的对象上以不同方式工作的函数。因此，它们也被称为多态函数。
+类通过 `R6` 包中的 `R6Class` 函数来定义。与 S4 中的 `setClass` 类似，我们需要为类指定名称，并可以使用多个可选参数来定义该类对象的外观和行为。与 S4 不同的是，我们需要捕获对 `R6Class` 调用的结果才能创建类对象。在 S4 中，这是一种约定，但只要知道类的名称，我们就能创建对象。在 R6 中，名称主要用于设置 `class` 属性，以便对象能够与 S3 的多态性进行交互。我们使用 `R6Class` 的返回值来创建对象。
 
-为了使抽象讨论更加具体，让我们考虑一个抽象数据类型，例如栈。栈由我们可以对其执行的操作定义，例如：
+举例来说，我们再次实现一个栈。这次我不会纠结于抽象超类，而是直接实现一个 `VectorStack`。一种实现方式如下：
 
-*   获取栈顶元素
-*   从栈中弹出第一个元素
-*   将新元素推入栈顶
-
-为了栈有一个基本情况，我们通常还需要一种方式来：
-
-*   创建一个空栈
-*   检查栈是否为空
-
-这五个操作定义了什么是栈，但我们可以用许多不同的方式来实现栈。通过我们可以在栈上执行的操作来定义栈，使其成为一个抽象数据类型。要实现一个栈，我们需要一个具体的实现。
-
-在静态类型编程语言中，我们会通过这些操作来定义栈的类型。具体做法取决于编程语言的类型和具体语言，但通常在静态类型的函数式语言中，你会为栈定义一个签名——即五个操作对应的函数及其类型——而在面向对象语言中，你会定义一个抽象超类。
-
-在 R 中，类型是隐式定义的，但对于栈，我们同样会定义这五个函数。这些函数将是通用的，实际上并不包含任何实现；具体实现放在栈的具体实现中。
-
-在定义栈的五个函数中，有一个是特殊的。创建一个空栈不能作为通用函数工作。当我们创建一个栈时，总是需要一个具体的实现。但其他四个可以定义为通用函数。定义通用函数需要使用`UseMethod`函数，这四个函数可以这样定义：
-
-```
-top <- function(stack) UseMethod("top")
-pop <- function(stack) UseMethod("pop")
-push <- function(stack, element) UseMethod("push")
-is_empty <- function(stack) UseMethod("is_empty")
-```
-
-这里的`UseMethod`所做的是在 S3 面向对象编程系统中分派到不同的具体函数实现。当它被调用时，它会寻找一个函数的具体实现，并使用通用函数被调用时的参数来调用它。我们稍后会看到这个查找是如何工作的。
-
-在定义通用函数时，你也可以指定“默认”函数。当`UseMethod`找不到具体实现时，这些函数会被调用。这通常在大多数情况下确实可以有一些默认行为时有用，这样并非所有具体类都需要实现它们。但是，即使它们所做的只是通知你未找到实际实现，也最好总是实现它们。例如：
-
-```
-top.default <- function(stack) .NotYetImplemented()
-pop.default <- function(stack) .NotYetImplemented()
-push.default <- function(stack, element) .NotYetImplemented()
-is_empty.default <- function(stack) .NotYetImplemented()
+```r
+library(R6)
+VectorStack <- R6Class("VectorStack",
+private = list(elements = NULL),
+public = list(
+top = function() {
+private$elements[1]
+},
+pop = function() {
+private$elements <-
+private$elements[-1]
+invisible(self)
+},
+push = function(e) {
+private$elements <-
+c(e, private$elements)
+invisible(self)
+},
+is_empty = function() {
+length(private$elements) == 0
+}
+))
 ```
 
-## 类
+这里，除了类名之外，我们还使用了 `R6Class` 的两个参数：`private` 和 `public`。这些参数用于定义类的属性，可以是存储在对象中的值，也可以是我们可以对对象调用的方法。对于这两个参数，其值都是列表。列表元素的名称为属性名称，值即为属性值。
 
-为了实现抽象数据类型的具体实现，我们需要使用类。在 S3 系统中，你只需在对象上设置一个属性来创建一个类，并将一个类分配给一个对象。类的名称就是定义它的全部，所以实际上没有涉及真正的类型检查。任何对象都可以有一个名为“class”的属性，任何字符串都可以是类的名称。
+这两个参数的区别在于，`public` 列表中的属性可以在任何地方被访问，而 `private` 列表中的属性只能在为类定义的方法中访问。在方法中，您可以通过变量 `self` 访问 `public` 列表中的元素，并通过变量 `private` 访问 `private` 列表中的属性。在这个 `VectorStack` 实现中，我们将用于存储栈的向量设为私有，并将栈接口实现为公有方法。在方法内部，我们通过 `private$elements` 访问元素，并在 `push` 和 `pop` 中通过变量 `self` 返回对象本身。我们将此对象包裹在 `invisible` 中返回，以便在调用这些方法时不会自动打印，但这并非强制要求。对于这些方法，我们完全可以不返回任何对象，但返回对象本身允许我们进行方法链式调用（如下文所示），因此这是一种良好实践。
 
-我们可以使用向量来实现栈的具体实现。要定义这个类，我们只需要为它选择一个名称。我们可以使用`vector_stack`。我们通过一个用于创建空栈的函数来创建这样的栈，在这个函数中，我们使用`class<-`修改函数设置“class”属性。
+请注意，`self` 和 `private` 对象并不是方法的参数。它们作为 R6 实现其可变对象语义的魔法的一部分，存在于函数的命名空间中。
 
+我们以这种方式创建的 `VectorStack` 对象本身并不是构造函数（如 S4 那样）。它是一个所谓的对象生成器。要创建对象，我们使用该生成器的属性 `new`，如下所示：
+
+```r
+(stack <- VectorStack$new())
+##   Public:
+##     clone: function (deep = FALSE)
+##     is_empty: function ()
+##     pop: function ()
+##     push: function (e)
+##     top: function ()
+##   Private:
+##     elements: NULL
 ```
-empty_vector_stack <- function() {
-stack <- vector("numeric")
-class(stack) <- "vector_stack"
+
+打印这个对象会显得相当冗长，但如果为类定义 `print` 方法，我们就可以修改它的显示方式。
+
+```r
+VectorStack <- R6Class("VectorStack",
+private = list(elements = NULL),
+public = list(
+# ... 其余方法
+print = function() {
+cat("栈元素：\n")
+print(private$elements)
+}
+))
+```
+
+这并不会修改现有的对象。
+
+```r
 stack
-}
-stack <- empty_vector_stack()
-stack
-## numeric(0)
-## attr(,"class")
-## [1] "vector_stack"
-attributes(stack)
-## $class
-## [1] "vector_stack"
-class(stack)
-## [1] "vector_stack"
+## 
+##   Public:
+##     clone: function (deep = FALSE)
+##     is_empty: function ()
+##     pop: function ()
+##     push: function (e)
+##     top: function ()
+##   Private:
+##     elements: NULL
 ```
 
-空栈是一个数值向量，只是因为我们需一个类型来赋予空向量，但将其他值推入其中只会强制进行类型转换，因此我们也可以将其他基本类型放入其中。它仅限于基本数据类型，因为向量不能包含复杂数据；为此，我们需要一个列表。如果需要复杂数据，我们可以轻松地将实现更改为使用列表而不是向量。
+不过，如果创建一个新对象，它就会生效。
 
-我们将通过将元素放在向量的前面来推入元素，通过获取除第一个元素外的所有元素来弹出元素，当然，通过索引第一个元素来获取栈顶。这样的实现可能如下所示：
-
-```
-top.vector_stack <- function(stack) stack[1]
-pop.vector_stack <- function(stack) {
-new_stack <- stack[-1]
-class(new_stack) <- "vector_stack"
-new_stack
-}
-push.vector_stack <- function(element, stack) {
-new_stack <- c(element, stack)
-class(new_stack) <- "vector_stack"
-new_stack
-}
-is_empty.vector_stack <- function(stack) length(stack) == 0
-```
-
-你会注意到，函数的名称由两部分组成。在“.”（点号）之前是定义栈的通用函数的名称，在点号之后是类名。这种名称格式具有语义意义；这是通用函数根据提供给它们的数据来确定应该调用哪个具体函数的方式。
-
-当通用函数调用`UseMethod`时，该函数将检查调用通用函数时使用的第一个值是否具有关联的类。如果有，它将获取该类的名称，并查看是否能找到一个函数，其名称是通用函数的名称（即传递给`UseMethod`的`name`参数，不一定是调用`UseMethod`的函数的名称），后面跟着点号和类名。如果能找到，它将调用该函数。如果不能，它将寻找一个带有`.default`后缀的函数，如果存在，则调用该函数。
-
-这种查找机制赋予了函数名称语义意义，除非你希望 R 以这种方式解释名称，否则你真的不应该在函数名中使用点号。R 中的内置函数在这方面并不谨慎——R 有很长的历史，在函数命名方面并不十分一致——但如果你不想意外地实现一个作为通用函数具体实现的函数，你就不应该这样做。
-
-因此，如果我们对一个向量栈调用`push`，那么被调用的将是`push.vector_stack`而不是`push.default`。
-
-```
-stack <- push(stack, 1)
-stack <- push(stack, 2)
-stack <- push(stack, 3)
-stack
-## [1] 1 2 3
-## attr(,"class")
-## [1] "vector_stack"
-```
-
-在`push.vector_stack`中，我们显式地设置了连接后新向量的类。如果我们不这样做，我们只会创建一个普通向量——传递给`c`的第二个参数的栈特性不会传递到连接后的向量——并且我们不会返回一个栈。通过设置新向量的类，我们确保返回一个栈。
-
-
-
-当我们移除向量的第一个元素时，类属性也不会被保留，这就是为什么我们还需要在`pop.vector_stack`函数中显式设置类。否则，我们只在第一次弹出元素时有一个栈，之后它就只是一个普通的向量了。通过显式设置类，我们确保函数返回的是一个栈，以便我们可以再次将其与泛型函数一起使用。
-
-```
-while (!is_empty(stack)) {
-stack <- pop(stack)
-}
-```
-
-剩余的两个函数，`top`和`is_empty`，并不返回栈对象，也不应该返回，所以我们不在那里设置类属性。
-
-我们可以通过将类创建代码包装在另一个函数中，来避免每次更新时（即每次返回新值时；我们实际上并不修改对象）都显式设置类属性。这样的版本可能如下所示：
-
-```
-make_vector_stack <- function(elements) {
-structure(elements, class = "vector_stack")
-}
-empty_vector_stack <- function() {
-make_vector_stack(vector("numeric"))
-}
-top.vector_stack <- function(stack) stack[1]
-pop.vector_stack <- function(stack) {
-make_vector_stack(stack[-1])
-}
-push.vector_stack <- function(stack, element) {
-make_vector_stack(c(element, stack))
-}
-is_empty.vector_stack <- function(stack) length(stack) == 0
-```
-
-当然，我们在创建更新后的栈时仍然设置类属性，只是我们通过使用`make_vector_stack`将向量转换为栈来隐式地完成。该函数使用`structure`函数来设置类属性，但除此之外，栈的表示方式和以前一样，只是一个向量。
-
-## 运行中的多态性
-
-拥有泛型函数的要点当然是，我们可以为抽象操作提供不同的实现。对于栈，我们可以尝试不同的表示。向量版本的缺点在于，每次我们返回一个修改后的栈时，都需要创建一个新的向量，这意味着要将旧向量中的所有元素复制到新向量中。这使得操作的时间复杂度与向量大小呈线性关系。使用链表，我们可以实现常数时间复杂度的操作。这样的实现可能如下所示：
-
-```
-make_list_node <- function(head, tail) {
-list(head = head, tail = tail)
-}
-make_list_stack <- function(elements) {
-structure(list(elements = elements), class = "list_stack")
-}
-empty_list_stack <- function() make_list_stack(NULL)
-top.list_stack <- function(stack) stack$elements$head
-pop.list_stack <- function(stack) make_list_stack(stack$elements$tail)
-push.list_stack <- function(stack, element) {
-make_list_stack(make_list_node(element, stack$elements))
-}
-is_empty.list_stack <- function(stack) is.null(stack$elements)
-stack <- empty_list_stack()
-stack <- push(stack, 1)
-stack <- push(stack, 2)
-stack <- push(stack, 3)
-stack
-## $elements
-## $elements$head
-## [1] 3
-##
-## $elements$tail
-## $elements$tail$head
-## [1] 2
-##
-## $elements$tail$tail
-## $elements$tail$tail$head
-## [1] 1
-##
-## $elements$tail$tail$tail
+```r
+(stack <- VectorStack$new())
+## 栈元素：
 ## NULL
-##
-##
-##
-##
-## attr(,"class")
-## [1] "list_stack"
 ```
 
-通常，在使用列表时，我们会将`NULL`用作终止列表的基本情况。当我们需要为元素关联一个类时，我们不能只包装一个列表并以这种方式使用`NULL`。你不能将类的值设为`NULL`。因此，我们将实际的列表包装在另一个列表中，并在那里设置类属性。真实的数据位于这个列表的`elements`中，但是除了必须使用这个对象的列表元素外，我们只是像通常处理链表那样处理列表表示。
+我们可以通过 `$` 索引访问栈对象的（公有）属性，如果属性是函数，则调用相应方法：
 
-我们现在有了栈接口的两种不同实现，但是——这也是拥有泛型函数的全部意义——使用栈的代码不需要知道它操作的是哪种实现，只要它仅通过泛型接口访问栈。
+```r
+stack$push(1)$push(2)$push(3)
+stack
+## 栈元素：
+## [1] 3 2 1
+while (!stack$is_empty()) stack$pop()
+stack
+## 栈元素：
+## numeric(0)
+```
 
-我们可以在下面的小函数中看到这一点，该函数通过先将所有元素推入栈中，然后再将它们弹出栈来反转元素序列。
+这里能够实现链式调用 `push`，是因为 `push` 方法返回了对象本身。与先前 `push` 返回新对象的实现不同，对于 R6 对象，现有对象会被修改。我们不需要将三次 `push` 调用的结果重新赋值给 `stack`，也不需要将 `pop` 的调用结果重新赋值给 `stack`。在这些函数中返回对象本身允许我们进行链式方法调用，其作用也仅限于此。R6 对象不是不可变的。
+
+### 对象初始化
+
+如果希望在构造对象时设置属性，我们需要比在 S4 中做更多的工作。我们不能仅使用构造函数中的命名参数；以下调用会报错：
+
+```r
+stack <- VectorStack$new(elements = 1:4)
+```
+
+要能够以这种方式初始化对象，我们需要显式编写一个函数。该函数必须是一个名为 `initialize` 的 `public` 方法。如果希望构造函数接受参数，则必须在此函数中指定参数。您不能将此函数设为 `private`；将名为 `initialize` 的函数放入 `private` 列表会报错。
+
+为了用一个元素序列初始化 `VectorStack` 对象，我们可以像下面这样实现其 `initialize` 函数：
+
+```r
+VectorStack <- R6Class("VectorStack",
+private = list(elements = NULL),
+public = list(
+initialize = function(elements = NULL) {
+private$elements <- elements
+},
+# ... 其余方法
+))
+```
+
+有了这个初始化函数，我们现在就可以构造带有初始化 `elements` 的对象了。
+
+```r
+(stack <- VectorStack$new(elements = 1:4))
+## 栈元素：
+## [1] 1 2 3 4
+```
+
+
+
+### 私有属性和公共属性
+
+栈中的元素是私有的，因此我们不能像访问公共方法那样直接访问它们。你可能会期望 `stack$elements` 会报错，但可惜并不会。
 
 ```
-stack_reverse <- function(empty, elements) {
-stack <- empty
-for (element in elements) {
-stack <- push(stack, element)
+stack$elements
+## NULL
+```
+
+这是因为使用一个不存在的键去访问列表时会返回 `NULL`，你遇到的就是这种机制。
+
+```
+list()$elements
+## NULL
+```
+
+通过下面这个小例子，我们可以看出私有属性和公共属性的区别：
+
+```
+A <- R6Class("A", public = list(x = 5), private = list(y = 13))
+```
+
+根据类 `A` 的这个定义，我们应该能够访问对象的 `x` 属性，事实也确实如此。
+
+```
+a <- A$new()
+a$x
+## [1] 5
+a$x <- 7
+a$x
+## [1] 7
+```
+
+我们也可以尝试获取 `y`，但它的行为与我们之前看到的栈的情况相同，而且我们无法修改它，因为它实际上并不是该对象的一个属性。
+
+```
+a$y
+## NULL
+a$y <- 12
+## Error in a$y <- 12: cannot add bindings to a locked environment
+a$y
+## NULL
+```
+
+一般来说，你不能像在 S3 中那样，仅通过向 `$` 索引的值赋值来为 R6 对象创建新属性。属性必须在类定义中声明。如果你尝试类似下面这样的操作，就会报错：
+
+```
+a$z <- "foo"
+```
+
+你可以修改公共数据属性，就像我们上面修改 `x` 那样，但不要企图耍小聪明去修改方法。一开始就为单个对象更改方法是非常糟糕的实践，幸运的是，在 R6 中这也是“被禁止的”，如果你尝试的话，将会收到错误提示。
+
+通常，将数据设为私有并将作为类接口一部分的方法设为公共，被认为是良好的实践。这有几个原因：如果数据只能通过类的方法来修改，那么你就能更好地控制对象的状态，并确保在调用所有方法前后，对象始终处于有效状态。但（也许更重要的是）将对象的表示方式隐藏起来，可以限制该类与使用该类的代码之间的依赖关系。如果任何代码都能访问对象的内部工作方式，那么最终很可能会有大量代码依赖于此。这意味着，如果你改变了类对象的表示方式，就必须修改所有使用该类的代码。反之，如果代码仅通过公共接口访问对象，那么只要你保持公共接口不变，就可以随心所欲地修改所有私有属性。当然，你需要修改该类的某些方法，但修改范围将被限制在类内部。
+
+在 R6 系统中，私有属性只能由你为该类定义的方法或在其子类中定义的方法访问。如果你习惯使用像 C++ 或 Java 这样的语言，这可能会让你感到惊讶。实际上，R6 中的私有属性类似于那些语言中的受保护（protected）属性，而非私有（private）属性。
+
+### 主动绑定
+
+有一种方法可以让你在语法上像访问数据属性那样，但实际上并未直接访问它们。如果你有一段代码已经使用了某个公共属性，而你想将其改为一个函数以隐藏或修改实现细节，就可以使用这种方法。如果你只是更喜欢数据属性的语法而非方法调用，也可以使用它。
+
+这是通过 `R6Class` 的 `active` 参数实现的。在这里，你可以像为 `private` 和 `public` 参数一样提供一个属性列表，但这些属性应该是函数，它们将为调用这些函数定义一种类似值的语法。
+
+举个例子，我们可以看看向量栈中的元素。我们希望可以写成 `stack$elements`，但又不想让元素变成公共的。因此，我们为 `elements` 编写一个函数并将其添加到 `active` 中。我们不能在 `private` 和 `active`（或 `public`）中使用相同的名称，所以必须先更改私有数据属性的名称，当然还要更新所有现有的方法。完成这些操作后，我们可以像这样添加 `active` 函数：
+
+```
+VectorStack <- R6Class("VectorStack",
+private = list(elements_ = NULL),
+public = list(
+# ... 方法
+),
+active = list(
+elements = function(value) {
+if (!missing(value))
+stop("elements are read-only")
+private$elements_
 }
-result <- vector(class(top(stack)), length(elements))
-for (i in seq_along(result)) {
-result[i] <- top(stack)
-stack <- pop(stack)
+))
+```
+
+`active` 列表中的函数应接受一个参数 `value`。当我们读取属性时，`value` 会缺失；当我们为属性赋值时，`value` 将包含数据。在此实现中，我们将赋值给元素视为错误，并在读取属性时返回私有的 `elements_`。
+
+这样我们就可以获取元素了：
+
+```
+stack <- VectorStack$new(elements = 1:4)
+stack$elements
+## [1] 1 2 3 4
+```
+
+同时，下面这种操作会引发错误：
+
+```
+stack$elements <- rev(1:3)
+## Error in (function (value) : elements are read-only
+```
+
+你可以使用这些 `active` 函数来修改你赋予的值，无论是为了确保对象一致性，还是为了伪造一个并非直接存储，而是隐含存在（可通过其他数据计算得出）的属性。这完全取决于你如何使用它们。
+
+## 继承
+
+在 R6 中，指定类层次结构以及将方法调用分派到最具体的方法实现的方式相对直接。我们可以以之前见过两次的三个类为例，在 R6 中实现它。要指定一个类继承自另一个类，我们使用 `R6Class` 的 `inherit` 参数；要编写一个方法的更具体版本，我们只需将该方法添加到 `public` 或 `private` 列表中。总的来说，在 R6 中编写方法和类层次结构的代码比在 S3 和 S4 中都更简单。
+
+```
+A <- R6Class("A",
+public = list(
+f = function() print("A::f"),
+g = function() print("A::g"),
+h = function() print("A::h")
+))
+B <- R6Class("B", inherit = A,
+public = list(
+g = function() print("B::g"),
+h = function() print("B::h")
+))
+C <- R6Class("C", inherit = B,
+public = list(
+h = function() print("C::h")
+))
+```
+
+实例化这些类的对象时没有意外之处；我们必须使用对象生成器中的 `new` 方法。
+
+```
+x <- A$new()
+y <- B$new()
+z <- C$new()
+```
+
+对于方法 `f`，我们只在类 `A` 中有一个实现，因此在三个对象上调用 `f` 都会调用该版本。除了方法调用的语法与 S3 和 S4 的实现不同之外，这里没有意外。
+
+```
+x$f()
+## [1] "A::f"
+y$f()
+## [1] "A::f"
+z$f()
+## [1] "A::f"
+```
+
+对于 `g`，我们在 `A` 和 `B` 中都有实现，而 `C` 对象将调用 `B` 的实现，因为这是对该类来说最具体的方法。
+
+```
+x$g()
+## [1] "A::g"
+y$g()
+## [1] "B::g"
+z$g()
+## [1] "B::g"
+```
+
+最后，对于 `h`，我们在所有三个类中都有实现，因此三个对象会调用不同的方法。
+
+```
+x$h()
+## [1] "A::h"
+y$h()
+## [1] "B::h"
+z$h()
+## [1] "C::h"
+```
+
+关于 R6 中继承和方法分派的工作原理，应该没有任何令人意外的地方。
+
+
+
+## 与 S3 交互及运算符重载
+
+我们没有为 R6 对象定义新运算符的机制，但可以利用 S3 系统来实现。由 R6 对象生成器创建的对象会被赋予一个 `class` 属性，该属性是一个列表，包含创建生成器时指定的类名以及 `"R6"`，因此我们可以为它们定义泛型函数的特化版本。
+
+我们可以像这样用 R6 实现 `modulus` 类：
+
+```
+modulus <- R6Class("modulus",
+private = list(
+  value_ = c(),
+  n_ = c()
+),
+public = list(
+  initialize = function(value, n) {
+    private$value_ <- value
+    private$n_ <- n
+  },
+  print = function() {
+    cat("模数", private$n_, "值:\n")
+    print(private$value_)
+  }
+),
+active = list(
+  value = function(value) {
+    if (missing(value)) private$value_
+    else private$value_ <- value %% private$n_
+  },
+  n = function(value) {
+    if (!missing(value)) stop("无法修改 n")
+    private$n_
+  }
+))
+(x <- modulus$new(value = 1:6, n = 3))
+## 模数 3 值:
+## [1] 1 2 3 4 5 6
+```
+
+在这个类定义中有几个要点。我们在 `private` 列表中定义了存放数据的属性，定义了初始化函数和打印函数，然后定义了两个用于访问数据的 `action` 属性。我们允许类的使用者修改 `values`，但不能修改 `n`（没有特别的理由，只是为了展示两种不同的行为）。对于 `values` 属性，我们确保在将数据存入私有变量 `values_` 之前对其进行修改。
+
+该类对象的 `class` 属性包含以下内容：
+
+```
+class(x)
+## [1] "modulus" "R6"
+```
+
+这意味着我们可以像这样使用 S3 系统为该类定义算术运算：
+
+```
+Ops.modulus <- function(e1, e2) {
+  nx <- ny <- NULL
+  if (inherits(e1, "modulus")) nx <- e1$n
+  if (inherits(e2, "modulus")) ny <- e2$n
+  if (!is.null(nx) && !is.null(ny) && nx != ny)
+    stop("类型不兼容")
+  n <- ifelse(!is.null(nx), nx, ny)
+  v1 <- e1
+  v2 <- e2
+  if (inherits(e1, "modulus")) v1 <- e1$value
+  if (inherits(e2, "modulus")) v2 <- e2$value
+  e1 <- v1 ; e2 <- v2
+  result <- NextMethod() %% n
+  modulus$new(result, n)
 }
-result
-}
-stack_reverse(empty_vector_stack(), 1:5)
-## [1] 5 4 3 2 1
-stack_reverse(empty_list_stack(), 1:5)
-## [1] 5 4 3 2 1
 ```
 
-由于`stack_reverse`函数仅通过抽象接口引用具体的栈，我们可以给它一个向量栈或列表栈，它可以在两者上执行相同的操作。只要具体的数据结构都能正确地实现抽象接口，那么仅使用泛型函数的代码就可以在任何实现上工作。
-
-一种单一的具体实现很少在所有情况下都占优势，因此，根据我们需要解决的具体问题，能够将适用于抽象数据类型的算法与具体实现相结合是有意义的。对于这两种栈实现，它们通常表现得同样好，但如上所述，栈实现具有最坏情况的二次运行时间，而列表实现具有线性运行时间。因此，对于大型栈，我们预计列表实现是最佳选择，但对于小型栈，以我们处理的方式操作列表实现有更多开销——与查找变量名和链接列表等有关——因此对于短栈，向量实现更快。
+该实现与 S3 版本略有不同，因为对象中数据的表示方式不同，但总体控制流程是相同的。有了这个定义，我们就实现了模数算术。
 
 ```
-library(microbenchmark)
-microbenchmark(stack_reverse(empty_vector_stack(), 1:10),
-stack_reverse(empty_list_stack(), 1:10))
-## Unit: microseconds
-##                                       expr
-##  stack_reverse(empty_vector_stack(), 1:10)
-##    stack_reverse(empty_list_stack(), 1:10)
-##      min       lq     mean   median       uq
-##  195.787 217.2255 245.5698 229.8335 252.4785
-##  235.270 257.0180 283.9289 271.5655 289.5300
-##       max neval cld
-##   965.714   100  a
-##  1174.888   100   b
-microbenchmark(stack_reverse(empty_vector_stack(), 1:1000),
-stack_reverse(empty_list_stack(), 1:1000))
-## Unit: milliseconds
-##                                         expr
-##  stack_reverse(empty_vector_stack(), 1:1000)
-##    stack_reverse(empty_list_stack(), 1:1000)
-##       min       lq     mean   median       uq
-##  28.22786 32.30359 37.77813 34.25044 36.49355
-##  23.38964 24.40046 26.14922 25.47550 26.65488
-##        max neval cld
-##  124.57810   100   b
-##   61.01179   100  a
+x + 1:6
+## 模数 3 值:
+## [1] 2 1 0 2 1 0
+1:6 + x
+## 模数 3 值:
+## [1] 2 1 0 2 1 0
+2 * x
+## 模数 3 值:
+## [1] 2 1 0 2 1 0
 ```
 
-绘制不同长度栈的时间使用情况图，更加明显地表明，随着栈变长，列表实现相对于向量实现变得更高效。
+如果你为 R6 类（如 `modulus`）创建子类，会得到一个同样反映该继承关系的 `class` 属性，因此 S3 的分派机制也适用于 R6 系统中的子类。
 
-![A451015_1_En_1_Fig1_HTML.jpg](img/A451015_1_En_1_Fig1_HTML.jpg)
+```
+modulus2 <- R6Class("modulus2", inherit = modulus)
+y <- modulus2$new(value = 1:2, n = 3)
+class(y)
+## [1] "modulus2" "modulus"  "R6"
+x + y
+## 模数 3 值:
+## [1] 2 1 1 0 0 2
+```
 
-图 1-1. 使用两种不同栈进行反转的时间消耗
-
-仅在栈非常短的情况下，向量实现才是可取的——二次与线性运行时间的分界点出现在非常小的 n 值时——但一般来说，不同的使用场景会有不同的首选实现。通过编写多态代码，我们确保可以更改数据结构的实现，而无需修改使用它的算法。
-
-
+话虽如此，也不要过度混用 R6 和 S3；这只会让你的代码维护者感到困惑（很可能未来的你也包括在内）。
 
