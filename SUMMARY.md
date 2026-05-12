@@ -99,6 +99,7 @@
 +   [R 应用统计学习指南](docs/learn-r-for-applied-statistics/README.md)
 +   [RStudio IDE 入门指南](docs/learn-rstudio-ide/README.md)
 +   [Salesforce Lightning 入门指南](docs/learn-salesforce-lightning/README.md)
++   [Linear Algebra Done Right 中文第四版](docs/Linear_Algebra_Done_Right_中文第四版/README.md)
 +   [将技术与你长期业务目标关联](docs/link-technology-to-your-long-terms-business-goals/README.md)
 +   [数据说话指南](docs/make-your-data-speak/README.md)
 +   [数据科学项目管理手册](docs/manage-your-ds-proj/README.md)
