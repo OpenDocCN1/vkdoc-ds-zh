@@ -1,0 +1,387 @@
+# 四、寻找意义
+
+数据分析的第三个阶段其实就是分析数据。如果没有合适的工具，很难在数据中找到意义。在这一节中，我们来看看 Python 用户可以使用的一些工具。
+
+只需几行代码，您就能够进行以下分析：
+*   计算描述性统计
+*   相互关系
+*   线性回归
+*   数据透视表
+
+## 计算聚合统计数据
+
+正如您在上一章中可能已经看到的，使用`describe`很容易获得一些汇总统计数据。让我们看看如何直接找到这些值。
+
+首先，让我们创建一些数据（`清单 4-1`）。
+
+```py
+import pandas as pd
+names = ['Bob','Jessica','Mary','John','Mel']
+grades = [76,95,77,78,99]
+GradeList = zip(names,grades)
+df = pd.DataFrame(data=GradeList,
+        columns=['Names','Grades'])
+df
+```
+
+一旦设置完成，我们就可以查看一些统计数据（`清单 4-2`）。
+
+```py
+df['Grades'].count()  # number of values
+df['Grades'].mean()   # arithmetic average
+df['Grades'].std()    # standard deviation
+df['Grades'].min()    # minimum
+df['Grades'].max()    # maximum
+df['Grades'].quantile(.25)  # first quartile
+df['Grades'].quantile(.5)   # second quartile
+df['Grades'].quantile(.75)  # third quartile
+```
+
+**Note:** 如果您试图同时执行一个单元格中的前一段代码，那么您只能看到`.quantile()`函数的输出。你必须一个一个地尝试。为了便于参考，我只是将它们组合在一起。好吗？
+
+值得注意的是，平均值不是集中趋势的唯一衡量标准。其他措施见`清单 4-3`。
+
+```py
+# computes the arithmetic average of a column
+# mean = dividing the sum by the number of values
+df['Grades'].mean()
+# finds the median of the values in a column
+# median = the middle value if they are sorted in order
+df['Grades'].median()
+# finds the mode of the values in a column
+# mode = the most common single value
+df['Grades'].mode()
+```
+
+如果您需要计算标准差，您可能还需要方差（`清单 4-4`）。
+
+```py
+# computes the variance of the values in a column
+df['Grades'].var()
+```
+
+最后，您不必指定计算统计数据的列。如果您只是对整个数据帧运行它，您将得到在所有适用的列上运行的函数（`清单 4-5`）。
+
+```py
+df.var()
+```
+
+### 轮到你了
+
+当然，在我们的数据集中，我们只有一列。尝试创建一个数据框架，并使用`清单 4-6`中的数据集计算汇总统计数据。
+
+```py
+names = ['Bob','Jessica','Mary','John','Mel']
+grades = [76,95,77,78,99]
+bsdegrees = [1,1,0,0,1]
+msdegrees = [2,1,0,0,0]
+phddegrees = [0,1,0,0,0]
+```
+
+## 计算匹配行的聚合统计信息
+
+可以只计算符合特定标准的行的描述性统计数据。首先，让我们创建一些数据（`清单 4-7`）。
+
+```py
+import pandas as pd
+names = ['Bob','Jessica','Mary','John','Mel']
+grades = [76,95,77,78,99]
+bs = [1,1,0,0,1]
+ms = [2,1,0,0,0]
+phd = [0,1,0,0,0]
+GradeList = zip(names,grades,bs,ms,phd)
+df = pd.DataFrame(data=GradeList,
+        columns=['Name','Grade','BS','MS','PhD'])
+df
+```
+
+好了，我们已经介绍了如何找到匹配一组标准的行。我们还介绍了如何计算描述性统计数据，包括一次性计算和逐个计算。如果将这两者放在一起，您将能够找到符合特定标准的数据统计。
+
+因此，要计算没有博士学位的人数，使用`清单 4-8`中所示的代码。
+
+```py
+df.loc[df['PhD']==0].count()
+```
+
+您可以以同样的方式对单个列使用任何聚合统计函数。因此，要找出那些没有博士学位的人的平均成绩，使用`清单 4-9`中的代码。
+
+```py
+df.loc[df['PhD']==0]['Grade'].mean()
+```
+
+### 轮到你了
+
+用`清单 4-10`的数据，硕士学历的人平均成绩是多少？
+
+```py
+import pandas as pd
+names = ['Bob','Jessica','Mary','John',
+        'Mel','Sam','Cathy','Henry','Lloyd']
+grades = [76,95,77,78,99,84,79,100,73]
+bs = [1,1,0,0,1,1,1,0,1]
+ms = [2,1,0,0,0,1,1,0,0]
+phd = [0,1,0,0,0,2,1,0,0]
+GradeList = zip(names,grades,bs,ms,phd)
+df = pd.DataFrame(data=GradeList,
+        columns=['Names','Grades','BS','MS','PhD'])
+df
+```
+
+## 分类数据
+
+通常，我们以随机的顺序获取数据，但需要以完全不同的顺序使用数据。我们可以使用`sort_values`函数根据我们的需要重新排列我们的数据（`清单 4-11`）。
+
+```py
+import pandas as pd
+Location = "datasets/gradedata.csv"
+df = pd.read_csv(Location)
+df.head()
+```
+
+按年龄降序排列数据帧的行（`清单 4-12`）。
+
+```py
+df = df.sort_values(by='age', ascending=0)
+df.head()
+```
+
+先按学习时间，然后按锻炼时间，以升序对数据框的行进行排序（`清单 4-13`）。
+
+```py
+df = df.sort_values(by=['grade', 'age'],
+        ascending=[True, True])
+df.head()
+```
+
+### 轮到你了
+
+你能给数据框排序吗，先按名字，年龄，再按年级排序？
+
+## 相互关系
+
+相关性是一大类包含相关性的统计关系中的任何一种，尽管在通常的用法中，它通常指的是两个变量之间的线性关系的程度。依赖性现象的常见例子包括父母及其子女的身体状况之间的相关性，以及对产品的需求与其价格之间的相关性。
+
+基本上，相关性衡量的是两个变量同向移动的紧密程度。高个子父母有高个子孩子？高度相关。戴着幸运帽，却很少打牌赢？相关性很小。随着生活水平的提高，你的储蓄水平会直线下降？高度负相关。
+
+简单吧？
+
+嗯，手工计算相关性可能有点困难，但在 Python 中是完全简单的（清单 4-14）。
+
+|   | 年龄 | 锻炼 | 小时 | 级别 |
+| :-- | :-- | :-- | :-- | :-- |
+| 年龄 | 1.000000 | -0.003643 | -0.017467 | -0.007580 |
+| 锻炼 | -0.003643 | 1.000000 | 0.021105 | 0.161286 |
+| 小时 | -0.017467 | 0.021105 | 1.000000 | 0.801955 |
+| 级别 | -0.007580 | 0.161286 | 0.801955 | 1.000000 |
+
+```python
+import pandas as pd
+Location = "datasets/gradedata.csv"
+df = pd.read_csv(Location)
+df.head()
+df.corr()
+```
+
+*Listing 4-14 Running a Correlation*
+
+绝对值最高的交叉点是最相关的列。正值是正相关的，也就是说一起涨。负值是负相关的（一个上升，另一个下降）。当然，每一列都与自身完美相关。如你所见，学习时间和成绩高度相关。
+
+### 轮到你了
+
+从清单 4-15 中的代码加载数据，并找出相关性。
+
+```python
+import pandas as pd
+Location = "datasets/tamiami.csv"
+```
+
+*Listing 4-15 Load Data from CSV*
+
+## 回归
+
+在统计建模中，回归分析是估计变量之间关系的统计过程。这是一种奇特的说法，我们使用回归来创建一个方程，该方程基于一个或几个自变量来解释因变量的值。让我们得到我们的数据（列表 4-16），
+
+```python
+import pandas as pd
+Location = "datasets/gradedata.csv"
+df = pd.read_csv(Location)
+df.head()
+```
+
+*Listing 4-16 Load Data from CSV*
+
+一旦我们有了这些，我们需要决定我们要对哪些列执行回归，以及哪个是因变量。我想试着根据年龄，运动时间，学习时间来预测成绩（列举 4-17）。
+
+```python
+import statsmodels.formula.api as sm
+result = sm.ols(
+        formula='grade ~ age + exercise + hours',
+        data=df).fit()
+result.summary()
+```
+
+*Listing 4-17 First Regression*
+
+第二行中的公式格式是您需要学习并轻松编辑的格式。它在波浪号（`~`）的左边显示了因变量，在右边显示了我们想要考虑的自变量。
+
+如果您查看从汇总中获得的结果，R 平方表示数据中可以通过回归解释的变化的百分比。0.664，即 66.4%，不错，但还不够好。p 值（这里用`P>|t|`的值表示）表示自变量对因变量没有影响的概率。我喜欢让我的 p 值小于 5%，所以唯一突出的变量是 59.5%的年龄。让我们重新运行回归，但是忽略年龄（列表 4-18）。
+
+```python
+import statsmodels.formula.api as sm
+result = sm.ols(
+        formula='grade ~ exercise + hours',
+        data=df).fit()
+result.summary()
+```
+
+*Listing 4-18 Second Regression*
+
+看看我们的新结果，我们没有改变我们的 R 平方，但我们已经消除了我们所有的高 p 值。所以，我们现在可以看看我们的系数，我们将得到一个类似于`grade = 1.916 * hours of study + .989 * hours of exercise + 58.5316`的方程。
+
+### 轮到你了
+
+创建一个新列，将性别转换为数值，如 1 表示女性，0 表示男性。你现在能把性别加入你的回归吗？这会提高你的 R 平方吗？
+
+## 无截距回归
+
+有时候，你的方程没有截距会更好。即使您的 p 值表明并非如此，这种情况也会发生。我总是尝试两种方法，就像理所当然的那样，看看 R 的平方是多少。要运行没有截距的回归，只需遵循清单 4-19。
+
+```python
+import pandas as pd
+Location = "datasets/gradedata.csv"
+df = pd.read_csv(Location)
+df.head()
+result = sm.ols(
+        formula='grade ~ age + exercise + hours - 1', data=df).fit()
+result.summary()
+```
+
+*Listing 4-19 Run Regression without Intercept*
+
+注意，是公式末尾的`- 1`告诉 Python 您希望消除截距。如果您查看结果，您会发现我们现在的 R 平方比上节课中的要高得多，并且我们也没有引起我们关注的 p 值。
+
+### 轮到你了
+
+尝试运行这些没有截距的简单回归：1. 测试成绩和年龄之间的关系；2. 测试成绩和锻炼之间的关系；第三。测试成绩和学习之间的关系。
+
+如果只能选一个，你最喜欢哪个？
+
+## 基本数据透视表
+
+数据透视表（或交叉表）彻底改变了使用 Excel 进行分析的方式。然而，与 Excel 相比，我更喜欢 Python 中的数据透视表。我们来获取一些数据（列表 4-20）。
+
+```python
+import pandas as pd
+Location = "datasets/gradedata.csv"
+df = pd.read_csv(Location)
+df.head()
+```
+
+*Listing 4-20 Load Data from CSV*
+
+最简单的是，为了得到一个数据透视表，我们需要一个数据帧和一个索引（清单 4-21）。
+
+```python
+pd.pivot_table(df, index=['gender'])
+```
+
+*Listing 4-21 Get Averages of All Numeric Columns Categorized by Gender*
+
+如您所见，`pivot_table`很聪明地假设我们想要所有数值列的平均值。如果我们只想指定一个值，我们可以这样做（清单 4-22）。
+
+| 性别 | 级别 |
+| :-- | :-- |
+| 女性的 | 82.7173 |
+| 男性的 | 82.3948 |
+
+```python
+pd.pivot_table(df,
+        values=['grade'],
+        index=['gender'])
+```
+
+*Listing 4-22 Average Grade by Gender*
+
+现在我们只看到按性别分类的平均成绩。然而，如果我们想的话，我们可以看看最小学习时间（列表 4-23）。
+
+| 性别 | 级别 |
+| :-- | :-- |
+| 女性的 | Two |
+| 男性的 | Zero |
+
+```python
+pd.pivot_table(df,
+        values=['grade'],
+        index=['gender'],
+        aggfunc='min')
+```
+
+*Listing 4-23 Minimum Grade by Gender*
+
+我们还可以向索引中添加其他列。因此，要查看按性别和年龄分类的最高等级，我们只需运行清单 4-24 中的代码。
+
+| 性别 | 年龄 | 小时 |
+| :-- | :-- | :-- |
+| 女性的 | Fourteen | Twenty |
+|   | Fifteen | Twenty |
+|   | Sixteen | Nineteen |
+|   | Seventeen | Twenty |
+|   | Eighteen | Twenty |
+|   | Nineteen | Twenty |
+| 男性的 | Fourteen | Nineteen |
+|   | Fifteen | Twenty |
+|   | Sixteen | Twenty |
+|   | Seventeen | Twenty |
+|   | Eighteen | Twenty |
+
+我们也可以有多个值列。因此，为了按性别显示平均成绩和学习时间，我们可以运行清单 4-25 中的代码。
+
+| 性别 | 级别 | 小时 |
+| :-- | :-- | :-- |
+| 女性的 | 82.7173 | Ten point nine three two |
+| 男性的 | 82.3948 | Eleven point zero four five |
+
+```python
+pd.pivot_table(df,
+        index=['gender'],
+        aggfunc='mean',
+        values=['grade','hours'])
+```
+清单 4-25 平均成绩和学习时间（按性别）
+
+我们还可以对数据子集执行数据透视表。首先，选择您的数据，然后对该选择进行标准透视。因此，为了显示 17 岁学生的平均成绩和学习时间，我们可以运行清单 4-26 中的代码。
+
+| 性别 | 级别 | 小时 |
+| :-- | :-- | :-- |
+| 女性的 | 83.599435 | 10.943503 |
+| 男性的 | 82.949721 | 11.268156 |
+
+```python
+df2 = df.loc[df['age'] == 17]
+pd.pivot_table(df2,
+        index=['gender'],
+        aggfunc='mean',
+        values=['grade','hours'])
+```
+清单 4-26 17岁学生按性别统计的平均成绩和学习时间
+
+最后，我们可以在 Python 数据透视表中包含总计，如清单 4-27 所示。
+
+| 性别 | 级别 | 小时 |
+| :-- | :-- | :-- |
+| 女性的 | 83.599435 | 10.943503 |
+| 男性的 | 82.949721 | 11.268156 |
+| 全部 | 83.272753 | 11.106742 |
+
+```python
+df2 = df.loc[df['age'] == 17]
+pd.pivot_table(df2,
+        index=['gender'],
+        aggfunc='mean',
+        values=['grade','hours'],
+        margins='True')
+```
+清单 4-27 包含总计的按性别平均成绩和学习时间
+
+### 轮到你了
+你能创建一个数据透视表来显示锻炼超过两个小时的人的性别平均分吗？
