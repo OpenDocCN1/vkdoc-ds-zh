@@ -1,0 +1,4 @@
+```
+# Print metadata
+df.printSchema()
+```
