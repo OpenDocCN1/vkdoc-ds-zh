@@ -1,0 +1,23 @@
+# M
+
+- 七大函数结构
+    - `gregexpr` 函数
+    - `grepl`
+    - `gsub`
+        - 取反方法
+        - 模式匹配/替换
+    - `regexec` 函数
+    - `regexpr` 函数
+    - `sub`
+    - 空白字符
+- 匹配测试
+- `Mutate` 数据框
+    - 删除变量 (`NULL`)
+    - IF 逻辑函数
+    - 运算符
+    - 多条件 (`case_when`)
+    - `mutate_all`
+    - `mutate_at`
+    - 数值列
+    - `transmute`
+    - 真/假重复指示变量
