@@ -1,0 +1,53 @@
+# Power BI 的 DAX 快速入门指南
+
+## 目录
+
++   [Power BI 的 DAX 快速入门指南](README.md)
+
++   [引言](up-and-running-with-dax-for-power-bi_01.md)
+
++   [在第 7 章中，我们探讨了用于生成内存中虚拟表的表表达式概念。随着你进入 DAX 更高级的领域，你会开始意识到大多数 DAX 表达式都涉及生成这些虚拟表。这些虚拟表通常是真实表的子集，用于通过编程方式筛选数据，为通过 DAX 度量值进行聚合做准备。此时，你可能会觉得 DAX 确实变得更具挑战性。这是因为你看不到虚拟表，只能想象它们的存在，而表达式内部的工作机制对我们来说大多是隐藏的。](up-and-running-with-dax-for-power-bi_02.md)
+
++   [致谢](up-and-running-with-dax-for-power-bi_03.md)
+
++   [关于作者](up-and-running-with-dax-for-power-bi_04.md)
+
++   [关于技术审校](up-and-running-with-dax-for-power-bi_05.md)
+
++   [脚注](up-and-running-with-dax-for-power-bi_06.md)
+
++   [1. 让我看看数据](up-and-running-with-dax-for-power-bi_07.md)
+
++   [当数据中出现此类值时，只要从维度中选取一个列并分析事实表中的某个列，你便会在任何视觉对象中看到结果，如图 1-7 所示。此处我们将数据放入表格视觉对象和切片器中。这里有一个“空白”酒名，它代表事实表中所有在维度中无匹配项的`WINE ID`值。即使切片器未使用关系且仅显示维度中的值，你也会在其中看到相同的结果。](up-and-running-with-dax-for-power-bi_08.md)
+
++   [2. DAX 对象、语法与格式](up-and-running-with-dax-for-power-bi_09.md)
+
++   [3. 计算列和度量值](up-and-running-with-dax-for-power-bi_10.md)
+
++   [4. 计值上下文](up-and-running-with-dax-for-power-bi_11.md)
+
++   [5. 迭代器](up-and-running-with-dax-for-power-bi_12.md)
+
++   [6. `CALCULATE` 函数](up-and-running-with-dax-for-power-bi_13.md)
+
++   [8. `ALL` 函数及其所有变体](up-and-running-with-dax-for-power-bi_14.md)
+
++   [9. 日期计算：使用 DAX 时间智能](up-and-running-with-dax-for-power-bi_15.md)
+
++   [10. 空值与零](up-and-running-with-dax-for-power-bi_16.md)
+
++   [11. 使用变量：让我们的代码更具可读性](up-and-running-with-dax-for-power-bi_17.md)
+
++   [14. 处理表之间的多重关系](up-and-running-with-dax-for-power-bi_18.md)
+
++   [15. 理解上下文转换](up-and-running-with-dax-for-power-bi_19.md)
+
++   [16. 善用上下文转换](up-and-running-with-dax-for-power-bi_20.md)
+
++   [虚拟关系：`LOOKUPVALUE` 和 `TREATAS` 函数](up-and-running-with-dax-for-power-bi_21.md)
+
++   [18. 表扩展](up-and-running-with-dax-for-power-bi_22.md)
+
++   [排版后的内容](up-and-running-with-dax-for-power-bi_23.md)
+
++   [19. `CALCULATETABLE` 函数](up-and-running-with-dax-for-power-bi_24.md)
