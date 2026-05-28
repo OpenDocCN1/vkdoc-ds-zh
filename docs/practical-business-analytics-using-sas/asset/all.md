@@ -13852,9 +13852,9 @@ In the previous equation:
 *   μ is the mean of the overall series.
 *   Y[t] -μ is the deviation at time t.
 
-Similarly, for an MA(q) series, the deviation at time t will be a factor of the errors at t, t-1, . . . . . t-p.
+Similarly, for an MA(q) series, the deviation at time t will be a factor of the errors at t, t-1, t-p.
 
-Y[t] -μ = ε[t] + b[1]*ε[t-1]+ b[2]*ε[t-2]. . . . . . . .+ b[q]*ε[t-q]
+Y[t] -μ = ε[t] + b[1]*ε[t-1]+ b[2]*ε[t-2]. . .+ b[q]*ε[t-q]
 
 You will appreciate that an AR component is a long-term trend component, while an MA component is a short-term component.
 
@@ -13884,7 +13884,7 @@ As discussed for an AP(p) series, the shape of any MA(q) series curve also depen
 
 If a process shows the properties of an auto-regressive process and a moving average process, then it is called an ARMA process. In an ARMA time-series process, the current value of the series depends on its previous values. The small deviations from the mean value in an ARMA process are a factor of the previous errors. You can think of an ARMA process as a series with both long-term trend and short-term seasonality. ARMA(p,q) is the general notation for an ARMA process, where p is the order of the AR process and q is the order of the MA process.
 
-For example, if Y[t], Y[t-1], Y[t-2], Y[t-2], Y[t-4], Y[t-5], Y[t-6], . . . . . . . . . . . . . . . . . ., Y[t-k] are the values in the time series and ε[t,] ε[t-1,] ε[t-2, . . .,] ε[t-k] are the errors at time t, t-1, t-2, . . . . t-k, respectively, then an ARMA(1,1) series is written as follows:
+For example, if Y[t], Y[t-1], Y[t-2], Y[t-2], Y[t-4], Y[t-5], Y[t-6], . . ., Y[t-k] are the values in the time series and ε[t,] ε[t-1,] ε[t-2, . . .,] ε[t-k] are the errors at time t, t-1, t-2, . . . . t-k, respectively, then an ARMA(1,1) series is written as follows:
 
 Yt = a1*Yt-1 + εt + b1*εt-1
 
@@ -13898,7 +13898,7 @@ a[1] and a[2] are the quantified impacts of Y[t-1] and Y[t-2] on Y[t], and ε[t]
 
 In the same way, the generic ARMA (p,q) series is written as follows:
 
-Y[t] = a[1]*Y[t-1] + a[2]*Y[t-2] + a[3]*Y[t-3] + . . . . .+ a[p]*Y[t-p] + ε[t] + b[1]*ε[t-1]+ b[2]*ε[t-2]. . . . . . . .+ b[q]*ε[t-q]
+Y[t] = a[1]*Y[t-1] + a[2]*Y[t-2] + a[3]*Y[t-3] + . . . . .+ a[p]*Y[t-p] + ε[t] + b[1]*ε[t-1]+ b[2]*ε[t-2]. . .+ b[q]*ε[t-q]
 
 a[1,] a[2,] a[3, . . . .] a[p] are the quantified impacts of Y[t-1],Y[t-2, . . . .] Y[t-p] on Y[t], and b[1], b[2],[. . . .] b[q] are the factors or the quantified impacts of ε[t-1] and ε[t-2 . . .] ε[t-q] on Y[t].
 
@@ -14368,7 +14368,7 @@ For the current example series, you have already identified the order of integra
 
 Model identification is one of the important steps in time-series modeling using the Box–Jenkins methodology. The final forecast accuracy will depend on how precisely you identify the model. The model identification includes finding out the type of time-series process, whether you are dealing with AR(1) or AR(2) or MA(1) or MA(2) or ARMA(1,1) or ARMA(2,1), and so on. By identifying the type of series, you will get a basic idea of the data. If it is AR, then you know that the current values of the series are dependent on the previous values. An AR series has a long-term trend. If it is MA, then the errors will have some impact. An MA series has some short-term seasonal effects. In fact, you can write the basic form of the series for ARMA(p,q) as follows:
 
-Y[t] = a[1]*Y[t-1] + a[2]*Y[t-2] + a[3]*Y[t-3] + . . . . .+ a[p]*Y[t-p] + ε[t] + b[1]*ε[t-1]+ b[2]*ε[t-2]. . . . . . . .+ b[q]*ε[t-q]
+Y[t] = a[1]*Y[t-1] + a[2]*Y[t-2] + a[3]*Y[t-3] + . . . . .+ a[p]*Y[t-p] + ε[t] + b[1]*ε[t-1]+ b[2]*ε[t-2]. . .+ b[q]*ε[t-q]
 
 Identifying the model is definitely not easy. It is not enough to look at the series graph and conclude the type and order of the series. You need some concrete metrics for identifying the type and order of a series. You need to use the auto correlation function (ACF) and partial auto correlation function (PACF) functions and plots to identify the type of the series. I will go into details of this in the following sections. First, for a better comprehension, let’s look at some time-series equations and their plots.
 
@@ -14968,9 +14968,9 @@ If you can estimate the value of a[1], then you can use this model for forecasti
 
 By now you have the model equation. You have already identified the time series as AR(p) or MA(q) or ARMA(p,q). You now have to find the model parameters. This model equation looks similar to the regression models discussed in [Chapter 10](#A978-1-4842-0043-8_10_Chapter.html) on multiple linear regressions. Just to recap, refer to the following analogy of equations.
 
-Regression equation: y = b0 + b1x1 + b2x2 + b3x3 + b4x4 + b5x5 + b6x6 . . . . . . . . + bpxp
+Regression equation: y = b0 + b1x1 + b2x2 + b3x3 + b4x4 + b5x5 + b6x6 . . . + bpxp
 
-Time-series equation: Y[t] = a[1]*Y[t-1] + a[2]*Y[t-2] + a[3]*Y[t-3] + . . . . .+ a[p]*Y[t-p] + ε[t] + b[1]*ε[t-1]+ b[2]*ε[t-2]. . . . . . . .+ b[q]*ε[t-q]
+Time-series equation: Y[t] = a[1]*Y[t-1] + a[2]*Y[t-2] + a[3]*Y[t-3] + . . . . .+ a[p]*Y[t-p] + ε[t] + b[1]*ε[t-1]+ b[2]*ε[t-2]. . .+ b[q]*ε[t-q]
 
 Like the way you found the regression coefficients, you now need to use some optimization technique to find the parameters of the time-series equation.  You can use the maximum likelihood estimator technique to guess the model parameters. This step is relatively easy. You just need to use the `estimate` option in the SAS code. You need to specify the model equation by mentioning the order.
 
