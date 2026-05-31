@@ -1,2 +1,0 @@
-# `tar -zxf mysql-connector-java-5.1.36.tar.gz`
-

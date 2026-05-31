@@ -1,5 +1,0 @@
-+   [MATLAB 和 Simulink 入门指南](README.md)
-+   [引言](beginning-matlab-and-simulink_0.md)
-+   [1. MATLAB 简介](beginning-matlab-and-simulink_1.md)
-+   [在命令窗口中工作](beginning-matlab-and-simulink_2.md)
-+   [何时使用命令窗口](beginning-matlab-and-simulink_3.md)

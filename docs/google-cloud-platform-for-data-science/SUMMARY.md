@@ -1,6 +1,0 @@
-+   [数据科学的 Google Cloud Platform](README.md)
-+   [前言](google-cloud-platform-for-data-science_1.md)
-+   [引言](google-cloud-platform-for-data-science_2.md)
-+   [排版后的内容](google-cloud-platform-for-data-science_3.md)
-+   [Dataplex API 页面的截图，在“创建新湖”选项卡下显示了显示名称、ID 和区域等输入字段。](google-cloud-platform-for-data-science_4.md)
-+   [索引](google-cloud-platform-for-data-science_5.md)
