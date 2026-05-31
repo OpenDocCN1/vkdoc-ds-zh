@@ -1,1 +1,0 @@
-# Movie: The Hobbit: The Battle of the Five Armies
