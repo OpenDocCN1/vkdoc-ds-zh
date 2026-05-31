@@ -1,0 +1,13 @@
+
+- [开发者量子计算实践指南](README.md)
+- [量子力学：怪异而精彩的世界](practical-quantum-computing-for-developers_01.md)
+- [第 3 章：进入 IBM Q Experience：独一无二的云端量子计算平台](practical-quantum-computing-for-developers_02.md)
+- [1. 奇异而迷人的量子力学世界](practical-quantum-computing-for-developers_03.md)
+- [量子计算：弯曲现实本身的结构](practical-quantum-computing-for-developers_04.md)
+- [量子计算：弯曲现实本身的结构](practical-quantum-computing-for-developers_05.md)
+- [3. 进入 IBM Q Experience：独一无二的云端量子计算平台](practical-quantum-computing-for-developers_06.md)
+- [QISKit：用于 Python 量子编程的卓越 SDK](practical-quantum-computing-for-developers_07.md)
+- [5. 启动引擎：从量子随机数到隐形传态，在超密编码处进站](practical-quantum-computing-for-developers_08.md)
+- [6. 趣玩量子游戏](practical-quantum-computing-for-developers_09.md)
+- [7. 博弈论：有了量子力学，胜算总在你这边](practical-quantum-computing-for-developers_10.md)
+- [8. 更快的搜索——用格罗弗和肖尔威胁非对称密码学的基础](practical-quantum-computing-for-developers_11.md)

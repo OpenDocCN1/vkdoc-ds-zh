@@ -1,0 +1,53 @@
+# S, T
+
+- 排序函数
+- 统计检验
+    - 数据探索
+        - `dfSummary`
+        - Hmisc
+        - Skimr
+        - `summary(airquality)`
+    - 分布
+        - 二项分布
+        - 正态随机数
+        - 泊松函数
+    - 金融函数
+    - 广义线性模型
+    - 热图
+    - 线性回归
+    - 数值变量（参见 `数值向量测试`）
+    - 数值向量
+    - 采样/放回
+    - 拆分样本（对照组 vs. 处理组）
+    - 表格输出
+        - formattable 包
+        - sjPlot 包
+- 字符串字符
+    - 格式化数字和句点
+- Stringr 函数
+    - `case` 函数
+    - `coll()`
+    - 计数数量
+    - `extract_all`
+    - `extract/match_all`
+    - 查找、计数/提取
+    - 获取/修改
+    - `glue`
+    - 反向匹配 Lubridate 修饰函数
+    - 排序
+    - 填充
+    - 正则表达式
+        - 定义
+        - 变体
+        - 正则提取
+        - 移除
+        - 替换
+    - `str_c` 函数
+    - `str_ends`
+    - `str_starts`
+    - 子集
+    - 修剪空白字符 (`str_trim`)
+    - 截断 (`str_truc`)
+    - 哪个
+    - 换行信息
+
