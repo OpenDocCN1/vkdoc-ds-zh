@@ -9,6 +9,5 @@
 +   [7. 列与导航](beginners-guide-to-streamlit-with-python_07_fmt.md)
 +   [8. 控制流与高级特性](beginners-guide-to-streamlit-with-python_08_fmt.md)
 +   [9. 自然语言处理](beginners-guide-to-streamlit-with-python_09_fmt.md)
-+   [部署](beginners-guide-to-streamlit-with-python_10_fmt.md)
 +   [10. Streamlit 中的计算机视觉](beginners-guide-to-streamlit-with-python_11_fmt.md)
 +   [索引](beginners-guide-to-streamlit-with-python_12_fmt.md)
