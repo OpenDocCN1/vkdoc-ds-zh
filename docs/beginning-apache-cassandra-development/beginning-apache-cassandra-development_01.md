@@ -667,3 +667,4 @@ Cassandra 是一种面向列的数据库，与传统的 RDBMS 截然不同。虽
 - 利用 Cassandra 的集合支持来动态添加列。
 
 在第 3 章中，我们将继续讨论，探索索引、复合列以及 Cassandra 2.0 中引入的最新特性，例如“比较并设置 (Compare and Set)”。
+

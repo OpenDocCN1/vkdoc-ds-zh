@@ -1,4 +1,4 @@
-# NoSQL：Cassandra 基础
+# 1. NoSQL：Cassandra 基础
 
 本章旨在探讨 NoSQL，让用户深入了解 NoSQL 元素，然后介绍大数据问题、分布式数据库概念，最后介绍 Cassandra 的概念。本章涵盖的主题包括：
 - NoSQL 简介
@@ -528,3 +528,4 @@ sudo ln -s /usr/java/jdk1.7.0/bin/javac /usr/bin/javac
 ## 总结
 
 本章是介绍性的，涵盖了所有通用概念和 Cassandra 特定的配置。对于应用程序开发人员来说，理解副本、数据分布的本质以及最重要的是在 Cassandra 中进行设置是非常关键的。现在我们已经准备好迎接下一个挑战：用 Cassandra 处理大数据！在下一章中，我们将讨论 Cassandra 的存储机制和数据建模。通过数据建模和理解 Cassandra 的存储架构，将有助于我们对数据集进行建模、分析并探索 Cassandra 可用的最佳方法。
+

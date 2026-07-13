@@ -627,3 +627,4 @@ public class TweetMapper extends Mapper<ByteBuffer, SortedMap<ByteBuffer, Column
 如前所述，本章中分享的所有代码片段均以完整源代码形式随本书下载资源提供。下载资源中还包含 `db.txt` 和 `README.txt`，用于指导如何配置和运行这些 Java 程序以及这些示例中使用的 Cassandra 数据定义。
 
 在本章中，我们讨论了 HDFS 和 MapReduce 及其与 Cassandra 的集成。运行 MapReduce 是大型数据分析的一种解决方案。然而，为了满足更复杂的分析需求，可能需要使用内置 API 来自动构建和执行此类 MapReduce 程序。其中两个最流行的工具是 Hive 和 Pig。下一章将讨论 Hive 和 Pig 的使用及其与 Cassandra 的集成。
+

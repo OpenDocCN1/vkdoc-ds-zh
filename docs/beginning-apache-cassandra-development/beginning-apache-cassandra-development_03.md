@@ -1,4 +1,4 @@
-# Cassandra 数据安全
+# 4. Cassandra 数据安全
 
 数据库安全意味着保护敏感数据和数据库应用程序免受未经授权的访问。数据的可扩展性和高可用性固然重要，但数据安全也同样关键！例如，金融及其他公共行业需要可扩展、高可用且安全的数据库。也就是说，许多类型的组织，尤其是金融和政府机构，都将安全性置于优先地位。
 
@@ -594,3 +594,4 @@ Cassandra.Client client = new Cassandra.Client(protocol);
 至此，我们结束了关于 Cassandra 数据安全与用户管理的讨论。
 
 下一章将更深入地探讨大数据分析，我们将讨论如何使用 Hadoop 的 MapReduce 算法进行批处理，以及如何将 Cassandra 文件系统同时用作输入和输出来在 Cassandra 上运行 MapReduce 程序！
+
