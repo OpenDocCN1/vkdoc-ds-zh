@@ -348,3 +348,4 @@ $ /path/to/spark/bin/spark-submit --class path.to.main.Class \
 YARN 允许 Spark 应用与 Hadoop MapReduce 应用共享集群资源。如果你已有运行 MapReduce 任务的现有 Hadoop 集群，可以使用 YARN 在同一集群上运行 Spark 作业。
 
 Mesos 是本章介绍的三种集群管理器中通用性最强的。它被设计用于支持多种分布式计算应用，并允许集群资源的静态和动态共享。
+

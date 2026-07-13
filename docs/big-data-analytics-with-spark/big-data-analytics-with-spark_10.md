@@ -880,3 +880,4 @@ ssc.awaitTermination()
 `Spark Streaming` 中的主要抽象是 `DStream`，它将数据流表示为一串永无止境的 `RDD` 序列。`Spark Streaming` 采用微批处理架构，将数据流按指定时间间隔拆分成多个微批次。
 
 除了 `Spark` 核心为微批次提供的所有操作外，`Spark Streaming` 还提供了对这些微批次的窗口操作。它还允许应用程序为键值对 `DStream` 中的每个不同键维护状态信息。
+

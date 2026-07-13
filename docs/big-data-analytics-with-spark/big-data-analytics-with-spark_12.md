@@ -1873,3 +1873,4 @@ val bestModel = crossValidatorModel.bestModel
 Spark 提供了两个用于大规模机器学习的库：`MLlib` 和 `Spark ML`。这两个库都为机器学习任务提供了比核心 `RDD API` 更高级别的 API。在底层，两者都使用 Spark 核心 API。`MLlib` 是 Spark 附带的第一个机器学习库。`Spark ML` 从 Spark 1.2 版本开始可用。
 
 `Spark ML` 为开发机器学习流水线或工作流提供了比 `MLlib` 更高级别的抽象。与 `MLlib` 相比，它使得构建机器学习流水线、使用 k 折交叉验证和网格搜索寻找最佳模型以及评估模型变得更加容易。
+

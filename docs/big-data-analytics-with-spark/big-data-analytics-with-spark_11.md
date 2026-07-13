@@ -1,4 +1,4 @@
-# Spark SQL
+# 7. Spark SQL
 
 易用性是 `Spark` 流行起来的原因之一。它为处理大数据提供了一种比 `Hadoop MapReduce` 更简单的编程模型。然而，精通 `Spark` 核心 API 所支持语言的人数远少于熟悉广为人知的 `SQL` 的人数。
 
@@ -2197,3 +2197,4 @@ Spark SQL 是一个 Spark 库，它简化了对结构化数据的快速分析。
 Spark SQL 为处理来自多种数据源的结构化数据提供了统一接口。它可以用于处理存储在本地文件系统、HDFS、S3、兼容 JDBC 的数据库以及 NoSQL 数据存储中的数据。它允许你使用 SQL、HiveQL 或 DataFrame API 处理来自这些数据源的数据。
 
 Spark SQL 还提供了一个支持 Thrift、JDBC 和 ODBC 客户端的分布式 SQL 查询服务器。它允许你仅使用 SQL/HiveQL 进行交互式数据分析。Spark SQL Thrift/JDBC/ODBC 服务器可以与任何支持 JDBC 或 ODBC 接口的第三方 BI 或数据可视化应用程序一起使用。
+
