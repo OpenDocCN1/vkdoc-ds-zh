@@ -1,4 +1,0 @@
-```
-# Print metadata
-df.printSchema()
-```
