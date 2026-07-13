@@ -1426,3 +1426,4 @@ select(Sepal.Length, Sepal.Width)
 回顾一下前面的`dplyr`示例。我在那里绘制了每个物种的`Sepal.Length`和`Sepal.Width`。请对`Petal.Length`和`Petal.Width`做同样的操作。
 
 如果第一个练习中你导入的数据集有类似的可操作项，也请尝试用该数据集做一下。
+

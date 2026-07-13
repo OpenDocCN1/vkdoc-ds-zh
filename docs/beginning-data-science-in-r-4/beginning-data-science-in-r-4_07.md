@@ -1556,3 +1556,4 @@ table(BreastCancer$Class, predict(model, BreastCancer))
 比较逻辑回归、神经网络、决策树、随机森林和支持向量机在 `BreastCancer` 数据上对肿瘤进行分类的表现。对于每种算法，使用你在实验中得出的最佳模型。
 
 脚注 1 2
+
