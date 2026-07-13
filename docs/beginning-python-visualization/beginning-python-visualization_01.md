@@ -1,3 +1,8 @@
+# 第 1 章
+
+![image](img/frontdot.jpg)
+
+
 # 探索数据可视化世界
 
 ## 案例研究
@@ -1058,3 +1063,4 @@ show()
 *   `pySerial`，`http://pyserial.sourceforge.net/`
 *   “数据元素和交换格式——信息交换——日期和时间的表示”，`http://www.iso.org`
 *   NMEA 0183，`http://www.nmea.org` 和 `http://www.gpsinformation.org/dale/nmea.htm`
+

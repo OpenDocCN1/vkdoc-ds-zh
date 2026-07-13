@@ -1,4 +1,4 @@
-# 第5章
+# 第 5 章
 
 ![image](img/frontdot.jpg)
 
@@ -2247,3 +2247,4 @@ Unicode 的主题非常广泛，有许多书籍对此进行了讨论。至于在
 对于本章讨论的主题，以下书籍非常有价值：
 
 *   *Python 文本处理*，作者 David Mertz (Addison-Wesley, 2003)
+
