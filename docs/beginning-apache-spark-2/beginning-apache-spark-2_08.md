@@ -671,3 +671,220 @@ userSessionSQ.stop
 处理 `file1.json` 中的用户活动后，输出中只有一行。这是符合预期的，因为每当函数 `updateAcrossAllUserActivities` 在用户活动中看到 `login` 操作时，它都会向输出 `ListBuffer` 中添加一个 `UserSessionInfo` 类的实例。处理 `file2.json` 后，输出中有两行：一行对应 `login` 操作，另一行对应 `logout` 操作。现在 `file3.json` 只包含 `user3` 的一个用户活动（操作为 `login`），但输出中包含两行。`user1` 的那一行是检测到 `user1` 会话已超时的结果，这意味着由于 `user1` 缺乏活动，水印已超过该特定会话的超时值。
 
 如前两个用例所示，结构化流中的任意状态处理功能提供了一种灵活且强大的方式，可以在每个分组上应用用户定义的处理逻辑，并完全控制向输出发送的内容和时机。
+
+# 处理重复数据
+
+数据去重是数据处理领域的常见需求，在批处理中实现起来并不困难。但在流处理中，由于流式数据的无界特性，这一任务更具挑战性。实时流式数据中的重复数据，通常是因为数据生产者在不稳定的网络连接下，为确保特定数据被发送和处理而多次发送同一数据所致。
+
+幸运的是，Structured Streaming 让流式应用能够轻松实现数据去重，这些应用可以通过在数据到达时丢弃重复数据，从而保证精确一次处理。Structured Streaming 提供的数据去重功能可以配合水印使用，也可以不配合。但需要注意的关键点是，在不指定水印的情况下进行数据去重时，Structured Streaming 需要维护的状态会随着流式应用的生命周期无限增长，这可能导致内存溢出问题。使用水印后，早于水印的延迟数据会被自动丢弃，以避免任何重复的可能性。
+
+Structured Streaming 执行数据去重的 API 非常简单，它只有一个输入参数，即用于唯一标识每一行的列名列表。这些列的值将用于执行重复检测，Structured Streaming 会将其作为中间状态存储。用于演示数据去重功能的示例数据与移动事件数据具有相同的模式。计数聚合将基于 `id` 列的分组进行。`id` 和 `ts` 列都用作去重的用户自定义键。此示例的数据位于 `<path>/chapter7/data/deduplication` 目录下，包含两个文件：`file1.json` 和 `file2.json`。这些文件的内容如代码清单 7-19 所示。
+
+```
+// file1.json - 每一行在 id 和 ts 列上都是唯一的
+{"id":"phone1","action":"open","ts":"2018-03-02T10:15:33"}
+{"id":"phone2","action":"open","ts":"2018-03-02T10:22:35"}
+{"id":"phone3","action":"open","ts":"2018-03-02T10:23:50"}
+// file2.json - 前两行与上面 file1.json 的前两行重复
+// 第三行是唯一的
+// 第四行是唯一的，但它是延迟到达的，因此不会被处理
+{"id":"phone1","action":"open","ts":"2018-03-02T10:15:33"}
+{"id":"phone2","action":"open","ts":"2018-03-02T10:22:35"}
+{"id":"phone4","action":"open","ts":"2018-03-02T10:29:35"}
+{"id":"phone5","action":"open","ts":"2018-03-02T10:01:35"}
+```
+代码清单 7-19
+数据去重示例的样本数据
+
+为了模拟数据去重，首先在 `<path>/chapter7/data` 目录下创建一个名为 `input` 的目录。然后运行代码清单 7-20 中的代码。下一步是将 `file1.json` 文件复制到 `input` 目录并检查输出。最后一步是将 `file2.json` 文件复制到 `input` 目录并检查输出。
+
+```scala
+import org.apache.spark.sql.types._
+import org.apache.spark.sql.functions._
+val mobileDataSchema = new StructType().add("id", StringType, false)
+.add("action", StringType, false)
+.add("ts", TimestampType, false)
+// mobileDataSchema 在前一个示例中定义
+val mobileDupSSDF = spark.readStream.schema(mobileDataSchema)
+.json("/chapter7/data/deduplication")
+val windowCountDupDF = mobileDupSSDF.withWatermark("ts", "10 minutes")
+.dropDuplicates("id", "ts")
+.groupBy("id").count
+val mobileMemoryDupSQ = windowCountDupDF.writeStream
+.format("console")
+.option("truncate", "false")
+.outputMode("update")
+.start()
+// 将 file1.json 复制到 input 目录后的输出
++-------+------+
+|     id| count|
++-------+------+
+| phone3|     1|
+| phone1|     1|
+| phone2|     1|
++-------+------+
+// 将 file2.json 复制到 input 目录后的输出
++-------+------+
+|     id| count|
++-------+------+
+| phone4|     1|
++-------+------+
+```
+代码清单 7-20
+使用 `dropDuplicates` API 进行数据去重
+
+正如预期，将 `file2.json` 复制到 `input` 目录后，控制台只显示了一行。原因是前两行与 `file1.json` 的前两行重复，因此被过滤掉了。最后一行的时间戳为 10:10，由于该时间戳早于十分钟的水印阈值，因此被视为延迟数据，未被处理并被丢弃。
+
+## 容错
+
+在开发重要的流式应用并将其部署到生产环境时，最关键的考虑因素之一是故障恢复。根据墨菲定律，凡是可能出错的事就一定会出错。机器会故障，软件也会有缺陷。幸运的是，Structured Streaming 提供了一种在发生故障时重启或恢复流式应用的方法，并且应用会从上次中断的地方继续执行。要利用这种恢复机制，你需要在设置流式查询时指定检查点位置，从而为流式应用配置检查点和预写日志。理想情况下，检查点位置应该是 HDFS 或 S3 等可靠且容错的文件系统上的路径。Structured Streaming 会定期将所有进度信息（例如正在处理的数据的偏移量详情和中间状态值）保存到检查点位置。为流式查询添加检查点位置非常简单。你只需在流式查询中添加一个选项，将 `checkpointLocation` 作为名称，路径作为值即可。参见代码清单 7-21 中的示例。
+
+```scala
+val userSessionSQ = userSessionDS.writeStream.format("console")
+.option("truncate",false)
+.option("checkpointLocation","/reliable/location")
+.outputMode("append")
+.start()
+```
+代码清单 7-21
+为流式查询添加 `checkpointLocation` 选项
+
+如果你查看指定的检查点位置，应该会看到以下子目录：`commits`、`metadata`、`offsets`、`sources` 和 `stats`。这些目录中的信息特定于某个流式查询，因此每个查询必须使用不同的检查点位置。
+
+与大多数软件应用一样，流式应用会随着时间推移而演变，原因可能是需要改进处理逻辑或性能，或是修复缺陷。重要的是要记住这可能会如何影响保存在检查点位置的信息，并了解哪些更改被认为是安全的。广义上讲，有两类更改：一类是流式应用代码的更改，另一类是 Spark 运行时的更改。
+
+### 流式应用代码更改
+
+检查点位置中的信息被设计为对流式应用的更改具有一定弹性。有几种类型的更改将被视为不兼容的更改。第一种是更改聚合方式，例如更改键列、添加更多键列或移除现有键列之一。第二种是更改用于存储中间状态的类结构，例如，当移除某个字段或将字段类型从字符串更改为整数时。如果在重启期间检测到不兼容的更改，Structured Streaming 会通过异常通知你。在这种情况下，你必须使用新的检查点位置，或者清除之前检查点位置中的内容。
+
+### Spark 运行时变更
+
+检查点格式被设计为向前兼容，以便流式应用程序能够在 Spark 的补丁版本或次要版本更新（例如，从 Spark 2.2.0 升级到 2.2.1，或从 Spark 2.2.*x* 升级到 2.3.*x*）后，从旧的检查点重新启动。唯一的例外是当存在关键的错误修复时。需要注意的是，当 Spark 引入不兼容的更改时，会在发布说明中明确记录。
+
+如果由于不兼容问题而无法使用现有的检查点位置启动流式应用程序，那么您将需要使用新的检查点位置，并且可能还需要为您的应用程序提供一些关于从何处读取数据的偏移量信息。
+
+## 流式查询指标与监控
+
+与在线服务等其他长时间运行的应用程序类似，了解流式应用程序的进度、传入数据速率或中间状态消耗的内存量非常重要。Structured Streaming 提供了几个 API 来提取有关最近执行进度的信息，以及一种异步监控流式应用程序中所有流式查询的方法。
+
+### 流式查询指标
+
+在任何时刻，关于流式查询最基本有用的信息是其当前状态。您可以通过调用 `StreamingQuery.status` 函数来检索并以人类可读的格式显示此信息。返回的对象类型为 `StreamingQueryStatus`，它可以轻松地将状态信息转换为 JSON 格式。清单 7-22 展示了状态信息的一个示例。
+
+```scala
+// 使用上面示例中的流式查询
+userSessionSQ.status
+// 输出
+res11: org.apache.spark.sql.streaming.StreamingQueryStatus =
+{
+"message" : "等待数据到达",
+"isDataAvailable" : false,
+"isTriggerActive" : false
+}
+```
+清单 7-22
+JSON 格式的查询状态信息
+
+显然，上述状态提供了在调用状态函数时流式查询中正在发生的基本信息。要获取最近进度的更多详细信息，例如传入数据速率、处理速率、水印、数据源的偏移量以及有关中间状态的一些信息，您可以调用 `StreamingQuery.recentProgress` 函数。此函数返回一个 `StreamingQueryProgress` 类实例的数组，该类可以将详细信息转换为 JSON 格式。默认情况下，每个流式查询配置为保留 100 个进度更新，可以通过更新名为 `spark.sql.streaming.numRecentProgressUpdates` 的 Spark 配置来更改此数字。要查看最近的流式查询进度，可以调用 `StreamingQuery.lastProgress` 函数。清单 7-23 展示了一个流式查询进度的示例。
+
+```json
+{
+"id" : "9ba6691d-7612-4906-b64d-9153544d81e9",
+"runId" : "c6d79bee-a691-4d2f-9be2-c93f3a88eb0c",
+"name" : null,
+"timestamp" : "2018-04-23T17:20:12.023Z",
+"batchId" : 0,
+"numInputRows" : 3,
+"inputRowsPerSecond" : 250.0,
+"processedRowsPerSecond" : 1.728110599078341,
+"durationMs" : {
+"addBatch" : 1548,
+"getBatch" : 8,
+"getOffset" : 36,
+"queryPlanning" : 110,
+"triggerExecution" : 1736,
+"walCommit" : 26
+},
+"eventTime" : {
+"avg" : "2017-09-06T15:10:04.666Z",
+"max" : "2017-09-06T15:11:10.000Z",
+"min" : "2017-09-06T15:08:53.000Z",
+"watermark" : "1970-01-01T00:00:00.000Z"
+},
+"stateOperators" : [ {
+"numRowsTotal" : 1,
+"numRowsUpdated" : 1,
+"memoryUsedBytes" : 16127
+} ],
+"sources" : [ {
+"description" : "FileStreamSource[file:/chapter7/data/input]",
+"startOffset" : null,
+"endOffset" : {
+"logOffset" : 0
+},
+"numInputRows" : 3,
+"inputRowsPerSecond" : 250.0,
+"processedRowsPerSecond" : 1.728110599078341
+} ],
+"sink" : {
+"description" : "org.apache.spark.sql.execution.streaming.ConsoleSinkProvider@37dc4031"
+}
+}
+```
+清单 7-23
+流式查询进度详情
+
+查看前面示例流式进度中的详细信息，有几个重要的关键指标需要注意。输入速率表示从输入源流入流式应用程序的传入数据量。处理速率告诉您流式应用程序处理传入数据的速度。在理想状态下，处理速率应高于输入速率，如果不是这种情况，则需要考虑扩展 Spark 集群中的节点数量。如果流式应用程序通过 `groupBy` 转换隐式地或通过任意状态处理 API 显式地维护状态，那么关注 `stateOperators` 部分中的指标就很重要。
+
+Spark UI 在作业、阶段和任务级别提供了丰富的指标集。流式应用程序中的每个触发器都映射到 Spark UI 中的一个作业，可以轻松检查查询计划和任务持续时间。
+
+### 注意
+
+流式查询状态和进度详情可通过流式查询的实例获得。当您的流式应用程序在生产环境中运行时，您无法方便地访问这些流式查询。如果您想从远程主机查看这些信息怎么办？一种选择是在您的流式应用程序中嵌入一个小的 HTTP 服务器，并公开几个简单的 URL 来检索这些信息。
+
+### 监控流式查询
+
+Structured Streaming 提供了一种回调机制，用于异步接收流式应用程序中流式查询的事件和进度。这是通过 `StreamingQueryListener` 接口完成的，该接口会告知流式查询何时启动、何时取得进展以及何时终止。此接口的实现可以控制如何处理提供的信息。一个明显的实现是将此信息发送到 Kafka 主题或其他发布-订阅系统，用于离线分析或供另一个流式应用程序处理。清单 7-24 包含 `StreamingQueryListener` 接口的一个简单实现；它将信息打印到控制台。
+
+```scala
+import org.apache.spark.sql.streaming.StreamingQueryListener
+import org.apache.spark.sql.streaming.StreamingQueryListener.{QueryStartedEvent, QueryProgressEvent, QueryTerminatedEvent}
+class ConsoleStreamingQueryListener extends StreamingQueryListener {
+override def onQueryStarted(event: QueryStartedEvent): Unit = {
+println(s"流式查询已启动: ${event.id} - ${event.name} - ${event.runId}")
+}
+override def onQueryProgress(event: QueryProgressEvent): Unit = {
+println(s"流式查询进度: ${event.progress}")
+}
+override def onQueryTerminated(event: QueryTerminatedEvent): Unit = {
+println(s"流式查询已终止: ${event.id} - ${event.runId}")
+}
+}
+```
+清单 7-24
+`StreamingQueryListener` 接口的简单实现
+
+一旦您有了 `StreamingQueryListener` 的实现，下一步就是将其注册到 `StreamQueryManager`，它可以处理多个监听器。请参阅清单 7-25 了解如何注册和注销监听器。
+
+```scala
+val listener = new ConsoleStreamingQueryListener
+// 注册
+spark.streams.addListener(listener)
+// 注销
+spark.streams.removeListener(listener)
+```
+清单 7-25
+使用 `StreamQueryManager` 注册和注销 `StreamingQueryListener` 实例
+
+需要记住的一点是，每个监听器都会接收来自流式应用程序中所有流式查询的流式查询事件。如果需要对某个特定的流式查询应用特定的事件处理逻辑，则可以利用流式查询的名称。
+
+## 摘要
+
+Spark Structured Streaming 引擎提供了许多高级功能以及构建复杂精密流式应用程序的灵活性。
+
+- 任何严肃的流式处理引擎都必须支持按事件时间处理传入数据的能力。Structured Streaming 不仅支持此功能，还支持基于固定窗口和滑动窗口的窗口聚合。此外，它还会以容错方式自动维护中间状态。
+- 随着流式应用程序处理越来越多的数据，维护中间状态会带来内存耗尽的风险。引入水印机制是为了更容易地处理延迟数据，并移除不再需要的中间状态。
+- 任意有状态处理支持用户自定义方式处理每个组的值并维护其中间状态。Structured Streaming 通过回调 API 提供了一种简单的方法来实现这一点，并且每个组可以灵活地向输出生成一行或多行。
+- Structured Streaming 提供端到端的精确一次（exactly-once）保证。这是通过使用检查点和预写日志机制实现的。只需提供一个位于容错文件系统上的检查点位置，即可轻松启用这两种机制。流式应用程序可以通过读取保存在检查点位置的信息，轻松重启并从故障发生前的状态继续运行。
+- 生产级流式应用程序需要能够洞察流式查询的状态和指标。Structured Streaming 提供流式查询状态的简短摘要，以及关于传入数据速率、处理速率以及中间状态内存消耗的一些详细指标。要监控所有流式查询的生命周期及其详细进度，您可以注册一个或多个 `StreamingQueryListener` 接口的实例。
+

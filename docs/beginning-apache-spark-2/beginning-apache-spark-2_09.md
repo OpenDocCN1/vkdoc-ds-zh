@@ -1,219 +1,3 @@
-# 处理重复数据
-
-数据去重是数据处理领域的常见需求，在批处理中实现起来并不困难。但在流处理中，由于流式数据的无界特性，这一任务更具挑战性。实时流式数据中的重复数据，通常是因为数据生产者在不稳定的网络连接下，为确保特定数据被发送和处理而多次发送同一数据所致。
-
-幸运的是，Structured Streaming 让流式应用能够轻松实现数据去重，这些应用可以通过在数据到达时丢弃重复数据，从而保证精确一次处理。Structured Streaming 提供的数据去重功能可以配合水印使用，也可以不配合。但需要注意的关键点是，在不指定水印的情况下进行数据去重时，Structured Streaming 需要维护的状态会随着流式应用的生命周期无限增长，这可能导致内存溢出问题。使用水印后，早于水印的延迟数据会被自动丢弃，以避免任何重复的可能性。
-
-Structured Streaming 执行数据去重的 API 非常简单，它只有一个输入参数，即用于唯一标识每一行的列名列表。这些列的值将用于执行重复检测，Structured Streaming 会将其作为中间状态存储。用于演示数据去重功能的示例数据与移动事件数据具有相同的模式。计数聚合将基于 `id` 列的分组进行。`id` 和 `ts` 列都用作去重的用户自定义键。此示例的数据位于 `<path>/chapter7/data/deduplication` 目录下，包含两个文件：`file1.json` 和 `file2.json`。这些文件的内容如代码清单 7-19 所示。
-
-```
-// file1.json - 每一行在 id 和 ts 列上都是唯一的
-{"id":"phone1","action":"open","ts":"2018-03-02T10:15:33"}
-{"id":"phone2","action":"open","ts":"2018-03-02T10:22:35"}
-{"id":"phone3","action":"open","ts":"2018-03-02T10:23:50"}
-// file2.json - 前两行与上面 file1.json 的前两行重复
-// 第三行是唯一的
-// 第四行是唯一的，但它是延迟到达的，因此不会被处理
-{"id":"phone1","action":"open","ts":"2018-03-02T10:15:33"}
-{"id":"phone2","action":"open","ts":"2018-03-02T10:22:35"}
-{"id":"phone4","action":"open","ts":"2018-03-02T10:29:35"}
-{"id":"phone5","action":"open","ts":"2018-03-02T10:01:35"}
-```
-代码清单 7-19
-数据去重示例的样本数据
-
-为了模拟数据去重，首先在 `<path>/chapter7/data` 目录下创建一个名为 `input` 的目录。然后运行代码清单 7-20 中的代码。下一步是将 `file1.json` 文件复制到 `input` 目录并检查输出。最后一步是将 `file2.json` 文件复制到 `input` 目录并检查输出。
-
-```scala
-import org.apache.spark.sql.types._
-import org.apache.spark.sql.functions._
-val mobileDataSchema = new StructType().add("id", StringType, false)
-.add("action", StringType, false)
-.add("ts", TimestampType, false)
-// mobileDataSchema 在前一个示例中定义
-val mobileDupSSDF = spark.readStream.schema(mobileDataSchema)
-.json("/chapter7/data/deduplication")
-val windowCountDupDF = mobileDupSSDF.withWatermark("ts", "10 minutes")
-.dropDuplicates("id", "ts")
-.groupBy("id").count
-val mobileMemoryDupSQ = windowCountDupDF.writeStream
-.format("console")
-.option("truncate", "false")
-.outputMode("update")
-.start()
-// 将 file1.json 复制到 input 目录后的输出
-+-------+------+
-|     id| count|
-+-------+------+
-| phone3|     1|
-| phone1|     1|
-| phone2|     1|
-+-------+------+
-// 将 file2.json 复制到 input 目录后的输出
-+-------+------+
-|     id| count|
-+-------+------+
-| phone4|     1|
-+-------+------+
-```
-代码清单 7-20
-使用 `dropDuplicates` API 进行数据去重
-
-正如预期，将 `file2.json` 复制到 `input` 目录后，控制台只显示了一行。原因是前两行与 `file1.json` 的前两行重复，因此被过滤掉了。最后一行的时间戳为 10:10，由于该时间戳早于十分钟的水印阈值，因此被视为延迟数据，未被处理并被丢弃。
-
-## 容错
-
-在开发重要的流式应用并将其部署到生产环境时，最关键的考虑因素之一是故障恢复。根据墨菲定律，凡是可能出错的事就一定会出错。机器会故障，软件也会有缺陷。幸运的是，Structured Streaming 提供了一种在发生故障时重启或恢复流式应用的方法，并且应用会从上次中断的地方继续执行。要利用这种恢复机制，你需要在设置流式查询时指定检查点位置，从而为流式应用配置检查点和预写日志。理想情况下，检查点位置应该是 HDFS 或 S3 等可靠且容错的文件系统上的路径。Structured Streaming 会定期将所有进度信息（例如正在处理的数据的偏移量详情和中间状态值）保存到检查点位置。为流式查询添加检查点位置非常简单。你只需在流式查询中添加一个选项，将 `checkpointLocation` 作为名称，路径作为值即可。参见代码清单 7-21 中的示例。
-
-```scala
-val userSessionSQ = userSessionDS.writeStream.format("console")
-.option("truncate",false)
-.option("checkpointLocation","/reliable/location")
-.outputMode("append")
-.start()
-```
-代码清单 7-21
-为流式查询添加 `checkpointLocation` 选项
-
-如果你查看指定的检查点位置，应该会看到以下子目录：`commits`、`metadata`、`offsets`、`sources` 和 `stats`。这些目录中的信息特定于某个流式查询，因此每个查询必须使用不同的检查点位置。
-
-与大多数软件应用一样，流式应用会随着时间推移而演变，原因可能是需要改进处理逻辑或性能，或是修复缺陷。重要的是要记住这可能会如何影响保存在检查点位置的信息，并了解哪些更改被认为是安全的。广义上讲，有两类更改：一类是流式应用代码的更改，另一类是 Spark 运行时的更改。
-
-### 流式应用代码更改
-
-检查点位置中的信息被设计为对流式应用的更改具有一定弹性。有几种类型的更改将被视为不兼容的更改。第一种是更改聚合方式，例如更改键列、添加更多键列或移除现有键列之一。第二种是更改用于存储中间状态的类结构，例如，当移除某个字段或将字段类型从字符串更改为整数时。如果在重启期间检测到不兼容的更改，Structured Streaming 会通过异常通知你。在这种情况下，你必须使用新的检查点位置，或者清除之前检查点位置中的内容。
-
-### Spark 运行时变更
-
-检查点格式被设计为向前兼容，以便流式应用程序能够在 Spark 的补丁版本或次要版本更新（例如，从 Spark 2.2.0 升级到 2.2.1，或从 Spark 2.2.*x* 升级到 2.3.*x*）后，从旧的检查点重新启动。唯一的例外是当存在关键的错误修复时。需要注意的是，当 Spark 引入不兼容的更改时，会在发布说明中明确记录。
-
-如果由于不兼容问题而无法使用现有的检查点位置启动流式应用程序，那么您将需要使用新的检查点位置，并且可能还需要为您的应用程序提供一些关于从何处读取数据的偏移量信息。
-
-## 流式查询指标与监控
-
-与在线服务等其他长时间运行的应用程序类似，了解流式应用程序的进度、传入数据速率或中间状态消耗的内存量非常重要。Structured Streaming 提供了几个 API 来提取有关最近执行进度的信息，以及一种异步监控流式应用程序中所有流式查询的方法。
-
-### 流式查询指标
-
-在任何时刻，关于流式查询最基本有用的信息是其当前状态。您可以通过调用 `StreamingQuery.status` 函数来检索并以人类可读的格式显示此信息。返回的对象类型为 `StreamingQueryStatus`，它可以轻松地将状态信息转换为 JSON 格式。清单 7-22 展示了状态信息的一个示例。
-
-```scala
-// 使用上面示例中的流式查询
-userSessionSQ.status
-// 输出
-res11: org.apache.spark.sql.streaming.StreamingQueryStatus =
-{
-"message" : "等待数据到达",
-"isDataAvailable" : false,
-"isTriggerActive" : false
-}
-```
-清单 7-22
-JSON 格式的查询状态信息
-
-显然，上述状态提供了在调用状态函数时流式查询中正在发生的基本信息。要获取最近进度的更多详细信息，例如传入数据速率、处理速率、水印、数据源的偏移量以及有关中间状态的一些信息，您可以调用 `StreamingQuery.recentProgress` 函数。此函数返回一个 `StreamingQueryProgress` 类实例的数组，该类可以将详细信息转换为 JSON 格式。默认情况下，每个流式查询配置为保留 100 个进度更新，可以通过更新名为 `spark.sql.streaming.numRecentProgressUpdates` 的 Spark 配置来更改此数字。要查看最近的流式查询进度，可以调用 `StreamingQuery.lastProgress` 函数。清单 7-23 展示了一个流式查询进度的示例。
-
-```json
-{
-"id" : "9ba6691d-7612-4906-b64d-9153544d81e9",
-"runId" : "c6d79bee-a691-4d2f-9be2-c93f3a88eb0c",
-"name" : null,
-"timestamp" : "2018-04-23T17:20:12.023Z",
-"batchId" : 0,
-"numInputRows" : 3,
-"inputRowsPerSecond" : 250.0,
-"processedRowsPerSecond" : 1.728110599078341,
-"durationMs" : {
-"addBatch" : 1548,
-"getBatch" : 8,
-"getOffset" : 36,
-"queryPlanning" : 110,
-"triggerExecution" : 1736,
-"walCommit" : 26
-},
-"eventTime" : {
-"avg" : "2017-09-06T15:10:04.666Z",
-"max" : "2017-09-06T15:11:10.000Z",
-"min" : "2017-09-06T15:08:53.000Z",
-"watermark" : "1970-01-01T00:00:00.000Z"
-},
-"stateOperators" : [ {
-"numRowsTotal" : 1,
-"numRowsUpdated" : 1,
-"memoryUsedBytes" : 16127
-} ],
-"sources" : [ {
-"description" : "FileStreamSource[file:/chapter7/data/input]",
-"startOffset" : null,
-"endOffset" : {
-"logOffset" : 0
-},
-"numInputRows" : 3,
-"inputRowsPerSecond" : 250.0,
-"processedRowsPerSecond" : 1.728110599078341
-} ],
-"sink" : {
-"description" : "org.apache.spark.sql.execution.streaming.ConsoleSinkProvider@37dc4031"
-}
-}
-```
-清单 7-23
-流式查询进度详情
-
-查看前面示例流式进度中的详细信息，有几个重要的关键指标需要注意。输入速率表示从输入源流入流式应用程序的传入数据量。处理速率告诉您流式应用程序处理传入数据的速度。在理想状态下，处理速率应高于输入速率，如果不是这种情况，则需要考虑扩展 Spark 集群中的节点数量。如果流式应用程序通过 `groupBy` 转换隐式地或通过任意状态处理 API 显式地维护状态，那么关注 `stateOperators` 部分中的指标就很重要。
-
-Spark UI 在作业、阶段和任务级别提供了丰富的指标集。流式应用程序中的每个触发器都映射到 Spark UI 中的一个作业，可以轻松检查查询计划和任务持续时间。
-
-### 注意
-
-流式查询状态和进度详情可通过流式查询的实例获得。当您的流式应用程序在生产环境中运行时，您无法方便地访问这些流式查询。如果您想从远程主机查看这些信息怎么办？一种选择是在您的流式应用程序中嵌入一个小的 HTTP 服务器，并公开几个简单的 URL 来检索这些信息。
-
-### 监控流式查询
-
-Structured Streaming 提供了一种回调机制，用于异步接收流式应用程序中流式查询的事件和进度。这是通过 `StreamingQueryListener` 接口完成的，该接口会告知流式查询何时启动、何时取得进展以及何时终止。此接口的实现可以控制如何处理提供的信息。一个明显的实现是将此信息发送到 Kafka 主题或其他发布-订阅系统，用于离线分析或供另一个流式应用程序处理。清单 7-24 包含 `StreamingQueryListener` 接口的一个简单实现；它将信息打印到控制台。
-
-```scala
-import org.apache.spark.sql.streaming.StreamingQueryListener
-import org.apache.spark.sql.streaming.StreamingQueryListener.{QueryStartedEvent, QueryProgressEvent, QueryTerminatedEvent}
-class ConsoleStreamingQueryListener extends StreamingQueryListener {
-override def onQueryStarted(event: QueryStartedEvent): Unit = {
-println(s"流式查询已启动: ${event.id} - ${event.name} - ${event.runId}")
-}
-override def onQueryProgress(event: QueryProgressEvent): Unit = {
-println(s"流式查询进度: ${event.progress}")
-}
-override def onQueryTerminated(event: QueryTerminatedEvent): Unit = {
-println(s"流式查询已终止: ${event.id} - ${event.runId}")
-}
-}
-```
-清单 7-24
-`StreamingQueryListener` 接口的简单实现
-
-一旦您有了 `StreamingQueryListener` 的实现，下一步就是将其注册到 `StreamQueryManager`，它可以处理多个监听器。请参阅清单 7-25 了解如何注册和注销监听器。
-
-```scala
-val listener = new ConsoleStreamingQueryListener
-// 注册
-spark.streams.addListener(listener)
-// 注销
-spark.streams.removeListener(listener)
-```
-清单 7-25
-使用 `StreamQueryManager` 注册和注销 `StreamingQueryListener` 实例
-
-需要记住的一点是，每个监听器都会接收来自流式应用程序中所有流式查询的流式查询事件。如果需要对某个特定的流式查询应用特定的事件处理逻辑，则可以利用流式查询的名称。
-
-## 摘要
-
-Spark Structured Streaming 引擎提供了许多高级功能以及构建复杂精密流式应用程序的灵活性。
-
-- 任何严肃的流式处理引擎都必须支持按事件时间处理传入数据的能力。Structured Streaming 不仅支持此功能，还支持基于固定窗口和滑动窗口的窗口聚合。此外，它还会以容错方式自动维护中间状态。
-- 随着流式应用程序处理越来越多的数据，维护中间状态会带来内存耗尽的风险。引入水印机制是为了更容易地处理延迟数据，并移除不再需要的中间状态。
-- 任意有状态处理支持用户自定义方式处理每个组的值并维护其中间状态。Structured Streaming 通过回调 API 提供了一种简单的方法来实现这一点，并且每个组可以灵活地向输出生成一行或多行。
-- Structured Streaming 提供端到端的精确一次（exactly-once）保证。这是通过使用检查点和预写日志机制实现的。只需提供一个位于容错文件系统上的检查点位置，即可轻松启用这两种机制。流式应用程序可以通过读取保存在检查点位置的信息，轻松重启并从故障发生前的状态继续运行。
-- 生产级流式应用程序需要能够洞察流式查询的状态和指标。Structured Streaming 提供流式查询状态的简短摘要，以及关于传入数据速率、处理速率以及中间状态内存消耗的一些详细指标。要监控所有流式查询的生命周期及其详细进度，您可以注册一个或多个 `StreamingQueryListener` 接口的实例。
-
 # 8. 使用 Spark 进行机器学习
 
 近年来，围绕人工智能（AI）、机器学习（ML）和深度学习（DL）的讨论异常热烈。AI 专家和研究人员预测，AI 将从根本上改变人类未来生活、工作和经商的方式。对于全球企业而言，AI 被视为其数字化转型旅程中的下一步，有些企业在将 AI 融入其业务战略方面走得更远。企业期望 AI 能够高效、快速地帮助解决业务问题，创造商业价值并提升竞争优势。谷歌、亚马逊、微软、苹果和 Facebook 等互联网巨头在投资、采用并将 AI 融入其产品组合方面处于领先地位。2017 年，全球超过 150 亿美元的风险投资（VC）流向了 AI 相关的初创公司，这一趋势预计将在 2018 年持续。
@@ -1294,3 +1078,352 @@ ratingsByUserDF.orderBy($"count".desc).show(10)
 println("# of rated movies: " + ratingsDF.select("movieId").distinct().count)
 ```
 
+
+
+# of rated movies: 9066
+```
+println("# of users: " + ratingsByUserDF.count)
+```
+
+# of users: 671
+
+```scala
+// 分析评分数量最多的电影
+val ratingsByMovieDF = ratingsDF.groupBy("movieId").count()
+ratingsByMovieDF.orderBy($"count".desc).show(10)
+```
+
+```
++--------+------+
+| movieId| count|
++--------+------+
+|     356|   341|
+|     296|   324|
+|     318|   311|
+|     593|   304|
+|     260|   291|
+|     480|   274|
+|    2571|   259|
+|       1|   247|
+|     527|   244|
+|     589|   237|
++--------+------+
+```
+
+```scala
+// 准备训练和测试数据
+val Array(trainingData, testData) = ratingsByUserDF.randomSplit(Array(0.8, 0.2))
+// 设置 ALS 实例
+val als = new ALS().setRank(12)
+.setMaxIter(10)
+.setRegParam(0.03)
+.setUserCol("userId")
+.setItemCol("movieId")
+.setRatingCol("rating")
+// 训练模型
+val model = als.fit(trainingData)
+// 执行预测
+val predictions = model.transform(testData).na.drop
+// 设置评估器以计算 RMSE 指标
+val evaluator = new RegressionEvaluator().setMetricName("rmse")
+.setLabelCol("rating")
+.setPredictionCol("prediction")
+val rmse = evaluator.evaluate(predictions)
+println(s"Root-mean-square error = $rmse")
+```
+
+```
+Root-mean-square error = 1.06027809686058
+```
+
+## 清单 8-20 使用 MLlib 中的 ALS 算法实现构建推荐系统
+
+`ALSModel` 类提供了两组有用的函数来执行推荐。第一组用于向所有用户或特定用户集推荐前 `n` 个项目。第二组用于向所有项目或特定项目集推荐前 `n` 个用户。清单 8-21 提供了调用这些函数的示例。
+
+```scala
+// 为所有用户推荐前 5 部电影
+model.recommendForAllUsers(5).show(false)
+// 活跃评分者
+val activeMovieRaters = Seq((547), (564), (624), (15), (73)).toDF("userId")
+model.recommendForUserSubset(activeMovieRaters, 5).show(false)
+```
+
+```
++------+------------------------------------------------------------------+
+|userId|    recommendations                                               |
++------+------------------------------------------------------------------+
+|    15| [[363, 5.4706035], [422, 5.4109325], [1192, 5.3407555], [1030, 5.329553], [2467, 5.214414]]                              |
+|   547| [[1298, 5.752393], [1235, 5.4936843], [994, 5.426885], [926, 5.28749], [3910, 5.2009006]]                               |
+|   564| [[121231, 6.199452], [2454, 5.4714866], [3569, 5.4276495], [1096, 5.4212027], [1292, 5.4203687]]                            |
+|   624| [[1960, 5.4001703], [1411, 5.2505665], [3083, 5.1079946], [3030, 5.0170803], [132333, 5.0165534]]                          |
+|    73| [[2068, 5.0426316], [5244, 5.004793], [923, 4.992707], [85342, 4.979018], [1411, 4.9703207]]                            |
++------+------------------------------------------------------------------+
+```
+
+```scala
+// 为每部电影推荐前 3 名用户
+val recMovies = model.recommendForAllItems(3)
+// 读取电影数据集，以便查看电影标题
+val moviesDF = spark.read.option("header", "true")
+.option("inferSchema", "true")
+.csv("/movies.csv")
+val recMoviesWithInfoDF = recMovies.join(moviesDF, "movieId")
+recMoviesWithInfoDF.select("movieId", "title", "recommendations").show(5, false)
+```
+
+```
++-------+---------------------------------+-------------------------------+
+|movieId|                            title|                recommendations|
++-------+---------------------------------+-------------------------------+
+|   1580| Men in Black (a.k.a. MIB) (1997)|  [[46, 5.6861496], [113, 5.6780157], [145, 5.3410296]]|
+|   5300|              3:10 to Yuma (1957)|  [[545, 5.475599], [354, 5.2230153], [257, 5.0623646]]|
+|   6620|         American Splendor (2003)|  [[156, 5.9004226], [83, 5.699677], [112, 5.6194253]] |
+|   7340|      Just One of the Guys (1985)|  [[621, 4.5778027], [451, 3.9995837], [565, 3.6733315]]|
+|  32460| Knockin' on Heaven's Door (1997)|  [[565, 5.5728054], [298, 5.00507], [476, 4.805148]]   |
++-------+---------------------------------+-------------------------------+
+```
+
+```scala
+// 评分最高的电影
+val topRatedMovies = Seq((356), (296), (318), (593)).toDF("movieId")
+// 为 topRatedMovies 中的每部电影推荐前 3 名用户
+val recUsers =  model.recommendForItemSubset(topRatedMovies, 3)
+recUsers.join(moviesDF, "movieId").select("movieId", "title", "recommendations").show(false)
+```
+
+```
++-------+---------------------------------+-------------------------------+
+|movieId|                            title|                recommendations|
++-------+---------------------------------+-------------------------------+
+|    296|              Pulp Fiction (1994)| [[4, 5.8505774], [473, 5.81865], [631, 5.588397]]    |
+|    593| Silence of the Lambs, The (1991)| [[153, 5.839533], [586, 5.8279104], [473, 5.5933723]] |
+|    318| Shawshank Redemption, The (1994)| [[112, 5.8578305], [656, 5.8488774], [473, 5.795221]]  |
+|    356|              Forrest Gump (1994)| [[464, 5.6555476], [58, 5.6497917], [656, 5.625555]]|
++-------+---------------------------------+-------------------------------+
+```
+
+## 清单 8-21 使用 ALSModel 执行推荐
+
+在 `Listing [8-20]` 中，使用一组参数训练了 `ALS` 算法的一个实例，得到的 `RSME` 约为 1.06。让我们尝试使用 `CrossValidator`，通过一组参数组合重新训练该 `ALS` 算法实例，看看能否降低 `RSME` 值。`Listing [8-22]` 中的代码为两个模型超参数（`als.regParam` 和 `als.rank`）设置了总共 4 种参数组合的网格搜索，以及一个包含 3 折的 `CrossValidator`。这意味着 `ALS` 算法将被训练和评估 12 次，因此在笔记本电脑上大约需要一两分钟才能完成。
+
+```
+val paramGrid = new ParamGridBuilder().addGrid(als.regParam, Array(0.05, 0.15))
+    .addGrid(als.rank, Array(12,20))
+    .build
+val crossValidator = new CrossValidator().setEstimator(als)
+    .setEvaluator(evaluator)
+    .setEstimatorParamMaps(paramGrid)
+    .setNumFolds(3)
+// print out the 4 hyperparameter combinations
+crossValidator.getEstimatorParamMaps.foreach(println)
+{
+  als_d2ec698bdd1a-rank: 12,
+  als_d2ec698bdd1a-regParam: 0.05
+}
+{
+  als_d2ec698bdd1a-rank: 20,
+  als_d2ec698bdd1a-regParam: 0.05
+}
+{
+  als_d2ec698bdd1a-rank: 12,
+  als_d2ec698bdd1a-regParam: 0.15
+}
+{
+  als_d2ec698bdd1a-rank: 20,
+  als_d2ec698bdd1a-regParam: 0.15
+}
+// this will take a while to run through more than 10 experiments
+val cvModel = crossValidator.fit(trainingData)
+// perform the predictions and drop the
+val predictions2 = cvModel.transform(testData).na.drop
+val evaluator2 = new RegressionEvaluator().setMetricName("rmse")
+    .setLabelCol("rating")
+    .setPredictionCol("prediction")
+val rmse2 = evaluator2.evaluate(predictions2)
+rmse2: Double = 0.9881840432547675
+```
+Listing 8-22
+Using CrossValidator to Tune the ALS Model
+
+您已成功通过利用`CrossValidator`帮助调整模型，降低了`RMSE`。训练最佳模型可能需要一些时间，但`MLlib`使得尝试一组参数组合变得容易。
+
+## 深度学习管道
+
+如果本章没有提及深度学习这一主题，那将是不完整的，深度学习是人工智能和机器学习领域最热门的话题之一。已经有大量的书籍、博客、课程和研究论文等资源来解释深度学习的各个方面。在技术方面，来自开源社区、大学以及谷歌、Facebook、微软等大公司的大量创新正在涌现出深度学习框架。以下是当前的深度学习框架列表：
+
+*   `TensorFlow`是由谷歌创建的开源框架。
+*   `MXNet`是由一组大学和公司开发的深度学习框架。
+*   `Caffe`是由加州大学伯克利分校开发的深度学习框架。
+*   `CNTK`是由微软开发的开源深度学习框架。
+*   `Theano`是由蒙特利尔大学开发的开源深度学习框架。
+*   `PyTorch`是由 Facebook 开发的开源深度学习框架。
+*   `BigDL`是由英特尔开发的开源深度学习框架。
+
+从 Apache Spark 方面来看，Databricks 正在推动一个名为`Deep Learning Pipelines`的项目开发，这并非另一个深度学习框架，而是设计为在先前列出的现有流行深度学习框架之上工作。秉承 Spark 和`MLlib`的精神，`Deep Learning Pipelines`项目提供了高级且易于使用的`API`，用于使用 Apache Spark 在 Python 中构建可扩展的深度学习应用程序。该项目目前正在 Apache Spark 开源项目之外进行开发，最终将被纳入主干。在撰写本文时，`Deep Learning Pipelines`项目提供以下功能：
+
+*   仅需几行代码即可实现常见的深度学习用例
+*   在 Spark 中处理图像
+*   应用预训练的深度学习模型进行可扩展的预测
+*   能够进行迁移学习，将针对类似任务训练的模型适应当前任务
+*   分布式超参数调优
+*   轻松公开深度学习模型，以便其他人可以在 SQL 中将其用作函数进行预测
+
+您可以在[`https://github.com/databricks/spark-deep-learning`](https://github.com/databricks/spark-deep-learning)找到有关令人兴奋的`Deep Learning Pipelines`项目的更多详细信息。
+
+## 总结
+
+人工智能和机器学习的采用正在稳步增长，未来几年将有许多激动人心的突破。建立在 Spark 强大基础之上，`MLlib`组件旨在帮助以简单且可扩展的方式构建智能应用程序。
+
+*   人工智能是一个广泛的领域，其目标是让机器看起来具有智能。机器学习是其子领域之一；它专注于通过用数据训练机器来教会它们学习。
+*   构建机器学习应用程序的过程是迭代的，并涉及通常按特定顺序执行的几个步骤。
+*   Spark `MLlib`组件包括用于特征工程、构建、评估和调优机器学习管道的工具，以及一组众所周知的机器学习算法，如分类、回归、聚类和协同过滤。
+*   `MLlib`组件引入的用于帮助构建和维护复杂管道的核心概念是转换器、评估器和管道。管道是一个编排器，确保训练数据和测试数据都流经相同的特征处理步骤。
+*   模型调优是机器学习应用程序开发过程中的关键步骤。它繁琐且耗时，因为涉及在一组参数组合上训练和评估一个或多个模型。结合管道抽象，`MLlib`提供了两个工具来帮助：`CrossValidator`和`TrainValidationSplit`。
+
+### 索引
+
+### A
+
+`聚合` `立方体` `航班摘要数据集` `函数` `approx_count_distinct (col)` `avg(col)` `count(col)` `countDistinct(col)` `描述` `min(col), max(col)` `Scala 语言` `skewness(col), kurtosis(col)` `sum(col)` `sumDistinct(col)` `variance(col), stddev(col)` `分组` `分类值` `集合` `分组值` `多重聚合` `origin_airport 和计数聚合` `origin_state 和 origin_city, 计数聚合` `RelationalGroupedDataset` `层级` `操作` `透视` `上卷` `状态` `时间窗口` `AlphaGo` `交替最小二乘 (ALS) 算法` `分析函数` `任意有状态处理` `动作` `flatMapGroupsWithState` `处理状态超时` `mapGroupsWithState` `结构化流` `人工智能 (AI)`
+
+### B
+
+`批量数据处理` `Binarizer 转换器` `BinaryClassificationEvaluator` `广播哈希连接` `Bucketizer 转换器` `内置函数` `类别` `集合` `日期时间` `数学` `杂项` `Spark API` `Scala 文档` `字符串` `业务分析师`
+
+### C
+
+`Catalyst 优化器` `动作` `数据处理应用程序` `逻辑计划` `物理计划` `用户表达式` `可视化表示` `集群形式` `聚类` `集合函数` `逗号分隔值 (CSV)` `社区版 (CE)` `控制台数据接收器` `连续处理模式` `交叉连接` `CrossValidator`
+
+### D
+
+`Databricks` `DataFrames` `CSV 文件数据源` `DataFrameReader` `DataFrameWriter` `格式` `Spark 内置定义` `DSL` `JDBC 连接操作` `JSON 文件` `缺失数据` `ORC 文件` `Parquet 文件` `持久化` `range 函数` `RDBMS` `RDDs` `保存模式` `选择、投影和聚合操作` `Spark Scala 类型` `SparkSession.range 函数` `SQL 和数据集` `结构化操作` `结构化转换` `描述` `distinct、dropDuplicates` `drop(columnName1, columnName2)` `filler(condition)、where(condition)` `limit(n)` `randomSplit(weights)` `sample 转换` `select(columns)` `selectExpr(expressions)` `sort(columns)、orderBy(columns)` `union(otherDataFrame)` `withColumn(colName, column)` `withColumnRenamed(existingColName, newColName)` `文本文件` `处理列` `数据集` `创建 *vs.*` `DataFrame 风格` `局限性` `操作` `Python 和 R 语言` `数据混洗` `数据接收器` `控制台` `文件` `foreach` `Kafka` `内存` `日期时间函数` `深蓝` `深入探究` `追加输出模式` `完整输出模式` `输出模式` `触发器` `参见触发器` `更新输出模式` `深度学习 (DL)` `AL 和 ML 关系` `BigDL` `Caffe` `CNTK` `深度学习流水线项目` `MXNet` `PyTorch` `资源` `TensorFlow` `Theano` `离散化流 (DStream)` `awaitTermination() 函数` `批次间隔` `数据源` `start() 函数` `StreamingContext` `单词计数应用` `领域特定语言 (DSL)` `数据重复`
+
+### E
+
+`估计器` `IDF` `输入和输出` `LinearRegression` `MinMaxScaler` `OneHotEncoderEstimator` `RFormula` `StandardScaler` `StringIndexer` `类型` `Word2Vec` `事件时间处理` `聚合` `状态` `固定窗口` `移动数据` `事件模式` `滑动窗口` `聚合` `水印`
+
+### F
+
+`文件数据接收器` `文件数据源` `固定窗口操作` `聚合逻辑` `移动数据` `事件` `窗口和动作类型` `flatMapGroupsWithState` `Foreach 数据接收器` `函数` `高级分析` `参见聚合` `UDFs` `窗口` `参见窗口函数`
+
+### G
+
+`Google DeepMind`
+
+### H
+
+`HashingTF 转换器` `HyperLogLog`
+
+### I
+
+`内连接` `集成开发环境 (IDEs)` `逆文档频率 (IDF)` `估计器`
+
+### J
+
+`JavaScript 对象表示法 (JSON)` `JDBC 数据源` `连接` `广播哈希` `交叉` `DataFrames` `描述` `表达式` `内连接` `连接列名` `连接后的 DataFrame` `dupNameDF DataFrame` `多列名` `原始 DataFrame` `左反连接` `左外连接` `左半连接` `操作` `外连接` `重命名列` `右外连接` `混洗哈希` `类型`
+
+### K
+
+`Kafka 数据接收器` `Kafka 数据源` `Kaggle` `键值对 RDD 操作` `collectAsMap()` `countByKey()` `lookup(key)`
+
+### L
+
+`lastProgress() 函数` `左反连接` `左外连接` `左半连接` `LinearRegression 算法` `LinkedIn` `LogisticRegression 算法`
+
+### M, N
+
+`机器学习 (ML)` `AL 和 DL 关系` `分类` `二分类` `MLlib` `多分类` `多标签` `定义` `开发流程` `LinearRegression 算法` `logisticRegression 算法` `推荐` `ALS 算法` `Amazon 和 Netflix` `协同过滤` `强化学习` `Spark MLlib` `参见 Spark 机器学习库 (Spark MLlib)` `监督学习` `术语` `特征` `标签` `ML 算法` `模型` `观测值` `垃圾邮件分类` `测试数据` `训练数据` `验证数据` `类型` `无监督学习` `mapGroupsWithState` `数学函数` `矩阵分解` `内存数据接收器` `MinMaxScaler 估计器` `杂项函数` `监控流式查询`
+
+### O
+
+`OneHotEncoderEstimator` `OneHotEncoder 转换器` `一次性处理` `在线分析处理 (OLAP)` `在线事务处理 (OLTP)` `优化的行列式 (ORC)` `外连接`
+
+### P, Q
+
+`ParagramGridBuilder` `Parquet 文件` `流水线` `数据透视` `谓词下推` `生产环境流式应用` `Project Tungsten`
+
+### R
+
+`排名函数` `速率数据源` `强化学习` `关系型数据库管理系统 (RDBMS)` `弹性分布式数据集 (RDDs)` `操作` `collect()` `count()` `first()` `reduce(func)` `saveAsTextFile(path)` `take(n)` `takeOrdered` `takeSample` `top 操作` `创建` `数据分区与放置` `数据集` `数据混洗` `容错` `不可变` `内存计算` `键值对` `创建` `groupByKey` `join` `reduceByKey` `sortByKey` `机器学习算法` `操作` `并行数据结构` `丰富的存储选项` `转换` `参见转换` `RFormula 转换器` `右外连接`
+
+### S
+```
+
+# 混洗哈希连接、滑动窗口聚合与 Spark 生态系统
+
+混洗哈希连接 滑动窗口聚合 `avg()` 函数 `groupBy` 转换 重叠 温度数据 窗口化类型 Socket 数据源 Spark 应用 集群与资源管理系统 概念与架构 Databricks 数据处理 Daytona GraySort 下载选项 下载流程 驱动器和执行器 Graphx Hadoop MapReduce 历史 安装 二进制文件 Linux/Mac 计算机 Python Shell Scala Shell Spark 目录 MLlib 笔记本创建 “与 Spark 交互” 章节 IPython Markdown 语句 标记语句 菜单项 加号图标 `println` 语句 发布确认对话框 发布菜单项 Scala 语言选项 工作区列 Spark Core SparkR SQL 流处理 统一栈 Spark GraphX `Spark MLlib` `DataFrames` 端到端 ML 流水线 估计器 参见估计器 特征 ML 流程与主要抽象 模型调优 `CrossValidator` 模型超参数 模型参数 `TrainValidationSplit` 验证器 流水线 Spark SQL `转换器` 参见转换器 Spark Scala Shell 命令 Databricks 默认配置 变量列表 成员变量与函数 Spark UI `spark` 变量 版本 `println` 函数 Spark Scala 类型 Spark SQL `聚合` 参见聚合 业务分析师 组件 `DataFrames` 参见 `DataFrames` `数据集` 参见数据集 运行 SQL 存储系统 结构化 API Spark 流处理 任意状态处理 操作 `flatMapGroupsWithState` 处理状态超时 `mapGroupsWithState` 结构化流 核心概念 核心组件 数据接收器 数据源 偏移量 开箱即用数据源 输出模式 触发器类型 水印 `DataFrames` 参见 `DataFrames` 数据源 类型转换 消息内容 自定义 文件 Kafka 速率 Socket `startingOffsets` 和 `endingOffsets` 选项 深入探究 参见深入探究 `DStream` 参见离散化流 (`DStream`) 数据重复 事件时间 参见事件时间处理 容错 `checkpointLocation` 选项 `spark.sql.streaming.checkpointLocation` Spark 运行时 流式应用代码 特性 消息 监控流式查询 概述 查询指标 接收器 参见数据接收器 结构化流 参见结构化流 标准化 `StandardScaler` 估计器 有状态类型 无状态类型 `status()` 函数 `StopWordsRemover` 转换器 存储系统 存储选项卡 `StreamingQueryListener` 接口 流式查询指标 流处理 批处理数据 挑战 核心与通用概念 数据交付语义 引擎 Apache Apex Apache Beam Apache Flink Apache Kafka Apache Samza Apache Storm 逐条记录与微批次 事件时间与处理时间 时间概念 Spark 参见 Spark 流处理 系统属性 窗口化模式 `StreamQueryManager` 字符串函数 `StringIndexer` 估计器 结构化查询语言 (`SQL`) 结构化流 批处理与流处理挑战 连续处理 `DataFrame` 和 `Dataset` 事件时间处理与状态维护 `file1.json` `file2.json` `file3.json` 文件数据源 `isStreaming` 函数 管理流式查询 移动事件数据 概述 `start()` 函数 `status()` 和 `lastProgress()` 函数 十秒滑动窗口 事务性集成 将流数据视为表 监督学习 分类与回归 `MLlib`
+
+## T
+
+时间窗口  
+分词器  
+`Transformer`  
+`TrainValidationSplit`  
+转换操作  
+`distinct()`  
+`filter(func)`  
+`flatMap(func)`  
+`intersection`  
+`list`  
+`map(func)`  
+`mapPartitions`  
+`mapPartitionsWithIndex`  
+`sampling`  
+`substract`  
+`union`  
+转换器  
+`Binarizer`  
+`Bucketizer`  
+`HashingTF`  
+`input` 和 `output`  
+`OneHotEncoder`  
+`process`  
+`StopWordsRemover`  
+`Tokenizer`  
+`types`  
+`VectorAssembler`  
+触发器  
+`continuous processing mode`  
+`fixed interval type`  
+`micro-batch mode`  
+`one-time trigger type`  
+`processing modes`  
+`Tumbling window operation`  
+`SeeFixed window operation`
+
+## U
+
+无监督学习  
+`clustering`  
+`MLlib`  
+用户自定义函数（`UDFs`）  
+用户购物交易
+
+## V
+
+`VectorAssembler` 转换器
+
+## W, X, Y, Z
+
+水印  
+`groupBy` 转换  
+处理延迟数据  
+`input directory`  
+`JSON files`  
+`output mode`  
+水印 API 视角  
+窗口函数  
+`analytic functions`  
+`avg`  
+`components`  
+`concat/round`  
+`frame`  
+`max`  
+`rank`  
+`ranking functions`  
+`shopping transaction data`  
+`specification`  
+`SQL`  
+`sum`  
+`types`  
+`Word2Vec` 估计器
