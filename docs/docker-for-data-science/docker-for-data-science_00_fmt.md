@@ -1,5 +1,0 @@
-
-
-```markdown
-![](img/cover.jpeg)
-```

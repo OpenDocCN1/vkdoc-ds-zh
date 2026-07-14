@@ -1,3 +1,39 @@
+# 2. Docker
+
+Joshua Cook¹  
+
+(1) 美国加利福尼亚州圣莫尼卡
+
+`Docker` 是一种将进程与其运行的系统隔离的方法。它允许我们将用于定义应用程序的代码以及运行该应用程序所需的资源，与其运行的硬件隔离开来。我们为软件增加了一层复杂性，但这样做也带来了一个优势：确保我们的本地开发环境与我们将部署应用程序的任何可能环境完全相同。如果一个系统能运行 `Docker`，那么该系统就能运行我们的进程。通过添加这一层薄薄的抽象层，我们实现了硬件无关性。
+
+表面上看，这似乎是一项不可能完成的任务。截至 2014 年，有 285 个积极维护的 Linux 发行版，以及 OS X 和 Windows 的多个主要版本。我们怎么可能编写一个系统来支持所有可能的开发、测试和生产环境呢？`Docker` 通过容器化解决了这个问题。我们永远无法保证远程环境会运行与我们本地相同的操作系统。我们通常确切地知道它永远不会（我在 Mac OS X 上开发，通常部署到运行 Ubuntu 的系统上）。也就是说，如图 2-1 所示，我们可以保证我们的开发和部署环境都能运行 `Docker` 引擎。我们将应用程序编写为由 `Docker` 引擎作为容器运行——我们将应用程序容器化——从而确保跨平台的兼容性。我们不关心底层的操作系统或硬件，只关心它是否运行着 `Docker` 引擎。
+
+![A439726_1_En_2_Fig1_HTML.jpg](img/A439726_1_En_2_Fig1_HTML.jpg)
+
+**图 2-1.** 跨异构基础设施部署。请注意，不同系统的技术栈可能完全不同，但我们部署的是相同的容器。
+
+使用 `Docker` 工具套件，我们将应用程序构建为以 `Docker` 容器的方式运行。构建完成后，我们通过在本地系统上运行镜像来验证它们。确认无误后，将我们的容器化应用程序部署到运行 `Docker` 引擎的远程机器上就变得轻而易举了。无论操作系统或硬件如何，我们都以完全相同的方式运行系统。`Docker` 让开发者可以忽略操作系统。
+
+## Docker 不是虚拟机
+
+`Docker` 不是虚拟机技术。¹ 尽管如此，简要了解一下虚拟机技术是什么还是很有用的。许多人会熟悉虚拟机技术，尤其是使用 `VirtualBox` 等工具运行的虚拟机。使用这些工具之一，一台计算机（宿主机）可以运行多个虚拟机实例（客户机）。每个客户机在磁盘上使用一个大文件来定义其隔离的操作系统和文件系统。每个客户机作为宿主机 CPU 上的一个资源密集型进程运行。对于大多数用户而言，客户机的行为就像一台独立的计算机，在实际使用中与其运行的宿主机非常相似。换句话说，虚拟机感觉像是虚拟化的硬件。虚拟机技术的缺点包括：消耗大量硬盘空间来存储庞大的操作系统，以及消耗大量 CPU 资源来维护完整操作系统所需的所有进程。
+
+# 容器化
+
+容器化是一种虚拟化方法，但容器并非大多数人认知中的虚拟机。这种混淆情有可原。与容器类似，甚至可以使用`Vagrant`软件来定义虚拟机。但需要明确的是，虚拟机使用的是某一种虚拟化技术，而容器化则完全是另一种不同类型的虚拟化。[`Linux 容器`](https://linuxcontainers.org/lxc/introduction/)（`LXC`）项目是一个供应商中立的项目，旨在提供一套原生的工具和库，用于将进程与运行它们的更广泛的`Linux`系统隔离开来。`LXC`与其宿主机运行在同一个操作系统上。`LXC`的既定目标是“创建一个尽可能接近标准`Linux`安装的环境，但无需单独的内核。”换句话说，`LXC`允许进程被容器化。
+
+容器化旨在虚拟化进程。因此，一个被容器化的进程是在为其目的而优化的环境中运行，但使用的是宿主机的系统资源。`LXC`库经过精心设计，允许容器化进程作为虚拟化进程（见图 2-2）在其宿主机系统上运行，而无需运行完整的操作系统。与虚拟机相比，`LXC`具有开销低、性能更好的特点。
+
+![A439726_1_En_2_Fig2_HTML.jpg](img/A439726_1_En_2_Fig2_HTML.jpg) 图 2-2. 一个虚拟化进程
+
+2015 年 6 月，`Docker`协助发起了[`开放容器项目`](https://www.opencontainers.org/about)。`Docker`将其库 `runc` 捐赠出来，作为`LXC`的迭代版本。虽然`Docker`的核心不再运行`LXC`，但其原则依然不变：[`Docker` 不是虚拟机](https://blog.docker.com/2016/03/containers-are-not-vms/)。`Docker`正在利用虚拟化技术来实现进程或服务与宿主系统的隔离。
+
+在本书中，你将始终面临通过`Docker`运行进程时的两个问题：网络连接（连接到你的进程）以及维护数据的持久性。随着容器管理方面的这些最新创新，`Docker`正朝着更强大的工具方向发展，以管理这两个问题。通过`Docker`管理网络和持久性，一旦这些进程被抽象化或容器化，它们就可以在任何系统上随意运行。
+
+# 一个容器化应用
+
+除了提供运行容器化应用的方法之外，Docker 还提供了一套用于将应用构建为微服务的工具。Docker 的构建系统提供了一种将应用及其所有依赖项打包在一起的系统。那些熟悉 Ruby 的 bundler 和 `Gemfile` 系统，或者 Python 的 `conda` 和 `environment.yml` 系统的人，会很容易上手使用 `Dockerfile`，通过一个最小的文本文件来定义其系统的需求。使用这个 `Dockerfile`，无状态且不可变的应用被定义为在运行 Docker 引擎的宿主机系统上作为“已编译”的进程运行。通过这种方式，Docker 试图将软件工程师从其代码所依赖的硬件中解放出来。
+
 # Docker 容器生态系统
 
 你将从关注容器的生态系统开始了解 Docker。之后，你将利用 Docker 的工具，用你构建的容器来组合更大的系统。在 Docker 容器的直接生态系统（见图 2-3）中，跟踪以下概念非常重要：
@@ -240,3 +276,183 @@ Docker Toolbox 适用于不满足更原生实现的 Docker for Mac 或 Docker fo
 *   Oracle VirtualBox
 
 安装说明可在此处找到：`docs.docker.com/toolbox/overview/`。Docker Toolbox 用户需要使用 Docker Quickstart Terminal 命令行环境来向 Docker 引擎发出命令。安装 Docker Toolbox 将使用 VirtualBox 创建一个本地的 `docker-machine`，作为主机。
+
+# Docker 快速入门
+
+使用 Docker 运行代码，最基本的方式包括以下步骤：
+
+1. 拉取预编译的镜像，或根据 `Dockerfile` 构建镜像。
+2. 将镜像作为新容器运行。
+
+如果你是首次安装 Docker，可以尝试一些简单的命令来验证 Docker 客户端是否正确安装并已添加到系统路径中。清单 2-12、2-13 和 2-14 展示了三种验证方法：`docker version`、`docker help` 或 `which docker` 都是很好的简单测试命令。
+
+```
+$ docker version
+sudo docker version
+Client:
+  Version:      17.03.1-ce
+  API version:  1.27
+  Go version:   go1.7.5
+  Git commit:   c6d412e
+  Built:        Mon Mar 27 17:14:09 2017
+  OS/Arch:      linux/amd64
+Server:
+  Version:      17.03.1-ce
+  API version:  1.27 (minimum version 1.12)
+  Go version:   go1.7.5
+  Git commit:   c6d412e
+  Built:        Mon Mar 27 17:14:09 2017
+  OS/Arch:      linux/amd64
+  Experimental: false
+```
+
+**清单 2-12. 显示 Docker 版本**
+
+**注意：** 运行此命令会显示 Docker 客户端和服务器上运行的 Docker 版本信息。
+
+```
+$ docker help
+Usage: docker COMMAND
+A self-sufficient runtime for containers
+...
+```
+
+**清单 2-13. 显示 Docker 帮助信息**
+
+```
+$ which docker
+/usr/local/bin/docker
+```
+
+**清单 2-14. 显示 Docker 二进制文件的位置**
+
+## 运行第一个容器：Hello, World!
+
+确认 Docker 客户端已正确安装后，就可以继续运行经典的 "Hello, World!" 示例，如清单 2-15 所示。
+
+```
+$ docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+78445dd45222: Pull complete
+Digest: sha256:c5515758d4c5e1e838e9cd307f6c6a0d620b5e07e6f927b07d05f6d12a1ac8d7
+Status: Downloaded newer image for hello-world:latest
+Hello from Docker!
+```
+
+**清单 2-15. 运行 `hello-world` 镜像**
+
+这条消息表明你的安装似乎工作正常。为了生成这条消息，Docker 执行了以下步骤：
+
+1. Docker 客户端联系了 Docker 守护进程。
+2. Docker 守护进程从 Docker Hub 拉取了 `hello-world` 镜像。
+3. Docker 守护进程基于该镜像创建了一个新容器，该容器运行了可执行文件，并产生了你当前正在阅读的输出。
+4. Docker 守护进程将该输出流式传输到 Docker 客户端，然后由客户端发送到你的终端。
+
+## 更复杂的操作与交互
+
+如果想尝试更复杂的操作，你可以使用命令`$ docker run -it ubuntu bash`运行一个 Ubuntu 容器。通过 [`cloud.docker.com/`](https://cloud.docker.com/) 上的免费 Docker ID，你可以共享镜像、自动化工作流以及实现更多功能。更多示例和想法，请访问 [`docs.docker.com/engine/userguide/`](https://docs.docker.com/engine/userguide/)。
+
+至此，你已经验证了 Docker 已正确安装并能正常运行。当你执行此命令时，Docker 客户端会将 `run hello-world` 命令发送给 Docker 引擎。Docker 引擎随后执行以下操作：
+
+1. 在本地镜像缓存中检查 `hello-world` 镜像。
+2. 如果本地不存在该镜像，则从 Docker Hub 下载。
+3. 使用该镜像创建一个新容器。
+4. 分配文件系统，并在镜像顶层添加一个可读写层。
+5. 为系统设置一个 IP 地址。
+6. 执行镜像 `Dockerfile` 中指定的 shell 命令 `/hello`。
+7. 该进程完成后，终止容器并关闭。
+
+清单 2-16 展示了一个基本的 Docker 命令：运行最新的 Ubuntu 镜像（`run ubuntu`）并通过 bash shell（`-i -t /bin/bash`）连接到它。当你执行此命令时，Docker 客户端将命令发送给 Docker 引擎。Docker 引擎执行以下操作：
+
+1. 在本地镜像缓存中检查 `ubuntu` 镜像。
+2. 从 Docker Hub 下载镜像（除非本地已存在）。
+3. 使用该镜像创建一个新容器。
+4. 分配文件系统，并在镜像顶层添加一个可读写层。
+5. 为系统设置一个 IP 地址。
+6. 在容器内执行 `/bin/bash` 进程。
+7. 通过你当前的终端连接到正在运行的 `/bin/bash` 进程。
+
+```
+$ docker run -it ubuntu  /bin/bash
+root@eb5f4278d040:/#
+```
+
+**清单 2-16. 运行基础 `ubuntu` 镜像并通过 Shell 连接到它**
+
+你将连接到正在运行的 Ubuntu 容器，直到你将其关闭。你可以与此进程进行交互（参见清单 2-17），就像它是通过 bash shell 连接的原生 Ubuntu 系统一样。
+
+```
+root@8b9461e1d7dd:/# ls
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+root@8b9461e1d7dd:/# ps
+  PID TTY          TIME CMD
+    1 ?        00:00:00 bash
+   12 ?        00:00:00 ps
+root@8b9461e1d7dd:/# ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.1  18240   3212 ?       S<s  04:00   0:00 /bin/bash
+root        13  0.0  0.1  34424   2808 ?       R<+  04:01   0:00 ps aux
+root@8b9461e1d7dd:/# exit
+joshuacook@LOCALHOST:~$
+```
+
+**清单 2-17. 与作为 Docker 容器运行的 Ubuntu 进行交互**
+
+在这里，你通过输入 `Ctrl+D` 结束了会话，就像通过 `ssh` 连接到远程系统一样。这样，控制权就返回到了你的本地系统，即运行 Docker 的主机。
+
+注意观察你的 Ubuntu 镜像运行时的状态是很有用的。`ls` 显示一个完整的标准 Linux 文件系统并不奇怪。`ps` 只返回几个项目也不奇怪。但 `ps aux` 只返回两个项目则非常不寻常。`ps aux` 显示 (a) 所有用户的进程，(u) 显示进程所有者，(x) 包括未连接到任何终端的进程。换句话说，运行 `ps aux` 实际上显示了系统上当前运行的所有进程。再次强调，系统上仅运行着你连接的 shell（PID 1 `/bin/bash`）和你用来显示运行进程的 `ps aux`（PID 13 `ps aux`）是非常不寻常的。请仔细体会这一点。本质上，你的 Docker 容器只运行了一个进程。关于这一点，我们稍后会详细讨论。
+
+### Docker 中的基本网络配置
+
+在继续学习之前，你需要了解的最后一个入门知识是 Docker 中的网络配置。你将使用的许多容器都需要通过 TCP 或 HTTP 等网络协议从主机进行访问。幸运的是，Docker 为我们处理了网络问题。简单来说，你将通过发布端口来管理 Docker 的网络。发布端口时，你明确地将运行中容器的一个端口或端口范围绑定到主机。这是通过（小写 p）`-p` 标志完成的。此命令明确了主机与容器之间的连接。因此，它只能作为参数传递给 Docker 引擎。发布端口时使用的模式是 `-p host_port:container_port`。例如，假设我运行一个 Flask⁵ 应用，该应用定义在一个名为 `my_flask_app` 的容器中，端口为 5000，通过命令 `docker run -p 7777:5000 my_flask_app` 运行。在这种情况下，我将容器中的端口 5000 发布到主机上的端口 7777。换句话说，容器中端口 5000 上可用的任何内容，在主机上的端口 7777 上也将可用。对我这个本地最终用户来说，其效果是我可以在浏览器中通过 `http://localhost:7777`（如果使用 Docker Toolbox，则通过主机 IP 的端口 7777）访问我定义的 Flask 应用。Python 模块 `SimpleHTTPServer` 可用于为启动它的目录运行一个文件服务器。在代码清单 2-18 中，你使用单个命令通过 Docker 容器启动一个文件服务器。Docker 守护进程拉取 `python` 镜像，并使用它通过命令 `python -m SimpleHTTPServer` 运行 Python 模块。该服务器在容器内的默认端口 8000 上运行。你将其链接到主机上的端口 5000，并能够通过浏览器（图 2-5）在 `http://localhost:8000` 访问文件服务器。
+
+![A439726_1_En_2_Fig5_HTML.jpg](img/A439726_1_En_2_Fig5_HTML.jpg)  
+
+图 2-5. 可通过浏览器访问的本地文件服务器
+
+```
+$ docker run -v ∼:/home -p 5000:8000 python:2.7 python -m SimpleHTTPServer
+Unable to find image 'python:2.7' locally
+2.7: Pulling from library/python
+6d827a3ef358: Already exists
+2726297beaf1: Pull complete
+7d27bd3d7fec: Pull complete
+44ae682c18a3: Pull complete
+824bd01a76a3: Pull complete
+69702776c399: Pull complete
+7be4e7612dd4: Pull complete
+Digest: sha256:bda277274d53484e4026f96379205760a424061933f91816a6d66784c5e8afdf
+Status: Downloaded newer image for python:2.7
+172.17.0.1 - - [16/Apr/2017 14:58:54] "GET / HTTP/1.1" 200 -
+```
+
+代码清单 2-18. 通过 Docker 容器启动文件服务器
+
+**注意** 在不同系统上运行 Docker 存在细微差别。在大多数情况下，Docker Toolbox 用户将能够通过 `http://192.168.99.100:5000` 访问简单的文件服务器。Linux/Mac/Windows 的 Docker 用户应使用 `http://localhost:5000`。
+
+## 总结
+
+在本章中，我正式介绍了 Docker 及其生态系统。我定义了容器化及其对我们工作的用处。我提供了在几个流行操作系统上安装 Docker 的说明。最后，你运行了 Docker 的 `hello-world` 镜像和 Docker 的 `python` 镜像，并使用后者运行了一个简单的 Web 服务器。完成本章后，我希望你理解了 Docker 到底是什么，并对其存在的原因有了一些了解。我希望你了解 Docker 生态系统的各个组件。读者应该能够通过 Docker 客户端运行基本命令，例如 `docker help`、`docker ps` 和 `docker run`。在下一章中，我将正式介绍 Jupyter。与本书中的一切一样，我将使用 Docker 来进行介绍。在后续章节中，你将更深入地探索 Docker 生态系统的各个组件，例如 Docker 引擎（或守护进程）、Dockerfile 和 Docker Hub。
+
+脚注  
+
+1 [`blog.docker.com/2016/03/containers-are-not-vms/`](https://blog.docker.com/2016/03/containers-are-not-vms/)  
+
+2 此命令是 bash 命令 `ps` 的后代。在 bash 中，此命令列出正在运行的进程，而在 Docker 中，此命令列出正在运行的容器。这符合我们对 Docker 容器作为虚拟化进程的理解。  
+
+3 [`hub.docker.com`](https://hub.docker.com)  
+
+4 [`github.com/docker/HyperKit/`](https://github.com/docker/HyperKit/)  
+
+5 [`flask.pocoo.org`](http://flask.pocoo.org)  
+
+© Joshua Cook 2017  
+
+Joshua Cook, *Docker for Data Science*  
+
+`doi.org/10.1007/978-1-4842-3012-1_3`
+
+
+
