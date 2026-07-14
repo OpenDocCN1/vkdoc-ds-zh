@@ -240,3 +240,5 @@ component_create [NAME]
 
 在下一章中，你将学习 ThMAD 中使用的 3D 概念：坐标系、空间映射、光照以及 ThMAD 视角下的 3D 对象。
 
+
+

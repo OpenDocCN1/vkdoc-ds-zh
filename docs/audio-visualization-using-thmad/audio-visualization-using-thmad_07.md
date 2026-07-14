@@ -1102,3 +1102,5 @@ PNG 文件必须存放在 `/home/[USER]/thmad/[VERSION]/data/resources` 目录�
 
 本章包含了一系列高级教程或案例，涵盖了 ThMAD 的更多方面并展示了其能力。第 7 章和第 8 章收录了 ThMAD Artiste 和 ThMAD Player 的 GUI 参考手册。
 
+
+
