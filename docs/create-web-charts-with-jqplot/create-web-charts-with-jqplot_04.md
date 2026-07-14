@@ -1,4 +1,4 @@
-# 使用 jqPlot 绘制折线图
+# 第 4 章：使用 jqPlot 绘制折线图
 
 在上一章中，你了解了 `jqPlot` 的最基本用法：只需一组数据即可绘制一条折线，无需任何额外选项。你看到，要创建最基本的图表类型——折线图，并不需要包含插件。
 
@@ -1606,3 +1606,313 @@ var options = {
 ### 带状图
 
 带状图（也称为高低折线图或范围图）是一种结合了面积图和折线图特征的图表类型。
+
+# 带状图（Band Chart）
+
+带状图是一种带有底层阴影区域的折线图（参见图 4-45）。该区域表示 Y 轴上数值范围的上下边界。这个范围随 X 轴变化，最终形成一个带状区域。
+
+![9781484208632_Fig04-45.jpg](img/9781484208632_Fig04-45.jpg)
+
+图 4-45. 带状图
+
+你可以使用带状区域来表示 Y 轴上的特定区间，该区间随 X 轴值变化，并与内部折线的趋势相关联，例如用于展示置信区间或误差带。另一个用途是突出显示随时间变化的分布，以及显示算术平均值的折线。
+
+使用`jqPlot`，带状区域可以自动计算或手动指定。如果手动指定，必须提供两个`[x, y]`值数组作为带状区域的边界。第一个数组定义下边界线，第二个数组定义上边界线。这两个数组作为另一个数组的两个元素传入`options`中的`bandData`属性。
+
+首先，我们定义一个包含`[x, y]`值对的数据数组，以及包含两个数组（下边界线和上边界线）的带状数组`bdata`（参见代码清单 4-53）。
+
+***代码清单 4-53***. Ch4_24a.html
+
+```javascript
+var data =[[10,100],[20,110],[30,140],[40,130],
+             [50,80],[60,75],[70,120],[80,130],[90,100]];
+varbdata =[[[10,90],[20,100],[30,130],[40,120],
+             [50,70],[60,65],[70,110],[80,120],[90,90]],
+            [[10,110],[20,120],[30,150],[40,140],
+             [50,90],[60,85],[70,130],[80,140],[90,110]]];
+```
+
+然后，在`options`中使用代码清单 4-54 所示的代码。图 4-46 展示了生成的带状折线图。
+
+![9781484208632_Fig04-46.jpg](img/9781484208632_Fig04-46.jpg)
+
+图 4-46. 带状折线图
+
+***代码清单 4-54***. Ch4_24a.html
+
+```javascript
+var options = {
+    series: [{
+       rendererOptions: { bandData: bdata }
+    }],
+    seriesDefaults: {
+       shadow: false,
+       showMarker: false
+    }
+};
+$.jqplot ('myChart', [data], options);
+```
+
+如果选择绘制平滑折线图，带状区域也会随之平滑。代码清单 4-55 给出了代码，图 4-47 展示了结果。
+
+***代码清单 4-55***. Ch4_24b.html
+
+```javascript
+rendererOptions: {
+    bandData: bdata,
+    smooth: true
+}
+```
+
+![9781484208632_Fig04-47.jpg](img/9781484208632_Fig04-47.jpg)
+
+图 4-47. 平滑带状折线图
+
+带状数据数组中的点数不必与数据系列中的点数对应。此外，如果数据系列是平滑的，带状数据也会被绘制为平滑线。带状区域不必相对于主线对称。通过在`bdata`数组中插入具有非对称 Y 值的数组，可以使带状区域变得不对称，如代码清单 4-56 所示。
+
+***代码清单 4-56***. Ch4_24c.html
+
+```javascript
+varbdata =[[[10,90],[30,100],[40,100],[50,70],
+             [60,65], [70,110],[80,120],[90,90]],
+            [[10,110],[30,150],[40,140],[50,120],
+             [60,85], [70,130],[80,140],[90,110]]];
+```
+
+现在，图 4-48 中的带状区域相对于主线是不对称的。
+
+![9781484208632_Fig04-48.jpg](img/9781484208632_Fig04-48.jpg)
+
+图 4-48. 非对称带状折线图
+
+但是，提供带状数据并非强制要求；它们可以由`jqPlot`自动计算。要激活此功能而不使用任何数组，你需要在`rendererOptions`中将`bands`对象的`show`属性设置为`'true'`，如代码清单 4-57 所示。如图 4-49 所示，默认情况下带状区间覆盖主线 Y 值的±3%。
+
+***代码清单 4-57***. Ch4_24d.html
+
+```javascript
+series: [{
+    rendererOptions: {
+       bands: { show: true},
+       smooth: true
+    }
+}],
+```
+
+![9781484208632_Fig04-49.jpg](img/9781484208632_Fig04-49.jpg)
+
+图 4-49. 带状区间为±3%的带状折线图
+
+## 填充折线图中的两条线之间的区域
+
+你刚刚了解了带状区域。为什么不填充两条系列线之间的区域呢？这个任务同样可以用`jqPlot`完成。通过设置`fillBetween`对象中的属性，可以控制图表中两条线之间的区域。
+
+这里，我们从一个非常简单的多系列折线图开始（与其他案例中使用的示例相同），如代码清单 4-58 所述。
+
+***代码清单 4-58***. Ch4_5a.html
+
+```javascript
+$(document).ready(function(){
+    var data1 = [1, 2, 3, 2, 3, 4];
+    var data2 = [3, 4, 5, 6, 5, 7];
+    var data3 = [5, 6, 8, 9, 7, 9];
+    var data4 = [7, 8, 9, 11, 10, 11];
+    var options = {
+       title:'Multiple Data Arrays',
+    };
+    $.jqplot('myChart', [data1, data2, data3, data4], options);
+});
+```
+
+使用这个多系列折线图，你可以考虑每个系列，索引从 0 开始：第一个系列为 0，第二个系列为 1，第三个系列为 2，依此类推。
+
+因此，如果你想填充两条线之间的区域，需要在`series1`和`series2`属性中指定它们对应的两个索引。例如，如果你想填充第二个和第四个系列之间的区域，必须将`series1`设置为 1（第二个系列），将`series2`设置为 3（第四个系列），如代码清单 4-59 所示。可选地，你可以使用`color`属性或更好的`rgba()`函数来设置限定区域的颜色。
+
+***代码清单 4-59***. Ch4_25.html
+
+```javascript
+var options = {
+    title: 'Multiple Data Arrays',
+    fillBetween: {
+       series1: 1,   //second series
+       series2: 3,   //fourth series
+       color: "rgba(10, 120, 130, 0.7)"
+    }
+});
+```
+
+在图 4-50 中，你可以看到第二个和第四个系列之间的选定区域已被着色。
+
+![9781484208632_Fig04-50.jpg](img/9781484208632_Fig04-50.jpg)
+
+图 4-50. 两条线之间带有着色区域的多系列折线图
+
+你可以将一个 JavaScript 函数绑定到一个按钮上，该按钮用于更新每个系列的图表设置，然后重新绘制所有内容。为此，我们在 jQuery 的`ready()`函数中添加代码清单 4-60 中的函数。
+
+***代码清单 4-60***. Ch4_26.html
+
+```javascript
+$("button[name=changeFill]").click(function(e) {
+    plot1.fillBetween.series1 = parseInt($("input[name=series1]").val());
+    plot1.fillBetween.series2 = parseInt($("input[name=series2]").val());
+    plot1.replot();
+});
+```
+
+为了使上述 JavaScript 函数正常工作，你需要将变量`plot1`赋值为函数`$.jqplot()`返回的值：
+
+```javascript
+plot1 = $.jqplot ('myChart', [data1, data2, data3, data4], options);
+```
+
+并且，在网页的`<body>`部分，你必须添加两个输入文本框和一个按钮，如代码清单 4-61 所示。
+
+***代码清单 4-61***. Ch4_26.html
+
+```html
+<label for="series1">第一系列：</label>
+<input type="text" name="series1" value="1" />
+<label for="series2">第二系列：</label>
+<input type="text" name="series2" value="3" />
+<button name="changeFill">更改填充</button>
+```
+
+结果如图 图 4-51 所示。
+
+![9781484208632_Fig04-51.jpg](img/9781484208632_Fig04-51.jpg)
+
+图 4-51. 一个带有可选颜色区域的多系列折线图
+
+要用 jQuery UI 小部件替换简单的 HTML 控件，您需要对代码进行一些修改以便集成，如 代码清单 4-62 所示。
+
+***代码清单 4-62***. Ch4_26ui.html
+
+```html
+<link rel="stylesheet" href="../src/css/smoothness/jquery-ui-1.10.3.custom.min.css" />
+<script src="../src/js/jquery-ui-1.10.3.custom.min.js"></script>
+...
+$("button[name=changeFill]").click(function(e) {
+    plot1.fillBetween.series1 = parseInt($("#combobox").val());
+    plot1.fillBetween.series2 = parseInt($("#combobox2").val());
+    plot1.replot();
+});
+...
+<div class="ui-widget">
+<label>第一系列：</label>
+<select id="combobox">
+    <option value="0">1</option>
+    <option value="1">2</option>
+    <option value="2">3</option>
+    <option value="3">4</option>
+</select>
+</div>
+<div class="ui-widget">
+<label>第二系列：</label>
+<select id="combobox2">
+    <option value="0">1</option>
+    <option value="1">2</option>
+    <option value="2">3</option>
+    <option value="3">4</option>
+</select>
+</div>
+<button name="changeFill">更改填充</button>
+<script>
+$(function() {
+    $('button')
+       .button()
+       .click(function(event) {
+          event.preventDefault();
+      });
+});
+</script>
+```
+
+结果如图 图 4-52 所示。
+
+![9781484208632_Fig04-52.jpg](img/9781484208632_Fig04-52.jpg)
+
+图 4-52. 一个带有可选颜色区域的多系列折线图
+
+## 趋势线
+
+jqPlot 确实充满了惊喜。除了您已经了解的关于折线图的所有功能外，jqPlot 还可以计算并绘制趋势线。这些通常是图表中绘制的直线，但有时也可以是指数形式的（如果在对数尺度上是线性的）。趋势线表示图表中绘制的系列数据的总体模式或方向。该线是使用统计技术绘制的。此功能由另一个插件 `Trendline` 实现。
+
+要启用此功能，您需要在网页中包含该插件：
+
+```html
+<script type="text/javascript" src="../src/plugins/jqplot.trendline.min.js"></script>
+```
+
+之后，您只需激活该插件，添加启用它的行，如 代码清单 4-63 所示。
+
+***代码清单 4-63***. Ch4_27a.html
+
+```javascript
+$(document).ready(function(){
+    var data = [100, 110, 140, 130, 135, 132, 140, 135, 142]
+    $.jqplot.config.enablePlugins = true;
+    $.jqplot ('myChart', [data]);
+});
+```
+
+只需这几行代码，就可以获得一条趋势线，如图 图 4-53 所示。
+
+![9781484208632_Fig04-53.jpg](img/9781484208632_Fig04-53.jpg)
+
+图 4-53. 折线图的线性趋势线
+
+但是，如果您希望显式地表达属性，可以通过使用选项来实现。这使您能够像处理图表中的其他对象一样处理趋势线。假设您想更改线条的颜色并增加其粗细以使其突出（参见 代码清单 4-64）。
+
+***代码清单 4-64***. Ch4_27b.html
+
+```javascript
+var options = {
+    seriesDefaults: {
+       trendline: {
+          show:true,
+          color: '#ff0000',
+          lineWidth: 4
+       }
+    }
+}
+$.jqplot ('myChart', [data], options);
+```
+
+现在您可以对趋势线进行更多控制。图 4-54 显示了在 `trendline` 对象中设置了属性的线条（趋势线更粗，并在浏览器中以深红色显示）。
+
+![9781484208632_Fig04-54.jpg](img/9781484208632_Fig04-54.jpg)
+
+图 4-54. 折线图中自定义的线性趋势线
+
+如前所述，可以使用趋势线曲线，它表示图表数据点所遵循的指数趋势。让我们在下一个示例中研究这一点，见 代码清单 4-65。
+
+***代码清单 4-65***. Ch4_28.html
+
+```javascript
+$(document).ready(function(){
+    var data = [[10, 1.44], [30, 6.98], [50, 10.7], [70, 37.5], [90, 78.1]];
+    var options = {
+       seriesDefaults: {
+          trendline: {
+             show:true,
+             color: '#ff0000',
+             lineWidth: 4,
+             type: 'exponential'
+          }
+       }
+    }
+    $.jqplot ('myChart', [data], options);
+});
+```
+
+图 4-55 展示了一个折线图，其中绘制了一系列遵循指数趋势的数据点。因此，您可以用一条指数趋势线来突出显示这一点。
+
+![9781484208632_Fig04-55.jpg](img/9781484208632_Fig04-55.jpg)
+
+图 4-55. 折线图中自定义的指数趋势
+
+## 本章小结
+
+在这一内容丰富的章节中，您已经深入了解了 jqPlot 的世界。您了解了这个库提供的众多可能性，使您能够尽最大能力实现折线图。您学习了如何操作绘制图表的基本元素，例如`坐标轴`和`刻度`。特别是，您看到了如何在同一个图表中管理多个数据系列（`多系列图表`），并添加各种图形效果。您还探索了 jqPlot 库如何允许您操作`日期和时间值`的不同格式。此外，您还了解了如何使用`HTML 格式`以及`高亮显示`数据点来自定义某些元素。在本章的最后部分，您处理了更复杂的情况，例如生成`趋势线`和使用`带状图`。
+
+在下一章中，我们将讨论更多主题，您将面对其他新概念，这次将应用于柱状图。
+
