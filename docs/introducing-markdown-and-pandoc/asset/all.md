@@ -1046,10 +1046,8 @@ If your output is HTML or EPUB where you use MathML or MathJax, then you can als
 
 If you have a single document but want separate equations for different output formats, you cannot just let the text fall through to the output. There, you need to output one version for one output format and another for another format. Here, Pandoc lets you write verbatim text that will only be included for a specific output format. You can write
 
-```
 ```{=latex}
 $$\sum_{j=1}^N \frac{1}{j^2}$$
-```
 ```
 
 for a block of text that should only be included if the output is LaTeX and write
@@ -1069,11 +1067,9 @@ The syntax for writing a block of code uses either tilde, “~”, or backticks,
 You start a block with three backticks, then write your code, and then end the block with another three backticks.
 
 ```
-```
 for (int i = 0; i < n; i++) {
 printf("%d\n", i);
 }
-```
 ```
 
 You can also use tiles instead of backticks, but I will use backticks in this chapter.
@@ -1088,12 +1084,10 @@ printf("%d\n", i);
 
 If you only use backticks or `~`, you get a verbatim text block, just as if you had indented the text. To get syntax highlighting, you must also inform Pandoc of which programming language you are using. You can do this by writing the name of the language after the first line of backticks. To syntax highlight the preceding code, which is written in C programming language, you would write
 
-```
 ```c
 for (int i = 0; i < n; i++) {
 printf("%d\n", i);
 }
-```
 ```
 
 The result will look like this:
@@ -1106,11 +1100,9 @@ printf("%d\n", i);
 
 A block of Python code would look like this:
 
-```
 ```python
 for i in range(n):
 print(i)
-```
 ```
 
 The result would look like this:
@@ -1130,11 +1122,9 @@ pandoc --list-highlight-languages
 
 This syntax for displaying code is supported by many web sites where it is usual to write code in text, such as on GitHub. You can give more advanced instructions for how code should be displayed, but then you need to use a slightly different syntax that is more Pandoc specific. There, you put instructions in curly brackets after the first three backticks. You must specify the programming language but prepend a dot to the name, for example, write `.python` for Python. You can then number the code lines with the instruction `.numberLines`:
 
-```
 ```{.python .numberLines}
 for i in range(n):
 print(i)
-```
 ```
 
 The result will look like this:
@@ -1146,11 +1136,9 @@ The result will look like this:
 
 You can specify which line number to start from with the option `startFrom` . To start from line 100, we can write
 
-```
 ```{.python .numberLines startFrom=100}
 for i in range(n):
 print(i)
-```
 ```
 
 The result will look like this:
@@ -1162,16 +1150,13 @@ The result will look like this:
 
 You can give the code block an identifier:
 
-```
 ```{#my-code .python .numberLines}
 for i in range(n):
 print(i)
 ```
-```
 
 This will make the code block a hypertext target (an anchor in HTML), so you can create hypertext references to it. The anchor id is the same as the identifier excluding the hashtag. That is, in the preceding example, it is `my-code`. You refer to the target as you would with other references in a Markdown document, for example:
 
-```
 ```{#my-code .python}
 for i in range(n):
 print(i)
@@ -1181,11 +1166,9 @@ See [my code](my-code)
 
 In HTML output, you can also make each line an anchor using the option `.lineAnchors`.
 
-```
 ```{#my-code .python .numberLines .lineAnchors}
 for i in range(n):
 print(i)
-```
 ```
 
 The line identifiers are the code block id followed by the line number. In this case, the two lines `my-code-1` and `my-code-2`.
@@ -2217,15 +2200,12 @@ Leaving the exercises, imagine that you are writing a book about programming and
 
 For example, you have the code
 
-```
 ```python
 for i in range(10):
 print(i, end = ' ')
-```
 ```python
 for i in range(10):
 print(-i, end = ' ')
-```
 ```
 
 and you want the first code block to be followed by the numbers 0–9 and the second from 0 to -9.^([^(18)](#fn18))
@@ -2262,7 +2242,6 @@ python3 evalpy.py < eval-python.md
 
 and get this result:
 
-```
 ```python
 for i in range(10):
 print(i, end = ' ')
@@ -2649,14 +2628,12 @@ Sometimes we want a different text in the output conditional on the output forma
 
 You can insert raw text that is only included in the right output using text followed by `{=format}`. The delimiters for the text you write is slightly different based on whether you want a block or inline text. For a block, you write
 
-```
 ```{=html}
 See examples
 
 Exercise 1
 Exercise 2
 
-```
 ```
 
 For inline text, you use backticks:
@@ -2820,11 +2797,9 @@ pandoc -F eval-python.py eval-python.md --to markdown
 
 The result is this:
 
-```
 ``` {.python}
 for i in range(10):
 print(i, end = ")
-```
 ``` {.python .eval}
 for i in range(10):
 print(-i, end = ")
@@ -2856,11 +2831,9 @@ foo()
 
 This is the output:
 
-```
 ``` {.python}
 for i in range(10):
 print(i, end = ")
-```
 ``` {.python .eval}
 print("defining foo")
 def foo():

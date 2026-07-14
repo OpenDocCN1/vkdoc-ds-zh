@@ -233,4 +233,5 @@ rm book.pdf book.epub book.docx
 然后我定义了一些我想用于所有输出格式的选项，以及一些我只想用于 PDF 的选项，以及其他我只想用于电子书的选项。在元数据中，我设置了 PDF 输出，我也可以把它放在头文件中——如果这样做，它们不会干扰 EPUB 输出——但我选择在这里设置它们。
 
 我在 Makefile 中构建 EPUB 书籍，但如果你计划在 iBooks 上发布，我不建议使用这个文件。我发现使用 Pages 来排版和提交书籍要容易得多。Pages 可以读取 Word 文档，这也是我通常向 iBooks 提交书籍的方式：我制作一个 Word 文档，在 Pages 中打开它，然后提交。你可能会认为以正确的格式构建书籍然后使用 iTunes Connect 提交会更简单。你错了。如果你想在亚马逊（通过 Kindle Direct Publishing）上发布，你最好也使用他们的工具 Kindle Create。Kindle Create 可以读取 Word 文件，你可以从那里提交。有一个命令行工具可以将 EPUB 转换为 Kindle 上使用的 MOBI 文件格式，但 Kindle Create 更易于使用。
-```
+
+
