@@ -1,6 +1,5 @@
 +   [ArcGIS API 4 for JavaScript 入门指南](README.md)
-+   [介绍 ArcGIS API 4 for JavaScript](introducing-arcgis-api-4-for-javascript_1_fmt.md)
-+   [ArcGIS API for JavaScript](introducing-arcgis-api-4-for-javascript_2_fmt.md)
++   [1. ArcGIS API for JavaScript](introducing-arcgis-api-4-for-javascript_2_fmt.md)
 +   [2. 入门](introducing-arcgis-api-4-for-javascript_3_fmt.md)
 +   [3. 地图与视图](introducing-arcgis-api-4-for-javascript_4_fmt.md)
 +   [4. API 核心基础](introducing-arcgis-api-4-for-javascript_5_fmt.md)
