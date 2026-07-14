@@ -1823,3 +1823,4 @@ Transfer function from input to output...
 ![A978-1-4842-0289-0_3_Fig32_HTML.jpg](img/A978-1-4842-0289-0_3_Fig32_HTML.jpg)
 
 `图 3-32。`
+
