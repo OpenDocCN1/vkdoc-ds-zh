@@ -1,7 +1,5 @@
 +   [Google Data Studio 初学者指南](README.md)
-+   [开启你的 Data Studio 之旅](google-data-studio-for-beginners_01_fmt.md)
-+   [记住：你是一位数据开发者](google-data-studio-for-beginners_02_fmt.md)
-+   [开始入门：你好，世界！](google-data-studio-for-beginners_03_fmt.md)
++   [1. 开启你的 Data Studio 之旅](google-data-studio-for-beginners_01_fmt.md)
 +   [2. 报告制作](google-data-studio-for-beginners_04_fmt.md)
 +   [3. 指标和维度](google-data-studio-for-beginners_05_fmt.md)
 +   [4. 在线调查](google-data-studio-for-beginners_06_fmt.md)
