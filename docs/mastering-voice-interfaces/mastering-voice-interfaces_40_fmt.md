@@ -1,5 +1,0 @@
-# ...... 为聚焦列表而省略的代码 ......
-
-```
-if (last_name in ['Jones', 'Adams', 'Barnes', 'Carletti']):
-```
