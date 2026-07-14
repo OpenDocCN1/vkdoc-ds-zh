@@ -498,3 +498,4 @@ from activities
 如前所述，Spark 提供了多种访问和处理数据的方式。事实上，Spark SQL 可以使用 Spark Thrift 服务运行，允许你使用 [Tableau](https://www.tableau.com/) 或 [Apache Superset](https://superset.apache.org/) 连接到 Spark 进行数据分析和可视化。
 
 下一章重点介绍核心 Spark API 所支持的基础功能，这些功能可帮助你在处理各种外部数据源以及各种常见文件格式、协议和压缩类型时发挥作用。你将通过强化练习和示例，学习如何使用核心 Spark API 解决作为数据工程师可能遇到的许多问题，这些练习和示例将帮助你熟悉核心 Spark API。如果你准备好了，我们就开始吧。
+

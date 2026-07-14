@@ -1,3 +1,23 @@
+# 5. 桥接 Spark SQL 与 JDBC
+
+在上一章中，我们研究了在使用 `Spark SQL` 和 `DataFrame API` 转换数据时，利用其强大核心功能的常见模式和技术。虽然我们确实涵盖了很多内容，但有意跳过了 `Spark SQL` 框架下一些更令人兴奋的功能。沿着这条思路，我们难道不应该能够从 Apache `Spark SQL` 的舒适环境中连接并直接操作远程数据库吗？此外，在将数据读入 Spark 时，使用 SQL 的强类型语义难道不也很有优势吗？我们难道不能以某种方式将这些丰富的类型系统（Java/Scala 固有的）与 SQL 以及 Apache Spark 自身的强内部类型机制结合起来吗？幸运的是，这正是你将在本章中学习的内容。
+
+你将学习在 Spark 与任何兼容 `JDBC` 的 `RDBMS` 数据库（例如 `MySQL`、`PostgreSQL`、Microsoft SQL Server、Azure SQL Database、Oracle 等）之间无缝读写数据。你将学习如何原生地从外部数据库行加载数据并将其转换为 Spark `DataFrame`，然后再写回数据源数据库。
+
+# 概述
+
+本书主要讲解如何使用 Apache Spark 处理数据。为了尽可能全面地覆盖必要内容，我们有时会跳出 Apache Spark 的范畴，以便全方位了解某个流程的运作方式。在本章中，你将学习如何在 Docker 上启动、引导和使用 MySQL，从而理解 Spark 与 MySQL（或任何 JDBC 兼容数据库）之间的完整端到端桥梁。这个基于 Docker 的数据库将在下一章中再次用于驱动你的 Hive Metastore。对于部分读者来说，这可能是数据库管理的入门速成课，但我保证过程不会痛苦。
+
+我希望通过这些练习，你能清晰理解 Spark 如何连接并驱动基于传统 OLTP 数据库的应用程序，甚至包括使用 JDBC 作为桥梁连接这些关系型数据库映射服务（RDBMS）的非传统云端分布式数据库。
+
+本章分为三个基本部分和练习：
+
+* Docker 上的 MySQL 速成课
+* 使用 JDBC 连接 RDBMS 世界与 Spark SQL
+* 延续练习
+
+那么，闲话少叙，让我们启动开发环境，开始动手实践吧！
+
 # Docker 上的 MySQL 速成课
 
 本章将从熟悉 Docker 上的 MySQL 开始。
@@ -763,3 +783,4 @@ rows
 在下一章中，您将学习如何使用 Apache Hive Metastore。您将设置、配置并运行完全由基于 Docker 的 MySQL 数据库支持的 Metastore。您将看到 Metastore 如何简化数据发现过程，并支持在 Spark 应用程序上下文中进行数据探索。您将了解 Hive Metastore 如何引入使用数据库表的新方式，以及如何保护您的数据源存储，并在多个 Spark 应用程序之间提供文档和共享表定义。
 
 准备好了吗？
+
