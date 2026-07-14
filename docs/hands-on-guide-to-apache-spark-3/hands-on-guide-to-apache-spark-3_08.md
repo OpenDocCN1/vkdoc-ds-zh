@@ -994,3 +994,4 @@ counts.writeStream
 在本章中，我们介绍了 Spark Structured Streaming 模块。首先，我们研究了消息传递可靠性机制的一般语义。其次，我们将 Structured Streaming 与基于 DStream 的 Spark Streaming 进行了比较。之后，我们解释了 Spark Structured Streaming 架构背后的技术细节，例如输入表和结果表以及支持的不同输出模式。此外，我们还介绍了用于 DataFrame 和 Dataset 的流式 API，以及 Structured Streaming 的无状态和有状态转换与聚合，并给出了一些有趣的示例，这些示例将帮助您学习如何实现这些功能。最后，我们研究了流式检查点和恢复的概念，并给出了一些实际示例。在下一章中，我们将继续学习流式数据源和接收端。
 
 脚注 1 2 3 4 5 6 7 8
+

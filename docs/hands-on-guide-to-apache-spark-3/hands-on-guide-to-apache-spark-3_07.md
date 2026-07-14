@@ -1063,3 +1063,8 @@ stopFlag = fs.exists(new Path(altFolder))
 在本章中，我们解释了什么是 Apache Spark Streaming，以及作为 Spark Streaming 概念背后基本抽象的 Spark `DStream`（离散化流）。我们提到 `DStream` 是 Spark Streaming 的高级抽象，就像 `RDD` 一样。我们还探讨了有界数据与无界数据的实时分析之间的差异，并提及了流处理带来的挑战和不确定性。接着，我们讨论了 Spark Streaming 执行模型和流处理架构。在这一点上，我们解释了 Lambda 和 Kappa 架构作为当前可用的主要流处理架构。之后，我们介绍了离散化流以及流数据源和接收器的概念。最后一点内容相当丰富，解释并举例说明了基本和高级数据源。我们还描述了优雅关闭这一高级主题，并给出了一个实际示例，最后提供了 `DStreams` 上最常用转换操作的列表。
 
 脚注 1 2 3 4 5 6
+
+
+# 第二部分 Apache Spark Streaming
+
+
