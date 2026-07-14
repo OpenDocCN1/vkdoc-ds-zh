@@ -753,3 +753,8 @@ public RecursiveGridInterpolation(Interpolation univariate)
 ```
 
 它接收一个 `Interpolation` 对象作为输入。在前面的代码示例中，我们提供了一个 `LinearInterpolation` 对象。因此，当将数据集降维到一维切片数据时，代码将应用线性插值。
+
+
+
+
+

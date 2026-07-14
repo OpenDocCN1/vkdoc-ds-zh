@@ -2329,3 +2329,4 @@ System.out.println(String.format("S_[%.0f,%.0f] f(x) dx = %f", a, b, I));
 ```
 S_[1,2] f(x) dx = 2.000000
 ```
+

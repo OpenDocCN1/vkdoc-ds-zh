@@ -297,3 +297,8 @@ System.out.println(String.format("f(%s) = %s", root.toString(), G.evaluate(root)
 ```
 f([-4.580190, -4.307120, -64.924460] ) = [0.000000, -0.000000, 0.000000]
 ```
+
+
+
+
+

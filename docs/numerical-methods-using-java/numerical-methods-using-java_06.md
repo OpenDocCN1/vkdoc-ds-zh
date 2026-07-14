@@ -579,3 +579,8 @@ System.out.println(String.format("f(%f) = %f", root, fx));
 ```
 f(1.000000) = 0.000000
 ```
+
+
+
+
+
