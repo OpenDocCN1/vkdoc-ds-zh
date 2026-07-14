@@ -915,3 +915,318 @@ y(1.000000) = [3.839421]  (-0.1211391576099716); = [3.719346]  (-0.0010644638780
 ```
 
 输出显示了使用一阶、二阶、三阶、四阶和五阶 `Adams-Bashforth` 公式得到的近似值。近似值显示在方括号内，误差显示在圆括号内。请注意，阶数越高的公式能得到更精确的结果（误差更小）。对于此示例，三阶、四阶和五阶公式产生了相同的结果。
+
+# 7.3 不同方法的比较
+
+本节总结了使用本章介绍的不同方法求解以下初值问题的结果。该初值问题如下所示：
+
+![$$ \left\{\begin{array}{c}{y}^{\prime }=-y+x+1,0&lt;x\le 0.6\\ {}y(0)=1\end{array}\right. $$](img/528380_1_En_7_Chapter_TeX_Equcv.png)
+
+其解析解如下所示：
+
+![$$ y={e}^{-x}+x $$](img/528380_1_En_7_Chapter_TeX_Equcw.png)
+
+我们使用步长 `h = 0.1`，因此 `x[k] = kh`（`k = 0, 1, ..., 6`）。每种方法的计算结果和绝对误差如下表所示。
+
+| **四步 Adams-Bashforth 公式** | | | |
+| --- | --- | --- | --- |
+| `n` | `x[n]` | `显式公式` | `隐式公式` |
+| | | `y[n]` | ε | `y[n]` | ε |
+| 4 | 0.4 | 1.070323 | 2.90e-06 | 1.07032 | 3.90e-07 |
+| 5 | 0.5 | 1.106535 | 4.80e-06 | 1.10653 | 5.20e-07 |
+| 6 | 0.6 | 1.148815 | 6.80e-06 | 1.148811 | 6.50e-07 |
+
+| `欧拉法` | `梯形公式` | `四阶龙格-库塔公式` |
+| --- | --- | --- |
+| `x[n]` | `y[n]` | ε | `y[n]` | ε | `y[n]` | ε |
+| 0 | 1 | 0 | 1 | 0 | 1 | 0 |
+| 0.1 | 1 | 4.80e-03 | 1.005 | 1.60e-04 | 1.0048375 | 8.00e-08 |
+| 0.2 | 1.01 | 8.70e-03 | 1.019025 | 2.90e-04 | 1.0187309 | 1.50e-07 |
+| 0.3 | 1.029 | 1.20e-03 | 1.041218 | 4.00e-04 | 1.04081842 | 2.00e-07 |
+| 0.4 | 1.0561 | 1.40e-03 | 1.070802 | 4.80e-04 | 1.07032029 | 2.40e-07 |
+| 0.5 | 1.09049 | 1.60e-03 | 1.107076 | 5.50e-04 | 1.10653093 | 2.70e-07 |
+| 0.6 | 1.131441 | 1.80e-03 | 1.149404 | 5.90e-04 | 1.14881193 | 2.90e-07 |
+
+通常，方法的阶数越高，解的精度越高。一阶的欧拉公式精度最低，而四阶龙格-库塔公式精度最高，实际上要好得多（1e-7 对 1e-3）。对于四阶 Adams-Bashforth 方法，隐式公式比显式公式略精确。
+
+在计算量方面，四阶龙格-库塔方法的计算量最大。函数 `f` 在每一步中被求值四次。相比之下，精度相似的 Adams-Bashforth 方法仅对函数求值两次。因此，后者更可取。然而，它是一种四步法，因此初始值必须由另一种方法提供。其计算过程稍显复杂。
+
+考虑使用欧拉公式求解以下初值问题：
+
+![$$ \left\{\begin{array}{c}{y}^{\prime }=-1000\left(y-{x}²\right)+2x\\ {}y(0)=1\end{array}\right. $$](img/528380_1_En_7_Chapter_TeX_Equcx.png)
+
+注意，精确解给出 `y(1) = 1`。
+
+取以下步长：`h = 10^(−1)`、`h = 10^(−2)`、`h = 10^(−3)` 和 `h = 10^(−4)`。结果如下表所示。首先，对于 `h = 10^(−1)` 和 `h = 10^(−2)`，结果完全失真。其次，从 `h = 10^(−3)` 到 `h = 10^(−4)`，计算工作量增加了十倍，但精度并未提高。`h = 10^(−4)` 及更小的步长是计算资源的浪费。
+
+| `h` | `y` |
+| --- | --- |
+| 10^(−1) | 0.904382 × 10¹⁶ |
+| 10^(−2) | >10³⁸ |
+| 10^(−3) | 0.999999000001 |
+| 10^(−4) | 0.999999000000 |
+
+`h = 10^(−1)` 和 `h = 10^(−2)` 得到错误结果的原因在于稳定性区域。如第 7.1.4 节所述，`h` 需要满足以下条件：
+
+![$$ -2&lt;-1000h&lt;0 $$](img/528380_1_En_7_Chapter_TeX_Equcy.png)
+
+或者等价地：
+
+![$$ 0&lt;h&lt;2\times {10}^{-3} $$](img/528380_1_En_7_Chapter_TeX_Equcz.png)
+
+前两个步长不在稳定性区域内。
+
+这些例子表明，在选择合适的求解微分方程的方法和参数时，有许多需要考虑的因素。这些选择会影响精度、计算工作量和稳定性。当步长过大时，解可能失真；当步长过小时，会不必要地增加计算量。良好的选择不仅取决于所使用的数值方法，还取决于待解微分方程的特性。
+
+# 7.4 常微分方程组与高阶常微分方程
+
+考虑一个由 `N` 个一阶常微分方程及其初始条件组成的系统，如下所示：
+
+![$$ {\displaystyle \begin{array}{l}\left\{\begin{array}{l}{y}_1^{\prime }={f}_1\left(x,{y}_1,\cdots, {y}_N\right)\\ {}{y}_2^{\prime }={f}_2\left(x,{y}_1,\cdots, {y}_N\right)\\ {}\kern2em \vdots \\ {}{y}_N^{\prime }={f}_N\left(x,{y}_1,\cdots, {y}_N\right)\\ {}{y}_1\left({x}_0\right)={y}_1⁰\\ {}{y}_2\left({x}_0\right)={y}_2⁰\\ {}\kern2em \vdots \\ {}{y}_N\left({x}_0\right)={y}_N⁰\end{array}\right.\\ {} \end{array}} $$](img/528380_1_En_7_Chapter_TeX_Equda.png)
+
+为了求解此常微分方程组，您可以这样写：
+
+![$$ \textbf{Y}=\left(\begin{array}{c}{y}_1\\ {}\vdots \\ {}{y}_N\end{array}\right) $$](img/528380_1_En_7_Chapter_TeX_Equdb.png)
+
+![$$ \textbf{F}=\left(\begin{array}{c}{f}_1\\ {}\vdots \\ {}{f}_N\end{array}\right) $$](img/528380_1_En_7_Chapter_TeX_Equdc.png)
+
+于是，该常微分方程组可以写成向量形式：
+
+![$$ \left\{\begin{array}{c}{\boldsymbol{Y}}^{\prime }=\boldsymbol{F}\left(x,\boldsymbol{Y}\right)\\ {}\boldsymbol{Y}\left({x}_0\right)={\boldsymbol{Y}}_{\textbf{0}}\end{array}\right. $$](img/528380_1_En_7_Chapter_TeX_Equdd.png)
+
+注意，该初值问题与本章讨论的其他常微分方程形式相同，只是变量和函数现在是向量。NM Dev 库中的类 `DerivativeFunction` 和 `ODE1stOrder` 支持向量形式。因此，您可以应用所有方法求解常微分方程组。例如，向量形式的欧拉公式如下：
+
+![$$ {\boldsymbol{Y}}_{\boldsymbol{n}+\textbf{1}}={\boldsymbol{Y}}_{\boldsymbol{n}}+h\boldsymbol{F}\left({x}_n,{\boldsymbol{Y}}_{\boldsymbol{n}}\right) $$](img/528380_1_En_7_Chapter_TeX_Equde.png)
+
+其分量形式如下：
+
+![$$ \left\{\begin{array}{l}{y}_{1,n+1}={y}_{1,n}+{hf}_1\left({x}_n,{y}_{1,n},\cdots, {y}_{N,n}\right)\\ {}{y}_{2,n+1}={y}_{2,n}+{hf}_2\left({x}_n,{y}_{1,n},\cdots, {y}_{N,n}\right)\\ {}\operatorname{}\operatorname{}\vdots \\ {}{y}_{N,n+1}={y}_{N,n}+{hf}_N\left({x}_n,{y}_{1,n},\cdots, {y}_{N,n}\right)\end{array}\right. $$](img/528380_1_En_7_Chapter_TeX_Equdf.png)
+
+例如，以下代码求解了这个常微分方程组：
+
+![$$ \left\{\begin{array}{c}\frac{dx}{dt}=3x-4y\\ {}\frac{dy}{dt}=4x-7y\\ {}x(0)=y(0)=1\end{array}\right. $$](img/528380_1_En_7_Chapter_TeX_Equdg.png)
+
+其解析解如下：
+
+![$$ \left\{\begin{array}{c}x=\frac{2}{3}{e}^t+\frac{1}{3}{e}^{-5t}\\ {}y=\frac{1}{3}{e}^t+\frac{2}{3}{e}^{-5t}\end{array}\right. $$](img/528380_1_En_7_Chapter_TeX_Equdh.png)
+
+```kotlin
+// 定义需要求解的常微分方程组
+val dY: DerivativeFunction = object : DerivativeFunction {
+    override fun evaluate(t: Double, v: Vector): Vector {
+        val x: Double = v.get(1)
+        val y: Double = v.get(2)
+        val dx: Double  = 3.0 * x - 4.0 * y
+        val dy: Double  = 4.0 * x - 7.0 * y
+        return DenseVector(dx, dy)
+    }
+    override fun dimension(): Int {
+        return 2
+    }
+}
+// 初始条件，x0 = y0 = 1
+val Y0: Vector = DenseVector(1.0, 1.0)
+val x0: Double = 0.0
+val x1: Double = 1.0 // 求解域
+val h: Double = 0.1 // 步长
+// 解析解
+val F: RealVectorFunction = object : AbstractRealVectorFunction(1, 2) {
+    override fun evaluate(v: Vector): Vector {
+        val t: Double = v.get(1)
+        val x: Double = 2.0 / 3 * exp(t) + 1.0 / 3 * exp(-5.0 * t)
+        val y: Double = 1.0 / 3 * exp(t) + 2.0 / 3 * exp(-5.0 * t)
+        return DenseVector(x, y)
+    }
+}
+// 定义一个初值问题
+val ivp: ODE1stOrder = ODE1stOrder(dY, Y0, x0, x1)
+// 使用欧拉法构造常微分方程求解器
+val solver: ODESolver = EulerMethod(h)
+// 求解常微分方程
+val soln: ODESolution = solver.solve(ivp)
+// 打印离散点上的解函数 y
+val t: DoubleArray = soln.x()
+val v: Array = soln.y()
+for (i in t.indices) {
+    println(String.format(
+        "y(%f) = %s vs %s",
+        t[i],
+        v[i],
+        F.evaluate(DenseVector(t[i]))
+    ))
+}
+```
+
+输出结果如下：
+
+```
+y(0.000000) = [1.000000, 1.000000]  vs [1.000000, 1.000000]
+y(0.100000) = [0.900000, 0.700000]  vs [0.938957, 0.772744]
+y(0.200000) = [0.890000, 0.570000]  vs [0.936895, 0.652387]
+y(0.300000) = [0.929000, 0.527000]  vs [0.974283, 0.598706]
+y(0.400000) = [0.996900, 0.529700]  vs [1.039662, 0.587498]
+y(0.500000) = [1.084090, 0.557670]  vs [1.126509, 0.604297]
+y(0.600000) = [1.186249, 0.600937]  vs [1.231342, 0.640564]
+y(0.700000) = [1.301749, 0.654781]  vs [1.352568, 0.691382]
+y(0.800000) = [1.430361, 0.717134]  vs [1.489799, 0.754057]
+y(0.900000) = [1.572616, 0.787285]  vs [1.643438, 0.827274]
+y(1.000000) = [1.729487, 0.865232]  vs [1.814434, 0.910586]
+```
+
+第一列向量为数值解，第二列包含解析解。你可以使用其他更高级的方法来提升精度。
+
+考虑一个包含高阶导数的常微分方程，如下所示：
+
+你可以通过设置 `y[1] = y`，`y[2] = y'`，……，`y[m] = y^(m-1)`，将这个 *m* 阶常微分方程转化为一阶常微分方程组。具体示例如下：
+
+你可以使用 `DerivativeFunction` 和 `ODE1stOrder` 结合任意 NM Dev 常微分方程求解器，来求解一阶常微分方程组。
+
+例如，以下代码求解了这个二阶常微分方程：
+
+其解析解如下：
+
+你可以将这个初值问题重写为一阶常微分方程组的形式。
+
+令 `y[1] = y` 和 `y[2] = y'`，得到如下结果：
+
+我们先用 `EulerMethod` 求解这个方程组。
+
+```kotlin
+// 定义需要求解的等价常微分方程组
+val dY: DerivativeFunction = object : DerivativeFunction {
+    override fun evaluate(t: Double, v: Vector): Vector {
+        val y_1: Double = v.get(1)
+        val y_2: Double = v.get(2)
+        val dy_1: Double = y_2
+        val dy_2: Double = y_2 + 6.0 * y_1
+        return DenseVector(dy_1, dy_2)
+    }
+    override fun dimension(): Int {
+        return 2
+    }
+}
+// 初始条件，y1(0) = 1, y2(0) = 2
+val Y0: Vector = DenseVector(1.0, 2.0)
+val t0: Double = 0.0
+val t1: Double = 1.0 // 求解域
+val h: Double = 0.1 // 步长
+// 解析解
+val f: UnivariateRealFunction = object : AbstractUnivariateRealFunction() {
+    override fun evaluate(t: Double): Double {
+        var f: Double = 0.8 * exp(3.0 * t)
+        f += 0.2 * exp(-2.0 * t)
+        return f
+    }
+}
+// 定义一个初值问题
+val ivp: ODE1stOrder = ODE1stOrder(dY, Y0, t0, t1)
+// 使用欧拉法构造常微分方程求解器
+val solver: ODESolver = EulerMethod(h)
+// 使用三阶龙格-库塔公式构造常微分方程求解器
+// val stepper3: RungeKuttaStepper = RungeKutta3()
+// val solver: ODESolver = RungeKutta(stepper3, h)
+// 求解常微分方程
+val soln: ODESolution = solver.solve(ivp)
+// 打印离散点上的解函数 y
+val t: DoubleArray = soln.x()
+val v: Array = soln.y()
+for (i in t.indices) {
+    val y1: Double = v[i].get(1) // 数值解
+    println(String.format(
+        "y(%f) = %f vs %f",
+        t[i],
+        y1,
+        f.evaluate(t[i])
+    ))
+}
+```
+
+输出结果如下：
+
+```
+y(0.000000) = 1.000000 vs 1.000000
+y(0.100000) = 1.200000 vs 1.243633
+y(0.200000) = 1.480000 vs 1.591759
+y(0.300000) = 1.860000 vs 2.077445
+y(0.400000) = 2.366800 vs 2.745959
+y(0.500000) = 3.035880 vs 3.658927
+y(0.600000) = 3.913876 vs 4.899957
+y(0.700000) = 5.061824 vs 6.582255
+y(0.800000) = 6.559400 vs 8.858920
+y(0.900000) = 8.510443 vs 11.936845
+y(1.000000) = 11.050154 vs 16.095497
+```
+
+请注意，使用 `EulerMethod` 的精度非常差。（我原以为是我的代码有 bug，但没发现任何问题。）
+
+让我们改用三阶龙格-库塔公式再试一次。
+
+```kotlin
+// 定义需要求解的等价常微分方程组
+val `dY`: `DerivativeFunction` = object : `DerivativeFunction` {
+    override fun `evaluate`(t: Double, v: `Vector`): `Vector` {
+        val `y_1`: Double = v.get(1)
+        val `y_2`: Double = v.get(2)
+        val `dy_1`: Double = `y_2`
+        val `dy_2`: Double = `y_2` + 6.0 * `y_1`
+        return `DenseVector`(`dy_1`, `dy_2`)
+    }
+
+    override fun `dimension`(): Int {
+        return 2
+    }
+}
+// 初始条件，y1(0) = 1, y2(0) = 2
+val `Y0`: `Vector` = `DenseVector`(1.0, 2.0)
+val `t0`: Double = 0.0
+val `t1`: Double = 1.0 // 求解域
+val `h`: Double = 0.1 // 步长
+// 解析解
+val `f`: `UnivariateRealFunction` = object : `AbstractUnivariateRealFunction`() {
+    override fun `evaluate`(t: Double): Double {
+        var `f`: Double = 0.8 * exp(3.0 * t)
+        `f` += 0.2 * exp(-2.0 * t)
+        return `f`
+    }
+}
+// 定义一个初值问题
+val `ivp`: `ODE1stOrder` = `ODE1stOrder`(`dY`, `Y0`, `t0`, `t1`)
+// 使用欧拉法构造常微分方程求解器
+// ODESolver solver = EulerMethod(h)
+// 使用三阶龙格-库塔公式构造常微分方程求解器
+val `stepper3`: `RungeKuttaStepper` = `RungeKutta3`()
+val `solver`: `ODESolver` = `RungeKutta`(`stepper3`, `h`)
+// 求解常微分方程
+val `soln`: `ODESolution` = `solver`.solve(`ivp`)
+// 打印离散点上的解函数 y
+val `t`: DoubleArray = `soln`.x()
+val `v`: Array = `soln`.y()
+for (i in `t`.indices) {
+    val `y1`: Double = `v`[i].get(1) // 数值解
+    println(String.format(
+        "y(%f) = %f vs %f",
+        `t`[i],
+        `y1`,
+        `f`.evaluate(`t`[i])
+    ))
+}
+```
+
+输出结果如下：
+
+```
+y(0.000000) = 1.000000 vs 1.000000
+y(0.100000) = 1.243333 vs 1.243633
+y(0.200000) = 1.590963 vs 1.591759
+y(0.300000) = 2.075850 vs 2.077445
+y(0.400000) = 2.743108 vs 2.745959
+y(0.500000) = 3.654136 vs 3.658927
+y(0.600000) = 4.892215 vs 4.899957
+y(0.700000) = 6.570082 vs 6.582255
+y(0.800000) = 8.840160 vs 8.858920
+y(0.900000) = 11.908375 vs 11.936845
+y(1.000000) = 16.052815 vs 16.095497
+```
+
+使用龙格-库塔法得到的结果令人满意。
+

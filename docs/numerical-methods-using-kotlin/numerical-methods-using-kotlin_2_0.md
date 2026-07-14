@@ -2604,3 +2604,1633 @@ println(String.format("%s = \n%s is %b",
 [3,] 0.000000, 0.000000, 2.000000, 0.000000,
 [4,] 0.000000, 0.000000, 0.000000, 0.000000,  为 true
 ```
+
+# 2.4 线性方程组
+
+线性方程组（或线性系统）是涉及同一组变量的一个或多个线性方程的集合。以下是一个示例：
+
+![$$ \left\{\begin{array}{c}x+3y-2z=5\\ {}3x+5y+6z=7\\ {}2x+4y+3z=8\end{array}\right. $$](img/528380_1_En_2_Chapter_TeX_Equbt.png)
+
+这是一个包含三个变量 `x`、`y` 和 `z` 的三个方程的方程组。线性方程组的解是对变量的赋值，使得所有方程同时成立。上述方程组的一个解如下所示：
+
+![$$ \left\{\begin{array}{c}x=-15\\ {}y=8\\ {}z=2\end{array}\right. $$](img/528380_1_En_2_Chapter_TeX_Equbu.png)
+
+因为它使所有三个方程都成立。`系统`一词表示这些方程被视为一个整体，而非单独个体。
+
+线性系统理论是线性代数的基础和基本组成部分，而线性代数在现代数学的大多数领域都有应用。非线性方程组通常可以近似为线性系统，这是在建立相对复杂系统的数学模型或计算机模拟时的一种有用技术。求解的计算算法是数值线性代数的重要组成部分，并在工程、物理、化学、计算机科学和经济学中发挥着显著作用。
+
+一个包含 `m` 个方程和 `n` 个未知数的一般线性系统可以写成如下形式：
+
+![$$ \left\{\begin{array}{c}{a}_{11}{x}_1+{a}_{12}{x}_2+\cdots {a}_{1n}{x}_n={b}_1\\ {}{a}_{21}{x}_1+{a}_{22}{x}_2+\cdots +{a}_{21}{x}_n={b}_2\\ {}\vdots \\ {}{a}_{m1}{x}_1+{a}_{m2}{x}_2+\cdots +{a}_{mn}{x}_n={b}_m\end{array}\right. $$](img/528380_1_En_2_Chapter_TeX_Equbv.png)
+
+`x[1]`、`x[2]`、…、`x[n]` 是 `n` 个未知数；`a[11]`、`a[12]`、…、`a[mn]` 是系统的 `m` × `n` 个系数；`b[1]`、`b[2]`、…、`b[m]` 是 `m` 个常数项。
+
+将每个未知数视为线性组合中一个列向量的权重是很有帮助的。这使你可以从向量空间或线性空间的角度来考虑问题。例如，左侧向量所有可能线性组合的集合被称为它们的`张成空间`，当右侧向量位于该张成空间内或存在于该张成的向量空间中时，方程组有解。如果该张成空间中的每个向量都能唯一地表示为给定左侧向量的线性组合，那么任何解都是唯一的。
+
+等价地，你可以将向量方程写成矩阵形式：
+
+![$$ \boldsymbol{Ax}=\boldsymbol{b} $$](img/528380_1_En_2_Chapter_TeX_Equbw.png)
+
+其中
+
+![$$ \boldsymbol{A}=\left[\begin{array}{cccc}{a}_{11}&amp; {a}_{12}&amp; \dots &amp; {a}_{1n}\\ {}{a}_{21}&amp; {a}_{22}&amp; \dots &amp; {a}_{2n}\\ {}\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ {}{a}_{m1}&amp; {a}_{m2}&amp; \dots &amp; {a}_{mn}\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_IEq11.png), ![$$ \boldsymbol{x}=\left[\begin{array}{c}{x}_1\\ {}{x}_2\\ {}\vdots \\ {}{x}_n\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_IEq12.png), ![$$ \boldsymbol{b}=\left[\begin{array}{c}{b}_1\\ {}{b}_2\\ {}\vdots \\ {}{b}_m\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_IEq13.png)
+
+张成空间的基中向量的数量现在表示为矩阵的`秩`，该秩小于 `m` 和 `n`。
+
+线性方程组的解是对变量 `x[1]`、`x[2]`、…、`x[n]` 的赋值，使得每个方程都成立。所有可能解的集合称为`解集`。一个线性系统可能表现为以下三种情况之一：
+
+- 系统有无限多个解。
+
+- 系统有且仅有一个唯一解。
+
+- 系统无解。
+
+从几何角度看，对于包含两个变量（`x` 和 `y`）的方程组，每个线性方程在 `xy` 平面上确定一条直线。因为线性方程组的解必须满足所有方程，所以解集是这些直线的交点，因此可能是一条线、一个点或空集。见图 2-23。
+
+![](img/528380_1_En_2_Fig23_HTML.png)
+
+方程组解的图示。该图将两个方程描述为两条直线，它们在点 (2,3) 处相交。
+
+图 2-23
+
+两个线性方程组的解
+
+对于三个变量，每个线性方程在三维空间中确定一个平面，解集是这些平面的交集。因此，解集可能是一个平面、一条线、一个点或空集。例如，三个平行平面没有公共点，则其方程组的解集为空。如果三个平面相交于一点，解集为一个点。如果三个平面通过两个点，则它们的方程至少有两个公共解；实际上，解集是无限的，由通过这两点的直线上的所有点组成。对于 `n` 个变量，每个线性方程在 `n` 维空间中确定一个`超平面`。解集是这些超平面的交集，这是一个维度低于 `n` 的仿射（或欧几里得）子空间。
+
+一般来说，线性系统的行为由方程数 `m` 和未知数 `n` 之间的关系决定。具体来说：
+
+1. 如果 `m` = `n`，系统有且仅有一个唯一解。
+2. 如果 `m` > `n`，系统无解。这种系统也称为`超定`系统。
+3. 如果 `m` < `n`，系统有无限多个解，但也可能无解。这种系统称为`欠定`系统。解集的维数等于 `n` − `m`。
+
+图 2-24 以两个变量为例说明了这种三分法。第一个系统有无限多个解，即蓝色线上的所有点。第二个系统有唯一的解，即两条线的交点。第三个系统无解，因为三条线没有公共点。见图 2-24。
+
+![](img/528380_1_En_2_Fig24_HTML.jpg)
+
+三张图片的图示。一个方程有一条线，两个方程有两条相交的线，三个方程有三个点。
+
+图 2-24
+
+两个线性方程组的可能解
+
+重要的是要注意，图 2-24 中的图像仅显示最常见的情况（一般情况）。如果方程线性相关（平行线/平面）或系统不一致（无解），线性方程组的行为会不同于一般情况。例如，两个方程两个未知数的系统可能无解（如果两条线平行），或者三个方程两个未知数的系统可能有解（如果三条线相交于一点）。见图 2-25。
+
+![](img/528380_1_En_2_Fig25_HTML.png)
+
+两条平行线的系统图示。两条平行线代表两个方程。
+
+图 2-25
+
+两条平行线的方程组是不一致的，因此无解
+
+`NM Dev` 提供了一套工具来解决各种类型的线性方程组。它可以求解方阵系统、`欠定`系统和`超定`系统。针对每种类型的系统，有多种算法（以及同一算法的多种实现）可供求解。
+
+### 2.4.1 行阶梯形矩阵与简化行阶梯形矩阵
+
+让我们考虑一个解之前方程组的实际例子：
+
+![$$ \left\{\begin{array}{c}x+3y-2z=5\\ {}3x+5y+6z=7\\ {}2x+4y+3z=8\end{array}\right. $$](img/528380_1_En_2_Chapter_TeX_Equbx.png)
+
+你可以用另外两个变量表示`x`，然后将其代入第二和第三个方程。即：
+
+```
+x = 5 - 3y + 2z
+```
+
+然后得到：
+
+![$$ \left\{\begin{array}{c}-4y+12z=-8\\ {}-2y+7z=-2\end{array}\right. $$](img/528380_1_En_2_Chapter_TeX_Equbz.png)
+
+你重复这个步骤，解出`y`，然后将其代入第二个方程。即：
+
+```
+y = 2 + 3z
+```
+
+然后得到：
+
+```
+z = 2
+```
+
+已知`z`后，你将其回代到`y`的方程中求得`y`。已知`y`后，再将其回代到`x`的方程中求得`x`。最终得到一个解：
+
+## 行阶梯形矩阵与简化行阶梯形矩阵
+
+你可以将这个步骤一般化，并构造一个通用的算法来求解方程组。首先，你需要了解几个概念。
+
+如果一个矩阵满足以下两个条件，则称其为行阶梯形矩阵：
+
+- 所有元素全为零的行位于矩阵的底部。
+- 非零行的首非零元（也称为*主元*）总是严格位于其上一行首非零元的右边。
+
+这两个条件意味着，在首非零元所在的列下方，所有元素均为零。下面是一个 3 × 5 矩阵处于行阶梯形（但不是简化行阶梯形）的例子：
+
+$$ \left[\begin{array}{ccccc}1&amp; {a}_0&amp; {a}_1&amp; {a}_2&amp; {a}_3\\ {}0&amp; 0&amp; 2&amp; {a}_4&amp; {a}_5\\ {}0&amp; 0&amp; 0&amp; 1&amp; {a}_6\end{array}\right] $$
+
+如果一个矩阵满足以下条件，则称其为简化行阶梯形矩阵（也称为*行规范形*）：
+
+- 它是行阶梯形矩阵。
+- 每个非零行的首元为 1（称为首 1）。
+- 包含首 1 的列中，所有其他元素均为零。
+
+这是一个处于简化行阶梯形的矩阵示例：
+
+$$ \left[\begin{array}{cccc}1&amp; 0&amp; {a}_1&amp; {b}_1\\ {}0&amp; 1&amp; {a}_2&amp; {b}_2\\ {}0&amp; 0&amp; 1&amp; {b}_3\end{array}\right] $$
+
+一旦你将方程组化为简化行阶梯形，就容易计算或直接读出解了。上述矩阵实际上表示如下方程组：
+
+$$ \left\{\begin{array}{c}{x}_1+{a}_1{x}_3={b}_1\\ {}{x}_2+{a}_2{x}_3={b}_2\\ {}{x}_3={b}_3\end{array}\right. $$
+
+你可以从第三个方程读出 `x[3]` 的解。一旦知道了 `x[3]`，就可以将其简单地回代到另外两个方程中，得到 `x[1]` 和 `x[2]`。
+
+### 2.4.2 回代法
+
+回代法通过一个迭代过程求解形如 `Ux = b` 的矩阵方程，其中 `U` 是一个上三角矩阵。这个过程之所以得名，是因为对于一个上三角矩阵，你首先计算出 `x[n]`，然后将其向后代入下一个方程以求解 `x[n−1]`，最后重复此过程直到得到 `x[1]`。请注意，如果方程组是相容的，`U` 中的某些对角线元素可以为 0。下面是一个例子：
+
+$$ \left[\begin{array}{ccc}1&amp; 2&amp; 3\\ {}0&amp; 0&amp; 5\\ {}0&amp; 0&amp; 0\end{array}\right]\times \left[\begin{array}{c}10\\ {}0\\ {}0\end{array}\right]=\left[\begin{array}{c}10\\ {}0\\ {}0\end{array}\right] $$
+
+NM Dev 库中名为 `BackwardSubstitution` 的类实现了一个回代算法。以下代码求解了这个例子：
+
+```kotlin
+val U: UpperTriangularMatrix = UpperTriangularMatrix(
+    arrayOf(
+        doubleArrayOf(1.0, 2.0, 3.0),
+        doubleArrayOf(0.0, 5.0),
+        doubleArrayOf(0.0)
+    )
+)
+val b: Vector = DenseVector(arrayOf(10.0, 0.0, 0.0))
+val solver: BackwardSubstitution = BackwardSubstitution()
+val x: Vector = solver.solve(U, b)
+println("x = " + x)
+// 验证 Ux = b
+val Ux: Vector = U.multiply(x)
+println(String.format("%s = \n%s is %b",
+    Ux,
+    b,
+    MatrixPropertyUtils.areEqual(Ux, b, 1e-14))) // MatrixPropertyUtils.areEqual 也适用于向量
+```
+
+输出结果如下：
+
+```
+x = [10.000000, 0.000000, 0.000000]
+[10.000000, 0.000000, 0.000000]  =
+[10.000000, 0.000000, 0.000000]  is true
+```
+
+### 2.4.3 前向代入
+
+类似地，你可以使用前向代入法，通过迭代过程求解下三角矩阵 `L` 的矩阵方程 `Lx = b`。该方法得名于此：对于下三角矩阵，你先计算 `x[1]`，然后将该值前向代入下一个方程以求解 `x[2]`，并重复此过程直至求出 `x[n]`。请注意，只要方程组一致，`L` 中的某些对角线元素可以为 0。下面是一个示例：
+
+$$ \left[\begin{array}{ccc}0 &amp; 0 &amp; 0\\ {}2 &amp; 0 &amp; 0\\ {}4 &amp; 5 &amp; 6\end{array}\right]\times \left[\begin{array}{c}0\\ {}0\\ {}30\end{array}\right]=\left[\begin{array}{c}0\\ {}0\\ {}30\end{array}\right] $$
+
+NM Dev 库中名为 `ForwardSubstitution` 的类实现了前向代入算法。以下代码求解了此示例：
+
+```kotlin
+val L: LowerTriangularMatrix = LowerTriangularMatrix(
+    arrayOf(
+        doubleArrayOf(1.0),
+        doubleArrayOf(2.0, 3.0),
+        doubleArrayOf(4.0, 5.0, 6.0)
+    )
+)
+val b: Vector = DenseVector(arrayOf(10.0, 20.0, 30.0))
+val solver: ForwardSubstitution = ForwardSubstitution()
+val x: Vector = solver.solve(L, b)
+println("x = " + x)
+// 验证 Lx = b
+val Lx: Vector = L.multiply(x)
+println(String.format("%s = \n%s is %b",
+    Lx,
+    b,
+    MatrixPropertyUtils.areEqual(Lx, b, 1e-14))) // MatrixPropertyUtils.areEqual 同样适用于向量
+```
+
+输出结果如下：
+
+```
+x = [10.000000, 0.000000, -1.666667]
+[10.000000, 20.000000, 30.000000]  =
+[10.000000, 20.000000, 30.000000]  is true
+```
+
+通常，NM Dev 库的 `LUSolver` 类可处理上三角矩阵和下三角矩阵。以下代码复现了前面两个问题。
+
+# 一个 LSProblem
+
+一个 `LSProblem` 代码示例：
+
+```kotlin
+// 一个 LSProblem
+val L: LowerTriangularMatrix = LowerTriangularMatrix(
+    arrayOf(
+        doubleArrayOf(1.0),
+        doubleArrayOf(2.0, 3.0),
+        doubleArrayOf(4.0, 5.0, 6.0)
+    )
+)
+val b1: Vector = DenseVector(arrayOf(10.0, 20.0, 30.0))
+val solver1: LUSolver = LUSolver()
+val x1: Vector = solver1.solve(
+    // 构建线性系统问题: Lx = b1
+    LSProblem(L, b1)
+)
+println("x1 = " + x1)
+// 验证 Ux = b
+val Lx: Vector = L.multiply(x1)
+println(String.format("%s = \n%s is %b",
+    Lx,
+    b1,
+    MatrixPropertyUtils.areEqual(Lx, b1, 1e-14))) // MatrixPropertyUtils.areEqual 同样适用于向量
+```
+
+输出结果如下：
+
+```
+x1 = [10.000000, 0.000000, -1.666667]
+[10.000000, 20.000000, 30.000000]  =
+[10.000000, 20.000000, 30.000000]  is true
+```
+
+另一个 `LSProblem` 示例：
+
+```kotlin
+// 另一个 LSProblem
+val U: UpperTriangularMatrix = UpperTriangularMatrix(
+    arrayOf(
+        doubleArrayOf(1.0, 2.0, 3.0),
+        doubleArrayOf(0.0, 5.0),
+        doubleArrayOf(0.0),
+    )
+)
+val b2: Vector = DenseVector(arrayOf(10.0, 0.0, 0.0))
+val solver2: LUSolver = LUSolver()
+val x2: Vector = solver2.solve(
+    // 构建线性系统问题: Ux = b2
+    LSProblem(U, b2)
+)
+println("x2 = " + x2)
+// 验证 Ux = b
+val Ux: Vector = U.multiply(x2)
+println(String.format("%s = \n%s is %b",
+    Ux,
+    b2,
+    MatrixPropertyUtils.areEqual(Ux, b2, 1e-14))) // MatrixPropertyUtils.areEqual 同样适用于向量
+```
+
+输出结果如下：
+
+```
+x2 = [10.000000, 0.000000, -0.000000]
+[10.000000, 0.000000, 0.000000]  =
+[10.000000, 0.000000, 0.000000]  is true
+```
+
+### 2.4.4 初等运算
+
+通过一系列初等行运算，你可以将任何矩阵转换为（简化）行阶梯形矩阵。初等运算共有三种类型：
+
+*   `行交换`：交换第 `i` 行与第 `j` 行。
+*   `行乘法或缩放`：将第 `i` 行乘以一个非零常数。
+*   `行加法`：用第 `i` 行加上第 `j` 行的倍数，替换第 `i` 行。
+
+#### 行交换变换
+
+对单位矩阵执行该运算，即可得到对应于该变换的初等矩阵。初等矩阵是与单位矩阵仅差一个初等行运算的矩阵。
+
+例如，对应的初等矩阵交换了 3 × 3 单位矩阵的第二行和第三行。即：
+
+![$$ \boldsymbol{P}=\left[\begin{array}{ccc}1 &amp; 0 &amp; 0\\ {}0 &amp; 0 &amp; 1\\ {}0 &amp; 1 &amp; 0\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equci.png)
+
+如果你将任何 3 × 3 矩阵左乘（右乘）`P`，其第二行和第三行（列）将被交换。下面是一个示例：
+
+![$$ \left[\begin{array}{ccc}1 &amp; 0 &amp; 0\\ {}0 &amp; 0 &amp; 1\\ {}0 &amp; 1 &amp; 0\end{array}\right]\times \left[\begin{array}{ccc}{a}_{11} &amp; {a}_{12} &amp; {a}_{13}\\ {}{a}_{21} &amp; {a}_{22} &amp; {a}_{23}\\ {}{a}_{31} &amp; {a}_{32} &amp; {a}_{33}\end{array}\right]=\left[\begin{array}{ccc}{a}_{11} &amp; {a}_{12} &amp; {a}_{13}\\ {}{a}_{31} &amp; {a}_{32} &amp; {a}_{33}\\ {}{a}_{21} &amp; {a}_{22} &amp; {a}_{23}\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equcj.png)
+
+#### 行乘法变换
+
+类似地，要将第 `i` 行缩放为非零常数 `m`，相应的初等矩阵是一个对角矩阵，其对角线上除第 `i` 个位置为 `m` 外，其余均为 1。例如，对应的初等矩阵将 3 × 3 单位矩阵的第二行缩放 2 倍。即：
+
+![$$ \boldsymbol{D}=\left[\begin{array}{ccc}1 &amp; 0 &amp; 0\\ {}0 &amp; 2 &amp; 0\\ {}0 &amp; 0 &amp; 1\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equck.png)
+
+下面是一个示例：
+
+![$$ \left[\begin{array}{ccc}1 &amp; 0 &amp; 0\\ {}0 &amp; 2 &amp; 0\\ {}0 &amp; 0 &amp; 1\end{array}\right]\times \left[\begin{array}{ccc}{a}_{11} &amp; {a}_{12} &amp; {a}_{13}\\ {}{a}_{21} &amp; {a}_{22} &amp; {a}_{23}\\ {}{a}_{31} &amp; {a}_{32} &amp; {a}_{33}\end{array}\right]=\left[\begin{array}{ccc}{a}_{11} &amp; {a}_{12} &amp; {a}_{13}\\ {}2{a}_{21} &amp; 2{a}_{22} &amp; 2{a}_{23}\\ {}{a}_{31} &amp; {a}_{32} &amp; {a}_{33}\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equcl.png)
+
+#### 行加法变换
+
+要将第 `j` 行乘以标量 `m` 后加到第 `i` 行，对应的初等矩阵是单位矩阵，但 `a[ij] = m`。例如，要将 3 × 3 矩阵的第二行乘以 2 后加到第一行，对应的初等矩阵如下：
+
+![$$ \boldsymbol{L}=\left[\begin{array}{ccc}1 &amp; 2 &amp; 0\\ {}0 &amp; 1 &amp; 0\\ {}0 &amp; 0 &amp; 1\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equcm.png)
+
+下面是一个示例：
+
+![$$ \left[\begin{array}{ccc}1 &amp; 2 &amp; 0\\ {}0 &amp; 1 &amp; 0\\ {}0 &amp; 0 &amp; 1\end{array}\right]\times \left[\begin{array}{ccc}{a}_{11} &amp; {a}_{12} &amp; {a}_{13}\\ {}{a}_{21} &amp; {a}_{22} &amp; {a}_{23}\\ {}{a}_{31} &amp; {a}_{32} &amp; {a}_{33}\end{array}\right]=\left[\begin{array}{ccc}{a}_{11}+2{a}_{21} &amp; {a}_{12}+2{a}_{22} &amp; {a}_{13}+2{a}_{23}\\ {}{a}_{21} &amp; {a}_{22} &amp; {a}_{23}\\ {}{a}_{31} &amp; {a}_{32} &amp; {a}_{33}\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equcn.png)
+
+### 高斯消元法与高斯-若尔当消元法
+
+高斯-若尔当消元法是一种用于求解线性方程组的算法。它还可用于计算矩阵的秩、方阵的行列式以及可逆矩阵的逆矩阵。要对矩阵执行行化简，你需要使用一系列初等行变换来修改矩阵，直到矩阵的左下角尽可能被零填满。
+
+利用这些变换，矩阵总能被转换为上三角矩阵，实际上就是行阶梯形矩阵。当所有主元系数（每一行最左边的非零元）均为 1，并且所有包含主元的列在其他位置均为零时，该矩阵被称为简化行阶梯形矩阵。这种最终形式是唯一的；换句话说，它与所采用的行变换顺序无关。
+
+*高斯消元法*指的是该过程的第一步，直到矩阵变为上三角矩阵或（非简化）行阶梯形矩阵。在这种形式下，你可以判断一个线性方程组是无解、有唯一解还是有无穷多解。高斯-若尔当消元法（即第二步）则继续使用行变换，直到求出解。换句话说，它将矩阵化为简化行阶梯形矩阵。
+
+等价地，你可以看到行化简过程产生了原矩阵的一种矩阵分解。初等行变换可被视为在原矩阵左侧乘以初等矩阵。另一种观点是，将单行化简的一系列初等变换视为乘以一个弗罗贝尼乌斯矩阵。那么，算法计算的第一部分得到了一个 LU 分解，而第二部分则将原矩阵写为一个唯一确定的可逆矩阵与一个唯一确定的简化行阶梯矩阵的乘积。
+
+名为 `GaussianElimination` 的 NM Dev 类执行初等行变换，将矩阵化简为行阶梯形。这等价于在左侧将原矩阵乘以可逆矩阵。对于方阵，该算法本质上是计算一个 LU 分解。你会得到如下结果：
+
+![$$ \boldsymbol{TA}=\boldsymbol{U} $$](img/528380_1_En_2_Chapter_TeX_Equco.png)
+
+其中 `T` 是变换矩阵，它是一系列初等矩阵/变换的乘积。`U` 是行阶梯形矩阵。
+
+或者，你也可以得到如下结果：
+
+![$$ \boldsymbol{PA}=\boldsymbol{LU} $$](img/528380_1_En_2_Chapter_TeX_Equcp.png)
+
+其中 `P` 是置换矩阵，`L` 是下三角矩阵，`U` 是行阶梯形矩阵。
+
+其签名如下：
+
+```java
+/**
+ * 运行高斯消元算法。
+ *
+ * @param A           一个矩阵
+ * @param usePivoting 若为 {@code true}，则使用部分主元法，例如用于数值稳定性。
+ *                    通常情况下，不使用主元意味着不进行行交换。
+ *                    只有当高斯消元从未遇到对角线上的零元素时，才能进行无主元操作。
+ *                    由于除以零是致命错误，我们通常避免无主元操作。
+ * @param epsilon     一个精度参数：当数字 |x| ≤ ε 时，被视为 0
+ */
+public GaussianElimination(Matrix A, boolean usePivoting, double epsilon)
+/**
+ * 使用部分主元法运行高斯消元算法。
+ *
+ * @param A 一个矩阵
+ */
+public GaussianElimination(Matrix A)
+/**
+ * 获取变换矩阵 T，满足 T * A = U。
+ *
+ * @return T
+ */
+public Matrix T()
+/**
+ * 获取上三角矩阵 U，满足 T * A = U 和 P * A = L * U。
+ *
+ * @return U
+ */
+public Matrix U()
+/**
+ * 获取下三角矩阵 L，满足 P * A = L * U。
+ *
+ * @return L
+ */
+public Matrix L()
+/**
+ * 获取置换矩阵 P，满足 P * A = L * U。
+ *
+ * @return P
+ */
+public PermutationMatrix P()
+```
+
+例如，以下 NM Dev 代码计算了这个示例：
+
+![$$ \left[\begin{array}{ccc}0&amp; 0&amp; 1\\ {}0&amp; 1&amp; -0.5\\ {}1&amp; -0.6&amp; -0.2\end{array}\right]\times \left[\begin{array}{ccc}2&amp; 1&amp; 1\\ {}2&amp; 2&amp; -1\\ {}4&amp; -1&amp; 6\end{array}\right]=\left[\begin{array}{ccc}4&amp; -1&amp; 6\\ {}0&amp; 2.5&amp; -4\\ {}0&amp; 0&amp; 0.4\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equcq.png)
+
+![$$ \left[\begin{array}{ccc}0&amp; 0&amp; 1\\ {}0&amp; 1&amp; 0\\ {}1&amp; 0&amp; 0\end{array}\right]\times \left[\begin{array}{ccc}2&amp; 1&amp; 1\\ {}2&amp; 2&amp; -1\\ {}4&amp; -1&amp; 6\end{array}\right]=\left[\begin{array}{ccc}1&amp; 0&amp; 0\\ {}0.5&amp; 1&amp; 0\\ {}0.5&amp; 0.6&amp; 1\end{array}\right]\left[\begin{array}{ccc}4&amp; -1&amp; 6\\ {}0&amp; 2.5&amp; -4\\ {}0&amp; 0&amp; 0.4\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equcr.png)
+
+# 高斯消元与高斯-约当消元
+
+下面的代码示例展示了如何使用 `GaussianElimination` 类。
+
+```kotlin
+val A: Matrix = DenseMatrix(
+    arrayOf(
+        doubleArrayOf(2.0, 1.0, 1.0),
+        doubleArrayOf(2.0, 2.0, -1.0),
+        doubleArrayOf(4.0, -1.0, 6.0),
+    )
+)
+val ops: GaussianElimination = GaussianElimination(A, true, 0.0)
+val T: Matrix = ops.T()
+println("T = \n" + T)
+val P: PermutationMatrix = ops.P()
+println("P = \n" + P)
+val U: Matrix = ops.U()
+println(
+    String.format("U = %s is upper triangular, %b",
+        U,
+        MatrixPropertyUtils.isUpperTriangular(U, 0.0)))
+val L: Matrix = ops.L()
+println(
+    String.format("L = %s is lower triangular, %b",
+        L,
+        MatrixPropertyUtils.isLowerTriangular(L, 0.0)))
+// verify that TA = U
+val TA: Matrix = T.multiply(A)
+println(String.format("%s = \n%s is %b",
+    TA,
+    U,
+    MatrixPropertyUtils.areEqual(TA, U, 1e-15)))
+// verify that PA = LU
+val PA: Matrix = P.multiply(A)
+val LU: Matrix = L.multiply(U)
+println(String.format("%s = \n%s is %b",
+    PA,
+    LU,
+    MatrixPropertyUtils.areEqual(PA, LU, 0.0)))
+```
+
+输出如下：
+
+```
+T =
+3x3
+[,1] [,2] [,3]
+[1,] 0.000000, 0.000000, 1.000000,
+[2,] 0.000000, 1.000000, -0.500000,
+[3,] 1.000000, -0.600000, -0.200000,
+P =
+3x3
+[,1] [,2] [,3]
+[1,] 0.000000, 0.000000, 1.000000,
+[2,] 0.000000, 1.000000, 0.000000,
+[3,] 1.000000, 0.000000, 0.000000,
+U = 3x3
+[,1] [,2] [,3]
+[1,] 4.000000, -1.000000, 6.000000,
+[2,] 0.000000, 2.500000, -4.000000,
+[3,] 0.000000, 0.000000, 0.400000,  is upper triangular, true
+L = 3x3
+[,1] [,2] [,3]
+[1,] 1.000000, 0.000000, 0.000000,
+[2,] 0.500000, 1.000000, 0.000000,
+[3,] 0.500000, 0.600000, 1.000000,  is lower triangular, true
+3x3
+[,1] [,2] [,3]
+[1,] 4.000000, -1.000000, 6.000000,
+[2,] 0.000000, 2.500000, -4.000000,
+[3,] 0.000000, 0.000000, 0.400000,  =
+3x3
+[,1] [,2] [,3]
+[1,] 4.000000, -1.000000, 6.000000,
+[2,] 0.000000, 2.500000, -4.000000,
+[3,] 0.000000, 0.000000, 0.400000,  is true
+3x3
+[,1] [,2] [,3]
+[1,] 4.000000, -1.000000, 6.000000,
+[2,] 2.000000, 2.000000, -1.000000,
+[3,] 2.000000, 1.000000, 1.000000,  =
+3x3
+[,1] [,2] [,3]
+[1,] 4.000000, -1.000000, 6.000000,
+[2,] 2.000000, 2.000000, -1.000000,
+[3,] 2.000000, 1.000000, 1.000000,  is true
+```
+
+名为 `GaussianElimination` 的 NM Dev 类执行初等行变换，将矩阵化为行阶梯形。即：
+
+![$$ \boldsymbol{TA}=\boldsymbol{U} $$](img/528380_1_En_2_Chapter_TeX_Equcs.png)
+
+其中 `T` 是变换矩阵，是一系列初等矩阵/运算的乘积。`U` 是行阶梯形矩阵。此实现确保主元 1 在数值上精确为 1，以便于比较。假设一个主元 `u[i][j]` 等于 1，那么 `U.get(i, j) == 1` 总是返回 `true`。
+
+例如，以下 NM Dev 代码计算了这个示例：
+
+![$$ \left[\begin{array}{ccc}-2.75&amp; 1.75&amp; 0.75\\ {}4&amp; -2&amp; -1\\ {}2.5&amp; -1.5&amp; -0.5\end{array}\right]\times \left[\begin{array}{ccc}2&amp; 1&amp; 1\\ {}2&amp; 2&amp; -1\\ {}4&amp; -1&amp; 6\end{array}\right]=\left[\begin{array}{ccc}1&amp; 0&amp; 0\\ {}0&amp; 1&amp; 0\\ {}0&amp; 0&amp; 1\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equct.png)
+
+```kotlin
+val A: Matrix = DenseMatrix(
+    arrayOf(
+        doubleArrayOf(2.0, 1.0, 1.0),
+        doubleArrayOf(2.0, 2.0, -1.0),
+        doubleArrayOf(4.0, -1.0, 6.0),
+    )
+)
+val ops: GaussJordanElimination = GaussJordanElimination(A, true, 0.0)
+val U: Matrix = ops.U()
+println(
+    String.format("U = %s is in reduced row echelon form, %b",
+        U,
+        MatrixPropertyUtils.isReducedRowEchelonForm(U, 0.0)))
+val T: Matrix = ops.T()
+println("T = \n" + T)
+// verify that TA = U
+val TA: Matrix = T.multiply(A)
+println(String.format("%s = \n%s is %b",
+    TA,
+    U,
+    MatrixPropertyUtils.areEqual(TA, U, 1e-15)))
+```
+
+输出如下：
+
+```
+U = 3x3
+[,1] [,2] [,3]
+[1,] 1.000000, 0.000000, 0.000000,
+[2,] 0.000000, 1.000000, 0.000000,
+[3,] 0.000000, 0.000000, 1.000000,  is in reduced row echelon form, true
+T =
+3x3
+[,1] [,2] [,3]
+[1,] -2.750000, 1.750000, 0.750000,
+[2,] 4.000000, -2.000000, -1.000000,
+[3,] 2.500000, -1.500000, -0.500000,
+3x3
+[,1] [,2] [,3]
+[1,] 1.000000, 0.000000, 0.000000,
+[2,] 0.000000, 1.000000, 0.000000,
+[3,] 0.000000, -0.000000, 1.000000,  =
+3x3
+[,1] [,2] [,3]
+[1,] 1.000000, 0.000000, 0.000000,
+[2,] 0.000000, 1.000000, 0.000000,
+[3,] 0.000000, 0.000000, 1.000000,  is true
+```
+
+## 齐次与非齐次线性系统
+
+通常，一个相容的线性方程组有方程数（`m`）小于或等于变量数（`n`），即 `m ≤ n`。否则，它就是一个超定系统，通常无解。为了理解线性方程组，如下所示：
+
+# 线性映射的核与像
+
+![$$ \boldsymbol{Ax}=\boldsymbol{b} $$](img/528380_1_En_2_Chapter_TeX_Equcu.png)
+
+你可以将 `A` 视为一个线性变换或一个函数，它将一个线性空间 `V` 映射到另一个线性空间 `W`。线性映射的核，或称为*零空间*，即 `ker(A)`，是定义域的一个线性子空间，使得该函数将其所有元素映射到 0。
+
+![$$ \ker \left(\boldsymbol{A}\right)=\left\{\boldsymbol{v}\in \boldsymbol{V}\kern0.5em |\kern0.5em \boldsymbol{Av}=0\right\} $$](img/528380_1_En_2_Chapter_TeX_Equcv.png)
+
+秩-零化度定理指出，核的维度与像的维度之和等于定义域的维度。见图 2-26。
+
+![](img/528380_1_En_2_Fig26_HTML.png)
+
+*一个线性映射及其核的示意图。核中有两个椭圆形状，一个小一个大，它们与像中的两个椭圆相连。*
+
+**图 2-26** 线性映射的核与像
+
+## 齐次线性方程组
+
+对于任意齐次线性方程组，如下所示：
+
+![$$ \boldsymbol{Ax}=\boldsymbol{0} $$](img/528380_1_En_2_Chapter_TeX_Equcw.png)
+
+至少存在一个解，称为零解（或平凡解），通过将每个变量赋值为零得到。即 `A0 = 0`。如果方程组具有非奇异矩阵（`det(A) ≠ 0`），则这也是唯一解。如果方程组具有奇异矩阵（`A` 不是满秩的），则 `A` 核的维度或秩不为 0，即 `ker(A) > 0`。此时存在一个包含无限多个解的解集。核中的每个向量都是一个非平凡解。该解集具有以下附加性质：
+
+- 如果 `u` 和 `v` 是表示齐次方程组解的两个向量，那么向量和 `u + v` 也是该方程组的一个解。
+- 如果 `u` 是表示齐次方程组解的一个向量，且 `c` 是任意标量，那么 `c*u` 也是该方程组的一个解。
+
+## 非齐次线性方程组
+
+对于非齐次线性方程组，有如下形式：
+
+![$$ \boldsymbol{Ax}=\boldsymbol{b} $$](img/528380_1_En_2_Chapter_TeX_Equcx.png)
+
+假设 `p` 是该线性方程组的一个特解，即 `Ap = b`；那么整个解集可以描述如下：
+
+![$$ \left\{\boldsymbol{p}+\boldsymbol{v}\kern0.5em |\kern0.5em \boldsymbol{v}\in \ker \left(\boldsymbol{A}\right)\right\} $$](img/528380_1_En_2_Chapter_TeX_Equcy.png)
+
+从几何角度看，这意味着非齐次方程组 `Ax = b` 的解集是齐次方程组 `Ax = 0` 解集的一个平移。具体来说，第一个方程组的平坦子空间或欧几里得子空间可以通过将齐次方程组的线性子空间沿向量 `p` 平移得到。这个推理仅当方程组至少有一个解时才成立。当且仅当向量 `b` 位于线性变换 `A` 的像中时，才会出现这种情况。
+
+## 线性方程组的求解
+
+NM Dev 类 `LinearSystemSolver` 用于求解形如 `Ax = b` 的线性方程组。假设在行化简之后，`A` 的行数不超过列数。也就是说，该系统不能是超定的。
+
+注意，以下系统并非超定系统。其中有一行是线性相关的：
+
+![$$ \left[\begin{array}{ccc}1&amp; -1&amp; 0\\ {}0&amp; -2&amp; 0\\ {}0&amp; 0&amp; -1\\ {}0&amp; 0&amp; -2\end{array}\right]\textbf{x}=\left[\begin{array}{c}-0.8\\ {}-1.6\\ {}0.8\\ {}1.6\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equcz.png)
+
+线性方程组的求解分两步进行：
+
+1. 首先，求解齐次方程组 `Ax = 0`，寻找非平凡解。
+2. 然后，求解 `Ax = b`，得到一个特解。
+
+如果 `A` 是满秩的，该实现将通过 LU 分解求解方程组。否则，通过 `p = Tb` 找到一个特解，其中 `T` 是将 `A` 化为简化行阶梯形的变换矩阵。最终解如下：
+
+![$$ \boldsymbol{p}+\ker \left(\boldsymbol{A}\right) $$](img/528380_1_En_2_Chapter_TeX_Equda.png)
+
+因此，这个解可以看作是 `A` 的零空间沿向量 `p` 的平移。
+
+### 示例
+
+例如，对于以下线性方程组：
+
+![$$ \left[\begin{array}{cccc}0&amp; 1&amp; 2&amp; -1\\ {}1&amp; 0&amp; 1&amp; 1\\ {}-1&amp; 1&amp; 0&amp; -1\\ {}0&amp; 2&amp; 3&amp; -1\end{array}\right]\boldsymbol{x}=\left[\begin{array}{c}1\\ {}4\\ {}2\\ {}7\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equdb.png)
+
+核的基满足：
+
+![$$ \left[\begin{array}{cccc}0&amp; 1&amp; 2&amp; -1\\ {}1&amp; 0&amp; 1&amp; 1\\ {}-1&amp; 1&amp; 0&amp; -1\\ {}0&amp; 2&amp; 3&amp; -1\end{array}\right]\left[\begin{array}{c}-2\\ {}-1\\ {}1\\ {}1\end{array}\right]=\left[\begin{array}{c}0\\ {}0\\ {}0\\ {}0\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equdc.png)
+
+一个特解满足：
+
+![$$ \left[\begin{array}{cccc}0&amp; 1&amp; 2&amp; -1\\ {}1&amp; 0&amp; 1&amp; 1\\ {}-1&amp; 1&amp; 0&amp; -1\\ {}0&amp; 2&amp; 3&amp; -1\end{array}\right]\left[\begin{array}{c}9\\ {}11\\ {}-5\\ {}0\end{array}\right]=\left[\begin{array}{c}1\\ {}4\\ {}2\\ {}7\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equdd.png)
+
+以下 NM Dev 代码求解此示例：
+
+```kotlin
+val A: Matrix = DenseMatrix(
+arrayOf(
+doubleArrayOf(0.0, 1.0, 2.0, -1.0),
+doubleArrayOf(1.0, 0.0, 1.0, 1.0),
+doubleArrayOf(-1.0, 1.0, 0.0, -1.0),
+doubleArrayOf(0.0, 2.0, 3.0, -1.0)
+)
+)
+val b: Vector = DenseVector(arrayOf(1.0, 4.0, 2.0, 7.0))
+// 构造一个线性系统求解器
+val solver: LinearSystemSolver = LinearSystemSolver(1e-15) // 精度
+// 求解齐次线性系统
+val soln: LinearSystemSolver.Solution = solver.solve(A)
+// 得到一个特解
+val p: Vector = soln.getParticularSolution(b)
+println("p = \n" + p)
+// 验证 Ap = b
+val Ap: Vector = A.multiply(p)
+println(String.format("%s = \n%s is %b",
+Ap,
+b,
+MatrixPropertyUtils.areEqual(Ap, b, 1e-15)))
+// 获取零空间的基
+val kernel: List = soln.getHomogeneousSoln()
+// println("kernel size = " + kernel.size())
+// 验证 A * kernel = 0
+val k: Vector = kernel.get(0)
+println("kernel basis = " + k)
+val Ak: Vector = A.multiply(k)
+println("Ak = 0, " + Ak)
+```
+
+输出如下：
+
+```
+p =
+[9.000000, 11.000000, -5.000000, 0.000000]
+[1.000000, 4.000000, 2.000000, 7.000000]  =
+[1.000000, 4.000000, 2.000000, 7.000000]  is true
+kernel size = 1
+kernel basis = [-2.000000, -1.000000, 1.000000, 1.000000]
+Ak = 0, [0.000000, 0.000000, 0.000000, 0.000000]
+```
+
+`LinearSystemSolver` 的签名如下：
+
+```java
+/**
+ * 构造一个用于求解线性方程组的求解器。
+ *
+ * @param epsilon 精度参数：当数值 |x| ≤ ε 时，视其为 0
+ */
+public LinearSystemSolver(double epsilon)
+/**
+ * 获取线性系统 Ax = b 的一个解。
+ *
+ * @param A0 表示线性方程组（齐次部分）的矩阵
+ * @return 线性系统的一个解
+ */
+public Solution solve(final Matrix A0)
+```
+
+请注意，`solve`函数返回一个`LinearSystemSolver::Solution`类的对象。该对象包含由输入矩阵定义的线性系统的齐次解和非齐次解。其签名如下：
+
+```
+/**
+ * This is the solution to a linear system of equations.
+ */
+public static interface Solution {
+    /**
+     * Get a particular solution for the linear system.
+     *
+     * @param b a vector
+     * @return a particular solution
+     */
+    Vector getParticularSolution(Vector b);
+    /**
+     * Get the basis of the homogeneous solution for the linear system,
+     * Ax = b.
+     * That is, the solutions for Ax = 0.
+     *
+     * @return the homogeneous solution
+     */
+    List getHomogeneousSoln();
+}
+```
+
+## 2.4.7 超定线性系统
+
+如果方程的数量多于未知数的数量，则该方程组是超定的；即，*m* > *n*，其中*m*是方程的数量，*n*是未知数的数量。*m* × *n* 的矩阵***A***是一个高矩阵：
+
+![$$ \boldsymbol{Ax}=\boldsymbol{b} $$](img/528380_1_En_2_Chapter_TeX_Equde.png)
+
+超定系统通常是不一致的（无解）。唯一的例外是某些方程在系统中多次出现，或者等价地，某些方程是其他方程的线性组合。一般来说，每个未知数提供一个自由度。引入系统的每个方程限制一个自由度。因此，当方程的数量和自由变量的数量相等时，会出现临界情况。对于每个提供自由度的变量，都存在一个相应的约束。如果一致，这个方形方程组可以有一个唯一解。当系统被过度约束时，即方程数量超过未知数数量时，就会出现超定情况。
+
+例如，图 2-27 显示了三个线性无关的方程，使得系统不一致，因此无解。
+
+![](img/528380_1_En_2_Fig27_HTML.jpg)
+
+一个超定系统的图示。三条线代表三个线性方程。
+
+**图 2-27** 一个超定系统
+
+在图 2-28 中，一个方程线性依赖于（实际上等同于）另一个方程。该系统有两个变量和两个（线性无关的）约束，因此系统是一致的，并有一个解。
+
+![](img/528380_1_En_2_Fig28_HTML.jpg)
+
+一个图。它包含两条线，其中一条代表两个相关方程的组合。
+
+**图 2-28** 一个方程线性依赖于另一个方程；一个解
+
+对于一个不存在解的超定系统，你应该尝试寻找“最佳近似”。定义“最佳近似”的方法有很多。普通最小二乘法（OLS）找到最小化最小平方的***x***解。即：
+
+![$$ \underset{\textbf{x}}{\min }{\left\Vert \boldsymbol{Ax}-\boldsymbol{b}\right\Vert}_2 $$](img/528380_1_En_2_Chapter_TeX_Equdf.png)
+
+从几何角度讲，OLS 在数据点{(***x***, ***)}***之间画一条（高维）线（或超平面），使得平方距离之和最小。见图 2-29。
+
+![](img/528380_1_En_2_Fig29_HTML.png)
+
+不同值的散点图显示在图表上，沿着一条从最高值到最低值的对角线。
+
+**图 2-29** 超定系统的 OLS 解
+
+解由以下公式给出：
+
+![$$ \boldsymbol{x}={\left({\boldsymbol{A}}^T\boldsymbol{A}\right)}^{-1}{\boldsymbol{A}}^T\boldsymbol{b} $$](img/528380_1_En_2_Chapter_TeX_Equdg.png)
+
+使用此公式，当不存在精确解时会找到一个近似解，而当存在精确解时它会给出一个精确解，前提是(***A***^(*T*)***A***)^(−1)存在（或等价地，***A***具有满列秩）。然而，在实践中，由于计算(***A***^(*T*)***A***)^(−1)时存在数值稳定性问题，我们不使用这个公式。相反，我们使用正交分解方法。
+
+NM Dev 提供了两种正交分解方法的实现，一种基于 QR 分解，另一种基于 SVD 分解。
+
+使用 QR 分解，你可以将***A***写成如下形式：
+
+# QR 分解与 SVD 分解在超定线性系统中的应用
+
+![QR分解公式](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equdh.png)
+
+超定线性系统`Ax = b`可以重写为`Q₁R₁x = b`。由于`Q₁`是正交矩阵，可得：
+
+![正交矩阵推导](img/528380_1_En_2_Chapter_TeX_Equdi.png)
+
+由于`R₁`是上三角矩阵，可以使用回代法求解该系统。
+
+以下 NM Dev 代码使用 QR 方法求解该超定系统：
+
+![超定系统示例](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equdj.png)
+
+```
+// define an overdetermined system of linear equations
+val A: Matrix = DenseMatrix(
+    arrayOf(
+        doubleArrayOf(1.0, 1.0),
+        doubleArrayOf(1.0, 2.0),
+        doubleArrayOf(1.0, 3.0),
+        doubleArrayOf(1.0, 4.0)
+    )
+)
+val b: Vector = DenseVector(arrayOf(6.0, 5.0, 7.0, 10.0))
+val problem: LSProblem = LSProblem(A, b)
+// solve the system using QR method
+val solver1: OLSSolverByQR = OLSSolverByQR(0.0) // precision
+// compute the OLS solution
+val x1: Vector = solver1.solve(problem)
+println("the OLS solution = " + x1)
+```
+
+输出如下：
+
+```
+the OLS solution = [3.500000, 1.400000]
+```
+
+使用 SVD 分解，`A`可以写成：
+
+![SVD分解公式](img/528380_1_En_2_Chapter_TeX_Equdk.png)
+
+伪逆为`A⁺ = VD⁺Uᵀ`，其中`D⁺`通过对角线上每个非零元素取倒数得到，零元素保持不变。在数值计算中，只有大于某个小容差的元素才被认为是非零的，其余的被替换为零。超定线性系统`Ax = b`可以按如下方式求解：
+
+![SVD求解公式](img/528380_1_En_2_Chapter_TeX_Equdl.png)
+
+以下 NM Dev 代码求解与之前相同的示例：
+
+```
+// solve the system using SVD method
+val solver2: OLSSolverBySVD = OLSSolverBySVD(0.0) // precision
+// compute the OLS solution
+val x2: Vector = solver2.solve(problem)
+// verify that Ax2 = b
+// val Ax2: Vector = A.multiply(x2)
+println("The OLS solution = " + x2)
+```
+
+输出如下：
+
+```
+the OLS solution = [3.500000, 1.400000]
+```
+
+输出结果与使用 QR 方法时完全相同。
+
+## `LSProblem`类
+
+NM Dev 中的`LSProblem`类构造了一个线性系统问题，可以通过多种求解器求解。该类使用构建器设计模式来构造一个`LSProblem`，该问题可自定义求解器的行为，例如迭代次数、精度、初始猜测以及左、右预处理器。预处理器是一种变换的应用，它将问题转化为更适合数值求解方法的形式。这个过程称为*预处理*。预处理通常用于减少数值问题的条件数。预处理后的问题通常通过迭代方法求解。`LSProblem`的签名如下：
+
+## `public LSProblem(Matrix A, Vector b)`
+
+构造一个线性方程组 `Ax = b`。
+
+- `@param A` 线性方程组的齐次部分，即系数矩阵
+- `@param b` 线性方程组的非齐次部分，即右侧向量
+
+## `public ImmutableMatrix A()`
+
+获取线性方程组的齐次部分，即系数矩阵。
+
+- `@return` 系数矩阵
+
+## `public ImmutableVector b()`
+
+获取线性方程组的非齐次部分，即右侧向量。
+
+- `@return` 向量
+
+## `public int size()`
+
+获取线性方程组中变量的个数。
+
+- `@return` 变量个数
+
+## `public LSProblem withMaxIteration(int maxIteration)`
+
+覆盖最大迭代次数。
+
+- `@param maxIteration` 最大迭代次数
+- `@return` 覆盖了最大迭代次数的新问题
+
+## `public int getMaxIteration()`
+
+获取指定的最大迭代次数。
+
+- `@return` 最大迭代次数
+
+## `public LSProblem withTolerance(Tolerance tolerance)`
+
+覆盖容差实例。
+
+- `@param tolerance` 判定解收敛并停止迭代的标准
+- `@return` 覆盖了容差的新问题
+
+## `public Tolerance getTolerance()`
+
+获取指定的 `{@link Tolerance}` 实例。
+
+- `@return` `{@link Tolerance}` 实例
+
+## `public LSProblem withInitialGuess(Vector initialGuess)`
+
+覆盖解的初始猜测。
+
+- `@param initialGuess` 解的初始猜测
+- `@return` 覆盖了初始猜测的新问题
+
+## `public Vector getInitialGuess()`
+
+获取该问题的解的初始猜测。
+
+- `@return` 初始猜测
+
+## `public LSProblem withLeftPreconditioner(Preconditioner preconditioner)`
+
+覆盖左预处理器。如果使用右预处理，请将其保留为默认值 - `{@link IdentityPreconditioner}`。
+
+- `@param preconditioner` 预处理器
+- `@return` 覆盖了左预处理器的新问题
+
+## `public Preconditioner getLeftPreconditioner()`
+
+获取左预处理器。
+
+- `@return` 左预处理器
+
+## `public LSProblem withRightPreconditioner(Preconditioner preconditioner)`
+
+覆盖右预处理器。如果使用左预处理，请将其保留为默认值 - `{@link IdentityPreconditioner}`。
+
+- `@param preconditioner` 预处理器
+- `@return` 覆盖了右预处理器的新问题
+
+## `public Preconditioner getRightPreconditioner()`
+
+获取右预处理器。
+
+- `@return` 右预处理器
+
+# 2.5 稀疏矩阵
+
+在数值计算中，稀疏矩阵（向量）是指大部分元素为零的矩阵（向量）。对于矩阵中需要有多少个零元素才能被视为稀疏，并没有严格的定义，但一个常见的标准是，非零元素的数量大致与行数或列数相当。相比之下，如果大部分元素都是非零的，则该矩阵被视为稠密矩阵。零值元素数量除以总元素数量，有时被称为矩阵的*稀疏度*。例如，下面的稀疏矩阵只包含 9 个非零元素，而有 26 个零元素。其稀疏度为 74%，稠密度为 26%。
+
+![$$ \left[\begin{array}{ccccccc}11&amp; 22&amp; &amp; &amp; &amp; &amp; \\ {}&amp; 33&amp; 44&amp; &amp; &amp; &amp; \\ {}&amp; &amp; 55&amp; 66&amp; 77&amp; &amp; \\ {}&amp; &amp; &amp; &amp; &amp; 88&amp; \\ {}&amp; &amp; &amp; &amp; &amp; &amp; 99\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equdm.png)
+
+从概念上讲，稀疏性对应于具有少量成对交互的系统。例如，考虑一排用弹簧依次连接的球：这是一个稀疏系统，因为只有相邻的球是耦合的。相比之下，如果同一排球中每个球都与其他所有球有弹簧连接，那么这个系统就对应一个稠密矩阵。稀疏性这一概念在组合数学以及网络理论和数值分析等应用领域中非常有用，这些领域通常具有较低密度的重要数据或连接。在求解偏微分方程和优化问题时，大型稀疏矩阵经常出现在科学或工程应用中。
+
+在计算机上存储和操作稀疏矩阵时，采用能够利用矩阵稀疏结构的专用算法和数据结构是有益且通常必要的。使用标准的稠密矩阵结构和算法来处理大型稀疏矩阵是缓慢且低效的，因为处理能力和内存在零元素上被浪费了。稀疏数据本质上更容易压缩，因此所需存储空间显著减少。一些非常大的稀疏矩阵实际上无法使用标准的稠密矩阵算法进行操作。
+
+通常，对于一个 `m` × `n` 的矩阵，以稠密格式存储该矩阵所需的内存量与 `m` × `n` 成正比（忽略矩阵维度本身也需要存储这一事实）。对于稀疏矩阵，可以通过仅存储非零条目来实现内存需求的显著降低。根据非零条目的数量和分布，可以使用不同的数据结构，与基本方法相比，可以大幅节省内存。其代价是访问单个元素变得更加复杂，并且需要额外的结构来明确地恢复原始矩阵。
+
+NM Dev 库支持两种格式组。
+
+* 支持高效修改的格式，例如键字典和列表的列表。这些通常用于构建矩阵。
+* 支持高效访问和矩阵运算的格式，例如压缩稀疏行格式。这些通常用于支持矩阵运算。
+
+## 2.5.1 键字典
+
+键字典（DOK）由一个将（行，列）对映射到元素值的字典组成。也就是说，非零值被哈希化，以便可以在常数时间内完成添加、删除和检索操作。字典中缺失的元素被视为零。这种格式适用于以随机顺序增量式地构建稀疏矩阵，但不适合按字典序迭代非零值。您通常使用这种格式构建矩阵，然后将其转换为另一种更高效的格式进行处理。
+
+以下 NM Dev 代码使用 DOK 以两种方式为此矩阵构建稀疏矩阵。您可以使用数组或列表来指定非零条目。
+
+![$$ \boldsymbol{A}=\left[\begin{array}{cccc}1&amp; 2&amp; 0&amp; 0\\ {}0&amp; 3&amp; 9&amp; 0\\ {}0&amp; 1&amp; 4&amp; 0\end{array}\right] $$](images/528380_1_En_2_Chapter/528380_1_En_2_Chapter_TeX_Equdn.png)
+
+```kotlin
+// the target matrix in dense representation
+val A: Matrix = DenseMatrix(arrayOf(
+    doubleArrayOf(1.0, 2.0, 0.0, 0.0),
+    doubleArrayOf(0.0, 3.0, 9.0, 0.0),
+    doubleArrayOf(0.0, 1.0, 4.0, 0.0)
+))
+// DOK
+val B1: SparseMatrix = DOKSparseMatrix(3, 4, // 3x4 dimension
+    listOf( // specify only the non-zero entries
+        SparseMatrix.Entry(MatrixCoordinate(3, 3), 4.0),
+        SparseMatrix.Entry(MatrixCoordinate(2, 2), 3.0),
+        SparseMatrix.Entry(MatrixCoordinate(1, 1), 1.0),
+        SparseMatrix.Entry(MatrixCoordinate(3, 2), 1.0),
+        SparseMatrix.Entry(MatrixCoordinate(2, 3), 9.0),
+        SparseMatrix.Entry(MatrixCoordinate(1, 2), 2.0))
+)
+//verify that B1 = A
+println(String.format(
+    "B1 = A, %b",
+    MatrixPropertyUtils.areEqual(B1, A, 1e-15)))
+val B2: SparseMatrix = DOKSparseMatrix(3, 4, // 3x4 dimension
+    listOf( // specify only the non-zero entries
+        SparseMatrix.Entry(MatrixCoordinate(3, 3), 4.0),
+        SparseMatrix.Entry(MatrixCoordinate(2, 2), 3.0),
+        SparseMatrix.Entry(MatrixCoordinate(1, 1), 1.0),
+        SparseMatrix.Entry(MatrixCoordinate(3, 2), 1.0),
+        SparseMatrix.Entry(MatrixCoordinate(2, 3), 9.0),
+        SparseMatrix.Entry(MatrixCoordinate(1, 2), 2.0))
+)
+//verify that B2 = A
+println(String.format(
+    "B2 = A, %b",
+    MatrixPropertyUtils.areEqual(B2, A, 1e-15)))
+```
+
+输出如下：
+
+```
+B1 = A, true
+B2 = A, true
+```
+
+## 2.5.2 列表的列表
+
+列表的列表（LIL）为每行存储一个列表，每个条目包含列索引和值。通常，这些条目按列索引排序以加快查找速度。这是另一种适合增量式矩阵构建的格式。
+
+以下 NM Dev 代码使用 LIL 以两种方式为前面所示的 `A` 构建稀疏矩阵。您可以使用数组或列表来指定非零条目。
+
+### 2.5.3 压缩稀疏行
+压缩稀疏行（CSR）或压缩行存储（CRS）或耶鲁格式通过三个（一维）数组来表示一个矩阵，这些数组分别包含非零值、行的范围以及列索引。这种格式支持快速的行访问和矩阵-向量乘法`Av`。CSR 格式使用三个（一维）数组（`V`、`COL_INDEX`、`ROW_INDEX`）以行形式存储一个稀疏的`m` × `n`矩阵`A`。设`NNZ`为`A`中非零条目的数量。数组`V`和`COL_INDEX`的长度为`NNZ`，分别包含非零值以及这些值对应的列索引。
+
+以下 NM Dev 代码通过两种方式使用 CSR 构造之前提到的`A`的稀疏矩阵。你可以使用数组或列表来指定非零条目。
+```kotlin
+// CSR
+val D1: SparseMatrix = CSRSparseMatrix(3, 4, // 3x4 dimension
+listOf( // specify only the non-zero entries
+SparseMatrix.Entry(MatrixCoordinate(3, 3), 4.0),
+SparseMatrix.Entry(MatrixCoordinate(2, 2), 3.0),
+SparseMatrix.Entry(MatrixCoordinate(1, 1), 1.0),
+SparseMatrix.Entry(MatrixCoordinate(3, 2), 1.0),
+SparseMatrix.Entry(MatrixCoordinate(2, 3), 9.0),
+SparseMatrix.Entry(MatrixCoordinate(1, 2), 2.0))
+)
+//verify that D1 = A
+println(String.format(
+"D1 = A, %b",
+MatrixPropertyUtils.areEqual(D1, A, 1e-15)))
+val D2: SparseMatrix = CSRSparseMatrix(3, 4, // 3x4 dimension
+listOf( // specify only the non-zero entries
+SparseMatrix.Entry(MatrixCoordinate(3, 3), 4.0),
+SparseMatrix.Entry(MatrixCoordinate(2, 2), 3.0),
+SparseMatrix.Entry(MatrixCoordinate(1, 1), 1.0),
+SparseMatrix.Entry(MatrixCoordinate(3, 2), 1.0),
+SparseMatrix.Entry(MatrixCoordinate(2, 3), 9.0),
+SparseMatrix.Entry(MatrixCoordinate(1, 2), 2.0)))
+//verify that D2 = A
+println(String.format(
+"D2 = A, %b",
+MatrixPropertyUtils.areEqual(D2, A, 1e-15)))
+```
+
+输出如下：
+```
+D1 = A, true
+D2 = A, true
+```
+
+### 2.5.4 稀疏矩阵/向量运算
+在 NM Dev 中，你可以使用`SparseVector`类创建稀疏向量。示例如下：
+```kotlin
+// sparse vector construction
+val v1: SparseVector = SparseVector(
+99, // vector size
+listOf(
+SparseVector.Entry(1, 11.0),
+SparseVector.Entry(3, 22.0),
+SparseVector.Entry(53, 33.0),
+SparseVector.Entry(79, 44.0),
+SparseVector.Entry(99, 55.0)
+)
+)
+println("v = " + v1)
+```
+
+输出如下：
+```
+v1 = size: 99
+[1] 11.0000
+[3] 22.0000
+[53] 33.0000
+[79] 44.0000
+[99] 55.0000
+```
+
+所有这些稀疏矩阵和向量数据结构与所有其他矩阵及向量数据结构完全互操作。稀疏数据结构完全支持所有矩阵和向量运算，例如加法和乘法。示例如下：
+```kotlin
+// addition
+val M1: Matrix = B1.add(A)
+println("M1 = " + M1)
+```
+
+输出如下：
+```
+M1 = 3x4
+[,1] [,2] [,3] [,4]
+[1,] 2.000000, 4.000000, 0.000000, 0.000000,
+[2,] 0.000000, 6.000000, 18.000000, 0.000000,
+[3,] 0.000000, 2.000000, 8.000000, 0.000000,
+```
+
+```kotlin
+val M2: DOKSparseMatrix = B1.add(B2) as DOKSparseMatrix
+println("M2 = " + M2)
+```
+
+输出如下：
+```
+M2 = 3x4 nnz = 6
+(1, 1): 2.0
+(1, 2): 4.0
+(2, 2): 6.0
+(2, 3): 18.0
+(3, 2): 2.0
+(3, 3): 8.0
+```
+
+```kotlin
+val M3: LILSparseMatrix = C1.minus(C2) as LILSparseMatrix
+println("M3 = " + M3)
+```
+
+输出如下：
+```
+M3 = 3x4 nnz = 0
+```
+
+```kotlin
+val M4: CSRSparseMatrix = D1.multiply(D2.t()) as CSRSparseMatrix
+println("M4 = " + M4)
+```
+
+输出如下：
+```
+M4 = 3x3 nnz = 9
+(1, 1): 5.0
+(1, 2): 6.0
+(1, 3): 2.0
+(2, 1): 6.0
+(2, 2): 90.0
+(2, 3): 39.0
+(3, 1): 2.0
+(3, 2): 39.0
+(3, 3): 17.0
+```
+
+```kotlin
+val v2: SparseVector = SparseVector(
+4, // vector size
+listOf(
+SparseVector.Entry(1, 11.0)
+)
+)
+println("v2 = " + v2)
+```
+
+输出如下：
+```
+v2 = size: 4
+[1] 11.0000
+```
+
+```kotlin
+val v3: Vector = B1.multiply(v2)
+println("ve = " + v3)
+```
+
+输出如下：
+
+```
+ve = size: 3
+[1] 11.0000
+```
+
+NM Dev 还支持多种其他针对特殊结构的矩阵，如下所示：
+
+*   `DiagonalMatrix`
+
+*   `BidiagonalMatrix`
+
+*   `TridiagonalMatrix`
+
+*   `LowerTriangularMatrix`
+
+*   `UpperTriangularMatrix`
+
+*   `SymmetricMatrix`
+
+*   `PermutationMatrix`
+
+这些数据结构具有其专属的运算，但它们也与所有其他矩阵和向量数据结构完全互操作。它们也完全支持所有矩阵和向量运算，例如加法和乘法。
+
+### 2.5.5 求解稀疏矩阵方程
+
+求解线性方程组是数值计算的基础。你可以利用问题的稀疏性来处理原本无法应对的更大规模问题。例如，前面章节讨论的求解器——如`LU`、`QR`和`SVD`分解——都适用于稠密矩阵。它们会用零填充整个矩阵（想象一下百万乘以百万规模的矩阵），并且需要反复填充大量的零元素。这些稠密矩阵可能无法装入计算机内存。对这些满矩阵的操作效率低下，且浪费在零元素上。求解线性方程组的算法通常是迭代法，这类方法利用稀疏矩阵的优势，不会改变稀疏模式，因为它们只涉及矩阵-向量乘积，不会产生填充。
+
+求解 *n* × *n*（或非方阵）线性系统 `Ax` = `b` 的迭代方法，涉及一系列矩阵-向量乘法。从解的初始猜测开始，每次迭代都会返回一个新的解估计值。希望经过 *k* 次迭代后，估计值能收敛到令人满意的解（在容差范围内）。对于稠密矩阵 `A`，每次迭代需要 *O*(*n*²) 次运算。一个迭代方法需要 *O*(*kn*²) 次运算才能收敛。对于稀疏系统，矩阵-向量乘法只需要 *O*(#nonZeros) 次运算，其中 #nonZeros 是稀疏矩阵中非零元素的个数。因此，迭代法可能比传统的直接法（如求逆）求解线性方程组快得多。使用稀疏矩阵的迭代法比使用稠密矩阵的迭代法快得多。
+
+`NM Dev` 支持多种稀疏矩阵线性系统求解器。它们如下：
+
+- 双共轭梯度求解器（`BiCG`）
+
+- 双共轭梯度稳定求解器（`BiCGSTAB`）
+
+- 共轭梯度求解器（`CG`）
+
+- 共轭梯度法向误差求解器（`CGNE`）
+
+- 共轭梯度法向残差求解器（`CGNR`）
+
+- 共轭梯度平方求解器（`CGS`）
+
+- 高斯-赛德尔求解器
+
+- 广义共轭残差求解器（`GRES`）
+
+- 广义最小残差求解器（`GMRES`）
+
+- 雅可比求解器
+
+- 最小残差求解器（`MINRES`）
+
+- 拟最小残差求解器（`QMR`）
+
+- 最速下降求解器
+
+- 逐次超松弛求解器（`SOR`）
+
+- 对称逐次超松弛求解器（`SSOR`）
+
+以下是选择稀疏系统迭代求解器的一些指南。对于埃尔米特问题，如果系统是正定的，使用`CG`或`MINRES`；否则，使用`MINRES`。为了避免在`CG`或`MINRES`中计算内积，你可以选择定常方法，如`Jacobi`、`Gauss-Seidel`、`SOR`或`SSOR`。这些方法在每次迭代中节省了计算成本，但迭代次数可能会增加，除非有良好的预处理。
+
+对于非埃尔米特问题，选择就没那么容易了。如果矩阵-向量乘法非常昂贵，`GMRES`可能是最佳选择，因为它执行的乘法次数最少。次优的选择是`QMR`或`BiCG`。`QMR`在数值上比`BiCG`更稳定。当矩阵转置不可用时，有免转置的方法，如`CGS`或`BiCGSTAB`。对于非方阵系统，有用于求解超定系统的`CG`方法，如`CGNR`，以及用于求解欠定系统的方法，如`CGNE`。
+
+使用预处理可以显著提高迭代方法的收敛速度。预处理将一个线性系统转化为另一个等价的系统（即具有相同解）。转化后的系统具有更有利的谱性质，从而影响收敛速度。特别地，预处理矩阵 `M` 近似于系数矩阵 `A`，且转化后的系统更容易求解。以下是一个示例：
+
+![$$ {\boldsymbol{M}}^{-1}\boldsymbol{Ax}={\boldsymbol{M}}^{-1}\boldsymbol{b} $$](img/528380_1_En_2_Chapter_TeX_Equdo.png)
+
+该方程组与原系统具有相同的解。其系数矩阵 `M`^(-1)`A` 的谱性质可能更有利。另一种预处理系统的方式如下：
+
+![$$ {\boldsymbol{M}}_1^{-1}{\boldsymbol{AM}}_2^{-1}\left({\boldsymbol{M}}_{\textbf{2}}\boldsymbol{x}\right)={\boldsymbol{M}}_1^{-1}\boldsymbol{b} $$](img/528380_1_En_2_Chapter_TeX_Equdp.png)
+
+矩阵 `M`1 和 `M`2 分别称为左预处理和右预处理。有三种预处理方式：左预处理、右预处理或分裂预处理。左预处理将 `M`2 设置为 `IdentityPreconditioner`。（当不应用任何预处理时，使用此单位预处理。）同样，右预处理将 `M`1 设置为 `IdentityPreconditioner`。
+
+在 `NM Dev` 中，所有稀疏矩阵线性系统求解器都继承自 `IterativeLinearSystemSolver` 接口。其签名如下：
+
+```java
+public interface IterativeLinearSystemSolver {
+    /**
+     * 这是一个使用迭代求解器求解线性方程组的解。
+     */
+    public static interface Solution extends IterativeMethod {
+        @Override
+        public IterationMonitor step() throws ConvergenceFailure;//覆盖返回和异常类型
+        @Override
+        public Vector search(Vector... initials) throws ConvergenceFailure;//覆盖异常类型
+    }
+    /**
+     * 迭代求解
+     *
+     * Ax = b
+     *
+     * 直到解收敛，即残差 (b - Ax) 的范数小于等于阈值。
+     *
+     * @param problem 一个线性方程组
+     * @param monitor 一个迭代监视器
+     * @return 线性问题的一个（近似）解
+     * @throws ConvergenceFailure 如果算法未能收敛
+     */
+    public Solution solve(LSProblem problem, IterationMonitor monitor) throws ConvergenceFailure;
+}
+```
+
+以下 `NM Dev` 代码使用多个非定常稀疏线性系统求解器求解一个稀疏线性系统。一般步骤是：首先使用 `LSProblem` 定义一个线性系统问题。然后为该问题构建一个求解器。这里有很多选择。求解问题会得到 `IterativeLinearSystemSolver.Solution`。利用该解对象，你可以从初始猜测（在这些示例中为 0）开始迭代搜索。搜索算法返回一个向量 `x` 作为解。通过使用 *ℓ*[2]-范数比较 `Ax` 与 `b` 之间的差异来验证结果的有效性。示例如下：
+```
+
+# 对称矩阵求解示例
+
+## 矩阵定义与系统构建
+
+定义一个8x8的对称稀疏矩阵 `A`：
+
+```
+// 对称矩阵：
+// 8x8
+// [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+// [1,] 7.000000, 0.000000, 1.000000, 0.000000, 0.000000, 2.000000, 7.000000, 0.000000,
+// [2,] 0.000000, -4.000000, 8.000000, 0.000000, 2.000000, 0.000000, 0.000000, 0.000000,
+// [3,] 1.000000, 8.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.000000, 5.000000,
+// [4,] 0.000000, 0.000000, 0.000000, 7.000000, 0.000000, 0.000000, 9.000000, 0.000000,
+// [5,] 0.000000, 2.000000, 0.000000, 0.000000, 5.000000, 1.000000, 5.000000, 0.000000,
+// [6,] 2.000000, 0.000000, 0.000000, 0.000000, 1.000000, -1.000000, 0.000000, 5.000000,
+// [7,] 7.000000, 0.000000, 0.000000, 9.000000, 5.000000, 0.000000, 11.000000, 0.000000,
+// [8,] 0.000000, 0.000000, 5.000000, 0.000000, 0.000000, 5.000000, 0.000000, 5.000000,
+```
+
+```kotlin
+val A: Matrix = CSRSparseMatrix(8, 8, // 矩阵维度
+    listOf(
+        SparseMatrix.Entry(MatrixCoordinate(1, 1), 7.0),
+        SparseMatrix.Entry(MatrixCoordinate(1, 3), 1.0),
+        SparseMatrix.Entry(MatrixCoordinate(1, 6), 2.0),
+        SparseMatrix.Entry(MatrixCoordinate(1, 7), 7.0),
+        SparseMatrix.Entry(MatrixCoordinate(2, 2), -4.0),
+        SparseMatrix.Entry(MatrixCoordinate(2, 3), 8.0),
+        SparseMatrix.Entry(MatrixCoordinate(2, 5), 2.0),
+        SparseMatrix.Entry(MatrixCoordinate(3, 1), 1.0),
+        SparseMatrix.Entry(MatrixCoordinate(3, 2), 8.0),
+        SparseMatrix.Entry(MatrixCoordinate(3, 3), 1.0),
+        SparseMatrix.Entry(MatrixCoordinate(3, 8), 5.0),
+        SparseMatrix.Entry(MatrixCoordinate(4, 4), 7.0),
+        SparseMatrix.Entry(MatrixCoordinate(4, 7), 9.0),
+        SparseMatrix.Entry(MatrixCoordinate(5, 2), 2.0),
+        SparseMatrix.Entry(MatrixCoordinate(5, 5), 5.0),
+        SparseMatrix.Entry(MatrixCoordinate(5, 6), 1.0),
+        SparseMatrix.Entry(MatrixCoordinate(5, 7), 5.0),
+        SparseMatrix.Entry(MatrixCoordinate(6, 1), 2.0),
+        SparseMatrix.Entry(MatrixCoordinate(6, 5), 1.0),
+        SparseMatrix.Entry(MatrixCoordinate(6, 6), -1.0),
+        SparseMatrix.Entry(MatrixCoordinate(6, 8), 5.0),
+        SparseMatrix.Entry(MatrixCoordinate(7, 1), 7.0),
+        SparseMatrix.Entry(MatrixCoordinate(7, 4), 9.0),
+        SparseMatrix.Entry(MatrixCoordinate(7, 5), 5.0),
+        SparseMatrix.Entry(MatrixCoordinate(7, 7), 11.0),
+        SparseMatrix.Entry(MatrixCoordinate(8, 3), 5.0),
+        SparseMatrix.Entry(MatrixCoordinate(8, 6), 5.0),
+        SparseMatrix.Entry(MatrixCoordinate(8, 8), 5.0)
+    )
+)
+```
+
+构造一个全为1的稠密向量 `b`：
+
+```kotlin
+val b: Vector = DenseVector( // 注意我们仍然可以使用稠密数据结构
+    arrayOf(1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0)
+)
+```
+
+然后构造一个待求解的线性系统问题 `problem`：
+
+```kotlin
+val problem: LSProblem = LSProblem(A, b)
+```
+
+## 使用BiCG方法求解
+
+构造一个双共轭梯度法（BiCG）求解器 `BiCG`：
+
+```kotlin
+val BiCG: BiconjugateGradientSolver
+    = BiconjugateGradientSolver(
+    10, // 最大迭代次数
+    AbsoluteTolerance(1e-8) // 精度
+)
+```
+
+求解问题，获得解 `soln1`，并使用0作为初始猜测搜索解向量 `x1`：
+
+```kotlin
+val soln1: IterativeLinearSystemSolver.Solution = BiCG.solve(problem)
+val x1: Vector = soln1.search(SparseVector(A.nCols())) // 使用 0 作为初始猜测
+```
+
+输出解 `x1` 并验证解的精度：
+
+```kotlin
+println("x = " + x1)
+val Ax1_b: Vector = A.multiply(x1).minus(b) // 验证 Ax = b
+println("||Ax - b|| = " + Ax1_b.norm()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [-0.041860, -0.003413, 0.117250, -0.112640, 0.024172, -0.107633, 0.198720, 0.190383]
+||Ax - b|| = 3.4321107842718707E-13
+```
+
+## 使用BiCGSTAB方法求解
+
+构造一个稳定双共轭梯度法（BiCGSTAB）求解器 `BiCGSTAB`：
+
+```kotlin
+val BiCGSTAB: BiconjugateGradientStabilizedSolver
+    = BiconjugateGradientStabilizedSolver(
+    10, // 最大迭代次数
+    AbsoluteTolerance(1e-7) // 较低精度
+)
+```
+
+求解问题，获得解 `soln2`，并使用0作为初始猜测搜索解向量 `x2`：
+
+```kotlin
+val soln2: IterativeLinearSystemSolver.Solution = BiCGSTAB.solve(problem)
+val x2: Vector = soln2.search(SparseVector(A.nCols())) // 使用 0 作为初始猜测
+```
+
+输出解 `x2` 并验证解的精度：
+
+```kotlin
+println("x = " + x2)
+val Ax2_b: Vector = A.multiply(x2).minus(b) // 验证 Ax = b
+println("||Ax - b|| = " + Ax2_b.norm()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [-0.041860, -0.003413, 0.117250, -0.112640, 0.024172, -0.107633, 0.198720, 0.190383]
+||Ax - b|| = 6.001732649867594E-8
+```
+
+使用各种迭代线性系统求解器求解问题的代码示例如下：
+
+```kotlin
+val CGNE: `ConjugateGradientNormalErrorSolver`
+    = `ConjugateGradientNormalErrorSolver`(
+    10, // 最大迭代次数
+    `AbsoluteTolerance`(1e-8) // 精度
+)
+val soln3: `IterativeLinearSystemSolver.Solution` = `CGNE.solve`(`problem`)
+val x3: `Vector` = `soln3.search`(`SparseVector`(`A.nCols()`)) // 使用 0 作为初始猜测
+`println`("x = " + x3)
+val Ax3_b: `Vector` = `A.multiply`(x3).`minus`(b) // 验证 Ax = b
+`println`("||Ax - b|| = " + `Ax3_b.norm`()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [-0.041860, -0.003413, 0.117250, -0.112640, 0.024172, -0.107633, 0.198720, 0.190383]
+||Ax - b|| = 1.6870268466872934E-9
+```
+
+```kotlin
+val CGNR: `ConjugateGradientNormalResidualSolver`
+    = `ConjugateGradientNormalResidualSolver`(
+    10, // 最大迭代次数
+    `AbsoluteTolerance`(1e-8) // 精度
+)
+val soln4: `IterativeLinearSystemSolver.Solution` = `CGNR.solve`(`problem`)
+val x4: `Vector` = `soln4.search`(`SparseVector`(`A.nCols()`)) // 使用 0 作为初始猜测
+`println`("x = " + x4)
+val Ax4_b: `Vector` = `A.multiply`(x4).`minus`(b) // 验证 Ax = b
+`println`("||Ax - b|| = " + `Ax4_b.norm`()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [-0.041860, -0.003413, 0.117250, -0.112640, 0.024172, -0.107633, 0.198720, 0.190383]
+||Ax - b|| = 6.817480703009663E-10
+```
+
+```kotlin
+val CG: `ConjugateGradientSolver`
+    = `ConjugateGradientSolver`(
+    10, // 最大迭代次数
+    `AbsoluteTolerance`(1e-8) // 精度
+)
+val soln5: `IterativeLinearSystemSolver.Solution` = `CG.solve`(`problem`)
+val x5: `Vector` = `soln5.search`(`SparseVector`(`A.nCols()`)) // 使用 0 作为初始猜测
+`println`("x = " + x5)
+val Ax5_b: `Vector` = `A.multiply`(x5).`minus`(b) // 验证 Ax = b
+`println`("||Ax - b|| = " + `Ax5_b.norm`()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [-0.041860, -0.003413, 0.117250, -0.112640, 0.024172, -0.107633, 0.198720, 0.190383]
+||Ax - b|| = 3.4321107842718707E-13
+```
+
+```kotlin
+val CGS: `ConjugateGradientNormalResidualSolver`
+    = `ConjugateGradientNormalResidualSolver`(
+    10, // 最大迭代次数
+    `AbsoluteTolerance`(1e-8) // 精度
+)
+val soln6: `IterativeLinearSystemSolver.Solution` = `CGS.solve`(`problem`)
+val x6: `Vector` = `soln6.search`(`SparseVector`(`A.nCols()`)) // 使用 0 作为初始猜测
+`println`("x = " + x6)
+val Ax6_b: `Vector` = `A.multiply`(x6).`minus`(b) // 验证 Ax = b
+`println`("||Ax - b|| = " + `Ax6_b.norm`()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [-0.041860, -0.003413, 0.117250, -0.112640, 0.024172, -0.107633, 0.198720, 0.190383]
+||Ax - b|| = 6.817480703009663E-10
+```
+
+```kotlin
+val GRES: `GeneralizedConjugateResidualSolver`
+    = `GeneralizedConjugateResidualSolver`(
+    10, // 最大迭代次数
+    `AbsoluteTolerance`(1e-8) // 精度
+)
+val soln7: `IterativeLinearSystemSolver.Solution` = `GRES.solve`(`problem`)
+val x7: `Vector` = `soln7.search`(`SparseVector`(`A.nCols()`)) // 使用 0 作为初始猜测
+`println`("x = " + x7)
+val Ax7_b: `Vector` = `A.multiply`(x7).`minus`(b) // 验证 Ax = b
+`println`("||Ax - b|| = " + `Ax7_b.norm`()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [-0.041860, -0.003413, 0.117250, -0.112640, 0.024172, -0.107633, 0.198720, 0.190383]
+||Ax - b|| = 1.0175362097255202E-15
+```
+
+```kotlin
+val GMRES: `GeneralizedMinimalResidualSolver`
+    = `GeneralizedMinimalResidualSolver`(
+    10, // 最大迭代次数
+    `AbsoluteTolerance`(1e-8) // 精度
+)
+val soln8: `IterativeLinearSystemSolver.Solution` = `GMRES.solve`(`problem`)
+val x8: `Vector` = `soln8.search`(`SparseVector`(`A.nCols()`)) // 使用 0 作为初始猜测
+`println`("x = " + x8)
+val Ax8_b: `Vector` = `A.multiply`(x8).`minus`(b) // 验证 Ax = b
+`println`("||Ax - b|| = " + `Ax8_b.norm`()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [-0.041860, -0.003413, 0.117250, -0.112640, 0.024172, -0.107633, 0.198720, 0.190383]
+||Ax - b|| = 1.0175362097255202E-15
+```
+
+```kotlin
+x = [-0.041860, -0.003413, 0.117250, -0.112640, 0.024172, -0.107633, 0.198720, 0.190383]
+||Ax - b|| = 1.0053497077208614E-15
+
+val MINRES: `MinimalResidualSolver` = `MinimalResidualSolver`(
+    10, // 最大迭代次数
+    `AbsoluteTolerance`(1e-8) // 精度
+)
+val monitor: `CountMonitor` = `CountMonitor`()
+val soln9: `IterativeLinearSystemSolver.Solution` = `MINRES.solve`(`problem`, monitor)
+val x9: `Vector` = `soln9.search`(`SparseVector`(`A.nCols()`)) // 使用 0 作为初始猜测
+`println`("x = " + x9)
+val Ax9_b: `Vector` = `A.multiply`(x9).`minus`(b) // 验证 Ax = b
+`println`("||Ax - b|| = " + `Ax9_b.norm`()) // 应（接近）为 0
+```
+
+输出如下：
+
+# NM Dev 稀疏线性系统求解示例
+
+```kotlin
+println("使用稳态迭代求解器求解稀疏线性系统")
+var A: Matrix = SymmetricMatrix(arrayOf(
+    doubleArrayOf(4.0),
+    doubleArrayOf(1.0, 3.0)))
+val b = DenseVector(arrayOf(1.0, 2.0))
+// 构造待求解的线性系统问题
+val problem: LSProblem = LSProblem(A, b)
+// 构造一个稀疏矩阵线性系统求解器
+val gauss_seidel: GaussSeidelSolver = GaussSeidelSolver(10, AbsoluteTolerance(1e-4))
+val soln1: IterativeLinearSystemSolver.Solution = gauss_seidel.solve(problem)
+val x1 = soln1.search(SparseVector(A.nCols())) // 使用 0 作为初始猜测
+println("x = " + x1)
+val Ax1_b = A.multiply(x1).minus(b) // 验证 Ax = b
+println("||Ax - b|| = " + Ax1_b.norm()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [0.090917, 0.636361]
+||Ax - b|| = 2.8131430040989613E-5
+```
+
+```kotlin
+val QMR: QuasiMinimalResidualSolver
+    = QuasiMinimalResidualSolver(
+        10, // 最大迭代次数
+        AbsoluteTolerance(1e-8) // 精度
+    )
+val soln10: IterativeLinearSystemSolver.Solution = QMR.solve(problem)
+val x10: Vector = soln10.search(SparseVector(A.nCols())) // 使用 0 作为初始猜测
+println("x = " + x10)
+val Ax10_b: Vector = A.multiply(x10).minus(b) // 验证 Ax = b
+println("||Ax - b|| = " + Ax10_b.norm()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [-0.041860, -0.003413, 0.117250, -0.112640, 0.024172, -0.107633, 0.198720, 0.190383]
+||Ax - b|| = 5.933770145831627E-13
+```
+
+```kotlin
+// 构造一个稀疏矩阵线性系统求解器
+val jacobi: JacobiSolver = JacobiSolver(10, AbsoluteTolerance(1e-4))
+val soln2: IterativeLinearSystemSolver.Solution = jacobi.solve(problem)
+val x2 = soln2.search(SparseVector(A.nCols()))
+println("x = " + x2)
+val Ax2_b = A.multiply(x1).minus(b) // 验证 Ax = b
+println("||Ax - b|| = " + Ax2_b.norm()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [0.090917, 0.636365]
+||Ax - b|| = 2.8131430040989613E-5
+```
+
+```kotlin
+val SOR: SuccessiveOverrelaxationSolver = SuccessiveOverrelaxationSolver(
+    1.5,
+    20, // 需要更多迭代
+    AbsoluteTolerance(1e-4))
+val soln3: IterativeLinearSystemSolver.Solution = SOR.solve(problem)
+val x3 = soln3.search(SparseVector(A.nCols())) // 使用 0 作为初始猜测
+println("x = " + x3)
+val Ax3_b = A.multiply(x3).minus(b) // 验证 Ax = b
+println("||Ax - b|| = " + Ax3_b.norm()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [0.090909, 0.636344]
+||Ax - b|| = 6.462981890138403E-5
+```
+
+```kotlin
+val SSOR: SymmetricSuccessiveOverrelaxationSolver
+    = SymmetricSuccessiveOverrelaxationSolver(
+        1.5,
+        20, // 需要更多迭代
+        AbsoluteTolerance(1e-4))
+val soln4: IterativeLinearSystemSolver.Solution = SSOR.solve(problem)
+val x4 = soln4.search(SparseVector(A.nCols())) // 使用 0 作为初始猜测
+println("x = " + x4)
+val Ax4_b = A.multiply(x4).minus(b) // 验证 Ax = b
+println("||Ax - b|| = " + Ax4_b.norm()) // 应（接近）为 0
+```
+
+输出如下：
+
+```
+x = [0.090904, 0.636348]
+||Ax - b|| = 6.213495416129946E-5
+```
+
