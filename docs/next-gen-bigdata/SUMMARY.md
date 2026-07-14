@@ -1,6 +1,6 @@
 +   [下一代大数据教程](README.md)
 +   [一、下一代大数据](01_fmt.md)
-+   [Kudu 简介](02_fmt.md)
++   [二、Kudu 简介](02_fmt.md)
 +   [三、Impala 简介](03_fmt.md)
 +   [四、使用 Impala 和 Kudu 的高性能数据分析](04_fmt.md)
 +   [五、Spark 简介](05_fmt.md)
