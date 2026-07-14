@@ -506,3 +506,5 @@ bin/ycsb run cassandra-10 -P /home/vivek/source/book_source/ycsb/casssandra-ycsb
 
 在下一章中，我们将进一步介绍 Cassandra 的管理和监控。
 
+
+

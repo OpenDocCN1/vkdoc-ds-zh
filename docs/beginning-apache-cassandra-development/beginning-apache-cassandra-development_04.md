@@ -628,3 +628,5 @@ public class TweetMapper extends Mapper<ByteBuffer, SortedMap<ByteBuffer, Column
 
 在本章中，我们讨论了 HDFS 和 MapReduce 及其与 Cassandra 的集成。运行 MapReduce 是大型数据分析的一种解决方案。然而，为了满足更复杂的分析需求，可能需要使用内置 API 来自动构建和执行此类 MapReduce 程序。其中两个最流行的工具是 Hive 和 Pig。下一章将讨论 Hive 和 Pig 的使用及其与 Cassandra 的集成。
 
+
+

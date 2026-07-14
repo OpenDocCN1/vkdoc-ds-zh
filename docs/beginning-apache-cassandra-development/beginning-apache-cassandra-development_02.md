@@ -603,3 +603,5 @@ drop index if exists users_first_name_idx;
 
 有了数据模型，在设计使用 Cassandra 的应用程序时，自然而然会想到的下一个问题是数据安全性。第 4 章将讨论数据加密/解密以及 Cassandra 提供的安全选项。
 
+
+

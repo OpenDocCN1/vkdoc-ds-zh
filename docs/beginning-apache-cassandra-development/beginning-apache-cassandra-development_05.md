@@ -880,3 +880,5 @@ LOAD DATA LOCAL INFILE '/home/vivek/tweets' INTO TABLE twitterdata FIELDS TERMIN
 
 下一章将展开新的范式——基于图的数据库的讨论。该章将讨论为什么、如何以及何时使用图数据库，最重要的是，如何结合 `Cassandra` 使用。
 
+
+

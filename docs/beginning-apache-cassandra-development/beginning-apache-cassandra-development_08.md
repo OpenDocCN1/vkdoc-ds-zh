@@ -426,3 +426,5 @@ DataStax OpsCenter 和 DevCenter 的用户指南可分别在 `http://www.datasta
 
 在本章中，我们讨论了可用于 Cassandra 监控和数据操作的各种工具。本章还介绍了数据备份和恢复的基础知识，以及集群中节点的管理。下一章将讨论各种 Cassandra 实用程序，并使用 YCSB 进行基准测试。
 
+
+

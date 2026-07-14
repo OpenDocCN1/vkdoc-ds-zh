@@ -595,3 +595,5 @@ Cassandra.Client client = new Cassandra.Client(protocol);
 
 下一章将更深入地探讨大数据分析，我们将讨论如何使用 Hadoop 的 MapReduce 算法进行批处理，以及如何将 Cassandra 文件系统同时用作输入和输出来在 Cassandra 上运行 MapReduce 程序！
 
+
+
