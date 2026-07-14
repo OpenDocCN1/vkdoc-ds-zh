@@ -823,3 +823,6 @@ end
 ## 脚注
 1 Lyshevski, S. E. *Electromechanical Systems, Electric Machines, and Applied Mechatronics*, CRC Press, 2000, pp. 589–627.
 2 Analog Devices, “Implementing Space Vector Modulation with the ADMCF32X,” ANF32X-17, January 2000.
+
+
+
