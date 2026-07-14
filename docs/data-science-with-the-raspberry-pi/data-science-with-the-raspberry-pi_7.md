@@ -303,4 +303,3 @@ f.show()
 ![图 8-5](../images/496535_1_En_8_Chapter/496535_1_En_8_Fig5_HTML.jpg)
 
 **图 8-5** 使用 k-means 聚类算法检测到的异常值
-```
