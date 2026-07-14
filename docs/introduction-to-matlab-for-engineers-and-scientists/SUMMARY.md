@@ -1,6 +1,4 @@
 +   [MATLAB 工程师与科学家入门指南](README.md)
-+   [Sandeep Nagar](introduction-to-matlab-for-engineers-and-scientists_00_fmt.md)
-+   [MATLAB 文档目录](introduction-to-matlab-for-engineers-and-scientists_01_fmt.md)
 +   [1. MATLAB 简介](introduction-to-matlab-for-engineers-and-scientists_02_fmt.md)
 +   [2. 基于数组的计算](introduction-to-matlab-for-engineers-and-scientists_03_fmt.md)
 +   [3. 绘图](introduction-to-matlab-for-engineers-and-scientists_04_fmt.md)
