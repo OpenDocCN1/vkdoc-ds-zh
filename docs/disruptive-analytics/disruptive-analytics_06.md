@@ -678,3 +678,4 @@ Apache Storm 是一个开源的低延迟计算系统。一家名为 `BackType` �
 - [`http://www.gartner.com/newsroom/id/3114217`](http://www.gartner.com/newsroom/id/3114217) 71
 
 可用性研究人员报告了不同的最大可接受响应时间；具体情况需考虑上下文。例如，有关面向客户应用的标准讨论，请参见[`https://www.nngroup.com/articles/powers-of-10-time-scales-in-ux/`](https://www.nngroup.com/articles/powers-of-10-time-scales-in-ux/)。对于内部应用，标准较低。请参见[`https://www.microstrategy.com/it/press-releases/microstrategy-introduces-new-high-performance-standards-for-business-intelligence`](https://www.microstrategy.com/it/press-releases/microstrategy-introduces-new-high-performance-standards-for-business-intelligence)。
+

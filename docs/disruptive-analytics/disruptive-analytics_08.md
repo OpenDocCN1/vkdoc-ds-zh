@@ -535,3 +535,4 @@ Spotify。²⁷ Spotify 的一个团队使用混合深度卷积网络，基于�
 46
 
 [`http://yahoohadoop.tumblr.com/post/139916563586/caffeonspark-open-sourced-for-distributed-deep`](http://yahoohadoop.tumblr.com/post/139916563586/caffeonspark-open-sourced-for-distributed-deep)
+

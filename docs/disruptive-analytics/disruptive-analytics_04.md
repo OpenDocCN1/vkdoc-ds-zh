@@ -1025,3 +1025,4 @@ Hadoop 的经济性使其对无法承担传统数据仓库成本的应用场景�
 [`http://www.teradata.com/News-Releases/2015/Teradata-Launches-First-Enterprise-Support-for-Presto/?LangType=1033&LangSelect=true`](http://www.teradata.com/News-Releases/2015/Teradata-Launches-First-Enterprise-Support-for-Presto/%3FLangType=1033%26LangSelect=true) 49
 [`http://money.cnn.com/news/newsfeeds/articles/prnewswire/CL12937.htm`](http://money.cnn.com/news/newsfeeds/articles/prnewswire/CL12937.htm) 50
 [`https://www.openhub.net/p/facebookpresto`](https://www.openhub.net/p/facebookpresto)
+

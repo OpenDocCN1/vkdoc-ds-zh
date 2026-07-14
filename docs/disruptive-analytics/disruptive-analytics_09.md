@@ -678,3 +678,4 @@ KXEN 成立于 1998 年，总部位于法国，其分析引擎围绕一种称为
 46
 
 [`http://www.recruit-rgf.com/news_data/release/2015/1117_7730.html`](http://www.recruit-rgf.com/news_data/release/2015/1117_7730.html)
+
