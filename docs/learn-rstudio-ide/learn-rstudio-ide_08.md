@@ -1,4 +1,4 @@
-# R Markdown
+# 8. R Markdown
 
 您使用 R Markdown 来创建整合了前几章所述功能的报告。R Markdown 利用 `HTML`、`CSS` 和 `Markdown` 等免费可用的开源技术，以多种格式创建丰富的报告。
 
@@ -104,14 +104,14 @@ summary(expectancy)
 
 您可能希望像我们在数据可视化章节中所做的那样，让用户一窥数据集的全貌。您可以简单地从上一章复制代码，并将其包裹在如下代码块中：
 
-```
+
 ### 预期寿命数据集示例
 下面您将看到一个可用于查看`expectancy`数据集内容的小部件。该数据集将在本分析后续部分进行探索。
 ```{r}
 library(DT)
 datatable(expectancy, options = list(pageLength = 5))
 ```
-```
+
 
 在这里，我们混合了 Markdown 注释和一段 R 代码，以生成我们在图 8-6 中看到的显示效果。
 
@@ -123,7 +123,7 @@ R Markdown 文档中的 HTML 数据表格小部件
 
 最后，让我们添加各年份预期寿命率的折线图。这次，我们可能想对用户隐藏 R 代码块，因此我们将包含这两个指令：`echo=FALSE` 和 `message=FALSE`。
 
-```
+
 ### 预期寿命折线图
 下面的折线图显示了各性别每年的预期寿命。
 ```{r echo=FALSE, message=FALSE}
@@ -148,3 +148,4 @@ R Markdown 文档中的 Plotly 小部件
 ## 结论
 
 R Markdown 提供了一个强大的报告生成系统。本章仅触及了作为报告编写者可用功能的一小部分。当您开发可能在整个组织内共享的分析时，这将是您的报告主力工具。
+

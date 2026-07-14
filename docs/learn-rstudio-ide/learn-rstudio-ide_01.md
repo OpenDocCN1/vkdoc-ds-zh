@@ -1,3 +1,8 @@
+
+
+
+
+
 # 1. 安装 RStudio
 
 RStudio 是一个集成开发环境（IDE），它为 R 语言添加了语法高亮和代码重构等现代功能。RStudio 的优势在于，它将你所需的所有功能集中在一个地方。在安装 RStudio 之前，我们需要先为操作系统安装最新版本的 R 语言，以及另一个名为`git`的程序。这两个软件包都会集成到 RStudio 中，但它们并不随 RStudio IDE 一起提供。
@@ -141,3 +146,8 @@ sudo apt install git-all
 图 1-12 RStudio IDE 初始界面
 
 恭喜，你现在已经安装好 RStudio IDE，可以开始使用了！
+
+
+
+
+
