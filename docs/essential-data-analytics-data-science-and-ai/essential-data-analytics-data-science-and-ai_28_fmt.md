@@ -1,5 +1,0 @@
-# Y, Z
-## Yahoo
-## `yfinance`
-```
-```
