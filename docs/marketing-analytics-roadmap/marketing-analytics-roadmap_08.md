@@ -163,3 +163,5 @@ $$ \mathrm{Return}\kern0.5em \mathrm{on}\kern0.5em \mathrm{Investment}\kern0.5em
 [6] “Teradata 数据驱动营销调查，全球版”，2013 年，Teradata，第 28 页，`http://teradata.com/`。
 [7] “2013 年 Teradata 数据驱动营销调查，全球版”，第 8 页。
 [8] “2013 年 Teradata 数据驱动营销调查，全球版”，第 13 页。
+
+

@@ -1,41 +1,3 @@
-# 营销分析路线图：方法、指标与工具
-
-![](img/A978-1-4842-0259-3_CoverFigure_HTML.jpg)
-
-作者在本文中引用的任何源代码或其他补充材料，均可通过[`www.apress.com`](http://www.apress.com/)向读者提供。有关如何查找本书源代码的详细信息，请访问[`www.apress.com/source-code/`](http://www.apress.com/source-code/)。
-
-ISBN 978-1-4842-0260-9  
-电子版 ISBN 978-1-4842-0259-3  
-DOI 10.1007/978-1-4842-0259-3  
-© Apress 出版社 2015  
-营销分析路线图：方法、指标与工具  
-常务董事：Welmoed Spahr  
-策划编辑：Susan McDermott  
-开发编辑：Douglas Pundick  
-编辑委员会：Steve Anglin, Mark Beckner, Gary Cornell, Louise Corrigan, James DeWolf, Jonathan Gennick, Robert Hutchinson, Michelle Lowman, James Markham, Susan McDermott, Matthew Moodie, Jeffrey Pepper, Douglas Pundick, Ben Renow-Clarke, Gwenan Spearing, Matt Wade, Steve Weiss  
-协调编辑：Rita Fernando  
-文字编辑：Laura Poole  
-排版：SPi Global  
-索引编制：SPi Global  
-封面设计：Friedhelm Steinen-Broo  
-
-如需了解翻译事宜，请发送电子邮件至`rights@apress.com`，或访问[`www.apress.com`](http://www.apress.com/)。
-
-Apress 及 friends of ED 的书籍可批量购买，用于学术、企业或促销用途。多数图书也提供电子版及许可。更多信息，请参阅我们的特殊批量销售–电子书许可网页，网址为[`www.apress.com/bulk-sales`](http://www.apress.com/bulk-sales)。
-
-本作品受版权保护。出版商保留所有权利，无论是涉及材料的全部或部分，特别是翻译、重印、重用插图、背诵、广播、缩微胶片复制或任何其他物理形式的复制权，以及传输或信息存储与检索、电子改编、计算机软件，或目前已知或未来开发的任何类似或不同方法的权利。法律保留的例外情况包括：与评论或学术分析相关的简短摘录，或专门为在计算机系统上输入和执行而提供的材料，仅供购买者独占使用。未经出版商所在地现行版权法规定许可，不得复制本出版物或其任何部分，且使用许可必须始终从 Springer 获取。使用许可可通过版权清算中心的 RightsLink 获取。违反者将根据相应版权法被起诉。
-
-本书中可能出现商标名称、标识和图像。我们并未在每个商标名称、标识或图像出现时都使用商标符号，而是仅在编辑性用途中使用这些名称、标识和图像，以维护商标所有者的利益，无意侵犯商标权。本出版物中使用的商品名称、商标、服务标志及类似术语，即使未明确标识，也不应被视为对其是否受专有权利保护的表达。
-
-尽管本书中的建议和信息在出版时被认为是真实准确的，但作者、编辑和出版商均不对可能存在的任何错误或遗漏承担法律责任。出版商对本材料内容不作任何明示或暗示的保证。
-
-本书通过 Springer Science+Business Media New York 在全球图书贸易中发行，地址为 233 Spring Street, 6th Floor, New York, NY 10013。电话：1-800-SPRINGER，传真：(201) 348-4505，电子邮件：`orders-ny@springer-sbm.com`，或访问`www.springeronline.com`。
-
-Apress Media, LLC 是一家加利福尼亚州的有限责任公司，其唯一成员（所有者）是 Springer Science + Business Media Finance Inc（SSBM Finance Inc）。SSBM Finance Inc 是一家特拉华州的公司。
-
-致丽莎：我三十年的妻子。一个男人在生活中再找不到更优秀、更真诚的伴侣了。  
-以及，致那些正在寻找更好方式来回答“你最近为我们做了什么？”这一问题的营销人员。
-
 ## 引言
 
 我进入营销行业纯属偶然。30 多年前，我大学毕业，获得计算机科学学位。在攻读学位的四年里，我在大学的数据中心工作。我拥有软件开发的理论基础，简历上也包含了高度相关的经验。尽管毕业时就业市场相对不景气，我还是收到了三份不错的录用通知。令我自己惊讶的是，我选择了起薪最低的那一份，来自 IBM，因为我喜欢那里的文化和晋升机会。IBM 没有把我视为软件程序员，而是将我安排在了销售与营销分支机构。从那天起，我再也没有写过一行代码，并且我对此毫不后悔。
@@ -92,3 +54,4 @@ Apress Media, LLC 是一家加利福尼亚州的有限责任公司，其唯一�
 - 索引 147
 
 ## 关于作者
+

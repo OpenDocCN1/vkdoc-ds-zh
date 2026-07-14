@@ -204,3 +204,4 @@
 2.  斯科特·布林克，《营销技术专家的崛起》，Chiefmartec.com 博客，2010 年 4 月 18 日，[http://chiefmartec.com/2010/04/rise-of-the-marketing-technologist/](http://chiefmartec.com/2010/04/rise-of-the-marketing-technologist/)。
 
 3.  参见[http://www.netpromoter.com/why-net-promoter/know/](http://www.netpromoter.com/why-net-promoter/know/)。
+
