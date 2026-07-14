@@ -807,3 +807,8 @@ In [128]: fig, ax = plt.subplots(1, 1, figsize=(8, 4))
 ## 延伸阅读
 
 该库的原始创建者 McKinney（2013）对 `Pandas` 库进行了很好的介绍，同时也相当详细地介绍了 `NumPy`。`Pandas` 的官方文档（可在 [`http://pandas.pydata.org/pandas-docs/stable`](http://pandas.pydata.org/pandas-docs/stable) 获取）也对该库的功能提供了易于理解且非常详细的说明。另一个学习 `Pandas` 的优秀在线资源是 [`http://github.com/jvns/pandas-cookbook`](http://github.com/jvns/pandas-cookbook)。在数据可视化方面，我们在本章中介绍了 `Seaborn` 库，其网站上的文档对此进行了详细描述。关于更高级的可视化工具，也值得探索 Python 的 `ggplot` 库（[`http://ggplot.yhathq.com`](http://ggplot.yhathq.com)），它基于著名的《图形语法》（L. Wilkinson, 2005）实现。该库也与 `Pandas` 库紧密集成，并提供在分析数据时方便的统计可视化工具。有关 Python 中可视化方面的更多信息，请参阅例如 Vaingast（2014）。
+
+
+
+
+

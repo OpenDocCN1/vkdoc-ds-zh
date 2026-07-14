@@ -868,3 +868,12 @@ In [26]: fig, axes = plt.subplots(1, 3, figsize=(14, 4), subplot_kw={'projection
 ### 延伸阅读
 
 Matplotlib 在该库相关的专著中有详细阐述，例如 Tosi (2009) 和 Devert (2014)，在几本更广领域范围的书中也有涉及，例如 Milovanovi (2013) 和 McKinney (2013)。关于数据可视化、样式指南以及可视化最佳实践的趣味讨论，可参见例如 Yau (2011) 和 J. Steele (2010)。
+
+
+
+
+
+
+
+
+

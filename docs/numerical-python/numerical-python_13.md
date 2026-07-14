@@ -468,7 +468,7 @@ Out[66]: 0.0045984013290753566
 ```
 
 如果我们希望使用 `t` 分布，可以用 `stats.t` 类代替 `stats.norm`。计算样本均值 `\overline{x}` 后，样本数据中只剩下 `n − 1` 个自由度（`df`）。自由度数量是 `t` 分布的一个重要参数，在创建随机变量实例时需要指定：
-```
+
 
 # 假设检验与参数方法
 
@@ -624,3 +624,10 @@ Out[93]: array([  0.39074674,  11.94993578])
 ## 延伸阅读
 
 关于统计学和数据分析基础的优秀入门书籍有Rice (1995)和Wasserman (2004)。Dalgaard (2008)提供了一本以计算为导向的统计入门书籍，尽管它使用了R语言，但与Python中的统计学也密切相关。此外，还有一些免费的在线统计学资源，例如OpenIntro Statistics，可从[`www.openintro.org/stat/textbook.php`](http://www.openintro.org/stat/textbook.php)获取。
+
+
+
+
+
+
+
