@@ -1,3 +1,428 @@
+# 8. 仪表板
+
+虽然性能仪表板系统本身并不能直接解决 SEO 问题，但拥有这样的基础设施可以成为一个非常有用的数据存储库，用于支持 SEO 科学，并创建可视化图表来传达有用的趋势、变化、威胁和机遇。更重要的是，SEO 数据丰富，有大量的数据源和许多你可以衡量的东西，因此整体情况可能看起来非常嘈杂，最糟糕的情况下，如果你无法清晰地看到并获取信号，这些数据可能毫无用处。拥有一个使用精心设计和深思熟虑的仪表板的性能报告系统，将有助于从嘈杂的数据中突出最重要的趋势。这也将更容易识别因果关系。我们将提供一些用 SQL 编写的代码，以帮助你理解如何实现一些最有价值的可视化。
+
+## 数据源
+
+你希望为仪表板使用的数据源类型是那些 (a) 提供 API 并且 (b) 显然能增加信息以更有效地理解你的 SEO 性能的数据源。这些可能包括（并且这绝非详尽无遗）：
+
+*   *网站分析*：Google Analytics (GA)、Adobe Analytics、Looker、Segment
+*   *站长工具*：Google Search Console (GSC)、Bing Webmaster
+*   *云端网络爬虫*：DeepCrawl、OnCrawl 和 Botify
+*   *SERP*：getSTAT、SEO Monitor、DataForSEO、AWR、AccuRanker
+*   *链接检查器*：AHREFs、Majestic、DataForSEO
+*   *社交媒体*：BuzzSumo
+*   *关键词*：SEMRush、Keywords.io
+*   *广告平台*：Google Ads、DV360
+
+## 不要直接接入 Google Data Studio
+
+谷歌提供了便捷的连接器来接入数据源，例如 Google Analytics (GA) 和 Google Search Console (GSC)。这允许将数据直接导入 Google Data Studio (GDS)，从而使 SEO 仪表板变得简单。然而，这是一个错失的机会，因为在 GDS 中无法叠加这两个数据源之间的数据。GDS 是一个用于可视化数据的前端。如果没有一个在数据源和前端之间进行处理的流程，数据就是原始的、未经提炼的，并且对于发现趋势和揭示洞察来说用处不大。
+
+## 使用数据仓库
+
+这时就需要像 Google BigQuery 或 Amazon Redshift 这样的数据仓库登场了。你将数据存储在这些数据仓库中，而前端（无论是 GDS、Tableau、DOMO 还是其他工具）都会使用自定义的结构化查询语言（SQL）来查询数据仓库，并以适合驱动你所需图表的格式获取数据。我们将与你分享 SQL 代码和一些图表，帮助你构建自己的 SEO 仪表板。不过，在开始构建之前，你需要先将数据导入数据仓库。那么，我们该如何实现呢？
+
+## 提取、转换和加载（ETL）
+
+提取、转换和加载（ETL）是一种方法，字面意思如下：
+
+*   *提取*：从你的数据源 API 中提取数据。
+*   *转换*：根据提取的数据运行计算并创建新的计算字段。
+*   *加载*：将转换后的数据加载到数据仓库中。
+
+根据你选择的云平台、团队云工程技能以及预算，你可以采用多种配置方案。
+
+## 提取数据
+
+提取过程通常是自动化的，通过运行脚本的虚拟机每天查询你的 API（称为“轮询”）。数据会存储在存储空间或数据仓库中。即使你没有云工程技能，也可以通过 CSV 格式将数据上传到数据仓库。
+
+以下是从多个 API 提取数据的代码，这些 API 主要包括 Google 产品以及一些（并非全部）较为知名的 SEO 流程：
+
+*   Google Analytics
+*   Google Search Console
+*   DataForSEO SERPs API
+*   Google PageSpeed API
+
+现在，我们将提供 Python 代码，让你连接到这些 API。这些代码不仅可用于报告目的，还可以进行调整，以支持其他章节中涵盖的其他 SEO 科学活动。
+
+### Google Analytics
+
+流量仍然是增长的关键杠杆，而 Google Analytics 作为网站分析工具被广泛使用。然而，更多的自然搜索流量并不总是直接与更多收入相关，但它可能通过其他方式表明用户参与度。以下将详细介绍从最知名且最常用的网站分析 API（即 Google Analytics 版本 4）中提取数据的代码。
+
+#### 导入 API 库
+
+```python
+import pandas as pd
+from pathlib import Path
+import os
+from datetime import date, timedelta
+```
+
+#### 设置凭证密钥的文件路径
+
+设置凭证密钥的文件路径，该文件是一个 JSON 文件，可从你的 Google Cloud Platform 账户的 API 库 ➤ 凭据中获取：
+
+```python
+credentials_path = Path("keys/xxxxx.json")
+credentials_path_str = str(credentials_path.absolute())
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credentials_path_str
+```
+
+#### 从 Google 库中导入其他 API
+
+```python
+from google.analytics.data_v1beta import BetaAnalyticsDataClient
+from google.analytics.data_v1beta.types import DateRange
+from google.analytics.data_v1beta.types import Dimension
+from google.analytics.data_v1beta.types import Metric
+from google.analytics.data_v1beta.types import RunReportRequest
+client = BetaAnalyticsDataClient()
+```
+
+#### 定义一个函数来运行聚合报告
+
+定义一个函数来运行聚合报告，该函数需要日期范围和 GA4 账户的属性 ID。在此函数中，我们使用输入参数查询 API 以构建请求，其中包含我们想要的指标，并存储 API 响应。
+
+我们将维度设置为 `landingPage`，因为我们希望按此维度细分流量数据。也可以使用其他维度，这些维度列在此处（[`https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema`](https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema)）。
+
+```python
+# (此处省略了后续函数的代码，根据用户提供的文本，这部分内容在“提取数据”这一节中)
+```
+
+---
+
+接下来，继续处理文本的其余部分：
+
+```r
+simul_abgroup_trend_plt = (
+ggplot(simul_abgroup_trend,
+aes(x = 'date', y = 'sessions', colour = 'ab_group', group = 'ab_group')) +
+geom_line(alpha = 0.6, size = 3) +
+labs(y = 'Count', x = '') +
+theme(legend_position = 'right',
+axis_text_y =element_text(rotation=0, hjust=1, size = 12),
+legend_title = element_blank()
+)
+)
+simul_abgroup_trend_plt.save(filename = 'images/3_simul_abgroup_trend_plt.png',
+height=5, width=8, units = 'in', dpi=1000)
+simul_abgroup_trend_plt
+```
+
+图 7-4 显示了 `simul_abgroup_trend_plt` 生成的时间序列图。两组在此期间都经历了下降；然而，测试组的表现优于对照组。
+
+![](img/537787_1_En_7_Fig4_HTML.jpg)
+
+一个折线图，显示了 2019 年 9 月 5 日至 2019 年 10 月 1 日期间对照组和测试组的计数趋势。测试组的计数从 4 开始，而对照组的计数从 0.5 开始。两者在整个过程中都遵循稳定的趋势。
+
+**图 7-4** 测试组和对照组会话数随时间变化的时间序列图
+
+接下来，我们将检查会话数的整体分布，首先从直方图开始：
+
+```r
+ab_assign_plt = (
+ggplot(test_analytics_expanded,
+aes(x = 'sessions', fill = 'ab_group')) +
+geom_histogram(alpha = 0.6, bins = 30) +
+labs(y = 'Count', x = '') +
+#scale_y_log10() +
+#coord_flip() +
+theme(legend_position = 'none',
+axis_text_y =element_text(rotation=0, hjust=1, size = 12),
+legend_title = element_blank()
+) +
+facet_wrap('ab_group', scales = 'free')
+)
+ab_assign_plt.save(filename = 'images/4_ab_test_plt.png',
+height=5, width=8, units = 'in', dpi=1000)
+ab_assign_plt
+```
+
+图 7-5 显示了 `ab_assign_plt`，这是对照组和测试组会话数分布的并排比较。图表显示，测试组的分布在零以上有更多的数据点，这看起来很有希望。
+
+![](img/537787_1_En_7_Fig5_HTML.jpg)
+
+一组 2 个直方图，表示对照组和测试组的计数。它表明在测试组的图中，计数大于 0 的数据点更多。
+
+**图 7-5** 对照组和测试组的直方图分布图
+
+箱线图方法将用于进一步对比分布：
+
+```python
+ab_assign_box_plt = (
+    ggplot(test_analytics_expand,
+           aes(x = 'ab_group', y = 'sessions',
+               fill = 'ab_group', colour = 'ab_group')) +
+    geom_boxplot(alpha = 0.8) +
+    labs(y = 'Count', x = '') +
+    theme(legend_position = 'none',
+          axis_text_y = element_text(rotation=0, hjust=1, size = 12),
+          legend_title = element_blank()
+    )
+)
+ab_assign_box_plt.save(filename = 'images/4_ab_test_box_plt.png',
+                       height=5, width=8, units = 'in', dpi=1000)
+ab_assign_box_plt
+```
+
+图 7-6 展示了 `ab_assign_box_plt`，这是一个对照组和测试组的箱线图对比。
+
+![](img/537787_1_En_7_Fig6_HTML.jpg)
+
+箱线图展示了对照组和测试组的计数。它表明对照组的计数高于测试组。
+
+**图 7-6** 测试组和对照组的会话箱线图
+
+对照组有更多的异常值，但测试组的零值远少于对照组。
+
+由于刻度比例导致难以区分，因此我们将对会话刻度取对数以便进一步可视化：
+
+```python
+ab_assign_log_box_plt = (
+    ggplot(test_analytics_expanded,
+           aes(x = 'ab_group', y = 'sessions',
+               fill = 'ab_group', colour = 'ab_group')) +
+    geom_boxplot(alpha = 0.6) +
+    labs(y = 'Count', x = '') +
+    scale_y_log10() +
+    theme(legend_position = 'none',
+          axis_text_y = element_text(rotation=0, hjust=1, size = 12),
+          legend_title = element_blank()
+    )
+)
+ab_assign_log_box_plt.save(filename = 'images/4_ab_assign_log_box_plt.png',
+                           height=5, width=8, units = 'in', dpi=1000)
+ab_assign_log_box_plt
+```
+
+图 7-7 展示了 `ab_assign_log_box_plt`，这是一个对照组和测试组的箱线图对比，只是这次对纵轴进行了对数化处理，以便于可视化比较。
+
+![](img/537787_1_En_7_Fig7_HTML.jpg)
+
+箱线图展示了对照组和测试组的计数。它表明测试组的中位数更高，而对照组的上须值远高于测试组。
+
+**图 7-7** 测试组和对照组的箱线图
+
+在所有情况下，我们都可以看到平均会话数接近于零，并且任何一天都有许多着陆页的会话数为零，这表明会话是一个罕见事件。这种分布类型被称为“泊松分布”。因此，我们将使用负二项分布来检验测试组和对照组之间的差异是否显著。
+
+首先，我们将数据标记为测试组（1.0）或对照组（0.0），然后将其转换为数组：
+
+```python
+X = np.where(test_analytics_expand['ab_group'] == 'control', 0.0, 1.0)
+X = add_constant(X)
+X = np.asarray(X)
+X
+array([[1., 0.],
+       [1., 0.],
+       [1., 0.],
+       ...,
+       [1., 1.],
+       [1., 1.],
+       [1., 1.]])
+```
+
+使用负二项分布拟合按 `ab_group` 分组的会话模型：
+
+```python
+ab_model = NegativeBinomial(test_analytics_expand['sessions'],
+                            X).fit()
+```
+
+打印模型摘要：
+
+```python
+ab_model.summary()
+```
+
+以下是 `ab_model.summary()` 的截图：
+
+```
+Optimization terminated successfully.
+Current function value: 1.155104
+Iterations: 9
+Function evaluations: 10
+Gradient evaluations: 10
+```
+
+![](img/537787_1_En_7_Figs_HTML.jpg)
+
+一个表格展示了因变量、模型、方法、日期、时间、协方差类型、观测数、`df residual` 和 `df model` 以及其他变量的详细信息。在底部，它显示了常数、`x1` 和 alpha 的不同值。
+
+从上述结果中，我们可以得出结论，这种变化确实是显著的。与对照组相比，测试组（由 `x1` 表示）平均多展示了 2.24 次页面浏览量。就显著性而言，LLR p 值为零，因此差异由随机噪声引起的可能性极低。有趣的是，用于衡量 `ab_group` 对会话本身解释程度的伪 R 方非常低，仅为 0.029，这意味着该模型噪声很大，需要更多其他因素来预测流量水平，而不仅仅是 `ab_group`。
+
+## 非结论性实验的结果
+
+实验可能因多种原因未能达到预期效果：
+
+*   预期差异过高——因此考虑修改并重新运行实验。
+*   假设需要以不同方式检验——或许使用不同的衡量指标或不同的检验方法。
+*   需要不同的时间段——即使满足了样本量要求，也可能是由于季节性效应，例如一年中的特定时间，或者数据在完整一周运行之前就满足了样本要求，或者谷歌没有机会处理这些变化（参见之前的讨论）。
+*   其他外部因素。
+
+通过从一开始就设定你的假设，无论结果如何，你都会学到一些东西，并且能够制定一个合理的计划向前推进，无论是进行下一次测试，还是在全站范围内实施你的测试。
+
+## 总结
+
+实验一直是 SEO 专家技能的一部分，用于确定哪些策略可能有效，即使有时缺乏科学严谨性。在企业环境中，由于对收入的影响以及需要在全站推广更改之前证明建议是有益的，严谨的实验设计至关重要。虽然有工具可以在这方面提供帮助，但了解 SEO 拆分测试背后的数据科学以及必须牢记的注意事项也很有用。在本章中，我们涵盖了：
+
+*   实验在 SEO 中的重要性
+*   生成假设
+*   实验设计
+*   运行你的实验
+*   评估你的实验
+*   以及如果你的实验“失败”了该怎么办
+
+在下一章中，我们将介绍以仪表板形式呈现的 SEO 报告。
+
+```
+def aggregated_run_report(client, property_id="[your-GA-property-id]", date_ranges=[DateRange(start_date="2020-03-31", end_date="today")]):
+    request = RunReportRequest(
+        property=f"properties/{property_id}",
+        dimensions=[Dimension(name="landingPage")],
+        metrics=[
+            Metric(name="activeUsers"),
+            Metric(name="screenPageViewsPerSession"),
+            Metric(name="bounceRate"),
+            Metric(name="averageSessionDuration"),
+            Metric(name="userConversionRate"),
+            Metric(name="ecommercePurchases"),
+        ],
+        date_ranges=date_ranges,
+    )
+    response = client.run_report(request)
+    return response
+
+response = aggregated_run_report(client)
+print("Report result:")
+for row in response.rows:
+    print(row.dimension_values[0].value, row.metric_values[0].value)
+
+Report result:
+/ 11347
+/blog/sell-airtime-over-charged-your-line-dont-panic 8423
+/faq 4870
+/blog/sell-airtime-over-charged-your-line-dont-panic 2355
+/privacy 1338
+```
+
+## 将 API 响应转换为数据框
+
+下一个函数使用 API 响应结果行，并将其打包成一个数据框：
+
+```
+def ga4_response_to_df(response):
+    dim_len = len(response.dimension_headers)
+    metric_len = len(response.metric_headers)
+    all_data = []
+    for row in response.rows:
+        row_data = {}
+        for i in range(dim_len):
+            row_data.update({response.dimension_headers[i].name: row.dimension_values[i].value})
+        for i in range(metric_len):
+            row_data.update({response.metric_headers[i].name: row.metric_values[i].value})
+        all_data.append(row_data)
+    df = pd.DataFrame(all_data)
+    return df
+
+df = ga4_response_to_df(response)
+df.info()
+```
+
+结果如下：
+
+```
+RangeIndex: 418 entries, 0 to 417
+Data columns (total 8 columns):
+```
+
+```
+#   Column      Non-Null Count  Dtype
+---  ------      ------------  -----
+0   landingPage 418 non-null    object
+1   dateRange   418 non-null    object
+2   activeUsers 418 non-null    object
+3   screenPageViewsPerSession  418 non-null    object
+4   bounceRate  418 non-null    object
+5   averageSessionDuration     418 non-null    object
+6   userConversionRate         418 non-null    object
+7   ecommercePurchases         418 non-null    object
+dtypes: object(8)
+memory usage: 26.2+ KB
+```
+
+通过 `df.info()` 打印数据框的属性，可以告诉我们数据类型，它们看起来都是字符串。对于着陆页来说这没问题，但对于指标（例如 `activeUsers`）则不然，在进一步处理数据之前，应将其转换为数值类型。
+
+```
+df.head()
+```
+
+以下生成的数据框显示了维度 `landingPage` 以及各个指标。数据是在整个日期范围内聚合的。
+
+![](img/537787_1_En_8_Figa_HTML.jpg)
+
+一个数据框的截图，展示了维度条目及其对应的指标。列标题分别为：着陆页、数据范围、活跃用户、每次会话的屏幕页面浏览量、跳出率、平均会话时长、用户转化率和电子商务购买量。
+
+但假设你还希望数据按日期细分。
+
+以下函数将实现这一点，默认天数参数设置为两年：
+
+```
+def dated_run_report_to_df(client, property_id="xxxxxxxxx", n_days=365*2):
+date_ranges = []
+count = 0
+df_output = pd.DataFrame()
+for i in range(n_days):
+count += 1
+current = date.today() - timedelta(days=i)
+before = date.today() - timedelta(days=i+1)
+date_ranges.append(DateRange(start_date=before.strftime("%Y-%m-%d"),
+end_date=current.strftime("%Y-%m-%d"),
+name=current.strftime("%Y-%m-%d")))
+if count == 4:
+response = aggregated_run_report(client, property_id=property_id, date_ranges=date_ranges)
+df = ga4_response_to_df(response)
+df_output = pd.concat([df_output, df], ignore_index=True)
+```
+
+# 重新初始化
+
+```
+count = 0
+date_ranges = []
+return df_output
+```
+
+运行该函数；在此示例中，我们将提取最近 90 天的数据：
+
+```
+df = dated_run_report_to_df(client, n_days=90)
+```
+
+以下函数将列数据格式从 `str` 转换为合适的格式（主要为数值型）：
+
+```
+def format_df(df):
+    df["dateRange"] = pd.to_datetime(df["dateRange"])
+    df["activeUsers"] = df["activeUsers"].astype("float")
+    df["screenPageViewsPerSession"] = df["screenPageViewsPerSession"].astype("float")
+    df["bounceRate"] = df["bounceRate"].astype("float")
+    df["averageSessionDuration"] = df["averageSessionDuration"].astype("float")
+    df["userConversionRate"] = df["userConversionRate"].astype("float")
+    df["ecommercePurchases"] = df["ecommercePurchases"].astype("float")
+    return df
+
+df = format_df(df)
+df.info()
+```
+
+运行结果如下：
+
+```
+RangeIndex: 376 entries, 0 to 375
+Data columns (total 8 columns):
+```
+
 # 数据框介绍与API数据获取
 
 ## 数据框结构
@@ -744,107 +1169,3 @@ order by mon_x, year desc;
 *   按渠道汇总进行转换
 *   查看数据加载到 `Looker Studio` 后的样子
 
-# 9. 网站迁移规划
-
-本章涵盖网站迁移映射，以便你可以设置新网站的结构，并半自动化地形成迁移 `URL`。我们将使用以下一些技术：
-
-*   字符串操作
-*   通过将数据框行转换为列表来迭代
-*   使用自然语言处理（`NLP`）比较 `URL` 字符串
-
-虽然这些技术会加快网站迁移的数据处理速度，但它们也可以轻松应用于其他用例。
-
-## 验证流量和排名变化
-
-虽然验证重新上线后的流量和/或排名变化并非严格必要，但如果任何同事怀疑流量或排名的变化是否归因于你声称的日期，那么进行验证是好的。不过，如果时间紧迫，你可以跳过此步骤。
-
-```python
-import re
-import time
-import random
-import pandas as pd
-import numpy as np
-import datetime
-from textdistance import sorensen_dice
-from textdistance import jaccard
-pd.set_option('display.max_colwidth', None)
-target_site_search = 'Saga travel'
-first_gen = ['Holidays', 'Cruises', 'Travel Updates', 'Accessibility and Support', 'Brochure Request', 'My Travel', 'Trade']
-target_roots = first_gen
-source_root_url = 'https://travel.saga.co.uk/'
-target_root_url = 'https://www.saga.co.uk/'
-```
-
-数据来自一个电子表格，该表格代表了网站的分类或层级结构，即文件夹和子文件夹，站点级别按列组织：
-
-```python
-hierarchy_raw = pd.read_csv('data/saga_hierarchy.csv')
-hierarchy_raw
-```
-
-结果如下：
-
-![](img/537787_1_En_9_Figa_HTML.jpg)
-
-一个包含 372 行和 7 列的表格，提供了数据层级结构的结果。它包含了现有客户、主页、保险、联系我们、更新、新冠假期客人、邮轮新冠疫苗、假期新冠疫苗以及旅行销售。
-
-在上表中，我们可以看到电子表格的样式：顶部数字表示站点层级，每行中的页面（我们称之为节点）及其直接父节点名称。
-
-让我们获取每个父节点的站点层级：
-
-```python
-site_levels = pd.DataFrame(hierarchy_raw.unstack())
-site_levels = site_levels.dropna().drop_duplicates()
-site_levels = site_levels.rename(columns = {0 : 'node'})
-site_levels = site_levels.reset_index()
-site_levels = site_levels[['level_0', 'node']]
-site_levels = site_levels.rename(columns = {'level_0': 'level'})
-site_levels
-```
-
-结果如下：
-
-![](img/537787_1_En_9_Figb_HTML.jpg)
-
-一个包含 330 行和 2 列的表格，提供了数据层级结构的结果，用于查找父节点和子节点。它包含了现有客户、主页、保险、船险、房车保险、`Noordam`、套房、`Jools Holland`、艺术家以及构建进度。
-
-定义了站点节点（稍后会派上用场）后，我们将查找父节点和子节点的配对。
-
-### 识别父节点和子节点
-
-子节点是距离父节点仅一次点击的直属页面。为此，我们需要几个函数。`apply_pcn` 函数将数据帧视为行集合，并应用第二个函数。这种方法比使用 `.iterrows()` 逐行遍历数据帧更快，后者以速度极慢而闻名。
-`parent_child_nodes` 函数将获取行，将其转换为列表，然后使用列表推导式忽略空白单元格（`NaN`，即“非数字”的缩写），并将内容追加到列表 `pairs` 中。
-完成后，`pairs` 列表将被放入一个新的数据帧 `parent_child_map` 中。
-
-让我们逐行迭代以选取配对：
-
-```python
-pairs = []
-def parent_child_nodes(row):
-    data = row.values.tolist()
-    data = [e for e in data if str(e) not in ('nan')]
-    print(data)
-    pairs.append(data)
-def apply_pcn(df):
-    return df.apply(
-        lambda row:
-        parent_child_nodes(
-            row),
-        axis=1
-    )
-apply_pcn(hierarchy_raw)
-parent_child_map = pd.DataFrame(pairs,columns=['parent', 'child'])
-parent_child_map
-```
-
-我们现在有了一个显示父节点和子节点的表格：
-
-![](img/537787_1_En_9_Figc_HTML.jpg)
-
-一个包含 372 行和 2 列的表格，提供了父节点和子节点的数据层级结构结果。它包含了现有客户、主页、保险、联系我们、更新、新冠假期客人、邮轮新冠疫苗、假期新冠疫苗以及旅行销售。
-
-当然，如果我们想要完整的 `URL` 路径，我们需要使用 `hierarchy_raw` 的副本进一步处理数据。首先向下填充主页的第一列，然后如果右侧相邻单元格不为空（使用函数 `has_data_right` 检查），则填充该单元格：
-
-```python
-hierarchy_fp = hierarchy_raw
-```
