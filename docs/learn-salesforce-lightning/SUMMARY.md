@@ -1,5 +1,4 @@
 +   [Salesforce Lightning 入门指南](README.md)
-+   [ISBN 978-1-4842-2993-4](learn-salesforce-lightning_01_fmt.md)
 +   [1. 介绍 Salesforce Lightning](learn-salesforce-lightning_02_fmt.md)
 +   [2. Sales Cloud Lightning](learn-salesforce-lightning_03_fmt.md)
 +   [3. Salesforce Service Cloud](learn-salesforce-lightning_04_fmt.md)
