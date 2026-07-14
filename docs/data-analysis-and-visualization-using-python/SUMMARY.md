@@ -1,8 +1,6 @@
 +   [Python 数据分析与可视化](README.md)
 +   [引言](data-analysis-and-visualization-using-python_01_fmt.md)
 +   [1. 使用 `Python` 进行数据科学入门](data-analysis-and-visualization-using-python_02_fmt.md)
-+   [表格数据与数据格式](data-analysis-and-visualization-using-python_03_fmt.md)
-+   [运行基础推断分析](data-analysis-and-visualization-using-python_04_fmt.md)
 +   [2. 数据可视化在商业智能中的重要性](data-analysis-and-visualization-using-python_05_fmt.md)
 +   [3. 数据收集结构](data-analysis-and-visualization-using-python_06_fmt.md)
 +   [4. 文件 I/O 处理与正则表达式](data-analysis-and-visualization-using-python_07_fmt.md)
