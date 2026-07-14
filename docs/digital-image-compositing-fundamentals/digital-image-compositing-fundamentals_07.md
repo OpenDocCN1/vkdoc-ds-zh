@@ -207,3 +207,4 @@ Photoshop 和 GIMP 提供了多种蒙版工具，可用于实现这种像素提�
 ```
 if (condVar > someVal) {console.log("xxx")}
 ```
+

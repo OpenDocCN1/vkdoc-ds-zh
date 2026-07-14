@@ -130,3 +130,4 @@ colorValue = 0xBB0000FF  // Java and JavaFX Alpha+Color Value Hexadecimal
 在第五章中，我们探讨了颜色深度的概念，它定义了用于表示数字图像中每个像素颜色的位数。你了解了支持不同位深度的各种数字图像文件格式，例如 8 位的 `GIF`、16 位的 `TGA`、24 位的 `JPEG` 和 32 位的 `PNG`。我们研究了如何在 Photoshop 和 GIMP 中将真彩色模式转换为索引调色板，并回顾了诸如颜色选择算法、抖动算法和渐进式交错等概念。你学习了高彩色 15 位和 16 位图像，重新审视了真彩色 24 位图像，并添加了 8 位 Alpha 通道以创建 32 位数字图像格式，这种格式非常适合图像合成，特别是当你将 `HTML5` 与 `CSS3`、`Android Studio` 或 `Java` 与 `JavaFX` 结合使用时。这是因为 `PNG32` 允许你将合成图层从 Photoshop 或 GIMP 导出到 `NetBeans 8.1`（Java 和 `HTML5` IDE）或 `IntelliJ 14`（Android `IDEA`）。
 
 在下一章中，你将了解更多关于数字图像 Alpha 通道的信息，以及如何利用它通过允许多个图层共存来促进图像合成流程。
+
