@@ -1,4 +1,4 @@
-# 在 Azure 中部署和探索 OpenAI
+# 3. 在 Azure 中部署和探索 OpenAI
 
 在本章中，我们将部署 Azure OpenAI 并与不同的 LLM 模型进行交互。Azure 还提供了一个用户界面 (UI) 来与 LLM 进行实验探索，我们也将进行尝试。我们还会介绍一些额外的参数，这些参数可用于影响 LLM 的行为，例如 `Temperature`、`Top-p`、`Frequency penalty` 和 `Presence penalty`。这将为第 4 章做好准备，届时我们将学习如何通过你自己的数据对 LLM 进行接地，然后基于检索增强生成（RAG）架构来构建一个完整的企业级 LLM 解决方案。
 
