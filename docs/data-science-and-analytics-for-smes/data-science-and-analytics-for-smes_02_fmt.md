@@ -1,2 +1,0 @@
-# 致谢
-首先，我要感谢全能的上帝让我能够完成这本书的写作。我还要感谢我的丈夫 Oluwafemi Afolabi 的支持和鼓励，使这本书成为现实。我深深感谢 Olufunke Oladipupo 教授和 Joke Badejo 博士，他们不仅在数据科学方面，而且在生活的其他方面教会了我很多。最后，我要感谢我的硕士研究生 Timileyin Owoseni 和 Christabel Uzor，他们也协助了本书的编写。我也不会忘记我有幸教导和指导过的优秀学生们，Obinna Okorie、Temi Oyedepo 以及许多其他人；我从他们身上学到了很多。我要感谢`afrimash.com`提供了学习实践性数据科学咨询的机会。
