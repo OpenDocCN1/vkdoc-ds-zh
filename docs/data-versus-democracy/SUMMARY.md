@@ -6,8 +6,6 @@
 +   [3. 逆流而上](data-versus-democracy_05_fmt.md)
 +   [第二部分 案例研究](data-versus-democracy_06_fmt.md)
 +   [4. 国内动荡](data-versus-democracy_07_fmt.md)
-+   [GamerGate 与另类右翼的崛起](data-versus-democracy_08_fmt.md)
-+   [群体法则 —— 或者说，谁来决定讲述哪些故事？[重述版]](data-versus-democracy_09_fmt.md)
 +   [5. 民主被黑，第一部分](data-versus-democracy_10_fmt.md)
 +   [6. 黑客民主，第二部分](data-versus-democracy_11_fmt.md)
 +   [7. 结论](data-versus-democracy_12_fmt.md)
