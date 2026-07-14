@@ -4,7 +4,6 @@
 +   [引言](big-data-bootcamp_05.md)
 +   [大数据：它是什么，以及你为何应该关心](big-data-bootcamp_06.md)
 +   [大数据全景图](big-data-bootcamp_07.md)
-+   [章节](big-data-bootcamp_08.md)
 +   [大数据面临的挑战与解决方案](big-data-bootcamp_09.md)
 +   [工作中的大数据：数据如何指导设计](big-data-bootcamp_10.md)
 +   [一图胜千言](big-data-bootcamp_11.md)
