@@ -647,3 +647,6 @@ For Each fileName As String In myStagingfiles
 有两种方式：.NET 程序集和 BIML。坚定的.NET 开发者可能更喜欢第一种，但 BIML 正变得越来越流行。作为一名 ETL 顾问，你应该掌握其中一种方法。本章中的所有示例都非常简单，但目的是向你展示最基础的内容。网上有大量可用的资源，特别是关于 BIML 的（[`http://bimlscript.com`](http://bimlscript.com/)）。
 
 ---
+
+
+

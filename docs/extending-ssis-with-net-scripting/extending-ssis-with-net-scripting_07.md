@@ -717,3 +717,4 @@ Error: 0xFFFFFFFF at SCR_GetCityWeather_CSharp, Validate XML: Validation error: 
 ## 总结
 
 在本章中，你学习了在 Web 服务任务无法解决问题的情况下，如何使用脚本任务。你还了解了如何在 XML 任务无法实现的方式下验证 XML。此外，你探索了需要和生成了哪类 `.config` 文件，并找到了避免这种情况的方法。下次在 SSIS 中处理 XML 和 Web 服务时，请务必牢记这一点。
+

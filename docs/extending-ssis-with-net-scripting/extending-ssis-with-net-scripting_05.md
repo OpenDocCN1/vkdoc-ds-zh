@@ -741,3 +741,6 @@ INSERT INTO FileLoadLog (FilePath,LoadDateTime) values (?,getdate())
 ### 总结
 
 在本章中，你学习了`System.IO`类，例如`File`、`FileInfo`和`Directory`。你学习了如何使用这些类的方法和属性来增强你的SSIS包实现。你还学习了一些场景，在这些场景中，你可以通过结合代码和内置任务（如Foreach有序文件枚举器）来扩展你的SSIS包。你学习了如何使用脚本任务检查文件是否被锁定或正在使用，并将结果状态返回到包变量中，以便在SSIS包中进行进一步检查。在下一章中，你将学习如何使用SSIS和脚本在互联网和Web上工作。
+
+
+

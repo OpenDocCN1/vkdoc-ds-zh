@@ -464,3 +464,8 @@ public override void Input0_ProcessInputRow(Input0Buffer Row)
 ### 总结
 
 本章解释了脚本任务与脚本组件之间的区别。它还展示了一些非常基础的示例，让您了解通过编码可以实现什么。并且解释了如何解决脚本中的错误。下一章将解释一些 C# 和 VB.NET 的基础知识。
+
+
+
+
+
