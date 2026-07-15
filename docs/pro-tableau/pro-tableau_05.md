@@ -1468,3 +1468,4 @@ AVG( {Fixed [Customer Name] : Sum(Amount)})
 本章使我们熟悉了表计算。下一章将向我们介绍字符串、数值、日期和逻辑函数。
 
 ![A428041_1_En_5_Fige_HTML.jpg](img/A428041_1_En_5_Fige_HTML.jpg)
+

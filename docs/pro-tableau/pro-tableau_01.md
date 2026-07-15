@@ -710,3 +710,6 @@ Tableau 数据源文件包含有关数据源的所有连接信息及元数据。
 # 1.9 后续步骤
 
 下一章将详细介绍如何从各种数据源获取数据，例如大数据、NoSQL（MongoDB、Cassandra）、R 脚本（`.rdata`）、关系数据库管理系统（MS SQL Server、MySQL、MS Access DB）等，此外还包括连接电子表格（Excel）、文本文件（`.txt`）等。
+
+
+
