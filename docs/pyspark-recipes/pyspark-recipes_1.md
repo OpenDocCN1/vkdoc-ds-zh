@@ -272,3 +272,6 @@ ROW                   COLUMN+CELL
 你可以在 [`hbase.apache.org/`](https://hbase.apache.org/) 上获取更多关于 HBase 的信息。
 
 Spark 可以与三种集群管理器配合使用：Standalone、Apache Mesos 和 YARN。Standalone 集群管理器随 Spark 一同发布，且它仅用于 Spark 集群。使用 Apache Mesos 和 YARN 时，我们可以运行异构应用程序。
+
+
+

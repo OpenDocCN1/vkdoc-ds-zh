@@ -933,7 +933,7 @@ Time taken: 0.581 seconds
 #### 步骤 2-6-11. 在 PostgreSQL 中测试元数据的创建
 
 创建的数据库和表将反映在 PostgreSQL 中。我们可以通过以下方式在 `TBLS` 表中看到更新后的数据：
-```
+
 
 # 连接 Hive 与 PySpark
 
@@ -1243,3 +1243,4 @@ export PATH=$PATH:$HBASE_HOME/bin
 ```
 hbase(main):001:0>
 ```
+

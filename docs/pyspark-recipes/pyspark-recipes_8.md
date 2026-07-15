@@ -1,6 +1,5 @@
-# 排版后的内容
 
-## PySpark MLlib 简介
+# 9. PySpark MLlib 简介
 
 `PySpark MLlib` 是一个机器学习库。它是基于 `PySpark Core` 的封装，用于使用机器学习算法进行数据分析。它运行在分布式系统上，并且是可扩展的。我们可以在 `PySpark MLlib` 中找到分类、聚类、线性回归以及其他机器学习算法的实现。我们知道 `PySpark` 擅长迭代算法。许多机器学习算法已利用迭代算法在 `PySpark MLlib` 中实现。除了 `PySpark` 的高效性和可扩展性之外，`PySpark MLlib` 的 API 也非常用户友好。
 

@@ -1,3 +1,4 @@
+
 # 6. PySpark 中的 I/O
 
 文件输入/输出（I/O）操作是许多软件活动和处理数据的重要组成部分。数据科学家需要处理多种类型的文件，包括文本文件、逗号分隔值（CSV）文件、JavaScript 对象表示法（JSON）文件等等。Hadoop 分布式文件系统（HDFS）是一个非常优秀的分布式文件系统。
@@ -952,78 +953,4 @@ jsonDir$ cat part-00000
 
 现在，是时候使用参数调用`newAPIHadoopRDD()`函数了：
 
-## 优化 PySpark 与 PySpark Streaming
 
-Spark 是一个用于实现并行处理的分布式框架。并行算法需要在机器之间进行计算和通信。在通信过程中，机器会发送或交换数据，这通常被称为`数据混洗（shuffling）`。
-
-编写代码很容易，但要编写一个既高效又易于他人理解的程序，则需要付出更多努力。本章将介绍一些让 PySpark 程序更清晰、更高效的技巧。
-
-做决策是日常活动的一部分。我们这群重视数据的人希望在决策时引入数据分析和结果推断。我们可以收集数据并进行分析，在之前的章节中已经完成了这些工作。但如今人们越来越倾向于对实时流入的数据进行分析，这意味着人们对流数据的分析兴趣日益浓厚。
-
-处理流数据需要更健壮的系统以及合适的算法。批处理系统的容错性有时比流处理系统的容错性更简单。这是因为在流数据处理过程中，我们同时从外部源读取数据、执行计算并保存结果，更多活动意味着更高的失败概率。
-
-在 PySpark 中，流数据由其库 PySpark Streaming 处理。PySpark Streaming 是一组 API，为 PySpark Core 提供封装。这些 API 不仅高效，还能很好地处理容错的诸多方面。我们将使用 PySpark 从控制台读取流数据并进行数据分析，还将使用 PySpark Streaming 从 Apache Kafka 读取数据并进行分析。
-
-本章涵盖以下内容：
-
-- 配方 7-1 使用 PySpark 代码优化网页排名算法
-- 配方 7-2 使用 PySpark 实现 K 近邻算法
-- 配方 7-3 使用 PySpark Streaming 从控制台读取流数据
-- 配方 7-4 将 Apache Kafka 与 PySpark Streaming 集成，读取并分析数据
-- 配方 7-5 在本地模式下执行 PySpark 脚本
-- 配方 7-6 使用独立集群管理器和 Mesos 集群管理器执行 PySpark 脚本
-
-## 配方 7-1：使用 PySpark 代码优化网页排名算法
-
-### 问题
-
-你希望使用你在第 5 章编写的 PySpark 代码来优化网页排名算法。
-
-### 解决方案
-
-我们已经在第 5 章实现了网页排名算法。那么是否可以对代码进行优化呢？每当我们审视每一行代码时，都可以尝试进行优化。在本配方中，我们将优化 RDD 的关联操作。不过，你也可以查看代码的其他部分，尝试优化程序中的不同代码行。
-
-在 PySpark 或任何分布式框架中，配对 RDD 的关联操作是最昂贵的操作之一。为什么？因为对于第一个 RDD 中的每个键，系统都需要在其他 RDD 的不同数据分区中查找所有键。查找完成后，数据会被混洗。如果我们重新分区数据，使相似的键位于同一台机器上，那么数据混洗量就会减少。PySpark 提供了专门用于此目的的分区器。我们可以使用 `partitionBy()` 函数并选择合适的分区器，这样相似键就会出现在同一台机器上，减少数据混洗，从而提升代码执行速度。
-
-### 工作原理
-
-我们在第 5 章已经详细讨论了网页排名算法；如果需要回顾，请查阅该章节的详细讨论。在本配方中，我仅讨论被修改的代码行。修改后的代码行以粗体显示。让我们来看看这些代码行：
-
-```python
->>> tableRDDfromHBase = sc.newAPIHadoopRDD(
-...                        inputFormatClass = ourInputFormatClass,
-...                        keyClass = ourKeyClass,
-...                        valueClass = ourValueClass,
-...                        keyConverter = ourKeyConverter,
-...                        valueConverter = ourValueConverter,
-...                        conf = configuration
-...                     )
-```
-
-让我们看看我们的配对 RDD `tableRDDfromHBase` 是什么样的：
-
-```python
->>> tableRDDfromHBase.take(2)
-```
-
-输出如下：
-
-```
-[(u'00001', u'{"qualifier" : "btc1", "timestamp" : "1496715394968", "columnFamily" : "btcf1", "row" : "00001", "type" : "Put", "value" : "c11"}\n{"qualifier" : "btc2", "timestamp" : "1496715408865", "columnFamily" : "btcf2", "row" : "00001", "type" : "Put", "value" : "c21"}'), (u'00002', u'{"qualifier" : "btc1", "timestamp" : "1496715423206", "columnFamily" : "btcf1", "row" : "00002", "type" : "Put", "value" : "c12"}\n{"qualifier" : "btc2", "timestamp" : "1496715436087", "columnFamily" : "btcf2", "row" : "00002", "type" : "Put", "value" : "c22"}')]
-```
-
-配对 RDD `tableRDDfromHBase` 以`RowID`作为键。列和列分类器是 JSON 字符串，这是值部分。在之前的配方中，我们解决了读取 JSON 文件的问题。
-
-**注意：** 请记住，Recipe 6-12 的代码仅适用于 spark-1.6 及更早版本。您可以在 GitHub 上获取代码：`https://github.com/apache/spark/blob/ed9d80385486cd39a84a689ef467795262af919a/examples/src/main/python/hbase_inputformat.py`
-
-还有一个问题。我们使用了多个类，因此在启动 PySpark shell 时必须添加一些 JAR 包。以下是所需的 JAR 文件：
-
-- `spark-examples-1.6.0-hadoop2.6.0.jar`
-- `hbase-client-1.2.4.jar`
-- `hbase-common-1.2.4.jar`
-
-以下为启动 PySpark shell 的命令：
-
-```
-pyspark --jars 'spark-examples-1.6.0-hadoop2.6.0.jar','/hbase-client-1.2.4.jar','hbase-common-1.2.4.jar'
-```
