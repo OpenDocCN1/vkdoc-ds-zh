@@ -1045,31 +1045,31 @@
   \ 14.6 节。\n\n\n好的，作为一名高级文档工程师和翻译员，我将严格遵循您的注意事项和示例格式，将给定的英文文本翻译成中文。\n\n\n### 3.5.1\
   \ 提前退出循环\n\nMATLAB 和 Python 都使用 `continue` 和 `break` 来分别执行跳转到下一次迭代和退出循环的操作。\n\n\
   以下循环打印数字 2、4、6、8、10：\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\nfor i = 1:10\n\
-  \   if mod(i,2)    % 跳过奇数\n      continue\n   end\n   disp(i)\nend\n``` | ```\n\
+  \   if mod(i,2)    % 跳过奇数\n      continue\n   end\n   disp(i)\nend\n``` ```\n\
   for i in range(1,11):\n   if i % 2:    # 跳过奇数\n      continue\n   print(i)\n```\
   \ |\n\n而以下循环打印 1、2、3：\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\nfor i = 1:10\n\
-  \   if i > 3\n      break\n   end\n   disp(i)\nend\n``` | ```\nfor i in range(1,11):\n\
-  \   if i > 3:\n      break\n   print(i)\n``` |\n\n### 3.5.2 从嵌套循环中退出\n\nMATLAB 和\
+  \   if i > 3\n      break\n   end\n   disp(i)\nend\n``` ```\nfor i in range(1,11):\n\
+  \   if i > 3:\n      break\n   print(i)\n```\n\n### 3.5.2 从嵌套循环中退出\n\nMATLAB 和\
   \ Python 都令人困扰的一点是，它们都没有一种优雅的方式从内部循环中退出嵌套循环，因为 `break` 仅对其直接包含的 `for` 循环有效。必须使用一个额外的变量来让外层循环知道内层循环想要跳出。一些\
   \ Python 程序员提倡使用异常来实现这一目标，但编写异常代码和使用额外变量一样笨拙。\n\n这个示例遍历矩阵中的元素，并使用布尔变量 `done` 来让外层循环知道内层循环希望它退出。当矩阵中遇到一个值大于\
   \ 0.95 的元素时，触发该条件：\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\nnR = 10;\nnC\
   \ = 12;\nX = rand(nR,nC);\ndone = 0;\nfor r = 1:nR\n   for c = 1:nC\n      if X(r,c)\
   \ > 0.95\n         done = 1;\n         break\n      end\n   end\n   if done\n  \
-  \    break\n   end\nend\n``` | ```\nimport numpy as np\nnR, nC = 10, 12\nX = np.random.rand(nR,nC);\n\
+  \    break\n   end\nend\n``` ```\nimport numpy as np\nnR, nC = 10, 12\nX = np.random.rand(nR,nC);\n\
   done = False\nfor r in range(nR):\n   for c in range(nC):\n      if X[r,c] > 0.95:\n\
-  \         done = True\n         break\n   if done:\n      break\n``` |\n\n## 3.6\
+  \         done = True\n         break\n   if done:\n      break\n```\n\n## 3.6\
   \ `while` 循环\n\nWhile 循环与 for 循环一样，在 MATLAB 和 Python 中具有相似的结构；两者也都使用 `continue`\
   \ 跳转到下一次迭代，使用 `break` 退出循环。\n\n以下示例使用牛顿-拉弗森迭代法计算 117 的平方根。如果解尚未收敛，则 while 循环在五次迭代后退出。\n\
   \n| MATLAB: | Python: |\n| --- | --- |\n| ```\nN = 117; tol = 1.0e-8;\nx = N/2;\n\
   i = 1;\nwhile abs(N - x.²) > tol\n   y = N/x;\n   x = (x+y)/2;\n   if i >= 5\n \
   \     fprintf('hit 5 iter\\n')\n      break\n   end\n   i = i + 1;\nend\nfprintf('sqrt(%f)=%f\\\
-  n',N,x)\n``` | ```\nN, tol = 117, 1.0e-8\nx = N/2\ni = 1\nwhile abs(N - x**2) >\
+  n',N,x)\n``` ```\nN, tol = 117, 1.0e-8\nx = N/2\ni = 1\nwhile abs(N - x**2) >\
   \ tol:\n   y = N/x\n   x = (x+y)/2\n   if i >= 5:\n      print('hit 5 iter')\n \
-  \     break\n   i += 1\nprint(f'sqrt({N})={x}')\n``` |\n\n## 3.7 `if` 语句\n\nIf 语句在这两种语言中的形式如下：\n\
+  \     break\n   i += 1\nprint(f'sqrt({N})={x}')\n```\n\n## 3.7 `if` 语句\n\nIf 语句在这两种语言中的形式如下：\n\
   \n| MATLAB: | Python: |\n| --- | --- |\n| ```\nif condition_1\n   result = 'in 1';\n\
   else if condition_2\n   result = 'in 2';\nelse\n   result = 'in else';\nend\n```\
   \ | ```\nif condition_1:\n   result = 'in 1'\nelif condition_2:\n   result = 'in\
-  \ 2'\nelse:\n   result = 'in else'\n``` |\n\n变量 `condition_1` 和 `condition_2` 代表布尔表达式，可以有多种形式。\n\
+  \ 2'\nelse:\n   result = 'in else'\n```\n\n变量 `condition_1` 和 `condition_2` 代表布尔表达式，可以有多种形式。\n\
   \n### 3.7.1 布尔表达式和运算符\n\nMATLAB 的“逻辑”常量 `true` 和 `false` 在 Python 的布尔常量 `True` 和\
   \ `False` 中有对应项。在 MATLAB 中，通常用 `1` 和 `0` 表示它们，尽管任何非零值都会计算为 true。与 MATLAB 类似，Python\
   \ 将数字零（整数或浮点数）以及空字符串、列表、集合、字典或元组解释为 false。Python 还有一个特殊的常量 `None`，它表示未初始化或不存在的（类似于\
@@ -1082,9 +1082,9 @@
   | b` | `a or b` | `a + b` |\n| 异或 (XOR) | `xor(a, b)` | `bool(a) ^ bool(b)` | `a\
   \ ^ b` |\n\n### 3.7.2 范围测试\n\n数值范围表达式 `a < b < c` 在 MATLAB 中是有效的表示法。但是，MATLAB 以严格的从左到右顺序计算此类表达式，因此结果可能与预期不符。例如，以下的前两个表达式计算结果正确，但\
   \ MATLAB 对第三个表达式给出了错误的结果：\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\n>> 1 <\
-  \ 2 < 3\nans = 1\n>> 1 < 2 < 1\nans = 0\n>> 1 < -1 < 3\nans = 1\n``` | ```\nIn :\
+  \ 2 < 3\nans = 1\n>> 1 < 2 < 1\nans = 0\n>> 1 < -1 < 3\nans = 1\n``` ```\nIn :\
   \ 1 < 2 < 3\nOut: True\nIn : 1 < 2 < 1\nOut: False\nIn : 1 < -1 < 3\nOut: False\n\
-  ``` |\n\nMATLAB 将这些表达式计算为 `(a < b) < c`，因此第三个表达式给出了意想不到的结果，因为 `(1 < -1)` 计算结果为 0，并带入下一个表达式\
+  ```\n\nMATLAB 将这些表达式计算为 `(a < b) < c`，因此第三个表达式给出了意想不到的结果，因为 `(1 < -1)` 计算结果为 0，并带入下一个表达式\
   \ `0 < 3`。然后该表达式在 MATLAB 中计算结果为 true，这显然是不正确的，因为 `1 < -1 < 3` 是 false。\n\nPython\
   \ 将范围计算展开为 `(a < b) and (b < c)`，因此对于 `a`、`b` 和 `c` 的所有标量值都给出了预期的结果。\n\n## 3.8 函数\n\
   \n与 MATLAB 一样，在 Python 中可以轻松定义函数。MATLAB 使用 `function` 关键字，而 Python 使用 `def`。MATLAB\
@@ -1093,7 +1093,7 @@
   \ 4.1 节简要介绍，并在第 11 章详细讨论。\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\nfunction\
   \ [r, theta] = cyl(x,y)\n   theta = atan2(y,x);\n   r = sqrt(x² + y²);\nend\n```\
   \ | ```\ndef cyl(x,y):\n   theta = np.atan2(y,x)\n   r = np.sqrt(x**2 + y**2)\n\
-  \   return r, theta\n``` |\n\n接下来的章节将详细介绍参数引用、可变数量的输入、关键字参数和默认参数以及参数验证。\n\n\n\n\
+  \   return r, theta\n```\n\n接下来的章节将详细介绍参数引用、可变数量的输入、关键字参数和默认参数以及参数验证。\n\n\n\n\
   ### 3.8.1 传值与传引用\n\nMATLAB 和 Python 对“函数参数是按值传递还是按引用传递”给出了复杂的回答。按值传递的参数会被复制到函数内部的一个新局部变量中，因此函数内对该参数的修改不会传回调用环境。不过，数据复制会带来性能损失——如果数据量很大，这种损失会很高。处理引用参数的函数要快得多，但函数内对这些参数的修改也会反映在调用环境中。有时这正是期望的行为，有时则不然。\n\
   \nMATLAB 函数的行为表现为按值传递。但实际上，MATLAB 在底层是按引用传递参数的，以获得性能优势。然而，如果参数在函数内部被更新，MATLAB 会先创建该参数的本地副本——这种技术称为“写时复制”。这样一来，参数的更新就只局限于函数内部。有一种方法可以绕过写时复制逻辑，即在函数的输入和输出部分定义相同的变量，例如\
   \ `function [M] = update(M, x)`。如果满足特定条件，^(⁸) MATLAB 会跳过复制，直接操作该变量的内容。\n\nPython\
@@ -10096,14 +10096,14 @@
   \  0.7071    0.5774   -0.7071   -0.0000d =    4.0000         0         0       \
   \  0    5.0000         0         0         0    3.0000>> A*v - v*d   1.0e-14 * \
   \  -0.0444    0.0020         0   -0.2220    0.2665    0.1776    0.2220   -0.2665\
-  \   -0.1228``` | ```In :import numpy as npIn : n = 3In : ones = np.ones((n,n))In\
+  \   -0.1228``` ```In :import numpy as npIn : n = 3In : ones = np.ones((n,n))In\
   \ : off  = 2*np.tril(ones,-2)In : A = (n+2)*np.eye(n) - ones + offIn : AOut:array([[\
   \ 4., -1., -1.],       [-1.,  4., -1.],       [ 1., -1.,  4.]])In : [d,v] = np.linalg.eig(A)In\
   \ : vOut: array(      [[ 2.22045e-15,  5.77350e-01,  7.07107e-01],       [ 7.07107e-01,\
   \  5.77350e-01,  7.07107e-01],       [-7.07107e-01, -5.77350e-01,    4.44089e-16]])In\
   \ : dOut: array([5., 4., 3.])In : A@v - v@np.diag(d)Out: array(      [[-5.55111e-16,\
   \ -4.44089e-16,  4.44089e-16],       [ 4.88498e-15,  3.10862e-15,  2.22046e-15],\
-  \       [-1.77636e-15,  -8.88178e-16, -4.44089e-16]])``` |\n\n**表 11-4** MATLAB、NumPy\
+  \       [-1.77636e-15,  -8.88178e-16, -4.44089e-16]])```\n\n**表 11-4** MATLAB、NumPy\
   \ 和 SciPy 特征值求解器的能力\n\n| | 稠密 | 稀疏 | *Ax* = *λx* | *Ax* = *λBx* | 非对称 | 全解 | 部分解\
   \ |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| MATLAB | | | | | | | |\n\
   | `eig` | • | • | • | • | • | • | |\n| `eigs` | • | • | • | • | • | | • |\n| `numpy.linalg`\
@@ -10121,7 +10121,7 @@
   \ `csr_matrix()`：\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```>> x = [1 2 0; 0\
   \ 3 0; 0 4 5]x =    1     2     0    0     3     0    0     4     5>> y = sparse(x)y\
   \ =   (1,1)        1   (1,2)        2   (2,2)        3   (3,2)        4   (3,3)\
-  \        5``` | ```import scipy.sparse as spIn : x = np.array([[1, 2, 0],      \
+  \        5``` ```import scipy.sparse as spIn : x = np.array([[1, 2, 0],      \
   \          [0, 3, 0],[0, 4, 5]])In : xarray([[1, 2, 0],       [0, 3, 0],       [0,\
   \ 4, 5]])In : y = sp.csr_matrix(x)In : print(y)Out      (0, 0)        1      (0,\
   \ 1)        2      (1, 1)        3      (2, 1)        4      (2, 2)        5```\
@@ -10134,15 +10134,15 @@
   \n如下所示：\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```>> I = [1 2 2 3 3];>> J =\
   \ [2 1 3 2 3];>> V = [1 8 2 4 -3];>> A = sparse(I,J,V,4,3)A =Compressed Column Sparse(rows\
   \ = 3, cols = 3, nnz = 5 [56%])  (2, 1) ->  8  (1, 2) ->  1  (3, 2) ->  4  (2, 3)\
-  \ ->  2  (3, 3) -> -3``` | ```import scipy.sparse as spIn : I = [0, 1, 1, 2, 2]In\
+  \ ->  2  (3, 3) -> -3``` ```import scipy.sparse as spIn : I = [0, 1, 1, 2, 2]In\
   \ : J = [1, 2, 2, 1, 2]In : V = [1, 8, 2, 4, -3]In : A = sp.coo_matrix((V,(I,J)),(4,3))In\
   \ : A<4x3 sparse matrix of type'<class 'numpy.int64'>' with 5 stored elements in\
   \ COOrdinate format>In : print(A)      (0, 1)        1      (1, 2)        8    \
-  \  (1, 2)        2      (2, 1)        4      (2, 2)       -3``` |\n\nMATLAB 的输出按列排序，而\
+  \  (1, 2)        2      (2, 1)        4      (2, 2)       -3```\n\nMATLAB 的输出按列排序，而\
   \ Python 的输出按行排序；这些矩阵实际上在相同的索引处包含相同的值。通过查看每个矩阵的稠密表示可以看出这一点：\n\n| MATLAB: | Python:\
   \ |\n| --- | --- |\n| ```>>  full(A)   0   1   0   8   0   2   0   4  -3   0   0\
-  \   0``` | ```In : A.todense()matrix([[ 0,  1,  0],       [ 8,  0,  2],       [\
-  \ 0,  4, -3],       [ 0,  0,  0]])``` |\n\n\n好的，这是根据您的要求和示例，将给定英文文本翻译成中文的结果。\n\n\
+  \   0``` ```In : A.todense()matrix([[ 0,  1,  0],       [ 8,  0,  2],       [\
+  \ 0,  4, -3],       [ 0,  0,  0]])```\n\n\n好的，这是根据您的要求和示例，将给定英文文本翻译成中文的结果。\n\n\
   \n#### 11.3.1.1 重复的 COO 索引\n\nMATLAB 的 `sparse()` 函数会对索引重复的项求和。换句话说，如果索引项 (*i*,\
   \ *j*) 在输入索引数组中出现了三次，并在值数组中对应值 *V*[1]、*V*[2] 和 *V*[3]，那么 MATLAB 矩阵在 (*i*, *j*) 处的值将是\
   \ *V*[1] + *V*[2] + *V*[3]。所有 SciPy 矩阵创建函数也具有相同的行为，尽管求和可能是隐式的——三个重复项被分开存储，但对稀疏矩阵的所有数学运算都产生与求和相同的结果。为了演示这一点，我们将创建稀疏矩阵\n\
@@ -10816,7 +10816,7 @@
   \ = LP.solver(f,A,b,pyargs(...` `'bounds',py.list(UL_bounds)));` `m_sol = py2mat(py_sol);`\
   \ | ```python # 文件 bridge_linprog.py from scipy.optimize import linprog def solver(f,A,b,bounds=None):\
   \ sol = linprog(f,A,b,bounds=bounds) return { 'fun' : sol.fun, 'message' : sol.message,\
-  \ 'status' : sol.status, 'success' : sol.success, 'x' : sol.x } ``` |\n\n现在，我们在桥接模块中捕获的五个分量可以在\
+  \ 'status' : sol.status, 'success' : sol.success, 'x' : sol.x } ```\n\n现在，我们在桥接模块中捕获的五个分量可以在\
   \ MATLAB 中使用：\n\n```\n>> m_sol\nstruct with fields:\nfun: -172.6488\nmessage: \"\
   Optimization terminated successfully.\"\nstatus: 0\nsuccess: 1\nx: [1.1583e-10 1.3757e-08\
   \ 103.5375 25.8844]\n```\n\n#### 11.12.1.2 PuLP\n\nPython PuLP 模块有两个吸引人的方面：可以将变量定义为整数或实数，并且约束条件可以用比其他模块更自然的形式表达：\n\

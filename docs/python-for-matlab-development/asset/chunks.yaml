@@ -4866,11 +4866,11 @@
     \ to, respectively, skip to the next iteration and to exit the loop.\n\nThese\
     \ loops print the numbers 2, 4, 6, 8, 10:\n\n| MATLAB: | Python: |\n| --- | ---\
     \ |\n| ```\nfor i = 1:10\n   if mod(i,2)    % skip odd numbers\n      continue\n\
-    \   end\n   disp(i)\nend\n``` | ```\nfor i in range(1,11):\n   if i % 2:    #\
-    \ skip odd numbers\n      continue\n   print(i)\n``` |\n\nwhile these print 1,\
+    \   end\n   disp(i)\nend\n``` ```\nfor i in range(1,11):\n   if i % 2:    #\
+    \ skip odd numbers\n      continue\n   print(i)\n```\n\nwhile these print 1,\
     \ 2, 3:\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\nfor i = 1:10\n   if i\
-    \ > 3\n      break\n   end\n   disp(i)\nend\n``` | ```\nfor i in range(1,11):\n\
-    \   if i > 3:\n      break\n   print(i)\n``` |\n\n### 3.5.2 Exit from Nested Loops\n\
+    \ > 3\n      break\n   end\n   disp(i)\nend\n``` ```\nfor i in range(1,11):\n\
+    \   if i > 3:\n      break\n   print(i)\n```\n\n### 3.5.2 Exit from Nested Loops\n\
     \nAn irritant with both MATLAB and Python is that neither has an elegant way to\
     \ leave nested loops from an inner loop because `break` only works for its immediately-enclosing\
     \ `for` loop. One must employ an extra variable to let the outer loop know that\
@@ -4882,10 +4882,10 @@
     \ in the matrix with a value greater than 0.95:\n\n| MATLAB: | Python: |\n| ---\
     \ | --- |\n| ```\nnR = 10;\nnC = 12;\nX = rand(nR,nC);\ndone = 0;\nfor r = 1:nR\n\
     \   for c = 1:nC\n      if X(r,c) > 0.95\n         done = 1;\n         break\n\
-    \      end\n   end\n   if done\n      break\n   end\nend\n``` | ```\nimport numpy\
+    \      end\n   end\n   if done\n      break\n   end\nend\n``` ```\nimport numpy\
     \ as np\nnR, nC = 10, 12\nX = np.random.rand(nR,nC);\ndone = False\nfor r in range(nR):\n\
     \   for c in range(nC):\n      if X[r,c] > 0.95:\n         done = True\n     \
-    \    break\n   if done:\n      break\n``` |\n\n## 3.6 `while` Loops\n\nWhile loops,\
+    \    break\n   if done:\n      break\n```\n\n## 3.6 `while` Loops\n\nWhile loops,\
     \ like for loops, have a similar structure in MATLAB and Python; both also use\
     \ `continue` to skip to the next iteration and `break` to exit the loop.\n\nThe\
     \ following example uses the Newton-Raphson iteration to compute the square root\
@@ -4893,14 +4893,14 @@
     \ five iterations.\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\nN = 117; tol\
     \ = 1.0e-8;\nx = N/2;\ni = 1;\nwhile abs(N - x.^2) > tol\n   y = N/x;\n   x =\
     \ (x+y)/2;\n   if i >= 5\n      fprintf('hit 5 iter\\n')\n      break\n   end\n\
-    \   i = i + 1;\nend\nfprintf('sqrt(%f)=%f\\n',N,x)\n``` | ```\nN, tol = 117, 1.0e-8\n\
+    \   i = i + 1;\nend\nfprintf('sqrt(%f)=%f\\n',N,x)\n``` ```\nN, tol = 117, 1.0e-8\n\
     x = N/2\ni = 1\nwhile abs(N - x**2) > tol:\n   y = N/x\n   x = (x+y)/2\n   if\
     \ i >= 5:\n      print('hit 5 iter')\n      break\n   i += 1\nprint(f'sqrt({N})={x}')\n\
-    ``` |\n\n## 3.7 `if` Statements\n\nIf statements look like this in the two languages:\n\
+    ```\n\n## 3.7 `if` Statements\n\nIf statements look like this in the two languages:\n\
     \n| MATLAB: | Python: |\n| --- | --- |\n| ```\nif condition_1\n   result = 'in\
     \ 1';\nelse if condition_2\n   result = 'in 2';\nelse\n   result = 'in else';\n\
-    end\n``` | ```\nif condition_1:\n   result = 'in 1'\nelif condition_2:\n   result\
-    \ = 'in 2'\nelse:\n   result = 'in else'\n``` |\n\nThe variables `condition_1`\
+    end\n``` ```\nif condition_1:\n   result = 'in 1'\nelif condition_2:\n   result\
+    \ = 'in 2'\nelse:\n   result = 'in else'\n```\n\nThe variables `condition_1`\
     \ and `condition_2` represent Boolean expressions and can take many forms.\n\n\
     ### 3.7.1 Boolean Expressions and Operators\n\nMATLAB’s “logical” constants `true`\
     \ and `false` have equivalents in Python’s Boolean constants `True` and `False`.\
@@ -4924,8 +4924,8 @@
     \ may not match expectations. For example, the first two expressions in the following\
     \ evaluate to the correct answer, but MATLAB gives the wrong result for the third:\n\
     \n| MATLAB: | Python: |\n| --- | --- |\n| ```\n>> 1 < 2 < 3\nans = 1\n>> 1 < 2\
-    \ < 1\nans = 0\n>> 1 < -1 < 3\nans = 1\n``` | ```\nIn : 1 < 2 < 3\nOut: True\n\
-    In : 1 < 2 < 1\nOut: False\nIn : 1 < -1 < 3\nOut: False\n``` |\n\nMATLAB evaluates\
+    \ < 1\nans = 0\n>> 1 < -1 < 3\nans = 1\n``` ```\nIn : 1 < 2 < 3\nOut: True\n\
+    In : 1 < 2 < 1\nOut: False\nIn : 1 < -1 < 3\nOut: False\n```\n\nMATLAB evaluates\
     \ these expressions as `(a < b) < c`, so the third one gives an unexpected result\
     \ because `(1 < -1)` evaluates to 0 which carries into the next expression of\
     \ `0 < 3`. The expression then evaluates to true in MATLAB which is of course\
@@ -4940,7 +4940,7 @@
     \ prefix to `atan2` and `sqrt` in the Python function refers to the NumPy numerics\
     \ module which will be covered briefly in Section 4.1 and extensively in Chapter\
     \ 11.\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\nfunction [r, theta] = cyl(x,y)\n\
-    \   theta = atan2(y,x);\n   r = sqrt(x^2 + y^2);\nend\n``` | ```\ndef cyl(x,y):\n\
+    \   theta = atan2(y,x);\n   r = sqrt(x^2 + y^2);\nend\n``` ```\ndef cyl(x,y):\n\
     \   theta = np.atan2(y,x)\n   r = np.sqrt(x**2 + y**2)\n   return r, theta\n```\
     \ |\n\nThe sections that follow cover the details of argument references, variable\
     \ numbers of inputs, keyword and default arguments, and argument validation."
@@ -5143,32 +5143,32 @@
   trans: "好的，作为一名高级文档工程师和翻译员，我将严格遵循您的注意事项和示例格式，将给定的英文文本翻译成中文。\n\n\n### 3.5.1 提前退出循环\n\
     \nMATLAB 和 Python 都使用 `continue` 和 `break` 来分别执行跳转到下一次迭代和退出循环的操作。\n\n以下循环打印数字\
     \ 2、4、6、8、10：\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\nfor i = 1:10\n \
-    \  if mod(i,2)    % 跳过奇数\n      continue\n   end\n   disp(i)\nend\n``` | ```\n\
+    \  if mod(i,2)    % 跳过奇数\n      continue\n   end\n   disp(i)\nend\n``` ```\n\
     for i in range(1,11):\n   if i % 2:    # 跳过奇数\n      continue\n   print(i)\n```\
     \ |\n\n而以下循环打印 1、2、3：\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\nfor i =\
-    \ 1:10\n   if i > 3\n      break\n   end\n   disp(i)\nend\n``` | ```\nfor i in\
-    \ range(1,11):\n   if i > 3:\n      break\n   print(i)\n``` |\n\n### 3.5.2 从嵌套循环中退出\n\
+    \ 1:10\n   if i > 3\n      break\n   end\n   disp(i)\nend\n``` ```\nfor i in\
+    \ range(1,11):\n   if i > 3:\n      break\n   print(i)\n```\n\n### 3.5.2 从嵌套循环中退出\n\
     \nMATLAB 和 Python 都令人困扰的一点是，它们都没有一种优雅的方式从内部循环中退出嵌套循环，因为 `break` 仅对其直接包含的 `for`\
     \ 循环有效。必须使用一个额外的变量来让外层循环知道内层循环想要跳出。一些 Python 程序员提倡使用异常来实现这一目标，但编写异常代码和使用额外变量一样笨拙。\n\
     \n这个示例遍历矩阵中的元素，并使用布尔变量 `done` 来让外层循环知道内层循环希望它退出。当矩阵中遇到一个值大于 0.95 的元素时，触发该条件：\n\
     \n| MATLAB: | Python: |\n| --- | --- |\n| ```\nnR = 10;\nnC = 12;\nX = rand(nR,nC);\n\
     done = 0;\nfor r = 1:nR\n   for c = 1:nC\n      if X(r,c) > 0.95\n         done\
     \ = 1;\n         break\n      end\n   end\n   if done\n      break\n   end\nend\n\
-    ``` | ```\nimport numpy as np\nnR, nC = 10, 12\nX = np.random.rand(nR,nC);\ndone\
+    ``` ```\nimport numpy as np\nnR, nC = 10, 12\nX = np.random.rand(nR,nC);\ndone\
     \ = False\nfor r in range(nR):\n   for c in range(nC):\n      if X[r,c] > 0.95:\n\
-    \         done = True\n         break\n   if done:\n      break\n``` |\n\n## 3.6\
+    \         done = True\n         break\n   if done:\n      break\n```\n\n## 3.6\
     \ `while` 循环\n\nWhile 循环与 for 循环一样，在 MATLAB 和 Python 中具有相似的结构；两者也都使用 `continue`\
     \ 跳转到下一次迭代，使用 `break` 退出循环。\n\n以下示例使用牛顿-拉弗森迭代法计算 117 的平方根。如果解尚未收敛，则 while 循环在五次迭代后退出。\n\
     \n| MATLAB: | Python: |\n| --- | --- |\n| ```\nN = 117; tol = 1.0e-8;\nx = N/2;\n\
     i = 1;\nwhile abs(N - x.²) > tol\n   y = N/x;\n   x = (x+y)/2;\n   if i >= 5\n\
     \      fprintf('hit 5 iter\\n')\n      break\n   end\n   i = i + 1;\nend\nfprintf('sqrt(%f)=%f\\\
-    n',N,x)\n``` | ```\nN, tol = 117, 1.0e-8\nx = N/2\ni = 1\nwhile abs(N - x**2)\
+    n',N,x)\n``` ```\nN, tol = 117, 1.0e-8\nx = N/2\ni = 1\nwhile abs(N - x**2)\
     \ > tol:\n   y = N/x\n   x = (x+y)/2\n   if i >= 5:\n      print('hit 5 iter')\n\
-    \      break\n   i += 1\nprint(f'sqrt({N})={x}')\n``` |\n\n## 3.7 `if` 语句\n\n\
+    \      break\n   i += 1\nprint(f'sqrt({N})={x}')\n```\n\n## 3.7 `if` 语句\n\n\
     If 语句在这两种语言中的形式如下：\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\nif condition_1\n\
     \   result = 'in 1';\nelse if condition_2\n   result = 'in 2';\nelse\n   result\
-    \ = 'in else';\nend\n``` | ```\nif condition_1:\n   result = 'in 1'\nelif condition_2:\n\
-    \   result = 'in 2'\nelse:\n   result = 'in else'\n``` |\n\n变量 `condition_1` 和\
+    \ = 'in else';\nend\n``` ```\nif condition_1:\n   result = 'in 1'\nelif condition_2:\n\
+    \   result = 'in 2'\nelse:\n   result = 'in else'\n```\n\n变量 `condition_1` 和\
     \ `condition_2` 代表布尔表达式，可以有多种形式。\n\n### 3.7.1 布尔表达式和运算符\n\nMATLAB 的“逻辑”常量 `true`\
     \ 和 `false` 在 Python 的布尔常量 `True` 和 `False` 中有对应项。在 MATLAB 中，通常用 `1` 和 `0` 表示它们，尽管任何非零值都会计算为\
     \ true。与 MATLAB 类似，Python 将数字零（整数或浮点数）以及空字符串、列表、集合、字典或元组解释为 false。Python 还有一个特殊的常量\
@@ -5182,9 +5182,9 @@
     \ `xor(a, b)` | `bool(a) ^ bool(b)` | `a ^ b` |\n\n### 3.7.2 范围测试\n\n数值范围表达式 `a\
     \ < b < c` 在 MATLAB 中是有效的表示法。但是，MATLAB 以严格的从左到右顺序计算此类表达式，因此结果可能与预期不符。例如，以下的前两个表达式计算结果正确，但\
     \ MATLAB 对第三个表达式给出了错误的结果：\n\n| MATLAB: | Python: |\n| --- | --- |\n| ```\n>> 1\
-    \ < 2 < 3\nans = 1\n>> 1 < 2 < 1\nans = 0\n>> 1 < -1 < 3\nans = 1\n``` | ```\n\
+    \ < 2 < 3\nans = 1\n>> 1 < 2 < 1\nans = 0\n>> 1 < -1 < 3\nans = 1\n``` ```\n\
     In : 1 < 2 < 3\nOut: True\nIn : 1 < 2 < 1\nOut: False\nIn : 1 < -1 < 3\nOut: False\n\
-    ``` |\n\nMATLAB 将这些表达式计算为 `(a < b) < c`，因此第三个表达式给出了意想不到的结果，因为 `(1 < -1)` 计算结果为\
+    ```\n\nMATLAB 将这些表达式计算为 `(a < b) < c`，因此第三个表达式给出了意想不到的结果，因为 `(1 < -1)` 计算结果为\
     \ 0，并带入下一个表达式 `0 < 3`。然后该表达式在 MATLAB 中计算结果为 true，这显然是不正确的，因为 `1 < -1 < 3` 是 false。\n\
     \nPython 将范围计算展开为 `(a < b) and (b < c)`，因此对于 `a`、`b` 和 `c` 的所有标量值都给出了预期的结果。\n\n\
     ## 3.8 函数\n\n与 MATLAB 一样，在 Python 中可以轻松定义函数。MATLAB 使用 `function` 关键字，而 Python\
@@ -5192,8 +5192,8 @@
     \ Python 在这方面更为优雅。这是一个简单的入门示例。Python 函数中 `atan2` 和 `sqrt` 的 `np.` 前缀指的是 NumPy\
     \ 数值模块，将在第 4.1 节简要介绍，并在第 11 章详细讨论。\n\n| MATLAB: | Python: |\n| --- | --- |\n|\
     \ ```\nfunction [r, theta] = cyl(x,y)\n   theta = atan2(y,x);\n   r = sqrt(x²\
-    \ + y²);\nend\n``` | ```\ndef cyl(x,y):\n   theta = np.atan2(y,x)\n   r = np.sqrt(x**2\
-    \ + y**2)\n   return r, theta\n``` |\n\n接下来的章节将详细介绍参数引用、可变数量的输入、关键字参数和默认参数以及参数验证。\n"
+    \ + y²);\nend\n``` ```\ndef cyl(x,y):\n   theta = np.atan2(y,x)\n   r = np.sqrt(x**2\
+    \ + y**2)\n   return r, theta\n```\n\n接下来的章节将详细介绍参数引用、可变数量的输入、关键字参数和默认参数以及参数验证。\n"
 - fmt: '### 3.8.1 Pass by Value and Pass by Reference
 
 
@@ -50045,7 +50045,7 @@
     2.22045e-15,  5.77350e-01,  7.07107e-01],       [ 7.07107e-01,  5.77350e-01,  7.07107e-01],       [-7.07107e-01,
     -5.77350e-01,    4.44089e-16]])In : dOut: array([5., 4., 3.])In : A@v - v@np.diag(d)Out:
     array(      [[-5.55111e-16, -4.44089e-16,  4.44089e-16],       [ 4.88498e-15,  3.10862e-15,  2.22046e-15],       [-1.77636e-15,  -8.88178e-16,
-    -4.44089e-16]])``` |
+    -4.44089e-16]])```
 
 
     **Table 11-4** Capabilities of MATLAB, NumPy, and SciPy eigensolvers
@@ -50130,7 +50130,7 @@
     | ```import scipy.sparse as spIn : x = np.array([[1, 2, 0],                [0,
     3, 0],[0, 4, 5]])In : xarray([[1, 2, 0],       [0, 3, 0],       [0, 4, 5]])In
     : y = sp.csr_matrix(x)In : print(y)Out      (0, 0)        1      (0, 1)        2      (1,
-    1)        3      (2, 1)        4      (2, 2)        5``` |
+    1)        3      (2, 1)        4      (2, 2)        5```
 
 
     Conversion from a dense matrix is generally only useful for testing sparse algorithms
@@ -50157,7 +50157,7 @@
 
     | ```>> I = [1 2 2 3 3];>> J = [2 1 3 2 3];>> V = [1 8 2 4 -3];>> A = sparse(I,J,V,4,3)A
     =Compressed Column Sparse(rows = 3, cols = 3, nnz = 5 [56%])  (2, 1) ->  8  (1,
-    2) ->  1  (3, 2) ->  4  (2, 3) ->  2  (3, 3) -> -3``` | ```import scipy.sparse
+    2) ->  1  (3, 2) ->  4  (2, 3) ->  2  (3, 3) -> -3``` ```import scipy.sparse
     as spIn : I = [0, 1, 1, 2, 2]In : J = [1, 2, 2, 1, 2]In : V = [1, 8, 2, 4, -3]In
     : A = sp.coo_matrix((V,(I,J)),(4,3))In : A<4x3 sparse matrix of type''<class ''numpy.int64''>''
     with 5 stored elements in COOrdinate format>In : print(A)      (0, 1)        1      (1,
@@ -50174,9 +50174,9 @@
 
     | --- | --- |
 
-    | ```>>  full(A)   0   1   0   8   0   2   0   4  -3   0   0   0``` | ```In :
+    | ```>>  full(A)   0   1   0   8   0   2   0   4  -3   0   0   0``` ```In :
     A.todense()matrix([[ 0,  1,  0],       [ 8,  0,  2],       [ 0,  4, -3],       [
-    0,  0,  0]])``` |'
+    0,  0,  0]])```'
   raw: '### 11.2.3 Eigenvalue Problems
 
 
@@ -50369,7 +50369,7 @@
     2.22045e-15,  5.77350e-01,  7.07107e-01],       [ 7.07107e-01,  5.77350e-01,  7.07107e-01],       [-7.07107e-01,
     -5.77350e-01,    4.44089e-16]])In : dOut: array([5., 4., 3.])In : A@v - v@np.diag(d)Out:
     array(      [[-5.55111e-16, -4.44089e-16,  4.44089e-16],       [ 4.88498e-15,  3.10862e-15,  2.22046e-15],       [-1.77636e-15,  -8.88178e-16,
-    -4.44089e-16]])``` |
+    -4.44089e-16]])```
 
 
     **表 11-4** MATLAB、NumPy 和 SciPy 特征值求解器的能力
@@ -50441,7 +50441,7 @@
     | ```import scipy.sparse as spIn : x = np.array([[1, 2, 0],                [0,
     3, 0],[0, 4, 5]])In : xarray([[1, 2, 0],       [0, 3, 0],       [0, 4, 5]])In
     : y = sp.csr_matrix(x)In : print(y)Out      (0, 0)        1      (0, 1)        2      (1,
-    1)        3      (2, 1)        4      (2, 2)        5``` |
+    1)        3      (2, 1)        4      (2, 2)        5```
 
 
     从稠密矩阵转换通常只用于测试稀疏算法，因为只有相对较小的稀疏矩阵才能通过这种方式创建。更典型的情况是，从头开始构建一个稀疏矩阵。最直接的方法是使用 SciPy
@@ -50463,7 +50463,7 @@
 
     | ```>> I = [1 2 2 3 3];>> J = [2 1 3 2 3];>> V = [1 8 2 4 -3];>> A = sparse(I,J,V,4,3)A
     =Compressed Column Sparse(rows = 3, cols = 3, nnz = 5 [56%])  (2, 1) ->  8  (1,
-    2) ->  1  (3, 2) ->  4  (2, 3) ->  2  (3, 3) -> -3``` | ```import scipy.sparse
+    2) ->  1  (3, 2) ->  4  (2, 3) ->  2  (3, 3) -> -3``` ```import scipy.sparse
     as spIn : I = [0, 1, 1, 2, 2]In : J = [1, 2, 2, 1, 2]In : V = [1, 8, 2, 4, -3]In
     : A = sp.coo_matrix((V,(I,J)),(4,3))In : A<4x3 sparse matrix of type''<class ''numpy.int64''>''
     with 5 stored elements in COOrdinate format>In : print(A)      (0, 1)        1      (1,
@@ -50478,9 +50478,9 @@
 
     | --- | --- |
 
-    | ```>>  full(A)   0   1   0   8   0   2   0   4  -3   0   0   0``` | ```In :
+    | ```>>  full(A)   0   1   0   8   0   2   0   4  -3   0   0   0``` ```In :
     A.todense()matrix([[ 0,  1,  0],       [ 8,  0,  2],       [ 0,  4, -3],       [
-    0,  0,  0]])``` |
+    0,  0,  0]])```
 
     '
 - fmt: '#### 11.3.1.1 Repeated COO Indices
@@ -57692,7 +57692,7 @@
     `''bounds'',py.list(UL_bounds)));` `m_sol = py2mat(py_sol);` | ```python # file
     bridge_linprog.py from scipy.optimize import linprog def solver(f,A,b,bounds=None):
     sol = linprog(f,A,b,bounds=bounds) return { ''fun'' : sol.fun, ''message'' : sol.message,
-    ''status'' : sol.status, ''success'' : sol.success, ''x'' : sol.x } ``` |
+    ''status'' : sol.status, ''success'' : sol.success, ''x'' : sol.x } ```
 
 
     Now the five components we captured in the bridge module can be used in MATLAB:
@@ -58235,7 +58235,7 @@
     `''bounds'',py.list(UL_bounds)));` `m_sol = py2mat(py_sol);` | ```python # 文件
     bridge_linprog.py from scipy.optimize import linprog def solver(f,A,b,bounds=None):
     sol = linprog(f,A,b,bounds=bounds) return { ''fun'' : sol.fun, ''message'' : sol.message,
-    ''status'' : sol.status, ''success'' : sol.success, ''x'' : sol.x } ``` |
+    ''status'' : sol.status, ''success'' : sol.success, ''x'' : sol.x } ```
 
 
     现在，我们在桥接模块中捕获的五个分量可以在 MATLAB 中使用：
