@@ -1,3 +1,1 @@
-# 第二部分
-
-使用 Google Tag Manager 增强网站数据
+# 第二部分：使用 Google Tag Manager 增强网站数据
