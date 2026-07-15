@@ -222,3 +222,4 @@
 [6] 华尔街日报, CIO 报告, "Hadoop 来了：大数据技术正获得牵引力." 2014 年 4 月 12 日. 面向华尔街日报订阅者, [`http://blogs.wsj.com/cio/2014/04/12/hadoop-there-it-is-big-data-tech-gaining-traction/`](http://blogs.wsj.com/cio/2014/04/12/hadoop-there-it-is-big-data-tech-gaining-traction/).
 
 [7] "工作趋势," Indeed 求职网站, [`www.indeed.com/jobtrends`](http://www.indeed.com/jobtrends).
+

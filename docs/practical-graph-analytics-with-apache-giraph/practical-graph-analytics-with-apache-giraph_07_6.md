@@ -1,3 +1,4 @@
+
 # 10. 高级输入输出
 
 本章内容包括：
@@ -478,3 +479,4 @@ while (it.hasNext()) {
 * Giraph 进一步隐藏了从 Gora 内存模型中读取数据和写入数据的许多复杂性。你可以使用 `GoraVertexInputFormat` 和 `GoreEdgeInputFormat` API 在通用的 Gora 对象与 Giraph 的 `Vertex` 和 `Edge` 对象之间进行转换。
 
 到现在，你应该已经熟悉了如何从多种数据存储中访问数据。Giraph 为比本章涵盖的更多系统提供了接口。你应该查阅代码库和文档以获取更多信息。你将在下一章继续学习更高级的功能——特别是调优和性能。
+

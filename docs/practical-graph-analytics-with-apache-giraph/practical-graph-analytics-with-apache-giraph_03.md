@@ -318,3 +318,4 @@ Facebook 在 2010 年 12 月发布了一张图片。¹虽然这张图片看起�
 [1] Paul Butler，“Visualizing Friendships”，Facebook，[`www.facebook.com/note.php?note_id=469716398919`](http://www.facebook.com/note.php?note_id=469716398919).
 
 [2] [`http://inmaps.linkedinlabs.com`](http://inmaps.linkedinlabs.com/).
+
