@@ -1,4 +1,4 @@
-# Models to Code 翻译为“模型到代码”
+# 模型到代码
 
 > 原文：[Models to Code]()
 > 

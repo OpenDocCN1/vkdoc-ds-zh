@@ -1,4 +1,4 @@
-+   [Models to Code 翻译为“模型到代码”](README.md)
++   [模型到代码](README.md)
 +   [前言](models-to-code_01_fmt.md)
 +   [1. 建模全景](models-to-code_20_fmt.md)
 +   [2. 一个简单的可执行模型](models-to-code_21_fmt.md)
