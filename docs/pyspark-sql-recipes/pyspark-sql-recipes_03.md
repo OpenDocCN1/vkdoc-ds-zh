@@ -1057,3 +1057,8 @@ only showing top 5 rows
 ```
 
 最后，我们从 Apache Hive 中的表创建了一个 DataFrame。
+
+
+
+
+
