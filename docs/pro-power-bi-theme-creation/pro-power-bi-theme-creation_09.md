@@ -1,3 +1,126 @@
+# 9. 其他图表视觉样式
+
+要完成主题文件图表格式的完整学习，您需要检查最后一组图表类型的 JSON。这些图表包括：
+
+-   饼图
+-   环形图
+-   树状图
+-   瀑布图
+-   漏斗图
+-   功能区图
+
+所有这些图表都比您目前看到的一些图表简单——在某些情况下要简单得多。尽管如此，在本章中您会发现一些新的关键字，这些关键字特定于描述这些图表类型格式的 JSON。
+
+本章讨论的所有图表类型在可供下载的示例文件夹中都有一个单独的 JSON 文件。每个文件都是独立的，可用于格式化相关的图表类型。
+
+# 饼图
+
+饼图无疑是一种较为简单的图表——因此，它对应着一个同样简洁的 JSON 主题文件。
+
+指定饼图格式属性的关键字是 `pieChart`。
+
+表 9-1 概述了可用于饼图格式的 JSON 关键字，以及每个关键字在 Power BI Desktop 格式窗格中对应的部分。
+
+| 关键字 | 格式部分 |
+| --- | --- |
+| `general` | 常规 |
+| `legend` | 图例 |
+| `labels` | 详细标签 |
+| `title` | 标题 |
+| `background` | 背景 |
+| `lockAspect` | 锁定纵横比 |
+| `border` | 边框 |
+| `dropShadow` | 阴影 |
+| `visualHeader` | 视觉对象标头 |
+
+你可以在示例文件 `Attributes_PieChart.json` 中找到相应的 JSON 代码。
+
+以下代码片段提供了用于预格式化饼图的 JSON 代码：
+
+```json
+"pieChart":
+{"*":
+{
+"general": [{... 代码未显示 ...}]
+"legend": [{... 代码未显示 ...}],
+"labels": [{
+"show": true,
+"labelStyle": "All detail labels",
+"color": {"solid": {"color": "#000000"}},
+"labelDisplayUnits": 1000,
+"labelPrecision": 1,
+"percentageLabelPrecision": 1,
+"fontSize": 8,
+"fontFamily": "Arial",
+"position": "preferInside",
+"overflow": true,
+"background": "off"
+}],
+"title": [{... 代码未显示 ...}],
+"background": [{... 代码未显示 ...}],
+"lockAspect": [{... 代码未显示 ...}],
+"border": [{... 代码未显示 ...}],
+"dropShadow": [{... 代码未显示 ...}],
+"visualTooltip": [{... 代码未显示 ...}],
+"visualHeader": [{... 代码未显示 ...}]
+}
+}
+```
+
+图例关键字见表 7-2。
+
+描述详细标签部分的 `labels` 关键字使用了表 9-2 中所示的关键字。
+
+| 元素 | 关键字 |
+| --- | --- |
+| 详细标签 | `show` |
+| 标签样式 | `labelStyle` |
+| 颜色 | `color` |
+| 显示单位 | `labelDisplayUnits` |
+| 值小数位数 | `labelPrecision` |
+| % 小数位数 | `percentageLabelPrecision` |
+| 文本大小 | `fontSize` |
+| 字体系列 | `fontFamily` |
+| 标签位置 | `position` |
+| 溢出文本 | `overflow` |
+| 背景 | `background` |
+
+在饼图或环形图中定义标签样式的 JSON 中的 `labelStyle` 关键字需要表 9-3 中所示的属性之一。
+
+| 值 | 格式弹出选项 |
+| --- | --- |
+| `Category` | 类别 |
+| `DataValue` | 数据值 |
+| `Percent of total` | 占总数的百分比 |
+| `Category, data value` | 类别，数据值 |
+| `Category, percent of total` | 类别，占总数的百分比 |
+| `Data value, percent of total` | 数据值，占总数的百分比 |
+| `All detail labels` | 所有详细标签 |
+
+注意：与主题文件中的常见做法略有不同的是，用于指定标签样式选项的值包含空格和标点符号。
+
+在饼图或环形图中定义标签位置的 JSON 中的 `position` 关键字需要表 9-4 中所示的属性之一。
+
+| 值 | 格式弹出选项 |
+| --- | --- |
+| `outside` | 外部 |
+| `inside` | 内部 |
+| `preferOutside` | 首选外部 |
+| `preferInside` | 首选内部 |
+
+注意：有趣的是，用于指定标签位置选项的值必须采用驼峰式大小写。
+
+在饼图或环形图中（在标签部分中）定义背景的 JSON 中的 `background` 关键字需要表 9-5 中所示的属性之一。
+
+| 值 | 格式弹出选项 |
+| --- | --- |
+| `on` | 开 |
+| `off` | 关 |
+
+图例位置选项见表 7-9。
+
+标签显示单位选项见表 7-11。
+
 # 环形图
 
 就格式化而言，环形图与饼图几乎完全相同。然而，它有一个额外的功能。这就是你可以在下面给出的 JSON 中看到的 `slices` 关键字定义的 `inner radius`（内半径）。
@@ -503,3 +626,153 @@
 | `InsideCenter` | 内部中心 |
 
 你可以在示例文件 `Attributes_FunnelChart.json` 中找到对应的 JSON 代码。
+
+# 彩带图
+
+为了结束本章对主题文件中图表类型格式化的回顾，你需要了解彩带图。这种图表类型与折线图非常相似——至少在 JSON 层面如此。主要区别在于增加了 `ribbonChart` 关键字，该关键字用于引入彩带图格式化的具体部分。令人困惑的是，这个关键字与用于在 JSON 中定义实际彩带图对象的关键字相同。
+
+表 9-23 概述了可在彩带图格式化中使用的 JSON 关键字，以及每个关键字在 Power BI Desktop 格式窗格中对应的分区。
+
+**表 9-23** 彩带图关键字
+
+| 关键字 | 格式化分区 |
+| --- | --- |
+| `general` | 常规 |
+| `legend` | 图例 |
+| `categoryAxis` | X 轴 |
+| `zoom` | 缩放滑块 |
+| `labels` | 数据标签 |
+| `plotArea` | 绘图区 |
+| `ribbonChart` | 彩带 |
+| `title` | 标题 |
+| `background` | 背景 |
+| `lockAspect` | 锁定宽高比 |
+| `border` | 边框 |
+| `dropShadow` | 阴影 |
+| `visualHeader` | 视觉标头 |
+
+以下代码片段提供了用于预格式化彩带图的 JSON 代码：
+
+```json
+"ribbonChart":
+{"*":
+{
+"general": [{... code not shown ...}]
+"legend": [{... code not shown ...}],
+"categoryAxis": [{
+"show": true,
+"color": {"solid": {"color": "#949494"}},
+"fontSize": 8,
+"fontFamily": "Arial",
+"preferredCategoryWidth": 20,
+"maxMarginFactor": 30,
+"concatenateLabels": true,
+"showAxisTitle": true,
+"axisStyle": "showTitleOnly",
+"titleColor": {"solid": {"color": "#949494"}},
+"titleText": "添加轴标题",
+"titleFontSize": 8,
+"titleFontFamily": "Arial"
+}],
+"labels": [{
+"show": true,
+"color": {"solid": {"color": "#ffffff"}},
+"labelDisplayUnits": 1,
+"labelPrecision": 2,
+"labelPosition": "InsideEnd",
+"labelOverflow": true,
+"labelOrientation": "vertical",
+"fontFamily": "Arial",
+"fontSize": 7,
+"enableBackground": false,
+"backgroundColor": {"solid": {"color": "#949494"}},
+"backgroundTransparency": 0
+}],
+"plotArea": [{... code not shown ...}],
+"ribbonChart": [{
+"seriesGapRatio": 5,
+"colorBands": true,
+"bandsTransparency": 50,
+"showBorder": true
+}],
+"title": [{... code not shown ...}],
+"background": [{... code not shown ...}],
+"lockAspect": [{... code not shown ...}],
+"border": [{... code not shown ...}],
+"dropShadow": [{... code not shown ...}],
+"visualTooltip": [{... code not shown ...}],
+"visualHeader": [{... code not shown ...}]        }
+}
+```
+
+图例关键字见表 7-2。
+
+描述 X 轴分区的 `categoryAxis` 关键字使用表 9-24 中所示的关键字。
+
+**表 9-24** X 轴分区的元素关键字映射
+
+| 元素 | 关键字 |
+| --- | --- |
+| X 轴 | `show` |
+| 颜色 | `color` |
+| 文本大小 | `fontSize` |
+| 字体 | `fontFamily` |
+| 最小类别宽度 | `preferredCategoryWidth` |
+| 最大尺寸 | `maxMarginFactor` |
+| 合并标签 | `concatenateLabels` |
+| 标题 | `showAxisTitle` |
+| 样式 | `axisStyle` |
+| 标题颜色 | `titleColor` |
+| 轴标题 | `titleText` |
+| 标题文本大小 | `titleFontSize` |
+| (轴) 字体 | `titleFontFamily` |
+
+缩放关键字见表 7-5。
+
+描述数据标签分区的 `labels` 关键字使用表 9-25 中所示的关键字。
+
+**表 9-25** 数据标签分区的元素关键字映射
+
+| 元素 | 关键字 |
+| --- | --- |
+| 数据标签 | `show` |
+| 颜色 | `color` |
+| 显示单位 | `labelDisplayUnits` |
+| 值小数位数 | `labelPrecision` |
+| 方向 | `labelOrientation` |
+| 位置 | `labelPosition` |
+| 溢出文本 | `labelOverflow` |
+| 文本大小 | `fontSize` |
+| 字体 | `fontFamily` |
+| 显示背景 | `enableBackground` |
+| 背景颜色 | `backgroundColor` |
+| 透明度 | `backgroundTransparency` |
+
+绘图区关键字见表 7-8。
+
+描述彩带分区的 `ribbonChart` 关键字使用表 9-26 中所示的关键字。
+
+**表 9-26** 彩带分区的元素关键字映射
+
+| 元素 | 关键字 |
+| --- | --- |
+| 彩带 | `Show` |
+| 间距 | `seriesGapRatio` |
+| 匹配系列颜色 | `colorBands` |
+| 透明度 | `bandsTransparency` |
+| 边框 | `showBorder` |
+
+类别关键字见表 7-3。
+
+标签关键字见表 7-6。
+
+绘图区关键字见表 7-8。
+
+你可以在示例文件 `Attributes_RibbonChart.json` 中找到此内容的 JSON 代码。
+
+# 结论
+
+本章介绍了格式化其余六种图表类型所需的 JSON 代码。你了解了为饼图、环形图、树状图、瀑布图、漏斗图和彩带图准备 JSON 的具体细节。
+
+现在，关于图表类型的三章巡礼已经结束，是时候进入 Power BI 中另一类截然不同的视觉对象——地图了。这些将是下一章的主题。
+
