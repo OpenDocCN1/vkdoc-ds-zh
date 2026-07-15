@@ -334,3 +334,4 @@ Wave 在其可视化控件或小部件中无法处理地理空间数据。如果
 本章探讨了 Salesforce Analytics Cloud 中最面向用户的部分，即 Cloud Explorer。这里介绍了 Cloud Explorer 的主要元素，包括数据集、透镜、仪表盘和应用程序。同时提供了帮助初学者开始使用 Cloud Explorer 的信息，随后回顾了 Cloud Explorer 的共享能力及其一些局限性。
 
 请记住孔子的建议：要成为一名“践行者”以获取知识。凭借本章提供的信息，您可以迈出成为 Cloud Explorer 践行者的第一步。
+
