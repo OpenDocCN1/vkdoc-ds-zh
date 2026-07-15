@@ -308,3 +308,14 @@ conda create --name SOME_ENVIRONMENT --file SAVED_ENV_FILE
 
 Anaconda 是开发数据科学解决方案的推荐生态系统。它将所有必要的应用程序（如 JupyterLab、Spyder、Glueviz、Orange 3 等）、工具（如 `conda` 管理器）和数据科学包整合到一个连贯的系统中。Anaconda 还提倡多语言编程范式，允许你用多种编程语言实现项目组合中的各个部分。它还通过支持复杂的包和环境管理，解决了构建可复现解决方案的常见问题。
 ```
+
+
+
+
+
+
+
+
+
+
+
