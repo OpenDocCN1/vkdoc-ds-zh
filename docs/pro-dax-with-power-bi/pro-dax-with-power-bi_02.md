@@ -142,3 +142,226 @@ Analysis Services 数据库最强大的功能之一是可以向数据模型添�
 - 在表格数据模型中使用 `DAX` 创建的对象无法从 Power Query 中使用。
 - 计算列在执行查询时不会重新计算。如果 `DAX` 语句在初始提交时以及数据刷新期间，其计算结果将持久保存在底层表中。
 - 在度量值定义之外创建的计算表将在数据模型内部“创建”，这意味着 `DAX` 语句在初始创建时、定义更改时以及（当然）数据刷新期间执行。
+
+# DAX：初识
+
+本书将使用 Git 上提供的"Wide World Importers"（WWI）数据模型来演示 DAX 语句，该模型并非过于简单。本章所使用的数据集则更为简单。我认为这对于更好地理解实际发生的情况是必要的。
+
+## 隐式筛选器
+
+在创建第一个 DAX 语句之前，有必要先查看本章所用简单数据模型的基础数据。图 1-3 显示了`simple table values`表的内容。
+
+![../images/471413_1_En_1_Chapter/471413_1_En_1_Fig3_HTML.jpg](img/471413_1_En_1_Fig3_HTML.jpg)
+
+图 1-3
+表 – simple table values
+
+如果将此表用于具有以下设置的矩阵视觉对象：
+
+* `Brand` 列作为行
+* `Color` 列作为列
+* `Amount` 列作为值
+
+你将得到图 1-4 所示的结果（圆形标记除外）。
+
+![../images/471413_1_En_1_Chapter/471413_1_En_1_Fig4_HTML.jpg](img/471413_1_En_1_Fig4_HTML.jpg)
+
+图 1-4
+`simple table values` 矩阵
+
+在 Phil 的著作《Beginning DAX with Power BI》中，他解释了 Power BI 会将行标题`Brand`和列标题`Color`中的值添加到矩阵视觉对象值字段中所用度量的计算上下文中。
+
+#### 注意
+
+源自列标题、行标题或切片器选择的筛选器被称为隐式筛选器。这同样适用于簇状柱形图 x 轴上使用的值（此逻辑可推广到所有其他视觉对象）。
+
+我猜你对`B3`/`red`交叉点显示的值并不感到惊讶，即使我们尚未定义任何度量。只需在数据视图中筛选该表即可轻松验证结果，见图 1-5。
+
+![../images/471413_1_En_1_Chapter/471413_1_En_1_Fig5_HTML.jpg](img/471413_1_En_1_Fig5_HTML.jpg)
+
+图 1-5
+`simple table values` – 筛选后的`B3`/`red`
+
+很容易验证`Amount`列中值的总和等于 26。我们可以推断出以下几点：
+
+* 视觉对象会对包含用作值的列（此处为`Amount`列）的表进行筛选。
+* 在应用筛选器后，会使用聚合函数从剩余的两行中计算出值 26。
+
+很明显，聚合函数是`SUM`。`SUM`是数值列用作值时的默认聚合函数。默认函数可以针对每列进行更改，并且至少应进行检查。如有必要，可以在"建模"菜单的"属性"功能区中更改`默认汇总方式`的值。可以从"报表"或"数据"视图中访问该函数；必须选中已检查的列。
+
+图 1-6 展示了如何更改所选字段`Amount`的默认汇总方式。
+
+![../images/471413_1_En_1_Chapter/471413_1_En_1_Fig6_HTML.jpg](img/471413_1_En_1_Fig6_HTML.jpg)
+
+图 1-6
+列默认聚合函数
+
+### 说明
+
+如果更改了列的默认汇总方式，则必须先从视觉对象中移除该列，然后再重新添加。
+
+我不得不承认，在很长一段时间里，我一直认为矩阵视觉对象中的每个单元格（包括行和列上的总计值）都会创建一个单独的 DAX 查询，因为每个单元格的筛选上下文都会发生变化。幸运的是，情况并非如此。其幕后真正发生的事情可以通过 `DAX Studio` 来控制，这是一个主要由 `sqlbi.com` 和 `Darren Gosbell` 的成员开发的开源工具。`DAX Studio` 是创建 DAX 语句（其格式化功能更智能）以及在你对 DAX 语句的性能不满意时必不可少的工具。因此，第 12 章“DAX Studio”中描述了 `DAX Studio` 的一些功能——至少是优化性能低下的 DAX 语句所必需的功能。
+
+为了发现幕后发生了什么，`DAX Studio` 能够捕获由 Power BI Desktop 创建的 DAX 查询，以检索数据来填充视觉对象。
+
+当包含简单矩阵的报表页被激活时，会生成以下 DAX 代码（见清单 1-1）。
+
+```
+DEFINE
+VAR __DS0Core =
+SUMMARIZECOLUMNS(
+ROLLUPADDISSUBTOTAL('simple table values'[Brand], "IsGrandTotalRowTotal"),
+ROLLUPADDISSUBTOTAL('simple table values'[Color], "IsGrandTotalColumnTotal"),
+"SumAmount", CALCULATE(SUM('simple table values'[Amount]))
+)
+VAR __DS0Primary =
+TOPN(
+102,
+SUMMARIZE(__DS0Core, 'simple table values'[Brand], [IsGrandTotalRowTotal]),
+[IsGrandTotalRowTotal],
+0,
+'simple table values'[Brand],
+
+)
+VAR __DS0Secondary =
+TOPN(
+102,
+SUMMARIZE(__DS0Core, 'simple table values'[Color], [IsGrandTotalColumnTotal]),
+[IsGrandTotalColumnTotal],
+1,
+'simple table values'[Color],
+
+)
+EVALUATE
+__DS0Secondary
+ORDER BY
+[IsGrandTotalColumnTotal], 'simple table values'[Color]
+EVALUATE
+NATURALLEFTOUTERJOIN(
+__DS0Primary,
+SUBSTITUTEWITHINDEX(
+__DS0Core,
+"ColumnIndex",
+__DS0Secondary,
+[IsGrandTotalColumnTotal],
+ASC,
+'simple table values'[Color],
+ASC
+)
+)
+ORDER BY
+[IsGrandTotalRowTotal] DESC, 'simple table values'[Brand], [ColumnIndex]
+```
+
+清单 1-1
+简单矩阵
+
+我们将在第 12 章“DAX Studio”中更详细地探讨这类 DAX 查询。但现在，我只想让你关注 DAX 查询的第一部分。在这里你会看到以下代码片段，它是 DAX 函数 `SUMMARIZECOLUMNS` 的一部分。
+
+```
+"SumAmount", CALCULATE(SUM('simple table values'[Amount]))
+```
+
+清单 1-2
+隐式度量定义
+
+如果我们自己编写度量，它看起来几乎一样。因此，我们在 *simple table values* 表中使用如下 DAX 语句创建一个度量，但没有使用 `CALCULATE` 函数（见清单 1-3）。
+
+```
+Simple SUM Amount =
+SUM('simple table values'[Amount])
+```
+
+清单 1-3
+度量 – Simple SUM Amount
+
+如果你想要检查结果，你会发现我们检索到了与第一个查询相同的值，但这正是我们所期望的。
+
+但我们真正关心的是第一个度量出现在 Power BI 创建的查询中。下面的清单显示了该查询的第一部分。我们可以看到，“自然”列被当作显式定义的度量来处理：
+
+```
+VAR __DS0Core =
+SUMMARIZECOLUMNS(
+ROLLUPADDISSUBTOTAL('simple table values'[Brand], "IsGrandTotalRowTotal"),
+ROLLUPADDISSUBTOTAL('simple table values'[Color], "IsGrandTotalColumnTotal"),
+"SumAmount", CALCULATE(SUM('simple table values'[Amount])),
+"Simple_SUM_Amount", 'simple table values'[Simple SUM Amount]
+)
+```
+
+到目前为止，你需要相信我，这两种定义是相同的，即使看起来缺少了包裹我们度量的 `CALCULATE` 函数，除非你已经读过 Phil 的书或其他一些现有的优秀 DAX 书籍。但我们也可以通过移除 `CALCULATE` 并在 `DAX Studio` 中执行查询来证明这两个度量产生完全相同的结果。
+
+在解释什么是显式筛选器之前，我只想稍微修改一下矩阵视觉对象。你可以在报表页“第 1 章 – 隐式筛选器 – b”中找到这个矩阵。除了将应用于查询执行的隐式筛选器之外，我还添加了列 *Brand* 作为页面级筛选器（只是为了避免与其他报表页产生不必要的干扰）。筛选器设置请见图 1-7。
+
+![../images/471413_1_En_1_Chapter/471413_1_En_1_Fig7_HTML.jpg](img/471413_1_En_1_Fig7_HTML.jpg)
+图 1-7 页面级筛选器 `Brand` 不等于 `B4`
+
+这是一项重要任务，因为对于报表级筛选器、页面级筛选器以及视觉对象级筛选器的行为存在一些误解。配置如下：移除列 `Brand` 的值等于 `B4` 的行。清单 1-4 显示了 Power BI Desktop 创建的查询（至少是重要部分）。
+
+```
+VAR __DS0FilterTable =
+FILTER(
+KEEPFILTERS(VALUES('simple table values'[Brand])),
+'simple table values'[Brand]  "B4"
+)
+VAR __DS0Core =
+SUMMARIZECOLUMNS(
+ROLLUPADDISSUBTOTAL('simple table values'[Brand], "IsGrandTotalRowTotal"),
+ROLLUPADDISSUBTOTAL('simple table values'[Color], "IsGrandTotalColumnTotal"),
+__DS0FilterTable,
+"SumAmount", CALCULATE(SUM('simple table values'[Amount]))
+)
+```
+清单 1-4 `FilterTable`
+
+这里需要注意的重要一点是创建了一个名为 `__DS0FilterTable` 的变量，该变量将在查询的所有后续部分中使用。
+
+为了更有趣，我将使用第三个报表页“第 1 章 – 隐式筛选器 – c”。这个报表页也有相同的页面级筛选器，但此外还有一个同样使用列 `Brand` 的切片器。在这里，我将选择品牌 `B1` 和 `B2`。图 1-8 显示了报表的外观。
+
+![../images/471413_1_En_1_Chapter/471413_1_En_1_Fig8_HTML.jpg](img/471413_1_En_1_Fig8_HTML.jpg)
+图 1-8 页面级筛选器和切片器
+
+清单 1-5 显示了查询的重要部分。
+
+```
+VAR __DS0FilterTable =
+FILTER(
+KEEPFILTERS(VALUES('simple table values'[Brand])),
+AND(
+'simple table values'[Brand] IN {"B2",
+"B1"},
+'simple table values'[Brand]  "B4"
+)
+)
+VAR __DS0Core =
+SUMMARIZECOLUMNS(
+ROLLUPADDISSUBTOTAL('simple table values'[Brand], "IsGrandTotalRowTotal"),
+ROLLUPADDISSUBTOTAL('simple table values'[Color], "IsGrandTotalColumnTotal"),
+__DS0FilterTable,
+"SumAmount", CALCULATE(SUM('simple table values'[Amount]))
+)
+```
+清单 1-5 `FilterTable` 页面级筛选器和切片器
+
+你可能想知道为什么这让我如此兴奋，或者为什么我觉得变量 `__DS0FilterTable` 这么有趣。但答案其实很简单。
+
+不可能创建一个能够显示这三个品牌 Amount 之和的度量。必要的是移除切片器隐式添加的筛选器，但保留来自页面级筛选器的筛选器。要创建这样的度量，就需要在数据模型中预先采取一些预防措施。
+
+### 规则
+
+无法移除来自切片器的筛选器，同时保留来自报表级筛选器或页面级筛选器的筛选器。
+
+### 显式筛选器
+
+每当我们需要编写度量值时，都必须应对计算上下文的挑战。计算上下文描述了度量值（以及计算列）被计算时所处的上下文。
+
+决定此上下文有两个组成部分：
+
+*   筛选上下文
+
+*   行上下文
+
+筛选上下文可以非常直观地展现；只需创建一个矩阵视觉对象，你就能欣赏到筛选上下文的全部魅力。行标题和列标题会被添加到 `FilterTable` 中，代表该单元格上下文中 DAX 公式计算时的筛选上下文。而行上下文有时则不那么明显。即使是创建一个简单的计算列，也可能变得很棘手。每当 `CALCULATE` 使用多个参数时，我们都需要通过提供显式筛选器来改变筛选上下文。
+
+这一点非常重要，因此我们专门用两个章节来讨论它：第 4 章“这个奇怪的上下文”和第 5 章“DAX 中的筛选”。
+
