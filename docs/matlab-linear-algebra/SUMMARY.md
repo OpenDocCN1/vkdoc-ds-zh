@@ -1,5 +1,5 @@
 +   [MATLAB 线性代数](README.md)
-+   [第 1 章：MATLAB 简介与工作环境](matlab-linear-algebra_1.md)
++   [1. MATLAB 简介与工作环境](matlab-linear-algebra_1.md)
 +   [2. 变量、数字、运算符与函数](matlab-linear-algebra_2.md)
 +   [3. 显式、参数和极坐标下的曲线。曲面](matlab-linear-algebra_3_0.md)
 +   [4. 代数表达式、多项式、方程与方程组](matlab-linear-algebra_3_1.md)
