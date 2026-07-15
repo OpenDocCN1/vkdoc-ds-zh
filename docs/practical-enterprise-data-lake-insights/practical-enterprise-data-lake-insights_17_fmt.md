@@ -345,3 +345,7 @@ Hadoop 在中间阶段会创建多个临时文件。临时数据大小约占原�
 ## 结论
 
 平稳且稳定的运维策略是数据湖之旅的基石。它让数据和分析社区有信心加入并开始无忧无虑地探索数据。一个破碎的数据湖运维方案会给数据治理委员会和业务领导层实现数据民主化的本质带来严峻挑战。
+
+# 参考文档
+
+[`https://Hadoop.apache.org/docs/r2.7.2/Hadoop-project-dist/Hadoop-common/Metrics.html`](https://hadoop.apache.org/docs/r2.7.2/Hadoop-project-dist/Hadoop-common/Metrics.html)
