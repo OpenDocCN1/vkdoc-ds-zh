@@ -534,3 +534,6 @@ Exact Solution of y(5)    : -43.4710530342
     ![$$ \frac{dy}{dx}=2{x}²+7x+6-y,y(0)=3,0\le x\le 5 $$](img/483991_1_En_4_Chapter_TeX_Equj.png)
 
     代码应在屏幕上输出 `y(5)` 的数值解。网格尺寸 (`h`) 应设置为 `h = 0.0005`。
+
+
+
