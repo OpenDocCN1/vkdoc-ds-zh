@@ -1,6 +1,4 @@
-# 第一部分：网络抓取基础
-
-## 1. 简介
+# 1. 简介
 
 在本章中，我们将向你介绍网络抓取的概念，并强调这一实践对数据科学家的用处。在展示了近年来网络抓取在各个领域和行业中的一些有趣用例之后，我们将通过准备你的编程环境，确保你已准备好开始网络抓取。
 
@@ -532,3 +530,8 @@ print(add(i, 10))
 *   用 Python 自动化处理无聊的事情：[`https://automatetheboringstuff.com/`](https://automatetheboringstuff.com/)
 *   Python 指南（The Hitchhiker’s Guide to Python）：[`http://docs.python-guide.org/en/latest/`](http://docs.python-guide.org/en/latest/)
 *   Python 入门第一步：[`https://realpython.com/learn/python-first-steps/`](https://realpython.com/learn/python-first-steps/)
+
+
+
+
+

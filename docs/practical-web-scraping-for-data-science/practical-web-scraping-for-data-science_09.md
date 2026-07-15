@@ -1,3 +1,814 @@
+# 9. 网络爬虫实践建议与示例
+
+- **检查你的浏览器**：如果你搞不清楚哪里出了问题，可以启动一个新的浏览器会话，并使用浏览器的开发者工具来跟进一个正常的网页会话——最好以“无痕模式”或“私密浏览”窗口打开（以确保你从一个空的 cookie 集合开始）。如果一切顺利，你应该也能模拟出相同的行为。记住，你可以使用 `curl` 和其他命令行工具来调试困难的情况。
+
+- **在采用完整的 JavaScript 引擎之前，先考虑内部 API**：在转向像 `Selenium` 这样更高级的解决方案之前，请检查浏览器的网络请求，看看你是否可以直接访问 JavaScript 使用的数据源。
+
+- **假设它会崩溃**：网页是一个动态的环境。确保你的抓取器编写方式能够在出现问题时提供早期且详细的警告。
+
+- **爬虫开发是困难的**：在编写高级爬虫时，为了创建一个健壮的爬虫，你很快需要整合数据库、处理脚本重启、监控、队列管理、时间戳等事宜。
+
+- **关于验证码**：如果页面显示验证码（`CAPTCHA`，全称“全自动区分计算机和人类的图灵测试”），这基本上是在宣告不欢迎任何爬虫。不过，也有应对方法。有些网站提供“验证码破解 API”（背后有真人操作，例如参见 [`http://www.deathbycaptcha.com`](http://www.deathbycaptcha.com)），以合理的价格提供快速破解服务。一些实际项目则使用 `Tesseract` 等 OCR 软件（参见 [`https://github.com/tesseract-ocr`](https://github.com/tesseract-ocr) 和 [`http://resources.infosecinstitute.com/case-study-cracking-online-banking-captcha-login-using-python/`](http://resources.infosecinstitute.com/case-study-cracking-online-banking-captcha-login-using-python/) 了解用例）来构建验证码破解器。你还可以找到利用深度学习（例如使用卷积神经网络）破解验证码的实现（参见 [`https://medium.com/towards-data-science/deep-learning-drops-breaking-captcha-20c8fc96e6a3`](https://medium.com/towards-data-science/deep-learning-drops-breaking-captcha-20c8fc96e6a3)、[`https://medium.com/@ageitgey/how-to-break-a-captcha-system-in-15-minutes-with-machine-learning-dbebb035a710`](https://medium.com/@ageitgey/how-to-break-a-captcha-system-in-15-minutes-with-machine-learning-dbebb035a710) 或 [`http://www.npr.org/sections/thetwo-way/2017/10/26/560082659/ai-model-fundamentally-cracks-captchas-scientists-say`](http://www.npr.org/sections/thetwo-way/2017/10/26/560082659/ai-model-fundamentally-cracks-captchas-scientists-say) 了解相关最新报道）。同时，最好验证一下验证码是在多次请求后出现还是随机出现，如果是后者，你可以实施退避或冷却策略，简单地等待一段时间再重试。本书不打算提供如何用自动化方法破解验证码的详尽概述，但下一章的最后一个示例会提供一些入门指导，教你如何利用深度学习破解验证码。
+
+- **工具有用，但并非全部有用**：市面上有各种公司提供“云爬取”解决方案，例如 `Scrapy`。使用这些方案的主要好处是你可以利用它们的服务器集群快速并行化爬虫。不过，不要过分信任昂贵的图形化爬取工具。在大多数情况下，它们只适用于基础页面，无法处理 `JavaScript`，或者构建出的爬取管道虽能工作，但使用了非常细粒度且具体的选择器规则，一旦网站 `HTML` 稍有变动，这些规则就会失效。
+
+- **爬取是一场猫鼠游戏**：一些网站为了防止爬取不遗余力。研究人员已经调查了 `Selenium` 或 `PhantomJS` 等浏览器与正常浏览器之间的各种差异（例如通过检查其请求头或 `JavaScript` 能力）。虽然可以绕过这些检查，但总会达到一个临界点，使得爬取特定网站变得极其困难。例如，参见 [`https://blog.shapesecurity.com/2015/01/22/detecting-phantomjs-based-visitors/`](https://blog.shapesecurity.com/2015/01/22/detecting-phantomjs-based-visitors/) 了解检测基于 `PhantomJS` 访问者的有趣概述，或参见 [`https://intoli.com/blog/making-chrome-headless-undetectable/`](https://intoli.com/blog/making-chrome-headless-undetectable/) 了解关于无头 `Chrome` 的类似概述。即使通过 `Selenium` 使用 `Chrome`，也存在专门的解决方案试图识别非人类行为模式，例如滚动、导航或点击速度过快，或者总是点击元素的中心位置等。在项目中你不太可能遇到太多此类情况，但请务必牢记这一点。
+
+- **谨记管理与法律问题，以及网络爬取在数据科学流程中的位置**：如前所述，要考虑网络爬取带来的数据质量、鲁棒性和部署挑战。同样，要记住当你开始严重依赖网络爬取或滥用它时，可能出现的法律问题。
+
+## 示例
+
+本章包含几个规模较大的网络爬虫示例。与之前章节中的大多数示例不同，这里的示例有双重目的。首先，它们展示了使用真实网站（而非精心策划的安全环境）的更多例子。到目前为止我们之所以没有使用太多真实示例，是因为网络具有动态性。本书涵盖的示例可能无法再提供完全相同的结果，或者在你阅读时已经失效。话虽如此，我们尝试选择了一系列对爬虫较为友好且不易变化的网站。这些示例的第二个目的是突出展示本书中各种概念如何“融合”并相互作用，同时也为一些有趣的数据科学导向的用例提供启示。
+
+本章包含以下示例：
+
+- **爬取 Hacker News**：此示例使用 `requests` 和 `Beautiful Soup` 爬取 `Hacker News` 首页。
+
+- **使用 Hacker News API**：此示例展示了如何通过 `requests` 使用 `API`，提供了一种替代方案。
+
+- **爬取 Quotes to Scrape**：此示例使用 `requests` 和 `Beautiful Soup`，并引入 `dataset` 库作为存储数据的简便工具。
+
+- **爬取 Books to Scrape**：此示例使用 `requests`、`Beautiful Soup` 以及 `dataset` 库，演示了如何避免重复存储结果地运行爬虫。
+
+- **爬取 GitHub 收藏数**：此示例使用 `requests` 和 `Beautiful Soup` 爬取 `GitHub` 仓库，展示如何使用 `requests` 执行登录，并再次强调我们关于法律问题的警告。
+
+- **爬取抵押贷款利率**：此示例使用 `requests` 从一个结构特别复杂的网站爬取抵押贷款利率。
+
+- **爬取并可视化 IMDB 评分**：此示例使用 `requests` 和 `Beautiful Soup` 获取电视剧集在 `IMDB` 上的评分列表。我们还引入了 `matplotlib` 库在 `Python` 中创建图表。
+
+- **抓取 IATA 航空公司信息**：本示例使用 `requests` 和 `Beautiful Soup` 从采用复杂网页表单的站点抓取航空公司信息。同时提供了使用 `Selenium` 的替代方案。抓取结果通过本示例介绍的 `pandas` 库转换为表格格式。
+
+- **抓取并分析网络论坛互动**：本示例使用 `requests` 和 `Beautiful Soup` 抓取网络论坛帖子，并使用 `dataset` 库存储。基于收集的结果，我们使用 `pandas` 和 `matplotlib` 创建展示用户活动的热力图。
+
+- **收集并聚类时装数据集**：本示例使用 `requests` 和 `Beautiful Soup` 下载一组时装图片。随后使用 `scikit-learn` 库对图片进行聚类分析。
+
+- **抓取亚马逊评论的情感分析**：本示例使用 `requests` 和 `Beautiful Soup` 从亚马逊抓取用户评论列表，并使用 `dataset` 库存储。然后使用 Python 的 `nltk` 和 `vaderSentiment` 库进行分析，并通过 `matplotlib` 绘制结果图表。
+
+-   **抓取并分析新闻文章**：本示例使用`Selenium`抓取新闻文章列表，并使用`dataset`库存储。随后通过使用`nltk`构建主题模型，将这些文章与一系列主题关联起来。
+-   **抓取并分析维基百科图谱**：在本示例中，我们扩展了维基百科爬虫，使用`requests`和`Beautiful Soup`抓取页面，并使用`dataset`库存储。随后我们利用这些数据使用`NetworkX`创建图谱，并通过`matplotlib`进行可视化。
+-   **抓取并可视化董事会成员关系图**：本示例使用`requests`和`Beautiful Soup`抓取标普 500 公司的董事会成员信息。使用`NetworkX`创建关系图，并通过`Gephi`进行可视化。
+-   **使用深度学习破解验证码**：本示例展示了如何利用卷积神经网络来破解验证码。
+
+### 源代码
+
+本书所有示例的源代码均可在配套网站上获取，网址为：[`http://www.webscrapingfordatascience.com`](http://www.webscrapingfordatascience.com/)。
+
+## 9.1 抓取 Hacker News
+
+我们将使用`requests`和`Beautiful Soup`抓取[`https://news.ycombinator.com/news`](https://news.ycombinator.com/news)的首页。如果你还不了解这个网站，请花些时间探索一下。Hacker News 是一个流行的新闻聚合器，聚合了“黑客”（计算机科学家、企业家、数据科学家）感兴趣的新闻。
+
+在本示例中，我们将抓取到的信息存储在一个由字典对象组成的简单 Python 列表中。抓取该页面的代码如下所示：
+
+```python
+import requests
+import re
+from bs4 import BeautifulSoup
+articles = []
+url = 'https://news.ycombinator.com/news'
+r = requests.get(url)
+html_soup = BeautifulSoup(r.text, 'html.parser')
+for item in html_soup.find_all('tr', class_="athing"):
+    item_a = item.find('a', class_="storylink")
+    item_link = item_a.get('href') if item_a else None
+    item_text = item_a.get_text(strip=True) if item_a else None
+    next_row = item.find_next_sibling('tr')
+    item_score = next_row.find('span', class_="score")
+    item_score = item_score.get_text(strip=True) if item_score else '0 points'
+
+    #### 我们在此使用正则表达式来定位正确的元素
+    item_comments = next_row.find('a', string=re.compile('\d+(&nbsp;|\s)comment(s?)'))
+    item_comments = item_comments.get_text(strip=True).replace('\xa0', ' ') \
+        if item_comments else '0 comments'
+    articles.append({
+        'link' : item_link,
+        'title' : item_text,
+        'score' : item_score,
+        'comments' : item_comments})
+for article in articles:
+    print(article)
+```
+
+这将输出以下内容：
+
+```
+{'link': 'http://moolenaar.net/habits.html', 'title': 'Seven habits of    effective text editing (2000)', 'score': '44 points', 'comments':     '9 comments'}
+{'link': 'https://www.repository.cam.ac.uk/handle/1810/251038', 'title': 'Properties of expanding universes (1966)', 'score': '52 points',     'comments': '8 comments'}
+[...]
+```
+
+尝试扩展此代码，以抓取评论页面的链接。思考一下，如果同时抓取评论本身（例如，在文本挖掘的背景下），可能会产生哪些潜在的用例。
+
+## 9.2 使用 Hacker News API
+
+请注意，Hacker News 还提供了一个 API，提供结构化的 JSON 格式结果（参见[`https://github.com/HackerNews/API`](https://github.com/HackerNews/API)）。让我们重新编写 Python 代码，使其充当 API 客户端，而无需依赖 Beautiful Soup 进行 HTML 解析：
+
+```python
+import requests
+articles = []
+url = 'https://hacker-news.firebaseio.com/v0'
+top_stories = requests.get(url + '/topstories.json').json()
+for story_id in top_stories:
+    story_url = url + '/item/{}.json'.format(story_id)
+    print('Fetching:', story_url)
+    r = requests.get(story_url)
+    story_dict = r.json()
+    articles.append(story_dict)
+for article in articles:
+    print(article)
+```
+
+这将输出以下内容：
+
+```
+Fetching: https://hacker-news.firebaseio.com/v0/item/15532457.json
+Fetching: https://hacker-news.firebaseio.com/v0/item/15531973.json
+Fetching: https://hacker-news.firebaseio.com/v0/item/15532049.json
+[...]
+{'by': 'laktak', 'descendants': 30, 'id': 15532457, 'kids': [15532761,
+15532768, 15532635, 15532727, 15532776, 15532626, 15532700, 15532634], 'score': 60, 'time': 1508759764, 'title': 'Seven habits of effective
+text editing (2000)', 'type': 'story', 'url': 'http://moolenaar.net/    habits.html'}
+[...]
+```
+
+## 9.3 待抓取的语录
+
+我们将使用`requests`和`Beautiful Soup`抓取[`http://quotes.toscrape.com`](http://quotes.toscrape.com/)。该页面由 Scrapinghub 提供，是一个更真实的抓取练习场。请花些时间探索该页面。我们将抓取所有信息，包括：
+
+*   语录，及其作者和标签；
+*   作者信息，即出生日期和地点，以及描述。
+
+我们将把这些信息存储在 SQLite 数据库中。我们将使用`dataset`库（参见[`https://dataset.readthedocs.io/en/latest/`](https://dataset.readthedocs.io/en/latest/)），而不是使用`records`库并编写手动 SQL 语句。该库提供了一个简单的抽象层，无需完整的 ORM 模型就能省去大多数直接的 SQL 语句，这样我们就可以像使用 CSV 或 JSON 文件一样使用数据库来快速存储一些信息。可以通过`pip`轻松安装 dataset：
+
+```bash
+pip install -U dataset
+```
+
+#### 并非完整的 ORM
+
+请注意，`dataset`并不打算取代像`SQLAlchemy`这样的完整 ORM（对象关系映射）库（尽管它在底层使用了`SQLAlchemy`）。它的目的仅在于快速地将一批数据存储在数据库中，而无需定义模式或编写 SQL。对于更高级的用例，最好考虑使用真正的 ORM 库，或者手动定义数据库模式并进行手动查询。
+
+抓取该网站的代码如下所示：
+
+```
+```python
+import requests
+import dataset
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin, urlparse
+
+db = dataset.connect('sqlite:///quotes.db')
+authors_seen = set()
+base_url = 'http://quotes.toscrape.com/'
+
+def clean_url(url):
+    # 将 '/author/Steve-Martin' 清理为 'Steve-Martin'
+    # 使用 `urljoin` 生成绝对 URL
+    url = urljoin(base_url, url)
+    # 使用 `urlparse` 提取路径部分
+    path = urlparse(url).path
+    # 现在按 '/' 分割路径并获取第二部分
+    # 例如：'/author/Steve-Martin' -> ['', 'author', 'Steve-Martin']
+    return path.split('/')[2]
+
+def scrape_quotes(html_soup):
+    for quote in html_soup.select('div.quote'):
+        quote_text = quote.find(class_='text').get_text(strip=True)
+        quote_author_url = clean_url(quote.find(class_='author') \
+            .find_next_sibling('a').get('href'))
+        quote_tag_urls = [clean_url(a.get('href'))
+                          for a in quote.find_all('a', class_="tag")]
+        authors_seen.add(quote_author_url)
+
+        # 存储此条引用及其标签
+        quote_id = db['quotes'].insert({
+            'text': quote_text,
+            'author': quote_author_url
+        })
+        db['quote_tags'].insert_many(
+            [{'quote_id': quote_id, 'tag_id': tag} for tag in quote_tag_urls]
+        )
+
+def scrape_author(html_soup, author_id):
+    author_name = html_soup.find(class_='author-title').get_text(strip=True)
+    author_born_date = html_soup.find(class_='author-born-date').get_text(strip=True)
+    author_born_loc = html_soup.find(class_='author-born-location').get_text(strip=True)
+    author_desc = html_soup.find(class_='author-description').get_text(strip=True)
+    db['authors'].insert({
+        'author_id': author_id,
+        'name': author_name,
+        'born_date': author_born_date,
+        'born_location': author_born_loc,
+        'description': author_desc
+    })
+
+# 从抓取所有引用页面开始
+url = base_url
+while True:
+    print('现在正在抓取页面：', url)
+    r = requests.get(url)
+    html_soup = BeautifulSoup(r.text, 'html.parser')
+    # 抓取引用
+    scrape_quotes(html_soup)
+    # 是否有下一页？
+    next_a = html_soup.select('li.next > a')
+    if not next_a or not next_a[0].get('href'):
+        break
+    url = urljoin(url, next_a[0].get('href'))
+
+# 现在提取作者信息
+for author_id in authors_seen:
+    url = urljoin(base_url, '/author/' + author_id)
+    print('现在正在抓取作者：', url)
+    r = requests.get(url)
+    html_soup = BeautifulSoup(r.text, 'html.parser')
+    # 抓取作者信息
+    scrape_author(html_soup, author_id)
+```
+
+这会输出以下内容：
+
+```
+现在正在抓取页面：http://quotes.toscrape.com/
+现在正在抓取页面：http://quotes.toscrape.com/page/2/
+现在正在抓取页面：http://quotes.toscrape.com/page/3/
+现在正在抓取页面：http://quotes.toscrape.com/page/4/
+现在正在抓取页面：http://quotes.toscrape.com/page/5/
+现在正在抓取页面：http://quotes.toscrape.com/page/6/
+现在正在抓取页面：http://quotes.toscrape.com/page/7/
+现在正在抓取页面：http://quotes.toscrape.com/page/8/
+现在正在抓取页面：http://quotes.toscrape.com/page/9/
+现在正在抓取页面：http://quotes.toscrape.com/page/10/
+现在正在抓取作者：http://quotes.toscrape.com/author/Ayn-Rand
+现在正在抓取作者：http://quotes.toscrape.com/author/E-E-Cummings
+[...]
+```
+
+请注意，本代码仍有多种方法可以使其更加健壮。我们在抓取引用或作者页面时，并没有检查是否存在 `None` 结果。此外，我们使用 `dataset` 库来简单地在三个表中插入行。在这种情况下，`dataset` 会自动递增主键 `id`。因此，如果你想再次运行此脚本，必须首先清理数据库以重新开始，或者修改脚本以允许从中断处继续执行或正确更新结果。在后面的示例中，我们将使用 `dataset` 的 `upsert` 方法来实现这一点。
+
+脚本运行完毕后，你可以使用 SQLite 客户端（例如 `DB Browser for SQLite`）查看数据库 (`quotes.db`)，该客户端可从 [http://sqlitebrowser.org/](http://sqlitebrowser.org/) 获取。图 9-1 展示了该工具的实际运行情况。
+
+![A463931_1_En_9_Fig1_HTML.jpg](img/A463931_1_En_9_Fig1_HTML.jpg)
+
+图 9-1 使用 `DB Browser for SQLite` 探索 SQLite 数据库
+
+### 9.4 待爬取书籍
+
+我们将使用 `requests` 和 `BeautifulSoup` 抓取 [http://books.toscrape.com](http://books.toscrape.com/)。该页面由 Scrapinghub 提供，是一个更真实的爬取练习场。请花一些时间探索这个页面。我们将抓取所有信息，即每本书会获取以下内容：
+
+*   书名；
+
+*   封面图；
+
+*   价格和库存情况；
+
+*   评分；
+
+*   产品描述；
+
+*   其他产品信息。
+
+我们将把这些信息存储到 SQLite 数据库中，同样使用 `dataset` 库。不过，这次我们要将程序编写为能够处理更新的方式——这样我们就可以多次运行它，而不会在数据库中插入重复记录。
+
+抓取该网站的代码如下所示：
+```
+
+```markdown
+#### 抓取目录中的页面
+```python
+import requests
+import dataset
+import re
+from datetime import datetime
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin, urlparse
+
+db = dataset.connect('sqlite:///books.db')
+base_url = 'http://books.toscrape.com/'
+
+def scrape_books(html_soup, url):
+    for book in html_soup.select('article.product_pod'):
+        # 目前只存储书籍的 URL
+        book_url = book.find('h3').find('a').get('href')
+        book_url = urljoin(url, book_url)
+        path = urlparse(book_url).path
+        book_id = path.split('/')[2]
+        # upsert 优先尝试更新，然后才执行插入操作
+        db['books'].upsert({'book_id' : book_id,
+                            'last_seen' : datetime.now()
+                          }, ['book_id'])
+
+def scrape_book(html_soup, book_id):
+    main = html_soup.find(class_='product_main')
+    book = {}
+    book['book_id'] = book_id
+    book['title'] = main.find('h1').get_text(strip=True)
+    book['price'] = main.find(class_='price_color').get_text(strip=True)
+    book['stock'] = main.find(class_='availability').get_text(strip=True)
+    book['rating'] = ' '.join(main.find(class_='star-rating') \
+        .get('class')).replace('star-rating', '').strip()
+    book['img'] = html_soup.find(class_='thumbnail').find('img').get('src')
+    desc = html_soup.find(id='product_description')
+    book['description'] = ''
+    if desc:
+        book['description'] = desc.find_next_sibling('p') \
+            .get_text(strip=True)
+    info_table = html_soup.find(string='Product Information').find_next('table')
+    for row in info_table.find_all('tr'):
+        header = row.find('th').get_text(strip=True)
+        # 由于我们将使用表头作为列名，对其进行清理
+        # 以确保 SQLite 能够接受
+        header = re.sub('[^a-zA-Z]+', '_', header)
+        value = row.find('td').get_text(strip=True)
+        book[header] = value
+    db['book_info'].upsert(book, ['book_id'])
+
+url = base_url
+inp = input('是否要重新抓取目录（y/n）？')
+while True and inp == 'y':
+    print('现在正在抓取页面：', url)
+    r = requests.get(url)
+    html_soup = BeautifulSoup(r.text, 'html.parser')
+    scrape_books(html_soup, url)
+    # 是否有下一页？
+    next_a = html_soup.select('li.next > a')
+    if not next_a or not next_a[0].get('href'):
+        break
+    url = urljoin(url, next_a[0].get('href'))
+
+#### 现在逐本书进行抓取，按最早出现顺序排列
+books = db['books'].find(order_by=['last_seen'])
+for book in books:
+    book_id = book['book_id']
+    book_url = base_url + 'catalogue/{}'.format(book_id)
+    print('现在正在抓取书籍：', book_url)
+    r = requests.get(book_url)
+    r.encoding = 'utf-8'
+    html_soup = BeautifulSoup(r.text, 'html.parser')
+    scrape_book(html_soup, book_id)
+```
+
+#### 更新最后查看时间戳
+```python
+db['books'].upsert({'book_id' : book_id,
+'last_seen' : datetime.now()
+}, ['book_id'])
+```
+脚本执行完成后，请记住你可以使用例如 `DB Browser for SQLite` 之类的工具查看数据库（`books.db`）。注意此示例中使用了 `dataset` 库的 `upsert` 方法。该方法会尝试更新已有记录（通过将给定字段名列表与现有记录进行匹配），否则会插入一条新记录。
+
+### 9.5 爬取 GitHub Stars
+我们将使用 `requests` 和 `Beautiful Soup` 来爬取 [`https://github.com`](https://github.com/)。我们的目标是，针对给定的 GitHub 用户名（例如 [`https://github.com/google`](https://github.com/google)），获取包含仓库列表、GitHub 分配的主要编程语言以及仓库星标数量的信息。这个爬虫的基本结构相当简单：
+```python
+import requests
+from bs4 import BeautifulSoup
+import re
+
+session = requests.Session()
+url = 'https://github.com/{}'
+username = 'google'
+r = session.get(url.format(username), params={'page': 1, 'tab': 'repositories'})
+html_soup = BeautifulSoup(r.text, 'html.parser')
+repos = html_soup.find(class_='repo-list').find_all('li')
+for repo in repos:
+    name = repo.find('h3').find('a').get_text(strip=True)
+    language = repo.find(attrs={'itemprop': 'programmingLanguage'})
+    language = language.get_text(strip=True) if language else 'unknown'
+    stars = repo.find('a', attrs={'href': re.compile('\/stargazers')})
+    stars = int(stars.get_text(strip=True).replace(',', '')) if stars else 0
+    print(name, language, stars)
+```
+运行这段代码会输出：
+```
+sagetv Java 192
+ggrc-core Python 233
+gapid Go 445
+certificate-transparency-rfcs Python 55
+mtail Go 936
+[...]
+```
+
+然而，如果我们尝试爬取普通用户的页面，这段代码就会失败。Google 的 GitHub 账户是企业账户，其显示方式与普通用户账户略有不同。你可以将 `username` 变量设置为 `Macuyiko`（本书作者之一）来测试这一点。因此我们需要调整代码以处理这两种情况：
+
+```
+import requests
+from bs4 import BeautifulSoup
+import re
+session = requests.Session()
+url = 'https://github.com/{}'
+username = 'Macuyiko'
+r = session.get(url.format(username), params={'page': 1, 'tab': 'repositories'})
+html_soup = BeautifulSoup(r.text, 'html.parser')
+is_normal_user = False
+repos_element = html_soup.find(class_='repo-list')
+if not repos_element:
+is_normal_user = True
+repos_element = html_soup.find(id='user-repositories-list')
+repos = repos_element.find_all('li')
+for repo in repos:
+name = repo.find('h3').find('a').get_text(strip=True)
+language = repo.find(attrs={'itemprop': 'programmingLanguage'})
+language = language.get_text(strip=True) if language else 'unknown'
+stars = repo.find('a', attrs={'href': re.compile('\/stargazers')})
+stars = int(stars.get_text(strip=True).replace(',', '')) if stars else 0
+print(name, language, stars)
+```
+
+运行这段代码会输出：
+
+```
+macuyiko.github.io HTML 0
+blog JavaScript 1
+minecraft-python JavaScript 14
+[...]
+```
+
+作为额外练习，尝试修改此代码，以便在仓库页面被分页时（例如 Google 账户的情况）能够爬取所有页面。
+
+最后一个附加练习：你会注意到，像 [`https://github.com/Macuyiko?tab=repositories`](https://github.com/Macuyiko?tab=repositories) 这样的用户页面还附带一段简短的简介，其中（在某些情况下）包含电子邮件地址。但是，这个电子邮件地址只有在我们登录 GitHub 后才能看到。下面，我们将尝试获取这些信息。
+
+### 警告
+
+这种寻找高星标 GitHub 个人资料并提取联系信息的做法经常被招聘公司使用。尽管如此，请注意我们现在将要登录 GitHub，并且正在跨越公共信息与私人信息之间的界限。请将此视为一个演示如何在 Python 中实现该操作的练习。考虑到法律因素，建议你只爬取自己的个人资料信息，并且在完全了解潜在影响之前，不要大规模部署此类爬虫。关于爬取合法性的详细信息，请参考关于法律问题的章节。
+
+如果你还没有 GitHub 账户，需要先创建一个。首先，我们从登录页面获取登录表单：
+
+```
+import requests
+from bs4 import BeautifulSoup
+session = requests.Session()
+url = 'https://github.com/{}'
+username = 'Macuyiko'
+##### 访问登录页面
+r = session.get(url.format('login'))
+html_soup = BeautifulSoup(r.text, 'html.parser')
+form = html_soup.find(id='login')
+print(form)
+```
+
+运行这段代码会输出：
+
+```
+  -->
+```
+
+这并非我们预期的结果。查看页面源代码，我们发现该页面格式有些奇怪：
+
+```
+ -->
+
+Sign in to GitHub
+
+[...]
+
+```
+
+以下修改确保我们能获取到页面中的表单：
+
+```
+import requests
+from bs4 import BeautifulSoup
+session = requests.Session()
+url = 'https://github.com/{}'
+username = 'Macuyiko'
+##### 访问登录页面
+r = session.get(url.format('login'))
+html_soup = BeautifulSoup(r.text, 'html.parser')
+data = {}
+for form in html_soup.find_all('form'):
+##### 获取隐藏的表单字段
+for inp in form.select('input[type=hidden]'):
+data[inp.get('name')] = inp.get('value')
+##### 设置你的登录详细信息：
+data.update({'login': '', 'password': ''})
+print('将使用以下 POST 数据进行登录：')
+print(data)
+if input('是否要登录 (y/n): ') == 'y':
+##### 执行登录
+r = session.post(url.format('session'), data=data)
+```
+
+### 获取个人资料页面
+
+`r = session.get(url.format(username))`
+
+`html_soup = BeautifulSoup(r.text, 'html.parser')`
+
+`user_info = html_soup.find(class_='vcard-details')`
+
+`print(user_info.text)`
+
+### 浏览器也有漏洞
+
+如果你一直在使用 Chrome，可能会好奇为什么在用 Chrome 开发者工具跟进登录流程时看不到表单数据。原因在于 Chrome 存在一个漏洞：当 POST 请求的状态码对应重定向时，该漏洞会阻止表单数据显示在开发者工具中。POST 数据实际上仍在发送，只是你无法在开发者工具选项卡中看到它。当你阅读本文时，这个漏洞可能已被修复，但这恰恰说明浏览器本身也会存在漏洞。
+
+运行这段代码会输出：
+
+```
+Going to login with the following POST data:
+{'utf8': 'V',
+'authenticity_token': 'zgndmzes [...]',
+'login': 'YOUR_USER_NAME',
+'password': 'YOUR_PASSWORD'}
+Do you want to login (y/n): y
+KU Leuven
+Belgium
+macuyiko@gmail.com
+http://blog.macuyiko.com
+```
+
+### 明文密码
+
+毋庸置疑，在实际脚本中将密码以明文形式硬编码在 Python 文件（或其他程序）中是不可取的。在真实的部署环境中，你的代码可能会被共享给他人，请务必修改脚本，使其能从安全的数据存储中获取凭据（例如操作系统环境变量、文件或数据库，最好进行加密）。可以参考 `pip` 中的 `secureconfig` 库来了解具体实现方法。
+
+![A463931_1_En_9_Fig2_HTML.jpg](img/A463931_1_En_9_Fig2_HTML.jpg)
+
+图 9-2
+
+巴克莱银行抵押贷款模拟器通过 JavaScript 提交 POST 请求，并将请求数据嵌入为 JSON 格式
+
+### 9.6 抓取抵押贷款利率
+
+我们将要抓取巴克莱银行提供的抵押贷款模拟器，网址是 [`https://www.barclays.co.uk/mortgages/mortgage-calculator/`](https://www.barclays.co.uk/mortgages/mortgage-calculator/)。选择这家金融服务提供商并非特殊原因，只是因为它运用了一些有趣的技术，正好可以作为很好的示例。
+
+花点时间浏览一下这个网站（使用“What would it cost?”功能）。系统会要求我们填写一些参数，之后就能看到希望抓取的可选产品概览。
+
+如果你同时打开浏览器的开发者工具，会注意到一个 POST 请求被发送到 `https://www.barclays.co.uk/dss/service/co.uk/mortgages/costcalculator/productservice`，它有一个有趣的特性：执行 POST 请求的页面 JavaScript 在 `Content-Type` 头部中使用了 `application/json` 值，并将 POST 数据以纯 JSON 格式包含在内；参见图 9-2。对于 `requests` 库来说，这种情况下 `data` 参数无法生效，因为它会对 POST 数据进行编码。相反，我们需要使用 `json` 参数，这基本上会指示 `requests` 将 POST 数据格式化为 JSON。
+
+此外，你会注意到结果页面虽然以相对复杂的表格形式呈现（每个条目都有“Show more”链接），但 POST 请求返回的响应实际上是一个格式规整的 JSON 对象；参见图 9-3，因此我们可能根本不需要使用 Beautiful Soup 来访问这个“内部 API”。
+
+![A463931_1_En_9_Fig3_HTML.jpg](img/A463931_1_En_9_Fig3_HTML.jpg)
+
+图 9-3
+
+POST 响应数据同样以格式规整的 JSON 返回
+
+让我们通过 Python 实现来看一下会得到什么响应：
+
+```
+import requests
+url = 'https://www.barclays.co.uk/dss/service/co.uk/mortgages/' + \
+'costcalculator/productservice'
+session = requests.Session()
+estimatedPropertyValue = 200000
+repaymentAmount = 150000
+months = 240
+data = {"header": {"flowId":"0"},
+"body":
+{"wantTo":"FTBP",
+"estimatedPropertyValue":estimatedPropertyValue,
+"borrowAmount":repaymentAmount,
+"interestOnlyAmount":0,
+"repaymentAmount":repaymentAmount,
+"ltv":round(repaymentAmount/estimatedPropertyValue*100),
+"totalTerm":months,
+"purchaseType":"Repayment"}}
+r = session.post(url, json=data)
+print(r.json())
+```
+
+运行这段代码会输出：
+
+```
+{'header':
+{'result': 'error', 'systemError':
+{'errorCode': 'DSS_SEF001', 'type': 'E',
+'severity': 'FRAMEWORK',
+'errorMessage': 'State details not found in database',
+'validationErrors': [],
+'contentType': 'application/json', 'channel': '6'}
+}}
+```
+
+看起来不太对劲。请记住，当我们没有得到预期的结果时，可以尝试以下几种方法：
+
+- 检查是否漏掉了某些 `Cookie`。例如，我们可能需要先访问入口页面，或者可能存在由 JavaScript 设置的 Cookie。如果在浏览器中检查请求，你会发现存在大量 Cookie。
+
+- 检查是否漏掉了某些头部信息，或者是否需要伪造一些头部。
+
+- 如果以上方法都无效，最后可以求助于 Selenium 来实现完整的浏览器行为。
+
+在这个特定情况下，请求中包含了很多 Cookie，其中一些是通过常规的 `Set-Cookie` 头部设置的，但许多是通过页面中引入的大量 JavaScript 文件设置的。由于这些 JavaScript 经过了混淆处理，想要理清它们确实非常困难。不过，POST 请求中由 JavaScript 设置并包含的某些特殊头部似乎与错误信息有关。让我们尝试包含这些头部，同时伪造 `User-Agent` 和 `Referer` 头部：
+
+```
+import requests
+url = 'https://www.barclays.co.uk/dss/service/co.uk/mortgages/' + \
+'costcalculator/productservice'
+session = requests.Session()
+session.headers.update({
+#### 这些是非常规头部，我们将其包含进来
+'currentState': 'default_current_state',
+'action': 'default',
+'Origin': 'https://www.barclays.co.uk',
+#### 伪造 referer、用户代理和 X-Requested-With
+'Referer': 'https://www.barclays.co.uk/mortgages/mortgage-calculator/',
+'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' + ' (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36',
+'X-Requested-With': 'XMLHttpRequest',
+})
+estimatedPropertyValue = 200000
+repaymentAmount = 150000
+months = 240
+data = {"header": {"flowId":"0"},
+"body":
+{"wantTo":"FTBP",
+"estimatedPropertyValue":estimatedPropertyValue,
+"borrowAmount":repaymentAmount,
+"interestOnlyAmount":0,
+"repaymentAmount":repaymentAmount,
+"ltv":round(repaymentAmount/estimatedPropertyValue*100),
+"totalTerm":months,
+"purchaseType":"Repayment"}}
+r = session.post(url, json=data)
+#### 仅打印头部以避免输出过长
+print(r.json()['header'])
+```
+
+这似乎奏效了！实际上，在这个例子中我们发现根本不需要包含任何 Cookie。现在我们可以清理一下代码：
+
+```
+import requests
+def get_mortgages(estimatedPropertyValue, repaymentAmount, months):
+url = 'https://www.barclays.co.uk/dss/service/' + \
+'co.uk/mortgages/costcalculator/productservice'
+headers = {
+#### 这些是非常规头部，我们将其包含进来
+'currentState': 'default_current_state',
+'action': 'default',
+'Origin': 'https://www.barclays.co.uk',
+```
+
+#### 伪造 Referer、User-Agent 和 X-Requested-With
+
+```markdown
+# 9.6 抓取与处理结构化数据
+
+```python
+'Referer': 'https://www.barclays.co.uk/mortgages/mortgage-calculator/',
+'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' + ' (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36',
+'X-Requested-With': 'XMLHttpRequest',
+}
+data = {"header": {"flowId":"0"},
+"body":
+{"wantTo":"FTBP",
+"estimatedPropertyValue":estimatedPropertyValue,
+"borrowAmount":repaymentAmount,
+"interestOnlyAmount":0,
+"repaymentAmount":repaymentAmount,
+"ltv":round(repaymentAmount/estimatedPropertyValue*100),
+"totalTerm":months,
+"purchaseType":"Repayment"}}
+r = requests.post(url, json=data, headers=headers)
+results = r.json()
+return results['body']['mortgages']
+mortgages = get_mortgages(200000, 150000, 240)
+
+# 打印第一条抵押贷款信息
+print(mortgages[0])
+```
+
+运行此代码将输出：
+
+```python
+{'mortgageName': '5 Year Fixed', 'mortgageId': '1321127853346',
+'ctaType': None, 'uniqueId': '590b357e295b0377d0fb607b',
+'mortgageType': 'FIXED',
+'howMuchCanBeBorrowedNote': '95% (max) of the value of your home',
+'initialRate': 4.99, 'initialRateTitle': '4.99%',
+'initialRateNote': 'until 31st January 2023',
+[...]
+```
+
+## 9.7 抓取与可视化 IMDB 评分
+
+接下来的系列示例将转向包含更多数据科学导向的用例。我们将从简单的任务开始——使用 IMDB（互联网电影数据库）抓取电视剧剧集的评论列表。我们以《权力的游戏》为例，其剧集列表可在 `http://www.imdb.com/title/tt0944947/episodes` 找到。请注意，IMDB 的概览页面分布在多个页面（按季或按年），因此我们使用一个额外的循环遍历想要获取的剧集：
+
+```python
+import requests
+from bs4 import BeautifulSoup
+url = 'http://www.imdb.com/title/tt0944947/episodes'
+episodes = []
+ratings = []
+
+# 遍历第 1 季到第 7 季
+for season in range(1, 8):
+    r = requests.get(url, params={'season': season})
+    soup = BeautifulSoup(r.text, 'html.parser')
+    listing = soup.find('div', class_="eplist")
+    for epnr, div in enumerate(listing.find_all('div', recursive=False)):
+        episode = "{}.{}".format(season, epnr + 1)
+        rating_el = div.find(class_='ipl-rating-star__rating')
+        rating = float(rating_el.get_text(strip=True))
+        print('剧集:', episode, '-- 评分:', rating)
+        episodes.append(episode)
+        ratings.append(rating)
+```
+
+然后，我们可以使用 `matplotlib` 来绘制抓取到的评分。`matplotlib` 是一个广为人知的 Python 绘图库，可以通过 `pip` 轻松安装：
+
+```
+pip install -U matplotlib
+```
+
+## 使用 Python 绘图
+
+当然，你也可用 Excel 等工具复现下面的图表，但本示例仅作为入门介绍，因为我们在后续的示例中还会继续使用 `matplotlib`。请注意，这绝不是在 Python 中唯一的绘图库，甚至不是最易用的，但它仍然是最流行的绘图库之一。也可以看看其他优秀的库，如 Seaborn (`https://seaborn.pydata.org/`)、Altair (`https://altair-viz.github.io/`) 和 ggplot (`http://ggplot.yhathq.com/`)。
+
+将以下代码行添加到我们的脚本中，即可将结果绘制成一个简单的柱状图，如图 9-4 所示。
+
+![A463931_1_En_9_Fig4_HTML.jpg](img/A463931_1_En_9_Fig4_HTML.jpg)
+
+**图 9-4** 使用 `matplotlib` 绘制每集 IMDB 评分
+
+添加如下代码：
+
+```python
+import matplotlib.pyplot as plt
+episodes = ['S' + e.split('.')[0] if int(e.split('.')[1]) == 1 else '' \
+for e in episodes]
+plt.figure()
+positions = [a*2 for a in range(len(ratings))]
+plt.bar(positions, ratings, align="center")
+plt.xticks(positions, episodes)
+plt.show()
+```
+
+## 9.8 抓取 IATA 航空公司信息
+
+我们将使用 `http://www.iata.org/publications/Pages/code-search.aspx` 上的搜索表单来抓取航空公司信息。这是一个有趣的案例，用以说明某些网站的“棘手之处”，尽管我们想要使用的表单看起来极其简单（页面上只显示一个下拉菜单和一个文本字段）。正如 URL 所示，驱动此页面的 Web 服务器基于 ASP.NET (`.aspx`) 构建，它在处理表单数据方面有着非常独特的机制。
+
+建议你尝试使用浏览器提交此表单，并通过开发者工具观察发生了什么。如图 9-5 所示，似乎有大量的表单数据被包含在 POST 请求中——远远多于我们看到的两个字段。
+
+![A463931_1_En_9_Fig5_HTML.jpg](img/A463931_1_En_9_Fig5_HTML.jpg)
+
+**图 9-5** 提交 IATA 表单包含了大量表单数据
+
+显然，手动在 Python 脚本中包含所有这些字段是不可行的。例如，`__VIEWSTATE` 字段包含会话信息，每次请求都会发生变化。甚至某些字段的名称似乎包含了一些我们无法确定未来是否会改变的部分，这会导致我们的脚本出错。此外，我们似乎还需要跟踪 Cookie。最后，看看 POST 请求返回的响应内容。这看起来像是一个部分响应（将由 JavaScript 解析并显示），而不是一个完整的 HTML 页面：
+
+```
+1|#||4|1330|updatePanel|ctl00_SPWebPartManager1_g_e3b09024_878e
+[...]
+MSOSPWebPartManager_StartWebPartEditingName|false|5|hiddenField|
+MSOSPWebPartManager_EndWebPartEditing|false|
+```
+
+为了解决这些问题，我们将尝试使代码尽可能健壮。首先，我们将使用 `requests` 的会话机制向搜索页面发起一个 `GET` 请求。接下来，我们将使用 `BeautifulSoup` 提取所有表单元素及其名称和值：
+```
+
+```python
+import requests
+from bs4 import BeautifulSoup
+url = 'http://www.iata.org/publications/Pages/code-search.aspx'
+session = requests.Session()
+
+#### 作为预防措施，伪造用户代理
+session.headers.update({
+'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' + ' (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36'
+})
+
+#### 获取搜索页面
+r = session.get(url)
+html_soup = BeautifulSoup(r.text, 'html.parser')
+form = html_soup.find(id='aspnetForm')
+
+#### 获取表单字段
+data = {}
+for inp in form.find_all(['input', 'select']):
+    name = inp.get('name')
+    value = inp.get('value')
+    if not name:
+        continue
+    data[name] = value if value else ''
+print(data, end="\n\n\n")
+```
+
+这将输出以下内容：
+
+```python
+{'_wpcmWpid': '',
+'wpcmVal': '',
+'MSOWebPartPage_PostbackSource': '',
+'MSOTlPn_SelectedWpId': '',
+'MSOTlPn_View': '0',
+'MSOTlPn_ShowSettings': 'False',
+'MSOGallery_SelectedLibrary': '',
+'MSOGallery_FilterString': '',
+'MSOTlPn_Button': 'none',
+'__EVENTTARGET': '',
+'__EVENTARGUMENT': '',
+[...]
+```
+
+接下来，我们将使用收集到的表单数据执行一个 POST 请求。不过，我们还需要为下拉菜单和文本框设置正确的值。我们在脚本中添加以下代码行：
+
+```python
+#### 设置我们想要搜索的查询条件
+for name in data.keys():
+    # 搜索方式
+    if 'ddlImLookingFor' in name:
+        data[name] = 'ByAirlineName'
+    # 航空公司名称
+    if 'txtSearchCriteria' in name:
+        data[name] = 'Lufthansa'
+```
+
 # 执行 POST 请求  
 
 执行 `r = session.post(url, data=data)`  
