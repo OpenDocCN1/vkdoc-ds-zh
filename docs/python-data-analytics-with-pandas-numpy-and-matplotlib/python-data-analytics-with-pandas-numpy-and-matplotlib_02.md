@@ -715,7 +715,7 @@ $ pip unistall >
 
 
 
-# 第二章：Python 世界的基本要素
+
 
 在简要介绍数据分析领域后，我们进入 Python 的世界。本章将探讨构成 Python 生态系统的基本要素。
 
@@ -755,3 +755,7 @@ $ pip unistall >
 此外，本章着重说明了 Python 的模块化特性——能够通过外部库扩展 Python 提供的基本标准函数集。在这方面，我们介绍了 `PyPI` 在线仓库以及其他 Python 发行版，如 `Anaconda` 和 `Enthought Canopy`。
 
 在下一章中，你将学习第一个库 `NumPy`，它是 Python 中所有数值计算的基础。你将了解 `ndarray` 这种数据结构，它是后续章节数据分析中使用的更复杂数据结构的基础。
+
+
+
+

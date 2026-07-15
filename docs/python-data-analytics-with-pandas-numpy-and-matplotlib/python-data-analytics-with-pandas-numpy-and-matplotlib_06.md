@@ -1,3 +1,9 @@
+# 7. 使用 matplotlib 和 Seaborn 进行数据可视化
+
+前面的章节介绍了负责数据处理的 Python 库，本章将介绍负责可视化的库。你首先会全面了解`matplotlib`库，然后本章以`seaborn`库作为结尾，该库通过引入统计图形元素来扩展`matplotlib`。
+
+数据可视化在数据分析中经常被低估，但它是一个非常重要的因素，因为不正确或低效的数据表示可能会毁掉一个原本出色的分析。
+
 # matplotlib 库
 
 `matplotlib` 是一个专注于开发二维图表（含 3D 图表）的 Python 库。近年来，它在科学和工程领域得到了广泛的应用（[`https://matplotlib.org/`](https://matplotlib.org/)）。
@@ -1870,3 +1876,6 @@ sns.barplot(data=df_unpivot, x='type', y='value', hue='variable')
 
 本章结束了本书中关于提供执行数据分析基础工具的库的部分。在下一章中，你将开始学习与数据分析关系最密切的主题。
 ```
+
+
+
