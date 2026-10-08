@@ -3,7 +3,7 @@
 +   [1. 人工智能系统概览](advanced-data-analytics-using-python_1_fmt.md)
 +   [2. 使用 Python 进行 ETL](advanced-data-analytics-using-python_2_fmt.md)
 +   [3. 特征工程与监督学习](advanced-data-analytics-using-python_3_fmt.md)
-+   [无监督学习：聚类](advanced-data-analytics-using-python_4_fmt.md)
++   [4. 无监督学习：聚类](advanced-data-analytics-using-python_4_fmt.md)
 +   [5. 深度学习与神经网络](advanced-data-analytics-using-python_5_fmt.md)
 +   [6. 时间序列](advanced-data-analytics-using-python_6_fmt.md)
 +   [7. 大规模分析](advanced-data-analytics-using-python_7_fmt.md)
