@@ -1,0 +1,56 @@
+chapter_starts:
+- 'no': 2965
+  confidence: 0.98
+  final_reason: 双方一致 + 格式语义特征完全符合（Markdown H1标题，序号连贯，后接章节概述）
+  accepted_evidence:
+  - 以 '# ' 开头，属于全书最高层级标题
+  - 序号 '6' 连贯
+  - 上下文为章节起始模式：前文为过渡语，后文为 '本章将解释...'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3561
+  confidence: 0.98
+  final_reason: 双方一致 + 格式语义特征完全符合（Markdown H1标题，序号连贯，后接章节概述）
+  accepted_evidence:
+  - 以 '# ' 开头，属于全书最高层级标题
+  - 序号 '7' 连贯
+  - 上下文包含 '本章探讨...' 及学习目标列表
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3874
+  confidence: 0.98
+  final_reason: 双方一致 + 格式语义特征完全符合（Markdown H1标题，序号连贯，后接章节概述）
+  accepted_evidence:
+  - 以 '# ' 开头，属于全书最高层级标题
+  - 序号 '8' 连贯
+  - 上下文承接上一章的过渡语，并包含本章概述
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4275
+  confidence: 0.98
+  final_reason: 双方一致 + 格式语义特征完全符合（Markdown H1标题，序号连贯，后接章节概述）
+  accepted_evidence:
+  - 以 '# ' 开头，属于全书最高层级标题
+  - 序号 '9' 连贯
+  - 上下文包含回顾上一章及 '你将学习如何：' 列表
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4949
+  confidence: 0.98
+  final_reason: 双方一致 + 格式语义特征完全符合（Markdown H1标题，序号连贯，后接章节概述）
+  accepted_evidence:
+  - 以 '# ' 开头，属于全书最高层级标题
+  - 序号 '10' 连贯
+  - 上下文承接上一章过渡语，并包含本章学习目标
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5603
+  confidence: 0.98
+  final_reason: 双方一致 + 格式语义特征完全符合（Markdown H1标题，序号连贯，后接章节概述）
+  accepted_evidence:
+  - 以 '# ' 开头，属于全书最高层级标题
+  - 序号 '11' 连贯
+  - 上下文承接上一章过渡语，并包含 '模型构建有助于...' 概述
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

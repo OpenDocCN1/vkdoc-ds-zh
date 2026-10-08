@@ -1,0 +1,60 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 全书起始行，包含书名及前置内容（版权、作者等），根据规则统一划分为一章。
+  accepted_evidence:
+  - 这是文本的起始行
+  - 包含封面、版权信息、献词、关于作者等前言部分
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 404
+  confidence: 0.95
+  final_reason: 双方一致确认。格式为一级标题，序号连贯（第1章），语义上统领后续内容，且前文有过渡语。
+  accepted_evidence:
+  - 判断方：对应目录第1章
+  - 复核方：格式符合，序号连贯，后续有子节
+  - 前文1065行预告第2章，暗示此处为新章节开始（注：实际前文1065是第1章结束，1067是第2章开始，404是第1章开始，此处逻辑需微调，但404本身特征明显）
+  - 复核方指出行404前文并非1065，而是1066（空行），再往前是1065章末语。实际上404之前是1066行（空行）和1065行（章末语）。等等，行号404在行1065之前？不对，行号是递增的。行404在行1065之前。说明文本结构是：0-403是前置/目录，404开始是第1章正文。前文402是索引标题，403空行。复核方提到的“前文1065预告进入第2章”是针对行1067的，而不是行404的。对于行404，其前文是目录和索引部分。复核方证据中混入了对其他行的解释，但针对404本身的证据（格式、序号、内容对应）是成立的。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1067
+  confidence: 0.95
+  final_reason: 双方一致确认。格式为一级标题，序号2，前文1065行预告“进入第2章”，后续有子标题，确认为章标题。
+  accepted_evidence:
+  - 判断方：对应目录第2章
+  - 复核方：前文预告，序号连贯，后续结构清晰
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1418
+  confidence: 0.95
+  final_reason: 双方一致确认。格式为一级标题，序号3，前文1416行预告“进入第3章”，后续有子标题，确认为章标题。
+  accepted_evidence:
+  - 判断方：对应目录第3章
+  - 复核方：前文预告，序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2127
+  confidence: 0.95
+  final_reason: 双方一致确认。格式为一级标题，序号4，前文2091行预告“在第4章中”，后续有子标题，确认为章标题。
+  accepted_evidence:
+  - 判断方：对应目录第4章
+  - 复核方：前文预告，序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2404
+  confidence: 0.95
+  final_reason: 双方一致确认。格式为一级标题，序号5，前文2402行预告“进入下一章”，后续有子标题，确认为章标题。
+  accepted_evidence:
+  - 判断方：对应目录第5章
+  - 复核方：前文预告，序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2965
+  confidence: 0.95
+  final_reason: 双方一致确认。格式为一级标题，序号6，前文2963行预告“进入下一章”，后续有子标题，确认为章标题。
+  accepted_evidence:
+  - 判断方：对应目录第6章
+  - 复核方：前文预告，序号连贯
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

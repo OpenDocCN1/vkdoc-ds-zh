@@ -1,0 +1,197 @@
+reviews:
+- 'no': 6497
+  overturn_probability: 0.95
+  alternative: 正文小标题/附录内的子章节标题
+  counter_evidence:
+  - 该行标记为 '### 附加包'，属于三级标题。在Markdown层级中，一级 '#' 通常对应全书最大章节（如 'R 基础编程' 或 '附录 B'），而 '###'
+    明显是下级子标题。
+  - 根据规则“只划分全书最高层级的大章...如果遇到...子层级，不划分新的章节”，'###' 属于子层级，不应分章。
+  - 上下文显示前文是 '第11章' 的总结表格，后文是 'R 基础编程'（# R 基础编程，行6589），中间穿插的 '### 附加包' 更像是附录A的一部分内容或其子节，而非独立的大章起始。真正的独立大章起始应为
+    '# 附录A' 或类似的最高级标题，但此处并未出现新的最高级标记来界定 '附加包' 为独立大章，它仅是一个子主题。
+  keep_split: false
+- 'no': 6589
+  overturn_probability: 0.05
+  alternative: 全书最高层级大章/附录标题
+  counter_evidence:
+  - 该行 '# R 基础编程' 使用了一级标题符号 '#'，且语义上统领了后续关于编程基础（函数、条件、循环）的所有内容。
+  - 在书籍结构中，一级标题通常代表独立的章或附录大节。虽然前文有第11章内容，但 'R 基础编程' 明显是附录B的起始或独立章节。
+  - 即使有细微的排版问题，其作为最高层级标题的特征非常显著，符合分章规则中“全书最高层级的大章”的定义。
+  keep_split: true
+- 'no': 7034
+  overturn_probability: 0.85
+  alternative: 排版噪声/误插的标题/正文中的强调段落
+  counter_evidence:
+  - 该行内容为 '# R 语言编程基础：循环与函数'。然而，前文第6589行已经是 '# R 基础编程'，构成了附录B的主标题。
+  - 在同一个附录/章内部，再次出现一级标题 '#' 且带有长后缀描述（“循环与函数”），极有可能是OCR识别错误、排版遗留或正文中强调某个子主题时错误使用了最高级标记。
+  - 上下文来看，第7030行是 '### 循环'，第7036行是 '## 循环'。第7034行插入在 '### 循环' 之后、'## 循环' 之前，且文字内容与
+    '循环' 主题重复但表述不同（“R 语言编程基础”是总标题，“循环与函数”是子标题）。这种结构混乱表明它更可能是对 '## 循环' 部分的错误标注，或者是一个非标准的子标题被错误标记为一级。
+  - 规则要求只划分“最高层级”，如果 '# R 基础编程' (6589) 是该部分最高级，那么内部的 '# R 语言编程基础...' 属于层级冲突或子层级，不应作为新章起始。
+  keep_split: false
+- 'no': 7206
+  overturn_probability: 0.1
+  alternative: 附录独立章节标题
+  counter_evidence:
+  - 该行 '## 数据集' 出现在第7206行。前文第6589行是 '# R 基础编程'（附录B内容结束）。
+  - 虽然标记为二级 '##'，但在本书结构中，前面的附录A（附加包）和附录B（编程）均使用了混合层级。然而，观察后续内容，'## 数据集' 下方紧跟着 '###
+    `apartments`' 等具体数据集描述，且整个部分直到第7432行 '## 索引 A' 之前都是数据集列表。
+  - 关键在于：前文是否有更高一级的附录标题？如果 '## 数据集' 是附录C的起始，它可能被错误标记为 '##' 而非 '#'。但即便它是 '##'，在缺乏其他
+    '##' 级独立大章参照的情况下，它确实开启了一个新的独立附录部分。
+  - 然而，反方证据指出：规则要求划分“最高层级”。如果整本书的附录都用 '##' 开始（如 '## 数据集', '## 索引 A'），那么 '##' 就是该书中的最高层级附录标题。但如果有
+    '#' 标题存在（如6589），则 '##' 可能是次级。
+  - 修正观点：查看6589是 '# R 基础编程'。7206是 '## 数据集'。7432是 '## 索引 A'。这说明 '##' 在此书中可能代表附录级别。但规则说“只划分全书最高层级”。如果
+    '#' 是最高，那 '##' 就不该分章？
+  - 重新审视：6589 '# R 基础编程' 是附录B。7206 '## 数据集' 可能是附录C。7432 '## 索引 A' 是附录D或索引。
+  - 实际上，许多书籍中，正文章用 '第X章'，附录用大写标题。这里 Markdown 标记可能不严谨。但 '## 数据集' 确实开启了一个独立的、篇幅可观的附录部分，且后续没有更高级标题包裹它。考虑到其独立性，维持分章是合理的，但
+    overturn probability 应略高以反映层级混淆。
+  keep_split: true
+- 'no': 7432
+  overturn_probability: 0.05
+  alternative: 全书末尾索引章节起始
+  counter_evidence:
+  - 该行 '## 索引 A' 位于文本末尾部分，符合规则“文末索引也划分为一章”。
+  - 它是索引部分的明确起始标记，尽管使用 '##'，但在语义和功能上是一个独立的逻辑块。
+  keep_split: true
+- 'no': 7468
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题/排版噪声
+  counter_evidence:
+  - 该行 '# B' 出现在索引部分内部（7432 '## 索引 A' 之后）。
+  - '索引（Index）通常被视为一个整体章节。将索引内部的字母分节（# B, # C...）视为独立的“章”是不符合常规书籍结构的。'
+  - 规则指出“只划分全书最高层级的大章”。'# B' 虽然是一级标记，但它是索引内部的子节划分，而非独立的主体章节。索引作为一个整体（从 '## 索引 A' 开始）应是一个章，内部的
+    '# B', '# C' 等不应再分章，否则会导致索引被碎片化。
+  - 对比前文，'## 索引 A' 是起始。'# B' 只是索引翻页后的新字母组，语义上不具备“统领性”去覆盖像正文章那样的一大块内容，它只是索引的一个子部分。
+  keep_split: false
+- 'no': 7482
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# C' 位于索引部分内部。
+  - 同 '# B' 的理由，索引内部的字母分节不应作为独立章节划分，而是属于索引这一大章的组成部分。
+  keep_split: false
+- 'no': 7530
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# D' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 7660
+  overturn_probability: 0.95
+  alternative: 索引内的分节标题/层级异常
+  counter_evidence:
+  - 该行 '## E' 位于索引部分内部。
+  - 首先，层级从 '#' (B,C,D) 变成了 '##'，显示标记不规范。
+  - 其次，即便标记不同，它仍是索引内部的子节，不应分章。
+  keep_split: false
+- 'no': 7664
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# F, G' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 7694
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# H' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 7738
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# I, J' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 7742
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# K' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 7754
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# L' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 7812
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# M' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 7828
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# N, O' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 7834
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# P' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 7943
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# Q' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 7947
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# R' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 8033
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# S' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 8087
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# T' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 8127
+  overturn_probability: 0.95
+  alternative: 索引内的分节标题/层级异常
+  counter_evidence:
+  - 该行 '## U' 位于索引部分内部。
+  - 层级为 '##'，且为索引子节，不应分章。
+  keep_split: false
+- 'no': 8131
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# V' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 8155
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# W' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false
+- 'no': 8163
+  overturn_probability: 0.9
+  alternative: 索引内的分节标题
+  counter_evidence:
+  - 该行 '# X, Y, Z' 位于索引部分内部。
+  - 索引内部字母分节不构成独立大章。
+  keep_split: false

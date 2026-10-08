@@ -1,0 +1,49 @@
+reviews:
+- 'no': 404
+  overturn_probability: 0.0
+  alternative: 章标题
+  counter_evidence:
+  - 该行格式为 '# 1. R 语言基础'，带有井号标记（Markdown H1 标题），符合章节标题的格式特征。
+  - 内容包含明确的序号 '1.' 和概括性主题 'R 语言基础'，与目录中的 '第 1 章：R 语言基础' 完全对应。
+  - 后续行（406-418）为该章的引言部分，且后续出现了 '## 下载与安装 R' 等子标题，符合章标题后跟随概述和子节的上下文特征。
+  keep_split: true
+- 'no': 1067
+  overturn_probability: 0.0
+  alternative: 章标题
+  counter_evidence:
+  - 该行格式为 '# 2. 处理数据文件'，序号连贯（前序为 1），符合最高层级章节编号特征。
+  - 该行位于第 1 章末尾（行 1065 提到进入第 2 章）之后，且后续内容（1069 起）开始介绍处理数据文件的具体方法，具有统领性。
+  - 后续行包含 '## 直接输入数据' 等二级标题，结构清晰，确认为章标题。
+  keep_split: true
+- 'no': 1418
+  overturn_probability: 0.0
+  alternative: 章标题
+  counter_evidence:
+  - 该行格式为 '# 3. 准备与操作数据'，序号连贯（前序为 2）。
+  - 前文（行 1416）明确预告“接下来我们可以进入第 3 章”，证实此处为章节分界。
+  - 后续内容为数据准备的概述及子节（如 '## 变量'），符合章标题语义特征。
+  keep_split: true
+- 'no': 2127
+  overturn_probability: 0.0
+  alternative: 章标题
+  counter_evidence:
+  - 该行格式为 '# 4. 合并与重构数据集'，序号连贯（前序为 3）。
+  - 前文（行 2091）提到“在第 4 章中，您将学习...”，此处为实际章节开始。
+  - 后续内容包含 '## 追加行' 等子标题，结构符合章标题定义。
+  keep_split: true
+- 'no': 2404
+  overturn_probability: 0.0
+  alternative: 章标题
+  counter_evidence:
+  - 该行格式为 '# 5. 连续变量的汇总统计量'，序号连贯（前序为 4）。
+  - 前文（行 2402）提到“在下一章中...”，此处为新章开始。
+  - 后续内容包含 '## 单变量统计量' 等子标题，且该行独立成行，长度适中，无标点结尾。
+  keep_split: true
+- 'no': 2965
+  overturn_probability: 0.0
+  alternative: 章标题
+  counter_evidence:
+  - 该行格式为 '# 6. 表格数据'，序号连贯（前序为 5）。
+  - 前文（行 2963）提到“我们可以进入下一章”，此处为新章开始。
+  - 后续内容包含 '## 频数表' 等子标题，符合章标题统领后续内容的特征。
+  keep_split: true

@@ -1,0 +1,95 @@
+chapter_starts:
+- 'no': 6589
+  confidence: 0.98
+  final_reason: 双方一致认定为全书最高层级大章/附录标题。该行使用一级标题符 '#'，语义上统领后续关于编程基础（函数、条件、循环）的所有内容，符合分章规则。
+  accepted_evidence:
+  - 使用一级标题符号 '#'
+  - 语义统领性强，覆盖整个编程附录部分
+  - 复核方保留意见 (overturn_probability 0.05)
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7206
+  confidence: 0.9
+  final_reason: 双方一致认定为独立附录章节起始。虽然使用二级标题 '##'，但在本书结构语境下，它开启了“数据集”这一独立附录部分，具有明确的统领性。
+  accepted_evidence:
+  - 开启独立附录部分“数据集”
+  - 后续内容为该部分专属
+  - 复核方保留意见 (overturn_probability 0.1)
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7432
+  confidence: 0.98
+  final_reason: 双方一致认定为索引章节起始。根据规则“文末索引也划分为一章”，这是索引部分的明确开始。
+  accepted_evidence:
+  - 位于文末
+  - 标记为“## 索引 A”，是索引部分的起始点
+  - 复核方保留意见 (overturn_probability 0.05)
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 6497
+  reason: 复核方指出其为“### 附加包”，属于三级子标题，并非全书最高层级大章。判断方虽认为其统领性强，但层级过低，符合“遇到子层级不划分新章”的规则。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7034
+  reason: 复核方指出该行“# R 语言编程基础：循环与函数”疑似排版噪声或误插标题，因为前文已有更高层级的“# R 基础编程”(6589) 作为该部分总起，且此处语境混乱。遵循“宁可漏分，不可误分”原则，拒绝分章。
+  need_human_review: false
+- 'no': 7468
+  reason: 复核方指出“# B”是索引内部的字母分节。索引整体（从7432开始）应视为一章，内部的字母分隔符不构成独立的大章节。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7482
+  reason: 复核方指出“# C”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7530
+  reason: 复核方指出“# D”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7660
+  reason: 复核方指出“## E”是索引内部的字母分节，且层级异常（从#变##），但仍属索引子节。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7664
+  reason: 复核方指出“# F, G”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7694
+  reason: 复核方指出“# H”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7738
+  reason: 复核方指出“# I, J”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7742
+  reason: 复核方指出“# K”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7754
+  reason: 复核方指出“# L”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7812
+  reason: 复核方指出“# M”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7828
+  reason: 复核方指出“# N, O”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7834
+  reason: 复核方指出“# P”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7943
+  reason: 复核方指出“# Q”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 7947
+  reason: 复核方指出“# R”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 8033
+  reason: 复核方指出“# S”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 8087
+  reason: 复核方指出“# T”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 8127
+  reason: 复核方指出“## U”是索引内部的字母分节，且层级异常，但不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 8131
+  reason: 复核方指出“# V”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 8155
+  reason: 复核方指出“# W”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
+- 'no': 8163
+  reason: 复核方指出“# X, Y, Z”是索引内部的字母分节，不构成独立大章。采纳复核方意见，不分章。
+  need_human_review: false
