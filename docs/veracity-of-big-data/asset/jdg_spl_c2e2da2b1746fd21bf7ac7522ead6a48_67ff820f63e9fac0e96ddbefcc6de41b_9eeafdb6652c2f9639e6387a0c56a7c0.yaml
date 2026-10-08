@@ -1,0 +1,112 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 书籍封面及前置元数据（ISBN、版权信息等），统一划分为第一章。
+  accepted_evidence:
+  - 包含封面图、作者名、ISBN、版权声明等典型前置内容
+  - 符合“前言、序言...统一划分为一章”的规则
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 38
+  confidence: 0.95
+  final_reason: 标题为“# 引言”，属于正文之前的前言部分，应单独成章。
+  accepted_evidence:
+  - 'Markdown一级标题 # 引言'
+  - 位于版权页之后，目录之前，符合前言/引言位置
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 52
+  confidence: 0.95
+  final_reason: 标题为“# 致谢”，属于正文之前的致谢部分，应单独成章。
+  accepted_evidence:
+  - 'Markdown一级标题 # 致谢'
+  - 位于引言之后，目录之前，符合致谢位置
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 58
+  confidence: 0.95
+  final_reason: 标题为“# 目录”，属于目录页，应单独成章。
+  accepted_evidence:
+  - 'Markdown一级标题 # 目录'
+  - 包含完整的章节索引列表
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 166
+  confidence: 0.98
+  final_reason: 标题为“# 1. 大数据现象”，符合最高层级章标题特征（序号1，非子层级），是第一章正文开始。
+  accepted_evidence:
+  - '一级标题 # 1. 大数据现象'
+  - 序号连贯（第1章），格式与其他章标题一致
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 299
+  confidence: 0.98
+  final_reason: 标题为“# 2. 网络信息的真实性”，符合最高层级章标题特征（序号2），是第二章正文开始。
+  accepted_evidence:
+  - '一级标题 # 2. 网络信息的真实性'
+  - 序号连贯（第2章），位于第1章练习题和脚注之后
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 447
+  confidence: 0.98
+  final_reason: 标题为“# 3. 大数据真实性验证方法”，符合最高层级章标题特征（序号3），是第三章正文开始。
+  accepted_evidence:
+  - '一级标题 # 3. 大数据真实性验证方法'
+  - 序号连贯（第3章），位于第2章脚注之后
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 736
+  confidence: 0.9
+  final_reason: 尽管标题缺少序号且用词（变更vs变化）与目录略有差异，但其后紧跟第4章核心内容（SPRT, CUSUM等），且位于第3章正文及练习题结束处，语义上标志着第4章的开始。根据“宁可漏分，不可误分”及“上下文优先”原则，保留为章起点。
+  accepted_evidence:
+  - 位于第3章内容结束处（行735为练习题）
+  - 后续内容行740-988均为第4章正文，直到第5章标题
+  - 'Markdown一级标题 # 变更检测技术'
+  rejected_evidence:
+  - 复核方指出其缺少序号 '4.' 且与目录 '变化' 用词不一，认为可能是OCR错误
+  - 行526已出现 '变化检测技术' 作为第3章子节
+  need_human_review: false
+- 'no': 989
+  confidence: 0.98
+  final_reason: 标题为“# 5. 机器学习算法”，符合最高层级章标题特征（序号5），是第五章正文开始。
+  accepted_evidence:
+  - '一级标题 # 5. 机器学习算法'
+  - 序号连贯（第5章），位于第4章练习之后
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1428
+  confidence: 0.98
+  final_reason: 标题为“# 6. 形式化方法”，符合最高层级章标题特征（序号6），是第六章正文开始。
+  accepted_evidence:
+  - '一级标题 # 6. 形式化方法'
+  - 序号连贯（第6章），位于第5章练习之后
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1874
+  confidence: 0.98
+  final_reason: 标题为“# 7. 更多方法的大杂烩”，符合最高层级章标题特征（序号7），是第七章正文开始。
+  accepted_evidence:
+  - '一级标题 # 7. 更多方法的大杂烩'
+  - 序号连贯（第7章），位于第6章练习之后
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1995
+  confidence: 0.98
+  final_reason: 标题为“# 8. 未来：区块链与更远的前景”，符合最高层级章标题特征（序号8），是第八章正文开始。
+  accepted_evidence:
+  - '一级标题 # 8. 未来：区块链与更远的前景'
+  - 序号连贯（第8章），位于第7章练习之后
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2142
+  confidence: 0.95
+  final_reason: 标题为“# 索引”，属于文末索引，应单独成章。
+  accepted_evidence:
+  - 'Markdown一级标题 # 索引'
+  - 位于全书正文结束后，包含A-Z字母索引列表
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 736
+  reason: 已在 chapter_starts 中裁定为章节起点，无需在 rejected_lines 中重复列出（若严格按双方提及行处理，此行为判断方候选，复核方虽建议推翻但理由为格式瑕疵而非语义错误，最终裁定保留章节划分，故不列入拒绝列表，而是列入开始列表）
+  need_human_review: false
