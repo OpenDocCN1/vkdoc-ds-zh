@@ -17,7 +17,7 @@
 +   [14. 处理表之间的多重关系](up-and-running-with-dax-for-power-bi_17.md)
 +   [15. 理解上下文转换](up-and-running-with-dax-for-power-bi_18.md)
 +   [16. 善用上下文转换](up-and-running-with-dax-for-power-bi_19.md)
-+   [虚拟关系：`LOOKUPVALUE` 和 `TREATAS` 函数](up-and-running-with-dax-for-power-bi_20.md)
++   [17. 虚拟关系：`LOOKUPVALUE` 和 `TREATAS` 函数](up-and-running-with-dax-for-power-bi_20.md)
 +   [18. 表扩展](up-and-running-with-dax-for-power-bi_21.md)
 +   [19. CALCULATETABLE 函数](up-and-running-with-dax-for-power-bi_22.md)
 +   [索引](up-and-running-with-dax-for-power-bi_23.md)

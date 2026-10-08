@@ -1,0 +1,19 @@
+chapter_starts:
+- 'no': 2965
+  confidence: 0.95
+  reason: Markdown 一级标题 '# 6. 表格数据'，序号连贯，后接本章概述，符合大章特征。
+- 'no': 3561
+  confidence: 0.95
+  reason: Markdown 一级标题 '# 7. 概率分布'，序号连贯，后接本章概述，符合大章特征。
+- 'no': 3874
+  confidence: 0.95
+  reason: Markdown 一级标题 '# 8. 创建图表'，序号连贯，后接本章概述，符合大章特征。
+- 'no': 4275
+  confidence: 0.95
+  reason: Markdown 一级标题 '# 9. 自定义图形'，序号连贯，后接本章概述，符合大章特征。
+- 'no': 4949
+  confidence: 0.95
+  reason: Markdown 一级标题 '# 10. 假设检验'，序号连贯，后接本章概述，符合大章特征。
+- 'no': 5603
+  confidence: 0.95
+  reason: Markdown 一级标题 '# 11. 回归与一般线性模型'，序号连贯，后接本章概述，符合大章特征。

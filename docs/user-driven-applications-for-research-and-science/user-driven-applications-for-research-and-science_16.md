@@ -1,0 +1,317 @@
+# 术语表
+
+## 通用术语
+- 定义
+- `Enabled` 属性
+- 类
+- 启用/禁用
+- 图形化模拟
+- 用户驱动型应用
+- 视图
+
+## P, Q
+- 参数函数
+- `ParentRect` 属性
+- `Person` 对象
+  - 链接
+- `Person.InformRelatedElements()` 方法
+- `Person.IntoMover()` 方法
+- `Person` 对象
+  - 命令
+  - 注释
+  - 已连接的总线
+  - 方向
+  - 编辑家谱
+  - 列表
+  - 菜单
+  - 移动
+  - 正常情况
+  - 参数
+  - 位置
+  - 定位系数
+  - 保存与恢复
+  - 标准视图
+  - 从属元素
+  - 调优窗体
+  - 异常情况
+- 饼图
+  - 角度
+  - 辅助窗体
+  - 通用注释
+  - 新建
+  - `PieChart_Adh` 类
+  - `PieChart_Adh` 对象
+  - 旋转
+  - 旋转扇形注释
+  - 扇形文本组
+  - 调优窗体
+- 绘图
+  - 模拟
+  - 圆形节点
+  - 类
+  - 命令
+  - 封面
+  - `Cursors.NoMove2D`
+  - `GraphicalObject`
+  - 水平刻度
+  - 绘图
+  - 刻度/注释
+- `Plot_analogue_advanced.CornersRelocated()` 方法
+- `Plot_analogue_advanced.InformRelatedElements()` 方法
+- `Plot_analogue.IntoMover()` 方法
+- `PointsForLine()` 方法
+- `Polyline.InsertPoint()` 方法
+- 多项式函数
+- `PrepareListString_listRect()` 方法
+- `Press()` 方法
+  - `ptMouse` 参数
+- 按钮
+  - `Button_Drawing` 类
+  - `Button_Drawing` 元素
+  - `Button_Drawing` 对象
+  - `Button_GR` 类
+  - `Button_GR.Move()` 方法
+  - `Button_GR.MoveNode()` 方法
+  - `Button_Image` 类
+  - `Button_Image` 对象
+  - `Button_Text` 类
+  - `Button_Text` 元素
+  - `Button_Text` 对象
+  - 控件
+  - 封面
+  - 绘图
+  - 图形
+  - 高度
+  - `OnMouseDown()` 方法
+  - `OnMouseUp()` 方法
+  - 情况
+  - 调优窗体
+  - 类型
+  - 变体
+  - 宽度
+
+## R
+- 单选按钮
+  - `Form_RadioBtnsLight.cs`
+  - 组菜单
+  - 组参数
+  - `Group_RadioBtnsLight` 类
+  - `Group_RadioButtons` 类
+  - 菜单
+  - 鼠标按压
+  - `MoveNode()` 方法
+  - 节点封面
+  - 节点顺序
+  - `RadioButton` 类
+  - `RadioButton` 控件
+  - `RadioButton` 对象
+  - `RadioButton_Light` 类
+  - `RadioButton_Light` 对象
+  - `RadioButtonType` 枚举
+  - “随机顺序”命令
+  - 限制
+  - 选择
+  - 调优窗体
+  - 用户驱动型应用
+  - 变体
+- 矩形注释
+  - `Comment_Adh` 类
+  - `Comment_withMarks` 类
+  - 封面
+  - `MoveGraphLibrary.dll` 文件
+  - 位置
+  - 矩形框
+  - `Text_Horizontal` 类
+  - `Text_Rotatable` 类
+- 矩形
+  - 通用规则
+  - `Form_Rectangle.cs` 文件
+  - 菜单
+  - `MovableObject.DrawCover()` 方法
+  - `Mover` 对象
+  - `OnMouseDoubleClick` 方法
+  - `OnMouseDown` 方法
+  - `OnMouseMove()` 方法
+  - `OnMouseUp` 方法
+  - 元素顺序
+  - `RenewMover()` 方法
+  - 封面/节点编号
+  - 封面
+  - 光标移动
+  - 几何形状
+  - `MoveNode()` 方法
+  - 按压状态
+  - 可调整大小/不可调整大小
+  - 规则
+  - 边/角
+  - 移动器透明度 `Behaviour.Transparent` 参数
+  - `Click_miTransparent`
+  - `DefineCover()` 方法
+  - 定义
+  - 空白区域
+  - `GraphicalObject` 类
+  - `GraphicalObject.Movable` 属性
+  - 菜单
+  - `Mover.Catch()` 方法
+  - 非透明对象
+  - 宽度/高度比
+- `Rectangle_Unicolored` 类
+- `Rectangle_Unicolored.MoveNode()` 方法
+- `Rectangle_Unicolored.Press()` 方法
+- `Rectangle_withComments` 类
+- `RectCornerPoints` 元素
+- 正多边形
+  - 封面
+  - 节点
+  - 不可调整大小
+  - `Polygon_Regular` 类
+  - `Press()` 方法
+  - 半径
+  - 可调整大小
+  - `VerticesMinus/VerticesPlus`
+- `RenewMover()` 方法
+- 资源
+  - 窗体索引
+  - 程序/文档
+  - 调优窗体
+- 圆环
+  - 封面
+  - `Press()` 方法
+  - 可调整大小
+  - `Ring_Unicolored` 类
+  - 透明节点
+- 圆角条
+  - 边框区域
+  - `CaughtLine` 枚举
+  - 封面
+  - 曲线边框
+  - `MoveNode()` 方法
+  - 节点
+  - `Press()` 方法
+  - 调整大小
+  - 特殊点
+  - 直边框
+  - `Strip_SimpleCoverAdh` 类
+  - `Strip_Unicolored` 类
+  - `Strip_Unicolored.MoveNode()` 方法
+  - `Strip_Unicolored.Radius` 属性
+  - 双节点封面
+
+## S
+- `Scale_Numbers` 类
+- `Scale_Texts` 类
+- 科学应用
+- 屏幕对象
+  - 任意形状
+  - `Behaviour` 参数
+  - 圆形节点
+  - `CoverNode` 构造函数
+  - 定义
+  - `GraphicalObject`
+  - 可移动性
+  - 移动
+  - `MoveNode`
+  - `Mover` 类
+  - `Mover.Clipping`
+  - 节点参数
+  - 部件
+  - 多边形节点
+  - 产品
+- 二次多项式函数
+- `SetGroup()` 方法
+- `SmallSpotOnTrack` 类
+- 独立控件
+  - 复杂形式
+  - `Control_Solitary` 类
+  - `Control_Solitary` 构造函数
+  - `Control_Solitary` 对象
+  - `Form_Control_Solitary.cs`
+  - `MinimumSize/MaximumSize`
+  - 可移动/可调整大小
+  - `Multiline` 属性
+  - 节点
+  - `NumericUpDown` 控件
+  - 调整大小
+  - `Resizing.Any` 参数
+  - 尺寸
+  - `Textbox`
+  - 变体
+- 点
+  - `AdjustCursorPosition()` 方法
+  - 封面
+  - 光标位置
+  - 声明坐标
+  - `Form_Spot.cs`
+  - `Info_Resizable` 对象
+  - 在线段上 `m_center`
+  - 菜单
+  - 鼠标移动
+  - 可移动/不可移动对象
+  - `Form_SpotOnCommentedWay.cs`
+  - 菜单
+  - 可移动性
+  - 状态
+  - `m_shift`
+  - 路径部件
+  - 小/大圆
+  - 技术
+
+# 索引
+
+- `MoveNode()` 方法
+- `Mover.MouseTraced` 属性
+- `Mover.Move()` 方法
+- 对象移动
+- `PointF Center`
+- `Press()` 方法
+- `ptPressed`
+- 半径
+- 移动顺序
+- `Spot` 类
+- `Spot` 对象
+- `Spot.Center` 属性
+- `Spot_OnCircle`
+- 轨迹
+- 调优窗体
+- `Spot_OnLineSegment` 类
+- `SystemColors` 类
+- `SystemInformation` 类
+
+## T
+
+- 全内反射
+- 轨迹条
+  - `DefineCover()` 方法
+  - 水平
+  - 节点
+  - `Trackbar_GR` 类
+  - 调优窗体
+  - 变体
+  - 垂直
+
+## U, V
+
+- 不可移动总线
+- 用户驱动型应用，科学/教育
+
+## W, X, Y, Z
+
+- Windows 计算器
+  - 辅助窗体
+  - 投诉
+  - 默认视图
+  - 函数组
+  - 最新列表
+  - 菜单
+  - 可移动性
+  - 数字组
+  - 操作组
+  - 元素定位
+  - 首选视图
+  - 第二版本
+  - 设置菜单
+  - 草图
+  - 临时组
+  - 文本颜色
+
+脚注 1 2 3 4
