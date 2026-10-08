@@ -1,0 +1,23 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.9
+  reason: 书籍封面及版权信息（ISBN、版权声明等）属于前言部分，统一划分为一章。
+- 'no': 16
+  confidence: 0.9
+  reason: Markdown 一级标题（# 引言），作为前言性质的章节起始。
+- 'no': 46
+  confidence: 0.9
+  reason: Markdown 一级标题（# 我的故事），作为引言部分的子章节或独立章节起始。
+- 'no': 104
+  confidence: 0.95
+  reason: Markdown 一级标题，带有编号“# 1. 软技能的重要性”，明确为新的一章。
+- 'no': 624
+  confidence: 0.95
+  reason: Markdown 一级标题，带有编号“# 2. 职业进步与人生的心态”，明确为新的一章。
+- 'no': 1535
+  confidence: 0.95
+  reason: Markdown 一级标题，带有编号“# 3. 发现你的个人目标”，明确为新的一章。
+- 'no': 2026
+  confidence: 0.95
+  reason: Markdown 一级标题“# 你的线上与线下形象”，虽无显式数字编号（可能排版遗漏第4章编号或采用非标准编号），但根据上下文（前一章结束于第3章总结），且其下包含二级标题（##
+    设计你的个人品牌等），语义上统领后续内容，判定为新的一章（第4章）。

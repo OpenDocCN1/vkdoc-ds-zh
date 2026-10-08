@@ -1,0 +1,70 @@
+chapter_starts:
+- 'no': 8906
+  confidence: 0.1
+  final_reason: 复核方指出 `##` 为二级标题，依据“只划分全书最高层级大章”原则，且书中存在更细粒度的 `###`，表明 `##` 可能仅为节标题而非章标题。在缺乏明确
+    `#` 或 “第X章” 等最高层级标记证据的情况下，保守起见不予分章。
+  accepted_evidence:
+  - 复核方反方证据：二级标题通常对应节，非最高层级章。
+  - 上下文存在更深层级标题 `###`。
+  rejected_evidence:
+  - 判断方认为二级标题即章标题，但未排除其为节标题的可能性。
+  need_human_review: true
+- 'no': 8981
+  confidence: 0.1
+  final_reason: 同 8906，`##` 二级标题在不确定是否为最高层级的情况下，倾向于不划为独立章，以符合“宁可漏分，不可误分”原则。
+  accepted_evidence:
+  - 复核方反方证据：二级标题非最高层级。
+  - 碎片化风险：若每个 `##` 都分章会导致结构过细。
+  rejected_evidence:
+  - 判断方认为其具有概括性，但层级证据不足。
+  need_human_review: true
+- 'no': 9042
+  confidence: 0.1
+  final_reason: 同 8906，`##` 二级标题，语义上更像方法论步骤，层级较低，不确认为章标题。
+  accepted_evidence:
+  - 复核方反方证据：二级标题非最高层级。
+  rejected_evidence:
+  - 判断方认为独立成行，但忽略层级限制。
+  need_human_review: true
+- 'no': 9048
+  confidence: 0.1
+  final_reason: 同 8906，`##` 二级标题，不确认为章标题。
+  accepted_evidence:
+  - 复核方反方证据：二级标题非最高层级。
+  rejected_evidence:
+  - 判断方认为语义清晰，但层级证据不足。
+  need_human_review: true
+- 'no': 9065
+  confidence: 0.1
+  final_reason: 同 8906，`##` 二级标题，不确认为章标题。
+  accepted_evidence:
+  - 复核方反方证据：二级标题非最高层级。
+  - 逻辑上属于创新流程的子主题。
+  rejected_evidence:
+  - 判断方认为统领后续内容，但层级证据不足。
+  need_human_review: true
+- 'no': 9120
+  confidence: 0.95
+  final_reason: 双方一致认可。使用 `#` 一级标题，位于正文结束后，符合“文末索引/附录划分为一章”的规则。
+  accepted_evidence:
+  - 判断方：一级标题，附录部分。
+  - 复核方：一级标题，标志主内容结束，附录开始。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 9124
+  confidence: 0.95
+  final_reason: 双方一致认可。虽为 `##` 二级标题，但紧随 `#` 脚注标题之后，内容为标准索引，符合“文末索引划分为一章”的规则。
+  accepted_evidence:
+  - 判断方：文末索引，需划分为一章。
+  - 复核方：索引作为新的逻辑块，必须分章。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 9538
+  confidence: 0.95
+  final_reason: 双方一致认可。使用 `#` 一级标题，位于索引之后，为术语表，符合后端附录内容独立成章的规则。
+  accepted_evidence:
+  - 判断方：一级标题，术语解释部分。
+  - 复核方：一级标题，标志新的逻辑部分开始。
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

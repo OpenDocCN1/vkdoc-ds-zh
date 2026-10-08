@@ -1,0 +1,48 @@
+chapter_starts:
+- 'no': 9370
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 复核方指出该行位于第8章总结之后，且后续内容确实进入第9章主题。
+  - 判断方也认为这是一级章节标题。
+  - 没有页眉重复的迹象（与9027不同）。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 9526
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 复核方指出该行位于第9章总结之后，后续内容确实是第10章主题。
+  - 判断方也认为这是章节标题。
+  - 标题内容“第十章 其他函数”与后续 if/try/let-in 等内容匹配。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 10019
+  confidence: 0.98
+  final_reason: 双方一致 + 标准文末索引
+  accepted_evidence:
+  - 复核方指出这是标准的文末索引部分。
+  - 判断方也认为是独立一章。
+  - 后续内容全部为字母排序的索引条目。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 11047
+  confidence: 0.9
+  final_reason: 文档结构标题，虽位于末尾但作为独立部分处理
+  accepted_evidence:
+  - 复核方认为保留分章在逻辑上可接受，因为它是一个顶级结构标签。
+  - 判断方也认为这是独立部分。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 11049
+  confidence: 0.95
+  final_reason: 目录标题，属于独立的前/后 matter 部分
+  accepted_evidence:
+  - 复核方指出目录通常作为独立部分，符合“前言...统一划分为一章”的规则。
+  - 判断方也认为是独立一章。
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 9027
+  reason: 复核方有力反驳其为页眉/重复标题。该行出现在正文中间（Table.FillDown 代码块之后），且第8章内容显然在此行之前已经开始（如行8850等处）。全书中该标题多次出现，符合页眉误识别特征，不应作为新章节起点。
+  need_human_review: false

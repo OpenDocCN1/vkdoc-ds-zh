@@ -1,0 +1,47 @@
+chapter_starts: []
+rejected_lines:
+- 'no': 5900
+  reason: 复核方指出这是索引部分的字母分组标记（### H），而非正文章节标题。后续内容符合拼音/英文索引条目特征，属于同一索引章内部的细分结构。
+  need_human_review: false
+- 'no': 5904
+  reason: 复核方指出这是索引部分的字母分组标记（### I），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5908
+  reason: 复核方指出这是索引部分的字母分组标记（### J），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5912
+  reason: 复核方指出这是索引部分的字母分组标记（### K），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5916
+  reason: 复核方指出这是索引部分的字母分组标记（### L），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5920
+  reason: 复核方指出这是索引部分的字母分组标记（### M），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5924
+  reason: 复核方指出这是索引部分的字母分组标记（### N），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5928
+  reason: 复核方指出这是索引部分的字母分组标记（### O），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5932
+  reason: 复核方指出这是索引部分的字母分组标记（### P），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5948
+  reason: 复核方指出这是索引部分的字母分组标记（### Q），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5952
+  reason: 复核方指出这是索引部分的字母分组标记（### R），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5956
+  reason: 复核方指出这是索引部分的字母分组标记（### S），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5978
+  reason: 复核方指出这是索引部分的字母分组标记（## T, U, V），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5984
+  reason: 复核方指出这是索引部分的字母分组标记（## W, X, Y），属于索引内部导航结构，非独立章节。
+  need_human_review: false
+- 'no': 5988
+  reason: 复核方指出这是索引部分的字母分组标记（## Z），属于索引内部导航结构，非独立章节。
+  need_human_review: false

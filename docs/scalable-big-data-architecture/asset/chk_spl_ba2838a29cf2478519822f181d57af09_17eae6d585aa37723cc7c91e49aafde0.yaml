@@ -1,0 +1,61 @@
+reviews:
+- 'no': 0
+  overturn_probability: 0.0
+  alternative: 书名/封面标题（非章节标题）
+  counter_evidence:
+  - 该行位于文件最顶端，紧接着是封面图片（第2、4行）和联系邮箱（第6行），符合书籍扉页（Title Page）的排版特征，而非章节起始页。
+  - 根据判断规则，“前言、序言...统一划分为一章”。原审查员将“书名”单独划分为一章在逻辑上属于过度拆分。通常书名/封面/版权信息应合并为同一个前置章节（Front
+    Matter），或者如果必须拆分，它只是前置章节的标题，而非独立的“章”。但在此上下文中，它与后续的目录、作者信息紧密相关，强行在此处分章可能导致前置内容被碎片化。
+  keep_split: true
+- 'no': 62
+  overturn_probability: 0.9
+  alternative: 目录标题（属于前置章节的一部分，或误判为独立章）
+  counter_evidence:
+  - 规则明确指出：“前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章”。目录（Table of Contents）通常被视为这部分前置内容的组成部分，或者紧随其后。
+  - 如果在第0行（书名/扉页）已经划分了第一章（前置部分），那么第62行的“## 目录”作为二级标题（##），在Markdown层级上低于顶级标题（#）。即使它标记了目录的开始，在语义上它通常不与“正文第一章节”并列，而是归属于前置元数据区域。
+  - 原审查员认为它是独立章节，但更合理的结构是：[0-61] 为前置章节（包含扉页、版权、献词等），[62-161] 为目录章节（如果分得这么细），或者整个前置部分合并。将目录单独视为一个与“第1章”同级的章节并不完全符合常规书籍结构，通常目录只是前置页码的一部分。
+  keep_split: false
+- 'no': 163
+  overturn_probability: 0.0
+  alternative: “关于作者和技术审阅者”章节标题
+  counter_evidence:
+  - 该行是 Markdown 一级标题 `# 关于作者和技术审阅者`。
+  - 其内容（164-169行）包含“关于作者”和“关于技术审阅者”两个子部分，这是标准的书籍前置内容（Front Matter）的独立单元。
+  - 规则允许将前置内容划分为章节，且此处标题具有明确的统领性。
+  keep_split: true
+- 'no': 180
+  overturn_probability: 0.0
+  alternative: 第一章正文标题
+  counter_evidence:
+  - 该行 `# 大数据难题` 对应目录中的“第 1 章：大数据问题”。
+  - 它是 Markdown 一级标题，且后续内容（182行开始）立即进入正文阐述，符合章节起始的特征。
+  - 与第0行、62行等前置部分明显不同，这是正式正文的开始。
+  keep_split: true
+- 'no': 534
+  overturn_probability: 0.0
+  alternative: 第二章正文标题
+  counter_evidence:
+  - 该行 `# 2. 早期大数据与 NoSQL` 带有明确的章节序号“2.”，符合“编号特征：只划分全书最高层级的大章”的规则。
+  - 后续内容涉及 NoSQL 的具体技术（Couchbase, ElasticSearch），与第一章的概述性质不同，确认为新章节。
+  keep_split: true
+- 'no': 983
+  overturn_probability: 0.0
+  alternative: 第三章正文标题
+  counter_evidence:
+  - 该行 `# 3. 定义处理拓扑` 带有章节序号“3.”，为最高层级标题。
+  - 上下文连贯性检查：上一章（第2章）在第981行结束（“在下一章中...”），本章开始于第983行，符合章节交替规律。
+  keep_split: true
+- 'no': 1441
+  overturn_probability: 0.0
+  alternative: 第四章正文标题
+  counter_evidence:
+  - 该行 `# 4. 流式数据` 带有章节序号“4.”，为最高层级标题。
+  - 内容主题从“处理拓扑概念”转向“流式数据架构实施”，属于显著的章节切换。
+  keep_split: true
+- 'no': 2247
+  overturn_probability: 0.0
+  alternative: 第五章正文标题
+  counter_evidence:
+  - 该行 `# 5. 查询与分析模式` 带有章节序号“5.”，为最高层级标题。
+  - 这是提供的文本片段中最后一个明确的主章节标题。
+  keep_split: true

@@ -1,0 +1,42 @@
+reviews:
+- 'no': 23
+  overturn_probability: 0.0
+  alternative: 无法提供合理的“非章节”解释，符合前言类章节特征
+  counter_evidence:
+  - '使用了Markdown一级标题 #'
+  - 位于版权页和献词之后，正文之前
+  - 属于规则中明确的'前言、序言'类别，应独立分章
+  keep_split: true
+- 'no': 29
+  overturn_probability: 0.0
+  alternative: 无法提供合理的“非章节”解释，符合元数据类章节特征
+  counter_evidence:
+  - '使用了Markdown一级标题 #'
+  - 内容为'关于作者'，属于正文前的标准组成部分
+  - 根据规则，此类内容应划分为一章
+  keep_split: true
+- 'no': 31
+  overturn_probability: 0.0
+  alternative: 无法提供合理的“非章节”解释，符合大章特征
+  counter_evidence:
+  - '使用了Markdown一级标题 #'
+  - 包含顶级编号 '1.'
+  - '后续内容包含二级标题 ##，结构清晰'
+  - 是全书第一个正式章节
+  keep_split: true
+- 'no': 1485
+  overturn_probability: 0.0
+  alternative: 无法提供合理的“非章节”解释，符合大章特征
+  counter_evidence:
+  - 前文为第1章的 '结论'，逻辑上开启新篇章
+  - '使用了Markdown一级标题 #'
+  - 包含顶级编号 '2.'，与第1章编号连贯
+  keep_split: true
+- 'no': 2617
+  overturn_probability: 0.0
+  alternative: 无法提供合理的“非章节”解释，符合大章特征
+  counter_evidence:
+  - 前文为第2章的 '结论'，逻辑上开启新篇章
+  - '使用了Markdown一级标题 #'
+  - 虽无显式数字 '3.'，但基于上下文和前两章的模式，这是一级章节标题
+  keep_split: true

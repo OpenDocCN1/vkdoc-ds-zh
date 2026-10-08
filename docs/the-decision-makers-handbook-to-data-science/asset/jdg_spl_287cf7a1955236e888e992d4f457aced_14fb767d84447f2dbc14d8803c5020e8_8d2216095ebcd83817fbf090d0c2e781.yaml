@@ -1,0 +1,29 @@
+chapter_starts:
+- 'no': 2955
+  confidence: 0.98
+  final_reason: 双方一致。该行包含明确的章编号 '14.'，符合最高层级章节特征；前文为上一章结尾及脚注，后文为该章概述及子标题，具备统领性。
+  accepted_evidence:
+  - 格式为 Markdown 一级标题且包含数字编号 '14.'
+  - 前文（2950-2953行）为上一章结尾，存在脚注标记
+  - 后文（2957行起）紧接该章概述段落
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3087
+  confidence: 0.98
+  final_reason: 双方一致。该行包含明确的章编号 '15.'，语义为“尾声”，符合全书最后一章的特征；序号 '15' 紧随 '14' 之后，连贯性良好。
+  accepted_evidence:
+  - 格式为 Markdown 一级标题且包含数字编号 '15.'
+  - 语义为 '尾声：数据科学与 AI 统治世界'，具备独立章节地位
+  - 序号 '15.' 与前一章 '14.' 连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3103
+  confidence: 0.95
+  final_reason: 双方一致。根据规则“文末索引也划分为一章”，且前文以正文祝福语结束，后文开始按字母排序的索引内容，判定为索引章节开始。
+  accepted_evidence:
+  - 规则明确规定文末索引划分为一章
+  - 前文（3101行）为正文结尾祝福语
+  - 后文（3105行起）为典型的索引列表格式
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

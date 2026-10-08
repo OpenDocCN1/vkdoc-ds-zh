@@ -1,0 +1,25 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  reason: 书名/主标题，作为全书前言/扉页部分的第一章起始
+- 'no': 62
+  confidence: 0.9
+  reason: 目录部分标题，通常作为独立的前置章节处理
+- 'no': 163
+  confidence: 0.9
+  reason: 关于作者和技术审阅者，属于前置内容（Front Matter），划分为一章
+- 'no': 180
+  confidence: 0.95
+  reason: 正文第一章标题 '大数据难题'（对应目录中的第1章），顶级章节
+- 'no': 534
+  confidence: 0.95
+  reason: 正文第二章标题 '2. 早期大数据与 NoSQL'，顶级章节
+- 'no': 983
+  confidence: 0.95
+  reason: 正文第三章标题 '3. 定义处理拓扑'，顶级章节
+- 'no': 1441
+  confidence: 0.95
+  reason: 正文第四章标题 '4. 流式数据'，顶级章节
+- 'no': 2247
+  confidence: 0.95
+  reason: 正文第五章标题 '5. 查询与分析模式'，顶级章节

@@ -1,0 +1,61 @@
+chapter_starts:
+- 'no': 6050
+  confidence: 0.95
+  reason: 符合章标题格式特征（'第 X 章'），为全书最高层级标题，且语义具有统领性。
+- 'no': 6199
+  confidence: 0.9
+  reason: 重复出现的'第 8 章'标题，根据规则无视序号连贯性，判定为新章节起始。
+- 'no': 6575
+  confidence: 0.9
+  reason: 重复出现的'第 8 章'标题，判定为新章节起始。
+- 'no': 7060
+  confidence: 0.9
+  reason: 重复出现的'第 8 章'标题，判定为新章节起始。
+- 'no': 7255
+  confidence: 0.9
+  reason: 重复出现的'第 8 章'标题，判定为新章节起始。
+- 'no': 7418
+  confidence: 0.9
+  reason: 重复出现的'第 8 章'标题，判定为新章节起始。
+- 'no': 7559
+  confidence: 0.9
+  reason: 重复出现的'第 8 章'标题，判定为新章节起始。
+- 'no': 7932
+  confidence: 0.85
+  reason: 格式为'第 8 章'，尽管无Markdown井号，但符合章标题语义与编号特征。
+- 'no': 7965
+  confidence: 0.85
+  reason: 格式为'第 8 章'，符合章标题语义与编号特征。
+- 'no': 7991
+  confidence: 0.85
+  reason: 格式为'第 8 章'，符合章标题语义与编号特征。
+- 'no': 8023
+  confidence: 0.85
+  reason: 格式为'第 8 章'，符合章标题语义与编号特征。
+- 'no': 8130
+  confidence: 0.9
+  reason: 包含'第 8 章'及井号，符合最高层级章标题特征。
+- 'no': 8288
+  confidence: 0.9
+  reason: 加粗的'第 8 章'，符合章标题特征。
+- 'no': 8322
+  confidence: 0.9
+  reason: 加粗的'第 8 章'，符合章标题特征。
+- 'no': 8345
+  confidence: 0.9
+  reason: 加粗的'第 8 章'，符合章标题特征。
+- 'no': 8372
+  confidence: 0.9
+  reason: 加粗的'第 8 章'，符合章标题特征。
+- 'no': 8402
+  confidence: 0.9
+  reason: 加粗的'第 8 章'，符合章标题特征。
+- 'no': 8422
+  confidence: 0.9
+  reason: 加粗的'第 8 章'，符合章标题特征。
+- 'no': 8452
+  confidence: 0.9
+  reason: '''第八章 表格''，虽使用汉字数字，但语义为最高层级章标题。'
+- 'no': 8468
+  confidence: 0.9
+  reason: '''第 8 章 表''，符合章标题特征。'

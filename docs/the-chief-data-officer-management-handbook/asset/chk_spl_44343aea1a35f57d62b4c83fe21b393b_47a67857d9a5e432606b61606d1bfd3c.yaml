@@ -1,0 +1,94 @@
+reviews:
+- 'no': 18
+  overturn_probability: 0.1
+  alternative: 正文前置内容（前言），属于全书统一划分为一章的范围
+  counter_evidence:
+  - 根据规则，“前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章”。原判断将其分为独立章节，可能违反了“统一划分为一章”的规则，或者该书结构特殊。但更可能的解释是，审查员将“前言”视为独立章节，而实际上它可能应与后续的“序言”、“引言”等归为同一章，或者它是全书第一章。考虑到它是H1标题，且位于正文开始前，存在误判为独立章节（而非前置内容合并章）的可能性，或者反之。
+  keep_split: true
+- 'no': 64
+  overturn_probability: 0.1
+  alternative: 正文前置内容（序言），属于全书统一划分为一章的范围
+  counter_evidence:
+  - 同“前言”，序言通常与前言、引言等前置内容合并。如果规则要求“统一划分为一章”，那么将“序言”单独分章可能是错误的，除非“前言”已被分章且此处是下一节。但通常前置内容不单独分章，而是作为一个整体章节。
+  keep_split: true
+- 'no': 90
+  overturn_probability: 0.3
+  alternative: “引言”可能是“序言”或“前言”的一部分，或者是第一个正式章节前的导论
+  counter_evidence:
+  - '''## 引言'' 是 H2 标题，通常属于上一级章节（如序言或前言）的子节，而不是最高层级的章标题。根据规则“只划分全书最高层级的大章”，H2 标题通常不触发新章节，除非它是没有编号的独立导论部分。然而，在
+    Markdown 中，''##'' 通常表示二级标题。如果 ''前言'' 是 H1 (#)，''序言'' 是 H1 (#)，那么 ''引言'' 作为 H2
+    可能隶属于 ''序言'' 或 ''前言''。原判断将其视为独立章节，可能是因为其语义上的独立性，但格式上它是 H2。'
+  keep_split: false
+- 'no': 146
+  overturn_probability: 0.1
+  alternative: 正文前置内容（致谢），属于全书统一划分为一章的范围
+  counter_evidence:
+  - '''## 致谢'' 是 H2 标题。类似于 ''引言''，如果它位于 ''引言'' 之后或 ''序言'' 内部，它可能是子节。但通常 ''致谢'' 是独立的。不过，根据“统一划分为一章”的规则，它可能不应单独分章，而是与前面的前置内容合并。'
+  keep_split: true
+- 'no': 158
+  overturn_probability: 0.1
+  alternative: 正文前置内容（关于作者），属于全书统一划分为一章的范围
+  counter_evidence:
+  - 无 Markdown 标题标记，仅为文本 '关于作者'。虽然语义上是独立章节，但格式上不是标题。根据规则“注意也可能没有章序号，这就需要依靠语义判断”，这可以算作章节。但同样存在被归入前置内容合并章的可能性。
+  keep_split: true
+- 'no': 164
+  overturn_probability: 0.05
+  alternative: 最高层级部分标题
+  counter_evidence:
+  - '''# 第一部分：设计有效的数据办公室'' 明确使用了 H1 标记和 ''第一部分'' 字样。规则指出“如果存在标题为‘第 X 部分’，那么该书为部分-章节模式，遇到部分和章标题时，都要划分新章。”因此，此判断非常可靠。'
+  keep_split: true
+- 'no': 172
+  overturn_probability: 0.05
+  alternative: 最高层级章标题
+  counter_evidence:
+  - '''# 1. 了解你的组织'' 是 H1 标记，序号 ''1'' 紧随 ''第一部分'' 之后。符合“部分-章节”模式中的章标题特征。序号连贯（1, 2,
+    3...）。'
+  keep_split: true
+- 'no': 465
+  overturn_probability: 0.05
+  alternative: 最高层级章标题
+  counter_evidence:
+  - '''# 2. 有效数据管理的各个方面'' 是 H1 标记，序号 ''2'' 连贯。'
+  keep_split: true
+- 'no': 875
+  overturn_probability: 0.05
+  alternative: 最高层级章标题
+  counter_evidence:
+  - '''# 3. 数据供应链'' 是 H1 标记，序号 ''3'' 连贯。'
+  keep_split: true
+- 'no': 1130
+  overturn_probability: 0.05
+  alternative: 最高层级章标题
+  counter_evidence:
+  - '''# 4. 数据愿景、使命与战略'' 是 H1 标记，序号 ''4'' 连贯。'
+  keep_split: true
+- 'no': 1436
+  overturn_probability: 0.05
+  alternative: 最高层级章标题
+  counter_evidence:
+  - '''# 5. 主数据管理'' 是 H1 标记，序号 ''5'' 连贯。'
+  keep_split: true
+- 'no': 1825
+  overturn_probability: 0.05
+  alternative: 最高层级章标题
+  counter_evidence:
+  - '''# 6. 数据治理'' 是 H1 标记，序号 ''6'' 连贯。'
+  keep_split: true
+- 'no': 2067
+  overturn_probability: 0.05
+  alternative: 最高层级章标题
+  counter_evidence:
+  - '''# 7. 数据语言'' 是 H1 标记，序号 ''7'' 连贯。'
+  keep_split: true
+- 'no': 2492
+  overturn_probability: 0.05
+  alternative: 最高层级章标题
+  counter_evidence:
+  - '''# 8. 数据流程'' 是 H1 标记，序号 ''8'' 连贯。'
+  keep_split: true
+- 'no': 2803
+  overturn_probability: 0.05
+  alternative: 最高层级章标题
+  counter_evidence:
+  - '''# 9. 角色与职责'' 是 H1 标记，序号 ''9'' 连贯。'
+  keep_split: true

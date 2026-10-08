@@ -1,0 +1,93 @@
+chapter_starts:
+- 'no': 10
+  confidence: 0.95
+  final_reason: 双方一致：包含“第 1 章”明确编号，一级标题格式，语义统领后续内容，符合最高层级章节特征。
+  accepted_evidence:
+  - 判断方：识别为“第 1 章”
+  - 格式：Markdown 一级标题，含明确章序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 468
+  confidence: 0.95
+  final_reason: 双方一致：包含“2.”编号，一级标题，语义为“数据管理”，统领第2章内容。
+  accepted_evidence:
+  - 判断方：识别为“2. 数据管理”
+  - 格式：Markdown 一级标题，含明确章序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 953
+  confidence: 0.95
+  final_reason: 双方一致：包含“5.”编号，一级标题，语义为“像数据科学家一样思考”，统领第5章内容。
+  accepted_evidence:
+  - 判断方：识别为“5. 像数据科学家一样思考”
+  - 格式：Markdown 一级标题，含明确章序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1133
+  confidence: 0.9
+  final_reason: 双方一致：虽无数字序号，但根据上下文（前文第5章，后文图6-1）推断为第6章，一级标题，语义统领后续统计学内容。
+  accepted_evidence:
+  - 判断方：推断为第6章，基于图表编号序列
+  - 格式：Markdown 一级标题，独立成行
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1459
+  confidence: 0.95
+  final_reason: 双方一致：包含“7.”编号，一级标题，语义为“机器学习简介”，统领第7章内容。
+  accepted_evidence:
+  - 判断方：识别为“7. 机器学习简介”
+  - 格式：Markdown 一级标题，含明确章序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1668
+  confidence: 0.95
+  final_reason: 双方一致：包含“8.”编号，一级标题，语义为“人工智能导论”，统领第8章内容。
+  accepted_evidence:
+  - 判断方：识别为“8. 人工智能导论”
+  - 格式：Markdown 一级标题，含明确章序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1840
+  confidence: 0.95
+  final_reason: 双方一致：包含“9.”编号，一级标题，语义为“问题解决”，统领第9章内容。
+  accepted_evidence:
+  - 判断方：识别为“9. 问题解决”
+  - 格式：Markdown 一级标题，含明确章序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2117
+  confidence: 0.95
+  final_reason: 双方一致：包含“11.”编号，一级标题，语义为“雇佣与管理数据科学家”，统领第11章内容。
+  accepted_evidence:
+  - 判断方：识别为“11. 雇佣与管理数据科学家”
+  - 格式：Markdown 一级标题，含明确章序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2433
+  confidence: 0.9
+  final_reason: 双方一致：虽无数字序号，但根据上下文（前文第11章，后文图12-1）推断为第12章，一级标题，语义统领后续数据科学文化内容。
+  accepted_evidence:
+  - 判断方：推断为第12章，基于图表编号序列
+  - 格式：Markdown 一级标题，独立成行
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2795
+  confidence: 0.95
+  final_reason: 双方一致：包含“13.”编号，一级标题，语义为“人工智能伦理”，统领第13章内容。
+  accepted_evidence:
+  - 判断方：识别为“13. 人工智能伦理”
+  - 格式：Markdown 一级标题，含明确章序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2955
+  confidence: 0.95
+  final_reason: 双方一致：包含“14.”编号，一级标题，语义为“驾驭人工智能的未来”，统领第14章内容。
+  accepted_evidence:
+  - 判断方：识别为“14. 驾驭人工智能的未来”
+  - 格式：Markdown 一级标题，含明确章序号
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 2965
+  reason: 复核方指出其为第14章内部的子标题（自动化），虽为一级标题格式，但语义上隶属于第14章主题，非全书最高层级大章，故不分章。
+  need_human_review: false

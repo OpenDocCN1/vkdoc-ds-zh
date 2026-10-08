@@ -1,0 +1,29 @@
+reviews:
+- 'no': 6983
+  overturn_probability: 0.0
+  alternative: 真正的章节标题（第12章）
+  counter_evidence:
+  - 该行格式为 `# 12. Streamlit 中的测试`，符合最高层级章节标题的编号特征（`#` 一级标题 + 数字序号），且长度短、无标点结尾。
+  - 上下文证据显示该行之前是第11章的小结（`## 11.4 本章小结`），之后紧跟二级标题 `## 12.1 测试原则`，符合“大章标题后接子节”的结构规律。
+  keep_split: true
+- 'no': 7278
+  overturn_probability: 0.0
+  alternative: 真正的章节标题（第13章）
+  counter_evidence:
+  - 该行格式为 `# 13. Streamlit 与人工智能`，符合最高层级章节标题特征。
+  - 上下文显示该行之前是第12章的总结（`### 12.5 总结`），之后紧跟二级标题 `## 13.1 什么是 LLM...`，逻辑连贯，序号从12跳至13正常，标志着新章开始。
+  keep_split: true
+- 'no': 7744
+  overturn_probability: 0.0
+  alternative: 真正的章节标题（第14章）
+  counter_evidence:
+  - 该行格式为 `# 14. Streamlit 在工作中的应用`，符合最高层级章节标题特征。
+  - 上下文显示该行之前是第13章的总结（`## 13.4 总结`），之后紧跟二级标题 `## 14.1 Streamlit 在清洁能源领域的应用...`，结构清晰，标志着最后一章正文的开始。
+  keep_split: true
+- 'no': 7881
+  overturn_probability: 0.0
+  alternative: 文末索引部分的起始标题
+  counter_evidence:
+  - 该行内容为 `# 索引`，位于第14章正文及总结（`## 14.3 总结`）之后。
+  - 根据规则，“文末索引也划分为一章”。该行后紧跟索引内容的分类字母标题（`## A`）及列表项，确认其为索引部分的总标题，而非正文中的误判标题。
+  keep_split: true

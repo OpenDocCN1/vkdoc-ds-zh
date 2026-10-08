@@ -1,0 +1,75 @@
+chapter_starts:
+- 'no': 3058
+  confidence: 0.95
+  final_reason: '双方一致，识别为一级标题 # 10. 数据质量，符合最高层级章节划分规则。'
+  accepted_evidence:
+  - 判断方证据：检测到一级标题 `# 10. 数据质量`，符合最高层级章节特征。
+  - 上下文特征：后接图片 `10_Chapter` 及正文内容，序号与后续第11章连贯。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3473
+  confidence: 0.95
+  final_reason: '双方一致，识别为一级标题 # 11. 塑造数据办公室团队，符合最高层级章节划分规则。'
+  accepted_evidence:
+  - 判断方证据：检测到一级标题 `# 11. 塑造数据办公室团队`，符合最高层级章节特征。
+  - 上下文特征：后接图片 `11_Chapter`，序号与前后章节连贯。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4236
+  confidence: 0.95
+  final_reason: '双方一致，识别为部分标题 # 第二部分 数据管理的心理学。根据规则，存在部分-章节模式时，部分标题需划分新章。'
+  accepted_evidence:
+  - 判断方证据：检测到一级标题 `# 第二部分 数据管理的心理学`，属于部分标题，根据规则应划分新章。
+  - 结构特征：该标题统领后续第12、13章等内容，属于逻辑上的大篇章起始。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4238
+  confidence: 0.95
+  final_reason: '双方一致，识别为一级标题 # 12. 首席数据官的典型挑战，符合最高层级章节划分规则。'
+  accepted_evidence:
+  - 判断方证据：检测到一级标题 `# 12. 首席数据官的典型挑战`，符合最高层级章节特征。
+  - 上下文特征：紧随部分标题之后，序号正常。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4738
+  confidence: 0.95
+  final_reason: '双方一致，识别为一级标题 # 13. 首席数据官如何（不）行事，符合最高层级章节划分规则。'
+  accepted_evidence:
+  - 判断方证据：检测到一级标题 `# 13. 首席数据官如何（不）行事`，符合最高层级章节特征。
+  - 序号连贯性：接续第12章，逻辑顺畅。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4833
+  confidence: 0.9
+  final_reason: 判断方提出，复核方虽指出其缺乏显式编号且疑似排版错误（误用#），但通过图注（图14-1至14-5）及图片路径（14_Chapter）强证据确认其即为第14章起始。结合“宁可漏分不可误分”原则，此处误分风险低（确为章首），且缺失显式编号不影响其作为章节边界的语义实质。
+  accepted_evidence:
+  - 判断方证据：顶级 Markdown 标题 `# 利益相关方`。
+  - 复核方强证据：图片路径包含 `499948_1_En_14_Chapter`，图注为 `图 14-1` 等，证实该部分逻辑上属于第14章，且前后分别为第13章和第15章，缺失的正是第14章标题。
+  rejected_evidence:
+  - 复核方认为理由“虽无编号但为顶级 Markdown 标题”薄弱，易与节标题混淆。
+  need_human_review: false
+- 'no': 5501
+  confidence: 0.95
+  final_reason: '双方一致，识别为一级标题 # 15. 治理心理学，符合最高层级章节划分规则。'
+  accepted_evidence:
+  - 判断方证据：检测到一级标题 `# 15. 治理心理学`，符合最高层级章节特征。
+  - 序号连贯性：接续第14章（4833行）的内容，序号15正确。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5664
+  confidence: 0.95
+  final_reason: '双方一致，识别为部分标题 # 第三部分 数据管理的实践方面。根据规则，部分标题需划分新章。'
+  accepted_evidence:
+  - 判断方证据：检测到一级标题 `# 第三部分 数据管理的实践方面`，属于部分标题，根据规则应划分新章。
+  - 结构特征：统领后续第16章等内容。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5666
+  confidence: 0.95
+  final_reason: '双方一致，识别为一级标题 # 16. 数据业务案例，符合最高层级章节划分规则。'
+  accepted_evidence:
+  - 判断方证据：检测到一级标题 `# 16. 数据业务案例`，符合最高层级章节特征。
+  - 上下文特征：紧随第三部分标题，序号正常。
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

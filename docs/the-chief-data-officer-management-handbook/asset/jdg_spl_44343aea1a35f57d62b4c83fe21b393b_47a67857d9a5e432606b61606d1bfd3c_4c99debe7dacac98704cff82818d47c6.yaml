@@ -1,0 +1,124 @@
+chapter_starts:
+- 'no': 18
+  confidence: 0.95
+  final_reason: 虽前置内容常合并，但鉴于其独立H1标题且语义完整，视为独立章节起点更稳妥，符合‘宁可漏分’的保守策略（即不合并，而是保留其独立性）
+  accepted_evidence:
+  - 判断方与复核方均倾向于保留分割
+  - H1标题 '# 前言' 具有明确的章节起始语义
+  rejected_evidence:
+  - 复核方提出的‘统一划分为一章’的反驳证据较弱，因书中各部分结构清晰
+  need_human_review: false
+- 'no': 64
+  confidence: 0.95
+  final_reason: 序言为独立的H1标题，语义上完整且独立，符合分章特征
+  accepted_evidence:
+  - 判断方与复核方均倾向于保留分割
+  - H1标题 '# 序言' 具有明确的章节起始语义
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 90
+  confidence: 0.9
+  final_reason: 尽管是H2标题，但其位于‘序言’之后、‘第一部分’之前，语义上作为全书导论独立存在，且后续内容不再嵌套于序言，故视为独立章节或大节起始，在此结构中作为新章节处理更为合理
+  accepted_evidence:
+  - 判断方认为其独立
+  - 语义上承接序言，开启正文前的导论部分
+  rejected_evidence:
+  - 复核方指出其为H2，可能是子节；但鉴于上下文独立性，采纳为章节起始
+  need_human_review: false
+- 'no': 146
+  confidence: 0.95
+  final_reason: 致谢为独立的H2标题（在此上下文中视为独立块），语义完整，符合前置内容独立章节特征
+  accepted_evidence:
+  - 判断方与复核方均倾向于保留分割
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 158
+  confidence: 0.9
+  final_reason: ‘关于作者’无Markdown标题标记，但语义上为独立的版权/元数据章节，通常作为独立块处理
+  accepted_evidence:
+  - 判断方与复核方均倾向于保留分割
+  - 语义独立
+  rejected_evidence:
+  - 格式特征较弱，但语义证据充分
+  need_human_review: false
+- 'no': 164
+  confidence: 0.98
+  final_reason: ‘第一部分’是最高层级的部分标题，根据‘部分-章节’模式，必须划分新章
+  accepted_evidence:
+  - 判断方与复核方一致
+  - 格式特征：H1 + ‘第 X 部分’
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 172
+  confidence: 0.98
+  final_reason: ‘# 1. 了解你的组织’是最高层级章标题，序号连贯
+  accepted_evidence:
+  - 判断方与复核方一致
+  - 格式特征：H1 + 序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 465
+  confidence: 0.98
+  final_reason: ‘# 2. 有效数据管理的各个方面’是最高层级章标题，序号连贯
+  accepted_evidence:
+  - 判断方与复核方一致
+  - 格式特征：H1 + 序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 875
+  confidence: 0.98
+  final_reason: ‘# 3. 数据供应链’是最高层级章标题，序号连贯
+  accepted_evidence:
+  - 判断方与复核方一致
+  - 格式特征：H1 + 序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1130
+  confidence: 0.98
+  final_reason: ‘# 4. 数据愿景、使命与战略’是最高层级章标题，序号连贯
+  accepted_evidence:
+  - 判断方与复核方一致
+  - 格式特征：H1 + 序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1436
+  confidence: 0.98
+  final_reason: ‘# 5. 主数据管理’是最高层级章标题，序号连贯
+  accepted_evidence:
+  - 判断方与复核方一致
+  - 格式特征：H1 + 序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1825
+  confidence: 0.98
+  final_reason: ‘# 6. 数据治理’是最高层级章标题，序号连贯
+  accepted_evidence:
+  - 判断方与复核方一致
+  - 格式特征：H1 + 序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2067
+  confidence: 0.98
+  final_reason: ‘# 7. 数据语言’是最高层级章标题，序号连贯
+  accepted_evidence:
+  - 判断方与复核方一致
+  - 格式特征：H1 + 序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2492
+  confidence: 0.98
+  final_reason: ‘# 8. 数据流程’是最高层级章标题，序号连贯
+  accepted_evidence:
+  - 判断方与复核方一致
+  - 格式特征：H1 + 序号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2803
+  confidence: 0.98
+  final_reason: ‘# 9. 角色与职责’是最高层级章标题，序号连贯
+  accepted_evidence:
+  - 判断方与复核方一致
+  - 格式特征：H1 + 序号
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

@@ -1,0 +1,22 @@
+chapter_starts:
+- 'no': 8
+  confidence: 0.9
+  reason: 前言属于正文前内容，独立划分为一章。
+- 'no': 26
+  confidence: 0.9
+  reason: 引言属于正文前内容，独立划分为一章。
+- 'no': 38
+  confidence: 0.9
+  reason: 致谢属于正文前内容，独立划分为一章。
+- 'no': 50
+  confidence: 0.9
+  reason: 关于作者与技术审校者属于正文前内容，独立划分为一章。
+- 'no': 56
+  confidence: 1.0
+  reason: 明确的第 1 章标题，格式为“# 第 1 章 ...”。
+- 'no': 1056
+  confidence: 1.0
+  reason: 明确的第 2 章标题，格式为“# 2. ...”。
+- 'no': 1910
+  confidence: 1.0
+  reason: 明确的第 3 章标题，格式为“# 3. ...”。

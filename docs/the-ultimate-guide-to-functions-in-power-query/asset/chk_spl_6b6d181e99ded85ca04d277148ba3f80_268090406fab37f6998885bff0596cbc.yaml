@@ -1,0 +1,141 @@
+reviews:
+- 'no': 569
+  overturn_probability: 0.95
+  alternative: 目录项
+  counter_evidence:
+  - 该行内容以 '347' 结尾，对应原书页码 347，符合目录项格式（章节名+页码）。
+  - 上一行 585 是 '总结 357'，也是带页码的目录项，说明该区域（518-586行）是完整的目录列表。
+  - 真正的第 9 章正文起始处通常不会有页码后缀，且不会紧接在目录项之后。
+  keep_split: false
+- 'no': 587
+  overturn_probability: 0.95
+  alternative: 目录项
+  counter_evidence:
+  - 该行内容以 '359' 结尾，对应原书页码 359，符合目录项格式。
+  - 前后行（569-593行）均包含页码（如 347, 357, 359, 360, 362...），表明整个区块为目录。
+  - 真正的章节标题不会在行尾附带三位数字的页码。
+  keep_split: false
+- 'no': 595
+  overturn_probability: 0.9
+  alternative: 目录项
+  counter_evidence:
+  - 该行 'Let-In 命令' 后无页码，但其上下文（587-593行）均为带页码的目录项，且 595 行位于目录区块末尾附近。
+  - 虽然缺少页码，但结合 587 行（第10章）和 593 行（try 函数 366页），595 行极可能是目录中 'Let-In 命令' 对应的条目，或者是一个无页码的子目录项。
+  - 即使作为章节标题，它也极有可能是目录的一部分，而非正文起始。考虑到 587 行被误判为分章点，595 行同样处于目录区域。
+  keep_split: false
+- 'no': 681
+  overturn_probability: 0.6
+  alternative: 页眉
+  counter_evidence:
+  - 该页已包含第 1 章的起始标题（663行），681行位于正文中间（670行有奇怪的翻译痕迹，674行有版权信息块），通常是页眉重复。
+  - 页眉通常出现在页面顶部，若 663 是真正的章节开始，681 大概率是后续页面的页眉。
+  keep_split: false
+- 'no': 820
+  overturn_probability: 0.6
+  alternative: 页眉
+  counter_evidence:
+  - 819 行 '# 第 1 章 Power Query 简介' 极可能是页眉，因为它出现在章节内容中间（809行是 'Power Query 界面'，821行是列表项
+    '4. 查询设置'）。
+  - 虽然未在待处理列表中单独列出，但 819 的存在暗示了页眉模式。若 819 是页眉，则类似的 820 行（如果存在）也是。但针对给定的 681, 819(隐含),
+    915, 1025 等，重点检查 1025。
+  keep_split: false
+- 'no': 915
+  overturn_probability: 0.1
+  alternative: 章节标题
+  counter_evidence:
+  - 915 行 '# 第 2 章 数据类型' 位于第 1 章内容结束（913行 '下一章...'）之后，且格式为 H1 标题，语义上是新章节的开始。
+  - 虽然 1025 行是页眉，但 915 行处于正文流逻辑的章节切换点。
+  keep_split: true
+- 'no': 1025
+  overturn_probability: 0.9
+  alternative: 页眉
+  counter_evidence:
+  - '该行 ''# 第 2 章 数据类型'' 出现在 1023 行（数字类型讨论中间）和 1027 行（继续讨论 #nan）之间，明显是穿插在正文中的页眉。'
+  - 真正的章节标题不会出现在另一章的内容中间。
+  keep_split: false
+- 'no': 1249
+  overturn_probability: 0.2
+  alternative: 章节标题
+  counter_evidence:
+  - 1249 行 '## 第 3 章 数字函数' 位于第 2 章结论（1243-1247行）之后，语义上是新章节开始。
+  - 但需注意其 Markdown 层级为 '##'，而之前的章节（如 663, 915）使用的是 '#'。这可能意味着该书的章节层级定义不一致，或者 1249
+    实际上是子章节？不，看 1421 是 '## 第 4 章'，说明 '##' 在此书中可能代表章节标题，或者前面的 '#' 是 H1 章节标题，'##' 是
+    H2 章节标题？
+  - 检查 663 是 '## 第 1 章'，915 是 '# 第 2 章'。格式不统一。但 1249 确实标志着第 3 章的开始。若严格按 '最高层级' 判断，需看全书一致性。若
+    663 是 '##' 且被认可为章，则 1249 也是。
+  - 然而，1249 之前的 1247 行是第 2 章结尾。1249 是合理的分章点。
+  keep_split: true
+- 'no': 1358
+  overturn_probability: 0.9
+  alternative: 页眉
+  counter_evidence:
+  - 该行 '# 第三章 数字函数' 出现在 1357 行（表格中间）和 1360 行（继续公式列表）之间，是典型的页眉插入。
+  - 它不是章节的开始，而是章节内部的重复标题。
+  keep_split: false
+- 'no': 1421
+  overturn_probability: 0.1
+  alternative: 章节标题
+  counter_evidence:
+  - 1421 行 '# 第四章 文本函数' 位于第 3 章结尾（1419行 '下一章...'）之后，语义上是新章节开始。
+  - 虽然 1445 行是页眉，但 1421 是真正的分章点。
+  keep_split: true
+- 'no': 1445
+  overturn_probability: 0.9
+  alternative: 页眉
+  counter_evidence:
+  - 该行 '# 第 4 章 文本函数' 出现在 1443 行（DOI链接，属于前言/版权块的残留或页脚）之后，但在 1449 行（正文段落）之前。
+  - 更关键的证据：1427 行 '## 文本函数' 已经是第 4 章的 H2 标题（在 1421 H1 标题之后）。1445 行 '# 第 4 章 文本函数'
+    出现在 1441 行（版权信息）和 1449 行（正文）之间，极有可能是页面底部的页脚或下一页顶部的页眉。
+  - 实际上，看 1439-1444 行是版权/DOI 块，通常出现在章节开头。如果 1421 是章标题，1423 是正文，1439 是页脚/版权页内容？不，1439
+    看起来像章节末尾的版权行，或者更可能是页脚。
+  - 仔细看，1421 是章标题。1423 开始正文。1439-1444 是版权信息块，通常出现在章节第一页的页脚。1445 是 '# 第 4 章 文本函数'，这很可能是下一页的页眉。
+  keep_split: false
+- 'no': 1638
+  overturn_probability: 0.9
+  alternative: 页眉
+  counter_evidence:
+  - 该行 '# 第 4 章 文本函数' 出现在 1637 行（代码块结束）和 1640 行（### Text.BeforeDelimiter）之间。
+  - 它处于第 4 章内容的中间，显然是页眉。
+  keep_split: false
+- 'no': 2179
+  overturn_probability: 0.9
+  alternative: 页眉
+  counter_evidence:
+  - 该行 '# 第 4 章 文本函数' 出现在 2177 行（表格行）和 2181 行（## Text.EndsWith）之间。
+  - 它处于第 4 章内容的中间，显然是页眉。
+  keep_split: false
+- 'no': 2351
+  overturn_probability: 0.1
+  alternative: 章节标题
+  counter_evidence:
+  - 2351 行 '## 第五章 日期和时间函数' 位于第 4 章结尾（2345-2349行）之后，语义上是新章节开始。
+  - 虽然使用的是 '##'，但结合 1421 是 '#' 而 1249 是 '##' 的不一致情况，只要它是该语义层级的标题，就应分章。
+  keep_split: true
+- 'no': 2403
+  overturn_probability: 0.9
+  alternative: 页眉
+  counter_evidence:
+  - 该行 '# 第 5 章 日期和时间函数' 出现在 2401 行（列表项 2.）和 2405 行（正文 '因此...'）之间。
+  - 它处于第 5 章内容的中间，显然是页眉。
+  keep_split: false
+- 'no': 2650
+  overturn_probability: 0.9
+  alternative: 页眉
+  counter_evidence:
+  - 该行 '# 第五章 日期和时间函数' 出现在 2649 行（### Date.DayOfWeekName 标题后）和 2652 行（正文 '此函数...'）之间。
+  - 它处于第 5 章内容的中间，显然是页眉。
+  keep_split: false
+- 'no': 2764
+  overturn_probability: 0.1
+  alternative: 章节标题
+  counter_evidence:
+  - 2764 行 '# 第 6 章' 和 2766 行 '# 列表函数' 共同构成第 6 章标题。2764 是标记，2766 是名称。
+  - 位于第 5 章结尾（2762行 '总结'）之后，语义上是新章节开始。
+  keep_split: true
+- 'no': 2820
+  overturn_probability: 0.9
+  alternative: 页眉
+  counter_evidence:
+  - 该行 '# 第 6 章 列表函数' 出现在 2818 行（代码块结束）和 2822 行（公式 '= {"c".."n"}'）之间。
+  - 它处于第 6 章内容的中间，显然是页眉。
+  keep_split: false

@@ -1,0 +1,85 @@
+reviews:
+- 'no': 2
+  overturn_probability: 0.0
+  alternative: 正文前内容（前言）
+  counter_evidence:
+  - 根据规则，前言、序言等正文之前的内容统一划分为一章。
+  - 该行是Markdown一级标题 `# 前言`，独立成行，具有统领性。
+  keep_split: true
+- 'no': 16
+  overturn_probability: 0.0
+  alternative: 附录/术语表章节
+  counter_evidence:
+  - 该行是 `# 缩略语`，一级标题，通常作为独立章节或附录部分。
+  - 其后紧跟大量定义列表（aaS, API, BLOB等），语义上构成一个独立的知识块，符合章节特征。
+  keep_split: true
+- 'no': 63
+  overturn_probability: 0.0
+  alternative: 前置内容（目标读者）
+  counter_evidence:
+  - 该行是 `# 目标读者`，一级标题，位于正文第1章之前，属于典型的前置辅助内容。
+  - 根据规则，这类内容应独立成章。
+  keep_split: true
+- 'no': 85
+  overturn_probability: 0.0
+  alternative: 前置内容（附加材料）
+  counter_evidence:
+  - 该行是 `# 附加材料`，一级标题，介绍资源链接等，属于前置辅助内容。
+  - 语义独立，后续内容围绕附加资源展开。
+  keep_split: true
+- 'no': 91
+  overturn_probability: 0.0
+  alternative: 前置内容（关于作者）
+  counter_evidence:
+  - 该行是 `# 关于作者`，一级标题，标准的前置页面。
+  - 根据规则，关于作者统一划分为一章。
+  keep_split: true
+- 'no': 93
+  overturn_probability: 0.0
+  alternative: 前置内容（关于技术审校）
+  counter_evidence:
+  - 该行是 `# 关于技术审校`，一级标题，标准的前置页面。
+  - 紧随“关于作者”之后，逻辑上独立且简短。
+  keep_split: true
+- 'no': 95
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 格式为 `# 1. Streamlit 简介`，包含序号“1.”，是全书最高层级标题。
+  - 序号连贯，后接正文子节 `## 1.1`，符合章节标题的所有特征。
+  keep_split: true
+- 'no': 648
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 格式为 `# 2. Streamlit 基础`，序号“2.”紧接第1章，连贯无跳跃。
+  - 是最高层级标题，统领后续 `## 2.1` 等子节。
+  keep_split: true
+- 'no': 1252
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 格式为 `# 3. 开发用户界面`，序号“3.”连贯。
+  - 独立成行，无句号，长度适中，语义概括性强。
+  keep_split: true
+- 'no': 2042
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 格式为 `# 4. 管理与可视化数据`，序号“4.”连贯。
+  - 位于第3章总结之后，开启新的主要知识领域。
+  keep_split: true
+- 'no': 2503
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 格式为 `# 5. 集成数据库`，序号“5.”连贯。
+  - 最高层级，后续包含 `## 5.1`, `## 5.2` 等子节。
+  keep_split: true
+- 'no': 2866
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 格式为 `# 6. 利用后端服务器`，序号“6.”连贯。
+  - 最高层级，作为本书最后几章之一，结构完整。
+  keep_split: true

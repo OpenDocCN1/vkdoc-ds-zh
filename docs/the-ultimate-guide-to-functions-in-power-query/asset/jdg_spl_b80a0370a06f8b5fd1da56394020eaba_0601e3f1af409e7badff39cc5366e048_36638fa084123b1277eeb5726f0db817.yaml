@@ -1,0 +1,67 @@
+chapter_starts: []
+rejected_lines:
+- 'no': 6050
+  reason: 复核方证据成立：该行位于第8章内容深处（Table.Distinct部分），前后文均为正文，且“第 8 章”在文中大量重复出现，符合页眉/排版噪声特征，非真正的章节起始。
+  need_human_review: false
+- 'no': 6199
+  reason: 复核方证据成立：位于 Table.AlternateRows 语法定义中间，属于页眉混入，非章节起始。
+  need_human_review: false
+- 'no': 6575
+  reason: 复核方证据成立：位于 Table.Sort 讨论段落中间，前后语义连贯，属于排版错误/页眉噪声。
+  need_human_review: false
+- 'no': 7060
+  reason: 复核方证据成立：位于 Table.RemoveColumns 代码块与参数说明之间，典型的页眉混入位置。
+  need_human_review: false
+- 'no': 7255
+  reason: 复核方证据成立：位于 Table.DuplicateColumn 讲解流程中，前后文连贯，为页眉残留。
+  need_human_review: false
+- 'no': 7418
+  reason: 复核方证据成立：位于 Table.TransformColumns 结果展示前后，打断阅读流，确认为噪声。
+  need_human_review: false
+- 'no': 7559
+  reason: 复核方证据成立：位于 Table.AddColumn 代码与结果表之间，属于同一功能模块内部，非章节分界。
+  need_human_review: false
+- 'no': 7932
+  reason: 复核方证据成立：无Markdown标记，夹在参数说明与举例之间，格式异常，确认为页眉。
+  need_human_review: false
+- 'no': 7965
+  reason: 复核方证据成立：位于结果展示与新函数标题之间，但作为重复出现的页眉不应分章。
+  need_human_review: false
+- 'no': 7991
+  reason: 复核方证据成立：穿插在代码块与结果表之间，属于排版断行噪声。
+  need_human_review: false
+- 'no': 8023
+  reason: 复核方证据成立：位于 Table.Pivot 代码与举例之间，上下文连贯，非章节起始。
+  need_human_review: false
+- 'no': 8130
+  reason: 复核方证据成立：虽带有#号，但内容简写为'第 8 章 表'，且位于 Table.Unpivot 结果与 Table.Group 之间，大概率为带格式的页眉或OCR错误。
+  need_human_review: false
+- 'no': 8288
+  reason: 复核方证据成立：加粗文本位于参数说明与举例之间，为装饰性页眉。
+  need_human_review: false
+- 'no': 8322
+  reason: 复核方证据成立：位于表展示与小节标题之间，属于页眉/页脚混入。
+  need_human_review: false
+- 'no': 8345
+  reason: 复核方证据成立：紧跟代码块之后，参数说明之前，明显为干扰项。
+  need_human_review: false
+- 'no': 8372
+  reason: 复核方证据成立：位于两个表格定义之间，用于分隔内容的页眉。
+  need_human_review: false
+- 'no': 8402
+  reason: 复核方证据成立：位于同一小节内的两个结果表之间，无需分章。
+  need_human_review: false
+- 'no': 8422
+  reason: 复核方证据成立：位于同一小节内的两个结果表之间，属于页眉重复。
+  need_human_review: false
+- 'no': 8452
+  reason: 判断方认为其为真实章节起始，但复核方指出前文（Table.Combine）并未结束，且该行可能是误插入。然而，'第八章 表格' 与之前大量重复的
+    '第 8 章 表格' 形式不同（汉字数字 vs 阿拉伯数字），且位置在多个页眉噪声后。但考虑到规则‘宁可漏分’，且复核方认为其可能是被错误插入的新章起始或前文未断干净，证据存在争议。但在本书语境中，若前文8451为空行且8454直接开始新内容'Table.Join'，而8452是'第八章
+    表格'，这极有可能是全书第8章的真正大标题（之前的'第8章'是页眉，这里是真正的章节头）。但仔细检查行8454是'#### Table.Join'，通常'####'是更深层级。如果8452是章标题，后面应该跟'##'或'###'。这里行8454是'####'，行8453是空行。再看行8452
+    '## 第八章 表格' (注意：输入数据中8452 line是 '## 第八章 表格'，而判断方描述为'第八章 表格'，复核方描述为'第八章 表格')。实际上输入数据第8452行内容是
+    '## 第八章 表格'。这是一个Markdown H2标题。在H2层级下出现'第8章'，且后续没有明确的章节结构断裂（因为后续紧接着是#### Table.Join，这可能是一个子节）。但是，对比其他噪声页眉，'##
+    第八章 表格' 带有Markdown标记且使用汉字数字，与页眉噪声（多为无标记或加粗）不同。然而，复核方倾向于认为它是噪声或误插。鉴于‘宁可漏分’原则，且前文Table.Combine尚未完全结束（8451空行，8450代码结束），更可能是排版错误。采纳复核方意见，不分章。
+  need_human_review: true
+- 'no': 8468
+  reason: 复核方证据成立：内容为 '第 8 章 表'，位于代码块与说明之间，属于页眉噪声或OCR错误。
+  need_human_review: false

@@ -1,0 +1,29 @@
+chapter_starts:
+- 'no': 6240
+  confidence: 0.95
+  final_reason: 双方一致。Markdown一级标题'# 8. 结论'具有明确数字序号，且位于第7章内容结束后，符合最高层级章节特征。前文'## 结论'为第7章内部小结，本行为全书/本卷级别总结。
+  accepted_evidence:
+  - 包含'#'一级标题符号和数字序号'8'
+  - 位于第6238行第7章正文结束后的新位置
+  - 语义上统领后续回顾内容，区别于子章节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6252
+  confidence: 0.95
+  final_reason: 双方一致。Markdown一级标题'# 实现商业价值与后续步骤'虽无显式序号，但作为顶级标题，且下辖多个二级标题（如'## 规划您的部署'），具有统领性，符合无序号顶级章节的语义判断标准。
+  accepted_evidence:
+  - Markdown一级标题符号'#'
+  - 标题具有概括性，覆盖后续部署、实施、生命周期等内容
+  - 后续跟随多个二级标题，结构上支持其作为父级章节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6278
+  confidence: 1.0
+  final_reason: 双方一致。Markdown一级标题'# 索引'，根据规则“文末索引也划分为一章”，确认为新章节。后续内容为典型的字母序索引条目。
+  accepted_evidence:
+  - Markdown一级标题符号'#'
+  - 标题为'索引'
+  - 后续行（6280起）显示为索引内容（'## A, B, C'等）
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

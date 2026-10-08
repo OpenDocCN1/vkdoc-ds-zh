@@ -1,0 +1,58 @@
+chapter_starts:
+- 'no': 8
+  confidence: 0.95
+  final_reason: 前言属于正文前内容，独立划分为一章。
+  accepted_evidence:
+  - Markdown 一级标题 `# 前言`，独立成行
+  - 根据规则，前言属于正文之前的内容，应统一划分为一章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 26
+  confidence: 0.95
+  final_reason: 引言属于正文前内容，独立划分为一章。
+  accepted_evidence:
+  - Markdown 一级标题 `# 引言`，独立成行
+  - 引言通常作为正文前的独立部分，符合分章标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 38
+  confidence: 0.95
+  final_reason: 致谢属于正文前内容，独立划分为一章。
+  accepted_evidence:
+  - Markdown 一级标题 `# 致谢`，独立成行
+  - 致谢属于正文之前的内容，应独立划分
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 50
+  confidence: 0.95
+  final_reason: 关于作者与技术审校者属于正文前内容，独立划分为一章。
+  accepted_evidence:
+  - Markdown 二级标题 `## 关于作者与技术审校者`
+  - 虽然使用 `##` 级别，但内容语义上属于“关于作者”这类正文前独立章节，且前几行有 `# 致谢` 结束，后文直接开始第 1 章，故独立成章合理
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 56
+  confidence: 1.0
+  final_reason: 明确的第 1 章标题，格式为“# 第 1 章 ...”。
+  accepted_evidence:
+  - 格式为 `# 第 1 章 自然语言处理基础`，包含明确的章序号 `1`
+  - 这是全书最高层级的大章，符合“第 X 章”的划分标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1056
+  confidence: 1.0
+  final_reason: 明确的第 2 章标题，格式为“# 2. ...”。
+  accepted_evidence:
+  - 格式为 `# 2. Python 与自然语言处理`，包含明确的章序号 `2`
+  - 这是全书最高层级的大章，序号连贯，符合划分标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1910
+  confidence: 1.0
+  final_reason: 明确的第 3 章标题，格式为“# 3. ...”。
+  accepted_evidence:
+  - 格式为 `# 3. 处理与理解文本`，包含明确的章序号 `3`
+  - 这是全书最高层级的大章，序号连贯，符合划分标准
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

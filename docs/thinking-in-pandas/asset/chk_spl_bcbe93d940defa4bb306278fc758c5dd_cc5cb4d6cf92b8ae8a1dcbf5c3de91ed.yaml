@@ -1,0 +1,84 @@
+reviews:
+- 'no': 16
+  overturn_probability: 0.1
+  alternative: 正文小标题/前置部分标题
+  counter_evidence:
+  - 该行内容为“# 简介”，位于封面、版权页之后，属于书籍的前置内容（Front Matter）。
+  - 根据规则，“前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章”。因此，“简介”、“关于作者”等不应各自独立成章，而应归属于同一个“前置部分”章节，或者如果严格区分，它确实是一个独立的单元，但通常不与主章节混列。然而，原判断将其分章在逻辑上是可以接受的（作为前置部分的第一块），但更严谨的做法是将前置部分合并。不过，鉴于它确实是一个#级标题且内容独立，误报概率较低，主要争议在于是否应与后续的“关于作者”合并。若严格遵循“正文之前的内容统一划分为一章”，则16、20、22应合并为一章。原判断将它们分为三章，这在某些工作流中是误判（过度分章）。
+  keep_split: false
+- 'no': 20
+  overturn_probability: 0.2
+  alternative: 前置部分子标题
+  counter_evidence:
+  - 该行“# 关于作者”属于书籍前置内容。根据规则“前言、序言...统一划分为一章”，它与“# 简介”（no 16）和“# 关于技术审稿人”（no 22）属于同属前置元数据，应合并为一个章节（例如“前言与致谢”或“前置部分”），而不是单独分章。
+  - 若将其单独分章，会导致目录中出现多个非正文的碎片章节，不符合常规图书章节结构。
+  keep_split: false
+- 'no': 22
+  overturn_probability: 0.2
+  alternative: 前置部分子标题
+  counter_evidence:
+  - 同no 20，该行“# 关于技术审稿人”属于前置内容，应与“# 简介”、“# 关于作者”合并为同一章（前置部分），不应独立分章。
+  keep_split: false
+- 'no': 24
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 明确带有“第 1 章”字样，格式为一级标题，语义上开启正文主体，完全符合分章特征。
+  keep_split: true
+- 'no': 72
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 格式为“# 2. 基础数据访问与合并”，虽然序号是“2.”而非“第 2 章”，但在该书体例中（参考no 2230等），这是最高层级的章标题，且序号连贯（第1章后接2），符合分章特征。
+  keep_split: true
+- 'no': 590
+  overturn_probability: 0.05
+  alternative: 章节标题
+  counter_evidence:
+  - 该行“# `pandas` 的工作原理”是一级标题。观察上下文，第2章（no 72）包含多个二级标题（如`## DataFrame...`），且直到no 558有分隔线`---`，no
+    559-588是脚注区域。no 590紧随其后，且后续有`## Python 数据结构`等二级标题，结构上明显是新一章的起始。虽无“第3章”字样，但根据体例推断为第3章。误报可能性极低。
+  keep_split: true
+- 'no': 783
+  overturn_probability: 0.05
+  alternative: 章节标题
+  counter_evidence:
+  - 该行“# NumPy 与 pandas 性能基础”是一级标题。它位于第3章（no 590）内容之后。观察其后的`## pandas 性能简介`（no 806）等二级标题，以及再往后没有明显的“第4章”字样，但它独立成一节，且位置处于第3章主要技术内容（Python数据结构、CPython）之后，很可能标志着第4章的开始（尽管标题没写序号）。但仔细看no
+    590是第3章，no 783如果是第4章，逻辑通顺。然而，我们需要确认它是否是第3章内的一个大的`#`级标题（如果该书允许章内有#级标题）。通常#级是章级。结合no
+    1201 `## 加载与标准化数据`（属于第4章内容？），以及no 2230 `# 5. ...`。如果783是第4章，那么1201属于第4章。但1201是`##`。让我们看no
+    1207 `表 4-1`。这表明第4章的内容确实从某处开始。如果783是第4章标题，那么它应该是正确的。误报概率低。
+  keep_split: true
+- 'no': 926
+  overturn_probability: 0.15
+  alternative: 正文小标题/二级标题误标为一级
+  counter_evidence:
+  - 该行“# DataFrame 排版优化”格式为一级标题。但在第3章（no 590）中，我们已经看到`## Python 数据结构`（no 596）、`##
+    CPython...`（no 691）。no 783是`# NumPy...`。no 926是`# DataFrame 排版优化`。
+  - 观察其后的内容：no 928提到“列表 3-16”，no 965是`## 选择合适的 DataFrame`。这里的“列表 3-16”暗示当前仍属于第3章（Chapter
+    3）。
+  - 如果no 783是第4章标题，那么no 926为什么还是引用“列表 3-xx”？这极有可能是Markdown转换错误，将原本应该是`##`（二级标题）的内容标成了`#`（一级标题）。
+  - 证据：no 928正文提到“列表 3-16”，说明该内容仍隶属于第3章。因此，no 926不应分章，它只是第3章内部的一个小节标题，且标记级别错误（应为##）。
+  keep_split: false
+- 'no': 2230
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 明确包含“5.”序号（# 5. pandas 中的基本数据转换），格式为一级标题，序号连贯（前文有2,3,4(隐含),5），符合分章特征。
+  keep_split: true
+- 'no': 2470
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 明确包含“6.”序号（# 6. `apply` 方法），格式为一级标题，符合分章特征。
+  keep_split: true
+- 'no': 2767
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 明确包含“7.”序号（# 7. `Groupby`），格式为一级标题，符合分章特征。
+  keep_split: true
+- 'no': 2870
+  overturn_probability: 0.05
+  alternative: 章节标题
+  counter_evidence:
+  - 该行“# 超越 pandas 的性能提升”是一级标题，位于第7章（no 2767）之后。根据体例，它对应第8章。虽无序号，但作为#级标题且处于章级位置，分章判断正确。
+  keep_split: true

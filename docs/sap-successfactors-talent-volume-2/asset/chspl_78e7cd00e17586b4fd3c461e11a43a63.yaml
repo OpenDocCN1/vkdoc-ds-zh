@@ -1,0 +1,16 @@
+chapter_starts:
+- 'no': 23
+  confidence: 0.95
+  reason: 前言类章节标题，语义独立，统领后续引言内容。
+- 'no': 29
+  confidence: 0.95
+  reason: 前言类章节标题，关于作者信息，独立章节。
+- 'no': 31
+  confidence: 1.0
+  reason: 第1章标题，带有顶级编号“1.”，符合大章起始特征。
+- 'no': 1485
+  confidence: 1.0
+  reason: 第2章标题，带有顶级编号“2.”，前文为第1章结论，符合章节更替特征。
+- 'no': 2617
+  confidence: 1.0
+  reason: 第3章标题，带有顶级编号“3.”，前文为第2章结论，符合章节更替特征。

@@ -1,0 +1,43 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.95
+  reason: 目录页起始，属于前言/索引类内容，统一划分为一章。
+- 'no': 36
+  confidence: 0.95
+  reason: 存在“部分-章节”模式，此处为“第一部分”标题，需划分新章。
+- 'no': 44
+  confidence: 0.9
+  reason: 第 1 章的起始标题。
+- 'no': 195
+  confidence: 0.9
+  reason: 第 2 章的起始标题（格式为 C H A P T E R 后跟副标题，语义上为章头）。
+- 'no': 447
+  confidence: 0.9
+  reason: 第 3 章的起始标题（对应目录中的第 3 章）。
+- 'no': 729
+  confidence: 0.9
+  reason: 第 4 章的起始标题。
+- 'no': 847
+  confidence: 0.85
+  reason: 第 5 章的起始标题（虽排版有误“第 章”，但结合上下文和目录，此处为第 5 章开始）。
+- 'no': 1067
+  confidence: 0.95
+  reason: “第二部分”标题，属于部分-章节模式，需划分新章。
+- 'no': 1073
+  confidence: 0.9
+  reason: 第 6 章的起始标题。
+- 'no': 1283
+  confidence: 0.9
+  reason: 第 7 章的起始标题（对应目录中的第 7 章）。
+- 'no': 1928
+  confidence: 0.9
+  reason: 第 8 章的起始标题（对应目录中的第 8 章）。
+- 'no': 2330
+  confidence: 0.9
+  reason: 第 9 章的起始标题（“章节”字样后紧跟标题，语义判断为章头）。
+- 'no': 2495
+  confidence: 0.9
+  reason: 第 10 章的起始标题（“# 第 X 章”下接副标题，结合目录应为第 10 章）。
+- 'no': 2673
+  confidence: 0.95
+  reason: 索引部分起始，作为独立一章。

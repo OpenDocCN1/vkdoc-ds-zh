@@ -1,0 +1,56 @@
+chapter_starts:
+- 'no': 2955
+  confidence: 0.95
+  final_reason: 双方一致认定为前置内容“关于作者”，符合规则。
+  accepted_evidence:
+  - '格式为二级标题 ##'
+  - 语义为正文前独立板块
+  - 规则规定前置内容分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2961
+  confidence: 0.95
+  final_reason: 双方一致认定为前置内容“致谢”，符合规则。
+  accepted_evidence:
+  - '格式为二级标题 ##'
+  - 语义为正文前独立板块
+  - 规则规定前置内容分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2975
+  confidence: 0.95
+  final_reason: 双方一致认定为前置内容“前言”，符合规则。
+  accepted_evidence:
+  - '格式为二级标题 ##'
+  - 语义为正文前独立板块
+  - 规则规定前置内容分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3070
+  confidence: 0.98
+  final_reason: 双方一致认定，存在部分-章节结构，且该行为部分标题。
+  accepted_evidence:
+  - 规则规定部分标题需分章
+  - '格式为二级标题 ##'
+  - 统领后续第1-5章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3112
+  confidence: 0.98
+  final_reason: 双方一致认定，存在部分-章节结构，且该行为部分标题。
+  accepted_evidence:
+  - 规则规定部分标题需分章
+  - '格式为二级标题 ##'
+  - 统领后续第6-10章
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 3061
+  reason: 复核方指出其为目录/大纲页的排版标题或噪声，紧邻目录列表，非正文逻辑章节，采纳复核意见。
+  need_human_review: false
+- 'no': 3063
+  reason: 复核方指出其为目录页标题，后续仅为目录列表项，非正文逻辑章节，采纳复核意见。
+  need_human_review: false
+- 'no': 3186
+  reason: 复核方指出其为目录列表中的普通列表项（- 索引），而非章节标题，采纳复核意见。
+  need_human_review: false

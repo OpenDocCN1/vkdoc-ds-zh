@@ -1,0 +1,74 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.9
+  final_reason: 该行为书籍标题页/版权页起始。根据规则‘前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章’，此处作为正文前所有辅助内容（包括版权页、目录、关于作者、致谢、引言）的统一分章起点。
+  accepted_evidence:
+  - 位于文本最前端，包含书名、作者、ISBN等出版信息
+  - 后续内容（目录、关于作者、引言）均属于正文前缀，根据规则应合并为单一章节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 290
+  confidence: 0.95
+  final_reason: ‘## 第 1 章’为全书最高层级章节标题，序号为1，后接子节，符合分章规则。
+  accepted_evidence:
+  - 编号连贯（第1章）
+  - Markdown层级为二级（##）或一级（#），在此书中作为顶级章标题处理
+  - 后文包含‘### 背景’等子节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 739
+  confidence: 0.95
+  final_reason: ‘# 第 2 章’为全书最高层级章节标题，序号连贯（承接第1章），后接子节。
+  accepted_evidence:
+  - 编号连贯（第2章）
+  - 语义上统领后续马尔可夫链相关内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1200
+  confidence: 0.95
+  final_reason: ‘## 第三章’为全书最高层级章节标题，序号连贯（承接第2章），后接子节。
+  accepted_evidence:
+  - 编号连贯（第3章）
+  - 使用中文数字‘三’，但语义明确为顶级章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1540
+  confidence: 0.95
+  final_reason: ‘## 第四章’为全书最高层级章节标题，序号连贯（承接第3章），后接子节。
+  accepted_evidence:
+  - 编号连贯（第4章）
+  - 语义上统领二维盒子物理引擎相关内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2092
+  confidence: 0.95
+  final_reason: ‘# 第 5 章’为全书最高层级章节标题，序号连贯（承接第4章），后接子节。
+  accepted_evidence:
+  - 编号连贯（第5章）
+  - 语义上统领渗流与相变相关内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2487
+  confidence: 0.95
+  final_reason: ‘## 第 6 章’为全书最高层级章节标题，序号连贯（承接第5章），后接子节。
+  accepted_evidence:
+  - 编号连贯（第6章）
+  - 语义上统领排队系统/股票交易相关内容
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 53
+  reason: 该行‘# 目录’属于正文前的辅助内容。根据规则‘前言...等正文之前的内容，统一划分为一章’，目录不应单独分章，而应并入以第2行为起点的统一前置章节中。
+  need_human_review: false
+- 'no': 236
+  reason: 该行‘## 关于作者’属于正文前的辅助内容。根据规则，其与前言、致谢等统一划分为一章（起点为第2行），因此此处不作为新的章节起点。
+  need_human_review: false
+- 'no': 246
+  reason: 该行‘## 关于技术审校’属于正文前的辅助内容子部分。根据‘统一划分为一章’的规则，它不单独分章。
+  need_human_review: false
+- 'no': 252
+  reason: 该行‘## 致谢’属于正文前的辅助内容子部分。根据‘统一划分为一章’的规则，它不单独分章。
+  need_human_review: false
+- 'no': 260
+  reason: 该行‘# 引言’属于正文前的辅助内容。尽管引言有时独立，但在此书的语境下，它与前面的关于作者、致谢等共同构成正文前的统一前置章节（起点为第2行），故不单独分章。
+  need_human_review: false

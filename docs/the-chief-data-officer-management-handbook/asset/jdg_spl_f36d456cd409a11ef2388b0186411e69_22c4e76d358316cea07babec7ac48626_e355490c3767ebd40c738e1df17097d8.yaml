@@ -1,0 +1,56 @@
+chapter_starts:
+- 'no': 6328
+  confidence: 0.99
+  final_reason: 双方一致确认。该行格式为“# 17. 数据伦理与合规”，包含一级标题标记#和连续序号17。前文为脚注结束，后文图片路径显示En_17_Chapter，符合大章起始特征。
+  accepted_evidence:
+  - 'Markdown一级标题标记 #'
+  - 序号 17 与前文逻辑连贯
+  - 后续图片路径 499948_1_En_17_Chapter 佐证
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6584
+  confidence: 0.99
+  final_reason: 双方一致确认。该行格式为“# 18. 外部世界”，包含一级标题标记#和连续序号18。前文为脚注结束，后文图片路径显示En_18_Chapter，符合大章起始特征。
+  accepted_evidence:
+  - 'Markdown一级标题标记 #'
+  - 序号 18 与前文逻辑连贯
+  - 后续图片路径 499948_1_En_18_Chapter 佐证
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7248
+  confidence: 0.99
+  final_reason: 双方一致确认。该行格式为“# 19. 数据处理”，包含一级标题标记#和连续序号19。前文为脚注结束，后文图片路径显示En_19_Chapter，符合大章起始特征。
+  accepted_evidence:
+  - 'Markdown一级标题标记 #'
+  - 序号 19 与前文逻辑连贯
+  - 后续图片路径 499948_1_En_19_Chapter 佐证
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7814
+  confidence: 0.99
+  final_reason: 双方一致确认。该行格式为“# 20. 分析数据”，包含一级标题标记#和连续序号20。前文为脚注结束，后文图片路径显示En_20_Chapter，符合大章起始特征。
+  accepted_evidence:
+  - 'Markdown一级标题标记 #'
+  - 序号 20 与前文逻辑连贯
+  - 后续图片路径 499948_1_En_20_Chapter 佐证
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 8397
+  confidence: 0.99
+  final_reason: 双方一致确认。该行格式为“# 21. 危机中的数据管理”，包含一级标题标记#和连续序号21。前文为脚注结束，后文图片路径显示En_21_Chapter，符合大章起始特征。
+  accepted_evidence:
+  - 'Markdown一级标题标记 #'
+  - 序号 21 与前文逻辑连贯
+  - 后续图片路径 499948_1_En_21_Chapter 佐证
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 8788
+  confidence: 0.98
+  final_reason: 双方一致确认。该行格式为“# 数据驱动创新”，虽无数字序号，但使用一级标题标记#。前文为第22章（虽标题未在当前片段直接显示，但通过脚注和上下文可推断）结尾，后文图片路径显示En_23_Chapter，且序号17-21连续，23符合逻辑递进，语义统领性强。
+  accepted_evidence:
+  - 'Markdown一级标题标记 #'
+  - 后续图片路径 499948_1_En_23_Chapter 佐证
+  - 语义上作为新章节统领内容，且序号逻辑连贯（推测为第23章）
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

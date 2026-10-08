@@ -1,0 +1,62 @@
+chapter_starts:
+- 'no': 3196
+  confidence: 0.98
+  final_reason: 双方一致。行内容为 `# 7. 实现会话状态`，使用一级 Markdown 标题（H1），序号 7 连贯承接前文第 6 章内容（前文最高序号为
+    6.x，且出现 `## 6.5 总结` 等二级标题，暗示 H1 为最高层级章标题）。语义上具有统领性，覆盖后续 7.1-7.5 节。符合分章规则。
+  accepted_evidence:
+  - 格式特征：以 `#` 开头，为最高层级 Markdown 标题
+  - 编号特征：序号 7，与前文逻辑连贯
+  - 上下文特征：前文以 `## 7.5 总结` 或类似章节结束内容收尾（实际前文是第6章内容，行3194为第6章总结末尾），该行后紧跟 7.1 节
+  - 复核方确认：overturn_probability 0.05，keep_split true
+  rejected_evidence:
+  - 复核方提及的'无"第X章"字样'质疑不成立，因为该书采用数字编号体系而非'第X章'体系，H1 即为章
+  need_human_review: false
+- 'no': 3526
+  confidence: 0.98
+  final_reason: 双方一致。行内容为 `# 8. 用户认证与应用安全`，使用一级 Markdown 标题，序号 8 连贯承接第 7 章。前文行 3524
+    为第 7 章总结，符合章节结束标志。语义统领后续 8.1-8.6 节。
+  accepted_evidence:
+  - 格式特征：以 `#` 开头，为最高层级 Markdown 标题
+  - 编号特征：序号 8，连贯
+  - 上下文特征：前一行（3524-3525）为第 7 章总结，典型章节分界
+  - 复核方确认：overturn_probability 0.05，keep_split true
+  rejected_evidence:
+  - 无有效反方证据
+  need_human_review: false
+- 'no': 4061
+  confidence: 0.98
+  final_reason: 双方一致。行内容为 `# 9. 本地部署与云端部署`，使用一级 Markdown 标题，序号 9 连贯承接第 8 章。前文行 3995
+    为第 8 章总结，符合章节结束标志。语义统领后续 9.1-9.5 节。
+  accepted_evidence:
+  - 格式特征：以 `#` 开头，为最高层级 Markdown 标题
+  - 编号特征：序号 9，连贯
+  - 上下文特征：前文有第 8 章总结（行 3995），典型章节分界
+  - 复核方确认：overturn_probability 0.05，keep_split true
+  rejected_evidence:
+  - 无有效反方证据
+  need_human_review: false
+- 'no': 4489
+  confidence: 0.98
+  final_reason: 双方一致。行内容为 `# 10. 构建 Streamlit 组件`，使用一级 Markdown 标题，序号 10 连贯承接第 9 章。前文行
+    4487-4488 为第 9 章总结及本章小结，符合章节结束标志。语义统领后续 10.1-10.5 节。
+  accepted_evidence:
+  - 格式特征：以 `#` 开头，为最高层级 Markdown 标题
+  - 编号特征：序号 10，连贯
+  - 上下文特征：前文有 `## 9.5 总结` 和 `## 本章小结`，典型章节分界
+  - 复核方确认：overturn_probability 0.05，keep_split true
+  rejected_evidence:
+  - 无有效反方证据
+  need_human_review: false
+- 'no': 5489
+  confidence: 0.98
+  final_reason: 双方一致。行内容为 `# 11. Streamlit 用例`，使用一级 Markdown 标题，序号 11 连贯承接第 10 章。前文行
+    5487 为第 10 章总结，符合章节结束标志。语义统领后续 11.1-11.2 节。
+  accepted_evidence:
+  - 格式特征：以 `#` 开头，为最高层级 Markdown 标题
+  - 编号特征：序号 11，连贯
+  - 上下文特征：前文有 `## 10.5 总结`，典型章节分界
+  - 复核方确认：overturn_probability 0.05，keep_split true
+  rejected_evidence:
+  - 无有效反方证据
+  need_human_review: false
+rejected_lines: []

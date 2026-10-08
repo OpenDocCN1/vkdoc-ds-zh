@@ -1,0 +1,37 @@
+reviews:
+- 'no': 3464
+  overturn_probability: 0.0
+  alternative: 该行为正文内容或小标题
+  counter_evidence:
+  - 该行使用了 Markdown 一级标题格式 `#`。
+  - 标题内容包含明确的章节序号 `4.`。
+  - 前文（行3462-3463）是对上一章的总结，符合章节结尾特征。
+  - 后文（行3466起）开始介绍新主题，且后续包含二级标题 `##`，符合章节层级结构。
+  keep_split: true
+- 'no': 4585
+  overturn_probability: 0.0
+  alternative: 该行为正文内容或小标题
+  counter_evidence:
+  - 该行使用了 Markdown 一级标题格式 `#`。
+  - 标题内容包含明确的章节序号 `5.`，且与前一章序号 `4` 连贯。
+  - 前文（行4581-4583）为上一章节的“结论”部分，是典型的章节结束标志。
+  - 后续内容介绍了新的主题“继任管理”，并包含二级标题 `##`，符合章节结构。
+  keep_split: true
+- 'no': 5096
+  overturn_probability: 0.0
+  alternative: 该行为正文内容或小标题
+  counter_evidence:
+  - 该行使用了 Markdown 一级标题格式 `#`。
+  - 标题内容包含明确的章节序号 `6.`，且与前一章序号 `5` 连贯。
+  - 前文（行5092-5094）为上一章节的“结论”部分。
+  - 后续内容开始讨论“核心继任管理”，并包含二级标题 `##`，符合章节结构。
+  keep_split: true
+- 'no': 5681
+  overturn_probability: 0.0
+  alternative: 该行为正文内容或小标题
+  counter_evidence:
+  - 该行使用了 Markdown 一级标题格式 `#`。
+  - 标题内容包含明确的章节序号 `7.`，且与前一章序号 `6` 连贯。
+  - 前文（行5679-5680）为上一章节的“结论”部分。
+  - 后续内容开始讨论“继任管理其他功能”，并包含二级标题 `##`，符合章节结构。
+  keep_split: true

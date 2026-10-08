@@ -1,0 +1,122 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.95
+  final_reason: 目录属于前置内容，统一划分为一章。
+  accepted_evidence:
+  - 属于前言/索引类内容
+  - 独立的功能块
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 36
+  confidence: 0.95
+  final_reason: 部分-章节模式，第一部分标题，需划分新章。
+  accepted_evidence:
+  - '`# 第一部分：自设败局`'
+  - 规则规定遇到部分标题需分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 44
+  confidence: 0.9
+  final_reason: 第 1 章的起始标题。
+  accepted_evidence:
+  - '`## 第 1 章：最大的商业错误`'
+  - 标准章标题格式
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 195
+  confidence: 0.9
+  final_reason: 第 2 章的起始标题（格式为 C H A P T E R 后跟副标题，语义上为章头）。
+  accepted_evidence:
+  - 行195为 `**C H A P T E R**`
+  - 行197为 `客户陷阱与品牌毁灭`
+  - 构成第2章章头
+  rejected_evidence:
+  - 单独看像排版噪声，但结合下一行构成章头
+  need_human_review: false
+- 'no': 447
+  confidence: 0.9
+  final_reason: 第 3 章的起始标题（对应目录中的第 3 章）。
+  accepted_evidence:
+  - 行447为 `### 将你的创新变成商品`
+  - 对应目录第3章
+  - 后续为引言和正文
+  rejected_evidence:
+  - 行461的 `## 第三章...` 出现在正文中，视为中间标题或OCR错误，447为真正的分章断点
+  need_human_review: false
+- 'no': 729
+  confidence: 0.9
+  final_reason: 第 4 章的起始标题。
+  accepted_evidence:
+  - 行729为 `# 第四章 | 当销售渠道被劫持`
+  - 标准一级章标题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 847
+  confidence: 0.85
+  final_reason: 第 5 章的起始标题（虽排版有误“第 章”，但结合上下文和目录，此处为第 5 章开始）。
+  accepted_evidence:
+  - 行847为 `## 第 章 活出外包的冲动`
+  - 对应目录第5章
+  rejected_evidence:
+  - 标题缺少数字，但语义明确
+  need_human_review: false
+- 'no': 1067
+  confidence: 0.95
+  final_reason: “第二部分”标题，属于部分-章节模式，需划分新章。
+  accepted_evidence:
+  - 行1067为 `# 第二部分：规避陷阱`
+  - 规则规定部分标题需分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1073
+  confidence: 0.9
+  final_reason: 第 6 章的起始标题。
+  accepted_evidence:
+  - 行1073为 `## 第六章：斯蒂尔的故事`
+  - 标准章标题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1283
+  confidence: 0.9
+  final_reason: 第 7 章的起始标题（对应目录中的第 7 章）。
+  accepted_evidence:
+  - 行1283为 `## 创新：第二步`
+  - 对应目录第7章
+  rejected_evidence:
+  - 缺少“第7章”字样，但结合上下文（第6章结束，第8章开始于1928），此处为第7章开始
+  need_human_review: false
+- 'no': 1928
+  confidence: 0.9
+  final_reason: 第 8 章的起始标题（对应目录中的第 8 章）。
+  accepted_evidence:
+  - 行1928为 `## 获取数据并做好营销`
+  - 对应目录第8章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2330
+  confidence: 0.9
+  final_reason: 第 9 章的起始标题（“章节”字样后紧跟标题，语义判断为章头）。
+  accepted_evidence:
+  - 行2328为 `### 章节`，行2330为 `走向全球并坚守信念`
+  - 对应目录第9章
+  rejected_evidence:
+  - 排版将“第9章”和标题分开或OCR错误，但语义上是第9章开始
+  need_human_review: false
+- 'no': 2495
+  confidence: 0.9
+  final_reason: 第 10 章的起始标题（“# 第 X 章”下接副标题，结合目录应为第 10 章）。
+  accepted_evidence:
+  - 行2495为 `# 第 X 章`，行2497为 `## 保持本地化与独立性`
+  - 对应目录第10章
+  rejected_evidence:
+  - “第 X 章”可能是OCR占位符
+  need_human_review: false
+- 'no': 2673
+  confidence: 0.95
+  final_reason: 索引部分起始，作为独立一章。
+  accepted_evidence:
+  - 行2673为 `# 索引 163`
+  - 规则指出文末索引划分为一章
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

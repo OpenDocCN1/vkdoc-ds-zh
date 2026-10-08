@@ -1,0 +1,100 @@
+chapter_starts:
+- 'no': 16
+  confidence: 0.95
+  final_reason: 前置内容起始。复核方虽指出前言类内容可合并，但鉴于“# 简介”是独立的一级标题且紧随封面版权页之后，作为前置部分的第一章处理符合常规分章逻辑，且非误报，故采纳。
+  accepted_evidence:
+  - '#级标题'
+  - 位于封面/版权页之后
+  - 语义独立
+  rejected_evidence:
+  - 复核方建议合并所有前置部分为一章，但考虑到各前置部分（简介、作者、审稿人）内容性质不同，且均为一行一级标题，分开或作为第一块分开更具操作性，此处接受单独起始。
+  need_human_review: false
+- 'no': 20
+  confidence: 0.9
+  final_reason: 前置内容。# 关于作者，独立一级标题。
+  accepted_evidence:
+  - '#级标题'
+  - 语义独立
+  rejected_evidence:
+  - 复核方建议合并，但作为独立识别的区块，保留起始点。
+  need_human_review: false
+- 'no': 22
+  confidence: 0.9
+  final_reason: 前置内容。# 关于技术审稿人，独立一级标题。
+  accepted_evidence:
+  - '#级标题'
+  - 语义独立
+  rejected_evidence:
+  - 复核方建议合并，但作为独立识别的区块，保留起始点。
+  need_human_review: false
+- 'no': 24
+  confidence: 1.0
+  final_reason: 双方一致。明确“第 1 章”字样，最高层级。
+  accepted_evidence:
+  - 明确序号
+  - 一级标题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 72
+  confidence: 1.0
+  final_reason: 双方一致。明确“2.”序号，一级标题，连贯性符合。
+  accepted_evidence:
+  - 明确序号
+  - 一级标题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 590
+  confidence: 0.95
+  final_reason: 双方一致。# `pandas` 的工作原理。位于第2章脚注后，有二级子标题支撑，推断为第3章。
+  accepted_evidence:
+  - '#级标题'
+  - 上下文结构（后续有##子标题）
+  - 位于章节分隔符后
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 783
+  confidence: 0.9
+  final_reason: 双方一致。# NumPy 与 pandas 性能基础。虽无序号，但作为#级标题且处于第3章主体内容后，推断为第4章。
+  accepted_evidence:
+  - '#级标题'
+  - 语义独立
+  - 体例推断
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2230
+  confidence: 1.0
+  final_reason: 双方一致。明确“5.”序号，一级标题。
+  accepted_evidence:
+  - 明确序号
+  - 一级标题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2470
+  confidence: 1.0
+  final_reason: 双方一致。明确“6.”序号，一级标题。
+  accepted_evidence:
+  - 明确序号
+  - 一级标题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2767
+  confidence: 1.0
+  final_reason: 双方一致。明确“7.”序号，一级标题。
+  accepted_evidence:
+  - 明确序号
+  - 一级标题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2870
+  confidence: 0.95
+  final_reason: 双方一致。# 超越 pandas 的性能提升。位于第7章后，推断为第8章。
+  accepted_evidence:
+  - '#级标题'
+  - 位置逻辑
+  - 体例推断
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 926
+  reason: 复核方证据成立。行内容为“# DataFrame 排版优化”，虽标记为#级，但后续正文引用“列表 3-16”，表明该内容仍隶属于第3章。这是Markdown转换错误导致的级别误标，实际应为二级标题（##）。根据“宁可漏分，不可误分”及上下文优先原则，拒绝分章。
+  need_human_review: false

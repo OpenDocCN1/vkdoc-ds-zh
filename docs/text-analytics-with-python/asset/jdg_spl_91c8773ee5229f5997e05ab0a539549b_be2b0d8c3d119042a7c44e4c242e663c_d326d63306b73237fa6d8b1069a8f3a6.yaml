@@ -1,0 +1,13 @@
+chapter_starts:
+- 'no': 15366
+  confidence: 0.95
+  final_reason: 该行内容为“## 索引”，位于全书末尾。根据判断规则中明确指出“文末索引也划分为一章”的要求，且该标题单独成行、无结尾标点、具有统领性，符合章节划分标准。复核方虽提出可能作为附录，但明确认可规则并标记
+    keep_split=true，证据充分。
+  accepted_evidence:
+  - 规则明确规定：文末索引也划分为一章
+  - 复核方指出 keep_split=true，确认了分章决策
+  - 格式上为 Markdown 二级标题，单独成行，符合标题特征
+  rejected_evidence:
+  - 复核方提到的“索引有时被合并到前一章”的观点，因明确规则的存在而被否决
+  need_human_review: false
+rejected_lines: []

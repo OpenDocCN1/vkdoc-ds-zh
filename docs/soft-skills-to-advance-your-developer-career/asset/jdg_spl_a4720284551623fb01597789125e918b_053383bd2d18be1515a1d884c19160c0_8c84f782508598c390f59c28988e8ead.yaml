@@ -1,0 +1,61 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.9
+  final_reason: 双方一致：作为书籍起始行，包含封面、ISBN及版权信息，根据规则“前言、序言等正文之前的内容，统一划分为一章”，此处为前言/版权页的开始。
+  accepted_evidence:
+  - 行为封面图片引用及ISBN/版权声明
+  - 位于书籍最前端
+  - 复核方支持将其作为前言部分统一归章的起点
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 16
+  confidence: 0.95
+  final_reason: 双方一致：一级标题“# 引言”，语义上为书籍引言部分，位于版权页之后、正文第一章之前。根据规则，前言/序言单独成章，且该标题具有统领性。
+  accepted_evidence:
+  - Markdown 一级标题 `# 引言`
+  - 后续内容为综述性文字
+  - 复核方确认其作为前言性质章节的起始
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 104
+  confidence: 0.95
+  final_reason: '双方一致：一级标题“# 1. 软技能的重要性”，带有明确数字编号，符合全书最高层级章节特征，且序号连贯（后续有#2, #3）。'
+  accepted_evidence:
+  - 明确的数字编号 `# 1.`
+  - 一级标题格式
+  - '复核方指出与后续#2, #3形成连贯序列'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 624
+  confidence: 0.95
+  final_reason: 双方一致：一级标题“# 2. 职业进步与人生的心态”，带有明确数字编号，承接第1章，序号连贯。
+  accepted_evidence:
+  - 明确的数字编号 `# 2.`
+  - 一级标题格式
+  - 复核方确认序号连贯性
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1535
+  confidence: 0.95
+  final_reason: 双方一致：一级标题“# 3. 发现你的个人目标”，带有明确数字编号，承接第2章，序号连贯。
+  accepted_evidence:
+  - 明确的数字编号 `# 3.`
+  - 一级标题格式
+  - 复核方确认序号连贯性
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2026
+  confidence: 0.9
+  final_reason: 双方一致：一级标题“# 你的线上与线下形象”。虽无显式数字编号，但位于第3章总结之后，且下含多个二级标题（## 设计你的个人品牌等），语义上统领后续内容。根据规则“没有章序号，依靠语义判断”及“宁可漏分不可误分”中的语义强证据（一级标题+统领性），判定为新章（推测为第4章）。
+  accepted_evidence:
+  - 一级标题格式
+  - 位于第3章内容结束（脚注/总结）之后
+  - 语义上开启新主题（形象/品牌）
+  - 复核方认为维持分章合理
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 46
+  reason: 判断方提议分章，但复核方指出其位于“# 引言”之后且无数字编号，可能是引言内部的子部分。根据“仅一方提出的行，需有强证据才采纳”及“上下文优先”原则，该行作为引言（no
+    16）的一部分处理更为稳妥，不宜单独划分为新章。
+  need_human_review: false

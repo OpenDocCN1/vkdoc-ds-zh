@@ -1,0 +1,53 @@
+reviews:
+- 'no': 0
+  overturn_probability: 0.0
+  alternative: 书籍封面与版权页信息，属于前言部分统一归章的规范
+  counter_evidence:
+  - 该行为 Markdown 图片引用和 ISBN/版权声明，并非独立语义标题，无法脱离后续前言文本单独成篇
+  - 根据规则“前言、序言等正文之前的内容统一划分为一章”，此处的版权页是前言的一部分而非独立章节标题
+  keep_split: true
+- 'no': 16
+  overturn_probability: 0.0
+  alternative: 一级标题《引言》(Introduction)，通常作为书籍前言章节
+  counter_evidence:
+  - '该行为 Markdown 一级标题 # 引言，且后续无编号，符合前言/序言特征'
+  - 根据判断规则，“前言、序言等正文之前的内容，统一划分为一章”，因此将其作为独立起始行是合理的
+  keep_split: true
+- 'no': 46
+  overturn_probability: 0.2
+  alternative: 引言章节下的子标题或一级小标题（若全书最高层级为数字编号章）
+  counter_evidence:
+  - 虽然是一级标题 `# 我的故事`，但它位于 `# 引言` 之后且位于首个数字章 `# 1. ...` 之前
+  - 如果全书采用数字编号（1, 2, 3...）作为最高层级章节，那么这里的 `# 我的故事` 可能是引言内部的一个大节，而非全书最高层级的章
+  - 但是，由于它处于前言区域之前，且没有数字前缀，为了区分正文结构，将其视为新章（或至少是独立区块的起始）在自动化处理中是常见的保守策略，尽管严格来说它可能是引言的子部分
+  keep_split: true
+- 'no': 104
+  overturn_probability: 0.0
+  alternative: 正文第一章标题
+  counter_evidence:
+  - 明确的数字编号 `# 1.` 配合一级标题，符合“全书最高层级的大章”特征
+  - 后续内容跟随二级标题 `## 开发者的优势`，且第624行出现 `# 2.`，第1535行出现 `# 3.`，形成了连贯的章节序列
+  keep_split: true
+- 'no': 624
+  overturn_probability: 0.0
+  alternative: 正文第二章标题
+  counter_evidence:
+  - 明确的数字编号 `# 2.`，且与前文第104行的 `# 1.` 形成连贯序号
+  - 内容语义上承接前一章的软技能讨论，进入心态与职业进步主题，具有统领性
+  keep_split: true
+- 'no': 1535
+  overturn_probability: 0.0
+  alternative: 正文第三章标题
+  counter_evidence:
+  - 明确的数字编号 `# 3.`，与前两章序号连贯
+  - 内容涉及发现个人目标，是典型的章节起始结构
+  keep_split: true
+- 'no': 2026
+  overturn_probability: 0.1
+  alternative: 正文第四章标题（缺失数字编号的排版情况）
+  counter_evidence:
+  - 标题 `# 你的线上与线下形象` 是一级标题，且位于第3章总结（no 2016）之后
+  - 虽然缺少显式数字 `4.`，但根据前后文 `# 1.` `# 2.` `# 3.` 的模式，这里极大概率是第4章。考虑到规则中提到“没有章序号，这就需要依靠语义判断”，且该标题具有统领性（下设多个
+    `##` 子节），维持分章判断是合理的
+  - 若严格认为必须有数字才分章，则可能误判；但在自动化书籍结构化中，连续的一级标题且语义独立，通常视为新章
+  keep_split: true

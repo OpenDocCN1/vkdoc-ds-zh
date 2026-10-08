@@ -1,0 +1,37 @@
+chapter_starts:
+- 'no': 16
+  confidence: 0.95
+  reason: '#级标题，前言部分，统括简介内容'
+- 'no': 20
+  confidence: 0.95
+  reason: '#级标题，前置内容，统括作者信息'
+- 'no': 22
+  confidence: 0.95
+  reason: '#级标题，前置内容，统括审稿人信息'
+- 'no': 24
+  confidence: 1.0
+  reason: 明确包含“第 1 章”序号，一级标题
+- 'no': 72
+  confidence: 1.0
+  reason: 明确包含“2.”序号，一级标题，紧接第1章后
+- 'no': 590
+  confidence: 0.9
+  reason: 一级标题，位于第2章结束（有分隔符）之后，语义上开启原理章节
+- 'no': 783
+  confidence: 0.85
+  reason: 一级标题，语义独立，可能为第4章或第3章的大节
+- 'no': 926
+  confidence: 0.8
+  reason: 一级标题，语义独立，可能为第4章或第5章前导
+- 'no': 2230
+  confidence: 1.0
+  reason: 明确包含“5.”序号，一级标题
+- 'no': 2470
+  confidence: 1.0
+  reason: 明确包含“6.”序号，一级标题
+- 'no': 2767
+  confidence: 1.0
+  reason: 明确包含“7.”序号，一级标题
+- 'no': 2870
+  confidence: 0.95
+  reason: 一级标题，位于第7章结束后，语义上开启新章节（第8章）

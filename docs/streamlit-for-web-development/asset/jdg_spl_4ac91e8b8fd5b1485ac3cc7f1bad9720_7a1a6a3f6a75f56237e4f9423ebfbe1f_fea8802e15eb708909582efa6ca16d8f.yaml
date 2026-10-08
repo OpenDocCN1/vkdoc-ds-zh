@@ -1,0 +1,42 @@
+chapter_starts:
+- 'no': 6983
+  confidence: 0.95
+  final_reason: 双方一致。该行格式为 `# 12. Streamlit 中的测试`，符合最高层级章节标题特征。上下文显示其前一行（6977）为 `##
+    11.4 本章小结`（第11章结尾），后一行（6987）为 `## 12.1 测试原则`（第12章第一节），逻辑连贯，确认为第12章起始。
+  accepted_evidence:
+  - 判断方与复核方均认为这是第12章标题
+  - 编号 `12.` 符合大章序号规范
+  - 位于 `# 11.` 章节结束后的下一大节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7278
+  confidence: 0.95
+  final_reason: 双方一致。该行格式为 `# 13. Streamlit 与人工智能`，符合最高层级章节标题特征。上下文显示其前一行（7276）为 `###
+    12.5 总结`（第12章结尾），后一行（7282）为 `## 13.1 什么是 LLM...`（第13章第一节），逻辑连贯，确认为第13章起始。
+  accepted_evidence:
+  - 判断方与复核方均认为这是第13章标题
+  - 编号 `13.` 符合大章序号规范
+  - 位于 `# 12.` 章节结束后的下一大节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7744
+  confidence: 0.95
+  final_reason: 双方一致。该行格式为 `# 14. Streamlit 在工作中的应用`，符合最高层级章节标题特征。上下文显示其前一行（7742）为
+    `## 13.4 总结`（第13章结尾），后一行（7748）为 `## 14.1 Streamlit 在清洁能源领域的应用...`（第14章第一节），逻辑连贯，确认为第14章起始。
+  accepted_evidence:
+  - 判断方与复核方均认为这是第14章标题
+  - 编号 `14.` 符合大章序号规范
+  - 位于 `# 13.` 章节结束后的下一大节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7881
+  confidence: 0.95
+  final_reason: 双方一致。该行格式为 `# 索引`，位于第14章正文及总结之后。根据规则“文末索引也划分为一章”，且后续内容为按字母排列的索引列表（`##
+    A`, `## B` 等），确认为索引章节起始。
+  accepted_evidence:
+  - 判断方与复核方均认为这是索引部分标题
+  - 符合“文末索引划分为一章”的规则
+  - 后续内容确认为索引条目
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

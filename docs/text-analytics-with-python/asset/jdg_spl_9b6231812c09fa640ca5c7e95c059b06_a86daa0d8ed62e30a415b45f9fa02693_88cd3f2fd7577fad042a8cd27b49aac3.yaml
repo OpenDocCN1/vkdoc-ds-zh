@@ -1,0 +1,22 @@
+chapter_starts:
+- 'no': 13110
+  confidence: 0.99
+  final_reason: 双方一致：该行标记为一级标题 '# 9. 情感分析'，且前文第8章在 '## 总结' 处结束，符合章节切换的语义和格式特征。
+  accepted_evidence:
+  - 单井号 '#' 标记代表最高层级章节标题
+  - 序号 '9.' 与后续第10章序号连贯
+  - 前一章（第8章）以总结小节结尾，本章开启全新主题
+  - 后续小节（## 级别）均隶属于该章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 14691
+  confidence: 0.99
+  final_reason: 双方一致：该行标记为一级标题 '# 10. 深度学习的展望'，承接第9章总结，开启新主题，符合章节标题特征。
+  accepted_evidence:
+  - 单井号 '#' 标记代表最高层级章节标题
+  - 序号 '10.' 紧接第9章
+  - 前一章（第9章）在 '## 总结' 处结束
+  - 后续小节（## 级别）均隶属于该章
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

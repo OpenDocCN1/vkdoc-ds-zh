@@ -1,0 +1,101 @@
+reviews:
+- 'no': 0
+  overturn_probability: 0.1
+  alternative: 书籍封面/前置元数据区域（非章节标题）
+  counter_evidence:
+  - 行0内容是图片引用（CoverFigure），并非文本标题。
+  - 根据规则“前言、序言...统一划分为一章”，从书籍起始到第一个正文章节标题之前的所有内容（包括封面、版权页、目录）应归为同一章，而不应在行0单独起一章，除非行0被视为“第一章”的起点。原判断将其视为“前置内容章”的起点是合理的，但严格来说，行0本身不是标题，而是前置块的开始。
+  - 通常Markdown转换中，封面图片作为文档起点，将其标记为章节起点是常见的处理逻辑，用于区分“前置部分”和“正文部分”。
+  keep_split: true
+- 'no': 483
+  overturn_probability: 0.05
+  alternative: 正文第一章标题
+  counter_evidence:
+  - 行483是 `# 运输行业概览：第三方物流视角`，Markdown H1级别。
+  - 目录中明确列为“第 1 章”。
+  - 后续内容（行485起）是该章的介绍和正文，没有混淆于小标题或列表。
+  - 这是一个标准的章节开始。
+  keep_split: true
+- 'no': 586
+  overturn_probability: 0.05
+  alternative: 正文第二章标题
+  counter_evidence:
+  - 行586是 `## 2. 为何需要运输管理系统...`，虽然Markdown标记为H2，但语义上带有章节序号“2.”，且内容对应目录中的“第 2 章”。
+  - 在该书的Markdown结构中，最高层级章节有时被标记为H2（如行586, 699, 1098等），而子节为H3。根据规则“编号特征：只划分全书最高层级的大章”，这里的“2.”即为大章序号。
+  - 上下文行584是上一章的“总结”，行588是该章的“在本章中...”，符合章节交替规律。
+  keep_split: true
+- 'no': 699
+  overturn_probability: 0.05
+  alternative: 正文第三章标题
+  counter_evidence:
+  - 行699是 `# 3. TMS 产品全景...`，H1级别，带有序号3。
+  - 对应目录“第 3 章”。
+  - 格式清晰，无歧义。
+  keep_split: true
+- 'no': 800
+  overturn_probability: 0.1
+  alternative: 正文第四章标题
+  counter_evidence:
+  - 行800是 `# SAP TM：概述、架构、路线图`，H1级别。
+  - 虽然行文中缺少显式的“4.”序号（对比行586的“2.”和行699的“3.”），但目录中明确此为“第 4 章”。
+  - 序号的省略是排版或转换造成的，语义上它确实是最高层级章节。
+  - 反方证据：如果仅依赖行内序号，可能会漏判；但结合目录和上下文（前一章结束于行799“总结”，本章开始于行800），判断正确。
+  keep_split: true
+- 'no': 1098
+  overturn_probability: 0.05
+  alternative: 正文第五章标题
+  counter_evidence:
+  - 行1098是 `# 5. TMS 选型框架`，H1级别，带有序号5。
+  - 对应目录“第 5 章”。
+  - 判断正确。
+  keep_split: true
+- 'no': 1179
+  overturn_probability: 0.1
+  alternative: 正文第六章标题
+  counter_evidence:
+  - 行1179是 `# SAP TM 实施、推广和维护的行业最佳实践`，H1级别，缺序号。
+  - 目录中为“第 6 章”。
+  - 与行800类似，依赖语义和目录匹配。判断正确。
+  keep_split: true
+- 'no': 1666
+  overturn_probability: 0.05
+  alternative: 正文第七章标题
+  counter_evidence:
+  - 行1666是 `# 7. 运输管理参与所需的团队组成和技能矩阵...`，H1级别，带有序号7。
+  - 对应目录“第 7 章”。
+  - 判断正确。
+  keep_split: true
+- 'no': 1890
+  overturn_probability: 0.05
+  alternative: 正文第八章标题
+  counter_evidence:
+  - 行1890是 `# 8. SAP TM 实施的转型影响`，H1级别，带有序号8。
+  - 对应目录“第 8 章”。
+  - 判断正确。
+  keep_split: true
+- 'no': 1963
+  overturn_probability: 0.05
+  alternative: 正文第九章标题
+  counter_evidence:
+  - 行1963是 `# 9. 新维度产品：HANA、移动性和分析...`，H1级别，带有序号9。
+  - 对应目录“第 9 章”。
+  - 判断正确。
+  keep_split: true
+- 'no': 2062
+  overturn_probability: 0.05
+  alternative: 正文第十章标题
+  counter_evidence:
+  - 行2062是 `# 10. 端到端货运生命周期场景的流程映射`，H1级别，带有序号10。
+  - 对应目录“第 10 章”。
+  - 判断正确。
+  keep_split: true
+- 'no': 2321
+  overturn_probability: 0.2
+  alternative: 附录A标题
+  counter_evidence:
+  - 行2321是 `# 配置与实施 SAP TM 9.0 的分步指南`，H1级别。
+  - 目录中列为“附录 A”。
+  - 规则规定“如果存在标题为‘第 X 部分’...”，但此处是附录。通常附录作为独立的大块内容，可以视为一个独立的章节块（或归入前文，或单独一章）。
+  - 原判断将其单独划分，理由是“最高层级独立章节”。在技术书籍中，附录往往篇幅巨大且独立性强，单独成章是合理的处理方式。
+  - 反方证据：如果严格来说“附录”不等于“章”，但为了结构清晰，将其单独切分是常规操作。
+  keep_split: true

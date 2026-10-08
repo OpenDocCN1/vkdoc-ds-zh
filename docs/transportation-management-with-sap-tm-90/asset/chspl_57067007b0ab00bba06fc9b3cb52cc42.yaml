@@ -1,0 +1,67 @@
+chapter_starts:
+- 'no': 3071
+  confidence: 0.85
+  reason: 出现 Markdown 二级标题 '## 定义运输组'，且位于前文表格数据之后，符合章节起始的格式与上下文特征（尽管前文已有 '### 定义运输组'，此处可能是文档结构中的新大章节或排版错误导致的层级提升，依据规则“遇到章标题时应当划分”）。
+- 'no': 3089
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义产品'，统领后续关于产品主数据定义的段落，属于最高层级的章节划分。
+- 'no': 3136
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义设备组和设备类型'，统领后续关于设备组和设备类型定义的段落。
+- 'no': 3213
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义运输服务等级代码'，统领后续关于运输服务等级代码定义的段落。
+- 'no': 3240
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义运输段类型'，统领后续关于运输段类型定义的段落。
+- 'no': 3266
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义运输方式类型'，统领后续关于运输方式类型定义的段落。
+- 'no': 3369
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义运输类型'，统领后续关于运输类型定义的段落。
+- 'no': 3404
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义地理选择属性'，统领后续关于地理选择属性定义的段落。
+- 'no': 3453
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义时间相关选择属性'，统领后续关于时间相关选择属性定义的段落。
+- 'no': 3495
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义附加选择属性'，统领后续关于附加选择属性定义的段落。
+- 'no': 3672
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义承运商选择设置'，统领后续关于承运商选择设置定义的段落。
+- 'no': 3727
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义货运结算单据的编号范围间隔'，统领后续关于编号范围间隔定义的段落。
+- 'no': 3756
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义货运结算单据类型'，统领后续关于货运结算单据类型定义的段落。
+- 'no': 3796
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义运费结算单据的编号范围间隔'，统领后续关于运费结算单据编号范围间隔定义的段落。
+- 'no': 4398
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 为货运订单类型分配项目类型'，统领后续关于项目类型分配的段落。
+- 'no': 4425
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义运输阶段的默认货运单据类型'，统领后续关于默认货运单据类型定义的段落。
+- 'no': 4458
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义计划的编号范围区间'，统领后续关于计划编号范围区间定义的段落。
+- 'no': 4485
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义航次的编号范围区间'，统领后续关于航次编号范围区间定义的段落。
+- 'no': 4962
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义费率表'，统领后续关于费率表定义的段落。
+- 'no': 5076
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义费率'，统领后续关于费率定义的段落。
+- 'no': 5524
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义计算单'，统领后续关于计算单定义的段落。
+- 'no': 5843
+  confidence: 0.95
+  reason: Markdown 二级标题 '## 定义协议编号范围间隔'，统领后续关于协议编号范围间隔定义的段落。

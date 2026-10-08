@@ -1,0 +1,28 @@
+chapter_starts:
+- 'no': 3058
+  confidence: 0.98
+  final_reason: 双方一致确认为章节起始。使用 Markdown 一级标题符号 `#` 且带有数字序号 `9.`，符合全书最高层级章标题特征。前文为第
+    8 章内容（BLAS/LAPACK），此处开启新话题 `pandas 的未来`，语义具有统领性，后续内容围绕 pandas 1.0 特性展开，属于独立的章节内容块。
+  accepted_evidence:
+  - 使用一级标题 `#` 并带有序号 `9.`
+  - 上下文显示前文为第 8 章结尾，此处开启新章
+  - 语义具有统领性，覆盖后续关于 pandas 1.0 的大量内容
+  rejected_evidence:
+  - 无有效反方证据
+  need_human_review: false
+- 'no': 3251
+  confidence: 0.99
+  final_reason: 双方一致确认为章节起始。使用 Markdown 一级标题 `# 索引`，规则明确规定“文末索引也划分为一章”。后续内容为标准的索引条目（A,
+    B, C...），是全书最后的结构性部分，必须独立分章。
+  accepted_evidence:
+  - 使用一级标题 `#`
+  - 规则明确指示文末索引划分为一章
+  - 后续内容均为索引列表，无其他章节干扰
+  rejected_evidence:
+  - 无有效反方证据
+  need_human_review: false
+rejected_lines:
+- 'no': 3249
+  reason: 复核方证据成立，优先采纳。该行使用 `##`（二级标题），在 Markdown 层级中低于一级标题 `#`。紧随其后的第 3251 行是 `#
+    索引`（一级标题）。根据“只划分全书最高层级的大章”原则，`##` 级标题不应作为新章。此外，规则仅强制要求“索引”分章，未强制要求“脚注”分章，且此处脚注与索引紧密相连，若单独分章会导致层级不一致（低层级章后接高层级章）或章节碎片化。故判定为非章节起始。
+  need_human_review: false

@@ -1,0 +1,123 @@
+reviews:
+- 'no': 6190
+  overturn_probability: 0.95
+  alternative: 页眉（Running Header）残留
+  counter_evidence:
+  - 该行出现位置在正文段落中间（行6188-6192之间），紧随操作步骤之后，不符合章节标题通常位于章节起始的上下文特征。
+  - 该行使用的是 Markdown 一级标题格式（#），而全书其他章节起始均使用二级标题（##）。在层级结构中，# 通常代表书名，出现在正文中间极可能是每页或每节复现的页眉（Page
+    Header），而非真正的章节标题。
+  - 紧邻其后的行6192继续描述“输入表 A-140 中的内部协议类型...”，说明该行的内容并未切断当前操作流，属于排版断行或噪声。
+  keep_split: false
+- 'no': 6232
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行位于“定义内部协议”操作结束后（行6230-6231），符合章节结束特征，随后进入新的配置主题。
+  - '虽然格式为 ##，但在本书结构中，## 是最高层级（无 # 章节作为独立部分，只有 # 书名或页眉），因此作为顶级章节划分的逻辑成立。'
+  keep_split: true
+- 'no': 6258
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行承接上一章节内容，且后文（6260行）开始介绍“计算参数文件”，主题发生明显转换。
+  keep_split: true
+- 'no': 6288
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行位于“定义计算参数文件”章节结束后，作为“定义结算参数文件”的新起点，语义上统领后续内容。
+  keep_split: true
+- 'no': 6317
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行结束前一个主题，开启“定义常规设置”的新主题，符合章节划分的语义特征。
+  keep_split: true
+- 'no': 6338
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行是“定义常规设置”部分的第二部分（操作步骤），与6317的概述部分属于同一逻辑大节。然而，由于原文未将6317和6338合并为一个大章而是分别标记，且6338前有完整的操作步骤闭环，维持分章是合理的，尽管可以认为它们属于同一逻辑单元。鉴于任务要求维持原判断除非有强错误，此处维持。
+  keep_split: true
+- 'no': 6352
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行开启“定义运输段的默认协议方角色”，主题独立于前面的常规设置。
+  keep_split: true
+- 'no': 6381
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行开启与 SAP ERP 集成相关的配置章节，主题跨度大，明显是新章节。
+  keep_split: true
+- 'no': 6626
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行从配置部分（Master Data/Config）转向流程部分（Process），是全书结构的重大转折点，明确划分。
+  keep_split: true
+- 'no': 6713
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行开启“订单管理”流程，与前面的“运力采购”流程并列。
+  keep_split: true
+- 'no': 6870
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行开启“计划与转包”流程，主题独立。
+  keep_split: true
+- 'no': 7026
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行开启“货运执行与监控”流程，主题独立。
+  keep_split: true
+- 'no': 7092
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行标题为“执行步骤”，位于行7091（一段关于状态更新的描述）之后。结合上下文，这可能是对执行流程的细分或误判为独立大章。但是，观察行7094
+    `### 前置运输执行` 是三级标题，说明 7092 的 `## 执行步骤` 可能是其父级。然而，前一个 `##` 章节是 7026 `货运执行与监控`。7092
+    出现在 7026 章节内部，且 7026 已经涵盖了“执行”的概念。如果 7092 是一个新的大章，那么 7026 到 7092 之间的内容（提货执行）就被割裂了。更可能的情况是
+    7092 是一个错误的标记，或者它是“货运执行与监控”章节内的一个子部分，但使用了错误的层级符号。不过，考虑到全书其他部分 `##` 都是顶级章节，且 7092
+    后跟 7094 `###`，维持分章可能是基于“##即顶级”的规则。但语义上，它更像是一个流程中的步骤列表头。*反转逻辑*：如果必须推翻，证据是它可能是排版错误的二级标题，实际应隶属于
+    7026。但根据规则“##视为最高层级”，维持判断。
+  keep_split: true
+- 'no': 7230
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行开启“处理货运委托（进口）...”的新流程部分。
+  keep_split: true
+- 'no': 7388
+  overturn_probability: 0.0
+  alternative: 二级章节标题
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行开启“客户开票与运费结算”流程，主题独立。
+  keep_split: true
+- 'no': 7394
+  overturn_probability: 0.85
+  alternative: 排版错误/非标题文本
+  counter_evidence:
+  - 该行内容 `## 计算费用` 在语义上与上下级标题 `### 计算开票费用` (行7392) 和 `### 计算开票费用` (行7410) 重复或包含。
+  - 行7392 `#### 计算开票费用` 是四级标题，行7410 `### 计算开票费用` 是三级标题。行7394 夹在中间，且后文紧接着是操作步骤。它更可能是正文中误加
+    Markdown 格式符号的强调句，或者是章节内部的子标题，而非顶级章节。
+  - 在“客户开票与运费结算”大章（7388）内部，不应该再出现一个顶级的“计算费用”章节，它应该是子步骤。
+  keep_split: false
+- 'no': 7498
+  overturn_probability: 0.9
+  alternative: 段落误判/非标题
+  counter_evidence:
+  - 该行 `## 转发订单（导出）` 位于行7496 `图 A-253.` 之后。观察行7500内容为 `生命周期状态设置为“已完成”`，这显然是对上一张图或上一段落的描述，而非“转发订单”章节的正文。
+  - “转发订单”是SAP TM中的一个单据类型，通常作为其他流程（如结算）中的对象出现，而非一个独立的顶级章节。
+  - 该标题后没有实质性的章节内容，直接跳到了“索引”（7502）。这表明它可能是一个未完成的标题、页眉残留、或者是对图中内容的错误标记，不应划分为独立章节。
+  keep_split: false
+- 'no': 7502
+  overturn_probability: 0.0
+  alternative: 索引章节
+  counter_evidence:
+  - 必须提供至少一条反方证据：该行为 `# 索引`，根据规则“文末索引也划分为一章”，原判断正确。
+  keep_split: true

@@ -1,0 +1,20 @@
+chapter_starts:
+- 'no': 9574
+  confidence: 0.95
+  final_reason: 双方一致 + 格式序号特征明显
+  accepted_evidence:
+  - 该行内容为“# 7. 文本相似度与聚类”，使用 Markdown H1 标记及数字序号“7.”，符合最高层级章节特征
+  - 前文第9566行“## 总结”结束了上一章内容，此处为新章开始
+  - 后续内容涉及文本相似度、距离度量、电影推荐等，与标题语义一致
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 11504
+  confidence: 0.95
+  final_reason: 双方一致 + 格式序号特征明显
+  accepted_evidence:
+  - 该行内容为“# 8. 语义分析”，使用 Markdown H1 标记及数字序号“8.”，符合最高层级章节特征
+  - 前文第11496行“## 总结”结束了第7章内容，序号连贯
+  - 后续内容涉及 WordNet、语义关系等，与标题语义一致
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

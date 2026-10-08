@@ -1,0 +1,25 @@
+reviews:
+- 'no': 3181
+  overturn_probability: 0.0
+  alternative: 无法合理解释为其他类型，这确实是一个章节标题
+  counter_evidence:
+  - 该行以 `#` 开头，属于 Markdown 一级标题，符合最高层级章节的特征。
+  - 编号为 `6.`，与第 5 章结尾（行 3177 `## 小结`）及后续内容逻辑连贯。
+  - 题目“从数据中学习？”具有统领性，涵盖了后续关于机器学习的子章节（如 `## 监督学习`）。
+  keep_split: true
+- 'no': 3701
+  overturn_probability: 0.0
+  alternative: 无法合理解释为其他类型，这确实是一个章节标题
+  counter_evidence:
+  - 该行以 `#` 开头，属于 Markdown 一级标题。
+  - 编号为 `7.`，紧接第 6 章结尾（行 3695 `## 本章小结`），序号连贯。
+  - 题目“治理考量”概括了后续关于 Docker、安全性等治理内容。
+  keep_split: true
+- 'no': 4229
+  overturn_probability: 0.0
+  alternative: 无法合理解释为其他类型，这确实是索引部分的标题
+  counter_evidence:
+  - 该行位于全书正文结束之后（第 7 章总结在行 4225）。
+  - 根据规则“文末索引也划分为一章”，`# 索引` 是标准的索引章节标题。
+  - 后续内容（行 4231 起的 `## A` 等）为典型的索引列表结构。
+  keep_split: true

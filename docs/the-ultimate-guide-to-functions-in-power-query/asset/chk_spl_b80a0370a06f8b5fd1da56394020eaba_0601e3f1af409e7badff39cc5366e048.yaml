@@ -1,0 +1,127 @@
+reviews:
+- 'no': 6050
+  overturn_probability: 0.9
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 该内容在长段落中间频繁重复出现（如行6199、6575等），符合页眉或PDF转Markdown时的排版噪声特征，而非章节起始。
+  - 其前文（行6049）和后文（行6052）均为正文内容（如'Table.Distinct'的结果表格），并未出现章节结束或开始的语义断层。
+  - 真正的章节标题（如行8452 '第八章 表格'）在本书中仅出现一次，且位于逻辑起点；而行6050 '第 8 章 表格' 位于第8章内容深处，属于重复噪声。
+  keep_split: false
+- 'no': 6199
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 位于行6188-6201的 `Table.AlternateRows` 函数语法定义和参数说明中间，明显是正文内容的延续，而非新章节开始。
+  - 该文本未使用 Markdown 标题符号（#），与行8452等真标题格式不一致，属于嵌入文本中的干扰项。
+  keep_split: false
+- 'no': 6575
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 行6574正在讨论 `Table.Sort` 的排序逻辑，行6577紧接着给出公式，语义连贯，中间插入 '第 8 章 表格' 显然是排版错误。
+  keep_split: false
+- 'no': 7060
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 行7058-7062 是 `Table.RemoveColumns` 的代码块及其参数说明，'第 8 章 表格' 出现在代码块结束后、参数解释前，属于典型的页眉混入。
+  keep_split: false
+- 'no': 7255
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 位于行7253（代码块结束）和7257（参数说明开始）之间，上下文均为 `Table.DuplicateColumn` 的讲解，无新章节语义。
+  keep_split: false
+- 'no': 7418
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 行7416代码块结束后，行7420紧接着讨论结果表8-73，中间插入的 '第 8 章 表格' 破坏了阅读流，确认为噪声。
+  keep_split: false
+- 'no': 7559
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 位于 `Table.AddColumn` 代码块（7530-7532）与结果表（7563）之间，语义上属于同一功能模块的演示过程。
+  keep_split: false
+- 'no': 7932
+  overturn_probability: 0.9
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 行7931结尾为输入参数说明，7934开始举例 `TableK`，'第 8 章 表格'（无#号）夹在中间，格式异常，应为页眉。
+  keep_split: false
+- 'no': 7965
+  overturn_probability: 0.9
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 位于 `Table.CombineColumnsToRecord` 的结果展示（7961）和下一个函数 `Table.ReorderColumns`（7967）之间，虽有空行，但作为每页固定的页眉重复出现，不应分章。
+  keep_split: false
+- 'no': 7991
+  overturn_probability: 0.9
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 行7988代码块结束后，7993展示结果表，'第 8 章 表格' 穿插其中，属于排版断行噪声。
+  keep_split: false
+- 'no': 8023
+  overturn_probability: 0.9
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 位于 `Table.Pivot` 代码块（8013-8021）与举例（8025）之间，上下文连贯，无需分章。
+  keep_split: false
+- 'no': 8130
+  overturn_probability: 0.8
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 虽带有 `#` 号，但内容为 '第 8 章 表'（缺少'格'字或为简写），且位于 `Table.Unpivot` 结果展示（8128）与 `Table.Group`
+    标题（8132）之间。鉴于该书页眉噪声极多，且真章节标题在8452已出现，此处大概率为带井号的页眉残留或OCR错误，而非新章节。
+  keep_split: false
+- 'no': 8288
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 加粗文本 '**第 8 章 表格**' 位于 `Table.Transpose` 参数说明（8286）与举例（8290）之间，纯装饰性页眉。
+  keep_split: false
+- 'no': 8322
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 位于表8-101展示（8313-8320）与 '合并表格' 小节（8324）之间，属于页脚/页眉区域的混入。
+  keep_split: false
+- 'no': 8345
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 紧跟在 `Table.Combine` 代码块（8338-8343）之后，参数说明（8347）之前，明显是正文中的干扰项。
+  keep_split: false
+- 'no': 8372
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 位于表8-103（8363）与表8-104（8374）之间，用于分隔两个表格定义的页眉。
+  keep_split: false
+- 'no': 8402
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 位于表8-105（8384）与表8-106（8404）之间，上下文均为 `Table.Combine` 的不同结果展示，无需分章。
+  keep_split: false
+- 'no': 8422
+  overturn_probability: 0.95
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 位于表8-106（8404）与表8-107（8424）之间，属于同一小节内的页眉重复。
+  keep_split: false
+- 'no': 8452
+  overturn_probability: 0.1
+  alternative: 章节标题
+  counter_evidence:
+  - 虽然前文行8448-8450仍在讲解 `Table.Combine` 的替代写法，看似是旧章节结尾，但 '第八章 表格' 是全书最高层级标题（与之前的 '第
+    8 章' 噪声不同，此处用了 '八' 且无重复标记，且后续行8454直接开始新的小节 'Table.Join'），符合章节起始特征。然而，考虑到前文并未结束（8451是空行，8444-8450是代码），这更像是一个被错误插入的新章起始，或者前文其实已经结束了。由于规则要求严格，且这是全书唯一的
+    '第八章' 变体，保留分章的可能性较大，但存在误报风险（如果前文没断干净）。鉴于其唯一性，倾向于保留。
+  keep_split: true
+- 'no': 8468
+  overturn_probability: 0.9
+  alternative: 页眉/排版残留
+  counter_evidence:
+  - 内容为 '第 8 章 表'（缺少'格'字），位于 `Table.Join` 代码块（8458-8466）与函数说明（8470）之间。与行8130类似，属于带井号的页眉噪声或OCR错误，非真实章节标题。
+  keep_split: false

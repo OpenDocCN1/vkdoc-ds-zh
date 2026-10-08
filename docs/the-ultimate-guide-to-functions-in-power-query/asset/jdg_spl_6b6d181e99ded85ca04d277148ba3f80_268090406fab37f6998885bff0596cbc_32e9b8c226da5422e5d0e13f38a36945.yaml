@@ -1,0 +1,131 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.95
+  final_reason: Book title page, acts as the start of the front matter section.
+  accepted_evidence:
+  - Line 2 is the main title of the book.
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 56
+  confidence: 0.9
+  final_reason: Table of Contents, standard front matter section.
+  accepted_evidence:
+  - Line 56 is '# 目录' (Table of Contents).
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 605
+  confidence: 0.9
+  final_reason: About the Author section, front matter.
+  accepted_evidence:
+  - Line 605 is '## 关于作者'.
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 609
+  confidence: 0.9
+  final_reason: About Technical Reviewer section, front matter.
+  accepted_evidence:
+  - Line 609 is '## 关于技术审校'.
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 617
+  confidence: 0.9
+  final_reason: Acknowledgments section, front matter.
+  accepted_evidence:
+  - Line 617 is '## 致谢'.
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 629
+  confidence: 0.9
+  final_reason: Introduction/Preface section, front matter.
+  accepted_evidence:
+  - Line 629 is '## 引言'.
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 663
+  confidence: 0.98
+  final_reason: Start of Chapter 1.
+  accepted_evidence:
+  - Line 663 is '## 第 1 章：Power Query 简介', following the Introduction.
+  - Rebuttal confirms 681 is a header, making 663 the unique start.
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 915
+  confidence: 0.98
+  final_reason: Start of Chapter 2.
+  accepted_evidence:
+  - Line 915 is '# 第 2 章 数据类型', following the conclusion of Ch 1.
+  - Rebuttal confirms 1025 is a header.
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1249
+  confidence: 0.95
+  final_reason: Start of Chapter 3.
+  accepted_evidence:
+  - Line 1249 is '## 第 3 章 数字函数', following the conclusion of Ch 2.
+  - Rebuttal confirms 1358 is a header.
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1421
+  confidence: 0.95
+  final_reason: Start of Chapter 4.
+  accepted_evidence:
+  - Line 1421 is '# 第四章 文本函数', following the conclusion of Ch 3.
+  - Rebuttal confirms 1445 is a header.
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2351
+  confidence: 0.95
+  final_reason: Start of Chapter 5.
+  accepted_evidence:
+  - Line 2351 is '## 第五章 日期和时间函数', following the conclusion of Ch 4.
+  - Rebuttal confirms 2403 is a header.
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2764
+  confidence: 0.95
+  final_reason: Start of Chapter 6.
+  accepted_evidence:
+  - Line 2764 is '# 第 6 章', following the conclusion of Ch 5.
+  - Line 2766 is '# 列表函数', which is the second part of the title. 2764 is the primary
+    marker.
+  rejected_evidence:
+  - Line 2766 is part of the same title block, so only 2764 is marked as the start.
+  need_human_review: false
+rejected_lines:
+- 'no': 569
+  reason: Rebuttal confirms this is a Table of Contents entry with page number 347.
+  need_human_review: false
+- 'no': 587
+  reason: Rebuttal confirms this is a Table of Contents entry with page number 359.
+  need_human_review: false
+- 'no': 595
+  reason: Rebuttal confirms this is in the Table of Contents block.
+  need_human_review: false
+- 'no': 681
+  reason: Rebuttal confirms this is a running page header within Chapter 1.
+  need_human_review: false
+- 'no': 1025
+  reason: Rebuttal confirms this is a running page header within Chapter 2.
+  need_human_review: false
+- 'no': 1445
+  reason: Rebuttal confirms this is a running page header/footer artifact within Chapter
+    4.
+  need_human_review: false
+- 'no': 1638
+  reason: Rebuttal confirms this is a running page header within Chapter 4.
+  need_human_review: false
+- 'no': 2179
+  reason: Rebuttal confirms this is a running page header within Chapter 4.
+  need_human_review: false
+- 'no': 2403
+  reason: Rebuttal confirms this is a running page header within Chapter 5.
+  need_human_review: false
+- 'no': 2650
+  reason: Rebuttal confirms this is a running page header within Chapter 5.
+  need_human_review: false
+- 'no': 2766
+  reason: Part of the title block for Chapter 6. Line 2764 is the primary start marker.
+  need_human_review: false
+- 'no': 2820
+  reason: Rebuttal confirms this is a running page header within Chapter 6.
+  need_human_review: false

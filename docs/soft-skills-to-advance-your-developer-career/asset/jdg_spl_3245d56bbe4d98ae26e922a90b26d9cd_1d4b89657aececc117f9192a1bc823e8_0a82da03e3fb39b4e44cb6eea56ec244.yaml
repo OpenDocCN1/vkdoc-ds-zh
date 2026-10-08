@@ -1,0 +1,59 @@
+chapter_starts:
+- 'no': 3033
+  confidence: 0.99
+  final_reason: 一级标题，带有明确章序号“5”，符合最高层级章节划分规则。
+  accepted_evidence:
+  - 包含编号特征
+  - 独立成行
+  - 语义统领后续内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4003
+  confidence: 0.99
+  final_reason: 一级标题，带有明确章序号“6”，符合最高层级章节划分规则。
+  accepted_evidence:
+  - 包含编号特征
+  - 独立成行
+  - 语义统领后续内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4609
+  confidence: 0.99
+  final_reason: 一级标题，带有明确章序号“7”，符合最高层级章节划分规则。
+  accepted_evidence:
+  - 包含编号特征
+  - 独立成行
+  - 语义统领后续内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5589
+  confidence: 0.99
+  final_reason: 一级标题，带有明确章序号“8”，符合最高层级章节划分规则。
+  accepted_evidence:
+  - 包含编号特征
+  - 独立成行
+  - 语义统领后续内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5852
+  confidence: 0.9
+  final_reason: 一级标题“# 最终寄语”，位于正文结束后、索引前，属于结语/后记部分，独立成章。
+  accepted_evidence:
+  - 独立成行
+  - 语义为全书总结/寄语
+  - 位置处于文末部分
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5870
+  confidence: 0.95
+  final_reason: “## 索引”位于书籍末尾，根据规则文末索引划分为一章。虽然格式为二级标题，但因其作为书籍末尾的独立功能模块，予以划分。
+  accepted_evidence:
+  - 位于文末
+  - 语义为索引
+  - 规则规定索引独立成章
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 3020
+  reason: 复核方指出其语义与“摘要”不符，实为第4章末尾或误标的一级标题，且无章节编号。鉴于其内容属于前文（第4章相关）的总结或错误升级的小节，且紧邻第5章，倾向于不将其作为独立的新章起点，而是视为第4章的一部分或排版异常。根据“宁可漏分”原则，排除误分风险。
+  need_human_review: true

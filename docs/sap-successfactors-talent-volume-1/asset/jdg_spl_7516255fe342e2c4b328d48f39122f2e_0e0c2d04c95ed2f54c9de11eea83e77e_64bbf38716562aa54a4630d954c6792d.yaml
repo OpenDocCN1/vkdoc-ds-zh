@@ -1,0 +1,53 @@
+chapter_starts:
+- 'no': 6985
+  confidence: 1.0
+  final_reason: 双方一致 + 格式语义均符合（带有序号 9. 的一级标题，统领性强）
+  accepted_evidence:
+  - Line 6985 内容为 '# 9. 使用绩效管理表单'
+  - 带有序号 '9.'，符合最高层级大章的编号特征
+  - 独立成行，无句号，长度适中，语义具有统领性
+  - 前文 Line 6979 为 '## 结论'，标志着上一章的结束
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7658
+  confidence: 1.0
+  final_reason: 双方一致 + 格式语义均符合（带有序号 10. 的一级标题，统领性强）
+  accepted_evidence:
+  - Line 7658 内容为 '# 10. 绩效管理 XML 与翻译'
+  - 带有序号 '10.'，符合最高层级大章的编号特征
+  - 独立成行，语义概括性强，覆盖后续关于 XML 和翻译的内容
+  - 前文 Line 7654 为 '## 结论'，标志着上一章的结束
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 8589
+  confidence: 1.0
+  final_reason: 双方一致 + 格式语义均符合（带有序号 11. 的一级标题，统领性强）
+  accepted_evidence:
+  - Line 8589 内容为 '# 11. 请求反馈、获取反馈、添加签署者和添加修改者'
+  - 带有序号 '11.'，符合最高层级大章的编号特征
+  - 独立成行，语义明确，涵盖多个子功能
+  - 前文 Line 8585 为 '## 结论'，标志着上一章的结束
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 5994
+  reason: 复核方指出其为排版误标，虽为一级标题但无章序号，且位于第 8/9 章过渡区域，疑似子级标题误标，根据宁可漏分不可误分原则，不采纳。
+  need_human_review: false
+- 'no': 6377
+  reason: 复核方指出其标题层级倒退（出现在子级标题后），无章节序号，语义为对前文的概括而非新章统领，确认为格式噪声。
+  need_human_review: false
+- 'no': 6817
+  reason: 复核方指出其标题层级严重倒退（出现在四级标题后），位于第 8 章内部，无章节序号，确认为排版噪声。
+  need_human_review: false
+- 'no': 7366
+  reason: 复核方指出其标题层级倒退（出现在三级标题后），位于第 9 章内部，无章节序号，疑似章内高级小节误标为一级标题。
+  need_human_review: false
+- 'no': 7931
+  reason: 复核方指出其位于第 10 章内部，无章节序号，且其后紧跟二级标题，疑似将章内小节误标为一级标题，证据不足不予采纳。
+  need_human_review: false
+- 'no': 8262
+  reason: 复核方指出其标题层级极度倒退（出现在五级标题后），位于第 10 章内部，无章节序号，确认为格式噪声。
+  need_human_review: false
+- 'no': 8708
+  reason: 复核方指出其位于第 11 章内部，无章节序号，且其前后结构混乱（前有 '## 请求反馈'，后有 '## 请求反馈'），疑似章内小节误标，证据不足不予采纳。
+  need_human_review: false

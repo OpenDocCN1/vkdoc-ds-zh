@@ -1,0 +1,19 @@
+chapter_starts:
+- 'no': 9027
+  confidence: 0.95
+  reason: 检测到一级标题“# 第 8 章 表格”，且后续内容开始介绍 Table.FillDown 等函数，符合章节起始特征。
+- 'no': 9370
+  confidence: 0.95
+  reason: 检测到一级标题“# 第 9 章 从数据源提取”，后续内容介绍 Folder.Contents 等数据源函数，符合章节起始特征。
+- 'no': 9526
+  confidence: 0.95
+  reason: 检测到一级标题“# 第十章 其他函数”，后续内容介绍 if、try 等逻辑和错误处理函数，符合章节起始特征。
+- 'no': 10019
+  confidence: 0.9
+  reason: 检测到一级标题“# 索引”，后续内容为全书索引条目，属于文末索引部分，划分为独立一章。
+- 'no': 11047
+  confidence: 0.9
+  reason: 检测到一级标题“# 文档大纲”，后续为文档结构描述，属于独立部分。
+- 'no': 11049
+  confidence: 0.95
+  reason: 检测到一级标题“# 目录”，后续为全书目录列表，属于独立部分。

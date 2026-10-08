@@ -1,0 +1,73 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.95
+  reason: 图书标题页，作为前言/封面部分，划分为独立一章。
+- 'no': 56
+  confidence: 0.9
+  reason: 目录（Table of Contents），属于正文前的独立章节。
+- 'no': 605
+  confidence: 0.9
+  reason: 关于作者（About the Author），属于正文前的独立章节。
+- 'no': 609
+  confidence: 0.9
+  reason: 关于技术审校（About the Technical Reviewer），属于正文前的独立章节。
+- 'no': 617
+  confidence: 0.9
+  reason: 致谢（Acknowledgments），属于正文前的独立章节。
+- 'no': 629
+  confidence: 0.9
+  reason: 引言（Introduction），属于正文前的独立章节。
+- 'no': 663
+  confidence: 0.98
+  reason: 第 1 章：Power Query 简介，顶级章节标题。
+- 'no': 681
+  confidence: 0.85
+  reason: 第 1 章：Power Query 简介，正文中再次出现的章节标题（页眉或正文起始），标记新章节。
+- 'no': 915
+  confidence: 0.98
+  reason: 第 2 章：数据类型，顶级章节标题。
+- 'no': 1025
+  confidence: 0.85
+  reason: 第 2 章：数据类型，正文中再次出现的章节标题（页眉或正文起始），标记新章节。
+- 'no': 1249
+  confidence: 0.98
+  reason: 第 3 章：数字函数，顶级章节标题。
+- 'no': 1421
+  confidence: 0.98
+  reason: 第 4 章：文本函数，顶级章节标题。
+- 'no': 1445
+  confidence: 0.85
+  reason: 第 4 章：文本函数，正文中再次出现的章节标题（页眉或正文起始），标记新章节。
+- 'no': 1638
+  confidence: 0.85
+  reason: 第 4 章：文本函数，正文中再次出现的章节标题（页眉或正文起始），标记新章节。
+- 'no': 2179
+  confidence: 0.85
+  reason: 第 4 章：文本函数，正文中再次出现的章节标题（页眉或正文起始），标记新章节。
+- 'no': 2351
+  confidence: 0.98
+  reason: 第 5 章：日期和时间函数，顶级章节标题。
+- 'no': 2403
+  confidence: 0.85
+  reason: 第 5 章：日期和时间函数，正文中再次出现的章节标题（页眉或正文起始），标记新章节。
+- 'no': 2650
+  confidence: 0.85
+  reason: 第 5 章：日期和时间函数，正文中再次出现的章节标题（页眉或正文起始），标记新章节。
+- 'no': 2764
+  confidence: 0.98
+  reason: 第 6 章，顶级章节标题。
+- 'no': 2766
+  confidence: 0.9
+  reason: 列表函数，第 6 章的具体名称，紧随第 6 章标题，视为同一章节的起始部分。
+- 'no': 2820
+  confidence: 0.85
+  reason: 第 6 章：列表函数，正文中再次出现的章节标题（页眉或正文起始），标记新章节。
+- 'no': 569
+  confidence: 0.9
+  reason: 第 9 章：从数据源中提取，顶级章节标题。
+- 'no': 587
+  confidence: 0.9
+  reason: 第 10 章：其他函数，顶级章节标题。
+- 'no': 595
+  confidence: 0.8
+  reason: Let-In 命令，作为最后主要章节（或独立附录章节）的标题，结构上属于最高层级。

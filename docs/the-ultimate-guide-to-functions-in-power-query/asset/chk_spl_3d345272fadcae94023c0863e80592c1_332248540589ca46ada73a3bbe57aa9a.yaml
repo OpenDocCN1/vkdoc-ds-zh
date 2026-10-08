@@ -1,0 +1,45 @@
+reviews:
+- 'no': 9027
+  overturn_probability: 0.95
+  alternative: 页眉/重复标题
+  counter_evidence:
+  - 上下文显示该行出现在 `Table.FillDown` 和 `Table.FillUp` 的代码块（```）之后，紧接着是函数说明列表（1. 在第一个输入中...）。这表明第
+    8 章的内容早在该行之前就已经开始了（例如第 8850 行之前就在讨论 Table 函数）。
+  - 全书中“# 第 8 章 表格”这个标题在行 9027、9216、9370 之前、9526 之前等多处反复出现，且总是出现在页面中间或章节内容的中间位置，而非章节真正起始处。这符合
+    PDF/Markdown 转换中“页眉”被误识别为一级标题的特征。
+  - 如果 9027 是新章开始，那么其之前的 8850-9026 行内容（关于 Table.ExpandRecordColumn 等）将无处归属，但显然它们属于第
+    8 章。因此 9027 只是正文中间的一个残留标题或页眉。
+  keep_split: false
+- 'no': 9370
+  overturn_probability: 0.05
+  alternative: 章节标题
+  counter_evidence:
+  - 该行位于第 8 章总结段落（9354-9368）之后，且后续内容（9372 开始）确实进入了“从数据源提取”的主题，符合新章开始的语义特征。
+  keep_split: true
+- 'no': 9526
+  overturn_probability: 0.1
+  alternative: 章节标题
+  counter_evidence:
+  - 该行位于第 9 章总结（9530-9538）之后，后续内容（9540 开始）确实是“其他函数”（if, try, let-in），符合第 10 章的起始位置。虽然格式上使用的是“#”而非“##”，但语义上它是第
+    10 章的起始。
+  keep_split: true
+- 'no': 10019
+  overturn_probability: 0.0
+  alternative: 索引标题
+  counter_evidence:
+  - 该行明确标记为“# 索引”，且后续全是索引条目（A, B, C...），这是标准的文末索引部分，应当划分为独立一章。
+  keep_split: true
+- 'no': 11047
+  overturn_probability: 0.2
+  alternative: 文档结构标题/页眉
+  counter_evidence:
+  - 该行位于全书末尾（行 11047），紧接着是“# 目录”（11049）和“关于作者”等前 matter 列表。在电子书中，这部分通常位于文后（Appendix）或文前（Front
+    matter）被提取在一起。它本身是一个结构标签，如果原书物理布局中它是独立的“文档大纲”部分，则分章合理；但如果只是目录页的标题，可能不需要单独成章，或者与目录合并。但考虑到它是顶级标题
+    `#`，保留分章在逻辑上是可接受的。
+  keep_split: true
+- 'no': 11049
+  overturn_probability: 0.1
+  alternative: 目录标题
+  counter_evidence:
+  - 该行是“# 目录”，后续是全书章节列表。目录通常作为独立的一部分（Front matter 或 Back matter），划分为独立一章符合规则“前言、序言...统一划分为一章。文末索引也划分为一章”。
+  keep_split: true

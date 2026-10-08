@@ -1,0 +1,55 @@
+chapter_starts:
+- 'no': 6190
+  confidence: 0.95
+  reason: Markdown 一级标题 (#)，且位于正文段落中间出现，判断为新的顶级章节起始。
+- 'no': 6232
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节（无更高序号章节存在时，## 视为最高层级）的起始。
+- 'no': 6258
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 6288
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 6317
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 6338
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 6352
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 6381
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 6626
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 6713
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 6870
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 7026
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 7092
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 7230
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 7388
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 7394
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 7498
+  confidence: 0.95
+  reason: Markdown 二级标题 (##)，作为顶级章节的起始。
+- 'no': 7502
+  confidence: 0.99
+  reason: 索引章节，根据规则应单独划分为一章。

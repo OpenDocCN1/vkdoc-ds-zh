@@ -1,0 +1,75 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.9
+  final_reason: 判断方与复核方一致（keep_split=true）。这是书籍的扉页/标题页（Title Page），包含书名、封面图、作者联系方式及版权信息。根据规则“前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章”，虽然目录、作者信息等也是前置内容，但在实际文档结构中，扉页（Title
+    Page）通常作为一个独立的章节块，或者至少是前置部分的第一块。鉴于其后有明确的二级标题“## 目录”（Line 62）和“# 关于作者”（Line 163），将Line
+    0作为前置部分（Front Matter）的第一章起始是合理的。它统领了从封面到献词的所有内容。
+  accepted_evidence:
+  - 位于文件最顶端，包含书名和封面图，符合扉页特征。
+  - 后续出现二级标题“## 目录”和一级标题“# 关于作者”，说明Line 0所属的区块与它们不同级或至少是独立的逻辑块。
+  - 符合“正文之前的内容划分为一章”的规则，作为前置内容的起始。
+  rejected_evidence:
+  - 复核方建议将其视为独立章，但未提供强力反驳将其合并进目录章的理由，且结构上Title Page通常独立于TOC。
+  need_human_review: false
+- 'no': 163
+  confidence: 0.95
+  final_reason: 双方一致。Line 163 `# 关于作者和技术审阅者` 是一级标题，位于目录（Line 62-159）之后，正文第一章（Line
+    180）之前。这是标准的书籍前置内容（Front Matter）的一部分。根据规则，前置内容应划分为章节。由于它有自己的顶级标题 `#`，且涵盖了关于作者和技术审阅者的具体内容（164-169行），因此划分为一个新章是合适的。
+  accepted_evidence:
+  - Markdown一级标题 `#`。
+  - 语义上统领后续关于作者和审阅者的介绍。
+  - 属于正文之前的前置内容。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 180
+  confidence: 0.95
+  final_reason: 双方一致。Line 180 `# 大数据难题` 是正文的第一章。目录中显示“第 1 章：大数据问题”，此处标题虽略有差异（“难题”vs“问题”），但语义对应且位于前置内容之后。它是顶级标题，后续内容（182行开始）为正文阐述，符合章节起始特征。
+  accepted_evidence:
+  - Markdown一级标题 `#`。
+  - 对应目录中的“第 1 章”。
+  - 上下文：前文是前置内容，后文是正文，标志着正文的开始。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 534
+  confidence: 0.95
+  final_reason: 双方一致。Line 534 `# 2. 早期大数据与 NoSQL` 是正文的第二章。带有明确的章节序号“2.”，符合“编号特征”。上一章（第1章）在此前结束，后续内容涉及NoSQL技术，主题切换明显。
+  accepted_evidence:
+  - Markdown一级标题 `#` 且带有章节号 `2.`。
+  - 对应目录中的“第 2 章”。
+  - 章节间过渡自然，前一章以总结结束（532行）。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 983
+  confidence: 0.95
+  final_reason: 双方一致。Line 983 `# 3. 定义处理拓扑` 是正文的第三章。带有明确的章节序号“3.”，符合“编号特征”。
+  accepted_evidence:
+  - Markdown一级标题 `#` 且带有章节号 `3.`。
+  - 对应目录中的“第 3 章”。
+  - 前一章（第2章）在第981行总结结束。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1441
+  confidence: 0.95
+  final_reason: 双方一致。Line 1441 `# 4. 流式数据` 是正文的第四章。带有明确的章节序号“4.”，符合“编号特征”。
+  accepted_evidence:
+  - Markdown一级标题 `#` 且带有章节号 `4.`。
+  - 对应目录中的“第 4 章”。
+  - 前一章（第3章）在第1439行总结结束。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2247
+  confidence: 0.95
+  final_reason: 双方一致。Line 2247 `# 5. 查询与分析模式` 是正文的第五章。带有明确的章节序号“5.”，符合“编号特征”。
+  accepted_evidence:
+  - Markdown一级标题 `#` 且带有章节号 `5.`。
+  - 对应目录中的“第 5 章”。
+  - 前一章（第4章）在第2245行总结结束。
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 62
+  reason: 复核方指出其 overturn_probability 为 0.9，且 keep_split 为 false。Line 62 `## 目录` 是二级标题。根据规则，“前言、序言...等正文之前的内容，统一划分为一章”。目录（Table
+    of Contents）通常被视为前置内容（Front Matter）的一部分。由于 Line 0 已经作为前置内容（扉页/版权页等）的起始点，目录紧随其后，逻辑上属于同一前置部分（或紧邻的前置部分），但考虑到
+    Line 0 处已分章，且目录自身是二级标题（##），不作为顶级章节划分。更关键的是，如果将目录单独成章，会显得过于琐碎，且通常书籍结构中目录页码独立，但在Markdown转换中，往往将其归并入前置章节或忽略其分章地位，特别是当它前面已经有一个前置章节起始点（Line
+    0）时。为了“宁可漏分，不可误分”，且复核方强烈建议不分章，故拒绝将其作为新的章节起始点，它隶属于 Line 0 开始的前置章节块。
+  need_human_review: false

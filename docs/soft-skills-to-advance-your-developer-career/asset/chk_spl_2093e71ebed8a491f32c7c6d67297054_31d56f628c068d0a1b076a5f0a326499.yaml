@@ -1,0 +1,108 @@
+reviews:
+- 'no': 5900
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行内容为 '### H'，根据上下文（后续行包含 '享乐主义幸福'、'高等教育' 等以 H 开头的中文词条，且格式为代码块或列表），这是典型的**索引（Index）**部分，按字母顺序（A-Z）排列词条。
+  - 索引部分的子标题（如 H, I, J...）并非正文的章节标题，而是索引的导航结构。根据规则，“文末索引也划分为一章”，但索引内部按字母划分的 '### H'
+    是同一章（索引章）内部的细分，不应作为新的章节起始。
+  - 后续行 5904 是 '### I'，5908 是 '### J'，这些是连续的字母索引头，表明它们属于同一个大的“索引”结构，而非独立的“第X章”。
+  keep_split: false
+- 'no': 5904
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### I' 紧随 '### H' 及其后的 H 开头词条之后，且后跟 I 开头的词条（'隐性影响' 等）。
+  - 这是索引列表的连续字母部分，不构成新的正文章节。
+  keep_split: false
+- 'no': 5908
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### J' 后跟 J 开头的词条 '工作保障'（Jia? 或者按拼音/英文逻辑，这里可能是中文拼音索引或混合索引，但结构上明显是索引的字母分组）。
+  - 结构上属于索引内部导航，非章节标题。
+  keep_split: false
+- 'no': 5912
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### K' 后跟 '关键绩效指标（KPI）'，明显是按字母 K 分组的索引项。
+  - 非章节标题。
+  keep_split: false
+- 'no': 5916
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### L' 后跟多个 L 开头或相关的词条（'领导力', 'LeetCode' 等）。
+  - 索引内部分组，非章节。
+  keep_split: false
+- 'no': 5920
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### M' 后跟 'M' 相关词条（'操纵', '导师' 等，可能是拼音 M）。
+  - 索引内部分组，非章节。
+  keep_split: false
+- 'no': 5924
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### N' 后跟 'N' 相关词条（'自恋', '谈判' 等，拼音 N）。
+  - 索引内部分组，非章节。
+  keep_split: false
+- 'no': 5928
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### O' 后跟 'O' 相关词条（'OKR', '开放' 等）。
+  - 索引内部分组，非章节。
+  keep_split: false
+- 'no': 5932
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### P' 后跟大量 'P' 开头或拼音 P 的词条（'痛苦', '个人', '彼得原理' 等）。
+  - 索引内部分组，非章节。
+  keep_split: false
+- 'no': 5948
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### Q' 后跟 'Q' 相关词条（'质量保证'）。
+  - 索引内部分组，非章节。
+  keep_split: false
+- 'no': 5952
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### R' 后跟 'R' 相关词条（'合理化', '现实' 等）。
+  - 索引内部分组，非章节。
+  keep_split: false
+- 'no': 5956
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '### S' 后跟大量 'S' 开头或拼音 S 的词条（'薪资', '自尊', '软件' 等）。
+  - 索引内部分组，非章节。
+  keep_split: false
+- 'no': 5978
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '## T, U, V' 是索引中 T, U, V 三个字母合并显示的分组标题。
+  - 属于索引内部结构，非正文章节。
+  keep_split: false
+- 'no': 5984
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '## W, X, Y' 是索引中 W, X, Y 三个字母合并显示的分组标题。
+  - 属于索引内部结构，非正文章节。
+  keep_split: false
+- 'no': 5988
+  overturn_probability: 0.95
+  alternative: 索引条目/分节标记
+  counter_evidence:
+  - 该行 '## Z' 是索引最后一个字母 Z 的分组标题。
+  - 属于索引内部结构，非正文章节。
+  keep_split: false

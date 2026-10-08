@@ -1,0 +1,98 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.95
+  final_reason: 双方一致。前言属于正文之前的辅助内容，根据规则应独立划分为一章。
+  accepted_evidence:
+  - 判断方：前言属于正文之前的内容，根据规则统一划分为一章。
+  - 复核方：根据规则，前言、序言等正文之前的内容统一划分为一章。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 16
+  confidence: 0.95
+  final_reason: 双方一致。缩略语表作为独立的知识块，位于正文之前，符合辅助内容分章规则。
+  accepted_evidence:
+  - 判断方：缩略语属于附录/正文前的辅助内容，通常独立成章。
+  - 复核方：一级标题，其后紧跟大量定义列表，语义上构成一个独立的知识块。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 63
+  confidence: 0.95
+  final_reason: 双方一致。目标读者说明属于前置辅助内容，应独立成章。
+  accepted_evidence:
+  - 判断方：目标读者属于前置内容，独立成章。
+  - 复核方：位于正文第1章之前，属于典型的前置辅助内容。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 85
+  confidence: 0.95
+  final_reason: 双方一致。附加材料介绍资源链接，属于前置辅助内容，应独立成章。
+  accepted_evidence:
+  - 判断方：附加材料属于前置/后置辅助内容，独立成章。
+  - 复核方：一级标题，介绍资源链接等，属于前置辅助内容。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 91
+  confidence: 0.95
+  final_reason: 双方一致。关于作者属于标准的前置页面，应独立成章。
+  accepted_evidence:
+  - 判断方：关于作者属于前置内容，独立成章。
+  - 复核方：标准的前置页面。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 93
+  confidence: 0.95
+  final_reason: 双方一致。关于技术审校属于前置页面，紧随关于作者之后，逻辑独立，应独立成章。
+  accepted_evidence:
+  - 判断方：关于技术审校属于前置内容，独立成章。
+  - 复核方：标准的前置页面，逻辑上独立且简短。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 95
+  confidence: 1.0
+  final_reason: 双方一致。顶级标题“1. Streamlit 简介”，序号为1，是全书最高层级章节，符合分章特征。
+  accepted_evidence:
+  - 判断方：顶级标题，符合“第 X 章”的最高层级编号特征。
+  - 复核方：格式为 `# 1.`，序号连贯，后接正文子节。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 648
+  confidence: 1.0
+  final_reason: 双方一致。顶级标题“2. Streamlit 基础”，序号连贯（紧接第1章），是最高层级章节。
+  accepted_evidence:
+  - 判断方：顶级标题，序号连贯，符合最高层级章节特征。
+  - 复核方：序号“2.”紧接第1章，统领后续子节。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1252
+  confidence: 1.0
+  final_reason: 双方一致。顶级标题“3. 开发用户界面”，序号连贯，是最高层级章节。
+  accepted_evidence:
+  - 判断方：顶级标题，序号连贯，符合最高层级章节特征。
+  - 复核方：序号“3.”连贯，独立成行，语义概括性强。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2042
+  confidence: 1.0
+  final_reason: 双方一致。顶级标题“4. 管理与可视化数据”，序号连贯，是最高层级章节。
+  accepted_evidence:
+  - 判断方：顶级标题，序号连贯，符合最高层级章节特征。
+  - 复核方：位于第3章总结之后，开启新的主要知识领域。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2503
+  confidence: 1.0
+  final_reason: 双方一致。顶级标题“5. 集成数据库”，序号连贯，是最高层级章节。
+  accepted_evidence:
+  - 判断方：顶级标题，序号连贯，符合最高层级章节特征。
+  - 复核方：最高层级，后续包含子节。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2866
+  confidence: 1.0
+  final_reason: 双方一致。顶级标题“6. 利用后端服务器”，序号连贯，是最高层级章节。
+  accepted_evidence:
+  - 判断方：顶级标题，序号连贯，符合最高层级章节特征。
+  - 复核方：序号“6.”连贯，结构完整。
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []
