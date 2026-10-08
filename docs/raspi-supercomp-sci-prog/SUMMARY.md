@@ -10,6 +10,6 @@
 +   [九、SciPy 栈和符号编程简介](09_fmt.md)
 +   [十、NumPy 简介](10_fmt.md)
 +   [十一、SciPy 简介](11_fmt.md)
-+   [SciPy 信号处理](12_fmt.md)
++   [十二、SciPy 信号处理](12_fmt.md)
 +   [十三、SciPy 图像处理](13_fmt.md)
 +   [十四、Matplotlib](14_fmt.md)
