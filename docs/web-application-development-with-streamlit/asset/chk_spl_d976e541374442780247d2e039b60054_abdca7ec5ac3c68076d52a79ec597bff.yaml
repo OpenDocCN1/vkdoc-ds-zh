@@ -1,0 +1,107 @@
+reviews:
+- 'no': 0
+  overturn_probability: 0.05
+  alternative: 图书封面及前置信息
+  counter_evidence:
+  - 封面通常作为前置部分，与目录、序言等合并为一章，原判断将其作为独立章节起点可能与后续前置内容分章冲突
+  keep_split: true
+- 'no': 80
+  overturn_probability: 0.85
+  alternative: 目录页，属于前置内容（Front Matter）的一部分
+  counter_evidence:
+  - '根据规则‘前言、序言...等正文之前的内容，统一划分为一章’，目录应与封面（no: 0）合并为同一前置章节'
+  - 若此处分章，则前置内容被割裂为多章，违反了‘统一划分’的原则
+  keep_split: false
+- 'no': 114
+  overturn_probability: 0.02
+  alternative: 正文第一章标题
+  counter_evidence:
+  - 无明显反方证据，标准的一级章标题
+  keep_split: true
+- 'no': 155
+  overturn_probability: 0.02
+  alternative: 正文第二章标题
+  counter_evidence:
+  - 无明显反方证据，标准的一级章标题
+  keep_split: true
+- 'no': 216
+  overturn_probability: 0.02
+  alternative: 正文第三章标题
+  counter_evidence:
+  - 无明显反方证据，标准的一级章标题
+  keep_split: true
+- 'no': 257
+  overturn_probability: 0.02
+  alternative: 正文第四章标题
+  counter_evidence:
+  - 无明显反方证据，标准的一级章标题
+  keep_split: true
+- 'no': 298
+  overturn_probability: 0.15
+  alternative: 第四章下的特殊大节（因格式降级为二级标题）
+  counter_evidence:
+  - 该行 Markdown 标记为 `##`，而全书其他章标题均为 `#`，格式上存在层级降级
+  - 若严格依据 Markdown 层级，`##` 不应作为新的一级章节，而应视为上一级（第四章）的子节
+  keep_split: true
+- 'no': 334
+  overturn_probability: 0.15
+  alternative: 第四章下的延续或第六章的特殊大节（因格式降级为二级标题）
+  counter_evidence:
+  - 该行 Markdown 标记为 `##`，与其他章的 `#` 标记不一致
+  - 格式降级可能导致其被误判为节而非章，但语义‘第六章’强烈指向章级别
+  keep_split: true
+- 'no': 369
+  overturn_probability: 0.02
+  alternative: 正文第七章标题
+  counter_evidence:
+  - 无明显反方证据，标准的一级章标题
+  keep_split: true
+- 'no': 396
+  overturn_probability: 0.02
+  alternative: 正文第八章标题
+  counter_evidence:
+  - 无明显反方证据，标准的一级章标题
+  keep_split: true
+- 'no': 423
+  overturn_probability: 0.02
+  alternative: 正文第九章标题
+  counter_evidence:
+  - 无明显反方证据，标准的一级章标题
+  keep_split: true
+- 'no': 479
+  overturn_probability: 0.02
+  alternative: 正文第十章标题
+  counter_evidence:
+  - 无明显反方证据，标准的一级章标题
+  keep_split: true
+- 'no': 524
+  overturn_probability: 0.02
+  alternative: 正文第十一章标题
+  counter_evidence:
+  - 无明显反方证据，标准的一级章标题
+  keep_split: true
+- 'no': 562
+  overturn_probability: 0.02
+  alternative: 正文第十二章标题
+  counter_evidence:
+  - 无明显反方证据，标准的一级章标题
+  keep_split: true
+- 'no': 597
+  overturn_probability: 0.1
+  alternative: 附录A标题，可能作为正文延续
+  counter_evidence:
+  - 附录有时不单独分章，而是作为最后一章的延伸，但通常视为独立部分
+  keep_split: true
+- 'no': 2331
+  overturn_probability: 0.3
+  alternative: 附录A下的子节（因格式为二级标题）
+  counter_evidence:
+  - 该行 Markdown 标记为 `##`，形式上隶属于 `#` 级标题（如附录A），可能被误判为子章节
+  - 若全书参考文献未独立成章，则此处分章为误报
+  keep_split: true
+- 'no': 2382
+  overturn_probability: 0.05
+  alternative: 索引标题
+  counter_evidence:
+  - 规则明确指出‘文末索引也划分为一章’，故维持分章
+  keep_split: true

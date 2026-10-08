@@ -1,116 +1,3 @@
-# 附录 A Streamlit 应用程序编程接口
-
-## 使用 `st.experimental_singleton` 进行缓存
-
-```python
-@st.experimental_singleton
-def load_nlp(lang):
-    nlp = spacy.load('%s_core_news_sm' % (lang))
-    return nlp
-```
-
-```python
-##### 首次调用以缓存对象
-nlp = load_nlp('es')
-##### 后续调用将访问已缓存的对象，无需重新执行函数
-nlp = load_nlp('es')
-##### 由于输入参数修改，将重新执行函数并缓存新对象
-nlp = load_nlp('de')
-```
-
-## 数据修改
-
-Streamlit 允许您通过使用 `st.add_rows(data, **kwargs)` 命令将数据帧添加到表格末尾，从而实时修改数据和图表。
-
-**表 A-54.** `st.add_rows` 参数
-
-| 参数 | 描述 |
-|-----------|-------------|
-| `data`（Pandas 数据帧或样式器、PyArrow 表、Numpy 数组、字典、None 或可迭代对象） | 要追加到现有表格的数据帧。如果使用 PyArrow 表，必须在配置文件中设置 `dataFrameSerialization = 'arrow'`；更多信息请参见第 3.1 节。 |
-| `**kwargs`（Pandas 数据帧、Numpy 数组、字典、None 或可迭代对象） | 如有需要，您可以将要追加的数据帧作为命名对象传递，例如 `'dataset' = df`。 |
-
-![](img/index-486_1.jpg)
-
-### 使用 `st.add_rows` 修改表格
-
-```python
-table = st.table(pd.DataFrame(data={'a':[1,2], 'b':[3,4]}))
-df = pd.DataFrame(data={'a':[5,6], 'b':[7,8]})
-table.add_rows(df)
-```
-
-## A.1.11 汉堡菜单
-
-Streamlit 默认在网页右上角配备了一个汉堡菜单。该菜单提供了一系列可能对用户和开发者都有用的附加功能。表 A-55 总结了可用的功能。
-
-**表 A-55.** 汉堡菜单功能
-
-| 功能 | 描述 |
-|---------|-------------|
-| 重新运行 | 点击后，Streamlit 将从头到尾重新运行脚本。 |
-| 设置 | 打开一个窗口，用户可在其中自定义主题的外观、颜色、字体及其他相关设置。更多信息请参见第 3.1 节。 |
-| 录制屏幕录像 | 顾名思义，此功能允许您录制浏览器窗口中的视频和音频流，并以 `webm` 格式保存。 |
-| 报告错误 | 此选项会打开一个 GitHub 页面链接，您可以在其中报告错误。或者，您也可以选择将此选项链接到第 3.1 节所示的任何其他所需 URL。 |
-| 获取帮助 | 同样，此选项会将您带到 Streamlit 讨论页面，您可以在其中提出问题和疑虑。如果需要，可将其链接到第 3.1 节所示的另一个 URL。 |
-| 关于 | 此选项会显示一个模态窗口，其中包含您正在使用的 Streamlit 版本。如有需要，您可以按照第 3.1 节所示自定义显示的文本。 |
-| 清除缓存 | 此功能将清除由 `st.cache` 命令存储的所有数据。更多信息请参见第 4.1 节。 |
-| 部署此应用 | Streamlit 允许您通过此选项直接将应用程序部署到其名为 Streamlit Cloud 的服务器。 |
-| Streamlit Cloud | 此链接将带您进入 Streamlit Cloud 的主页，该页面提供有关其托管服务的更多信息。 |
-| 报告 Streamlit 错误 | 与“报告错误”功能相同，此选项将带您进入 GitHub 页面，您可以在其中报告错误和问题。 |
-| 访问 Streamlit 文档 | 此链接将直接带您进入 Streamlit 的 API。 |
-| 访问 Streamlit 论坛 | 同样，此链接将带您进入 Streamlit 的论坛。 |
-
-## 参考文献
-
-[1] A. A. Sutchenkov and A. I. Tikhonov, Active Investigation and Publishing of Calculation Web Based Applications for Studying Process, Journal of Physics 7 (2020).
-
-[2] D. Karade and V. Karade, AIDrugApp: Artificial Intelligence-Based Web-App for Virtual Screening of Inhibitors against SARS-COV-2, 59 (n.d.).
-
-[3] D. M. A. Raheem, S. Tabassum, S. K. Nahid, and S. A. Anzer, A Deep Learning Approach for the Automatic Analysis and Prediction 用于组织病理学图像乳腺癌检测的 Web 应用程序，《国际工程研究杂志》第 10 卷，第 7 期（无日期）。
-
-[4] A. N. Habowski、T. J. Habowski 和 M. L. Waterman，《GECO：用于非线性数据模式可视化的基因表达聚类优化应用》，《BMC 生物信息学》第 22 卷，第 29 期（2021 年）。
-
-[5] F. M. Torun、S. V. Winter、S. Doll、F. M. Riese、A. Vorobyev、J. B. Mueller-Reif、P. E. Geyer 和 M. T. Strauss，《透明探索用于蛋白质组学和组学数据生物标志物发现的机器学习》，第 11 页（无日期）。
-
-[6] R. Shigapov、P. Zumstein、J. Kamlah、L. Oberlander、J. Mechnich 和 I. Schumm，《Bbw：通过元查找将 CSV 匹配到维基数据》，第 10 页（无日期）。
-
-[7] A. R. Kashyap 和 M.-Y. Kan，《SciWING——一个用于科学文档处理的软件工具包》，《arXiv:2004.03807》[计算机科学]（2020 年）。
-
-© Mohammad Khorasani、Mohamed Abdou、Javier Hernández Fernández 2022
-
-M. Khorasani 等人，《使用 Streamlit 进行 Web 应用程序开发》，[`doi.org/10.1007/978-1-4842-8111-6`](https://doi.org/10.1007/978-1-4842-8111-6)
-
-## 参考文献
-
-[8] J. Vig、W. Kryściński、K. Goel 和 N. F. Rajani，《SummVis：用于文本摘要的模型、数据和评估的交互式可视化分析》，《arXiv:2104.07605》[计算机科学]（2021 年）。
-
-[9] Pournaki, A.、Felix Gaisbauer、Sven Banisch 和 E. Olbrich。“Twitter 探索器：一个通过交互网络观察 Twitter 的框架。”《arXiv》abs/2003.03599（2020 年）。
-
-[10] A. Saxena、M. Dhadwal 和 M. Kowsigan，《印度作物产量：使用机器学习和 Streamlit 进行预测与模型部署》，第 13 页（无日期）。
-
-[11] S. F. N. Islam、A. Sholahuddin 和 A. S. Abdullah，《使用极端梯度提升（XGBoost）方法制作美元兑卢比汇率的预测应用程序与分析》，《物理学杂志：系列会议》第 1722 卷，012016（2021 年）。
-
-[12] A. Aboah、M. Boeding 和 Y. Adu-Gyamfi，《用于交通领域多用途应用的移动传感》，第 16 页（无日期）。
-
-[13] Ticlo, I.，载于《Windows 10 云解决方案提供商计划指南》，Insight。检索于 2021 年 9 月 18 日，来自 [www.insight.com](https://www.insight.com/en_US/content-and-resources/2016/12222016-your-guide-to-the-windows-10-cloud-solution-provider-program.html)。
-
-[14] Iberdrola S.A，载于《Wikinger：巩固德国作为战略市场的项目》。检索于 2021 年 11 月 7 日，来自 [www.iberdrola.com](https://www.iberdrola.com/about-us/lines-business/flagship-projects/wikinger-offshore-wind-farm)。
-
-[15] 风力涡轮机功率曲线定义，载于《稳定风速下的风力涡轮机功率输出》。检索于 2021 年 11 月 2 日，来自 [`wind-power-program.com/popups/powercurve.htm`](https://wind-power-program.com/popups/powercurve.htm)。
-
-[16] Veena, R.、Mathew, S. 和 Petra, M.I.，《用于风力涡轮机特定地点性能的人工智能模型》，《国际能源与环境工程杂志》第 11 卷，第 289–297 页（2020 年）。[`doi.org/10.1007/s40095-020-00352-2`](https://doi.org/10.1007/s40095-020-00352-2)。
-
-[17] GE 可再生能源公司，载于《GE 可再生能源公司的 Haliade-X 原型机以 14 MW 功率开始运行》。检索于 2021 年 9 月 14 日，来自 [www.ge.com](https://www.ge.com/news/press-releases/ge-renewable-energy-haliade-x-prototype-starts-operating-at-14-mw)。
-
-## 参考文献
-
-- [GE 可再生能源 Haliade-X 原型机以 14 兆瓦功率开始运行](https://www.ge.com/news/press-releases/ge-renewable-energy-haliade-x-prototype-starts-operating-at-14-mw)
-- Michelle Lewis, *GE 巨大的 Haliade-X 14 兆瓦海上风力涡轮机现已投入运行*。检索自 2021 年 9 月 14 日，[electrek.co/2021/10/05/ge-huge-haliade-x-14-mw-offshore-wind-turbine-is-now-operational](https://electrek.co/2021/10/05/ge-huge-haliade-x-14-mw-offshore-wind-turbine-is-now-operational)
-- Khorasani, M. (2021 年 10 月 7 日). 如何使用 Python 和 Arduino 构建实时 SCADA 系统. Medium. 检索自 2021 年 12 月 31 日，[towardsdatascience.com/how-to-build-a-real-time-scada-system-using-python-and-arduino-7b3acaf86d39](https://towardsdatascience.com/how-to-build-a-real-time-scada-system-using-python-and-arduino-7b3acaf86d39)
-- Cornelam, & Instructables. (2017 年 10 月 6 日). Arduino 伺服电机. Instructables. 检索自 2021 年 12 月 30 日，[www.instructables.com/Arduino-Servo-Motors/](https://www.instructables.com/Arduino-Servo-Motors/)
-- Learning, U. C. I. M. (2016 年 10 月 6 日). 皮马印第安人糖尿病数据库. Kaggle. 检索自 2022 年 1 月 5 日，[www.kaggle.com/uciml/pima-indians-diabetes-database](https://www.kaggle.com/uciml/pima-indians-diabetes-database)
-- 人均 GDP. 我们的数据世界. (n.d.). 检索自 2022 年 1 月 9 日，[ourworldindata.org/grapher/gdp-per-capita-worldbank](https://ourworldindata.org/grapher/gdp-per-capita-worldbank)
-
 ## 索引
 
 ### A
@@ -777,3 +664,342 @@ SQL，134–136
 
 ## `Wind turbines`
 366–372
+
+# 文档大纲
+
+# 目录
+
+- 目录
+- 关于作者
+- 关于技术审校者
+- 致谢
+- 前言
+- 缩略语
+- 目标读者
+- 附加材料
+
+## 第 1 章：Streamlit 入门
+
+### 1.1 为什么选择 Streamlit？
+
+- 1.1.1 本地环境与云环境
+- 1.1.2 云计算趋势
+- 1.1.3 Python Web 框架发展史
+- 1.1.4 `Flask`
+- 1.1.5 `Django`
+- 1.1.6 `Dash`
+- 1.1.7 `Web2Py`
+- 1.1.8 纯 Python Web 框架的需求
+- 1.1.9 学术意义
+
+### 1.2 启动运行
+
+- 1.2.1 技术要求
+- 1.2.2 使用 `Anaconda` 安装环境
+    - 程序化安装
+    - 图形化安装
+- 1.2.3 下载并安装 `Streamlit`
+    - 直接 `pip` 安装
+    - 手动安装 Wheel 文件
+    - 导入 `Streamlit`
+- 1.2.4 `Streamlit` 控制台命令
+    - 通过控制台配置 `Streamlit`
+- 1.2.5 运行演示应用
+- 1.2.6 使用 `PyCharm` 编写和测试代码
+
+### 1.3 `Streamlit` 的工作原理
+
+- 1.3.1 `Streamlit` 架构
+- 1.3.2 `Streamlit` 中的 `ReactJS`
+
+### 1.4 本章小结
+
+## 第 2 章：Streamlit 基础
+
+### 2.1 创建基本应用程序
+
+- 2.1.1 生成用户输入表单
+- 2.1.2 引入条件流程
+    - 示例 1
+    - 示例 2
+- 2.1.3 管理与调试错误
+    - 示例 1
+    - 示例 2
+
+### 2.2 数据框的变异操作
+
+- 2.2.1 筛选
+- 2.2.2 选择
+- 2.2.3 排序
+- 2.2.4 变换
+- 2.2.5 分组
+- 2.2.6 合并
+
+### 2.3 渲染静态与交互式图表
+
+- 2.3.1 静态柱状图
+- 2.3.2 静态折线图
+- 2.3.3 交互式折线图
+- 2.3.4 交互式地图
+
+### 2.4 开发用户界面
+
+### 2.5 本章小结
+
+## 第 3 章：架构用户界面
+
+### 3.1 设计应用程序
+
+- 3.1.1 配置页面
+    - 基本页面配置
+    - 移除页脚和汉堡菜单
+    - 添加自定义页脚
+    - 高级页面配置
+- 3.1.2 开发主题和配色方案
+    - 图形化自定义主题
+    - 程序化自定义主题
+    - 在自定义组件中使用主题
+- 3.1.3 组织页面布局
+    - 侧边栏
+    - 展开器
+    - 列
+    - 容器
+    - 占位符
+
+### 3.2 显示动态内容
+
+- 3.2.1 创建实时进度条
+
+### 3.3 配置多页面应用程序
+
+- 3.3.1 创建页面
+    - 启用 URL 路径
+- 3.3.2 创建子页面
+
+### 3.4 模块化应用程序开发
+
+- 3.4.1 示例：开发社交网络应用
+- 3.4.2 文件夹结构的最佳实践
+
+### 3.5 本章小结
+
+## 第 4 章：数据管理与可视化
+
+### 4.1 数据管理
+
+- 4.1.1 处理字节数据
+    - 文本
+    - 多媒体
+    - 数据框
+- 4.1.2 缓存大数据
+- 4.1.3 实时数据变异
+    - 原生数据变异
+- 4.1.4 高级与交互式数据变异
+
+### 4.2 探索 `Plotly` 数据可视化
+
+- 4.2.1 在 `Streamlit` 中渲染 `Plotly`
+- 4.2.2 基本图表
+    - 折线图
+    - 散点图
+    - 柱状图
+    - 饼图
+    - 图表布局
+- 4.2.3 统计图表
+    - 直方图
+    - 箱线图
+- 4.2.4 时间序列图表
+- 4.2.5 地理空间图表
+- 4.2.6 动画可视化
+    - 动画气泡图
+    - 动画柱状图
+
+### 4.3 本章小结
+
+## 第 5 章：数据库集成
+
+### 5.1 关系型数据库
+
+- 5.1.1 `SQL` 简介
+- 5.1.2 将 `PostgreSQL` 数据库连接到 `Streamlit`
+- 5.1.3 在 `Streamlit` 中显示表格
+
+### 5.2 非关系型数据库
+
+- 5.2.1 `MongoDB` 简介
+- 5.2.2 配置云数据库
+- 5.2.3 全文索引
+- 5.2.4 查询数据库
+- 5.2.5 在 `Streamlit` 中显示表格
+
+### 5.3 本章小结
+
+## 第 6 章：利用后端服务器
+
+### 6.1 后端服务器的需求
+
+### 6.2 前后端通信
+
+- 6.2.1 `HTTP` 方法
+
+### 6.3 处理 `JSON` 文件
+
+### 6.4 配置后端服务器
+
+- 6.4.1 `API` 构建
+- 6.4.2 `API` 测试
+
+### 6.5 多线程与多进程请求
+
+### 6.6 将 `Streamlit` 连接到后端服务器
+
+### 6.7 本章小结
+
+## 第 7 章：实现会话状态
+
+### 7.1 原生实现会话状态
+
+- 7.1.1 使用会话状态构建应用程序
+
+### 7.2 引入会话 ID
+
+### 7.3 持久化实现会话状态
+
+### 7.4 用户洞察
+
+- 7.4.1 可视化用户洞察
+
+### 7.5 Cookie 管理
+
+### 7.6 本章小结
+
+## 第 8 章：身份验证与应用安全
+
+### 8.1 开发用户账户
+
+- 8.1.1 哈希
+- 8.1.2 加盐
+
+### 8.2 验证用户凭据
+
+### 8.3 机密管理
+
+### 8.4 使用 `SQLAlchemy` 防范 `SQL` 注入
+
+### 8.5 配置 `Gitignore` 变量
+
+### 8.6 本章小结
+
+## 第 9 章：本地与云端部署
+
+### 9.1 将 `Streamlit` 暴露至万维网
+
+- 9.1.1 通过网络网关进行端口转发
+- 9.1.2 使用 `NGROK` 进行 `HTTP` 隧道
+
+### 9.2 部署至 `Streamlit Cloud`
+
+- 9.2.1 一键部署
+- 9.2.2 `Streamlit` 机密
+
+### 9.3 部署至 `Linux`
+
+- 9.3.1 `Linux` 机器上的原生部署
+- 9.3.2 使用 `Linux` `Docker` 容器部署
+
+### 9.4 部署至 `Windows Server`
+
+- 9.4.1 建立远程桌面连接
+- 9.4.2 开放 `TCP/IP` 端口
+- 9.4.3 `Anaconda` 离线包安装
+- 9.4.4 将 `Anaconda` 添加到系统路径
+- 9.4.5 将应用程序作为可执行批处理文件运行
+- 9.4.6 将应用程序作为持续运行的 `Windows` 服务运行
+
+### 9.5 本章小结
+
+## 第 10 章：构建 `Streamlit` 组件
+
+### 10.1 `Streamlit` 自定义组件简介
+
+## 第 10 章：Streamlit 组件与扩展
+
+### 10.2 使用 ReactJS 创建 Streamlit 自定义组件
+
+#### 10.2.1 制作 ReactJS 组件
+
+#### 10.2.2 在 Streamlit 中使用 ReactJS 组件
+
+#### 10.2.3 向自定义组件发送数据
+
+#### 10.2.4 从自定义组件接收数据
+
+### 10.3 将组件发布为 Pip 包
+
+### 10.4 重点组件：Extra-Streamlit-Components
+
+#### 10.4.1 步骤条
+
+#### 10.4.2 弹跳图像
+
+#### 10.4.3 标签栏
+
+#### 10.4.4 Cookie 管理器
+
+#### 10.4.5 路由器
+
+### 10.5 本章小结
+
+## 第 11 章：Streamlit 使用案例
+
+### 11.1 仪表盘与实时应用
+
+#### 11.1.1 温度数据记录器应用
+
+#### 11.1.2 电机命令与控制应用
+
+### 11.2 时间序列应用
+
+#### 11.2.1 日期时间筛选应用
+
+#### 11.2.2 时间序列热力图应用
+
+#### 11.2.3 时间同步应用
+
+### 11.3 数据管理与机器学习应用
+
+#### 11.3.1 数据仓库应用
+
+#### 11.3.2 高级应用开发：机器学习即服务
+
+- 无需后端服务器的用户认证
+- 实用工具脚本
+- 配置脚本
+- 主脚本
+- 逻辑回归分类器
+
+### 11.4 本章小结
+
+## 第 12 章：Streamlit 实战
+
+### 12.1 Streamlit 在清洁能源领域的应用：Iberdrola
+
+#### 12.1.1 可视化风电场运行性能
+
+#### 12.1.2 风力发电机功率曲线
+
+#### 12.1.3 风玫瑰图
+
+#### 12.1.4 热力图
+
+#### 12.1.5 总结评价
+
+### 12.2 Streamlit 在工业领域的应用：maxon Group
+
+#### 12.2.1 为微创腹腔镜手术开发新型手术内窥镜适配器系统
+
+#### 12.2.2 Streamlit 命令与控制仪表盘
+
+#### 12.2.3 总结评价
+
+### 12.3 本章小结

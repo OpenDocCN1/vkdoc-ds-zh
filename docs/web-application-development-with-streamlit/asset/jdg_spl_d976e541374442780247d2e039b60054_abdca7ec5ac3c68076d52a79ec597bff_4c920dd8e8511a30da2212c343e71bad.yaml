@@ -1,0 +1,132 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.98
+  final_reason: 这是图书封面/标题页。根据规则，前言、序言等正文之前的内容统一划分为一章。由于没有判断方或复核方提出将后续前置内容（如目录 no:80）作为独立章节，且
+    no:0 是全书起始，故定为第一章节点。
+  accepted_evidence:
+  - 判断方认为图书封面属于正文前内容，统一划分为一章
+  - 复核方虽然指出目录(no:80)应与此合并，但未指出 no:0 本身不应分章，且 no:0 为全书开头，必须作为章节起点
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 114
+  confidence: 0.99
+  final_reason: 一级标题“# 第一章：Streamlit 简介”，编号连贯，格式标准，语义明确，为标准章起始。
+  accepted_evidence:
+  - 双方一致：均为标准的 Markdown 一级标题 (#)，且包含章序号 '第一章'
+  - 上下文符合章标题特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 155
+  confidence: 0.99
+  final_reason: 一级标题“# 第二章：`Streamlit` 基础”，编号连贯，格式标准，语义明确，为标准章起始。
+  accepted_evidence:
+  - 双方一致：标准的 Markdown 一级标题 (#)，且包含章序号 '第二章'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 216
+  confidence: 0.99
+  final_reason: 一级标题“# 第三章：构建用户界面架构”，编号连贯，格式标准，语义明确，为标准章起始。
+  accepted_evidence:
+  - 双方一致：标准的 Markdown 一级标题 (#)，且包含章序号 '第三章'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 257
+  confidence: 0.99
+  final_reason: 一级标题“# 第四章：数据管理和可视化”，编号连贯，格式标准，语义明确，为标准章起始。
+  accepted_evidence:
+  - 双方一致：标准的 Markdown 一级标题 (#)，且包含章序号 '第四章'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 298
+  confidence: 0.95
+  final_reason: '标题为“## 第五章：数据库集成”。虽然 Markdown 级别为 ##（二级），但语义上明确标注为“第五章”，且序号 5 紧接第
+    4 章，符合全书最高层级大章的特征。根据“编号特征”优先于纯 Markdown 层级判断，认定为新章。'
+  accepted_evidence:
+  - 判断方指出语义和编号(5)表明其为新的一章
+  - '复核方虽指出格式降级为 ##，但也承认语义强烈指向章级别，且 keep_split=true'
+  rejected_evidence:
+  - 复核方提到的格式降级疑虑，被语义中的明确章序号覆盖
+  need_human_review: false
+- 'no': 334
+  confidence: 0.95
+  final_reason: '标题为“## 第六章：利用后端服务器”。虽然 Markdown 级别为 ##（二级），但语义上明确标注为“第六章”，且序号 6 紧接第
+    5 章，符合全书最高层级大章的特征。根据“编号特征”优先于纯 Markdown 层级判断，认定为新章。'
+  accepted_evidence:
+  - 判断方指出语义和编号(6)表明其为新的一章
+  - '复核方虽指出格式降级为 ##，但也承认语义强烈指向章级别，且 keep_split=true'
+  rejected_evidence:
+  - 复核方提到的格式降级疑虑，被语义中的明确章序号覆盖
+  need_human_review: false
+- 'no': 369
+  confidence: 0.99
+  final_reason: 一级标题“# 第七章：实现会话状态”，编号连贯，格式标准，语义明确，为标准章起始。
+  accepted_evidence:
+  - 双方一致：标准的 Markdown 一级标题 (#)，且包含章序号 '第七章'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 396
+  confidence: 0.99
+  final_reason: 一级标题“# 第八章：认证与应用安全”，编号连贯，格式标准，语义明确，为标准章起始。
+  accepted_evidence:
+  - 双方一致：标准的 Markdown 一级标题 (#)，且包含章序号 '第八章'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 423
+  confidence: 0.99
+  final_reason: 一级标题“# 第九章：本地部署与云端部署”，编号连贯，格式标准，语义明确，为标准章起始。
+  accepted_evidence:
+  - 双方一致：标准的 Markdown 一级标题 (#)，且包含章序号 '第九章'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 479
+  confidence: 0.99
+  final_reason: 一级标题“# 第十章：构建 Streamlit 组件”，编号连贯，格式标准，语义明确，为标准章起始。
+  accepted_evidence:
+  - 双方一致：标准的 Markdown 一级标题 (#)，且包含章序号 '第十章'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 524
+  confidence: 0.99
+  final_reason: 一级标题“# 第十一章：Streamlit 用例”，编号连贯，格式标准，语义明确，为标准章起始。
+  accepted_evidence:
+  - 双方一致：标准的 Markdown 一级标题 (#)，且包含章序号 '第十一章'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 562
+  confidence: 0.99
+  final_reason: 一级标题“# 第十二章：Streamlit 实战”，编号连贯，格式标准，语义明确，为标准章起始。
+  accepted_evidence:
+  - 双方一致：标准的 Markdown 一级标题 (#)，且包含章序号 '第十二章'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 597
+  confidence: 0.95
+  final_reason: 一级标题“# 附录 A：Streamlit 应用程序接口”。附录通常被视为独立的章节或一部分，且此处为一级标题，位于正文各章之后，符合分章特征。
+  accepted_evidence:
+  - 双方一致：标准的一级标题，语义为附录，通常独立成章
+  rejected_evidence:
+  - 复核方提到的“可能作为正文延续”证据较弱，附录通常独立
+  need_human_review: false
+- 'no': 2331
+  confidence: 0.85
+  final_reason: '标题为“## 参考文献”。位于附录 A 内容结束（no: 2326 左右）之后，正文结束后。虽然 Markdown 级别为 ##，但“参考文献”是典型的文末独立部分。根据“宁可漏分，不可误分”原则，此处作为独立章节比合并进附录更合理，因为附录主要讲
+    API 参考，而参考文献是书目列表，性质不同。'
+  accepted_evidence:
+  - 判断方认为位于正文结束后，属于文末附属内容，划分为一章
+  - 复核方虽指出格式为二级，但 keep_split=true，且承认其为独立内容块
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2382
+  confidence: 0.95
+  final_reason: 标题为“## 索引”。规则明确指出“文末索引也划分为一章”。
+  accepted_evidence:
+  - 判断方认为位于文末，属于索引部分，划分为一章
+  - 复核方依据规则确认维持分章
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 80
+  reason: 复核方指出该行（目录）属于前置内容，根据规则应与图书封面（no:0）等前置部分统一划分为一章，而非单独作为新章起始。由于 no:0 已经是第一章节点，no:80
+    应归属于该章内部或紧随其后，不构成新的顶级章节分割（或者被视为同一前置章节的一部分）。在“判断方候选 ∪ 复核方候选”中，判断方认为它是一章，但复核方成功反驳了它应与
+    no:0 合并。鉴于 no:0 已作为起点，no:80 不再作为新的章节起点。
+  need_human_review: false
