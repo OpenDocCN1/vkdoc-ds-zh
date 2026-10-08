@@ -1,0 +1,32 @@
+chapter_starts:
+- 'no': 3436
+  confidence: 0.99
+  final_reason: 该行带有 '#' 前缀且内容为 '6. 绩效管理介绍'，符合Markdown一级标题特征。结合上下文，前文为第5章的结论，此处序号跳转至6，语义上标志新大章的开始。判断方与复核方意见一致。
+  accepted_evidence:
+  - 行首带有 '#' 符号，在Markdown中代表一级标题
+  - 内容以数字 '6.' 开头，符合章节编号格式
+  - 前文（第3428-3435行）是第5章的结论部分，逻辑上第6章紧随其后
+  - 复核方确认 overturn_probability 为 0.0，无反对证据
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4589
+  confidence: 0.99
+  final_reason: 该行带有 '#' 前缀且内容为 '7. 绩效表单模板设置'，符合Markdown一级标题特征。承接第6章内容，序号为7，结构连贯。判断方与复核方意见一致。
+  accepted_evidence:
+  - 行首带有 '#' 符号，在Markdown中代表一级标题
+  - 内容以数字 '7.' 开头，承接第6章，符合章节编号连贯性
+  - 前文（第4585-4588行）是第6章的后续内容总结，此处开始第7章合理
+  - 复核方确认 overturn_probability 为 0.0，无反对证据
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5607
+  confidence: 0.99
+  final_reason: 该行带有 '#' 前缀且内容为 '8. 管理绩效管理表单'，符合Markdown一级标题特征。承接第7章内容，序号为8，结构连贯。判断方与复核方意见一致。
+  accepted_evidence:
+  - 行首带有 '#' 符号，在Markdown中代表一级标题
+  - 内容以数字 '8.' 开头，承接第7章，符合章节编号连贯性
+  - 前文（第5603-5606行）是第7章的结论，此处开始第8章合理
+  - 复核方确认 overturn_probability 为 0.0，无反对证据
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

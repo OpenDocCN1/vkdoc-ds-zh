@@ -1,0 +1,71 @@
+chapter_starts:
+- 'no': 3192
+  confidence: 1.0
+  final_reason: 双方一致确认为全书最高层级大章标题。格式为“# 7. ...”，符合“Y.”编号特征，且上下文显示为章节起始，后续有子节。
+  accepted_evidence:
+  - 带有明确数字编号“7.”
+  - Markdown 一级标题（#）
+  - '复核方确认 keep_split: true'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5406
+  confidence: 1.0
+  final_reason: 双方一致确认为全书最高层级大章标题。格式为“# 8. ...”，符合“Y.”编号特征，序号连贯（前接第7章），是独立的大章。
+  accepted_evidence:
+  - 带有明确数字编号“8.”
+  - Markdown 一级标题（#）
+  - '复核方确认 keep_split: true'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5569
+  confidence: 1.0
+  final_reason: 根据规则“文末索引也划分为一章”，且复核方确认为索引部分，无争议。
+  accepted_evidence:
+  - 标题为“# 索引”
+  - 位于文末
+  - 规则明确指定索引独立成章
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 2950
+  reason: 复核方指出其为正文小标题（H1格式但语义为子节），位于第6章内部，无大章编号，倾向不分章。
+  need_human_review: false
+- 'no': 2980
+  reason: 复核方指出其为正文小标题，与2950同级，属于第6章内的子主题，不构成独立大章。
+  need_human_review: false
+- 'no': 3033
+  reason: 复核方指出其为Markdown H2标题，明显低于大章层级，且后续有H3子标题，应视为章节内子节。
+  need_human_review: false
+- 'no': 3117
+  reason: 复核方指出其为Markdown H2标题，属于第6章下的子模块，缺乏大章标识，不划分为新章。
+  need_human_review: false
+- 'no': 3186
+  reason: 复核方指出“总结”通常为前一章的收尾部分，篇幅较短，应归入第6章，不独立成章。
+  need_human_review: false
+- 'no': 3698
+  reason: 复核方指出该行虽为H1，但语义上嵌套在第7章“可视化服务”小节中，疑为排版层级错误，非独立大章。
+  need_human_review: false
+- 'no': 3822
+  reason: 复核方指出该行位于第7章内部，作为图表功能配置的子主题，缺乏大章编号，不独立成章。
+  need_human_review: false
+- 'no': 3973
+  reason: 复核方指出“控制限与规格限”为特定概念讲解，属于子节标题，不具备独立章节规模。
+  need_human_review: false
+- 'no': 4227
+  reason: 复核方指出该行为完整陈述句，不符合标题特征（简短、无句号），疑为正文误标或排版噪声，不分章。
+  need_human_review: false
+- 'no': 4765
+  reason: 复核方指出该行为PIC模块下的具体操作步骤标题，属于深层嵌套子节，非独立大章。
+  need_human_review: false
+- 'no': 4910
+  reason: 复核方指出该行为PCo部分下的子主题，缺乏大章编号，语义上不构成独立章节。
+  need_human_review: false
+- 'no': 5306
+  reason: 复核方指出该行为JCo模块下的子标题，统领多个子操作块，属于功能模块内部结构，非大章。
+  need_human_review: false
+- 'no': 5400
+  reason: 复核方指出“总结”为第7章的收尾部分，紧邻第8章标题，应归入第7章，不独立成章。
+  need_human_review: false
+- 'no': 5559
+  reason: 复核方指出“总结”为第8章的收尾部分，紧邻索引，应归入第8章，不独立成章。
+  need_human_review: false

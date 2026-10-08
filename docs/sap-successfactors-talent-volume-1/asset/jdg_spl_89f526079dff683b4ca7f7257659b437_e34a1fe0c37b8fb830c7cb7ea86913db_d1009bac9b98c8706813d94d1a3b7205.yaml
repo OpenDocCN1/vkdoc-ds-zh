@@ -1,0 +1,50 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 双方一致 + 符合前置内容统一分章规则
+  accepted_evidence:
+  - 行0为封面图片，后续包含ISBN、版权声明、致谢、作者简介等典型前置内容
+  - 规则规定前言、序言、致谢等正文之前的内容统一划分为一章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 23
+  confidence: 1.0
+  final_reason: 双方一致 + 一级标题 + 章序号连贯
+  accepted_evidence:
+  - 内容为 '# 1. SAP SuccessFactors 人才模块简介'
+  - Markdown一级标题 '#'
+  - 章序号 '1.' 为全书起始章节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 104
+  confidence: 1.0
+  final_reason: 双方一致 + 一级标题 + 章序号连贯
+  accepted_evidence:
+  - 内容为 '# 2. 人才简介'
+  - Markdown一级标题 '#'
+  - 章序号 '2.' 紧接第1章，且前文为第1章总结
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1002
+  confidence: 1.0
+  final_reason: 双方一致 + 一级标题 + 章序号连贯
+  accepted_evidence:
+  - 内容为 '# 3. 职位档案构建器'
+  - Markdown一级标题 '#'
+  - 章序号 '3.' 紧接第2章，且前文为第2章总结
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1818
+  confidence: 1.0
+  final_reason: 双方一致 + 一级标题 + 章序号连贯
+  accepted_evidence:
+  - 内容为 '# 4. 基础目标管理'
+  - Markdown一级标题 '#'
+  - 章序号 '4.' 紧接第3章，且前文为第3章总结
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 2642
+  reason: 复核方指出格式不一致：该行标记为 '## 5. ...'（二级），而第1-4章均为 '# X. ...'（一级）。根据“只划分全书最高层级的大章”及“宁可漏分，不可误分”的原则，在无法确认
+    '##' 为排版错误且证据倾向于其为子层级或格式异常的情况下，不将其视为新的顶级章节起始。
+  need_human_review: true

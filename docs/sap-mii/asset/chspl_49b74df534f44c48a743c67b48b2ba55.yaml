@@ -1,0 +1,40 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  reason: 图书封面或标题页，包含书名《SAP MII：制造业中的功能与技术概念》，属于正文前的内容，统一划分为第一章。
+- 'no': 28
+  confidence: 0.9
+  reason: 标题为“献词”（Dedication），属于正文前的前言/致谢类内容，根据规则应划分为新章节。
+- 'no': 56
+  confidence: 0.9
+  reason: 标题为“前言”（Preface），属于正文前的引言类内容，根据规则应划分为新章节。
+- 'no': 69
+  confidence: 0.9
+  reason: 标题为“引言”（Introduction），属于正文前的概述类内容，根据规则应划分为新章节。
+- 'no': 101
+  confidence: 0.9
+  reason: 标题为“致谢”（Acknowledgments），属于正文前的致谢类内容，根据规则应划分为新章节。
+- 'no': 129
+  confidence: 0.95
+  reason: 标题为“内容速览”（What's Inside / Contents），通常作为目录或导读部分，独立成章。
+- 'no': 386
+  confidence: 0.95
+  reason: 标题为“关于作者”（About the Authors），属于正文前的作者介绍部分，根据规则应划分为新章节。
+- 'no': 396
+  confidence: 0.95
+  reason: 标题“SAP MII 概述”对应目录中的第1章，是一级标题，标记正文第1章的开始。
+- 'no': 915
+  confidence: 0.95
+  reason: 标题“2. 为何在制造业中使用 SAP MII”对应目录中的第2章，是一级标题，标记正文第2章的开始。
+- 'no': 1327
+  confidence: 0.95
+  reason: 标题“3. SAP MII 基础”对应目录中的第3章，是一级标题，标记正文第3章的开始。
+- 'no': 1874
+  confidence: 0.95
+  reason: 标题“4. `SAP MII`在离散制造行业的实施”对应目录中的第4章，是一级标题，标记正文第4章的开始。
+- 'no': 2042
+  confidence: 0.95
+  reason: 标题“5. SAP MII 在流程制造中的实施”对应目录中的第5章，是一级标题，标记正文第5章的开始。
+- 'no': 2228
+  confidence: 0.95
+  reason: 标题“6. 与 SAP MII 的集成”对应目录中的第6章，是一级标题，标记正文第6章的开始。

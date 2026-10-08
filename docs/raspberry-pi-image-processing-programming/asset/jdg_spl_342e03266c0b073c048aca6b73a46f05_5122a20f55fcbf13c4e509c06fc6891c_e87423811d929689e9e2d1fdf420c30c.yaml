@@ -1,0 +1,78 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.95
+  final_reason: 前置内容起始，符合规则将版权页、目录等统一划分为一章
+  accepted_evidence:
+  - 该行是书名/封面标题
+  - 后续包含版权信息、目录、前言等非正文内容
+  - 双方一致认定
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 278
+  confidence: 0.98
+  final_reason: 明确的第1章标题，尽管Markdown层级为##，但语义为最高层级章节
+  accepted_evidence:
+  - 语义明确为'第 1 章'
+  - 位于正文起始位置
+  - 后续内容为该章正文
+  rejected_evidence:
+  - 复核方指出Markdown层级为##而非#，但语义权重更高
+  need_human_review: false
+- 'no': 731
+  confidence: 0.98
+  final_reason: 明确的第2章标题，尽管Markdown层级为##，但语义为最高层级章节
+  accepted_evidence:
+  - 语义明确为'第 2 章'
+  - 紧随第1章结束
+  - 后续内容为该章正文
+  rejected_evidence:
+  - 复核方指出Markdown层级为##而非#，但语义权重更高
+  need_human_review: false
+- 'no': 1067
+  confidence: 0.98
+  final_reason: 明确的第3章标题，一级标题且语义清晰
+  accepted_evidence:
+  - Markdown一级标题'#'
+  - 语义明确为'第 3 章'
+  - 后续内容为该章正文
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1416
+  confidence: 0.98
+  final_reason: 明确的第4章标题，编号行作为分章起点，标题名称在下一行
+  accepted_evidence:
+  - 语义明确为'第 4 章'
+  - 行1418为标题名称'图像基本操作'
+  - 作为章节起始点合理
+  rejected_evidence:
+  - 复核方提到标题名称在下一行，但编号行作为起始点更符合逻辑
+  need_human_review: false
+- 'no': 2001
+  confidence: 0.98
+  final_reason: 明确的第5章标题，一级标题且语义清晰
+  accepted_evidence:
+  - Markdown一级标题'#'
+  - 语义明确为'第 5 章'
+  - 后续内容为该章正文
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2496
+  confidence: 0.98
+  final_reason: 明确的第六章标题，编号行作为分章起点，标题名称在下一行
+  accepted_evidence:
+  - 语义明确为'第六章'
+  - 行2498为标题名称'Python 科学计算生态系统简介'
+  - 作为章节起始点合理
+  rejected_evidence:
+  - 复核方提到标题名称在下一行，但编号行作为起始点更符合逻辑
+  need_human_review: false
+- 'no': 2799
+  confidence: 0.98
+  final_reason: 明确的第7章标题，一级标题且语义清晰
+  accepted_evidence:
+  - Markdown一级标题'#'
+  - 语义明确为'第 7 章'
+  - 后续内容为该章正文
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

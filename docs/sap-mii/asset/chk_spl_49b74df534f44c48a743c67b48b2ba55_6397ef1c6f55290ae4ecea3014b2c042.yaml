@@ -1,0 +1,96 @@
+reviews:
+- 'no': 0
+  overturn_probability: 0.0
+  alternative: 图书封面标题/书名
+  counter_evidence:
+  - 该行作为全文本的第一行，且格式为Markdown一级标题（#），通常代表书名。
+  - 根据规则，前言、序言等正文之前的内容统一划分为一章，因此作为起始内容的书名页判定为新章是符合逻辑的，不存在误报。
+  keep_split: true
+- 'no': 28
+  overturn_probability: 0.0
+  alternative: 正文前内容标题（献词）
+  counter_evidence:
+  - “献词”属于典型的书籍前置内容（Frontmatter），根据规则“前言、序言、致谢...统一划分为一章”，此处应为分章点。
+  - 该行独立成行，无标点，符合章标题格式特征。
+  keep_split: true
+- 'no': 56
+  overturn_probability: 0.0
+  alternative: 正文前内容标题（前言）
+  counter_evidence:
+  - “前言”（Preface）是标准的前置内容标题，规则明确要求独立成章。
+  - 上下文显示其为独立板块，后续为前言正文。
+  keep_split: true
+- 'no': 69
+  overturn_probability: 0.2
+  alternative: 排版冗余标题/子标题
+  counter_evidence:
+  - 紧接着第71行出现了 `# 引言`（一级标题）。第69行的 `## 引言`（二级标题）很可能是 Markdown 转换过程中保留的原始文档层级标记，或者是目录结构中的父级标记，而非真正的正文内容起始。
+  - 真正的正文内容始于第71行之后。如果第71行被视为新章节的开始（作为引言正文部分），那么第69行可能只是一个导航用的二级标题，或者如果第71行不单独分章，第69行作为引言的前置标记也可以接受。但考虑到第71行的一级标题权重更高，且通常“引言”作为整体前置内容，第69行和第71行可能共同构成“引言”这一章。原判断在第69行分章，而第71行未分章，这可能导致“引言”被错误切分或第71行被认为是第69章内部的标题。
+  - 不过，根据规则“前言、序言...统一划分为一章”，通常指整个“引言/前言”板块作为一个章节。若第69行是“引言”部分的起始标记，则分章是合理的。但若视第71行为实质内容开头，第69行仅为标题行，两者属于同一章。原判断在第69行分章，意味着“引言”开始。这是合理的。
+  - 主要的反对证据是第71行重复了标题，这可能意味着第69行是目录中的条目或者文档元数据，而非正文标题。但在Markdown中，`##` 通常优于 `#` 作为章节标记的情况较少见（通常
+    `#` 是章，`##` 是节）。这里出现了 `## 引言` 后跟 `# 引言`，极有可能是文档结构错误。如果 `# 引言` (no 71) 才是真正的章标题，那么
+    `## 引言` (no 69) 可能是误报。
+  - 然而，观察 no 0 是 `# SAP MII...`，no 396 是 `# SAP MII 概述`。no 69 的 `## 引言` 级别低于 no 0。根据“只划分全书最高层级的大章”规则，如果本书的最高层级是
+    `#`，那么 `##` 不应分章。但规则也说“前言...统一划分为一章”。通常前言也是最高层级之一。
+  - 仔细看 no 69 是 `## 引言`，no 71 是 `# 引言`。在标准的Markdown书籍结构中，章节通常是一级标题 `#`。二级标题 `##` 是节。因此，`##
+    引言` 很可能是一个子标题，或者是一个误加的标记。真正的“引言”章节应该由 `# 引言` (no 71) 开始。因此，no 69 的分章判断可能是错误的，它可能只是一个节标题，或者是一个冗余标记。正确的分章点应该是
+    no 71（如果 no 69 不单独成章，或者 no 69 和 no 71 合并）。
+  - 如果 no 69 分章，那么 no 71 就在该章内部。但 no 71 是一级标题，no 69 是二级。逻辑上，一级标题权重更高。因此，no 69 不应分章，或者
+    no 71 才是分章点。原判断在 no 69 分章，这可能把 `## 引言` 误判为章。
+  - 修正观点：如果按照“最高层级”原则，本书的章应该是 `#` 级别。`##` 级别的是节。因此 `## 引言` (no 69) 不应该分章。`# 引言` (no
+    71) 应该分章。原判断在 no 69 分章，且 no 71 未分章（隐含 no 71 在 no 69 的章节内），这违反了层级逻辑。因此，no 69 的判断很可能错误，应推翻。
+  keep_split: false
+- 'no': 101
+  overturn_probability: 0.0
+  alternative: 正文前内容标题（致谢）
+  counter_evidence:
+  - “致谢”属于前置内容，规则明确要求独立成章。格式为一级标题 `# 致谢`，符合章标题特征。
+  keep_split: true
+- 'no': 129
+  overturn_probability: 0.0
+  alternative: 目录/内容速览
+  counter_evidence:
+  - “内容速览”（What's Inside）通常是书籍的目录或导读部分，属于前置内容或独立章节。规则提到“文末索引也划分为一章”，前置的目录部分通常也独立划分。
+  keep_split: true
+- 'no': 386
+  overturn_probability: 0.0
+  alternative: 正文前内容标题（关于作者）
+  counter_evidence:
+  - “关于作者”是标准的前置内容，根据规则应划分为一章。
+  keep_split: true
+- 'no': 396
+  overturn_probability: 0.0
+  alternative: 正文第1章标题
+  counter_evidence:
+  - 标题 `# SAP MII 概述` 对应目录中的第1章，是一级标题，内容为正文起始。符合分章规则。
+  keep_split: true
+- 'no': 915
+  overturn_probability: 0.0
+  alternative: 正文第2章标题
+  counter_evidence:
+  - 标题 `# 2. 为何在制造业中使用 SAP MII` 包含序号2，且为一级标题，位于第1章结束之后。符合分章规则。
+  keep_split: true
+- 'no': 1327
+  overturn_probability: 0.0
+  alternative: 正文第3章标题
+  counter_evidence:
+  - 标题 `# 3. SAP MII 基础` 包含序号3，一级标题，符合分章规则。
+  keep_split: true
+- 'no': 1874
+  overturn_probability: 0.0
+  alternative: 正文第4章标题
+  counter_evidence:
+  - 标题 `# 4. ...` 包含序号4，一级标题，符合分章规则。
+  keep_split: true
+- 'no': 2042
+  overturn_probability: 0.0
+  alternative: 正文第5章标题
+  counter_evidence:
+  - 标题 `# 5. ...` 包含序号5，一级标题，符合分章规则。
+  keep_split: true
+- 'no': 2228
+  overturn_probability: 0.0
+  alternative: 正文第6章标题
+  counter_evidence:
+  - 标题 `# 6. ...` 包含序号6，一级标题，符合分章规则。
+  keep_split: true

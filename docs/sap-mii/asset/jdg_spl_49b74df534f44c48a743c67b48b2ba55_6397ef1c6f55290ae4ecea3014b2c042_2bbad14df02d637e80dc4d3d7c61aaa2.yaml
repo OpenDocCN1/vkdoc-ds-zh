@@ -1,0 +1,127 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 双方一致。作为书名/封面标题，属于正文前的内容，根据规则统一划分为第一章。
+  accepted_evidence:
+  - 位于行0，为文本起始。
+  - Markdown一级标题格式 `# SAP MII...`。
+  - 内容为书名，后续为版权页、献词等前置内容。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 28
+  confidence: 0.9
+  final_reason: 双方一致。‘献词’属于典型的前置内容（Frontmatter），根据规则应独立成章。
+  accepted_evidence:
+  - 标题为‘献词’。
+  - 独立成行，无标点。
+  - 后续内容为作者对家人的致谢和献词。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 56
+  confidence: 0.9
+  final_reason: 双方一致。‘前言’属于典型的前置内容，根据规则应独立成章。
+  accepted_evidence:
+  - 标题为‘前言’。
+  - 独立成行。
+  - 后续为前言正文及署名日期。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 71
+  confidence: 0.9
+  final_reason: 复核方证据成立。no 69 为二级标题 `##`，no 71 为一级标题 `#`。根据‘只划分全书最高层级’原则，一级标题权重高于二级。no
+    69 与 no 71 内容重复，极可能是文档转换产生的冗余或目录层级残留，真正的‘引言’章节正文始于 no 71。因此采纳复核方意见，将分章点修正为 no
+    71。
+  accepted_evidence:
+  - no 71 为 `# 引言`，一级标题。
+  - no 69 为 `## 引言`，二级标题。
+  - 本书主要章节（如 no 396, 915 等）均为一级标题 `#`。
+  - 复核方指出 no 69 可能是排版冗余，no 71 才是实质章节开始。
+  rejected_evidence:
+  - 原判断方在 no 69 分章，但 no 69 级别低于 no 71，且两者标题相同，逻辑上 no 71 更能代表章节起始。
+  need_human_review: false
+- 'no': 101
+  confidence: 0.9
+  final_reason: 双方一致。‘致谢’属于典型的前置内容，根据规则应独立成章。
+  accepted_evidence:
+  - 标题为‘# 致谢’。
+  - 独立成行。
+  - 后续为具体的致谢内容。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 129
+  confidence: 0.95
+  final_reason: 双方一致。‘内容速览’作为目录或导读部分，属于独立板块，根据规则（类似索引/目录）划分为一章。
+  accepted_evidence:
+  - 标题为‘# 内容速览’。
+  - 包含各章节的详细小节列表。
+  - 位于前言/致谢之后，正文开始之前。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 386
+  confidence: 0.95
+  final_reason: 双方一致。‘关于作者’属于典型的前置内容（或文末附录，视书籍结构而定），在此处位于目录后、正文前，应独立成章。
+  accepted_evidence:
+  - 标题为‘## 关于作者’。
+  - 虽为二级标题，但作为独立的前置板块，具有统领性。
+  - 后续紧跟‘关于技术审校者’等类似板块。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 396
+  confidence: 0.95
+  final_reason: 双方一致。正文第1章起始。一级标题，对应目录中的第1章。
+  accepted_evidence:
+  - 标题为‘# SAP MII 概述’。
+  - 一级标题。
+  - 位于前置内容结束后的正文起始位置。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 915
+  confidence: 0.95
+  final_reason: 双方一致。正文第2章起始。一级标题，带有序号。
+  accepted_evidence:
+  - 标题为‘# 2. 为何在制造业中使用 SAP MII’。
+  - 一级标题，有序号‘2.’。
+  - 位于第1章总结之后。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1327
+  confidence: 0.95
+  final_reason: 双方一致。正文第3章起始。一级标题，带有序号。
+  accepted_evidence:
+  - 标题为‘# 3. SAP MII 基础’。
+  - 一级标题，有序号‘3.’。
+  - 位于第2章总结之后。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1874
+  confidence: 0.95
+  final_reason: 双方一致。正文第4章起始。一级标题，带有序号。
+  accepted_evidence:
+  - 标题为‘# 4. `SAP MII`在离散制造行业的实施’。
+  - 一级标题，有序号‘4.’。
+  - 位于第3章总结之后。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2042
+  confidence: 0.95
+  final_reason: 双方一致。正文第5章起始。一级标题，带有序号。
+  accepted_evidence:
+  - 标题为‘# 5. SAP MII 在流程制造中的实施’。
+  - 一级标题，有序号‘5.’。
+  - 位于第4章总结之后。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2228
+  confidence: 0.95
+  final_reason: 双方一致。正文第6章起始。一级标题，带有序号。
+  accepted_evidence:
+  - 标题为‘# 6. 与 SAP MII 的集成’。
+  - 一级标题，有序号‘6.’。
+  - 位于第5章总结之后。
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 69
+  reason: 复核方指出其为二级标题 `##`，且紧随其后的一级标题 `# 引言` (no 71) 才是更高的层级标题。根据‘最高层级’原则，`##` 不应分章。同时，no
+    69 和 no 71 标题重复，no 69 更可能是排版冗余或子层级标记，真正的章节起始点应定为 no 71。
+  need_human_review: false

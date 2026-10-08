@@ -1,0 +1,50 @@
+reviews:
+- 'no': 2
+  overturn_probability: 0.05
+  alternative: 书籍封面/前置内容起始标题
+  counter_evidence:
+  - 该行是书名，作为前置章节（版权页、目录、前言等）的起始点是合理的，符合“前言...统一划分为一章”的规则。
+  keep_split: true
+- 'no': 278
+  overturn_probability: 0.25
+  alternative: '格式异常的章标题（使用了二级标题 ## 而非一级标题 #）'
+  counter_evidence:
+  - 该行 Markdown 层级为 '##'，而后续章节（如第 3 章、第 4 章）均使用 '#'。若严格依据‘最高层级’规则，可能因层级不一致而被视为节。但语义上明确写着‘第
+    1 章’，且位于正文起始位置，故仍应分章。
+  keep_split: true
+- 'no': 731
+  overturn_probability: 0.25
+  alternative: '格式异常的章标题（使用了二级标题 ## 而非一级标题 #）'
+  counter_evidence:
+  - 该行 Markdown 层级为 '##'，与后续章节的 '#' 层级不一致。存在被误判为子节的风险。但语义上明确为‘第 2 章’，且紧随第 1 章内容之后，故维持分章。
+  keep_split: true
+- 'no': 1067
+  overturn_probability: 0.05
+  alternative: 正文大章标题
+  counter_evidence:
+  - 该行是一级标题 '#'，且语义为‘第 3 章’，格式与语义一致，分章判断正确。
+  keep_split: true
+- 'no': 1416
+  overturn_probability: 0.05
+  alternative: 正文大章标题（标题名称在下一行）
+  counter_evidence:
+  - 该行是‘第 4 章’，但标题名称‘图像基本操作’在行 1418。由于行 1416 明确包含章节编号，作为分章起点是正确的。
+  keep_split: true
+- 'no': 2001
+  overturn_probability: 0.05
+  alternative: 正文大章标题
+  counter_evidence:
+  - 该行是‘第 5 章’，一级标题，语义明确，分章判断正确。
+  keep_split: true
+- 'no': 2496
+  overturn_probability: 0.1
+  alternative: 正文大章标题（标题名称在下一行）
+  counter_evidence:
+  - 该行是‘第六章’，但标题名称‘Python 科学计算生态系统简介’在行 2498。行 2498 也是一级标题，存在被误判为独立章节的风险，但行 2496 作为编号行分章是正确的。
+  keep_split: true
+- 'no': 2799
+  overturn_probability: 0.05
+  alternative: 正文大章标题
+  counter_evidence:
+  - 该行是‘第 7 章’，一级标题，语义明确，分章判断正确。
+  keep_split: true

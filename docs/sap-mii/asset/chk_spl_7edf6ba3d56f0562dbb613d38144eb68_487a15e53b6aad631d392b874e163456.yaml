@@ -1,0 +1,139 @@
+reviews:
+- 'no': 2950
+  overturn_probability: 0.8
+  alternative: 正文小标题（Section Heading）
+  counter_evidence:
+  - 该行内容为“# 将 SAP MII 与 SMTP 服务器集成”，属于技术文档中常见的功能性小节标题，而非全书最高层级的“第 X 章”或“Y. ”格式的大章标题。
+  - 上下文显示其位于第 6 章（由前文推断）的内部，后续紧跟具体的配置步骤和插图（如“图 6-75”），表明它是章节内的子主题，而非独立的大章节。
+  - 真正的章节标题通常带有明确的层级编号（如“6.”或“第 6 章”），而此处仅为 Markdown H1 标题，在技术书籍中常用作二级或三级小节，不构成逻辑上的独立大章。
+  keep_split: false
+- 'no': 2980
+  overturn_probability: 0.8
+  alternative: 正文小标题（Section Heading）
+  counter_evidence:
+  - 该行“# 将 SAP MII 与 Web 协议集成”与上一行 2950 格式完全一致，均为用户指南中的功能模块说明，属于同一层级的小节。
+  - 后续内容包含“## Web 服务操作块”和“### HTTP POST 操作块”等更细粒度的子标题，说明“Web 协议集成”只是一个包含多个子话题的小节，而非统领整章的大章。
+  - 缺乏全书级别的序号标识（如“6.1”或“Chapter X”），语义上不具备独立成章的概括性。
+  keep_split: false
+- 'no': 3033
+  overturn_probability: 0.9
+  alternative: 正文小标题（Section Heading）
+  counter_evidence:
+  - 该行是“## 将 SAP MII 与文件系统集成”，Markdown H2 标题通常对应二级或三级小节，绝非全书最高层级的大章。
+  - 根据判断规则，“只划分全书最高层级的大章”，H2 标题明显低于 H1，且未带有“第 X 章”字样，应视为章节内部的主题切换，不划分为新章。
+  - 其后续内容“### 获取文件列表操作块”等 H3 标题进一步证明这是嵌套在更大章节结构下的子节点。
+  keep_split: false
+- 'no': 3117
+  overturn_probability: 0.9
+  alternative: 正文小标题（Section Heading）
+  counter_evidence:
+  - 该行“## 将 SAP MII 与其他制造产品集成”同为 H2 级别，与 3033 行同级，均属于第 6 章下的子模块。
+  - 没有证据表明这是独立的一章，而是对特定集成场景的描述，符合“正文小标题”的特征。
+  - 规则明确指出“遇到‘X.Y’、‘第 X 节’等子层级，不划分新的章节”，H2 在此语境下即为子层级。
+  keep_split: false
+- 'no': 3186
+  overturn_probability: 0.5
+  alternative: 章节末尾的总结段落标题
+  counter_evidence:
+  - 虽然“总结”通常独立，但根据规则“前言、序言、致谢...统一划分为一章”，文末的总结往往被视为前一章的组成部分，除非它包含独立的编号或作为附录存在。
+  - 此处“# 总结”紧接着就是“# 7. SAP MII 的新特性”，说明它只是第 6 章的结尾部分，而非独立的一章。第 6 章的内容（从 2950 行开始）直到
+    3186 行结束，总结是第 6 章的一部分。
+  - 如果将总结单独成章，会导致章节结构碎片化。通常只有当总结篇幅极长或独立成篇时才单独划分，此处仅 1-2 段话，应归入上一章。
+  keep_split: false
+- 'no': 3192
+  overturn_probability: 0.0
+  alternative: 大章标题
+  counter_evidence:
+  - 该行“# 7. SAP MII 的新特性”带有明确的数字编号“7.”，符合“Y. ”格式的全书最高层级大章特征。
+  - 上下文显示这是从第 6 章内容切换到第 7 章的明确分界点，前文已有第 6 章的内容，序号连贯。
+  - 根据规则，遇到带有数字编号的最高层级标题，必须划分为新章。
+  keep_split: true
+- 'no': 3698
+  overturn_probability: 0.9
+  alternative: 排版噪声或错误生成的标题（实际为正文小标题或内容溢出）
+  counter_evidence:
+  - 该行“# i5Grid 与 i5Chart 组件配置与使用”虽然在 Markdown 中为 H1，但其语境位于第 7 章关于“可视化服务”的小节中。
+  - 前文 3697 行还在讨论 `i5Grid` 的颜色上下文，3700 行紧接着是图片和图注。这个 H1 标题很可能是 OCR 错误或 Markdown 转换时层级跳跃产生的伪标题，实际上它应该是一个
+    H2 或 H3 的小节标题（例如“i5Grid 与 i5Chart 配置”）。
+  - 即使视为标题，它也嵌套在第 7 章内部，不是全书最高层级的大章（如“8.”或“第 8 章”），因此不应分章。
+  keep_split: false
+- 'no': 3822
+  overturn_probability: 0.9
+  alternative: 正文小标题（Section Heading）
+  counter_evidence:
+  - 该行“# SAP MII 图表功能与配置”与 3698 行类似，是第 7 章内部关于图表功能的子主题。
+  - 缺乏大章编号（如“7.1”或“Chapter”），且紧随其后的内容是关于 i5Chart 的具体配置细节，属于第 7 章“SAP MII 的新特性”中的“可视化服务”子模块。
+  - 在技术手册中，这种无编号的 H1 标题常被用作功能块的子标题，而非独立章节。
+  keep_split: false
+- 'no': 3973
+  overturn_probability: 0.9
+  alternative: 正文小标题（Section Heading）
+  counter_evidence:
+  - 该行“# 控制限与规格限”是对 SPC 图表中特定概念的解释，属于“i5SPC 图表”部分下的一个知识点讲解。
+  - 它不具有统领全书或统领一个大章节的语义，只是对一个术语的详细定义，后续内容也是具体的列表项和图示。
+  - 根据语义特征，它不具备“覆盖后续内容”的独立章节规模，仅为段落级或子节级标题。
+  keep_split: false
+- 'no': 4227
+  overturn_probability: 0.9
+  alternative: 排版断行或错误标题（实际为段落内容或子标题）
+  counter_evidence:
+  - 该行“# KPI 可以在 SAP MII 中创建和配置...”是一个完整的句子，以“KPI 可以在...”开头，不符合标题“无句号、简短、概括性强”的特征，这显然是正文内容被误标为
+    H1 标题。
+  - 真正的标题很少是完整的陈述句，且通常不包含“可以在...中...”这样的操作描述句式。
+  - '上下文显示这行紧跟在 KPI 定义的段落之后，很可能是 Markdown 转换错误，将段落首行错误地加上了 # 符号，或者原本就是正文的一部分。'
+  keep_split: false
+- 'no': 4765
+  overturn_probability: 0.9
+  alternative: 正文小标题（Section Heading）
+  counter_evidence:
+  - 该行“# 创建和配置 Catalog 查询”是第 7 章中关于 PIC（工厂信息目录）操作的具体步骤说明，属于“PIC”子模块下的操作步骤。
+  - 它位于“## 工厂信息目录（PIC）”及其子节之下，明显是嵌套结构中的深层节点，而非独立大章。
+  - 缺乏大章编号，语义上仅是操作流程的一个环节。
+  keep_split: false
+- 'no': 4910
+  overturn_probability: 0.9
+  alternative: 正文小标题（Section Heading）
+  counter_evidence:
+  - 该行“# PCo 技术概述与配置指南”位于第 7 章的“PCo”部分，是解释 PCo 技术背景和配置的子主题。
+  - 前文 4898 行有“## 什么是 SAP 工厂连接性（PCo）？”，说明 PCo 是第 7 章的一个二级话题，而 4910 行是其下的进一步细化（H1 在此处被用作子节标题，可能是文档层级混乱，但语义上非大章）。
+  - 没有大章编号，不构成独立章节。
+  keep_split: false
+- 'no': 5306
+  overturn_probability: 0.9
+  alternative: 正文小标题（Section Heading）
+  counter_evidence:
+  - 该行“# SAP JCo 操作块”是第 7 章中关于 JCo 连接器具体组件的说明，位于“## 使用 SAP JCo”之下（尽管 Markdown 层级可能因转换问题显示为
+    H1，但语义上是子节）。
+  - 后续 5312 行有“## SAP JCo 接口”，表明 5306 行是一个统领多个子操作块的小节标题，而非大章。
+  - 缺乏大章标识，属于功能模块内的子标题。
+  keep_split: false
+- 'no': 5400
+  overturn_probability: 0.6
+  alternative: 章节末尾的总结段落标题
+  counter_evidence:
+  - 该行“# 总结”位于第 7 章内容结束处，紧接着是第 8 章标题（5406 行）。
+  - 与 3186 行类似，这通常是第 7 章的结尾总结，而非独立成章。除非总结篇幅极长，否则应归入第 7 章。
+  - 考虑到前后都是大章编号（7. 和 8.），中间的“总结”更像是第 7 章的一部分。
+  keep_split: false
+- 'no': 5406
+  overturn_probability: 0.0
+  alternative: 大章标题
+  counter_evidence:
+  - 该行“# 8. 最佳实践与常见问题解答”带有明确的数字编号“8.”，是全书最高层级的大章起始。
+  - 序号连贯（前有 7.，后有索引），格式符合“Y. ”的大章特征。
+  - 必须划分为新章。
+  keep_split: true
+- 'no': 5559
+  overturn_probability: 0.6
+  alternative: 章节末尾的总结段落标题
+  counter_evidence:
+  - 该行“# 总结”位于第 8 章内容结束处，后接“# 索引”。
+  - 与之前判断一致，总结通常作为一章的收尾，不应独立成章，除非它是独立的“结语”部分。在此处，它紧邻索引，更可能是第 8 章的结尾总结。
+  keep_split: false
+- 'no': 5569
+  overturn_probability: 0.0
+  alternative: 索引部分
+  counter_evidence:
+  - 规则明确规定“文末索引也划分为一章”。
+  - 该行“# 索引”是全书的索引部分，符合独立成章的条件。
+  keep_split: true

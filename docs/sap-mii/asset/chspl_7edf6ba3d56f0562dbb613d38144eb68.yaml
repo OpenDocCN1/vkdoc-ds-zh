@@ -1,0 +1,52 @@
+chapter_starts:
+- 'no': 2950
+  confidence: 0.9
+  reason: Markdown 一级标题（#），语义上为独立的功能模块章节，位于第6章内容中，作为该章下的主要部分划分。
+- 'no': 2980
+  confidence: 0.9
+  reason: Markdown 一级标题（#），语义上为独立的功能模块章节，位于第6章内容中，作为该章下的主要部分划分。
+- 'no': 3033
+  confidence: 0.9
+  reason: Markdown 二级标题（##），但在此书结构中，该级别标题对应主要的主题转换（从 Web 集成转到文件系统集成），且后续有子节，视为章节级划分。
+- 'no': 3117
+  confidence: 0.9
+  reason: Markdown 二级标题（##），主题转换为与其他制造产品集成，属于第6章下的主要模块。
+- 'no': 3186
+  confidence: 0.95
+  reason: Markdown 一级标题（#）“总结”，通常作为一章的结尾部分独立划分。
+- 'no': 3192
+  confidence: 1.0
+  reason: Markdown 一级标题（#）“7. SAP MII 的新特性”，明确带有数字编号7，是全书最高层级的大章起始。
+- 'no': 3698
+  confidence: 0.8
+  reason: Markdown 一级标题（#），虽然语义上是子功能，但在 Markdown 层级中为一级，且内容较长，具备统领性，依据格式特征判断为新章。
+- 'no': 3822
+  confidence: 0.8
+  reason: Markdown 一级标题（#），主题转换为图表功能配置，具备统领性。
+- 'no': 3973
+  confidence: 0.8
+  reason: Markdown 一级标题（#）“控制限与规格限”，独立概念阐述，格式上为最高级标题。
+- 'no': 4227
+  confidence: 0.7
+  reason: Markdown 一级标题（#），内容为长句描述 KPI 功能，虽非典型短语，但格式上为一级标题，且上下文为段落结尾，故视为新章。
+- 'no': 4765
+  confidence: 0.9
+  reason: Markdown 一级标题（#）“创建和配置 Catalog 查询”，具体的操作流程章节。
+- 'no': 4910
+  confidence: 0.9
+  reason: Markdown 一级标题（#）“PCo 技术概述与配置指南”，PCo 部分的开始。
+- 'no': 5306
+  confidence: 0.8
+  reason: Markdown 一级标题（#）“SAP JCo 操作块”，新的功能模块开始。
+- 'no': 5400
+  confidence: 0.95
+  reason: Markdown 一级标题（#）“总结”，第7章的总结部分。
+- 'no': 5406
+  confidence: 1.0
+  reason: Markdown 一级标题（#）“8. 最佳实践与常见问题解答”，明确带有数字编号8，是全书最高层级的大章起始。
+- 'no': 5559
+  confidence: 0.95
+  reason: Markdown 一级标题（#）“总结”，第8章的总结部分。
+- 'no': 5569
+  confidence: 1.0
+  reason: Markdown 一级标题（#）“索引”，文末索引，根据规则划分为一章。

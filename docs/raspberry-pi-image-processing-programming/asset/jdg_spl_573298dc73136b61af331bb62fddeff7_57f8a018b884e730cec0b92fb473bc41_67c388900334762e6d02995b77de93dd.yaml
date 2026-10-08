@@ -1,0 +1,57 @@
+chapter_starts:
+- 'no': 3135
+  confidence: 0.98
+  final_reason: 一级标题“# 第 8 章”，前文为第7章总结，后续内容符合第8章主题，双方一致支持分章。
+  accepted_evidence:
+  - 前文3131行是'### 总结'，标志着第7章结束
+  - 3135行 '# 第 8 章' 与 3137行 '# 滤波器' 共同构成了第8章的完整标题结构
+  - 后续内容讨论滤波器，符合第8章主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3796
+  confidence: 0.98
+  final_reason: 一级标题“# 第 9 章”，前文为第8章小结，后续内容符合第9章主题，双方一致支持分章。
+  accepted_evidence:
+  - 前文3790行是'## 本章小结'，标志着第8章结束
+  - 3796行 '# 第 9 章' 与 3798行 '# 形态学...' 构成第9章标题
+  - 后续内容讨论形态学，符合第9章主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4260
+  confidence: 0.98
+  final_reason: 一级标题“# 第 10 章”，前文为第9章总结，后续内容符合第10章主题，双方一致支持分章。
+  accepted_evidence:
+  - 前文4254行是'## 总结'，标志着第9章结束
+  - 4260行 '# 第 10 章' 与 4262行 '# 视频处理' 构成第10章标题
+  - 后续内容讨论OpenCV和视频，符合第10章主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5092
+  confidence: 0.85
+  final_reason: “## 结语”作为全书或部分的结束章节，语义独立，通常划分为一章。
+  accepted_evidence:
+  - 内容涉及全书总结（'本书涵盖了...'），语义上独立于第10章
+  - 规则指出前言、序言、致谢等正文前后内容统一划分为一章，结语类似
+  rejected_evidence:
+  - 它级别较低（##），且紧跟在第10章小结之后
+  need_human_review: false
+- 'no': 5102
+  confidence: 0.95
+  final_reason: 一级标题“# 附录”，属于正文后的重要部分，独立划分为一章。
+  accepted_evidence:
+  - '''# 附录'' 是一级标题，明确标志着正文结束后的重要补充部分'
+  - 规则指出文末索引也划分为一章，附录通常独立处理
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5305
+  confidence: 0.95
+  final_reason: “## 索引”标志着书本末尾的索引部分，规则明确指出文末索引划分为一章。
+  accepted_evidence:
+  - '''## 索引'' 标志着书本末尾的索引部分'
+  - 规则明确指出'文末索引也划分为一章'
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 2960
+  reason: 虽然形式上是一级标题“# 第 7 章 变换与测量”，但复核方指出其前文（2952-2958行）已经在讨论第7章内容（仿射变换、图7-5），说明该标题出现在章节中间，极有可能是页眉残留或排版错误导致的重复标题，而非真正的章节起始点。根据上下文优先原则，拒绝分章。
+  need_human_review: true

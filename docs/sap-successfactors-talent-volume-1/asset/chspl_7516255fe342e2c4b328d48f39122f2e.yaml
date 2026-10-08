@@ -1,0 +1,31 @@
+chapter_starts:
+- 'no': 5994
+  confidence: 0.95
+  reason: Markdown 一级标题 `#`，且为独立行，无句号，具有统领性，通常代表主章节。
+- 'no': 6377
+  confidence: 0.9
+  reason: Markdown 一级标题 `#`，独立成行。虽然前文是二级标题 `##`，但在该文档结构中存在一级标题，且语义上“报表与仪表盘功能”是新的主要部分，符合分章特征。
+- 'no': 6817
+  confidence: 0.9
+  reason: Markdown 一级标题 `#`，独立成行，无序号但语义明确为“更新活动表单路线图”，属于主要章节标题。
+- 'no': 6985
+  confidence: 1.0
+  reason: Markdown 一级标题 `#`，带有序号 `9.`，明确为第 9 章起始。
+- 'no': 7366
+  confidence: 0.9
+  reason: Markdown 一级标题 `#`，独立成行，语义为“绩效评估表单中的分区功能”，属于主要章节标题。
+- 'no': 7658
+  confidence: 1.0
+  reason: Markdown 一级标题 `#`，带有序号 `10.`，明确为第 10 章起始。
+- 'no': 7931
+  confidence: 0.9
+  reason: Markdown 一级标题 `#`，独立成行，语义为“目标与能力章节配置”，属于主要章节标题。
+- 'no': 8262
+  confidence: 0.9
+  reason: Markdown 一级标题 `#`，独立成行，语义为“绩效表单目标与能力章节配置指南”，属于主要章节标题。
+- 'no': 8589
+  confidence: 1.0
+  reason: Markdown 一级标题 `#`，带有序号 `11.`，明确为第 11 章起始。
+- 'no': 8708
+  confidence: 0.9
+  reason: Markdown 一级标题 `#`，独立成行，语义为“绩效反馈功能”，属于主要章节标题。

@@ -1,0 +1,68 @@
+reviews:
+- 'no': 5994
+  overturn_probability: 0.9
+  alternative: 正文小标题/排版误标
+  counter_evidence:
+  - 该标题无章节序号，而后续 Line 6985 出现了带有序号 '9.' 的一级标题，暗示本书采用编号制，无编号一级标题多为误标或非顶层章节
+  - 该标题位于第 9 章之前，属于第 8 章内容范围，但未显示 '第 8 章' 或 '8.' 等标识，疑似将二级或三级标题误标为一级
+  keep_split: false
+- 'no': 6377
+  overturn_probability: 0.95
+  alternative: 排版噪声/格式错误
+  counter_evidence:
+  - 标题层级倒退：该一级标题 `#` 出现在三级标题 `### 标准报表` (Line 6367) 和二级标题 `## 报表` (Line 6363) 之后，逻辑上不可能在子节后出现父级标题
+  - 无章节序号，且语义 '报表与仪表盘功能' 是对前文内容的概括或重复，而非统领性新章
+  keep_split: false
+- 'no': 6817
+  overturn_probability: 0.95
+  alternative: 排版噪声/格式错误
+  counter_evidence:
+  - 标题层级严重倒退：该一级标题 `#` 出现在四级标题 `#### 更改步骤截止日期` (Line 6809) 之后，这是 Markdown 层级解析的典型错误特征
+  - 无章节序号，位于第 8 章内容深处，不可能是新的一级章节
+  keep_split: false
+- 'no': 6985
+  overturn_probability: 0.1
+  alternative: 章节标题
+  counter_evidence:
+  - 虽无直接证据推翻，但需确认 '9.' 是章序号还是部分序号。不过结合上下文 '使用绩效管理表单' 的概括性及前后无其他同级标题，维持分章判断
+  keep_split: true
+- 'no': 7366
+  overturn_probability: 0.95
+  alternative: 排版噪声/格式错误
+  counter_evidence:
+  - 标题层级倒退：该一级标题 `#` 出现在三级标题 `### 团队排名器分区` (Line 7364) 之后
+  - 位于第 9 章内部（Line 6985 开始），无章节序号，疑似误标
+  keep_split: false
+- 'no': 7658
+  overturn_probability: 0.1
+  alternative: 章节标题
+  counter_evidence:
+  - 带有明确序号 '10.'，语义 '绩效管理 XML 与翻译' 具有独立性和统领性，符合分章特征。反方证据仅为需排除其为 'Part' 的可能性，但概率较低
+  keep_split: true
+- 'no': 7931
+  overturn_probability: 0.9
+  alternative: 正文小标题/排版误标
+  counter_evidence:
+  - 位于第 10 章（Line 7658 开始）内部，无章节序号
+  - 其后紧跟二级标题 `## 部分` (Line 7933)，表明 7931 更可能是该章内的一个高级小节，被误标为一级标题，而非新的一章
+  keep_split: false
+- 'no': 8262
+  overturn_probability: 0.95
+  alternative: 排版噪声/格式错误
+  counter_evidence:
+  - 标题层级极度倒退：该一级标题 `#` 出现在五级标题 `##### 使目标计划字段为只读` (Line 8258) 之后
+  - 位于第 10 章内部，无序号，确认为格式噪声
+  keep_split: false
+- 'no': 8589
+  overturn_probability: 0.1
+  alternative: 章节标题
+  counter_evidence:
+  - 带有明确序号 '11.'，语义 '请求反馈...' 清晰，且为全书最后几章之一，符合分章特征
+  keep_split: true
+- 'no': 8708
+  overturn_probability: 0.95
+  alternative: 正文小标题/排版误标
+  counter_evidence:
+  - 位于第 11 章（Line 8589 开始）内部，无章节序号
+  - 其后紧跟二级标题 `## 请求反馈` (Line 8710)，且前文为 `## 请求反馈` (Line 8593)，结构混乱，疑似将章内小节误标为一级标题
+  keep_split: false

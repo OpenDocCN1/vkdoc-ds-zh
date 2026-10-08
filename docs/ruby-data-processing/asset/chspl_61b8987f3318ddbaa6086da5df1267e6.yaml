@@ -1,0 +1,31 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  reason: 包含封面、版权页、作者信息等前置内容，统一划分为一章
+- 'no': 32
+  confidence: 0.9
+  reason: 一级标题 `# 引言`，属于正文前的引导部分，新章起始
+- 'no': 96
+  confidence: 0.9
+  reason: 一级标题 `# 目录`，独立章节
+- 'no': 156
+  confidence: 0.95
+  reason: 一级标题 `# 1. 基础 Ruby`，对应目录中的第 1 章
+- 'no': 544
+  confidence: 0.95
+  reason: 一级标题 `# 2. 函数概述与简单示例`，对应目录中的第 2 章
+- 'no': 909
+  confidence: 0.95
+  reason: 一级标题 `# 3. 复杂解决方案`，对应目录中的第 3 章
+- 'no': 2949
+  confidence: 0.95
+  reason: 一级标题 `## 逆向工程复杂解决方案`。虽然 Markdown 标记为 H2，但语义上对应目录中的第 4 章，且后续内容属于该章范围
+- 'no': 145
+  confidence: 0.9
+  reason: 一级标题 `## 索引`，文末索引统一划分为一章
+- 'no': 147
+  confidence: 0.9
+  reason: 一级标题 `## 关于作者与技术审阅者`，属于后记/作者信息，独立章节
+- 'no': 152
+  confidence: 0.9
+  reason: 一级标题 `## 脚注`，独立章节

@@ -1,0 +1,33 @@
+reviews:
+- 'no': 9002
+  overturn_probability: 0.0
+  alternative: 无法假设其不是章节标题，因为该行为 Markdown 一级标题且包含明确章节序号
+  counter_evidence:
+  - 该行为 Markdown 一级标题（#），且包含全书最高层级的数字序号“12”，符合编号特征。
+  - 该行前几行（9000-9001）是上一章的总结段落，符合章节末尾特征。
+  - 该行后文（9004起）开始讨论“360 度评估”模块，语义上开启了新的主题。
+  keep_split: true
+- 'no': 9839
+  overturn_probability: 0.0
+  alternative: 无法假设其不是章节标题，因为该行为 Markdown 一级标题且包含明确章节序号
+  counter_evidence:
+  - 该行为 Markdown 一级标题（#），且包含全书最高层级的数字序号“13”，符合编号特征。
+  - 该行前几行（9837-9838）是上一章的结论，符合章节末尾特征。
+  - 该行后文（9841起）开始讨论“持续绩效管理”，语义上开启了新的主题。
+  keep_split: true
+- 'no': 10305
+  overturn_probability: 0.0
+  alternative: 无法假设其不是章节标题，因为该行为 Markdown 一级标题且包含明确章节序号
+  counter_evidence:
+  - 该行为 Markdown 一级标题（#），且包含全书最高层级的数字序号“14”，符合编号特征。
+  - 该行前几行（10303-10304）是上一章的结语，符合章节末尾特征。
+  - 该行后文（10307起）开始讨论“校准”相关配置，语义上开启了新的主题。
+  keep_split: true
+- 'no': 11519
+  overturn_probability: 0.0
+  alternative: 无法假设其不是章节标题，因为该行为 Markdown 一级标题且包含明确章节序号
+  counter_evidence:
+  - 该行为 Markdown 一级标题（#），且包含全书最高层级的数字序号“15”，符合编号特征。
+  - 该行前几行（11517-11518）是上一章的结语，符合章节末尾特征。
+  - 该行后文（11521起）开始讨论“校准会议”的具体管理流程，语义上开启了新的主题。
+  keep_split: true

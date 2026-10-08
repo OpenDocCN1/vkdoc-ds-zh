@@ -1,0 +1,38 @@
+chapter_starts:
+- 'no': 5900
+  confidence: 0.98
+  final_reason: 根据规则“文末索引也划分为一章”，且该段文本明显为字母序排列的索引/词汇表内容，起始行应标记为索引章节的开始。
+  accepted_evidence:
+  - 行5900是索引部分的起始行
+  - 内容符合“文末索引”的定义
+  - 按字母顺序排列的术语列表
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 5910
+  reason: 复核方正确识别出‘# P’为索引中的字母分组标题，而非全书最高层级大章。索引内部结构不应细分为多个章节。
+  need_human_review: false
+- 'no': 5956
+  reason: 同上，‘# Q’仅为索引字母分组标记，不作为独立章节起始。
+  need_human_review: false
+- 'no': 5966
+  reason: 同上，‘# R’仅为索引字母分组标记，不作为独立章节起始。
+  need_human_review: false
+- 'no': 5984
+  reason: 同上，‘# S’仅为索引字母分组标记，不作为独立章节起始。
+  need_human_review: false
+- 'no': 6066
+  reason: 同上，‘# T’仅为索引字母分组标记，不作为独立章节起始。
+  need_human_review: false
+- 'no': 6090
+  reason: 同上，‘# U’仅为索引字母分组标记，不作为独立章节起始。
+  need_human_review: false
+- 'no': 6104
+  reason: 同上，‘# V’仅为索引字母分组标记，不作为独立章节起始。
+  need_human_review: false
+- 'no': 6114
+  reason: 同上，‘# W’仅为索引字母分组标记，不作为独立章节起始。
+  need_human_review: false
+- 'no': 6146
+  reason: 同上，‘# X, Y, Z’仅为索引字母分组标记，不作为独立章节起始。
+  need_human_review: false

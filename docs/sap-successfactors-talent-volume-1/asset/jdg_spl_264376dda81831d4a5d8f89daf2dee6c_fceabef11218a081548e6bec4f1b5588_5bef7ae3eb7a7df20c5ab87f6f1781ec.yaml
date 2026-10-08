@@ -1,0 +1,38 @@
+chapter_starts:
+- 'no': 9002
+  confidence: 0.99
+  final_reason: 双方一致确认。该行格式为“# 12. 360 度评估”，属于Markdown一级标题，带有全书最高层级的数字序号。前文为第11章的总结（“希望您喜欢本章...”），后文开始介绍360度评估的新主题，语义连贯，符合新章特征。
+  accepted_evidence:
+  - Markdown一级标题（#）加数字序号12
+  - 位于上一章“总结”之后
+  - 语义上开启“360 度评估”新主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 9839
+  confidence: 0.99
+  final_reason: 双方一致确认。该行格式为“# 13. 持续绩效管理”，属于Markdown一级标题，带有全书最高层级的数字序号。前文为第12章的结论，后文开始介绍持续绩效管理的新主题，符合新章特征。
+  accepted_evidence:
+  - Markdown一级标题（#）加数字序号13
+  - 位于上一章“结论”之后
+  - 语义上开启“持续绩效管理”新主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 10305
+  confidence: 0.99
+  final_reason: 双方一致确认。该行格式为“# 14. 配置校准”，属于Markdown一级标题，带有全书最高层级的数字序号。前文为第13章的结语/结论，后文开始介绍配置校准的新主题，符合新章特征。
+  accepted_evidence:
+  - Markdown一级标题（#）加数字序号14
+  - 位于上一章“结语”之后
+  - 语义上开启“配置校准”新主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 11519
+  confidence: 0.99
+  final_reason: 双方一致确认。该行格式为“# 15. 校准会议”，属于Markdown一级标题，带有全书最高层级的数字序号。前文为第14章的结语，后文开始介绍校准会议的具体管理，符合新章特征。
+  accepted_evidence:
+  - Markdown一级标题（#）加数字序号15
+  - 位于上一章“结语”之后
+  - 语义上开启“校准会议”新主题
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []
