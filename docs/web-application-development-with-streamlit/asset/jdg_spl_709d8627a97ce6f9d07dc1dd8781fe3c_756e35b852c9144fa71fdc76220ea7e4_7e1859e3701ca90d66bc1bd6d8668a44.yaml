@@ -1,0 +1,32 @@
+chapter_starts:
+- 'no': 3388
+  confidence: 0.9
+  final_reason: 复核方支持判断方意见，认为附录是独立于正文的大板块，语义上等同于新的顶级章节，符合出版规范。
+  accepted_evidence:
+  - 判断方：语义独立，统领后续附录内容
+  - 复核方：keep_split=true，确认附录的独立章节地位
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3489
+  confidence: 0.85
+  final_reason: 复核方支持判断方意见，参考文献作为后置独立部分，与附录性质类似，应划分为新章。
+  accepted_evidence:
+  - 判断方：属于书籍后置部分，语义独立
+  - 复核方：keep_split=true，认为篇幅和性质差异大，分开合理
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3491
+  confidence: 0.95
+  final_reason: 规则明确规定‘文末索引也划分为一章’，双方证据一致且无反对意见。
+  accepted_evidence:
+  - 判断方：文末索引划分为一章
+  - 复核方：keep_split=true，依据规则稳固
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 3049
+  reason: 复核方指出‘文档大纲’属于前置部分，根据规则‘正文之前的内容统一划分为一章’，不应独立成章，而应与目录、前言等合并。
+  need_human_review: false
+- 'no': 3051
+  reason: 复核方指出‘目录’属于典型的前置部分，根据规则‘正文之前的内容统一划分为一章’，不应过度碎片化，应与其它前置内容合并为一个章节。
+  need_human_review: false
