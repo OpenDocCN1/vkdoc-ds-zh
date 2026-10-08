@@ -7,7 +7,6 @@
 +   [第 5 章 | 丹尼尔·坦克朗，领英](data-scientists-at-work_09.md)
 +   [第 6 章 | 约翰·福尔曼，MailChimp](data-scientists-at-work_10.md)
 +   [第七章 | 罗杰·埃伦伯格，IA Ventures](data-scientists-at-work_12.md)
-+   [第七章 | 罗杰·埃伦伯格，IA Ventures](data-scientists-at-work_15.md)
 +   [第八章 | 克劳迪娅·珀利奇，Dstillery 公司](data-scientists-at-work_16.md)
 +   [第 9 章 | 乔纳森·莱纳汉，PlaceIQ](data-scientists-at-work_20.md)
 +   [第 10 章 | 安娜·史密斯，Rent the Runway](data-scientists-at-work_23.md)
