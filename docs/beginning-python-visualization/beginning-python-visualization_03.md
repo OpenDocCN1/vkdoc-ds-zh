@@ -1,8 +1,4 @@
-# 第 3 章
-
-![image](img/frontdot.jpg)
-
-# 程序员眼中的 Python
+# 第 3 章 程序员眼中的 Python
 
 ## 基本构建块
 
