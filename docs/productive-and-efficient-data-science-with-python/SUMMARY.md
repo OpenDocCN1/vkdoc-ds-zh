@@ -2,7 +2,7 @@
 +   [引言](productive-and-efficient-data-science-with-python_01.md)
 +   [1. 什么是高效且有生产力的数据科学？](productive-and-efficient-data-science-with-python_02.md)
 +   [2. 高效数据科学的更佳编程原则](productive-and-efficient-data-science-with-python_03.md)
-+   [如何更高效地使用 Python 数据科学包](productive-and-efficient-data-science-with-python_04.md)
++   [3. 如何更高效地使用 Python 数据科学包](productive-and-efficient-data-science-with-python_04.md)
 +   [4. 更高效地编写机器学习代码](productive-and-efficient-data-science-with-python_06.md)
 +   [5. 模块化且高效的深度学习代码](productive-and-efficient-data-science-with-python_07.md)
 +   [6. 构建你自己的机器学习估算器/包](productive-and-efficient-data-science-with-python_08.md)
