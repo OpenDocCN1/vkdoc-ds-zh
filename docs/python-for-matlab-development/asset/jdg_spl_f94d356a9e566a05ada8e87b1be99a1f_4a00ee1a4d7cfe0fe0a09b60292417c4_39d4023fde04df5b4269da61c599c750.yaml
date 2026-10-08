@@ -1,0 +1,50 @@
+chapter_starts:
+- 'no': 8
+  confidence: 0.95
+  final_reason: 双方一致：'前言'属于正文之前的内容，依据规则统一划分为一章。
+  accepted_evidence:
+  - 判断方：前言、序言等正文前内容统一划分为一章
+  - 复核方：确认 `## 前言` 为前置内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 24
+  confidence: 0.95
+  final_reason: 双方一致：'致谢'属于正文之前的内容，且通常作为独立章节处理。
+  accepted_evidence:
+  - 判断方：致谢属于正文前内容，且与前言/作者信息等分开
+  - 复核方：确认 `## 致谢` 为前置内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 70
+  confidence: 0.98
+  final_reason: 双方一致：`# 1. 引言` 为一级标题，编号 1，后续包含 1.1 等子节，符合大章特征。
+  accepted_evidence:
+  - 判断方：Markdown 一级标题，符合大章序号特征
+  - 复核方：编号连贯，上下文特征符合
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 230
+  confidence: 0.98
+  final_reason: 双方一致：`# 2. 安装` 为一级标题，编号 2，与第 1 章连贯，符合大章特征。
+  accepted_evidence:
+  - 判断方：Markdown 一级标题，符合大章序号特征
+  - 复核方：编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 574
+  confidence: 0.98
+  final_reason: 双方一致：`# 3. 语言基础` 为一级标题，编号 3，与第 2 章连贯，符合大章特征。
+  accepted_evidence:
+  - 判断方：Markdown 一级标题，符合大章序号特征
+  - 复核方：编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1898
+  confidence: 0.98
+  final_reason: 双方一致：`# 4. 数据容器` 为一级标题，编号 4，与第 3 章连贯，符合大章特征。
+  accepted_evidence:
+  - 判断方：Markdown 一级标题，符合大章序号特征
+  - 复核方：编号连贯
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

@@ -1,0 +1,38 @@
+reviews:
+- 'no': 0
+  overturn_probability: 0.0
+  alternative: 封面图像及版权页，属于书籍前置非正文元素
+  counter_evidence:
+  - 该行内容为 `![](img/...jpg)`，属于图片插入或排版标记，并非语义上的章节标题。
+  - 第0行至第29行包含了版权信息、前言、引言等所有前置内容，根据规则这些前置内容应统一视为一个章节单位，而非在第0行单独切分。
+  keep_split: true
+- 'no': 30
+  overturn_probability: 0.0
+  alternative: 引言（Introduction）部分，属于前置说明内容
+  counter_evidence:
+  - 引言部分（第30行-第405行）主要包含前言、致谢及关于本书结构的说明，并未进入“第一部分”的正文内容。
+  keep_split: true
+- 'no': 406
+  overturn_probability: 0.0
+  alternative: 一级标题 `# 第一部分：...`，属于部分标题
+  counter_evidence:
+  - 根据规则，当存在“第 X 部分”标题时，该书为部分-章节模式，遇到部分标题时应当划分新章。
+  keep_split: true
+- 'no': 1740
+  overturn_probability: 0.0
+  alternative: 一级标题 `# 第二部分：...`，属于部分标题
+  counter_evidence:
+  - 该行明确标记为“第二部分”，符合部分标题特征。
+  keep_split: true
+- 'no': 2319
+  overturn_probability: 0.0
+  alternative: 一级标题 `# 第三部分：...`，属于部分标题
+  counter_evidence:
+  - 该行明确标记为“第三部分”，符合部分标题特征。
+  keep_split: true
+- 'no': 2935
+  overturn_probability: 0.0
+  alternative: 一级标题 `# 第四部分：...`，属于部分标题
+  counter_evidence:
+  - 该行明确标记为“第四部分”，符合部分标题特征。
+  keep_split: true

@@ -1,0 +1,28 @@
+chapter_starts:
+- 'no': 1
+  confidence: 0.95
+  reason: 图书前言/元数据部分（封面、版权、赞誉、序言等），统一划分为一章。
+- 'no': 240
+  confidence: 0.99
+  reason: 正文第一章起始，标题“# Python 入门”为最高层级章标题。
+- 'no': 456
+  confidence: 0.99
+  reason: 正文第二章起始，标题“## 实验室中的 Python”对应前言目录中的第2章“实验台上的 Python”。
+- 'no': 924
+  confidence: 0.99
+  reason: 正文第三章起始，标题“# 3. 理解序列”带有明确章序号。
+- 'no': 1553
+  confidence: 0.99
+  reason: 正文第四章起始，标题“# 4. 统计学插曲”带有明确章序号。
+- 'no': 1748
+  confidence: 0.99
+  reason: 正文第五章起始，标题“# 5. 打开数据之门”带有明确章序号。
+- 'no': 2087
+  confidence: 0.99
+  reason: 正文第六章起始，标题“# 6. 在数据堆中寻找“针””带有明确章序号。
+- 'no': 2393
+  confidence: 0.99
+  reason: 正文第七章起始，标题“# 7. 对象课程”带有明确章序号。
+- 'no': 2929
+  confidence: 0.99
+  reason: 正文第八章起始，标题“8. 基因组的剪切与拼接”带有明确章序号，且后续内容涉及下一代测序流程。

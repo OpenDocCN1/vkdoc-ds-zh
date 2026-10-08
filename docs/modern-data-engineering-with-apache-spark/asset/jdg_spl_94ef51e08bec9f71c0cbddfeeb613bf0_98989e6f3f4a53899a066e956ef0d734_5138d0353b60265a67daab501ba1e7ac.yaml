@@ -1,0 +1,38 @@
+chapter_starts:
+- 'no': 9963
+  confidence: 0.95
+  final_reason: 双方一致 + 规则明确要求“部分-章节”模式下部分标题分章
+  accepted_evidence:
+  - 判断方指出其属于部分-章节模式下的部分标题
+  - 复核方确认根据规则，遇到部分标题时也要划分新章
+  - 该行内容为“# 第三部分：高级技术”，语义清晰，是书的结构分界点
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 9966
+  confidence: 0.98
+  final_reason: 双方一致 + 标准章标题特征
+  accepted_evidence:
+  - 编号“13.”为全书最高层级章序号
+  - 紧随部分标题之后，开启第13章新主题
+  - 复核方指出其统领后续内容，无混淆风险
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 10888
+  confidence: 0.98
+  final_reason: 双方一致 + 标准章标题特征
+  accepted_evidence:
+  - 编号“14.”为全书最高层级章序号
+  - 位于第13章总结之后，开启新章节
+  - 复核方确认其上下文符合章标题特征（前几行为上一章总结）
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 11477
+  confidence: 0.98
+  final_reason: 双方一致 + 标准章标题特征
+  accepted_evidence:
+  - 编号“15.”为全书最高层级章序号
+  - 位于第14章总结之后，开启新章节
+  - 复核方确认其作为最后一章，特征完整
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

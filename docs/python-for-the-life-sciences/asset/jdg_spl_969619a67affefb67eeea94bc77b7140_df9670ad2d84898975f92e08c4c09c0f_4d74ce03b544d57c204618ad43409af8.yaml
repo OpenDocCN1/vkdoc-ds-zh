@@ -1,0 +1,66 @@
+chapter_starts:
+- 'no': 1
+  confidence: 0.95
+  final_reason: 双方一致认定为前言/元数据部分（封面、版权、赞誉、序言等），根据规则统一划分为一章。
+  accepted_evidence:
+  - 判断方指出图书前言/元数据部分（封面、版权、赞誉、序言等），统一划分为一章。
+  - 复核方支持原判，认为符合“前言、序言...统一划分为一章”的规则
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 240
+  confidence: 0.99
+  final_reason: 双方一致认定“# Python 入门”为最高层级章标题，独立成行且后续为章节正文。
+  accepted_evidence:
+  - 判断方指出标题“# Python 入门”为最高层级章标题。
+  - 复核方支持原判，认为符合Markdown“#”为最高层级章标题的规则
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 924
+  confidence: 0.99
+  final_reason: 双方一致认定“# 3. 理解序列”带有明确章序号，且为最高层级标题。
+  accepted_evidence:
+  - 判断方指出标题“# 3. 理解序列”带有明确章序号。
+  - 复核方支持原判，认为符合Markdown“#”为最高层级章标题的规则
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1553
+  confidence: 0.99
+  final_reason: 双方一致认定“# 4. 统计学插曲”带有明确章序号，且为最高层级标题。
+  accepted_evidence:
+  - 判断方指出标题“# 4. 统计学插曲”带有明确章序号。
+  - 复核方支持原判，认为符合Markdown“#”为最高层级章标题的规则
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1748
+  confidence: 0.99
+  final_reason: 双方一致认定“# 5. 打开数据之门”带有明确章序号，且为最高层级标题。
+  accepted_evidence:
+  - 判断方指出标题“# 5. 打开数据之门”带有明确章序号。
+  - 复核方支持原判，认为符合Markdown“#”为最高层级章标题的规则
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2087
+  confidence: 0.99
+  final_reason: 双方一致认定“# 6. 在数据堆中寻找“针””带有明确章序号，且为最高层级标题。
+  accepted_evidence:
+  - 判断方指出标题“# 6. 在数据堆中寻找“针””带有明确章序号。
+  - 复核方支持原判，认为符合Markdown“#”为最高层级章标题的规则
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2393
+  confidence: 0.99
+  final_reason: 双方一致认定“# 7. 对象课程”带有明确章序号，且为最高层级标题。
+  accepted_evidence:
+  - 判断方指出标题“# 7. 对象课程”带有明确章序号。
+  - 复核方支持原判，认为符合Markdown“#”为最高层级章标题的规则
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 456
+  reason: '复核方指出该行为“## 实验室中的 Python”，属于二级标题（##）。根据规则“只划分全书最高层级的大章”，且对比其他章节使用“#”作为一级标题，此处“##”应视为子层级或不作为最高层级章标题划分。尽管语义上它对应目录中的第2章，但格式特征（##
+    vs #）显示其并非该书Markdown结构中标准的最高层级标题，或者属于排版不一致导致的误报风险，故采纳复核方“宁可漏分，不可误分”及“复核方反方证据若成立，优先采纳”的原则，将其排除在最高层级章标题之外（或认为其格式不足以确认为唯一最高层级标准）。'
+  need_human_review: false
+- 'no': 2929
+  reason: 复核方指出该行为“8. 基因组的剪切与拼接”，缺少Markdown标题前缀“#”或“##”。在严格的Markdown解析中，纯文本行“8. ...”可能被解释为列表项而非章标题。对比其他章节（如924行的“#
+    3. 理解序列”），此处格式不一致，缺乏标题标记，因此判断方证据不足，采纳复核方意见不划分新章。
+  need_human_review: false

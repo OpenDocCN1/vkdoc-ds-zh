@@ -1,0 +1,13 @@
+chapter_starts:
+- 'no': 3261
+  confidence: 0.95
+  reason: 行内容以 '# 6. Qiskit...' 开头，Markdown 一级标题通常对应章级别，且后续内容涉及 Qiskit 安装与使用，属于新的主要章节。
+- 'no': 4263
+  confidence: 0.95
+  reason: 行内容以 '# 7. 启动引擎...' 开头，Markdown 一级标题对应章级别，内容为量子随机数、隐形传态等高级主题，标志着新章节开始。
+- 'no': 4896
+  confidence: 0.95
+  reason: 行内容以 '# 博弈论...' 开头，Markdown 一级标题对应章级别，内容探讨博弈论中的量子优势，为新章节。
+- 'no': 5615
+  confidence: 0.95
+  reason: 行内容以 '# 9. 量子优势...' 开头，Markdown 一级标题对应章级别，内容介绍多伊奇-乔萨等算法，为新章节。

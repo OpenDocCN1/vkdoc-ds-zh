@@ -1,0 +1,19 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  reason: 图书前置内容（封面、版权页、作者信息），统一划分为一章
+- 'no': 11
+  confidence: 0.99
+  reason: 一级章节标题 '1. 引言'，符合编号特征，统领后续内容
+- 'no': 62
+  confidence: 0.99
+  reason: 一级章节标题 '2. 数据导入：readr'，序号连贯，统领后续关于 readr 的内容
+- 'no': 1460
+  confidence: 0.99
+  reason: 一级章节标题 '5. 重新格式化表格：tidyr'，序号跳跃但视为新章，统领后续 tidyr 内容
+- 'no': 2204
+  confidence: 0.99
+  reason: 一级章节标题 '6. 管道：magrittr'，序号连贯，统领后续 magrittr 管道内容
+- 'no': 2603
+  confidence: 0.99
+  reason: 一级章节标题 '函数式编程：purrr'，虽无显式数字序号，但使用 H1 标题格式且统领后续 purrr 包内容，判定为新章

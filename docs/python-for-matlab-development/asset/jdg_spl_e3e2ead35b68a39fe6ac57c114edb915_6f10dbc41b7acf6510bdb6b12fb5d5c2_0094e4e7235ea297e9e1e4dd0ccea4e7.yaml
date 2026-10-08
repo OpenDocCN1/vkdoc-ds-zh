@@ -1,0 +1,35 @@
+chapter_starts:
+- 'no': 4018
+  confidence: 0.98
+  final_reason: 双方一致确认。该行 `# 5. 日期和时间` 为 Markdown 一级标题，序号 5 为最高层级，且后续内容包含 5.1、5.2
+    等子节，符合分章特征。
+  accepted_evidence:
+  - Markdown 一级标题格式 (#)
+  - 序号 5 为全书最高层级
+  - '后续有 ## 5.1 等子节'
+  - 单独成行，无结束标点
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4467
+  confidence: 0.98
+  final_reason: 双方一致确认。该行 `# 6. 从 MATLAB 调用 Python 函数` 为 Markdown 一级标题，序号 6 紧接第 5
+    章，且后续内容包含 6.1、6.2 等子节，符合分章特征。
+  accepted_evidence:
+  - Markdown 一级标题格式 (#)
+  - 序号 6 与上一章 5 连贯
+  - '后续有 ## 6.1 等子节'
+  - 语义具有统领性
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5515
+  confidence: 0.98
+  final_reason: 双方一致确认。该行 `# 7. 输入与输出` 为 Markdown 一级标题，序号 7 紧接第 6 章，且后续内容包含 7.1、7.2
+    等子节，符合分章特征。
+  accepted_evidence:
+  - Markdown 一级标题格式 (#)
+  - 序号 7 与上一章 6 连贯
+  - '后续有 ## 7.1 等子节'
+  - 单独成行，长度适中
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

@@ -1,0 +1,46 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 根据规则，前言、序言、致谢等正文之前的内容统一划分为一章。第0行作为这些前置内容的起始点，是全书的第一章。
+  accepted_evidence:
+  - 双方一致认为是前置内容章节
+  - 包含版权页、献词、引言等典型前置元素
+  rejected_evidence:
+  - 复核方曾误读为单纯图片标记，但结合上下文0-29行均为前置信息，故确认为章节起点
+  need_human_review: false
+- 'no': 406
+  confidence: 0.95
+  final_reason: 存在“第 X 部分”标题，符合部分-章节模式，需划分新章。该行为一级标题“# 第一部分：你的创造力与活动之间的契合”。
+  accepted_evidence:
+  - Markdown一级标题
+  - 语义为“第一部分”，统领后续章节1-6
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1740
+  confidence: 0.95
+  final_reason: 部分-章节模式，一级标题“# 第二部分：学会像创作者一样生活”标志着新的部分开始。
+  accepted_evidence:
+  - Markdown一级标题
+  - 语义为“第二部分”，统领后续章节7-10
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2319
+  confidence: 0.95
+  final_reason: 部分-章节模式，一级标题“# 第三部分：为创造性洞见铺垫心智”标志着新的部分开始。
+  accepted_evidence:
+  - Markdown一级标题
+  - 语义为“第三部分”，统领后续章节11-14
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2935
+  confidence: 0.95
+  final_reason: 部分-章节模式，一级标题“# 第四部分：在反馈对话中采用创造性沟通风格”标志着新的部分开始。
+  accepted_evidence:
+  - Markdown一级标题
+  - 语义为“第四部分”，统领后续章节15及以后
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 30
+  reason: 该行为“# 引言”。根据规则“前言、序言、致谢...统一划分为一章”，引言属于正文之前的前置内容，且与第0行所属的前置章节属于同一逻辑块（或前置章节的结尾部分，视具体排版而定，但通常前置内容不单独作为与正文“部分”平级的大章，除非前置内容极长。在此书中，引言（30-405行）属于前置部分，而第一部分从406行开始。由于规则要求前置内容统一划分为一章，而该章的起点已在第0行标记，因此第30行不作为新的最高层级章节起点。即使视为前置章节的一部分，也不应独立于第0行之外再切分，或者第0行涵盖了整个前置部分。鉴于第0行已作为前置章节起点，第30行仅为前置章节内部的标题，不划分为新的顶层章节。
+  need_human_review: false

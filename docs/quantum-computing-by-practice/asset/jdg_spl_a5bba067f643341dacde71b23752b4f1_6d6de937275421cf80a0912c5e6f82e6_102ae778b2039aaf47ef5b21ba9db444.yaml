@@ -1,0 +1,95 @@
+chapter_starts:
+- 'no': 18
+  confidence: 0.95
+  final_reason: 前言/引言部分，作为非正文内容的独立章节。复核方确认保留分章。
+  accepted_evidence:
+  - 判断方：前言/引言部分，作为非正文内容的独立章节
+  - 复核方：虽然任务要求必须提出反方证据，但根据规则“前言、序言...统一划分为一章”，该判断符合规范。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 78
+  confidence: 0.85
+  final_reason: 正文前的辅助内容（关于作者、技术审校者等），通常作为独立章节处理。复核方支持保留分章。
+  accepted_evidence:
+  - 判断方：正文前的辅助内容（关于作者、技术审校者等），通常作为独立章节处理
+  - 复核方：保留分章是合理的。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 80
+  confidence: 0.98
+  final_reason: 第一章正式正文起始标题。复核方确认这是正文中第一章的实际起始标题。
+  accepted_evidence:
+  - 判断方：第一章正式正文起始标题：# 量子场：建构现实的基石
+  - 复核方：这是正文中第一章的实际起始标题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 746
+  confidence: 0.98
+  final_reason: 明确的第 2 章正文起始标题。复核方确认这是正文中第二章的实际起始标题。
+  accepted_evidence:
+  - 判断方：明确的第 2 章正文起始标题：# 理查德·费曼：物理学的半神，量子计算机之父
+  - 复核方：这是正文中第二章的实际起始标题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1346
+  confidence: 0.98
+  final_reason: 明确的第 3 章正文起始标题。复核方确认这是正文中第三章的实际起始标题。
+  accepted_evidence:
+  - 判断方：明确的第 3 章正文起始标题：# 3. 看，量子比特革命
+  - 复核方：这是正文中第三章的实际起始标题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1734
+  confidence: 0.98
+  final_reason: 明确的第 4 章正文起始标题。复核方确认这是正文中第四章的实际起始标题。
+  accepted_evidence:
+  - 判断方：明确的第 4 章正文起始标题：# 4. 走进 IBM Quantum：云上量子计算的独一无二平台
+  - 复核方：这是正文中第四章的实际起始标题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2675
+  confidence: 0.98
+  final_reason: 明确的第 5 章正文起始标题。复核方确认这是正文中第五章的实际起始标题。
+  accepted_evidence:
+  - 判断方：明确的第 5 章正文起始标题：# 5. 数学基础：是时候重温线性代数了
+  - 复核方：这是正文中第五章的实际起始标题。
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 32
+  reason: 该行位于目录区（Lines 18-78）之内。观察后续正文结构，Line 80 才是第一章正文的实际起始标题。Line 32 仅是目录中的条目，并非正文章节的分界点。
+  need_human_review: false
+- 'no': 36
+  reason: 位于目录区，对应正文 Line 746。目录行不应作为章节分割点。
+  need_human_review: false
+- 'no': 40
+  reason: 位于目录区，对应正文 Line 1346。目录行不应作为章节分割点。
+  need_human_review: false
+- 'no': 44
+  reason: 位于目录区，对应正文 Line 1734。目录行不应作为章节分割点。
+  need_human_review: false
+- 'no': 50
+  reason: 位于目录区，对应正文 Line 2675。目录行不应作为章节分割点。
+  need_human_review: false
+- 'no': 54
+  reason: 位于目录区。目录行不应作为章节分割点。
+  need_human_review: false
+- 'no': 58
+  reason: 位于目录区。目录行不应作为章节分割点。
+  need_human_review: false
+- 'no': 62
+  reason: 位于目录区。目录行不应作为章节分割点。
+  need_human_review: false
+- 'no': 66
+  reason: 位于目录区。目录行不应作为章节分割点。
+  need_human_review: false
+- 'no': 70
+  reason: 位于目录区。目录行不应作为章节分割点。
+  need_human_review: false
+- 'no': 74
+  reason: 位于目录区。目录行不应作为章节分割点。
+  need_human_review: false
+- 'no': 475
+  reason: 该行 `# 量子场论与标准模型` 出现在 Line 475。观察上下文，Line 80 是 `# 量子场：建构现实的基石`（第一章标题）。Line
+    746 是第二章标题。Line 475 夹在中间，且没有对应的目录项，极有可能是第一章内部的 H1 子标题（可能是第1.1部分或类似），而非独立的大章。根据规则“只划分全书最高层级的大章”，不应在此分章。
+  need_human_review: false

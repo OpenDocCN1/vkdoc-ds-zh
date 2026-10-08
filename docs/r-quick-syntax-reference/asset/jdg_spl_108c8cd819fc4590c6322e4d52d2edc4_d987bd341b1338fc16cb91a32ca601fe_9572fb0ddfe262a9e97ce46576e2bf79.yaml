@@ -1,0 +1,63 @@
+chapter_starts:
+- 'no': 6028
+  confidence: 0.95
+  final_reason: 双方一致 + 带有明确章序号“16.”，符合大章起始特征。
+  accepted_evidence:
+  - 标题含有序号“16.”
+  - Markdown H1格式
+  - 语义上统领后续 base/stats/graphics 包内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6659
+  confidence: 0.9
+  final_reason: 双方一致 + 无序号H1标题，语义独立，且后续子标题结构支持其为新章起点。
+  accepted_evidence:
+  - Markdown H1格式
+  - 语义“实用技巧”具有统领性
+  - 后续内容（值替换、if语句等）为其子项
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6924
+  confidence: 0.85
+  final_reason: 双方一致 + 结尾总结性章节，具有独立性。
+  accepted_evidence:
+  - Markdown H1格式
+  - 语义为结语，通常独立或作为最后一章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6928
+  confidence: 0.99
+  final_reason: 双方一致 + 规则明确规定文末索引划分为一章。
+  accepted_evidence:
+  - Markdown H1格式
+  - 内容明确为索引
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 6122
+  reason: 复核方指出其为第16章内部的小标题，层级混乱，不宜分章。
+  need_human_review: false
+- 'no': 6245
+  reason: 复核方指出其为第16章内部的小标题，不宜分章。
+  need_human_review: false
+- 'no': 6382
+  reason: 复核方指出其为第16章内部的小标题，不宜分章。
+  need_human_review: false
+- 'no': 6663
+  reason: 复核方指出其为“实用技巧”章内的子标题，不宜分章。
+  need_human_review: false
+- 'no': 6768
+  reason: 复核方指出其为“实用技巧”章内的子标题，不宜分章。
+  need_human_review: false
+- 'no': 6810
+  reason: 复核方指出其为“实用技巧”章内的子标题，不宜分章。
+  need_human_review: false
+- 'no': 6850
+  reason: 复核方指出其为“实用技巧”章内的子标题，不宜分章。
+  need_human_review: false
+- 'no': 6871
+  reason: 复核方指出其为“实用技巧”章内的子标题，不宜分章。
+  need_human_review: false
+- 'no': 6983
+  reason: 复核方指出其为索引内部的子标题或补充资料，不宜分章。
+  need_human_review: true

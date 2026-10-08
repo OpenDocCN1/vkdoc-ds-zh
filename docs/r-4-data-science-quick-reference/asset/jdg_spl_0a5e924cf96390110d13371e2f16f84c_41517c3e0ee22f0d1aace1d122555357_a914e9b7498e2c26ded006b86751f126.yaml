@@ -1,0 +1,45 @@
+chapter_starts:
+- 'no': 6102
+  confidence: 0.98
+  final_reason: 双方一致。行内容为“# 11. 处理日期：lubridate”，具备一级标题标记、明确章号且语义统领后续内容。前文（6098-6101）为脚注及分隔线，标志上一章结束。
+  accepted_evidence:
+  - '一级标题格式 # 11.'
+  - 前文有分隔线结束上一章
+  - 后续内容匹配主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6464
+  confidence: 0.95
+  final_reason: 双方一致。行内容为“# 处理模型：broom 和 modelr”，虽无数字序号，但使用一级标题标记，且位于第11章内容结束之后，开启全新主题。符合“没有章序号时依靠语义判断”的规则。
+  accepted_evidence:
+  - '一级标题格式 #'
+  - 语义独立且概括性强
+  - 上下文中断，前文为第11章结尾
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6885
+  confidence: 0.98
+  final_reason: 双方一致。行内容为“# 13. 绘图：`ggplot2`”，具备一级标题标记、明确章号（13）且语义统领后续内容。前文（6883-6884）为脚注，标志上一部分结束。
+  accepted_evidence:
+  - '一级标题格式 # 13.'
+  - 前文有脚注结束上一部分
+  - 后续内容匹配主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7307
+  confidence: 0.95
+  final_reason: 双方一致。行内容为“# 14. 结论”，具备一级标题标记和章号（14）。作为全书结论部分，通常作为独立章节存在。
+  accepted_evidence:
+  - '一级标题格式 # 14.'
+  - “结论”在技术书籍中常为独立章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7311
+  confidence: 0.98
+  final_reason: 双方一致。行内容为“# 索引”，使用一级标题标记。根据规则“文末索引也划分为一章”，且后续内容为标准的字母索引列表，应作为独立章节。
+  accepted_evidence:
+  - '一级标题格式 # 索引'
+  - 后续为标准索引内容
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

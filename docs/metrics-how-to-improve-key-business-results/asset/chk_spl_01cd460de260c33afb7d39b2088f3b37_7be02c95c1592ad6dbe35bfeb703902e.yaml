@@ -1,0 +1,75 @@
+reviews:
+- 'no': 4
+  overturn_probability: 0.0
+  alternative: 正文小标题/前言段落开头
+  counter_evidence:
+  - 该行内容为“马丁·克卢贝克是...”，是典型的“关于作者”段落首句，而非章节标题。
+  - 上一行（no. 2）已正确标记为“## 关于作者”作为章节起始点，因此该行不应再次分章。
+  keep_split: false
+- 'no': 14
+  overturn_probability: 0.1
+  alternative: 章节标题（第一章）
+  counter_evidence:
+  - 虽然该行使用了二级标题符号“##”，但其语义“度量指标：基础”涵盖了全书引言及基础概念，且后续没有更高层级（#）的标题对应此部分，故可视为最高层级。
+  - 根据规则“前言、序言...统一划分为一章”，如果前文 no.2-12 被视为前言/引言的一部分，那么 no.14 可能是新章节（第一章）的开始，但也可能是引言的延续。
+  keep_split: true
+- 'no': 124
+  overturn_probability: 0.05
+  alternative: 章节标题（第二章）
+  counter_evidence:
+  - 该行使用了一级标题符号“# 建立通用语言”，符合“全书最高层级”的特征。
+  - 前文 no.120 处的图片 `ch01.jpg` 暗示第一章结束，因此该行极大概率是第二章的开始。
+  keep_split: true
+- 'no': 438
+  overturn_probability: 0.1
+  alternative: 章节标题（第三章）
+  counter_evidence:
+  - 该行使用了二级标题符号“## 设计指标”，但在该书上下文中，似乎一级标题（#）较少使用或仅用于部分大节。若将“##”视为该书实际的最高内容层级（除了前言外），则应分章。
+  - 前文 no.430 结束了一个段落，且“设计指标”是独立的主题模块，语义上具有统领性。
+  keep_split: true
+- 'no': 1054
+  overturn_probability: 0.1
+  alternative: 章节标题（第四章）
+  counter_evidence:
+  - 该行“## 规划一个好的指标”语义独立，前文 no.1050 结束了上一章的讨论。
+  - 结合书籍结构（通常“规划”是独立章节），且前文有 `ch04.jpg` 图片（no.1482 处出现，但通常图片在章末或章首，需结合上下文判断，此处 no.1054
+    更像新章开始），维持分章。
+  keep_split: true
+- 'no': 1486
+  overturn_probability: 0.1
+  alternative: 章节标题（第五章）
+  counter_evidence:
+  - 前文 no.1482 出现了 `ch04.jpg`，这通常是第四章结束的标志。因此 no.1486 “## 将指标用作指示器”极大概率是第五章的开始。
+  keep_split: true
+- 'no': 1800
+  overturn_probability: 0.1
+  alternative: 章节标题（第六章）
+  counter_evidence:
+  - 语义上“使用答案密钥”是独立工具章节。前文 no.1798-1799 为空行，标志着上一部分结束。
+  keep_split: true
+- 'no': 2141
+  overturn_probability: 0.1
+  alternative: 章节标题（第七章）
+  counter_evidence:
+  - 前文 no.2139-2140 为空行，no.2141 “## 从有效性开始”开启新的实践指导部分。
+  keep_split: true
+- 'no': 2426
+  overturn_probability: 0.1
+  alternative: 章节标题（第八章）
+  counter_evidence:
+  - 前文 no.2424-2425 为空行，no.2426 “## 三角验证”是独立的方法论章节。
+  keep_split: true
+- 'no': 2724
+  overturn_probability: 0.1
+  alternative: 章节标题（第九章）
+  counter_evidence:
+  - 前文 no.2722-2723 为空行，no.2724 “## 期望”是独立章节。
+  keep_split: true
+- 'no': 2977
+  overturn_probability: 0.0
+  alternative: 章节标题（第十章或第九章延续，视全书结构而定）
+  counter_evidence:
+  - 该行明确写着“# 第九章 创建并解读度量成绩报告单”。虽然前面有“## 期望”等章节，但这里明确标注了“第九章”。
+  - 根据规则“编号特征：只划分全书最高层级的大章”，带有明确章节序号“第九章”的行必须分章。
+  - 前文 no.2973 出现了 `ch09.jpg`，这可能暗示这是第九章的内容（图片在章首），或者前面的“## 期望”其实是第八章的一部分，而这里是第九章。无论如何，带有序号的“第九章”标题必须是新章。
+  keep_split: true

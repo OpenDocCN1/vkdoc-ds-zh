@@ -1,0 +1,37 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.9
+  reason: 版权信息（前置内容），作为独立章节处理。
+- 'no': 20
+  confidence: 0.9
+  reason: 引言/前言（前置内容），作为独立章节处理。
+- 'no': 52
+  confidence: 0.95
+  reason: 第一部分（Part 1），全书最高层级结构，需分章。
+- 'no': 54
+  confidence: 0.95
+  reason: 第 1 章，一级章节标题。
+- 'no': 206
+  confidence: 0.95
+  reason: 第 2 章，一级章节标题。
+- 'no': 296
+  confidence: 0.95
+  reason: 第 3 章，一级章节标题。
+- 'no': 757
+  confidence: 0.95
+  reason: 第二部分（Part 2），全书最高层级结构，需分章。
+- 'no': 759
+  confidence: 0.95
+  reason: 第 4 章，一级章节标题。
+- 'no': 2188
+  confidence: 0.95
+  reason: 第三部分（Part 3），全书最高层级结构，需分章。
+- 'no': 2190
+  confidence: 0.95
+  reason: 第 6 章，一级章节标题。
+- 'no': 2927
+  confidence: 0.95
+  reason: 第四部分（Part 4），全书最高层级结构，需分章。
+- 'no': 2929
+  confidence: 0.95
+  reason: 第 9 章，一级章节标题。

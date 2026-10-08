@@ -1,0 +1,173 @@
+reviews:
+- 'no': 5932
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.1.5.3）
+  counter_evidence:
+  - 该行内容为 '## 7.1.5.3 NumPy 的 `genfromtxt()` 函数'，属于多级编号 '7.1.5.3'，根据规则“只划分全书最高层级的大章...如果遇到‘X.Y’...子层级，不划分新的章节”，此标题仅为子节，不应作为章节起点。
+  - 上下文显示其上级标题为 '## 7.1.6 XML' (行 5944) 和更高层级章节，表明当前处于章节内部结构，而非新的一章开始。
+  keep_split: false
+- 'no': 5944
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.1.6）
+  counter_evidence:
+  - 该行内容为 '## 7.1.6 XML'，编号为 '7.1.6'，属于子层级标题。根据规则，只有最高层级（如“第 7 章”或“7.”）才应划分新章，'7.1.6'
+    明显是 7.1 节下的子节，不应独立分章。
+  - 前后文存在更小的子标题（如 7.1.6.1, 7.1.6.2），进一步证明 7.1.6 是中间层级，非章级标题。
+  keep_split: false
+- 'no': 5952
+  overturn_probability: 0.0
+  alternative: 正文子子节标题（Section 7.1.6.1）
+  counter_evidence:
+  - 该行内容为 '### 7.1.6.1 无命名空间的 XML'，编号 '7.1.6.1' 为四级标题，属于深层子节点。规则明确指出“X.Y”等子层级不划分新章节。
+  - 该标题紧跟在 '## 7.1.6 XML' 之后，作为其下的第一个子节，语义上隶属于 XML 这一子主题，而非独立章节。
+  keep_split: false
+- 'no': 6103
+  overturn_probability: 0.0
+  alternative: 正文子子节标题（Section 7.1.6.3）
+  counter_evidence:
+  - 该行内容为 '### 7.1.6.3 写入 XML'，编号 '7.1.6.3' 为四级标题，属于子层级。根据判断规则，非最高层级编号（如“第 X 章”）不应分章。
+  - 上下文显示其前后均为 XML 处理的具体技术细节讨论，属于同一技术主题下的细分部分，不具备统领全章的语义特征。
+  keep_split: false
+- 'no': 6128
+  overturn_probability: 0.0
+  alternative: 正文子子节标题（Section 7.1.6.4）
+  counter_evidence:
+  - 该行内容为 '### 7.1.6.4 美化打印 XML'，编号 '7.1.6.4' 为四级标题，属于子层级。规则规定子层级不划分新章节。
+  - 该标题讨论的是 XML 格式化的具体技巧，是 7.1.6 节“XML”主题下的一个具体操作点，不具备章节的概括性和独立性。
+  keep_split: false
+- 'no': 6162
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.1.7）
+  counter_evidence:
+  - 该行内容为 '## 7.1.7 YAML'，编号 '7.1.7' 为三级标题（子节）。根据规则，只有“Y.”（即 7.）或“第 X 章”级别的标题才分章，'7.1.7'
+    应归于第 7 章内部结构。
+  - 其内容讨论 YAML 格式，是数据 I/O 章节下的一个具体数据格式小节，而非独立章。
+  keep_split: false
+- 'no': 6209
+  overturn_probability: 0.0
+  alternative: 正文子子节标题（Section 7.1.8）
+  counter_evidence:
+  - 该行内容为 '### 7.1.8 JSON'，编号 '7.1.8' 为子层级标题。规则明确排除子层级标题作为章起点。
+  - 上下文中，JSON 是继 YAML 后的另一种数据格式讨论，属于 7.1 大节下的并列子项，非新章。
+  keep_split: false
+- 'no': 6230
+  overturn_probability: 0.0
+  alternative: 正文子子节标题（Section 7.1.9）
+  counter_evidence:
+  - 该行内容为 '### 7.1.9 ini'，编号 '7.1.9' 为子层级标题。根据“只划分全书最高层级”的原则，此标题不应分章。
+  - 其内容关于 INI 文件配置，是 7.1 节数据格式系列的最后一部分，语义上从属于第 7 章。
+  keep_split: false
+- 'no': 6311
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.2）
+  counter_evidence:
+  - '该行内容为 ''## 7.2 Recipe 7-1: 读取 YAML 文件''，编号 ''7.2'' 为三级标题。若全书最高层级为“第 7 章”或“7.”，则
+    ''7.2'' 仅为章内第二节，非新章。'
+  - 标题中的 'Recipe'（食谱/范例）表明这是实践指导部分，通常作为章内的子章节存在，而非独立的顶层章节。
+  keep_split: false
+- 'no': 6367
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.3）
+  counter_evidence:
+  - '该行内容为 ''## 7.3 Recipe 7-2: 写入 YAML 文件''，编号 ''7.3'' 为子层级。规则规定不划分 ''X.Y'' 类子标题。'
+  - 与 7.2 类似，这是 YAML 读写实践的第二部分，属于第 7 章内的连续小节。
+  keep_split: false
+- 'no': 6407
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.4）
+  counter_evidence:
+  - '该行内容为 ''## 7.4 Recipe 7-3: 读取 ini 文件''，编号 ''7.4'' 为子层级。非最高层级标题不分章。'
+  - 内容是关于 INI 文件的实践示例，从属于第 7 章的整体数据 I/O 主题。
+  keep_split: false
+- 'no': 6492
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.5）
+  counter_evidence:
+  - 该行内容为 '## 7.5 方法 7-4：编写 ini 文件'，编号 '7.5' 为子层级。
+  - 这是 INI 文件处理的后续实践，属于章内小节。
+  keep_split: false
+- 'no': 6548
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.6）
+  counter_evidence:
+  - 该行内容为 '## 7.6 二进制文件'，编号 '7.6' 为子层级。
+  - 讨论二进制文件读写，是第 7 章数据 I/O 主题下的一个重要分支，但层级低于章。
+  keep_split: false
+- 'no': 6629
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.7）
+  counter_evidence:
+  - 该行内容为 '## 7.7 Excel `.xls, .xlsx`'，编号 '7.7' 为子层级。
+  - 专注于 Excel 文件格式，属于第 7 章内的具体格式探讨，非独立章。
+  keep_split: false
+- 'no': 6635
+  overturn_probability: 0.0
+  alternative: 正文子子节标题（Section 7.7.1）
+  counter_evidence:
+  - 该行内容为 '### 7.7.1 读取 `.xls` 和 `.xlsx` 文件'，编号 '7.7.1' 为四级子标题。
+  - 明确为 7.7 节下的子节，规则规定子层级不分章。
+  keep_split: false
+- 'no': 6831
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.8）
+  counter_evidence:
+  - 该行内容为 '## 7.8 方案 7-5：编写一个 `.xlsx` 文件'，编号 '7.8' 为子层级。
+  - 这是 Excel 写入的实践方案，属于章内小节。
+  keep_split: false
+- 'no': 6950
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.9）
+  counter_evidence:
+  - 该行内容为 '## 7.9 HDF5'，编号 '7.9' 为子层级。
+  - 讨论 HDF5 格式，是第 7 章数据格式系列的延续，非独立章。
+  keep_split: false
+- 'no': 7244
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.10）
+  counter_evidence:
+  - 该行内容为 '# 7.10 NetCDF4'，虽然使用了单井号 `#`（通常代表 H1），但编号 '7.10' 明显是第 7 章下的第十个小节。在 Markdown
+    转换或排版中，可能因层级调整使用了 H1，但语义上它仍是子章节（Sub-chapter）。
+  - 根据“编号特征”规则，只有“第 X 章”或“Y.”（Y 为整数，代表章）才分章。'7.10' 是 7 章下的第 10 节，因此不应分章。
+  keep_split: false
+- 'no': 7303
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.11）
+  counter_evidence:
+  - 该行内容为 '# 7.11 SQLite'，编号 '7.11' 为第 7 章下的第 11 节。
+  - 尽管使用了 `#` 标记，但数字编号 '7.11' 表明其层级低于章（第 7 章），应视为章内小节，不分章。
+  keep_split: false
+- 'no': 7523
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.12）
+  counter_evidence:
+  - 该行内容为 '# 7.12 食谱 7-6：使用 SQLite 数据库进行 CRUD 操作'，编号 '7.12' 为第 7 章下的第 12 节。
+  - 这是 SQLite 部分的实践食谱，属于章内子节，非独立章。
+  keep_split: false
+- 'no': 7709
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.13）
+  counter_evidence:
+  - 该行内容为 '## 7.13 Pickle 文件'，编号 '7.13' 为子层级。
+  - 讨论 Pickle 序列化，是第 7 章数据 I/O 主题下的另一小节。
+  keep_split: false
+- 'no': 7801
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.14）
+  counter_evidence:
+  - 该行内容为 '## 7.14 MATLAB `.mat` 文件'，编号 '7.14' 为子层级。
+  - 专注 MATLAB 文件格式，属于章内小节。
+  keep_split: false
+- 'no': 8228
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.15）
+  counter_evidence:
+  - 该行内容为 '## 7.15 命令行输入'，编号 '7.15' 为子层级。
+  - 讨论命令行参数解析，属于第 7 章 I/O 交互的一部分，非独立章。
+  keep_split: false
+- 'no': 8898
+  overturn_probability: 0.0
+  alternative: 正文子节标题（Section 7.18）
+  counter_evidence:
+  - 该行内容为 '## 7.18 配方 7-7：TCP 服务器'，编号 '7.18' 为子层级。
+  - 这是网络通信部分的实践配方，属于第 7 章下的具体内容，非最高层级章节。
+  keep_split: false

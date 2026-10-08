@@ -1,0 +1,11 @@
+chapter_starts:
+- 'no': 14313
+  confidence: 1.0
+  final_reason: 双方一致 + 排版语义均符合。行内容为“# 12. 绘图”，使用Markdown一级标题语法，编号12承接前文第11章，属于最高层级大章，且前文为第11章末尾总结，上下文逻辑连贯。
+  accepted_evidence:
+  - 判断方识别为最高层级章节标题
+  - 复核方确认Markdown一级标题 `# 12.` 对应顶级章节
+  - 前文（行14312及之前）属于第11章内容，编号11与12连贯
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

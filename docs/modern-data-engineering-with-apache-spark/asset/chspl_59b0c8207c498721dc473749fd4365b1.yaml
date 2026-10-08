@@ -1,0 +1,13 @@
+chapter_starts:
+- 'no': 6287
+  confidence: 0.95
+  reason: Markdown 一级标题（#），无编号但语义明确为“流处理入门”，且后续内容涉及第9章的具体主题（如图9-1），符合章标题特征。
+- 'no': 6689
+  confidence: 0.98
+  reason: 包含明确的全书最高层级编号“10.”，标题为“编写结构化流式处理应用的模式”，符合章节起始特征。
+- 'no': 7720
+  confidence: 0.98
+  reason: 包含明确的全书最高层级编号“11.”，标题为“Apache Kafka 与 Spark Structured Streaming”，符合章节起始特征。
+- 'no': 8768
+  confidence: 0.98
+  reason: 包含明确的全书最高层级编号“12.”，标题为“分析处理与洞察”，符合章节起始特征。

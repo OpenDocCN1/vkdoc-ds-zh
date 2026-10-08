@@ -1,0 +1,28 @@
+chapter_starts:
+- 'no': 6194
+  confidence: 0.98
+  final_reason: 双方一致。行内容为“# 10. 高级算法...”，一级标题且带有连贯的章序号“10.”，前文为第9章脚注，符合最高层级章标题特征。
+  accepted_evidence:
+  - 判断方提出：一级标题 + 序号“10.” + 上下文连贯。
+  - 复核方确认：维持分章，反方证据（可能是部分标题）因缺乏上下文支持被驳回。
+  rejected_evidence:
+  - 复核方提出的“可能是部分标题”的假设缺乏证据，且与“10”和“11”连续出现的教材结构不符。
+  need_human_review: false
+- 'no': 6676
+  confidence: 0.98
+  final_reason: 双方一致。行内容为“# 11. 现实世界中的量子技术...”，一级标题且带有连贯的章序号“11.”，前文为第10章脚注，符合最高层级章标题特征。
+  accepted_evidence:
+  - 判断方提出：一级标题 + 序号“11.” + 上下文连贯。
+  - 复核方确认：维持分章，内容完整构成一个大主题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7336
+  confidence: 0.95
+  final_reason: 双方一致。行内容为“## 索引”，根据规则“文末索引也划分为一章”，且位于书籍末尾，作为独立章节处理。
+  accepted_evidence:
+  - 判断方提出：规则规定文末索引划分为一章。
+  - 复核方确认：虽然标记为H2，但依据特定任务规则应分章。
+  rejected_evidence:
+  - 复核方提出的“非正文部分不分章”观点被任务明确规则覆盖。
+  need_human_review: false
+rejected_lines: []

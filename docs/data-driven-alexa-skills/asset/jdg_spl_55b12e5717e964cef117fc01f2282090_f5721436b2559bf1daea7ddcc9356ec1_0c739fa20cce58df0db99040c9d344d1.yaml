@@ -1,0 +1,70 @@
+chapter_starts:
+- 'no': 2995
+  confidence: 0.98
+  final_reason: 双方一致。带有序号'9.'的二级标题'## 配置 VUI'，且前文为上一章节的小结，语义上开启新章节，符合分章规则。
+  accepted_evidence:
+  - 带有 Markdown 二级标题标记 '##' 和编号 '9.'
+  - 前文为第 8 章的总结内容，序号连贯
+  - 后续内容为具体的 VUI 配置操作，具有统领性
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3128
+  confidence: 0.98
+  final_reason: 双方一致。带有序号'10.'的二级标题'## 使用 APL 在屏幕上进行演示'，前文为上一章节的小结，序号连贯，语义清晰。
+  accepted_evidence:
+  - 带有 Markdown 二级标题标记 '##' 和编号 '10.'
+  - 紧接第 9 章，序号连贯
+  - 内容开启新的 APL 界面主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3842
+  confidence: 0.95
+  final_reason: 双方一致。带有序号'11.'的一级标题'# 编写 Lambda 函数'。虽然 Markdown 中一级标题通常指书，但在此书结构中显然是主章节（第
+    11 章），且前文有总结，序号连贯。
+  accepted_evidence:
+  - 带有序号 '11.'
+  - 前文为第 10 章总结及脚注
+  - 内容关于编写 Lambda 函数，属于新的主要技术阶段
+  rejected_evidence:
+  - Markdown 一级标题在某些规范中可能不代表章，但此处语境下应视为章标题
+  need_human_review: false
+- 'no': 4651
+  confidence: 0.92
+  final_reason: 双方一致。无数字编号的标题'## 单元测试 Alexa 技能'，但根据文中提到的'图 12-x'序列，可推断其为第 12 章。前文为第
+    11 章代码部分，逻辑上开启测试主题。
+  accepted_evidence:
+  - 标题具有统领性，内容为单元测试
+  - 后续图片编号为'图 12-1'等，暗示这是第 12 章
+  - 前文第 4645 行为'## 总结'，符合章节结束特征
+  rejected_evidence:
+  - 缺少显式数字编号'12.'，存在排版不一致的可能
+  need_human_review: false
+- 'no': 5098
+  confidence: 0.98
+  final_reason: 双方一致。带有序号'13.'的二级标题'## 存储数据'，前文为第 12 章总结，序号连贯，语义清晰。
+  accepted_evidence:
+  - 带有 Markdown 二级标题标记 '##' 和编号 '13.'
+  - 紧接第 12 章，序号连贯
+  - 内容关于数据存储，开启新主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5744
+  confidence: 0.9
+  final_reason: 双方一致。'第三部分：在高级技能中使用 API'是部分标题。根据规则，若存在部分-章节模式，部分标题应划分为新章（或作为逻辑分界点）。
+  accepted_evidence:
+  - 明确的'第三部分'标识
+  - 具有统领后续多个章节（如第14章）的作用
+  - 符合'部分-章节模式'下部分标题分章的规则
+  rejected_evidence:
+  - 若仅划分最高层级章，部分标题可能被视为非章，但规则指出在部分-章节模式下需划分
+  need_human_review: false
+- 'no': 5746
+  confidence: 0.98
+  final_reason: 双方一致。带有序号'14.'的二级标题'## 个人净资产技能'，位于第三部分之下，序号连贯，开启新章节。
+  accepted_evidence:
+  - 带有 Markdown 二级标题标记 '##' 和编号 '14.'
+  - 位于部分标题之后，作为该部分首个章节
+  - 内容明确，具有统领性
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

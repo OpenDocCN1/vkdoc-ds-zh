@@ -1,0 +1,51 @@
+reviews:
+- 'no': 2995
+  overturn_probability: 0.05
+  alternative: 排版断行/正文小标题
+  counter_evidence:
+  - 该行带有 Markdown 二级标题标记 '##' 和编号 '9.'，且前文第 2991 行为 '### 总结'，符合章节结束的上下文特征
+  - 该行文本 '9. 配置 VUI' 具有统领性，且后续内容涉及第 9 章的具体操作，不像误报的列表项或引文
+  keep_split: true
+- 'no': 3128
+  overturn_probability: 0.05
+  alternative: 排版断行/正文小标题
+  counter_evidence:
+  - 该行带有 Markdown 二级标题标记 '##' 和编号 '10.'，前文第 3124 行为 '### 本章小结'，符合章节结束特征
+  - 序号 10 紧接 9，连贯性良好，且内容为 '使用 APL 在屏幕上进行演示'，属于新的主题章节
+  keep_split: true
+- 'no': 3842
+  overturn_probability: 0.1
+  alternative: 排版断行/正文小标题
+  counter_evidence:
+  - 该行使用了 '# 11.' 一级标题标记，虽然 Markdown 中一级标题通常用于书名，但在此上下文中作为章节标题处理是合理的
+  - 前文第 3836 行为 '### 总结'，且序号 11 紧接 10，连贯性良好，支持其为新章节
+  keep_split: true
+- 'no': 4651
+  overturn_probability: 0.2
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行 '## 单元测试 Alexa 技能' 没有数字编号，可能被视为章节内的二级小标题而非顶级章节
+  - 但在整本书的结构中，若前几章都有编号，突然无编号可能暗示它只是第 11 章的一个子节，或者原书排版错误省略了 '12.'
+  - 然而，观察后续图片引用 '图 12-1' 等，强烈暗示这是第 12 章，因此即使无编号，语义上仍是新章
+  keep_split: true
+- 'no': 5098
+  overturn_probability: 0.05
+  alternative: 排版断行/正文小标题
+  counter_evidence:
+  - 该行 '## 13. 存储数据' 带有明确的编号 '13.' 和二级标题标记
+  - 前文第 5094 行为 '### 总结'，且序号 13 紧接 12，连贯性良好，符合分章规则
+  keep_split: true
+- 'no': 5744
+  overturn_probability: 0.0
+  alternative: 部分标题（非章）
+  counter_evidence:
+  - 根据规则，若存在 '部分' 和 '章' 的层级，遇到部分标题时通常也要划分新章（作为逻辑分章的一部分）
+  - 该行 '第三部分：在高级技能中使用 API' 是典型的 '部分' 标题，具有统领后续多个章节的作用，分章合理
+  keep_split: true
+- 'no': 5746
+  overturn_probability: 0.05
+  alternative: 排版断行/正文小标题
+  counter_evidence:
+  - 该行 '## 14. 个人净资产技能' 带有明确的编号 '14.' 和二级标题标记
+  - 它位于 '第三部分' 标题之后，作为该部分下的第一个章节，序号连贯，分章合理
+  keep_split: true

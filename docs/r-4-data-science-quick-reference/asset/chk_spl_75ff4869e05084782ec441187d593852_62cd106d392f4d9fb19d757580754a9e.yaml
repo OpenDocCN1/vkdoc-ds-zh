@@ -1,0 +1,49 @@
+reviews:
+- 'no': 0
+  overturn_probability: 0.0
+  alternative: 封面图片（Cover Art）
+  counter_evidence:
+  - 该行为 Markdown 图片语法 `![](...)`，内容为封面图，通常作为书籍前置内容的一部分。
+  - 根据规则‘前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章’，封面图属于前置内容，将其作为第一章节起始是合理的，尽管它本身不是标题，而是视觉元素。
+  - 后续第2行包含ISBN和第3行版权信息，共同构成了‘版权页/封面’这一前置章节，因此维持分章。
+  keep_split: true
+- 'no': 11
+  overturn_probability: 0.0
+  alternative: 一级章节标题
+  counter_evidence:
+  - 行内容为 `# 1. 引言`，使用了 H1 级别 Markdown 标题。
+  - 符合‘编号特征’：一级序号‘1.’，且语义‘引言’具有统领性，覆盖后续关于 R 语言和 Tidyverse 的介绍内容。
+  - 前几行（0-10）为版权和作者信息，属于前置部分结束，此处为新章开始。
+  keep_split: true
+- 'no': 62
+  overturn_probability: 0.0
+  alternative: 一级章节标题
+  counter_evidence:
+  - 行内容为 `# 2. 数据导入：readr`，使用了 H1 级别 Markdown 标题。
+  - 序号‘2.’紧接‘1.’，连贯且符合章节层级。
+  - 后续内容（64-92）详细讲解 readr 包，符合‘语义特征’。
+  keep_split: true
+- 'no': 1460
+  overturn_probability: 0.0
+  alternative: 一级章节标题
+  counter_evidence:
+  - 行内容为 `# 5. 重新格式化表格：tidyr`，使用了 H1 级别 Markdown 标题。
+  - 原判断指出序号从 2 跳到 5，缺 3 和 4。根据规则‘如果候选序号明显跳跃...只需要划分新的章节，无视其它’，仍应视为新章。
+  - 后续内容全部关于 tidyr 包，语义吻合。
+  keep_split: true
+- 'no': 2204
+  overturn_probability: 0.0
+  alternative: 一级章节标题
+  counter_evidence:
+  - 行内容为 `# 6. 管道：magrittr`，使用了 H1 级别 Markdown 标题。
+  - 序号‘6.’紧接‘5.’，连贯。
+  - 后续内容讲解 magrittr 管道，语义吻合。
+  keep_split: true
+- 'no': 2603
+  overturn_probability: 0.0
+  alternative: 一级章节标题
+  counter_evidence:
+  - 行内容为 `# 函数式编程：purrr`，使用了 H1 级别 Markdown 标题，但缺少数字序号。
+  - 前一个章节（2204）是 `# 6. ...`。如果本书遵循数字编号，缺失‘7’可能是排版错误或 OCR 遗漏。
+  - 根据规则‘注意也可能没有章序号，这就需要依靠语义判断’，该标题统领后续所有关于 purrr 包的内容，且格式与其他 H1 章节一致，因此必须划为新章。
+  keep_split: true

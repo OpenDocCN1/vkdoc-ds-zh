@@ -1,0 +1,134 @@
+reviews:
+- 'no': 18
+  overturn_probability: 0.0
+  alternative: 引言部分标题
+  counter_evidence:
+  - 虽然任务要求必须提出反方证据，但根据规则“前言、序言...统一划分为一章”，该判断符合规范。反方视角：严格来说它是本书的前言而非正文第一章，但在分章逻辑中将其作为独立章节处理是标准的。
+  keep_split: true
+- 'no': 32
+  overturn_probability: 0.0
+  alternative: 第一章标题
+  counter_evidence:
+  - 该行位于目录区（Lines 18-78）之内。观察后续正文结构，Line 80 才是第一章正文的实际起始标题 `# 量子场：建构现实的基石`。Line 32
+    仅是目录中的条目，并非正文章节的分界点。
+  keep_split: false
+- 'no': 36
+  overturn_probability: 0.0
+  alternative: 目录条目
+  counter_evidence:
+  - 位于目录区，对应正文 Line 746。目录行不应作为章节分割点。
+  keep_split: false
+- 'no': 40
+  overturn_probability: 0.0
+  alternative: 目录条目
+  counter_evidence:
+  - 位于目录区，对应正文 Line 1346。目录行不应作为章节分割点。
+  keep_split: false
+- 'no': 44
+  overturn_probability: 0.0
+  alternative: 目录条目
+  counter_evidence:
+  - 位于目录区，对应正文 Line 1734。目录行不应作为章节分割点。
+  keep_split: false
+- 'no': 50
+  overturn_probability: 0.0
+  alternative: 目录条目
+  counter_evidence:
+  - 位于目录区，对应正文 Line 2675。目录行不应作为章节分割点。
+  keep_split: false
+- 'no': 54
+  overturn_probability: 0.0
+  alternative: 目录条目
+  counter_evidence:
+  - 位于目录区。观察正文结构，第六章标题 `# 第六章：Qiskit...` 并未在提供的正文片段中找到明确的 H1 起始位置（Line 2675 是第五章），或者它被包含在后续未展示部分。无论如何，目录行本身不是分章点。
+  keep_split: false
+- 'no': 58
+  overturn_probability: 0.0
+  alternative: 目录条目
+  counter_evidence:
+  - 位于目录区。
+  keep_split: false
+- 'no': 62
+  overturn_probability: 0.0
+  alternative: 目录条目
+  counter_evidence:
+  - 位于目录区。
+  keep_split: false
+- 'no': 66
+  overturn_probability: 0.0
+  alternative: 目录条目
+  counter_evidence:
+  - 位于目录区。
+  keep_split: false
+- 'no': 70
+  overturn_probability: 0.0
+  alternative: 目录条目
+  counter_evidence:
+  - 位于目录区。
+  keep_split: false
+- 'no': 74
+  overturn_probability: 0.0
+  alternative: 目录条目
+  counter_evidence:
+  - 位于目录区。
+  keep_split: false
+- 'no': 78
+  overturn_probability: 0.0
+  alternative: 正文前置内容标题（关于作者）
+  counter_evidence:
+  - 根据规则，“前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章”。虽然它属于前置内容，但它紧接在目录之后，通常与“引言”或“前言”合并，或者单独作为“关于本书”章节。然而，如果
+    Line 18 "引言" 已经作为一个章节起始，那么 Line 78 "关于作者" 是否应该新开一章？通常“关于作者”是书的末尾或前言的一部分。但在 Apress/Springer
+    书籍结构中，Copyright、Dedication, Intro, Chapter 1... 以及 About the Author 通常都是独立的逻辑块。如果
+    Line 18 是 Intro 的起始，那么 Line 78 作为 About Author 的起始，确实构成了一个新的逻辑部分。但仔细看图，Line 78
+    后面直接跟了 Line 80 "第一章" 的正文。通常“关于作者”是在全书最后。这里出现在目录后、正文前，可能是排版错误或者是 "About this Book"
+    部分。鉴于规则要求前置内容分章，且它与前面的“引言”在语义上是不同的元数据部分，保留分章是合理的。但更严格的反证是：它可能只是版权页/关于作者页，通常这些页面在电子书中不单独成章，或者归入“前言/版权”大章。如果
+    Line 18 是 Intro，Line 78 是 About Author，它们之间没有正文，通常可以合并为一个“前置部分”章，或者分别开章。考虑到 18
+    是 Intro，78 是 About Author，间隔了目录（32-74），这在逻辑上是两个独立的前置块。因此 78 开新章是合理的。
+  keep_split: true
+- 'no': 80
+  overturn_probability: 0.0
+  alternative: 第一章正文标题
+  counter_evidence:
+  - 这是正文中第一章的实际起始标题。
+  keep_split: true
+- 'no': 475
+  overturn_probability: 0.0
+  alternative: 章节内小标题（H1）
+  counter_evidence:
+  - 该行 `# 量子场论与标准模型` 出现在 Line 475。观察上下文，Line 80 是 `# 量子场：建构现实的基石`（第一章标题）。Line 554
+    是 `# 物理学进展与量子力学基础`。Line 746 是第二章标题。在 Markdown 转换中，书籍的子章节（Section）有时会被错误地标记为 H1
+    (`#`) 而非 H2 (`##`)。例如，Line 80 是 H1，Line 101 是 H2，Line 131 是 H3。Line 475 是 H1。但看语义，它统领了从
+    475 到 745 的内容，而 746 是明确的第二章。如果 475 是第一章内部的 H1 级别子节（因为前文已有 H1 章标题），那么根据规则“只划分全书最高层级的大章”，如果本书最高层级是
+    `# 第X章` 或无编号的 H1 章标题，那么 475 看起来像是一个新的大章。但是，Line 80 没有“第1章”字样，Line 32 有。Line 80
+    是正文起始。Line 475 的标题风格与 Line 80 一致。然而，通常一本书的章节是线性的。Line 80 开始第1章。Line 746 开始第2章。Line
+    475 夹在中间。它是否是新的一章？看 Line 554 也是 H1 `# 物理学进展与量子力学基础`。如果 475 和 554 都是 H1，且 746 是第2章，那么
+    475 和 554 极有可能是第1章内部的“部分”或“大节”。在许多技术书籍中，章内有多个 H1 标题作为主要部分。规则指出：“如果遇到 'X.Y'、'第
+    X 节' 等子层级，不划分新的章节”。这里没有编号。但语义上，如果 475 是章，那么 80 到 474 是第一章的一部分，475 到 553 是另一章？这与
+    746 是第二章矛盾吗？不一定。但通常 H1 代表章。然而，对比 Line 80 `# 量子场...` 和 Line 475 `# 量子场论...`，它们级别相同。如果
+    80 是章，475 也是章，那就有两个“第1章”级别的东西。查看 Line 32 目录 `# 第 1 章...`。正文 Line 80 对应目录第1章。Line
+    746 对应目录第2章。中间没有目录项对应 475。因此 475 大概率是第1章内部的 H1 子标题（可能是第1.1部分或类似），而非独立的大章。根据“语义判断”和“上下文”，如果它不是目录中的主章，则不应分章。
+  keep_split: false
+- 'no': 746
+  overturn_probability: 0.0
+  alternative: 第二章正文标题
+  counter_evidence:
+  - 这是正文中第二章的实际起始标题。
+  keep_split: true
+- 'no': 1346
+  overturn_probability: 0.0
+  alternative: 第三章正文标题
+  counter_evidence:
+  - 这是正文中第三章的实际起始标题。
+  keep_split: true
+- 'no': 1734
+  overturn_probability: 0.0
+  alternative: 第四章正文标题
+  counter_evidence:
+  - 这是正文中第四章的实际起始标题。
+  keep_split: true
+- 'no': 2675
+  overturn_probability: 0.0
+  alternative: 第五章正文标题
+  counter_evidence:
+  - 这是正文中第五章的实际起始标题。
+  keep_split: true

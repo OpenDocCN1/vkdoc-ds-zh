@@ -1,340 +1,448 @@
-# 9. 与操作系统和外部可执行程序交互
+# 5. 日期和时间
 
-复杂的工作流程很少只依赖于 MATLAB 或 Python。其他应用程序，无论是自定义的内部工具、商业仿真和建模套件，还是开源工具，都在更宏大的场景中扮演着重要角色。在本章中，我们将了解 Python 程序如何与底层操作系统和其他可执行程序交互。我们将读取和更改环境变量、调用其他程序并捕获其输出、监控主机计算机的内存和 CPU 使用情况，以及终止超过给定资源阈值的进程。
+时间数据在计算工作中频繁出现。来自传感器的测量记录、经济结果、股票价格、时间步进数值模拟等，如果没有伴随的时间值，都是无用的。在本章中，我们将介绍 Python 的`datetime`模块，它提供了与 MATLAB 同名数据类型类似的功能。
 
-## 9.1 读取、设置环境变量
+## 5.1 时间
 
-在 Python 中，可以通过 `os.environ` 对象访问环境变量；在 MATLAB 中，则通过 `getenv()` 函数访问：
+Python 的`time`模块具有返回当前时间（本地时区或 UTC）、测量 CPU 时间或经过的时间，以及休眠所需时间的功能。
+
+### 5.1.1 当前时间
+
+Python 的`time.time()`函数返回与 MATLAB 中`posixtime(datetime())`相同的值，即当前时间的双精度表示，以 Unix 纪元秒为单位，自 1970 年 1 月 1 日午夜起持续递增的秒数（忽略闰秒），精度为微秒。除此之外，它在 Python 中还用于计算代码段的运行时间。
+
+`time.strftime()`函数根据所需格式返回当前时间：
 
 | MATLAB: | Python: |
 | --- | --- |
-| `>> getenv('HOME')` `ans = /home/al` | `In : import os` `In : os.environ['HOME']` `Out: '/home/al'` |
+| `>> format long e` `>> posixtime(datetime())` `1.572210959845713e+09` `>> t = datetime;` `>> datestr(t,'yyyy-mm-dd HH:MM:ss')` `'2019-10-27 14:25:26'` | `In : import time` `In : time.time()` `Out: 1572210959.845713` `In : time.strftime('%Y-%m-%d %H:%M:%S')` `Out: '2019-10-27 14:25:26'` |
 
-`os.environ` 比 `getenv()` 更具优势，因为它的行为类似于字典。这允许你遍历所有已知的环境变量（回想一下第 4.2.3 节，格式选项 `<10s` 表示“一个字符串，宽度为 10 个字符，左对齐”）：
+### 5.1.2 时间字符串格式
+
+`strftime()` 的格式参数包含 1989 年 C 标准库中同名函数所接受的所有参数，以及一些额外参数。在某些情况下，输出结果取决于计算机的区域设置。这可以通过在 Linux 和 macOS 的终端中执行命令 `locale`，或在 Windows 的命令提示符中执行命令 `systeminfo`（查看输出中的“系统区域设置”）来揭示。表 5-1 中的示例使用了来自 Python 项目文档的 `en_US` 和 `de_DE` 区域设置。
+
+如果支持该格式，则给出 `datestr()` 函数对应的 MATLAB 等效格式字符串。
+
+**表 5-1** `strftime()` 和 `strptime()` 格式代码
+
+| Python 指令 | 含义 | 示例 | `datestr()` 中的 MATLAB 等效项 |
+| --- | --- | --- | --- |
+| `%a` | 缩写的工作日名称 | Sun, Mon (en_US) So, Mo (de_DE) | `ddd` |
+| `%A` | 完整的工作日名称 | Sunday (en_US) Sonntag (de_DE) | `dddd` |
+| `%w` | 表示星期几的整数 | Python: 0 (周日) … 6 MATLAB: 1 (周日) … 7 | `e` |
+| `%d` | 两位数的月份中的日期 | 01, …, 31 | `dd` |
+| `%b` | 缩写的月份名称 | Jan, Dec (en_US) Jan, Dez (de_DE) | `MMM` |
+| `%B` | 完整的月份名称 | January (en_US) Januar (de_DE) | `MMMM` |
+| `%m` | 两位数的月份 | 01, …, 12 | `MM` |
+| `%y` | 两位数的年份 | 99, 00, …, 19 | `yy` |
+| `%Y` | 四位数的年份 | 1999, 2000, …, 2019 | `yyyy` 或 `u` |
+| `%H` | 两位数的小时，0–23 | 00, …, 23 | `HH` |
+| `%I` | 两位数的小时，0–11 | 00, …, 11 | `HH PM` (输出包含 `PM`) |
+| `%p` | AM 或 PM | AM, PM (en_US) am, pm (de_DE) | `AM` 或 `PM` |
+| `%M` | 两位数的分钟 | 00, …, 59 | `mm` |
+| `%S` | 两位数的秒 | 00, …, 59 | `ss` |
+| `%f` | 六位数的微秒 | 000000, …, 999999 | `S .. SSSSSSSSS` (十分之一秒到纳秒) |
+| `%z` | UTC 偏移 ±HHMM[SS[.ffffff]] | +0000, –0900015 | `Z` |
+| `%j` | 三位数的一年中的第几天 | 001, …, 366 | `DDD` |
+| `%U` | 两位数的年份中的第几周（星期日为一周开始） | 00, …, 53 | 不可用 |
+| `%W` | 两位数的年份中的第几周（星期一为一周开始） | 00, …, 53 | 不可用 |
+| `%c` | 区域设置特定的日期和时间 | Sun Oct 27 16:57:47 2019 (en US) | `datetime()` 默认 |
+| `%x` | 区域设置特定的日期 | 10/27/19 (en_US) 27.10.2019 (de_DE) | 不可用 |
+| `%X` | 区域设置特定的时间 | 17:00:53 (en_US) 17:00:53 (de_DE) | 不可用 |
+| `%%` | 字面量 % | % | % |
+
+### 5.1.3 tic, toc；%timeit
+
+MATLAB 的 `tic` 和 `toc` 计算嵌套它们之间的命令所消耗的 CPU 时间。Python 中的 `time.time()` 可以做同样的事情，但需要更多输入：
+
+| MATLAB: | Python: |
+| --- | --- |
+| `>> N = 1000;` `>> tic` `>> a = eig(rand(N))` `>> toc` `Elapsed time: 1.57437 seconds.` | `In :` `import time; import numpy as np` `In : N = 1000` `In : tic = time.time()` `In : a = np.linalg.eig(np.random.rand(N,N))` `In : time.time() - tic` `Out: 1.2564113140106201` |
+
+在 Python 程序中，使用 `time.time()` 的差值很有用，但在 ipython 中进行交互式操作时，使用其“魔法”命令 `%timeit` 来测量命令执行所需时间会更方便：
 
 Python:
 
 ```
-In : for V in sorted(os.environ):
-...:     print(f'{V:<10s} = {os.environ[V]}')
-AUTOJUMP_ERROR_PATH = /home/al/.local/share/autojump/errors.log
-AUTOJUMP_SOURCED = 1
-CLUTTER_IM_MODULE = xim
-COMPIZ_BIN_PATH = /usr/bin/
-COMPIZ_CONFIG_PROFILE = ubuntu
-CONDA_DEFAULT_ENV = base
-CONDA_EXE  = /usr/local/anaconda3/bin/conda
-CONDA_PREFIX = /usr/local/anaconda3
-:
+In : %timeit np.linalg.eig(np.random.rand(1000,1000))
 ```
 
-# MATLAB与Python：环境变量与系统调用
+1.2 s ± 18.5 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
 
-MATLAB 实现这一点则要困难得多。Stack Overflow 上最常用的方法是解析对系统调用的输出结果，在 Linux 和 macOS 上调用 `env`，在 Windows 上调用 `set`。这一点将在第 9.2 节中介绍，其中会描述两种语言中的系统调用。
+# 5.2 日期
 
-环境变量也可以通过编程方式设置，尽管程序所做的更改仅在其进程的生命周期内有效。当程序结束时，运行该程序的会话中的环境变量保持不变。在 Python 中，可以像设置字典键一样简单地通过 `os.environ` 来赋值环境变量。MATLAB 则使用其 `setenv()` 函数来设置变量。
+`%timeit` 会多次运行该命令（上述示例中为七次）并返回所有运行的平均时间。
 
-| MATLAB | Python |
+Python 有三个用于处理日期的标准模块，各自具有不同的功能：
+
+- `datetime` 是适用范围最广的模块，也是本节讨论的重点。它有许多函数可以简化日期计算和执行转换。
+- `date` 可以说是 `datetime` 的一个子集，在仅处理日期而不涉及一天内的时间时非常有用。
+- `calendar` 具有确定年份是否为闰年、给定日期是星期几以及一个月中天数的函数。
+
+## 5.2.1 `datetime` 对象与字符串的相互转换
+
+`datetime` 模块与 `time` 模块一样，使用 `strftime()` 函数以所需格式打印日期：
+
+| MATLAB: | Python: |
 | --- | --- |
-| `>> setenv('N_CASES', '42')`<br>`>> getenv('N_CASES')`<br>`ans = 42` | `In : import os`<br>`In : os.environ['N_CASES'] = '42'`<br>`In : os.environ['N_CASES']`<br>`Out: '42'` |
+| `>> now = datetime()` `28-Oct-2019 21:16:36` `>> datetime(now,'Format',...` `'u-MM-dd hh:mm')` `2019-10-28 21:16` | `In :` `from datetime import` `datetime` `In : datetime.now()` `Out: datetime(2019, 10, 28, 21,` `16, 36, 225635)` `In : datetime.now().strftime(` `'%Y-%m-%d %H:%M')` `Out: '2019-10-28 21:16'` |
 
-两种语言都有一个共同的小问题：只允许使用字符串值。MATLAB 会接受一个整数并自动将其类型转换为字符串，但结果字符串可能并非预期的那样；整数 `42` 会变成其 ASCII 字符等效的 “`*`”。Python 则会抛出一个 `TypeError` 错误：
+`datetime` 和 `time` 都有一个同名的函数 `strptime()`，它执行相反的操作：接收一个包含日期的字符串和另一个描述格式的字符串，然后返回一个 Python 变量，该变量随后可用于执行日期计算。
 
-| MATLAB | Python |
+方便的是，`strptime()` 使用与 `strftime()` 相同的格式指令（表 5-1）从字符串中解析日期，而 `strftime()` 则使用这些指令以所需格式打印日期。从字符串“Aug 12 04:05:51 2006”创建 `datetime` 对象的方法如下：
+
+| MATLAB: | Python: |
 | --- | --- |
-| `>> setenv('A', 42)`<br>`warning: implicit conversion from scalar to sq_string`<br>`>> getenv('A')`<br>`ans = *` | `In : import os`<br>`In : os.environ['N_CASES'] = 42`<br>`Out: TypeError: str expected, not int` |
+| `>> S ='Aug 12 04:05:51 2006';` `>> dt=datetime(S,'InputFormat',...` `'MMM dd HH:mm:SS yyyy')` `dt =` `datetime` `12-Aug-2006 04:05:00` | `In :` `from datetime import` `datetime` `In : S = 'Aug 12 04:05:51 2006'` `In : dt = datetime.strptime(S,` `...:       '%b %d %H:%M:%S %Y')` `In : dt` `Out: datetime.datetime(` `2006, 8, 12, 4, 5, 51)` |
 
-## 9.2 调用外部可执行程序
+## 5.2.2 时间增量
 
-在 MATLAB 中，外部系统调用通过 `system()` 函数实现；在 Python 中，则使用 `subprocess` 模块中的函数：`subprocess.run()` 或 `subprocess.Popen()`。其中 `subprocess.run()` 函数与 MATLAB 的 `system()` 最为相似，而 `subprocess.Popen()` 允许用户编排整个应用程序链的执行过程，将一个程序的输出通过管道传递给下一个程序的输入。
+`datetime` 模块函数 `timedelta()` 创建的时间偏移量，其工作方式类似于 MATLAB 中的 `duration` 对象。此示例打印一周的火星太阳日（持续时间为 24 小时 39 分 35.244 秒），从 1986 年 6 月 28 日中午开始：
 
-尽管 `subprocess.run()` 与 `system()` 类似，但两者的运行方式存在显著差异。MATLAB 的 `system()` 只有 1 个可选参数（`'-echo'`，用于额外在命令窗口中显示命令的输出；适用于与外部命令交互），而 Python 的 `subprocess.run()` 有 14 个可选参数。其中最常用的参数——`check`、`capture_output`、`shell`、`timeout`——通过以下示例加以说明。
+| MATLAB: | Python: |
+| --- | --- |
+| `Mars_day = duration(...` `24,39,35.244)` `Start = datetime(...` `1986,6,28,12,0,0)` `for` `i = 0:6` `Start + i*Mars_day` `end` `28-Jun-1986 12:00:00` `29-Jun-1986 12:39:35` `30-Jun-1986 13:19:10` `01-Jul-1986 13:58:45` `02-Jul-1986 14:38:20` `03-Jul-1986 15:17:56` `04-Jul-1986 15:57:31` | `from datetime import` `datetime, timedelta` `Mars_day = timedelta(hours=24,` `minutes=39, seconds=35.244)` `Start = datetime(1986,6,28,12)` `for` `i` `in` `range(7):` `print(Start + i*Mars_day)` `1986-06-28 12:00:00` `1986-06-29 12:39:35.244000` `1986-06-30 13:19:10.488000` `1986-07-01 13:58:45.732000` `1986-07-02 14:38:20.976000` `1986-07-03 15:17:56.220000` `1986-07-04 15:57:31.464000` |
 
-在第 9.1 节中，我们看到 MATLAB 需要调用操作系统的 `env`（Linux、macOS）或 `set`（Windows）命令来获取所有环境变量及其值的列表。虽然 Python 可以通过 `os.environ` 对象直接访问这些内容，但我们仍通过系统调用来完成相同任务。
+`timedelta` 对象有一个方法 `.total_seconds()`，它返回该增量所表示的秒数。两个 `datetime` 对象的差是一个 `timedelta`，因此我们可以轻松确定两个日期之间经过了多少时间：
 
-MATLAB：
-```matlab
->> [Status, Result] = system('env');
-```
+| MATLAB: | Python: |
+| --- | --- |
+| `Jul4 = '1976-07-04 12:00';` `Aug1 = '1976-08-01 18:00';` `J=datetime(Jul4,'InputFormat',...` `'yyyy-MM-dd HH:mm')` `A=datetime(Aug1,'InputFormat',...` `'yyyy-MM-dd HH:mm')` `duration(A-J,'Format','s')` `2.4408e+06 sec` | `from datetime import` `datetime as DT` `Jul4 = '1976-07-04 12:00'` `Aug1 = '1976-08-01 18:00'` `J = DT.strptime(Jul4, '%Y-%m-%d %H:%M')` `A = DT.strptime(Aug1, '%Y-%m-%d %H:%M')` `(A - J).total_seconds()` `Out: 2440800.0` |
 
-Python：
-```python
-In : import subprocess
-In : Result = subprocess.run(['env'], capture_output=True)
-```
+MATLAB 和 Python 还允许计算时间增量的比率。此示例打印一个地球年中的火星天数：
 
-MATLAB 的返回变量 `Status` 和 `Result` 分别是一个 `double` 类型（值 `0` 表示命令成功运行；非零值表示错误）和一个包含命令全部 STDOUT 流的字符数组。可以通过 `strsplit(Result, '\n')` 按换行符分割 `Result`，从而迭代处理各输出行。
+| MATLAB: | Python: |
+| --- | --- |
+| `>> Mars_day = duration(...` `24,39,35.244);` `>> duration(years(1))/Mars_day` `355.47` | `In : Mars_day = timedelta(hours=24,` `...:     minutes=39, seconds=35.244)` `In : timedelta(days=365.24)/Mars_day` `Out: 355.4677472922519` |
 
-Python 的 `Result` 是一个对象，其属性包括 `.returncode`（相当于 MATLAB 中的 `Status`）、`.stdout`（相当于 MATLAB 中的 `Result`）以及 `.stderr`（包含命令生成的错误信息，如果有的话）。奇怪的是，MATLAB 的 `system()` 没有提供捕获 STDERR 的机制。
+# 5.3 时区
 
-我们继续以示例说明：迭代来自 `env` 系统调用的输出行，并提取环境变量的名称和值。
+默认情况下，Python 和 MATLAB 中的 `Datetime` 对象都不包含时区信息；它们仅反映主机的日期和时间。
 
-MATLAB：
-```matlab
-[Status, Result] = system('env');
-lines = strsplit(Result, '\n');   % 从 Result 中分离各行
-for i = 1:len(lines)
-    X = strsplit(lines{i,1}, '=');
-    var = X{1,1};
-    val = X{1,2};
-    fprintf('%-10s : %s\n', var, val);
-end
-```
+通过在调用 `datetime()`、`datetime.now()` 或 `datetime.fromtimestamp()` 函数时填充可选的 `tzinfo` 或 `tz` 关键字，可以使 Python `datetime` 对象包含时区信息。可以创建 `tzinfo` 对象的两个 Python 模块是 `pytz` 和 `dateutil.tz`。（Python 3.9 引入了 `zoneinfo` 模块，在第 5.5 节中讨论。本书使用的 MATLAB 2020b 版本发布于 Python 3.9 之前，因此不支持该模块。）尽管 `pytz` 功能更多，但来自 `dateutil.tz` 的时区在处理边缘情况（例如计算跨越夏令时/标准时间转换的时间差）时能产生更准确的结果 [1]。
 
-Python：
-```python
-import subprocess
-Result = subprocess.run(['env'], capture_output=True)
-lines = Result.stdout.decode() # 将字符数组转为字符串
-for L in lines.split('\n'):
-    var, val = L.split('=')
-    print(f'{var:<10s} : {val}')
-```
+在本节中，我们使用 `pytz` 的唯一目的是列出所有已知的时区字符串——类似于 MATLAB 的 `timezones` 命令——这是 `dateutil.tz` 所不能做到的：
 
-### 9.2.1 检查失败情况
+| MATLAB: | Python: |
+| --- | --- |
+| `>> timezones`![](img/516169_1_En_5_Figa_HTML.jpg) | `In :` `import pytz` `In : pytz.all_timezones` `Out:` `['Africa/Abidjan',` `'Africa/Accra',` `'Africa/Addis_Ababa',` `'Africa/Algiers',` `...` `'US/Pacific',` `'US/Samoa',` `'UTC',` `'Universal',` `'W-SU',` `'WET',` `'Zulu']` |
 
-外部可执行程序可能因多种原因失败：命令未找到、非法参数、缺失或格式错误的输入、处理错误、对输出位置的写入权限不足，等等。这些并非 Python 错误，因此默认情况下，如果提供给 `subprocess.run()` 的命令执行失败，函数仍会返回，Python 程序会继续运行。`Result.returncode` 将不为零，因此我们知道命令执行失败，但不知失败原因。
+MATLAB 表中的时区名称与 `pytz.all_timezones` 返回的名称相匹配。
 
-通过将可选关键字变量 `check` 设置为 `True`，可以改变这一行为。这样，外部可执行程序的失败会作为 `CalledProcessError` 异常传递到 Python 程序中。
+有了前文列表中获取的有效时区名称，我们就可以创建一个包含时区信息的 `datetime` 对象。请注意，`datetime` 的输出会标识操作系统从中获取时区信息的文件（此示例中为 `'/usr/share/zoneinfo/America/Los_Angeles'`）：
 
-为了探究失败行为，我们将使用 `ffmpeg`（一款强大的音频和视频处理程序）将一个 MPEG4 视频文件转换为压缩率更高的 WebM 格式。作为输入文件，我们可以使用 Jake VanderPlas 创建的一个展示三摆混沌运动的 MPEG4 文件^(³¹)；该文件可从 [`http://jakevdp.github.io/videos/triple-pendulum.mp4`](http://jakevdp.github.io/videos/triple-pendulum.mp4) 下载。
+| MATLAB: | Python: |
+| --- | --- |
+| `>> T = datetime(2020,2,14,...` `13,30,25,'TimeZone',...` `'America/Los_Angeles')` `T =` `14-Feb-2020 13:30:25` `>> T.TimeZone` `'America/Los_Angeles'` `>> datetime(T,'Format',...` `'yyyy-MM-dd''T'...` `'HH:mm:ss''.''SSSSSS')` `2020-02-14T13:30:25.000000` `>> datetime(T,'Format','Z')` `-0800` | `In :` `from datetime import` `datetime` `In :` `from dateutil import` `tz` `In : LA_tz = tz.gettz('America/Los_Angeles')` `In : T = datetime(2020,2,14,13,30,25,` `...:     tzinfo=LA_tz)` `In : T` `Out: datetime.datetime(2020,2,14,13,30,25,` `tzinfo=tzfile(` `'/usr/share/zoneinfo/America/Los_Angeles'))` `In : T.isoformat()` `Out: '2020-02-14T13:30:25-08:00'` `In : T.utcoffset()` `Out: datetime.timedelta(days=-1,seconds=57600)` |
 
-用于转换文件的典型 `ffmpeg` 命令如下：
-```bash
-ffmpeg -loglevel quiet -i triple-pendulum.mp4 triple-pendulum.webm
-```
+将包含时区信息的 `datetime` 对象显示为任何其他所需时区很容易：
 
-如果 `ffmpeg` 可执行程序位于环境的搜索路径中，并且输入文件可读，那么 Python 和 MATLAB 都应该能够顺利调用该命令并生成 WebM 文件。我们要研究的并非成功案例，而是失败情况。为了触发失败，我们将日志级别设置 `quiet` 错误拼写为 `quiett`。
+| MATLAB: | Python: |
+| --- | --- |
+| `>> datetime(T,'TimeZone',...` `'Asia/Tokyo')` `15-Feb-2020 06:30:25` | `In : Tokyo_tz = tz.gettz('Asia/Tokyo')` `In : T.astimezone(Tokyo_tz)` `Out: datetime.datetime(2020,2,15,6,30,25,` `tzinfo=tzfile(` `'/usr/share/zoneinfo/Asia/Tokyo'))` |
 
-在以下 Python 代码中，我们将在 `subprocess.run()` 的参数中启用可选的 `check` 选项。
+## 5.3.1 协调世界时与本地时间
 
-MATLAB：
-```matlab
->> command = "ffmpeg -loglevel quiett -i triple-pendulum.mp4 triple-pendulum.webm";
->> [Status, Result] = system(command);
-```
+协调世界时（UTC），也称为祖鲁时间或格林威治标准时间，是记录覆盖广阔地理区域的事件的首选时区。MATLAB 和 Python 有几个显式处理协调世界时而非单个计算机本地时间的函数。
 
-Python：
-```python
-import subprocess
-command = ['ffmpeg', '-loglevel', 'quiett', '-i',
-           'triple-pendulum.mp4', 'triple-pendulum.webm']
-Result = subprocess.run(command, check=True)
-```
+矛盾的是，返回协调世界时的 `datetime` 函数，即 `datetime.utcnow()` 和 `datetime.utcfromtimestamp()`，并没有设置 `tzinfo`，因此它们返回的是不含时区信息的对象。换句话说，日、时、分等的数值是正确的，但底层没有元数据表明这是协调世界时时区。如果后续日期计算的计算精度很重要，那么正确方式是在函数名中不包含 `utc`，并显式地传入 `tz=dateutil.tz.UTC` [2]：
 
-MATLAB 和 Python 的错误信息如下所示：
-
-MATLAB：
-```matlab
->> [Status, Result] = system(command);
->> Status
->> Result
-'[4;31mInvalid loglevel "quiett". Possible levels are numbers or:
-[0m[4;31m"quiet"
-[0m[4;31m"panic"
-[0m[4;31m"fatal"
-[0m[4;31m"error"
-[0m[4;31m"warning"
-[0m[4;31m"info"
-[0m[4;31m"verbose"
-[0m[4;31m"debug"
-[0m[4;31m"trace"
-[0m'
-```
-
-Python：
-```python
-subprocess.CalledProcessError: Command '['ffmpeg', '-loglevel', 'quiett', '-i', 'triple-pendulum.mp4', 'triple-pendulum.webm']' returned non-zero exit status 1.
-```
-
-## 常见错误示例
-
-以下是使用 `subprocess.run()` 时因无效日志级别参数导致的错误：
+Python:
 
 ```
-In : Result = subprocess.run(command, check=True)
-
-Invalid loglevel "quiett". Possible levels are numbers or:
-
-"quiet"
-
-"panic"
-
-"fatal"
-
-"error"
-
-"warning"
-
-"info"
-
-"verbose"
-
-"debug"
-
-"trace"
-
-Traceback (most recent call last):
-
-[...]
-
-CalledProcessError: Command '['ffmpeg', '-loglevel', 'quiett',
-
-'-i', 'triple-pendulum.mp4', 'triple-pendulum.webm']'
-
-returned non-zero exit status 1.
-```
-
-## 错误处理对比
-
-在 MATLAB 中处理系统调用错误意味着检查非零错误状态；在 Python 中则使用 `check=True` 调用 `subprocess.run()` 并捕获 `subprocess.CalledProcessError` 错误：
-
-**MATLAB**：
 
 ```
-[Status, Result] = system(command);
-
-if Status
-  fprintf('Command failure with %s\n', command)
-end
-```
-
-**Python**：
-
-```
-try:
-    Result = subprocess.run(command, check=True)
-except subprocess.CalledProcessError as err:
-    print(f'Command failure with {command}: {err}')
-```
-
-### 9.2.2 需要类似字节的对象
-
-返回值 `Result` 的 `stdout` 属性是一个字节数组，而非字符串。如果尝试对其应用字符串操作（如 `.split()`），Python 会引发 `TypeError`：
-
-**Python**：
-
-```
-In : import subprocess
-
-In : x = subprocess.run('dir', capture_output=True)
-
-In : x.stdout.split('\n')
-TypeError                                 Traceback (most recent call last)
- in 
-----> 1 x.stdout.split('\n')
-
-TypeError: a bytes-like object is required, not 'str'
-```
-
-解决方法是将字节数组转换为字符串：
-
-**Python**：
-
-```
-In : import subprocess
-
-In : x = subprocess.run('dir', capture_output=True)
-
-In : x.stdout.split('\n')
-
-In : str(x.stdout).split('\n')
-Out: ["b'data.h5\\t\\t\\file_1.txt\\n'"]
-```
-
-## 9.3 检查进程表与进程资源
-
-数值分析和模拟往往对资源消耗巨大。在启动长达数天的运行之前，密切关注 CPU、内存和文件系统使用情况，有助于了解程序的资源需求。部分工作可以通过代码性能分析完成（参见第 14.​5 节）。然而，性能分析无法回答诸如“我目前使用了多少内存/CPU/网络？”、“其他用户是否给我的机器造成了很大负载？”或“测试数据目录中还有多少磁盘空间？”等问题。
-
-在查询计算机进程及其消耗的资源方面，`MATLAB` 有所欠缺。此类查询需要调用底层操作系统提供的外部工具——Windows 上的 Process Explorer、macOS 上的 Activity Monitor，或 Linux/macOS 上的 `ps` 和 `top`。
-
-相比之下，`Python` 有一个模块 `psutil`^(³²)，它提供了一种与操作系统无关的方法，用于检查进程及其使用的资源，以及计算机的硬件，包括 CPU 负载、CPU 温度、内存、网络接口、存储、电池电量、风扇速度等。除了检查进程，`psutil` 还可以挂起、恢复和终止进程（前提是该进程属于发出这些命令的用户）。
-
-有时，我会低估计算所需的内存量（例如，在第 14.​2.​2 节的有限元基准测试中，创建大型稀疏矩阵并计算其特征解时很容易发生），随着操作系统将所有时间花在将内存交换到磁盘上，我的计算机会陷入停滞。只能按电源键——这非常烦人。任何语言中任何耗内存的应用程序都可能出现此问题；`MATLAB` 和 `Python` 在这方面并无特殊之处。
-
-`psutil` 使得编写一个任务守护程序变得简单，它可以杀死任何过度压榨计算机的进程。当我在进行一些挑战笔记本电脑硬件极限的计算时，我会在另一个终端中运行以下任务守护程序。如果某个运行因消耗过多内存和 CPU 周期而失控，守护程序会将其杀死，从而避免我进行既耗时又可能损坏文件系统的硬重启。^(³³) 关于其工作原理的几点说明：
-
-- 第 7 行：`max_L1` 是一分钟平均负载，低于此值时程序不执行任何操作。负载为 1.0 意味着机器上的一个核心已满载。
-- 第 8 行：类似地，如果机器已用内存低于 `max_mem_fraction`，程序不执行任何操作。
-- 第 17 行：程序运行在一个连续循环中，每次迭代后休眠 `refresh_sec` 秒。
-- 第 28 行：如果一分钟平均负载和内存比例超过限制，程序将遍历所有进程：
-  - 第 29 行：如果进程名称在 `ignore` 集合中，则继续检查下一个。
-- 第 31 行：如果进程不属于运行守护程序的用户，则跳过。`psutil` 无法杀死其他用户拥有的进程。
-- 第 36 行：在 0.2 秒的时间间隔内测量进程的 CPU 负载。如果该值小于 `min_cpu_pct`，则循环继续处理下一个进程。
-
-进程可能会在测量间隔结束前结束，因此此步骤可能失败；异常处理程序可防止程序因错误而终止。
-
-- 第 44 行：测量进程的内存。即使我们拥有该进程，此操作也可能失败，因此测量被包裹在另一个异常捕获器中。
-- 第 50 行：最后，如果进程使用了机器上超过一半的内存，或者其内存正在被交换到磁盘，则杀死该进程。
-
-**Python**：
-
-```python
-# 文件: code/os/job_shepherd.py
-import os
-import psutil
 import time
+from datetime import datetime
+from dateutil import tz
 
-refresh_sec = 1.0
-max_L1  = 1.5  # 一分钟平均负载
-max_mem_fraction = 0.5
-min_cpu_pct = 50.0
-
-ignore = {
-    'chrome', 'dbus-daemon', 'dconf-service', 'firefox',
-    'gnome-terminal-server', 'ssh-agent', 'systemd', 'vim', 'Xorg', 'top'}
-
-uid_me  = psutil.Process( os.getpid() ).uids().real  # 我的用户 ID #
-
-while True:
-    L1, L5, L15 = psutil.getloadavg()
-    mem = psutil.virtual_memory()
-    if L1 > max_L1 or mem.percent / 100.0 > max_mem_fraction:
-        for proc in psutil.process_iter(['name', 'username', 'cpu_percent', 'memory_info']):
-            if proc.info['name'] in ignore:
-                continue
-            if proc.info['username'] is None or proc.info['username'] != uid_me:
-                continue
-            try:
-                cpu_pct = proc.cpu_percent(interval=0.2)
-            except psutil.NoSuchProcess:
-                continue
-            if cpu_pct < min_cpu_pct:
-                continue
-            try:
-                pmem = proc.memory_info()
-            except psutil.NoSuchProcess:
-                continue
-            if pmem.rss / mem.total > 0.5 or pmem.swap > 0:
-                print(f'-> kill {proc.pid} name={proc.name()}')
-                proc.kill()
-    time.sleep(refresh_sec)
+datetime.now()  # 本地时间（洛杉矶）
+```
+```
+datetime.datetime(2019, 11, 9, 18, 20, 57, 118448)
 ```
 
-如果你好奇想尝试一下，这里有一个小程序，最终会让你的计算机不堪重负。它会生成一个越来越大的随机数方阵，然后将其与一个随机向量相乘。如果内存消耗速度太慢，可以增加 `N` 的增量。同时，修改任务守护程序的常量——特别是 `ignore` 集合中的程序名称——以找到合适的度量标准，从而在你的计算机上杀死失控的进程。
+# 从当前时间创建协调世界时——但不关联时区！
 
-**Python**：
+```
+In : datetime.utcnow()
+Out: datetime.datetime(2019, 11, 10, 2, 20, 57, 118448)
+```
+
+# 从当前时间创建协调世界时的更好方法
+
+在交互式环境中查看示例：
 
 ```python
-#!/usr/bin/env python3
-```
+In : datetime.now(tz=tz.UTC)
 
-# 文件: `code/os/machine_buster.py`
+Out: datetime.datetime(2019, 11, 10, 2, 20, 57, 118448, tzinfo=tzutc())
+```
 
 ```python
-import numpy as np
+In : epoch_sec = time.time()
 
-N = 200
+In : epoch_sec
 
-while True:
-    print(f'N = {N}')
-    a = np.random.rand(N, N)
-    b = np.random.rand(N)
-    a.dot(b)
-    N += 200
+Out: 1573352547.984918
 ```
 
-脚注 1   2   3
+```python
+In : datetime.fromtimestamp(epoch_sec)
+
+Out: datetime.datetime(2019, 11, 9, 18, 22, 27, 984918)
+```
+
+# 从纪元秒创建协调世界时的错误方法
+
+输入：`datetime.utcfromtimestamp(epoch_sec)`
+
+输出：`datetime.datetime(2019, 11, 10, 2, 22, 27, 984918)`
+
+# 从纪元秒创建协调世界时的正确方法
+
+`In : datetime.fromtimestamp(epoch_sec, tz=tz.UTC)`
+
+`Out: datetime.datetime(2019, 11, 10, 2, 22, 27, 984918, tzinfo=tzutc())`
+
+MATLAB 中的类似转换如下所示：
+
+MATLAB:
+```
+>> a = datetime('now')  % 计算机处于洛杉矶时区
+
+21-Nov-2023 11:28:52
+
+>> a = datetime('now','TimeZone','America/Los_Angeles')
+
+21-Nov-2023 11:28:52
+
+>> a = datetime('now','TimeZone','UTC')
+
+21-Nov-2023 18:28:52
+
+>> epoch_sec = convertTo(a,'posixtime')
+
+1.700591332042366e+09
+
+>> datetime(epoch_sec,'convertfrom','posixtime')
+
+21-Nov-2023 18:28:52
+```
+
+## 5.4 与 `datetime` 对象之间的时间转换
+
+第 5.2.1 节展示了如何将 `datetime` 对象转换为字符串，以及如何将字符串解析为 `datetime` 对象。在本节中，我们将使用本地时间和协调世界时探讨与 `datetime` 对象之间额外的格式转换。示例使用了以下导入语句：
+
+Python:
+```
+In : from datetime import datetime
+
+In : import pytz
+
+In : import time
+```
+
+### 5.4.1 Unix 纪元秒
+
+Unix 纪元秒与时区无关，因此从包含时区的 `datetime` 对象进行转换可能会造成误导：
+
+Python:
+```
+In : epoch_sec = time.time()
+
+In : epoch_sec
+
+Out: 1572630202.1339452
+
+In : dtZ = datetime.datetime.utcfromtimestamp( epoch_sec )
+
+In : dtL = datetime.datetime.fromtimestamp(    epoch_sec )
+
+In : dtZ
+
+Out: datetime.datetime(2019, 11, 1, 17, 43, 22, 133945)
+
+In : dtL
+
+Out: datetime.datetime(2019, 11, 1, 10, 43, 22, 133945)
+
+In : recovered_epoch_secZ = dtZ.timestamp()
+
+In : recovered_epoch_secL = dtL.timestamp()
+
+In : recovered_epoch_secZ
+
+Out: 1572655402.133945
+
+In : recovered_epoch_secL
+
+Out: 1572630202.133945
+```
+
+为了保持转换的一致性，Unix 纪元值必须转换回最初测量时的时区。
+
+### 5.4.2 ISO 8601 时间字符串
+
+符合 ISO 8601 标准的时间字符串可以有以下形式之一：
+
+*   `2019-11-01T15:54:04`
+
+*   `2019-11-01T15:54:04Z`
+
+*   `2019-11-01T15:54:04+00:00`
+
+尽管 `datetime` 模块包含一个 `.fromisoformat()` 函数，但奇怪的是，该函数不接受末尾的 "Z"（代表 "Zulu"，也称为协调世界时）；必须省略时区指示符，或者将其指定为数字偏移量。
+
+此外，由于带有时区偏移量的 ISO 格式函数会显式设置时区，因此需要使用 `.astimezone()` 方法从包含时区信息的 `datetime` 对象显式计算本地时间变量：
+
+Python:
+```
+In : dtZ = datetime.fromisoformat('2019-11-01T15:54:04+00:00')
+
+In : TZ_LA = pytz.timezone("America/Los_Angeles")
+
+In : dtL = dtZ.astimezone(TZ_LA)
+
+In : dtZ
+
+Out: datetime.datetime(2019, 11, 1, 15, 54, 4,
+      tzinfo=datetime.timezone.utc)
+
+In : dtL
+
+Out: datetime.datetime(2019, 11, 1, 8, 54, 4,
+      tzinfo=)
+
+In : recovered_isoZ = dtZ.isoformat()
+
+In : recovered_isoZ
+
+Out: '2019-11-01T15:54:04+00:00'
+
+In : recovered_isoL = dtL.isoformat()
+
+In : recovered_isoL
+
+Out: '2019-11-01T08:54:04-07:00'
+```
+
+### 5.4.3 儒略日；简化儒略日；GPS 时间
+
+Anaconda 附带了一个名为 `astropy` 的模块，该模块拥有强大的与天文学相关的时间转换功能。这些功能包括儒略日、简化儒略日、FITS、UT1、TAI 和 GPS 参照系。
+
+以下示例使用了美国/太平洋时区：
+
+Python:
+```
+In : from astropy.time import Time
+
+In : dt = datetime.fromisoformat('2019-11-03T05:29:04-07:00')
+
+In : dt
+
+Out: datetime.datetime(2019, 11, 3, 5, 29, 4,
+      tzinfo=datetime.timezone(
+        datetime.timedelta(days=-1, seconds=61200)))
+```
+
+# 从 datetime 转换为 MJD、JD、GPS：
+
+```python
+In : astropy_t = Time( dt )
+
+In : astropy_t
+
+Out: 
+
+In : astropy_t.mjd
+
+Out: 58790.52018518518
+
+In : astropy_t.jd
+
+Out: 2458791.020185185
+
+In : astropy_t.gps
+
+Out: 1256819362.0
+```
+
+# 从 MJD、JD、GPS 转换为 datetime
+
+```
+In : Time( 58790.52018518518, format='mjd').datetime
+
+Out: datetime.datetime(2019, 11, 3, 12, 29, 4)
+
+In : Time( 2458791.020185185 , format='jd').datetime
+
+Out: datetime.datetime(2019, 11, 3, 12, 29, 3, 999995)
+
+In : Time( 1256819362.0, format='gps').datetime
+
+Out: datetime.datetime(2019, 11, 3, 12, 29, 41)
+```
+
+## 5.5 Python >= 3.9 中的 `zoneinfo`
+
+`Python` 3.9（`MATLAB` 2020b 不支持该版本，参见第 2.7 节）引入了 `zoneinfo` 模块以改进时区支持。`zoneinfo` 的主要优势在于它对跨越夏令时转换的时间计算进行了严格处理。此外，与 `pytz` 类似，`zoneinfo` 包含一个列出所有已知时区名称的机制，因此无需仅仅为了访问 `pytz.all_timezones` 这个时区列表而导入 `pytz`。
+
+### 5.5.1 列出可用的时区
+
+`Python` 3.9：
+
+```
+In : import zoneinfo
+
+In : zoneinfo.available_timezones()
+
+Out:
+{'Africa/Abidjan',
+'Africa/Accra',
+'Africa/Addis_Ababa',
+'Africa/Algiers',
+'Africa/Asmara',
+'Africa/Asmera',
+[...]
+'UTC',
+'Universal',
+'W-SU',
+'WET',
+'Zulu',
+'build/etc/localtime'}
+```
+
+### 5.5.2 跨越夏令时转换的日期递增
+
+此示例演示了使用时区数据库中洛杉矶条目，正确处理标准时间到夏令时的转换：
+
+`Python` 3.9：
+
+```
+import zoneinfo
+from datetime import datetime, timedelta
+
+LA_tz = zoneinfo.ZoneInfo("America/Los_Angeles")
+Start = datetime(2022, 3, 9, 10, tzinfo=LA_tz)
+
+for i in range(7):
+    day = Start + timedelta(days=i)
+    print(day, day.tzname())
+
+2022-03-09 10:00:00-08:00 PST
+
+2022-03-10 10:00:00-08:00 PST
+
+2022-03-11 10:00:00-08:00 PST
+
+2022-03-12 10:00:00-08:00 PST
+
+2022-03-13 10:00:00-07:00 PDT
+
+2022-03-14 10:00:00-07:00 PDT
+
+2022-03-15 10:00:00-07:00 PDT
+```
 
 
 

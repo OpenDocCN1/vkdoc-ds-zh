@@ -1,0 +1,41 @@
+chapter_starts:
+- 'no': 6590
+  confidence: 0.95
+  final_reason: 双方一致确认为章标题。格式为 '## 15. 房地产 API'，Markdown 二级标题配合数字编号，符合全书最高层级章标题特征。上下文显示前文为第
+    14 章总结，此处开启新章节，且后续包含多个子节，语义具备统领性。
+  accepted_evidence:
+  - 格式特征：'## 15. 房地产 API' 为二级标题带编号
+  - 上下文特征：前文 6588 行是第 14 章总结，后文 6592 行开始介绍第 15 章内容
+  - 编号连贯性：15 紧接前文隐含的第 14 章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6964
+  confidence: 0.95
+  final_reason: 双方一致确认为章标题。格式为 '## 16. 股票市场 API'，符合章标题特征。前文为第 15 章总结，此处开启第 16 章，后续内容围绕股票市场
+    API 展开，逻辑清晰。
+  accepted_evidence:
+  - 格式特征：'## 16. 股票市场 API' 为二级标题带编号
+  - 上下文特征：前文 6960 行是第 15 章总结，后文 6966 行开始介绍第 16 章内容
+  - 编号连贯性：16 紧接 15
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7522
+  confidence: 0.95
+  final_reason: 双方一致确认为章标题。格式为 '## 17. 下一步是什么？'，符合章标题特征。作为全书正文最后一章，前文为第 16 章总结，此处开启收尾章节，包含结论和后续建议。
+  accepted_evidence:
+  - 格式特征：'## 17. 下一步是什么？' 为二级标题带编号
+  - 上下文特征：前文 7520 行是第 16 章总结，后文 7526 行开始总结全书
+  - 编号连贯性：17 紧接 16
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7558
+  confidence: 0.98
+  final_reason: '双方一致确认为索引章节标题。规则明确规定‘文末索引也划分为一章’。该行 ''## 索引'' 后跟随按字母排列的词条列表（### A,
+    ### B 等），是典型的索引结构，非正文小标题。'
+  accepted_evidence:
+  - 规则明确：文末索引必须分章
+  - 内容结构：后文 7560-8082 行为字母索引列表
+  - 语义独立：索引部分独立于正文
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

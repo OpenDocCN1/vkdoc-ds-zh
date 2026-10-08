@@ -1,0 +1,56 @@
+reviews:
+- 'no': 3620
+  overturn_probability: 0.05
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行以 Markdown 一级标题符号 `#` 开头，且内容为 `# 10. 从 R 中导出`。
+  - 根据判断规则，带有全书最高层级编号（如“第 X 章”、“Y. ”）的标题通常被视为新章。虽然“10.”这种纯数字加点的格式在某些书籍中可能表示二级标题，但在
+    R 语言教材（如 Wickham 或类似风格）中，这种编号通常对应顶级章节（Chapter）。
+  - 后续内容（行 3622 起）开始详细讨论导出函数的概述，符合章节标题后的引言特征。
+  keep_split: true
+- 'no': 3972
+  overturn_probability: 0.05
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行内容为 `# 11. 描述性函数与对象操作`。
+  - 编号 `11.` 延续了前一章 `10.` 的序列，表明这是连续的顶级章节编号。
+  - 行 3974 开始描述本章涵盖的内容（dim(), nrow() 等），具有统领性语义。
+  keep_split: true
+- 'no': 5075
+  overturn_probability: 0.1
+  alternative: 部分标题（Part Header）
+  counter_evidence:
+  - 该行内容为 `# 第五部分 – 流程控制`。
+  - 判断规则指出：“如果存在标题为‘第 X 部分’，那么该书为部分-章节模式，遇到部分和章标题时，都要划分新章。”
+  - 尽管它不是具体的“章”（Chapter），但在书籍结构中，“部分”（Part）是比章更高或同级的结构单元，通常标志着全书内容的重大转向（如从语法到进阶技巧）。在分章任务中，通常将“部分”起始处也作为新章的分界点，以反映书籍的物理结构。
+  keep_split: true
+- 'no': 5079
+  overturn_probability: 0.05
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行内容为 `# 12. 流程控制`。
+  - 编号 `12.` 紧跟在“第五部分”之后，是该部分下的第一个具体章节。
+  - 符合顶级章节编号特征。
+  keep_split: true
+- 'no': 5210
+  overturn_probability: 0.05
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行内容为 `# 13. 流程控制示例`。
+  - 编号 `13.` 是连续的顶级章节编号。
+  - 行 5212 开始介绍示例内容，符合章节起始特征。
+  keep_split: true
+- 'no': 5706
+  overturn_probability: 0.1
+  alternative: 部分标题（Part Header）
+  counter_evidence:
+  - 该行内容为 `# 第六部分 一些常用函数、包和技术`。
+  - 同样属于“部分”标题。根据规则，部分标题需划分新章。
+  keep_split: true
+- 'no': 5708
+  overturn_probability: 0.05
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行内容为 `# 15. 一些常用函数`。
+  - 编号 `15.` 是连续的顶级章节编号（跳过了 14，可能是排版或章节遗漏，但规则指出“如果候选序号明显跳跃...只需要划分新的章节，无视其它”）。
+  keep_split: true

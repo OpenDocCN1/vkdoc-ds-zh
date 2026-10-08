@@ -1,0 +1,143 @@
+chapter_starts:
+- 'no': 1
+  confidence: 0.95
+  final_reason: 前置内容（引言），根据规则统一划分为一章。
+  accepted_evidence:
+  - 双方一致：属于前言/引言范畴。
+  - 格式特征：独立成行，标题语义明确。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 79
+  confidence: 0.95
+  final_reason: 标准Markdown一级标题“第一部分”，符合“部分-章节”模式中的部分起始，且位于正文区域（前文为目录/概览）。
+  accepted_evidence:
+  - 格式特征：使用“#”一级标题，格式标准。
+  - 上下文特征：后续紧跟“## 1.”章节标题，符合层级结构。
+  - 语义特征：统领后续第一部分的所有章节。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 81
+  confidence: 0.95
+  final_reason: 在“第一部分”下，使用“##”二级标题标记“1. 语音用户界面”，符合该文档“部分为#，章为##”的层级约定（参考后文第2262行“#
+    第二部分”和第2264行“## 7.”）。
+  accepted_evidence:
+  - 编号特征：序号“1”连贯。
+  - 层级一致性：前文第13-78行为粗体文本的目录/概览，第79行起为标准标题格式，此处为实际章节起始。
+  - 语义特征：统领后续关于VUI的内容。
+  rejected_evidence:
+  - 注意：复核方未提及此行，但根据第79行确立的层级模式，此行必须分章以维持章节列表的完整性。
+  need_human_review: false
+- 'no': 147
+  confidence: 0.9
+  final_reason: 文末的“关于作者”内容，根据规则统一划分为一章。
+  accepted_evidence:
+  - 规则明确：“关于作者...统一划分为一章”。
+  - 上下文特征：位于正文章节结束后。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 431
+  confidence: 0.9
+  final_reason: 一级标题“4. 为自定义数据驱动技能创建 VUI”，对应目录中的第4章。
+  accepted_evidence:
+  - 格式特征：使用“#”一级标题。
+  - 编号特征：序号“4”与前置目录对应。
+  - 上下文特征：后续内容详细展开第4章主题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1316
+  confidence: 0.95
+  final_reason: 一级标题“5. 编写后端代码”，对应第5章。
+  accepted_evidence:
+  - 格式特征：使用“#”一级标题。
+  - 编号特征：序号“5”连贯。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1984
+  confidence: 0.95
+  final_reason: 一级标题“6. 发布 Alexa 技能”，对应第6章。
+  accepted_evidence:
+  - 格式特征：使用“#”一级标题。
+  - 编号特征：序号“6”连贯。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2262
+  confidence: 0.95
+  final_reason: 一级标题“第二部分 自定义技能开发”，符合“部分”分章规则。
+  accepted_evidence:
+  - 格式特征：使用“#”一级标题。
+  - 语义特征：统领第二部分。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2264
+  confidence: 0.95
+  final_reason: 二级标题“7. 自定义 Alexa 技能”，在“第二部分”下，对应第7章。
+  accepted_evidence:
+  - 格式特征：使用“##”二级标题，与第一部分章节（如第81行）层级一致。
+  - 编号特征：序号“7”连贯。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2632
+  confidence: 0.95
+  final_reason: 二级标题“8. 超越 Hello World”，对应第8章。
+  accepted_evidence:
+  - 格式特征：使用“##”二级标题。
+  - 编号特征：序号“8”连贯。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2995
+  confidence: 0.95
+  final_reason: 二级标题“9. 配置 VUI”，对应第9章。
+  accepted_evidence:
+  - 格式特征：使用“##”二级标题。
+  - 编号特征：序号“9”连贯。
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 13
+  reason: 位于前78行的目录/概览区域，为粗体文本而非标准标题，属于前置内容的一部分，不应单独分章。复核方证据充分（格式非标准，上下文为列表介绍）。
+  need_human_review: false
+- 'no': 19
+  reason: 同第13行，位于目录/概览区域，为粗体文本，非标准章节起始。
+  need_human_review: false
+- 'no': 25
+  reason: 同第13行，位于目录/概览区域。
+  need_human_review: false
+- 'no': 31
+  reason: 同第13行，位于目录/概览区域。
+  need_human_review: false
+- 'no': 37
+  reason: 同第13行，位于目录/概览区域。
+  need_human_review: false
+- 'no': 43
+  reason: 同第13行，位于目录/概览区域。
+  need_human_review: false
+- 'no': 49
+  reason: 同第13行，位于目录/概览区域。
+  need_human_review: false
+- 'no': 55
+  reason: 同第13行，位于目录/概览区域。
+  need_human_review: false
+- 'no': 61
+  reason: 同第13行，位于目录/概览区域。
+  need_human_review: false
+- 'no': 67
+  reason: 同第13行，位于目录/概览区域。
+  need_human_review: false
+- 'no': 73
+  reason: 同第13行，位于目录/概览区域。
+  need_human_review: false
+- 'no': 1038
+  reason: 标题为“# 配置对话”，虽使用一级标题符号，但语义上属于第4章内的操作小节，不具备统领多章或全书的概括性，且与前后章节编号（4, 5）不连贯，判定为排版噪声或误用的章节内小节标题，不分章。复核方指出的语义特征符合“正文段落中的小标题”或“误报”特征。
+  need_human_review: false
+- 'no': 2145
+  reason: 该行“# 15. 安全策略 – Web 服务”实为政策列表（1-14项）的延续项，被错误标记为一级标题。属于正文列表项，非章节标题。
+  need_human_review: false
+- 'no': 2148
+  reason: 同第2145行，为列表项误标，非章节标题。
+  need_human_review: false
+- 'no': 2151
+  reason: 同第2145行，为列表项误标，非章节标题。
+  need_human_review: false
+- 'no': 2154
+  reason: 同第2145行，为列表项误标，非章节标题。
+  need_human_review: false

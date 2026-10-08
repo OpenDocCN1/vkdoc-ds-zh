@@ -1,0 +1,73 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.95
+  final_reason: 双方一致。该行“# 关于作者”位于书籍最前端，属于前言、作者介绍等非正文内容，根据规则“前言、序言...统一划分为一章”，应作为独立章节起始。
+  accepted_evidence:
+  - 位于文档开头
+  - Markdown一级标题 `#`
+  - 内容为作者介绍，非正文主体
+  - 符合“正文之前的内容统一划分为一章”的规则
+  rejected_evidence:
+  - 复核方虽标记为keep_split=true，但alternative称其为正文小标题，这与上下文矛盾，因其后无正文逻辑起始，且位于最前端
+  need_human_review: false
+- 'no': 35
+  confidence: 1.0
+  final_reason: 双方一致。该行“# 第 1 章：引言”包含明确的章节序号“第 1 章”及一级标题标记`#`，是全书第一个正文章节，符合所有章标题特征。
+  accepted_evidence:
+  - 包含“第 X 章”编号特征
+  - Markdown一级标题 `#`
+  - 后续内容包含二级、三级小节，具备统领性
+  rejected_evidence:
+  - 复核方虽称可能误认为小节，但格式和序号证据极强，反驳无效
+  need_human_review: false
+- 'no': 204
+  confidence: 1.0
+  final_reason: 双方一致。该行“# 第 2 章：CRM 成功的组成部分”包含明确的章节序号“第 2 章”及一级标题标记`#`，是正文章节。
+  accepted_evidence:
+  - 包含“第 X 章”编号特征
+  - Markdown一级标题 `#`
+  - 紧接上一章末尾
+  rejected_evidence:
+  - 复核方认为标题较长，但章标题长度通常小于30字此条仍满足，且序号明确，反驳无效
+  need_human_review: false
+- 'no': 973
+  confidence: 1.0
+  final_reason: 双方一致。该行“# 第 4 章：评估软件与顾问”包含明确的章节序号“第 4 章”及一级标题标记`#`。虽然序号跳跃（缺第3章），但根据规则“如果候选序号明显跳跃...只需要划分新的章节，无视其它”，故仍判定为章起始。
+  accepted_evidence:
+  - 包含“第 X 章”编号特征
+  - Markdown一级标题 `#`
+  - 规则允许序号跳跃时仍分章
+  rejected_evidence:
+  - 复核方提及序号跳跃疑虑，但规则已明确处理方式
+  need_human_review: false
+- 'no': 1325
+  confidence: 1.0
+  final_reason: 双方一致。该行“# 第 5 章：规划初始 CRM 实施”包含明确的章节序号“第 5 章”及一级标题标记`#`，是正文章节。
+  accepted_evidence:
+  - 包含“第 X 章”编号特征
+  - Markdown一级标题 `#`
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1726
+  confidence: 1.0
+  final_reason: 双方一致。该行“# 第 6 章：执行初始 CRM 实施”包含明确的章节序号“第 6 章”及一级标题标记`#`，是正文章节。
+  accepted_evidence:
+  - 包含“第 X 章”编号特征
+  - Markdown一级标题 `#`
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2924
+  confidence: 0.95
+  final_reason: 双方一致。该行“# 索引”位于书籍末尾，属于文末内容。根据规则“文末索引也划分为一章”，且其使用一级标题`#`，符合分章标准。
+  accepted_evidence:
+  - 位于文档末尾
+  - 内容为索引列表
+  - Markdown一级标题 `#`
+  - 符合“文末索引也划分为一章”的规则
+  rejected_evidence:
+  - 复核方虽标记为keep_split=true，但alternative称其为索引列表项，语境上应作为独立章节处理
+  need_human_review: false
+rejected_lines:
+- 'no': 2896
+  reason: 复核方证据成立并优先采纳。该行“## 结论”使用二级标题`##`，而本书所有主要章节（第1-6章、索引）均使用一级标题`#`。在“只划分全书最高层级的大章”的原则下，二级标题“结论”应被视为第6章（或前文语境下的）一个小节或结尾部分，而非独立新章。
+  need_human_review: false

@@ -1,0 +1,13 @@
+chapter_starts:
+- 'no': 6590
+  confidence: 0.95
+  reason: 行号为 Markdown 二级标题 '## 15. 房地产 API'，符合最高层级章标题特征，且编号连贯（前文隐含第14章内容），语义具备统领性。
+- 'no': 6964
+  confidence: 0.95
+  reason: 行号为 Markdown 二级标题 '## 16. 股票市场 API'，符合最高层级章标题特征，编号连贯，语义具备统领性。
+- 'no': 7522
+  confidence: 0.95
+  reason: 行号为 Markdown 二级标题 '## 17. 下一步是什么？'，符合最高层级章标题特征，编号连贯，作为全书收尾章节。
+- 'no': 7558
+  confidence: 0.9
+  reason: 行号为 Markdown 二级标题 '## 索引'，根据规则，文末索引统一划分为一章。

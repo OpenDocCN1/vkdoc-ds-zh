@@ -1,0 +1,1006 @@
+# 索引
+
+## A
+
+- `Altair`
+- `Anaconda`
+- 动画
+    - 弹跳球
+    - 关键元素
+    - `matplotlib`
+- 应用程序编程接口（API）
+- `arange()`函数
+- 面积图
+    - `imagesc()`
+    - `imshow()`
+        - 双线性插值
+        - 前缀
+- `astimezone()`方法
+- `Austin`
+
+## B
+
+- 基本线性代数子程序（BLAS）
+- 块压缩行（BSR）
+- `Bokeh`
+- 桥接模块
+- 内置作用域
+
+## C
+
+- `Cartopy`
+    - 制图转换
+    - 在地图上绘制线条
+    - MATLAB
+    - 在地球仪上叠加等值线
+    - 投影函数
+    - 按值对地图区域进行着色
+- 单元格数组
+- 类
+    - `circle`
+    - 构造函数方法
+    - 自定义异常
+    - 自定义打印方法
+    - `__init__()`函数
+    - 实例
+    - 私有变量`与`公有变量
+    - 变量
+- 云服务
+    - `Coiled`云
+    - 性能
+    - 运行
+- 命令行输入
+    - `argparse`
+    - 函数参数
+    - `sys`模块
+- 逗号分隔值（CSV）
+- 注释
+    - 块注释
+    - 定义
+    - 文档字符串
+- 通信密集型并行程序
+- 压缩稀疏列（CSC）
+- 压缩稀疏行（CSR）
+- 计算机代数系统（CAS）
+- `conda`包管理器
+- `Conda`环境
+- `conda-meta`目录
+- `conda update`
+- 转换器
+- `create_dataset()`函数
+- 创建、读取、更新、删除（CRUD）
+- 曲线拟合
+    - `differential_evolution()`
+        - 桥接模块
+        - `compute_ABCD()`函数
+        - 代价函数
+        - `matlab.engine`
+        - `py`模块
+        - 解决方案
+    - 拟合模型
+        - `curve_fit()`
+        - `differential_evolution()`
+        - `r2_score()`函数
+        - `scipy.optimize`模块
+        - `scipy.optimize.curve_fit()`
+        - 测试数据
+    - 线性回归
+    - 多项式
+- `Cython`
+    - MATLAB
+    - 并行`for`循环
+    - 性能
+    - Python
+
+## D
+
+- `Dask`
+    - 执行范式
+    - 曼德勃罗集
+    - 多台计算机
+    - 并行 MATLAB
+    - 质因数
+    - 调度器
+    - 单台计算机
+- 数据
+    - 清洗
+        - 列
+        - 更改
+            - 数据类型
+            - 重命名
+            - 时间戳
+- 数据类
+    - 便利机制
+    - 动态修改
+    - 实体关系
+    - 字段值
+        - 调用`mag()`
+        - MATLAB `与` Python
+        - `point`
+        - 遍历
+        - 类型强制
+        - 类型验证，`Pydantic`
+- 数据容器
+    - MATLAB
+    - 非标量
+    - Python
+- 数据帧。见“表格”
+- 日期
+    - `datetime`
+    - 字符串
+    - 时间差
+    - `datestr()`函数
+    - `datetime`函数
+    - `datetime`模块
+    - `datetime`对象
+    - 定义
+    - ISO 8601 时间字符串
+    - 儒略日
+    - Unix 纪元秒数
+- 调试
+    - Python 代码
+        - 日记模式
+        - `do_work()`
+        - 函数
+        - 日志记录
+        - 步骤
+        - `trace`模块
+- `deepcopy()`函数
+- 字典
+    - 添加键
+    - 创建
+    - 数据集
+    - 遍历键
+        - `for key in dict`
+        - 按键排序
+        - 按值排序
+    - 键是否存在
+        - `.get()`方法
+        - `KeyError`
+        - `.setdefault()`方法
+        - `test_key`
+    - 局限性
+    - `与`列表
+    - Python
+        - 国家到首都的关系
+        - 下标
+        - `struct`
+        - 元组
+    - 值
+- 字典键（DOK）
+- 微分方程
+- 直接频率
+- 目录
+    - 内容
+    - 创建
+    - 删除
+    - 表达式
+    - 树
+        - `.csv`文件
+        - `dir()`
+        - `find()`函数
+        - 生成器
+        - `os.walk()`
+        - 输出
+        - 打印
+        - 遍历
+        - `.xlsx`文件
+- 杜芬振子方程
+
+## E
+
+- `eig()`特征值函数
+- 封闭作用域
+- `enumerate()`函数
+- 枚举
+- `env`命令
+- Excel `.xls`、`.xlsx`
+    - 定义
+    - 提取列
+    - 提取矩形块
+    - 提取行
+    - 获取工作表名称
+    - 读取文件
+    - 写入
+    - 写入文件
+- 异常
+    - `executemany()` 函数
+    - 外部可执行文件
+    - 类字节对象
+    - `CalledProcessError`
+    - `ffmpeg`
+    - `os.environ` 对象
+    - 结果
+    - `Result.returncode`
+    - 状态
+    - `subprocess` 模块
+    - `subprocess.CalledProcessError`
+    - `subprocess.run()`
+    - `subsystem.run()`
+    - `system()` 函数
+
+## F
+
+- `f2py` 命令
+- 文件系统
+    - 删除
+    - 查找
+    - MATLAB
+    - Python
+- 有限元
+- `FlameGraphs`
+- `For` 循环
+    - 定义
+    - 示例
+    - 退出
+    - 嵌套循环
+    - 变量
+- Fortran 编译模块
+- 函数
+    - 比较运算符
+    - 装饰器
+    - 关键字参数
+    - 左侧参数计数
+    - 列表/字典/数组
+    - 按值传递/按引用传递
+    - 类型注解/参数验证
+    - 可变参数
+
+## G
+
+- 生成器
+    - 定义
+    - `range()`
+    - `yield`, `next()`
+- `geo*` 函数
+- `GeoPandas`
+    - 创建绘图
+    - 数据框
+    - 数据类型
+    - 地理数据
+    - 连接
+    - 地图
+    - 桥接函数
+    - 桥接模块
+    - 问题
+    - `iterrows()`
+    - 绘图
+    - `read_file()` 函数
+    - shapefile
+    - Zillow 研究
+    - 邮政编码
+- `global` 关键字
+- 全局作用域
+
+## H
+
+- `h5dump` 命令行工具
+- HDF5
+    - 数据集
+    - `netcdf4`
+    - 读取文件
+    - 读取/写入数据集属性
+    - 写入文件
+- 分层数据文件
+- 高性能计算
+    - 基准性能
+    - 有限元
+    - 曼德勃罗集
+    - 多处理
+    - 性能分析工具
+        - `austin`
+        - 缺点
+        - `flameGraphs`
+        - `scalene`
+    - 参考硬件/操作系统
+    - 参考问题
+        - 有限元
+        - 曼德勃罗集
+
+## I
+
+- `If` 语句
+    - 布尔表达式/运算符
+    - 范围测试
+    - 变量
+- `imshow()` 函数
+- 缩进
+- 括号/圆括号
+- 索引
+    - 链
+    - 方法
+    - 步长
+    - MATLAB 和 Python
+    - 起始/结束/负索引
+    - 制表符
+    - 零基索引/索引范围
+- 索引掩码
+    - 创建
+    - 数学运算
+    - 用途
+- `input()` 函数
+- 安装，MATLAB
+    - 创建/运行 Python 程序
+    - 下载
+    - 包
+    - 安装后配置/检查
+    - 工具箱
+- 插值
+    - 一维
+        - 外推
+        - 线性
+        - 样条
+    - 二维
+        - 三次/线性方法
+        - 评估
+        - 函数
+        - 网格
+        - `griddata()`
+        - `meshgrid()`
+        - `np.meshgrid()`
+        - 测试
+        - 值
+- 整数
+- `ipython`, IDE
+    - 应用程序导航器
+    - 自动加载模块
+    - 版本
+- 可迭代对象
+- `iterrows()`
+
+## J
+
+- JavaScript 对象表示法
+    - 复杂数据结构
+    - MATLAB 到 Python
+    - Python 到 MATLAB
+- 即时编译
+
+## K
+
+- 关键字参数
+
+## L
+
+- `Lambda` 函数
+- 线性代数
+    - 特征值问题
+    - 线性方程
+    - MATLAB 与 Python 对比
+    - 奇异值分解
+- 线性索引
+- 线性规划问题
+    - 整数值
+    - `linprog()`
+        - 桥接模块
+        - 系数
+        - MATLAB
+        - Python 解法
+        - 关系
+        - sol 对象
+        - 求解状态
+        - 目标函数
+    - `PuLP` 模块
+    - 服务器属性
+- `Linux`
+- `list()` 函数
+- 列表的列表
+- 列表
+- 局部作用域
+- 局部变量，然后闭包、全局和内建
+- 长表达式
+
+## M
+
+- `macOS`
+- 曼德勃罗集
+- MATLAB `.mat` 文件
+    - 数据容器
+    - 定义
+    - 读取文件
+    - v7.3
+    - 写入文件
+- MATLAB
+    - Anaconda 的 Python 发行版
+    - 调用函数
+    - 现有会话
+    - 新会话
+    - 元胞数组
+    - 配置
+        - Linux/macOS
+        - `matlab` 命令
+        - 路径
+        - `pyenv` 命令
+        - Windows
+    - `container.Map`
+        - 定义
+        - 特征求解器
+    - 环境变量
+    - 错误
+    - 函数
+    - `horzcat()` 函数
+    - 混合环境
+        - 不兼容的库函数
+        - 安装引擎
+        - 安装模块
+        - 库
+            - 底层库
+        - 映射
+    - `matpy`
+    - `py` 模块
+    - Python
+        - `pyversion()`
+        - 软件
+        - 软件工程
+        - 工具箱
+    - MATLAB 原生变量
+    - MATLAB 性能
+    - MATLAB/Python 交互
+        - 文件 I/O
+        - 系统调用
+        - TCP/IP 交换
+- `matplotlib` 模块
+- 矩阵切片
+- `maxsplit` 关键字
+- `MB()` 函数
+- 混合类型数学表达式
+- 模块/包
+    - 定义
+    - `def main()`
+    - 依赖冲突/虚拟环境
+    - 安装
+    - 命名空间
+    - 搜索路径
+- `MongoDB`
+    - 桥接模块
+    - 删除
+    - 读取
+    - 更新
+- `mset` 函数
+- `multiprocessing` 模块
+
+## N
+
+- Natural Earth 项目
+- `ncinfo` 命令行工具
+- 网络通信协议
+    - HTTP, HTTPS
+    - MATLAB 客户端
+    - Python 作为 Web 服务器
+    - TCP/IP
+    - TCP 服务器
+- `Numba`
+    - 关键字参数
+    - 局限性
+    - 曼德勃罗程序
+    - MATLAB
+    - 并行 for 循环
+    - 性能
+    - Python
+- 数值数组
+    - 常量
+    - 转换
+        - MATLAB
+        - 命令
+        - 函数
+        - 单精度浮点数
+        - 类型
+- `NumPy`
+    - 定义
+    - 特征求解器
+- `NumPy` 和 `SciPy`
+- `NumPy` 数组
+    - 十进制转二进制
+    - 十六进制转十进制
+    - MATLAB
+    - 标量
+    - 运算
+        - 加/减
+        - 逐元素
+        - 厄米特
+        - 转置
+    - 感兴趣项
+        - `find()` 函数
+        - 最小项
+    - 排序数据
+    - 文本文件，读取
+    - 类型转换
+- `NumPy` 数组
+    - 二进制文件
+        - 字节序转换
+        - 元数据
+        - 读取
+        - 二进制转十进制
+    - 广播
+        - 定义
+        - 距离矩阵
+        - 内存
+        - 归一化向量
+        - 规则
+    - 复数标量
+    - 创建
+        - 对角矩阵
+        - 单位矩阵
+        - 膨胀矩阵
+        - 等间距向量
+        - 对数间距向量
+        - 网格矩阵
+        - `nan()` 函数
+        - `np.array()` 函数
+        - 全一矩阵
+        - 随机矩阵
+        - `range()` 函数
+        - 堆叠
+        - 测试矩阵
+        - 三角矩阵
+        - `zeros()` 函数
+    - 数据类型
+        - 十进制转十六进制
+        - 定义
+        - 维度
+        - `dtype` 参数
+        - `dtype` 参数
+        - 格式化
+        - 导入
+        - MATLAB
+        - `vs.` MATLAB 矩阵
+        - 列主序
+        - 维度
+        - 数值字面量
+        - `.resize()` 方法
+        - 标量
+        - `np.array()` 函数
+    - `NumPy` 模块
+    - 操作
+        - 按位操作
+        - 逐元素操作
+        - 厄米操作
+        - 乘法
+        - 转置
+    - 子矩阵
+        - 提取
+        - 更新
+    - 关注项
+        - 最近项
+        - `find()` 函数
+        - 最长项
+        - 排序数据
+    - 数值
+    - 文本文件
+        - 读取
+        - 写入
+    - 类型转换
+- `whos` 命令
+
+## O
+
+- 面向对象编程 (OOP)
+    - 类方法
+    - 冲突
+    - 计算性能
+    - 性能影响
+    - 模拟
+    - 向量化解法
+- `open()` 函数
+- 操作系统
+    - 计算机硬件
+    - CPU 周期
+    - 环境变量
+    - 独立方法
+    - MATLAB
+    - 内存
+    - 数值分析
+    - 程序迭代
+    - Python
+    - 随机向量
+    - `setenv()` 函数
+    - 模拟
+    - `TypeError` 错误
+
+## P
+
+- `pack()` 函数
+- `Pandas`
+- 并行程序
+- `pathlib.Path()` 对象
+- Pickle 文件
+- 固定
+- 数据透视表
+    - 多级聚合
+    - 单级聚合
+- `Plotly`
+- 图形
+    - 批处理模式
+    - 编辑
+    - 线图
+    - 点图
+    - 堆叠图
+- 绘图
+    - 区域图
+    - `Cartopy`
+    - 探索
+    - 线图
+    - 点图
+    - 点/线图
+        - 日期和时间
+        - 直方图
+        - MATLAB
+        - `matplotlib` 命令
+        - 公制 `vs.` 美制
+        - Python
+        - 保存
+        - 命令
+        - 格式
+        - MATLAB
+        - `matplotlib` 函数
+        - Python
+        - `subplots()` 函数
+        - 杨氏模量
+- `PostgreSQL`
+- `prange()` 函数
+- 质因数
+- `print()` 函数
+- `purchase_orders`
+- `py2mat()` 函数
+- Python
+    - 部署
+    - 发行版
+    - 列表
+        - `.append()` 方法
+        - 列表推导式
+        - `.count()` 方法
+        - 创建
+        - 空列表
+        - `.extend()` 方法
+        - 提取范围
+        - `find()` 函数
+        - `IndexError`
+        - 索引
+        - `.insert()` 方法
+        - 长度
+        - 列表推导式
+        - 成员测试
+        - 合并
+        - 方法
+        - 嵌套容器
+        - `.pop()` 方法
+        - `.remove()` 方法
+        - `.reverse()` 方法
+        - 排序
+        - 子集提取
+        - 拆分
+        - `ValueError` 异常
+        - 压缩
+    - 模块导入
+    - 多台计算机
+    - 高昂成本
+    - `sys.path`
+    - 别名
+    - `append()`
+    - `insert()`
+    - 元组
+        - 创建
+        - 可哈希
+        - 括号
+        - `vs.` Python 列表
+        - 包装
+    - 变量
+- Python 包索引 (PyPI)
+- Python 特有方面
+- `Pythran`
+    - 注释
+    - MATLAB
+    - 并行 for 循环
+    - 性能
+
+## Q
+
+- `Qt` 库
+
+## R
+
+- `range()` 函数
+- `.ravel()` 方法
+- 读取-求值-打印-循环 (REPL)
+- `readmatrix()` 函数
+- `read_text()` 方法
+- `Redis`
+- 回归
+    - 置信区间
+    - 最小二乘法
+    - 普通回归
+    - 加权回归
+    - 预测区间
+- 正则表达式
+- 远程计算机
+- `re.split()`
+- 根
+    - 多变量
+    - 非线性方程组
+    - 单变量
+- `rstrip()` 方法
+
+## S
+
+- 卫星
+- `save()` 命令
+- 标量
+- `Scalene`
+- `SciPy`
+    - 坐标格式 (COO)
+    - 定义
+    - 特征值求解器
+    - 函数
+    - 优化模块
+    - `scipy.interpolate` 模块
+    - `scipy.optimize` 模块
+    - 稀疏模块
+    - 稀疏矩阵
+- `scipy.io.loadmat()`
+- `Seaborn`
+- 海面温度 (SST)
+    - `CARTOPY_USER_BACKGROUNDS`
+    - 数据
+    - `earth_veg_index.jpeg`
+    - 正射投影
+- 二阶微分方程
+- `.send()` 和 `.recv()` 函数
+- 集合操作
+    - MATLAB，`unique()` 函数
+    - Python，`.issuperset()` 方法
+    - 迭代/类型转换
+    - `set()` 函数
+- 模拟退火
+    - 派生自 Annealer 的类
+    - 自动估计器
+    - `compute_distances()` 函数
+    - 概念
+    - `.distance_matrix` 属性
+    - `energy()` 方法
+    - 参数
+    - 要求
+    - `.state` 属性
+    - 旅行商问题 (TSP)
+- 奇异值分解 (SVD)
+- `sleeper()` 和 `add_numbers()`
+- 求解器代码
+- 求解器函数
+- 南美小麦产量
+    - `add_geometries()` 函数
+    - 边界
+    - `Cartopy`
+    - 案例
+    - 国家名称
+    - 数据库
+    - 低分辨率文件
+    - 多边形区域
+- 稀疏矩阵
+    - 块稀疏行 (BSR)
+    - 创建
+    - 坐标格式 (COO)
+    - `csr_matrix()`
+    - 稠密矩阵
+    - 稠密表示
+    - 坐标格式 (COO)
+        - 维度
+        - 索引值
+        - 索引/值
+        - 行/列
+        - `sparse()` 函数
+        - `.sum_duplicates()` 方法
+    - 压缩稀疏列 (CSC)
+    - 压缩稀疏行 (CSR)
+    - 定义
+    - 对角格式 (DIA)
+    - 键字典格式 (DOK)
+    - 格式/功能
+    - 输入和输出 (I/O)
+        - 组成部分
+        - `.mat` 文件
+        - `pickle` 文件
+    - 链表格式 (LIL)
+    - 线性代数
+        - 特征值问题
+        - 基于有限元的对称矩阵
+        - 线性方程组
+        - 矩阵摘要
+        - 矩阵-向量乘积
+        - `scipy.sparse.linalg` 模块
+    - `Sturm` 序列号
+    - MATLAB
+    - `SciPy`
+- `.split()` 方法
+- `SQLite`
+- 堆叠图
+- `start_new_order()` 函数
+- 启动目录
+- `startup.m` 文件
+- `strftime()` 函数
+- 字符串
+    - 字节数组
+    - 字符数组
+    - 格式化
+    - 操作
+        - 追加
+        - 命令
+        - 转换
+        - 长度
+        - `<TAB>` 键
+        - 方法链式调用
+        - 重复
+        - 替换字符
+        - 正则表达式
+        - 用途
+        - 替换
+        - 分隔
+        - 子字符串
+        - 拆分
+        - 模板
+        - 测试
+            - 相等性
+            - 起始字符
+            - 子串
+            - 结尾字符
+- `struct()` 函数
+- `struct` 的 `pack()` 函数
+- 结构化数据
+    - 类
+    - `hasattr()` 函数
+    - `isfield()` 函数
+    - `namedtuple` 方法
+    - `SimpleNamespace` 方法
+- 结构化查询语言 (SQL)
+- 符号数学
+    - `char` 属性
+    - 冲突
+    - 导数
+    - 积分
+    - `laplace_transform()` 函数
+    - 线性代数
+    - `s.doit()`
+    - 级数
+    - 求解方程
+    - `SymPy` 代码生成器
+    - 变量
+- `sys.exc_info()` 函数
+
+## T
+
+- 表格
+    - 列
+        - 添加
+        - 删除
+        - 名称
+        - 类型
+    - 创建
+    - `.describe()` 方法
+    - `groupsummary()` 方法
+    - `head()` 函数
+    - 索引
+    - `.info()` 方法
+    - 连接
+        - 风格
+        - 食品成本
+        - 食品类型
+        - `how=` 关键字
+        - `wxp` 列
+    - 加载
+        - MATLAB 的表格
+        - `pets.csv` 文件
+        - `read_csv()`
+        - 字符串/浮点类型
+    - 行
+        - 迭代
+        - 排序
+    - 大小
+    - 子集
+        - 所有列，选中行
+        - 所有行，选中列
+        - 筛选行，条件操作
+        - 选中行，选中列
+    - `summary()` 函数
+    - `tail()` 函数
+    - `.value_counts()` 方法
+- 测试矩阵
+    - 箭头矩阵
+    - 随机稀疏矩阵
+    - 数组
+    - `spy()` 函数
+- 文本文件
+    - 赋值
+    - 二进制文件
+    - CSV
+    - 定义
+    - `NumPy` 的 `genfromtxt()` 函数
+    - `pandas`
+    - `python` 模块
+    - `ini` 文件
+    - I/O 异常
+    - JSON
+    - MATLAB/Python
+    - 解析文本
+    - 操作
+        - 正则表达式
+        - `re.split()`
+        - 分割字符串，子串
+        - 字符串搜索
+        - 去除空白符
+    - `pathlib`，读取损坏文件
+    - 读取/写入数值数组
+    - 读取 `ini` 文件
+    - 标准输出 (STDOUT)
+    - 写入 `ini` 文件
+    - 写入 YAML 文件
+    - XML
+        - `lxml` 模块
+        - 带命名空间
+        - 漂亮打印
+        - 不带命名空间
+        - 写入 XML
+    - YAML
+- 时间
+    - 当前时间
+    - 定义
+    - 模块
+    - 字符串格式
+    - `tic/toc/%timeit`
+    - `time.strftime()` 函数
+    - `time.time()` 函数
+- 时区
+- `.tobytes()` 方法
+- `to_datetime()` 函数
+- `.to_excel()` 方法
+- `.tofile()` 方法
+- 旅行商问题 (TSP)
+- 遍历生成器
+- 元组，`np.ones()` 函数
+- 二维数组
+
+## U
+
+- 单位制
+    - 定义单位
+    - MATLAB
+    - 公制值
+    - `NumPy` 数组
+    - `pint/`符号工具箱
+    - Python
+- Unix 纪元秒
+- `urlread()` 函数
+
+## V
+
+- 变量赋值
+    - `=`
+    - 就地更新运算符
+    - 语言
+    - 打印表达式
+    - 海象运算符
+- 向量化
+- 虚拟环境
+    - `Anaconda`
+    - 命令
+    - 定义
+    - `matpy`
+    - 开源语言
+
+## W
+
+- `which` 命令
+- `While` 循环
+- `whosmat()` 函数
+- `write()` 方法
+
+## X
+
+- `$max` 聚合
+
+## Y
+
+- `yield` 关键字
+- 杨氏模量
+
+## Z
+
+- `zoneinfo`
+- `zoneinfo` 模块

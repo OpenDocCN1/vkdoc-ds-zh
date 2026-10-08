@@ -1,0 +1,66 @@
+reviews:
+- 'no': 3577
+  overturn_probability: 0.0
+  alternative: 正文小标题/章节起始标记（第10章）
+  counter_evidence:
+  - 前一行（3573）包含图片 `img/ch10.jpg`，通常作为章节分隔页或章首图，强烈暗示此处为新章节开始。
+  - 该行使用 `##` 二级标题，而全书主要章节（如3577之前的2977）使用 `#` 一级标题，这种层级跳变通常意味着Markdown转换时，第10章标题被识别为二级标题，但语义上它确实是新章起点。
+  - 内容语义上，3577之前的内容是第9章的结论（3567 '## 结论'），3577之后开始讲述'最终成果：指标报告卡'，这是第10章的核心主题，具备统领性。
+  keep_split: true
+- 'no': 4421
+  overturn_probability: 0.0
+  alternative: 章节标题（第12章）
+  counter_evidence:
+  - 前一行（4417）包含图片 `img/ch12.jpg`，明确指向第12章。
+  - 标题内容为 `# 创建服务目录`，符合本章主题。
+  - 上下文连贯性：4417前的4407是'## 结论'（第11章结尾），4421开启新话题。
+  keep_split: true
+- 'no': 4626
+  overturn_probability: 0.0
+  alternative: 章节标题（第13章）
+  counter_evidence:
+  - 前一行（4628）包含图片 `img/ch13.jpg`，明确指向第13章。
+  - 标题内容为 `## 建立标准与基准`，符合第13章主题。
+  keep_split: true
+- 'no': 4812
+  overturn_probability: 0.0
+  alternative: 章节标题（第14章）
+  counter_evidence:
+  - 前一行（4808）包含图片 `img/ch14.jpg`，明确指向第14章。
+  - 标题内容为 `## 尊重度量指标的力量`，符合第14章主题。
+  keep_split: true
+- 'no': 5087
+  overturn_probability: 0.0
+  alternative: 章节标题（第15章）
+  counter_evidence:
+  - 前一行（5083）包含图片 `img/ch15.jpg`，明确指向第15章。
+  - 标题内容为 `# 避免研究陷阱`，符合第15章主题。
+  keep_split: true
+- 'no': 5255
+  overturn_probability: 0.0
+  alternative: 章节标题（第16章）
+  counter_evidence:
+  - 前一行（5251）包含图片 `img/ch16.jpg`，明确指向第16章。
+  - 标题内容为 `# 拥抱你组织的独特性`，符合第16章主题。
+  keep_split: true
+- 'no': 5511
+  overturn_probability: 0.0
+  alternative: 附录标题
+  counter_evidence:
+  - 标题为 `## 附录`，根据规则，前言、序言、附录等正文之后的独立部分应划分为一章。
+  - 后续内容（5513 '### 工具与资源'）是附录的具体内容。
+  keep_split: true
+- 'no': 5699
+  overturn_probability: 0.0
+  alternative: 索引标题
+  counter_evidence:
+  - 标题为 `## 索引`，根据规则，文末索引应划分为一章。
+  - 后续内容为标准的索引条目（A, B, C...）。
+  keep_split: true
+- 'no': 2977
+  overturn_probability: 0.0
+  alternative: 章节标题（第9章）
+  counter_evidence:
+  - 标题为 `# 第九章 创建并解读度量成绩报告单`，明确包含章序号。
+  - 前文（2965 '## 结论'）是第8章的结尾，符合章节交替规律。
+  keep_split: true

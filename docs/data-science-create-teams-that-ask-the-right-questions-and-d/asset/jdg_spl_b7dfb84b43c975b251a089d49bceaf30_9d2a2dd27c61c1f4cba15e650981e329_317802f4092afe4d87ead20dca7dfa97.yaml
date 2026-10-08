@@ -1,0 +1,49 @@
+chapter_starts:
+- 'no': 3015
+  confidence: 0.95
+  final_reason: 双方一致。尽管标记为 '##'，但结合前文 3005-3009 为上一章总结与脚注，以及编号 '22.' 的连贯性，确认为新章起点。
+  accepted_evidence:
+  - 编号 '22.' 符合最高层级章节特征
+  - 前文结束于上一章的脚注
+  - 复核方确认 keep_split 为 true
+  rejected_evidence:
+  - 复核方提出的格式层级担忧（H2 vs H1），但语义和上下文证据更强
+  need_human_review: false
+- 'no': 3095
+  confidence: 0.95
+  final_reason: 双方一致。前文为上一章脚注，编号 '23.' 清晰，语义具有统领性，确认为新章起点。
+  accepted_evidence:
+  - 编号 '23.' 符合最高层级章节特征
+  - 前文（3091-3094）为上一章的脚注和空白行，符合章末特征
+  - 复核方确认 keep_split 为 true
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3196
+  confidence: 0.98
+  final_reason: 双方一致。出现 '第六部分'，触发部分-章节模式规则，且后续章节 24、25 隶属于此部分，必须分章。
+  accepted_evidence:
+  - 标题 '第六部分' 触发部分-章节分章规则
+  - 后续章节 24、25 逻辑上隶属于该部分
+  - 复核方确认 keep_split 为 true
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3339
+  confidence: 0.85
+  final_reason: 双方一致。'终章' 具有明确的终结语义，位于正文结束、索引之前，视为独立章节或附录性质的主要部分。
+  accepted_evidence:
+  - 语义上为正文最后一部分
+  - 位于索引之前
+  - 复核方虽指出格式层级可能不一致，但仍倾向于保留分章
+  rejected_evidence:
+  - 格式层级为 H3，可能与主章 H2/H1 不一致，但语义权重高于格式特征
+  need_human_review: false
+- 'no': 3355
+  confidence: 0.99
+  final_reason: 双方一致。明确标注 '索引'，且后文为标准的字母索引列表，符合文末索引分章规则。
+  accepted_evidence:
+  - 标题为 '索引'
+  - 后文为字母 A-Z 的索引条目
+  - 规则规定文末索引划分为一章
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

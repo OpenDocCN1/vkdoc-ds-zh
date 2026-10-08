@@ -1,0 +1,22 @@
+chapter_starts:
+- 'no': 8
+  confidence: 0.95
+  reason: '''引言''为前言类章节，符合规则中''前言...统一划分为一章''的要求，且为顶级标题。'
+- 'no': 48
+  confidence: 0.9
+  reason: '''第一部分：Spark 数据工程基础''为部分标题，根据''部分-章节模式''规则，遇到部分标题需分章。'
+- 'no': 52
+  confidence: 0.95
+  reason: '''1. 现代数据工程导论''为第1章，编号连贯，顶级标题。'
+- 'no': 419
+  confidence: 0.95
+  reason: '''2. Apache Spark 入门''为第2章，编号连贯，顶级标题。'
+- 'no': 922
+  confidence: 0.95
+  reason: '''3. 处理数据''为第3章，编号连贯，顶级标题。'
+- 'no': 1646
+  confidence: 0.95
+  reason: '''4. 使用 Spark SQL 和 DataFrame API 进行数据转换''为第4章，编号连贯，顶级标题。'
+- 'no': 2304
+  confidence: 0.95
+  reason: '''5. 桥接 Spark SQL 与 JDBC''为第5章，编号连贯，顶级标题。'

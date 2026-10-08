@@ -1,0 +1,45 @@
+reviews:
+- 'no': 6102
+  overturn_probability: 0.05
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '# 11. 处理日期：lubridate'，具有典型的一级标题格式（# 加 数字序号加 冒号主题）。
+  - 前文（行 6098-6101）是脚注和分隔线，标志着上一章节（处理因子）的结束。
+  - 后续内容（行 6104 起）开始介绍 lubridate 包，与标题语义完全匹配。
+  - 序号 '11' 与前后章节逻辑连贯。
+  keep_split: true
+- 'no': 6464
+  overturn_probability: 0.1
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '# 处理模型：broom 和 modelr'，使用一级标题标记 '#'，虽无数字序号，但在 Markdown 书籍结构中，一级标题通常代表新章节。
+  - 前文（行 6462 前后）是第 11 章关于时间间隔讨论的结尾部分。
+  - 后续内容（行 6466 起）详细介绍 broom 和 modelr 包，符合“统领性、概括性”特征。
+  - 根据规则“没有章序号，这就需要依靠语义判断”，该标题语义独立且层级最高。
+  keep_split: true
+- 'no': 6885
+  overturn_probability: 0.05
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '# 13. 绘图：`ggplot2`'，具有典型的一级标题格式（# 加 数字序号加 冒号主题）。
+  - 前文（行 6883-6884）是脚注标记，标志着上一章节的结束。
+  - 后续内容（行 6887 起）开始介绍 ggplot2 包，与标题语义完全匹配。
+  - 序号 '13' 与前后章节逻辑连贯。
+  keep_split: true
+- 'no': 7307
+  overturn_probability: 0.05
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '# 14. 结论'，具有典型的一级标题格式（# 加 数字序号加 主题）。
+  - 前文（行 7305 前后）是第 13 章关于 ggplot2 结尾的总结段落。
+  - “结论”在技术书籍中通常作为独立的最后一章存在。
+  - 序号 '14' 符合全书章节递增逻辑。
+  keep_split: true
+- 'no': 7311
+  overturn_probability: 0.02
+  alternative: 章节标题（索引）
+  counter_evidence:
+  - 行内容为 '# 索引'，使用一级标题标记 '#'。
+  - 根据规则“文末索引也划分为一章”，该行位于正文结束后，后续内容为按字母顺序排列的术语列表（A, B, C...），属于典型的索引部分。
+  - 索引作为独立章节处理是标准做法。
+  keep_split: true

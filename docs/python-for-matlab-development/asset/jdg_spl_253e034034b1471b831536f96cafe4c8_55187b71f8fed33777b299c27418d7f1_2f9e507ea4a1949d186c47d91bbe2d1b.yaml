@@ -1,0 +1,35 @@
+chapter_starts:
+- 'no': 18533
+  confidence: 0.98
+  final_reason: 双方一致。该行使用 Markdown H1 标记且包含编号 '15.'，符合全书最高层级章节特征。后续行 18535 为子节 '##
+    15.1'，语义上具有统领性，格式独立成行且无句号，确认为新章起点。
+  accepted_evidence:
+  - Markdown H1 标记 '#' 表明最高层级
+  - 编号 '15.' 符合顶级章节编号规则
+  - 后续紧跟子节 '## 15.1'，符合章节-小节结构
+  - 独立成行，长度短，无结尾标点
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 18654
+  confidence: 0.95
+  final_reason: '双方一致。根据判断规则“文末索引也划分为一章”，该行 ''# 索引'' 明确标识了索引部分的开始，后续内容为标准的字母索引导航（##
+    A, ## B...），确认为新章起点。'
+  accepted_evidence:
+  - 规则明确规定“文末索引”需划分为一章
+  - '后续内容（18656 起的 ## A, ## B...）证实了这是索引结构'
+  - 使用 H1 标记，独立成行
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 19661
+  confidence: 0.9
+  final_reason: 双方一致。该行 '# 脚注' 使用 H1 标记，位于索引之后，作为文末辅助材料独立成节。虽然在某些排版中脚注可能依附于前文，但在本书的
+    Markdown 结构及规则语境下，将其视为独立的收尾章节是合理的，且复核方也支持保留分章。
+  accepted_evidence:
+  - 使用 H1 标记，独立成行
+  - 位于文档末尾，属于辅助材料
+  - '复核方支持保留分章（keep_split: true）'
+  - 类比“索引”规则，文末独立模块通常分章
+  rejected_evidence:
+  - 部分书籍排版可能将脚注视为上一章节附属，但 H1 级别暗示其独立地位
+  need_human_review: false
+rejected_lines: []

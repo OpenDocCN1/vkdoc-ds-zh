@@ -1,0 +1,210 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.98
+  final_reason: 前言/版权页等前置内容，根据规则统一划分为一章。双方一致。
+  accepted_evidence:
+  - 位于文档开头
+  - 包含ISBN、版权信息
+  - 属于前置内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 69
+  confidence: 0.95
+  final_reason: “# 引言”为一级标题，语义上统领后续的前言性内容，通常作为独立章节。双方一致。
+  accepted_evidence:
+  - 一级标题
+  - 语义独立
+  - 位于前言之后、第一部分之前
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 130
+  confidence: 0.98
+  final_reason: “第一部分”标题，根据部分-章节模式规则，部分标题需划分新章。双方一致。
+  accepted_evidence:
+  - 最高层级标题
+  - 明确的分部标记
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 132
+  confidence: 0.85
+  final_reason: “### 贝亚特里斯·佩雷斯”虽格式层级较低（###），但在该书结构中作为每个访谈对象的章节起始（无编号但语义统领性强），且位于“第一部分”之后，视为该部分下的第一个章节单元。判断方认为合理，复核方未强烈反驳其作为章节起点的必要性，且后续章节（如350行）也遵循类似逻辑。
+  accepted_evidence:
+  - 语义统领后续访谈内容
+  - 位于分部标题后
+  - 作为访谈对象的首个引入
+  rejected_evidence:
+  - 格式为三级标题，可能被视为小节
+  need_human_review: true
+- 'no': 350
+  confidence: 0.95
+  final_reason: “## 2. 埃兹吉·巴塞纳斯”，带编号的章节标题，序号连贯（前一个访谈对象虽无明确编号1，但此为第2位受访者或章节序号），语义清晰。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 二级标题
+  - 语义独立
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 500
+  confidence: 0.95
+  final_reason: “### 3. 皮亚·海登马克·库克”，带编号章节标题，序号连贯（接第2章）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 638
+  confidence: 0.95
+  final_reason: “### 4. 维吉妮·埃利亚斯”，带编号章节标题，序号连贯（接第3章）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 788
+  confidence: 0.95
+  final_reason: “### 5. 玛丽莎（帕格纳尼）·麦高恩”，带编号章节标题，序号连贯（接第4章）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 972
+  confidence: 0.95
+  final_reason: “### 6. 乔蒂·乔普拉”，带编号章节标题，序号连贯（接第5章）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1133
+  confidence: 0.95
+  final_reason: “### 7. 艾玛·斯图尔特博士”，带编号章节标题，序号连贯（接第6章）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1321
+  confidence: 0.98
+  final_reason: “# 第二部分 技术、电信与专业服务”，部分标题，需划分新章。双方一致。
+  accepted_evidence:
+  - 最高层级标题
+  - 明确的分部标记
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1323
+  confidence: 0.95
+  final_reason: “## 8. 卡拉·赫斯特”，带编号章节标题，序号连贯（接第一部分末尾的第7章，第二部分从第8章开始）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1521
+  confidence: 0.95
+  final_reason: “### 9. 史蒂夫·瓦利”，带编号章节标题，序号连贯（接第8章）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1645
+  confidence: 0.95
+  final_reason: “### 10. 索菲亚·门德尔松”，带编号章节标题，序号连贯（接第9章）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1743
+  confidence: 0.85
+  final_reason: “## 布莱恩·蒂彭斯”，无编号但位于第10章之后、第12章（编号12）之前，语义上填补第11章空缺，且格式与章节标题一致（姓名+头衔），视为独立章节。判断方提出，复核方未强烈反驳，倾向于保留。
+  accepted_evidence:
+  - 位置逻辑（10之后，12之前）
+  - 格式与其他章节标题一致
+  - 语义独立
+  rejected_evidence:
+  - 缺乏明确编号11
+  - 可能是子标题
+  need_human_review: true
+- 'no': 1939
+  confidence: 0.95
+  final_reason: “## 12. 詹姆斯·高恩”，带编号章节标题，序号明确为12。虽然前一行1937有“# 詹姆斯·高恩的介绍与访谈”，但1939的编号特征更符合“章节”定义，且1937可能为导言或排版噪声。双方倾向于以编号为准。
+  accepted_evidence:
+  - 带编号12
+  - 序号连贯（接11或推断的11）
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2049
+  confidence: 0.85
+  final_reason: “# 凯文·哈根”，无编号但位于第12章之后、第三部分（编号14开始）之前，语义上对应第13章。判断方提出，复核方未反驳。
+  accepted_evidence:
+  - 位置逻辑（12之后，14之前）
+  - 一级标题
+  - 语义独立
+  rejected_evidence:
+  - 缺乏明确编号13
+  need_human_review: true
+- 'no': 2238
+  confidence: 0.98
+  final_reason: “# 第三部分：能源、建筑材料与设备制造”，部分标题，需划分新章。双方一致。
+  accepted_evidence:
+  - 最高层级标题
+  - 明确的分部标记
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2240
+  confidence: 0.95
+  final_reason: “## 14. 凯瑟琳·尼布”，带编号章节标题，序号连贯（第三部分首个章节，接前文推断的13）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2394
+  confidence: 0.95
+  final_reason: “### 15. 奥利维耶·布卢姆”，带编号章节标题，序号连贯（接第14章）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2544
+  confidence: 0.95
+  final_reason: “## 16. 斯科特·图”，带编号章节标题，序号连贯（接第15章）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2648
+  confidence: 0.95
+  final_reason: “# 17. 弗兰克·奥布莱恩-贝尔尼尼”，带编号章节标题，序号连贯（接第16章）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2872
+  confidence: 0.98
+  final_reason: “# 第四部分：金融服务、投资管理与商业地产”，部分标题，需划分新章。双方一致。
+  accepted_evidence:
+  - 最高层级标题
+  - 明确的分部标记
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2874
+  confidence: 0.95
+  final_reason: “## 18. 埃尔莎·帕兰扎”，带编号章节标题，序号连贯（接前文推断的17）。双方一致。
+  accepted_evidence:
+  - 带编号
+  - 序号连贯
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 128
+  reason: 复核方指出‘关于作者’属于前置内容（引言部分），根据规则‘前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章’，且其格式为二级标题，层级低于章节标题，不应单独划为新章。判断方将其划章的依据较弱，采纳复核方意见。
+  need_human_review: false
+- 'no': 1937
+  reason: 复核方指出1937行‘# 詹姆斯·高恩的介绍与访谈’紧随其后出现编号明确的‘## 12. 詹姆斯·高恩’（1939行），1937更可能是章节内的导言或排版噪声，而非独立章节起点。已有1939作为第12章起点，故1937不作为新章起点。
+  need_human_review: false

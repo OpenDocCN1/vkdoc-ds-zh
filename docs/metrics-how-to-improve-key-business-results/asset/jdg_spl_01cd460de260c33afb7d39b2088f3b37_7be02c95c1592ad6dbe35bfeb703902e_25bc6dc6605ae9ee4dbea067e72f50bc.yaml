@@ -1,0 +1,95 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.95
+  final_reason: 前言部分（关于作者、技术审校）统一划分为一章，作为书籍起始。
+  accepted_evidence:
+  - 规则规定前言、序言等正文前内容统一划分为一章
+  - 标题为“## 关于作者”，属于典型的非正文元数据
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 14
+  confidence: 0.95
+  final_reason: 判断方与复核方一致。语义上统领“度量指标基础”的内容，且后续章节（如 no.124）为更高一级标题，表明此处为第一章起始。
+  accepted_evidence:
+  - 双方一致：作为最高层级或当前最高可用层级标题
+  - 语义统领性强，覆盖后续关于什么是指标、何时何地等内容
+  rejected_evidence:
+  - 复核方虽提出可能是引言延续，但置信度较低，且根据分章策略，独立的大主题模块通常视为新章
+  need_human_review: false
+- 'no': 124
+  confidence: 0.98
+  final_reason: 一级标题 `# 建立通用语言`，明确标志着新章节的开始，前文 `ch01.jpg` 暗示上一章结束。
+  accepted_evidence:
+  - 一级 Markdown 标题 `#` 通常代表全书最高层级
+  - 上下文特征：前文有章节末图片/总结，后文为子节 `##`
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 438
+  confidence: 0.9
+  final_reason: 二级标题 `## 设计指标` 在此书中作为最高内容层级使用（除了一级标题用于特定大章外，这里可能是第三章的开始）。语义独立，统领设计方法论。
+  accepted_evidence:
+  - 双方一致：语义独立，前文结束上一个模块
+  - 格式特征：单独成行，无句号，长度合适
+  rejected_evidence:
+  - 虽为二级标题，但在该书结构中实际承担了“章”的功能，或者属于最高层级的变体
+  need_human_review: false
+- 'no': 1054
+  confidence: 0.9
+  final_reason: 二级标题 `## 规划一个好的指标`，语义独立，开启新的主题模块（规划与开发计划）。
+  accepted_evidence:
+  - 双方一致：语义统领后续关于开发计划组成部分的内容
+  - 前文有小结，此处开启新话题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1486
+  confidence: 0.9
+  final_reason: 二级标题 `## 将指标用作指示器`，前文 `ch04.jpg` 暗示第四章结束，此处为第五章起始。
+  accepted_evidence:
+  - 双方一致：语义独立
+  - 上下文：前文出现章节插图，通常标志章节更迭
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1800
+  confidence: 0.9
+  final_reason: 二级标题 `## 使用答案密钥`，开启新的工具章节。
+  accepted_evidence:
+  - 双方一致：语义统领关于“答案密钥”的介绍与使用
+  - 前文空行结束上一部分
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2141
+  confidence: 0.9
+  final_reason: 二级标题 `## 从有效性开始`，开启新的实践指导章节。
+  accepted_evidence:
+  - 双方一致：语义独立
+  - 前文空行结束上一部分
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2426
+  confidence: 0.9
+  final_reason: 二级标题 `## 三角验证`，开启新的方法论章节。
+  accepted_evidence:
+  - 双方一致：语义独立
+  - 前文空行结束上一部分
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2724
+  confidence: 0.9
+  final_reason: 二级标题 `## 期望`，开启新的关于期望值管理的章节。
+  accepted_evidence:
+  - 双方一致：语义独立
+  - 前文空行结束上一部分
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2977
+  confidence: 0.98
+  final_reason: 明确带有“第九章”序号的一级标题 `# 第九章 创建并解读度量成绩报告单`，且前文有 `ch09.jpg`，确认为新章。
+  accepted_evidence:
+  - 规则：编号特征，带有“第 X 章”必须划分
+  - 格式：一级标题，单独成行
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 4
+  reason: 复核方指出其为正文段落（关于作者介绍的具体内容），非标题。判断方未提出该行需分章，复核方证据充分，确认不分行。
+  need_human_review: false

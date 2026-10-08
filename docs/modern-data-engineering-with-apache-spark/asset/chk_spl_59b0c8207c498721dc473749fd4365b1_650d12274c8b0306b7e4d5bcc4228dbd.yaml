@@ -1,0 +1,29 @@
+reviews:
+- 'no': 6287
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 该行使用 Markdown 一级标题格式 `#`，通常对应全书最高层级章节。
+  - 前后文（如行 6285 “本章...” 总结第8章，行 6289 引入新主题）显示这是第9章的开始，符合章节界限特征。
+  keep_split: true
+- 'no': 6689
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 包含明确的序号“10.”，符合“第 X 章”或最高层级编号特征。
+  - 标题“编写结构化流式处理应用的模式”具有统领性，且后续内容（行 6691 起）介绍本章具体学习目标和练习，符合章节起始语境。
+  keep_split: true
+- 'no': 7720
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 包含明确的序号“11.”，符合全书最高层级编号规则。
+  - 标题“Apache Kafka 与 Spark Structured Streaming”概括性强，且前文（行 7718）提及“在下一章中...重点放在更高级的数据处理上”，此处即为该“下一章”的开始。
+  keep_split: true
+- 'no': 8768
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 包含明确的序号“12.”，符合全书最高层级编号规则。
+  - 标题“分析处理与洞察”简短且概括性强，前文（行 8766）预告“在下一章中...重点放在更高级的聚合和分析处理上”，与此处标题呼应。
+  keep_split: true

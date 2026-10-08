@@ -1,0 +1,50 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 双方一致确认，作为文档起始，涵盖封面及前置版权、致谢等所有非正文内容，统一划分为第一章。
+  accepted_evidence:
+  - 判断方指出为文档起始，包含前言/序言等
+  - 复核方确认后续为版权、致谢等前置内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 147
+  confidence: 0.95
+  final_reason: 双方一致确认，'第一部分'为最高层级的大章标题，且本书采用部分-章节模式，故划分为新章。
+  accepted_evidence:
+  - 判断方识别为一级标题# 第一部分
+  - 复核方确认后续跟随章节1，符合部分统领章节的特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 687
+  confidence: 0.95
+  final_reason: 双方一致确认，'第二部分'为最高层级的大章标题，标识第二部分内容开始。
+  accepted_evidence:
+  - 判断方识别为一级标题# 第二部分
+  - 复核方确认语义明确，后续跟随章节6
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1332
+  confidence: 0.95
+  final_reason: 双方一致确认，尽管Markdown层级为##，但语义上明确为'第三部分'，属于部分标题，需划分新章。
+  accepted_evidence:
+  - 判断方识别为部分标题
+  - 复核方指出前两部分为#，此处可能是排版层级不一致，但语义确实是第三部分开始
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2006
+  confidence: 0.95
+  final_reason: 双方一致确认，'第四部分'为最高层级的部分标题，标识第四部分内容开始。
+  accepted_evidence:
+  - 判断方识别为部分标题
+  - 复核方确认后续紧跟引言和章节15
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2637
+  confidence: 0.95
+  final_reason: 双方一致确认，'第五部分'为最高层级的部分标题，标识第五部分内容开始。
+  accepted_evidence:
+  - 判断方识别为部分标题
+  - 复核方确认后续紧跟章节19
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

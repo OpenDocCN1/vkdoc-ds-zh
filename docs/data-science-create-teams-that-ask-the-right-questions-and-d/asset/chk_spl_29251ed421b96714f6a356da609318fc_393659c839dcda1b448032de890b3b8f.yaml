@@ -1,0 +1,43 @@
+reviews:
+- 'no': 0
+  overturn_probability: 0.0
+  alternative: 文档起始内容/前言
+  counter_evidence:
+  - 该行是封面图，且后续紧跟着书名、作者、版权信息等前置内容。
+  - 根据规则“前言、序言...正文之前的内容，统一划分为一章”，作为文档起始，它必须开启第一章。
+  keep_split: true
+- 'no': 147
+  overturn_probability: 0.0
+  alternative: 部分标题（# 第一部分）
+  counter_evidence:
+  - 该行格式为 `# 第一部分`，是一级Markdown标题。
+  - 后续内容紧跟 `## 1. 定义数据科学`，符合“部分-章节”结构中部分标题统领章节的特征。
+  keep_split: true
+- 'no': 687
+  overturn_probability: 0.0
+  alternative: 部分标题（# 第二部分）
+  counter_evidence:
+  - 该行格式为 `# 第二部分`，是一级Markdown标题。
+  - 语义上明确标识“第二部分”的开始，且后续跟随 `## 组建你的数据科学团队` 等章节内容。
+  keep_split: true
+- 'no': 1332
+  overturn_probability: 0.0
+  alternative: 部分标题（## 第三部分）
+  counter_evidence:
+  - 尽管使用的是 `##` 二级标题，但内容明确为“第三部分：数据科学冲刺中的交付”。
+  - 在本书的结构中，前两部分使用了 `#` 一级标题，此处可能是排版层级不一致，但语义上它确实是“第三部分”的标题，统领后续的章节（如 `### 11. 全新工作方式`）。根据规则，遇到部分标题需划分新章。
+  keep_split: true
+- 'no': 2006
+  overturn_probability: 0.0
+  alternative: 部分标题（## 第四部分）
+  counter_evidence:
+  - 内容明确为“## 第四部分：提出好的问题”。
+  - 后续紧跟引言段落和章节 `### 15. 理解批判性思维`。这是第四部分的开始，必须划分新章。
+  keep_split: true
+- 'no': 2637
+  overturn_probability: 0.0
+  alternative: 部分标题（## 第五部分）
+  counter_evidence:
+  - 内容明确为“## 第五部分：用数据科学讲故事”。
+  - 后续紧跟引言段落和章节 `### 19. 定义故事`。这是第五部分的开始，必须划分新章。
+  keep_split: true

@@ -1,0 +1,22 @@
+chapter_starts:
+- 'no': 3255
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 该行使用 Markdown 一级标题格式 `#`，内容为 '5. 实现'
+  - 前文第 3249 行是第 4 章的 '# 总结'，标志着第 4 章结束
+  - 序号 '5.' 为全书最高层级章节编号，且与上下文连贯
+  - 复核方确认 overturn_probability 为 0.0
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4100
+  confidence: 0.95
+  final_reason: 双方一致 + 规则明确规定索引需分章
+  accepted_evidence:
+  - 该行使用一级标题格式 '# 索引'
+  - 根据判断规则：'文末索引也划分为一章'
+  - 前文第 4098 行提到 '建议你继续阅读附录'，随后出现索引，符合书籍结尾结构
+  - 复核方确认 overturn_probability 为 0.0
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

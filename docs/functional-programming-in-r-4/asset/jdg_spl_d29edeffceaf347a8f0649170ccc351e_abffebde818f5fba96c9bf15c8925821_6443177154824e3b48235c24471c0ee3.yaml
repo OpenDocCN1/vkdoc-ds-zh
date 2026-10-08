@@ -1,0 +1,60 @@
+chapter_starts:
+- 'no': 1
+  confidence: 0.95
+  final_reason: 前置元数据部分（关于作者、致谢等），根据规则统一划分为一章，双方一致。
+  accepted_evidence:
+  - 规则规定前言、致谢等前置内容统一划分为一章
+  - 行1为“# 关于作者”，行5为“# 关于技术审校”，行9为“# 致谢”，均属于正文前的非正文内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 17
+  confidence: 0.95
+  final_reason: 明确的“第 1 章”标题，双方一致。
+  accepted_evidence:
+  - 行17为“# 第 1 章：引言”，符合最高层级章节特征
+  - 后续行19开始为正文内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 37
+  confidence: 0.95
+  final_reason: 明确的“第 2 章”标题，双方一致。
+  accepted_evidence:
+  - 行37为“## 第 2 章：R 语言中的函数”，包含“第 X 章”编号，视为章节标题
+  - 后续行39开始为正文内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1558
+  confidence: 0.9
+  final_reason: 明确的“第 3 章”标题，双方一致。
+  accepted_evidence:
+  - 行1558为“# 第 3 章：纯函数式编程——尾递归”，符合最高层级章节特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1776
+  confidence: 0.95
+  final_reason: 复核方指出行1732为疑似排版错误或非章节标题，而行1776为明确的“第 4 章”标题，依据“明确编号优先”原则采纳行1776。
+  accepted_evidence:
+  - 行1776明确写着“# 第 4 章：作用域与闭包”，是带编号的最高层级标题
+  - 复核方指出行1732“# 作用域与闭包”缺乏编号，且与行1776重复，可能是转换错误
+  - 序号连贯性：前文有第1、2、3、5章，行1776对应第4章
+  rejected_evidence:
+  - 判断方提出的行1732因缺乏编号且与行1776冲突，被复核方反驳，故不采纳
+  need_human_review: false
+- 'no': 2268
+  confidence: 0.95
+  final_reason: 明确的“第 5 章”标题，双方一致。
+  accepted_evidence:
+  - 行2268为“# 第 5 章：高阶函数”，符合最高层级章节特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2994
+  confidence: 0.95
+  final_reason: 明确的“第 6 章”标题，双方一致。
+  accepted_evidence:
+  - 行2994为“## 第 6 章：过滤、映射与归约”，包含“第 X 章”编号，视为章节标题
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 1732
+  reason: 复核方指出该行虽为H1标题“# 作用域与闭包”，但缺乏章节编号，且后续行1776出现明确的“# 第 4 章：作用域与闭包”。根据“明确编号优先”和“宁可漏分，不可误分”原则，判定行1732为排版错误或冗余标题，不划分为新章。
+  need_human_review: false

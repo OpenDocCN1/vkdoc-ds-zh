@@ -1,0 +1,67 @@
+chapter_starts:
+- 'no': 3080
+  confidence: 0.85
+  final_reason: '该行为 ''### 19. 钟颖兰...''，包含数字序号且为独立行。虽然 Markdown 层级为三级，但结合上下文，这是典型的“人物访谈/案例”分章模式。每个编号对应一位新受访者，具有独立的统领性内容（简介+对话）。判断方与复核方虽对层级有争议，但双方均同意分章（keep_split:
+    true），且语义上标志着新章节的开始。'
+  accepted_evidence:
+  - 包含数字序号 19，符合章节编号特征
+  - 后续内容包含受访者简介及专属对话，具有统领性
+  - 双方一致同意分章
+  rejected_evidence:
+  - 三级标题可能被视为子节，但在该书结构中，数字序号标志着主要内容的划分单元
+  need_human_review: false
+- 'no': 3224
+  confidence: 0.85
+  final_reason: 该行为 '### 20. 海蒂·杜布瓦'，序号连贯（19->20），格式与上一节一致，标志新的受访者章节。
+  accepted_evidence:
+  - 包含数字序号 20，序号连贯
+  - 后续内容包含受访者简介及专属对话
+  - 双方一致同意分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3368
+  confidence: 0.9
+  final_reason: 该行为 '## 21. 玛丽莎·布坎南'，序号连贯（20->21），使用二级标题，层级提升，更明显地标记新章节的开始。
+  accepted_evidence:
+  - 包含数字序号 21，序号连贯
+  - 使用二级标题 '##'，视觉层级更突出
+  - 后续内容包含受访者简介及专属对话
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3466
+  confidence: 0.85
+  final_reason: 该行为 '### 22. 辛西娅·柯蒂斯'，序号连贯（21->22），格式与第 20 节一致，标志新的受访者章节。
+  accepted_evidence:
+  - 包含数字序号 22，序号连贯
+  - 后续内容包含受访者简介及专属对话
+  - 双方一致同意分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3610
+  confidence: 0.85
+  final_reason: 该行为 '### 23. 史蒂夫·韦古德'，序号连贯（22->23），标志新的受访者章节。
+  accepted_evidence:
+  - 包含数字序号 23，序号连贯
+  - 后续内容包含受访者简介及专属对话
+  - 双方一致同意分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3760
+  confidence: 0.85
+  final_reason: 该行为 '### 24. 米歇尔·埃德金斯'，序号连贯（23->24），标志新的受访者章节。
+  accepted_evidence:
+  - 包含数字序号 24，序号连贯
+  - 后续内容包含受访者简介及专属对话
+  - 双方一致同意分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4062
+  confidence: 0.95
+  final_reason: 该行为 '# 索引'，使用一级标题，且位于全文末尾。根据规则“文末索引也划分为一章”，确认为新章节。
+  accepted_evidence:
+  - 一级标题 '#'
+  - 内容为‘索引’，属于文档末尾的参考部分
+  - 复核方明确指出反方证据不成立，支持分章
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

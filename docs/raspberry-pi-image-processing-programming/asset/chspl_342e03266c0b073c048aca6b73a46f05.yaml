@@ -1,0 +1,25 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.95
+  reason: 书籍封面/版权页起始，根据规则“前言、序言...正文之前的内容，统一划分为一章”，将这部分前置内容作为一个整体章节。
+- 'no': 278
+  confidence: 0.98
+  reason: “第 1 章”标题，最高层级章节，明确分章。
+- 'no': 731
+  confidence: 0.98
+  reason: “第 2 章”标题，最高层级章节，明确分章。
+- 'no': 1067
+  confidence: 0.98
+  reason: “第 3 章”标题，最高层级章节，明确分章。
+- 'no': 1416
+  confidence: 0.98
+  reason: “第 4 章”标题，最高层级章节，明确分章。
+- 'no': 2001
+  confidence: 0.98
+  reason: “第 5 章”标题，最高层级章节，明确分章。
+- 'no': 2496
+  confidence: 0.98
+  reason: “第六章”标题，最高层级章节，明确分章。
+- 'no': 2799
+  confidence: 0.98
+  reason: “第 7 章”标题，最高层级章节，明确分章。

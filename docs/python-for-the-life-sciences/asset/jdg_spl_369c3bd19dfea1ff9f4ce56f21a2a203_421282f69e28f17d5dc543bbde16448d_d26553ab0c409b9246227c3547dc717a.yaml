@@ -1,0 +1,65 @@
+chapter_starts:
+- 'no': 5930
+  confidence: 0.95
+  final_reason: 该行内容为“14. 基因反馈回路”，符合章节编号特征（“X. 标题”），位于上一章（第13章）的参考文献与脚注之后，上下文逻辑清晰，是标准的章节起始标识。
+  accepted_evidence:
+  - 格式为“数字. 标题”，无句末标点
+  - 位于上一章结尾（参考文献/脚注）之后
+  - 后续内容进入正文
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6425
+  confidence: 0.95
+  final_reason: 该行内容为“15. 培育虚拟花园”，符合章节编号特征，位于第14章末尾之后，是标准的章节起始标识。
+  accepted_evidence:
+  - 格式为“数字. 标题”
+  - 位于上一章结尾（脚注）之后
+  - 后续内容进入正文
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6654
+  confidence: 0.95
+  final_reason: 该行内容为“16. 豹子如何获得斑点”，符合章节编号特征，位于第15章脚注之后，是标准的章节起始标识。
+  accepted_evidence:
+  - 格式为“数字. 标题”
+  - 位于上一章结尾（脚注）之后
+  - 后续内容进入正文
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6868
+  confidence: 0.95
+  final_reason: 该行内容为“17. 狐狸看管鸡舍”，符合章节编号特征，位于第16章脚注之后，是标准的章节起始标识。
+  accepted_evidence:
+  - 格式为“数字. 标题”
+  - 位于上一章结尾（脚注）之后
+  - 后续内容进入正文
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7105
+  confidence: 0.95
+  final_reason: 该行内容为“18. 虚拟流感流行病”，符合章节编号特征，位于第17章参考文献和脚注之后，是标准的章节起始标识。
+  accepted_evidence:
+  - 格式为“数字. 标题”
+  - 位于上一章结尾（脚注）之后
+  - 后续内容进入正文
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7485
+  confidence: 0.95
+  final_reason: 该行内容为“# 19. 追溯生命足迹”，使用了Markdown一级标题并带有章节编号“19.”，位于第18章脚注之后，是标准的章节起始标识。虽然格式与前几章略有不同（多了#号），但语义和位置均指向新章开始。
+  accepted_evidence:
+  - 包含章节编号“19.”
+  - 使用Markdown一级标题“#”
+  - 位于上一章结尾（脚注）之后
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7790
+  confidence: 0.99
+  final_reason: 该行内容为“## 索引”，位于全书正文结束（第19章脚注）之后，根据规则“文末索引也划分为一章”，此处应划分为新的章节（索引章）。
+  accepted_evidence:
+  - 内容为“索引”标题
+  - 位于全书正文最后
+  - 符合“文末索引划分为一章”的规则
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

@@ -1,0 +1,23 @@
+chapter_starts: []
+rejected_lines:
+- 'no': 5913
+  reason: 复核方指出其为索引内部字母分类标题（M），非全书大章，判断方无候选，采纳复核方意见，拒绝分章。
+  need_human_review: false
+- 'no': 6012
+  reason: 复核方指出其为索引内部字母分类标题（O），非全书大章，判断方无候选，采纳复核方意见，拒绝分章。
+  need_human_review: false
+- 'no': 6048
+  reason: 复核方指出其为索引内部字母分类标题（P），非全书大章，判断方无候选，采纳复核方意见，拒绝分章。
+  need_human_review: false
+- 'no': 6061
+  reason: 复核方指出其为索引内部字母分类标题（R），非全书大章，判断方无候选，采纳复核方意见，拒绝分章。
+  need_human_review: false
+- 'no': 6187
+  reason: 复核方指出其为索引内部字母分类标题（S），非全书大章，判断方无候选，采纳复核方意见，拒绝分章。
+  need_human_review: false
+- 'no': 6265
+  reason: 复核方指出其为索引内部字母分类标题（T），非全书大章，判断方无候选，采纳复核方意见，拒绝分章。
+  need_human_review: false
+- 'no': 6321
+  reason: 复核方指出其为索引部分的内部子标题或说明性标题（索引条目 A-R），并非独立的顶级章节，判断方无候选，采纳复核方意见，拒绝分章。
+  need_human_review: false

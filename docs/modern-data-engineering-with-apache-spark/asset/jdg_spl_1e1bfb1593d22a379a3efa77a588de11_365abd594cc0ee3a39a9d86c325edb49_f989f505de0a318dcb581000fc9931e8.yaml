@@ -1,0 +1,66 @@
+chapter_starts:
+- 'no': 8
+  confidence: 0.95
+  final_reason: 双方一致采纳。行 8 为一级标题“# 引言”，位于正文之前，属于前言类内容，根据规则统一划分为一章。复核方确认其非误报。
+  accepted_evidence:
+  - 一级 Markdown 标题 `# 引言`
+  - 位于书籍正式章节（第 1 章）之前
+  - 符合“前言、序言...统一划分为一章”的规则
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 48
+  confidence: 0.9
+  final_reason: 双方一致采纳。行 48 为“# 第一部分：Spark 数据工程基础”，明确标识了部分层级。根据“部分-章节模式”规则，部分标题需划分新章。
+  accepted_evidence:
+  - 标题包含“第一部分”字样
+  - 一级 Markdown 标题
+  - 后续紧跟第 1 章（行 52），结构清晰
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 52
+  confidence: 0.95
+  final_reason: 双方一致采纳。行 52 为“# 1. 现代数据工程导论”，编号连贯，是全书第 1 章的顶级标题。
+  accepted_evidence:
+  - 一级 Markdown 标题
+  - 包含章序号 '1.'
+  - 前文为部分标题，后文为该章内容，层级正确
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 419
+  confidence: 0.95
+  final_reason: 双方一致采纳。行 419 为“# 2. Apache Spark 入门”，编号连贯（从 1 到 2），是第 2 章的顶级标题。
+  accepted_evidence:
+  - 一级 Markdown 标题
+  - 包含章序号 '2.'
+  - 前文（行 403-417）为第 1 章总结，符合章节结束特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 922
+  confidence: 0.95
+  final_reason: 双方一致采纳。行 922 为“# 3. 处理数据”，编号连贯（从 2 到 3），是第 3 章的顶级标题。
+  accepted_evidence:
+  - 一级 Markdown 标题
+  - 包含章序号 '3.'
+  - 前文（行 896-921）为第 2 章总结及代码，符合章节结束特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1646
+  confidence: 0.95
+  final_reason: 双方一致采纳。行 1646 为“# 4. 使用 Spark SQL 和 DataFrame API 进行数据转换”，编号连贯（从 3
+    到 4），是第 4 章的顶级标题。
+  accepted_evidence:
+  - 一级 Markdown 标题
+  - 包含章序号 '4.'
+  - 前文（行 1636-1645）为第 3 章总结，符合章节结束特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2304
+  confidence: 0.95
+  final_reason: 双方一致采纳。行 2304 为“# 5. 桥接 Spark SQL 与 JDBC”，编号连贯（从 4 到 5），是第 5 章的顶级标题。
+  accepted_evidence:
+  - 一级 Markdown 标题
+  - 包含章序号 '5.'
+  - 前文（行 2274-2303）为第 4 章总结，符合章节结束特征
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

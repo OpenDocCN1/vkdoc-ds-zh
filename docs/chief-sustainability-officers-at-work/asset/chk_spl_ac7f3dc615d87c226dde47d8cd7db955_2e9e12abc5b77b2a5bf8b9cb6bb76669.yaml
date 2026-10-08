@@ -1,0 +1,49 @@
+reviews:
+- 'no': 3080
+  overturn_probability: 0.3
+  alternative: 正文小标题（采访对象标识）
+  counter_evidence:
+  - 格式层级为 '###'（三级标题），通常在 Markdown 体系中代表章节内的子部分，而非全书最高层级的章（通常为 '# 第 X 章' 或 '第 X 章'）。
+  - '该书结构呈现为“多对象访谈录”模式（前文有 ## 对话：... 等二级标题），''### 19. 钟颖兰'' 更像是同一访谈板块下的不同受访者分节，而非独立的逻辑大章。'
+  keep_split: true
+- 'no': 3224
+  overturn_probability: 0.3
+  alternative: 正文小标题（采访对象标识）
+  counter_evidence:
+  - 标题格式为 '### 20. ...'，属于三级标题。根据判断规则中“只划分全书最高层级的大章”的要求，三级标题通常不构成独立章节，而是隶属于上一级（如某个大的部分或附录）的子标题。
+  - 若全书主要章节是二级标题（##），则三级标题不应触发分章。
+  keep_split: true
+- 'no': 3368
+  overturn_probability: 0.2
+  alternative: 章标题（或分节标题）
+  counter_evidence:
+  - 该行使用了二级标题 '##'，与前面的三级标题 '###' 不同，层级提升。如果全书其他主要章节也是 '##' 级别，则此判断合理；但如果全书主要章节是 '#
+    ' 级别，则 '##' 可能只是部分内的章节，需结合前文判断。鉴于前文有 '## 对话：...'，此处 '## 21.' 保持了与前面对话标题一致的层级，具有统领性。
+  keep_split: true
+- 'no': 3466
+  overturn_probability: 0.3
+  alternative: 正文小标题（采访对象标识）
+  counter_evidence:
+  - 标题格式为 '### 22. ...'，为三级标题。在 Markdown 语义中，三级标题通常用于“节”而非“章”。如果前文的 '### 19', '###
+    20' 被视为分章（保持分章判断），则此处也应分章；但严格来说，三级标题作为章节起始点略显层级过深，可能是“节”标题。
+  keep_split: true
+- 'no': 3610
+  overturn_probability: 0.3
+  alternative: 正文小标题（采访对象标识）
+  counter_evidence:
+  - 标题格式为 '### 23. ...'，为三级标题。与前述逻辑一致，三级标题在结构化文档中通常不构成最高层级的“章”。
+  keep_split: true
+- 'no': 3760
+  overturn_probability: 0.3
+  alternative: 正文小标题（采访对象标识）
+  counter_evidence:
+  - 标题格式为 '### 24. ...'，为三级标题。逻辑同上。
+  keep_split: true
+- 'no': 4062
+  overturn_probability: 0.0
+  alternative: 一级标题（索引起始）
+  counter_evidence:
+  - 该行内容为 '# 索引'，使用了一级标题 '#'。
+  - 根据判断规则：“文末索引也划分为一章”。
+  - 语义上，索引是独立的参考部分，明显不同于前面的正文访谈内容，具有明显的统领性和独立性。
+  keep_split: true

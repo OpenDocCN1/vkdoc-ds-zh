@@ -1,0 +1,52 @@
+chapter_starts:
+- 'no': 3011
+  confidence: 0.98
+  final_reason: 双方一致。序号16为最高层级大章编号，格式符合，无子层级编号干扰，确认为新章。
+  accepted_evidence:
+  - 判断方指出格式为 '# 16.'，属最高层级
+  - 复核方确认序号16与上下文逻辑连贯，后接二级标题及正文，符合章特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3147
+  confidence: 0.95
+  final_reason: 双方一致。虽然Markdown标记为'##'，但序号17紧随16，且后续18、19章均采用类似格式，表明在该书语境下此为独立大章。语义上统领后续内容。
+  accepted_evidence:
+  - 判断方依据序号17判定为大章
+  - 复核方指出虽标记为##，但结合18、19章的一致性及序号连贯性，确认为独立章节而非子节
+  rejected_evidence:
+  - 复核方提到的'##可能为二级标题'风险已被后续章节的一致性证据抵消
+  need_human_review: false
+- 'no': 3314
+  confidence: 0.95
+  final_reason: 双方一致。序号18为最高层级大章编号，后续包含'###'子节，证明其为章层级。
+  accepted_evidence:
+  - 判断方依据序号18判定为大章
+  - 复核方确认'##'在此语境下承担章功能，'###'承担节功能，结构清晰
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3486
+  confidence: 0.95
+  final_reason: 双方一致。序号19为最高层级大章编号，结构与其他大章一致。
+  accepted_evidence:
+  - 判断方依据序号19判定为大章
+  - 复核方确认序号19为大章序号，后接子标题，结构符合章特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3689
+  confidence: 0.98
+  final_reason: 双方一致。存在'第X部分'标题，根据规则，部分标题需划分为新章。
+  accepted_evidence:
+  - 判断方引用'部分-章节模式'规则
+  - 复核方确认'第四部分'为最高层级分割点，必须分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3749
+  confidence: 0.9
+  final_reason: 双方一致。'第4部分总结'具有独立性，内容概括全部分，视为独立章节处理更符合书籍结构化逻辑，且非正文小标题。
+  accepted_evidence:
+  - 判断方认为其具有独立内容结构和意义
+  - 复核方虽然指出其无数字序号，但确认其作为部分总结的独立模块属性，倾向于分章
+  rejected_evidence:
+  - 复核方提到的'可能是第19章一部分'的疑虑，因其标题明确标示'第4部分总结'而非'第19章总结'，故不采纳
+  need_human_review: false
+rejected_lines: []

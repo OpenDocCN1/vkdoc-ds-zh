@@ -1,0 +1,74 @@
+chapter_starts:
+- 'no': 2977
+  confidence: 1.0
+  final_reason: 双方一致确认。包含明确章序号“第九章”，且前文为第8章结尾（结论），语义独立，符合新章特征。
+  accepted_evidence:
+  - 判断方：H1标题，包含明确章序号'第九章'，语义独立，前文为上一章结尾。
+  - 复核方：标题为 `# 第九章 创建并解读度量成绩报告单`，明确包含章序号，前文（2965 '## 结论'）是第8章的结尾。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3577
+  confidence: 0.95
+  final_reason: 双方一致确认。虽为H2标题，但紧邻`ch10.jpg`分隔图，且内容为第10章核心主题“最终成果：指标报告卡”，前文为第9章结尾，具备统领性。
+  accepted_evidence:
+  - 判断方：结合上下文图片'ch10.jpg'及内容转折，判断为第10章起始。
+  - 复核方：前一行包含图片 `img/ch10.jpg`，通常作为章节分隔页或章首图；内容语义上开启新话题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4421
+  confidence: 0.95
+  final_reason: 双方一致确认。包含明确章序号“创建服务目录”（对应第12章），前文为第11章结尾，且紧邻`ch12.jpg`分隔图。
+  accepted_evidence:
+  - 判断方：H1标题，结合上下文图片'ch12.jpg'，判断为第12章起始。
+  - 复核方：前一行包含图片 `img/ch12.jpg`，上下文连贯性显示此处为第12章起点。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4626
+  confidence: 0.95
+  final_reason: 双方一致确认。虽为H2标题，但紧邻`ch13.jpg`分隔图，且内容为第13章核心主题“建立标准与基准”，前文为第12章结尾。
+  accepted_evidence:
+  - 判断方：H2标题，结合上下文图片'ch13.jpg'，判断为第13章起始。
+  - 复核方：前一行包含图片 `img/ch13.jpg`，标题内容符合第13章主题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4812
+  confidence: 0.95
+  final_reason: 双方一致确认。虽为H2标题，但紧邻`ch14.jpg`分隔图，且内容为第14章核心主题“尊重度量指标的力量”，前文为第13章结尾。
+  accepted_evidence:
+  - 判断方：H2标题，结合上下文图片'ch14.jpg'，判断为第14章起始。
+  - 复核方：前一行包含图片 `img/ch14.jpg`，标题内容符合第14章主题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5087
+  confidence: 0.95
+  final_reason: 双方一致确认。包含明确章标题“避免研究陷阱”（对应第15章），前文为第14章结尾，且紧邻`ch15.jpg`分隔图。
+  accepted_evidence:
+  - 判断方：H1标题，结合上下文图片'ch15.jpg'，判断为第15章起始。
+  - 复核方：前一行包含图片 `img/ch15.jpg`，标题内容符合第15章主题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5255
+  confidence: 0.95
+  final_reason: 双方一致确认。包含明确章标题“拥抱你组织的独特性”（对应第16章），前文为第15章结尾，且紧邻`ch16.jpg`分隔图。
+  accepted_evidence:
+  - 判断方：H1标题，结合上下文图片'ch16.jpg'，判断为第16章起始。
+  - 复核方：前一行包含图片 `img/ch16.jpg`，标题内容符合第16章主题。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5511
+  confidence: 0.9
+  final_reason: 双方一致确认。“附录”为正文之后的独立部分，根据规则应划分为新章。
+  accepted_evidence:
+  - 判断方：H2标题'附录'，属于书籍末尾独立部分。
+  - 复核方：标题为 `## 附录`，属于书籍末尾独立部分，后续为具体内容。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5699
+  confidence: 0.95
+  final_reason: 双方一致确认。“索引”为文末独立部分，根据规则应划分为新章。
+  accepted_evidence:
+  - 判断方：H2标题'索引'，属于书籍末尾独立部分。
+  - 复核方：标题为 `## 索引`，属于书籍末尾独立部分，后续为索引条目。
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

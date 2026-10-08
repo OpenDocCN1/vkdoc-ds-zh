@@ -1,0 +1,40 @@
+chapter_starts:
+- 'no': 6028
+  confidence: 0.95
+  reason: 带有章序号'16.'的Markdown一级标题，内容为'包 base、stats 和 graphics'，符合大章起始特征。
+- 'no': 6122
+  confidence: 0.98
+  reason: Markdown一级标题'R 语言中的数学函数'，无子层级，位于上一节内容结束，符合新章起始特征。
+- 'no': 6245
+  confidence: 0.98
+  reason: Markdown一级标题'矩阵、数组和数据框'，无子层级，具有统领性，符合新章起始特征。
+- 'no': 6382
+  confidence: 0.98
+  reason: Markdown一级标题'R语言统计函数'，无子层级，符合新章起始特征。
+- 'no': 6659
+  confidence: 0.98
+  reason: Markdown一级标题'实用技巧'，无子层级，符合新章起始特征。
+- 'no': 6663
+  confidence: 0.95
+  reason: Markdown一级标题'值替换：NA、NaN、Inf 和 -Inf'，虽然紧接上一章但作为独立主题节，符合分章特征（语义上的新起点）。
+- 'no': 6768
+  confidence: 0.95
+  reason: Markdown一级标题'if 语句与逻辑向量'，符合新章/新节起始特征。
+- 'no': 6810
+  confidence: 0.95
+  reason: Markdown一级标题'列表以及 list() 和 c() 函数'，符合新章/新节起始特征。
+- 'no': 6850
+  confidence: 0.95
+  reason: Markdown一级标题'从函数中获取数据'，符合新章/新节起始特征。
+- 'no': 6871
+  confidence: 0.95
+  reason: Markdown一级标题'递归函数'，符合新章/新节起始特征。
+- 'no': 6924
+  confidence: 0.95
+  reason: Markdown一级标题'一些结语'，属于正文结束前的总结性章节。
+- 'no': 6928
+  confidence: 0.99
+  reason: Markdown一级标题'索引'，根据规则，文末索引统一划分为一章。
+- 'no': 6983
+  confidence: 0.85
+  reason: Markdown一级标题'R 语言关键函数、参数与概念速查'，位于索引部分内部，作为新的独立条目章节，依据标题层级和语义独立性划分为新章。

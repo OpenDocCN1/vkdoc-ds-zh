@@ -1,0 +1,38 @@
+chapter_starts:
+- 'no': 3261
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合。行内容为 Markdown 一级标题 '# 6. Qiskit...'，序号连贯（接前文第5章），且后续内容开启了新的主要主题。
+  accepted_evidence:
+  - 行内容以 '# 6. Qiskit...' 开头，Markdown 一级标题通常对应章级别
+  - 复核方指出前文第5章在练习题部分结束，符合章节结束特征
+  - 序号 '6' 与隐含顺序连贯，内容标志着从理论转向编程工具
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4263
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合。行内容为 Markdown 一级标题 '# 7. 启动引擎...'，序号紧随第6章，标志新章节开始。
+  accepted_evidence:
+  - 行内容以 '# 7. 启动引擎...' 开头，Markdown 一级标题对应章级别
+  - 复核方指出前文第4261行结束了第6章总结，此处开启新主题
+  - 序号 '7' 逻辑连贯，内容为高级应用主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4896
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合。行内容为 Markdown 一级标题 '# 博弈论...'，虽无显式数字编号，但语义上开启独立且篇幅较长的新章节（第8章）。
+  accepted_evidence:
+  - 行内容以 '# 博弈论...' 开头，Markdown 一级标题
+  - 复核方指出前文第4782行结束第7章练习，此处为第8章起始
+  - 内容包含假币和魔方两个主要谜题，足以构成独立章节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5615
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合。行内容为 Markdown 一级标题 '# 9. 量子优势...'，明确带有数字序号9，标志新章节开始。
+  accepted_evidence:
+  - 行内容以 '# 9. 量子优势...' 开头，Markdown 一级标题且含数字序号
+  - 复核方指出前文第5611行结束第8章内容
+  - 内容涉及经典量子算法（Deutsch-Jozsa等），为独立重要章节
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

@@ -1,0 +1,51 @@
+reviews:
+- 'no': 2
+  overturn_probability: 0.05
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行位于书籍最开头，且没有页码或前置章节，容易被误判为正文第一章的开头而非前言部分
+  keep_split: true
+- 'no': 35
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 标题中包含“引言”字样，可能被误认为仅为第1章内的一个小节标题，而非独立章节
+  keep_split: true
+- 'no': 204
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 标题较长，可能被视为正文中的长段总结性标题，而非标准的一级章标题
+  keep_split: true
+- 'no': 973
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 序号跳跃（从第2章直接到第4章），可能让人怀疑第3章标题缺失，从而误判此行是否为第3章的误标或第4章的正文小标题
+  keep_split: true
+- 'no': 1325
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 无明显反方证据，格式与语义均符合一级章标题特征
+  keep_split: true
+- 'no': 1726
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 无明显反方证据，格式与语义均符合一级章标题特征
+  keep_split: true
+- 'no': 2896
+  overturn_probability: 0.9
+  alternative: 第6章内的二级小标题
+  counter_evidence:
+  - 该行使用 '##' 二级标题，而本书的一级章节（第1-6章、索引）均使用 '#' 一级标题
+  - 在第2章（Line 421 '## 改善部门间的客户“交接”'）和第6章内部，'##' 被用作章内小节标题，因此 '## 结论' 应视为第6章的最后一节，而非独立的新章
+  - 根据规则‘只划分全书最高层级的大章’，二级标题不应触发分章
+  keep_split: false
+- 'no': 2924
+  overturn_probability: 0.05
+  alternative: 索引列表项
+  counter_evidence:
+  - 索引内容通常被视为附录或参考文献的一部分，可能被误认为不应与正文章节同等对待，或被视为排版噪声
+  keep_split: true

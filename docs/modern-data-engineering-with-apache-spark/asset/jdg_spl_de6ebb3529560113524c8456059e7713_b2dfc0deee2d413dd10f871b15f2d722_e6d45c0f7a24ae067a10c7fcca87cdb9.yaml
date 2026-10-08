@@ -1,0 +1,28 @@
+chapter_starts:
+- 'no': 12203
+  confidence: 0.95
+  final_reason: 判断方依据规则'遇到部分和章标题时，都要划分新章'及语义转折（从第一部分总结到第二部分实战）提出分章。复核方虽指出Markdown层级为'##'，但认可其作为章节起点的效力（keep_split=true），且该书采用多部分模式，'第二部分'标志主要内容块的开始，符合最高层级大章的定义。
+  accepted_evidence:
+  - 规则规定'如果存在标题为“第 X 部分”，那么该书为部分-章节模式，遇到部分和章标题时，都要划分新章'
+  - 上下文显示从'第一部分：总结'转向'第二部分：在 Kubernetes 上部署...',具有明显的统领性
+  - 复核方确认 keep_split=true
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 12754
+  confidence: 0.9
+  final_reason: 判断方指出这是全书正文结束后的总结性章节。复核方确认其为独立的后记或展望章节特征，且紧跟'结论'章节之后，符合非正文部分的独立章节划分逻辑。
+  accepted_evidence:
+  - 标题'结语与展望'具有概括性，覆盖后续附录或展望内容
+  - 复核方确认 keep_split=true，且无异议
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 12772
+  confidence: 0.98
+  final_reason: 判断方依据规则'文末索引也划分为一章'提出。复核方完全同意，确认这是明确的章节起点。
+  accepted_evidence:
+  - 标题'索引 A'明确标识索引部分开始
+  - 规则明确规定索引划分为一章
+  - 复核方确认 keep_split=true
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

@@ -1,0 +1,57 @@
+reviews:
+- 'no': 8
+  overturn_probability: 0.0
+  alternative: 正文前言标题
+  counter_evidence:
+  - 根据判断规则，'前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章'。
+  - 行 8 是 Markdown 一级标题 `# 引言`，且位于书籍正文（第 1 章）之前，符合前言类内容的定义。
+  - 虽然存在误报倾向，但该行确实是标准的章节起始标记，且后续内容（行 10-15）是对引言的阐述，并非正文小标题或排版噪声。
+  keep_split: true
+- 'no': 48
+  overturn_probability: 0.0
+  alternative: 部分标题
+  counter_evidence:
+  - 根据判断规则，'如果存在标题为“第 X 部分”，那么该书为部分-章节模式，遇到部分和章标题时，都要划分新章'。
+  - 行 48 内容为 `# 第一部分：Spark 数据工程基础`，明确标识了部分层级。
+  - 该行是一级标题，且后续紧跟第 1 章（行 52），结构清晰，不属于正文小标题或误判。
+  keep_split: true
+- 'no': 52
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行 52 内容为 `# 1. 现代数据工程导论`，包含章序号 '1.'，符合顶级章节标题特征。
+  - 前后文逻辑连贯：前文是部分标题，后文是该章的具体介绍，且后续有 '## 数据工程的兴起' 等二级标题，层级关系正确。
+  - 序号连贯性良好，是全书第 1 章。
+  keep_split: true
+- 'no': 419
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行 419 内容为 `# 2. Apache Spark 入门`，包含章序号 '2.'，符合顶级章节标题特征。
+  - 前文（行 403-417）是第 1 章的总结，符合章节末尾特征。
+  - 序号从 1 跳至 2，连贯无缺漏。
+  keep_split: true
+- 'no': 922
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行 922 内容为 `# 3. 处理数据`，包含章序号 '3.'，符合顶级章节标题特征。
+  - 前文（行 896-921）是第 2 章的总结和代码块结束，符合章节结束特征。
+  - 序号连贯。
+  keep_split: true
+- 'no': 1646
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行 1646 内容为 `# 4. 使用 Spark SQL 和 DataFrame API 进行数据转换`，包含章序号 '4.'，符合顶级章节标题特征。
+  - 前文（行 1636-1645）是第 3 章的总结，符合章节结束特征。
+  - 序号连贯。
+  keep_split: true
+- 'no': 2304
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行 2304 内容为 `# 5. 桥接 Spark SQL 与 JDBC`，包含章序号 '5.'，符合顶级章节标题特征。
+  - 前文（行 2274-2303）是第 4 章的总结，符合章节结束特征。
+  - 序号连贯。
+  keep_split: true

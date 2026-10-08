@@ -1,0 +1,55 @@
+chapter_starts:
+- 'no': 2994
+  confidence: 0.98
+  final_reason: 判断方与复核方一致确认。行内容为 '## 第 6 章：过滤、映射与归约'，符合 '第 X 章' 语义及编号特征。后续内容（2996行起）为本章概述，前文（2988-2993行）为第5章末尾的代码示例及编号残留，符合章节划分特征。
+  accepted_evidence:
+  - 语义特征：标题包含 '第 6 章'，明确指向最高层级章节。
+  - 上下文特征：前文为代码块结束，后文为章节引言，符合新章开始的结构。
+  rejected_evidence:
+  - 复核方提到 '##' 与 '# ' 层级不一致，但判断规则指出需依靠语义判断，'第 X 章' 的语义优先级高于 Markdown 符号的视觉一致性，且可能是源文件转换差异。
+  need_human_review: false
+- 'no': 3916
+  confidence: 0.98
+  final_reason: 判断方与复核方一致确认。行内容为 '# 第 8 章：结论'，符合 '第 X 章' 语义及编号特征。后续内容（3918行起）为结论章节正文，前文（3914-3915行）为上一部分（无点编程/管道）的代码输出残留，符合新章开始结构。
+  accepted_evidence:
+  - 语义特征：标题包含 '第 8 章'，明确指向最高层级章节。
+  - 上下文特征：前文为代码输出，后文为全书总结，符合 '结论' 章定位。
+  rejected_evidence:
+  - 前文的排版噪声不影响本行作为章节标题的判断。
+  need_human_review: false
+- 'no': 3934
+  confidence: 0.95
+  final_reason: 判断方与复核方一致确认。行内容为 '# 索引'，根据裁决规则 '文末索引也划分为一章'，应视为独立章节。后续内容（3936行起）为具体的索引列表（按字母排序），符合索引章特征。
+  accepted_evidence:
+  - 规则特征：文末索引统一划分为一章。
+  - '内容特征：后续内容为典型的索引列表结构（## A, ## B 等）。'
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 2988
+  reason: 该行内容为 '# 5'，疑似第5章的页眉或编号残留，而非章标题（第5章标题应在更前面）。前文2984-2987为代码，后文2990为关于树大小的描述，语义上不构成新章开始。
+  need_human_review: false
+- 'no': 3134
+  reason: 该行内容为 '# 5.5'，属于子章节或节标题（第5章第5节），根据规则 '如果存在 X.Y 等子层级，不划分新的章节'，故拒绝。
+  need_human_review: false
+- 'no': 3332
+  reason: 该行内容为 '## 第 6 章 Filter、Map 和 Reduce'，疑似页眉重复。真正的第6章标题已在2994行出现。该行出现在代码块内部或中间（前文3324-3331为代码输出），属于排版残留或页眉混入正文，不应视为新的章节开始。
+  need_human_review: false
+- 'no': 3368
+  reason: 该行内容为 '## 第 6 章 Filter、Map 和 Reduce'，疑似页眉重复。前文3364为代码行，后文3370为正文，中间穿插页眉。非章节起始点。
+  need_human_review: false
+- 'no': 3394
+  reason: 该行内容为 '## 第 6 章 Filter、Map 和 Reduce'，疑似页眉重复。前文3392为正文，后文3396为正文，中间插入页眉。非章节起始点。
+  need_human_review: false
+- 'no': 3422
+  reason: 该行内容为 '## 第 6 章 Filter、Map 和 Reduce'，疑似页眉重复。非章节起始点。
+  need_human_review: false
+- 'no': 3460
+  reason: 该行内容为 '## 第 6 章 Filter、Map 和 Reduce'，疑似页眉重复。非章节起始点。
+  need_human_review: false
+- 'no': 3491
+  reason: 该行内容为 '# 第6章 Filter、Map 和 Reduce'，疑似页眉或章节标题残留。由于第6章已在2994行开始，此处非新章。且格式与2994行略有不同（缺少冒号，使用#），更可能是页眉。
+  need_human_review: false
+- 'no': 3547
+  reason: 该行内容为 '第 6 章 Filter、Map 和 Reduce'，无明显Markdown标记，位于正文段落中（前3545，后3549），疑似页眉混入或正文引用，非章节起始。
+  need_human_review: false

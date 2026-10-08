@@ -1,0 +1,25 @@
+chapter_starts:
+- 'no': 2
+  confidence: 0.95
+  reason: 位于正文之前，属于“关于作者”等前言性质内容，按规则统一划分为一章
+- 'no': 35
+  confidence: 1.0
+  reason: 明确标记为“第 1 章”，是一级章标题，具备统领性
+- 'no': 204
+  confidence: 1.0
+  reason: 明确标记为“第 2 章”，是一级章标题
+- 'no': 973
+  confidence: 1.0
+  reason: 明确标记为“第 4 章”，是一级章标题（注意文本中跳过了第3章标题，但依据规则仍划分新章节）
+- 'no': 1325
+  confidence: 1.0
+  reason: 明确标记为“第 5 章”，是一级章标题
+- 'no': 1726
+  confidence: 1.0
+  reason: 明确标记为“第 6 章”，是一级章标题
+- 'no': 2896
+  confidence: 0.95
+  reason: “结论”章节，通常作为全书末尾的独立部分或大章处理，具备概括性
+- 'no': 2924
+  confidence: 0.95
+  reason: “索引”属于文末内容，按规则划分为一章

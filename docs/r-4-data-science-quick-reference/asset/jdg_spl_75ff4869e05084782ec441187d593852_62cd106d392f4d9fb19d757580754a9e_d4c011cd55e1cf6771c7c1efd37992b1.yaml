@@ -1,0 +1,50 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.98
+  final_reason: 双方一致。行0为封面图片，后续行2-9为版权页、出版社信息及作者信息。根据规则“前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章”，将其作为前置章节的起始是合理的。
+  accepted_evidence:
+  - 判断方指出这是图书前置内容，统一划分为一章
+  - 复核方确认这是封面/版权页，符合前置内容分章规则
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 11
+  confidence: 0.99
+  final_reason: 双方一致。内容为 `# 1. 引言`，使用H1标题且带有数字序号“1”，具有统领性，覆盖后续关于R语言和Tidyverse的介绍。前文（0-10）为前置内容结束，此处明确开启第一章。
+  accepted_evidence:
+  - 判断方识别为一级章节标题 '1. 引言'
+  - 复核方确认为H1标题，序号连贯，语义符合
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 62
+  confidence: 0.99
+  final_reason: 双方一致。内容为 `# 2. 数据导入：readr`，使用H1标题且带有数字序号“2”，紧接第1章，序号连贯。后续内容详细讲解readr包，语义吻合。
+  accepted_evidence:
+  - 判断方识别为一级章节标题 '2. 数据导入：readr'
+  - 复核方确认为H1标题，序号连贯，语义符合
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1460
+  confidence: 0.99
+  final_reason: 双方一致。内容为 `# 5. 重新格式化表格：tidyr`，使用H1标题且带有数字序号“5”。虽然与前章（第2章）存在序号跳跃（缺3、4章），但根据规则“如果候选序号明显跳跃...只需要划分新的章节，无视其它”，且该标题语义上统领后续tidyr相关内容，故判定为新章。
+  accepted_evidence:
+  - 判断方识别为一级章节标题 '5. ...'，注明序号跳跃但视为新章
+  - 复核方确认为H1标题，符合跳跃序号处理规则
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2204
+  confidence: 0.99
+  final_reason: 双方一致。内容为 `# 6. 管道：magrittr`，使用H1标题且带有数字序号“6”，紧接第5章，序号连贯。后续内容讲解magrittr管道，语义吻合。
+  accepted_evidence:
+  - 判断方识别为一级章节标题 '6. 管道：magrittr'
+  - 复核方确认为H1标题，序号连贯，语义符合
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2603
+  confidence: 0.98
+  final_reason: 双方一致。内容为 `# 函数式编程：purrr`，使用H1标题但缺少数字序号（推测应为第7章）。前文第6章结束后，此处开启关于purrr包的新主题。根据规则“注意也可能没有章序号，这就需要依靠语义判断”，该标题具有统领性，且格式与其他H1章节一致，判定为新章。
+  accepted_evidence:
+  - 判断方识别为一级章节标题，虽无显式数字序号但依据语义判定为新章
+  - 复核方确认为H1标题，语义统领purrr内容，符合无序号章节判断规则
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

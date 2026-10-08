@@ -1,0 +1,41 @@
+chapter_starts:
+- 'no': 9826
+  confidence: 0.98
+  final_reason: 双方一致。该行格式为 Markdown 一级标题 `# 8. 与文件系统交互`，编号连贯（承接第7章），后续包含二级标题 `## 8.1`
+    等子节，符合最高层级章节特征。
+  accepted_evidence:
+  - 格式为一级标题 `# ...`
+  - 编号 '8.' 为最高层级，且后续有 `## 8.x` 子节
+  - 前文 `## 7.23` 表明第7章已结束，上下文清晰
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 10018
+  confidence: 0.98
+  final_reason: 双方一致。该行格式为 Markdown 一级标题 `# 9. 与操作系统和外部可执行程序交互`，编号连贯，后续包含 `## 9.1`
+    等子节，确认为新的一级章节。
+  accepted_evidence:
+  - 格式为一级标题 `# ...`
+  - 编号 '9.' 为最高层级，且后续有 `## 9.x` 子节
+  - 前文第8章内容已结束，上下文连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 10360
+  confidence: 0.98
+  final_reason: 双方一致。该行格式为 Markdown 一级标题 `# 10. 面向对象编程`，编号连贯，后续包含 `## 10.1` 等子节，确认为新的一级章节。
+  accepted_evidence:
+  - 格式为一级标题 `# ...`
+  - 编号 '10.' 为最高层级，且后续有 `## 10.x` 子节
+  - 前文第9章内容已结束，上下文连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 10434
+  confidence: 0.95
+  final_reason: 双方一致。尽管该行文本中未显式包含数字 '11'，但格式为一级标题 `# NumPy 和 SciPy`，且后续内容中出现二级标题 `##
+    11.1.2` 等编号（见行 10596 等），表明这是第 11 章的开始。在技术书籍中，主标题有时省略序号或排版导致序号缺失，但根据子节编号可推断其最高层级属性。
+  accepted_evidence:
+  - 格式为一级标题 `# ...`
+  - '后续子节编号为 `11.x` (如 `### 11.1.2.5` 出现在 10596 行之前，虽此处是 ###，但层级关系暗示主章为 11)'
+  - 前文第 10 章 `## 10.2` 结束，上下文连贯
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

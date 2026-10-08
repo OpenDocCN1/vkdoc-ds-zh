@@ -1,0 +1,76 @@
+chapter_starts:
+- 'no': 3615
+  confidence: 0.95
+  final_reason: 双方一致，H1 格式，语义独立统领 select/filter 操作
+  accepted_evidence:
+  - 以 Markdown H1 (#) 开头
+  - 标题内容为“列操作：select() 与 filter()”，具有概括性
+  - 前文为 dplyr 基础介绍，此处进入具体操作细节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4071
+  confidence: 0.95
+  final_reason: 双方一致，H1 格式，语义独立统领数据操作相关内容
+  accepted_evidence:
+  - 以 Markdown H1 (#) 开头
+  - 标题内容为“数据操作：筛选、排序与修改”，统领后续 arrange/mutate 等内容
+  - 上下文逻辑清晰，适合作为新章节起点
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4594
+  confidence: 0.95
+  final_reason: 双方一致，H1 格式，专门讨论数据分组，语义独立
+  accepted_evidence:
+  - 以 Markdown H1 (#) 开头
+  - 标题内容为“数据分组”，聚焦 group_by 及汇总逻辑
+  - 与前面章节并列或深入，符合顶层章节特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4664
+  confidence: 0.95
+  final_reason: 双方一致，H1 格式，开启连接表新主题，语义独立
+  accepted_evidence:
+  - 以 Markdown H1 (#) 开头
+  - 标题内容为“连接表”，统领 inner_join/full_join 等后续内容
+  - 前文结束于数据分组，此处自然过渡到新主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4762
+  confidence: 0.9
+  final_reason: 双方一致，H1 格式，虽无前文直接提示但语义独立，视为新章节
+  accepted_evidence:
+  - 以 Markdown H1 (#) 开头
+  - 标题内容为“R语言数据连接详解”，详细展开 join 类型
+  - 紧随“连接表”章节，可能为深入部分或独立章节，依据宁可漏分原则保留
+  rejected_evidence:
+  - 存在与前一行（4664）主题重复的可能，但 H1 格式强烈暗示结构变化
+  need_human_review: false
+- 'no': 5149
+  confidence: 0.98
+  final_reason: 双方一致，包含明确序号“9.”，全书最高层级章标题
+  accepted_evidence:
+  - 以 Markdown H1 (#) 开头且包含序号“9.”
+  - 标题内容为“字符串处理：`stringr`”，明确的章节编号
+  - 前文涉及连接表等数据操作，此处切换至字符串处理，序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5710
+  confidence: 0.95
+  final_reason: 双方一致，H1 格式，开启 forcats 包新主题，语义独立
+  accepted_evidence:
+  - 以 Markdown H1 (#) 开头
+  - 标题内容为“处理因子：`forcats`”，引入新包和新领域
+  - 前文为字符串处理，此处自然过渡至因子处理
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5794
+  confidence: 0.9
+  final_reason: 双方一致，H1 格式，对 forcats 内容进行深入，视为新章节
+  accepted_evidence:
+  - 以 Markdown H1 (#) 开头
+  - 标题内容为“因子操作详解”，深入讲解因子操作
+  - 紧随“处理因子”章节，结构上作为深入或独立部分处理
+  rejected_evidence:
+  - 可能存在与前一行（5710）主题重叠，但 H1 格式通常标记主要结构节点
+  need_human_review: false
+rejected_lines: []

@@ -1,0 +1,19 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  reason: 封面、版权页及前言部分，属于正文之前的内容，统一划分为一章。
+- 'no': 30
+  confidence: 0.9
+  reason: Markdown一级标题‘# 引言’，作为全书开头的概述章节。
+- 'no': 406
+  confidence: 0.95
+  reason: Markdown一级标题‘# 第一部分：...’，该书籍结构为部分-章节模式，‘部分’标题视为新章起始。
+- 'no': 1740
+  confidence: 0.95
+  reason: Markdown一级标题‘# 第二部分：...’，‘部分’标题视为新章起始。
+- 'no': 2319
+  confidence: 0.95
+  reason: Markdown一级标题‘# 第三部分：...’，‘部分’标题视为新章起始。
+- 'no': 2935
+  confidence: 0.95
+  reason: Markdown一级标题‘# 第四部分：...’，‘部分’标题视为新章起始。

@@ -1,0 +1,57 @@
+reviews:
+- 'no': 3615
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 该标题格式为 H1（#），且语义上概括了后续关于 select 和 filter 的内容，符合章节标题特征
+  - 上下文显示前文是 dplyr 基础介绍，此处进入具体操作，逻辑上适合分章
+  keep_split: true
+- 'no': 4071
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - H1 格式，标题为“数据操作：筛选、排序与修改”，统领性强
+  - 后续内容包含 arrange, mutate, summarise 等核心数据操作函数，语义独立
+  keep_split: true
+- 'no': 4594
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - H1 格式，标题为“数据分组”，专门讨论 group_by 和汇总
+  - 与前面的“数据操作”并列，符合顶层章节划分
+  keep_split: true
+- 'no': 4664
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - H1 格式，标题为“连接表”，开启关于 join 操作的新主题
+  - 语义独立，统领后续关于 inner_join, full_join 等内容
+  keep_split: true
+- 'no': 4762
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - H1 格式，标题为“R语言数据连接详解”，虽无前文直接提示，但作为 H1 且语义独立，通常视为新章节或独立部分
+  - 后续内容详细讲解了各种 join 类型，符合章节特征
+  keep_split: true
+- 'no': 5149
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 标题包含明确序号“9.”，格式为 H1
+  - 这是全书最高层级章标题的典型特征，序号连贯性良好
+  keep_split: true
+- 'no': 5710
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - H1 格式，标题为“处理因子：`forcats`”，开启新包 forcats 的介绍
+  - 语义独立，统领后续关于因子操作的内容
+  keep_split: true
+- 'no': 5794
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - H1 格式，标题为“因子操作详解”，对 forcats 内容进行深入
+  - 作为 H1，通常表示新的顶层章节或主要部分，符合分章标准
+  keep_split: true

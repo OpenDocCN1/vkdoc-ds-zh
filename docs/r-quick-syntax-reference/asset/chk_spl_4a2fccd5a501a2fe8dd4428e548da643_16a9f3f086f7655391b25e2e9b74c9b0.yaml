@@ -1,0 +1,73 @@
+reviews:
+- 'no': 0
+  overturn_probability: 0.0
+  alternative: 前置内容标题
+  counter_evidence:
+  - 该行包含“版权信息”，属于图书前置内容，根据规则“前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章”，应作为独立章节处理。
+  keep_split: true
+- 'no': 20
+  overturn_probability: 0.0
+  alternative: 引言/前言
+  counter_evidence:
+  - 该行标题为“# 引言”，位于版权信息和版权声明之后，第一部分开始之前，属于典型的书籍前置内容，应划分为一章。
+  keep_split: true
+- 'no': 52
+  overturn_probability: 0.0
+  alternative: 部分标题
+  counter_evidence:
+  - 该行内容为“# 第一部分 R 语言基础”，使用了“部分”这一最高层级结构。根据规则“如果存在标题为‘第 X 部分’，那么该书为部分-章节模式，遇到部分和章标题时，都要划分新章”，必须分章。
+  keep_split: true
+- 'no': 54
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 该行内容为“# 1. 下载 R 语言并设置文件系统”，格式为“数字. 标题”，符合一级章节标题特征，且位于“第一部分”之下，序号连贯（前文暗示了第1章），应分章。
+  keep_split: true
+- 'no': 206
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 该行内容为“# 2. R 提示符与 R Studio 窗口”，格式为标准的一级章节标题，序号“2”与前一章“1”连贯，应分章。
+  keep_split: true
+- 'no': 296
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 该行内容为“# 3. 赋值与运算符”，格式为标准的一级章节标题，序号“3”与前一章“2”连贯，应分章。
+  keep_split: true
+- 'no': 757
+  overturn_probability: 0.0
+  alternative: 部分标题
+  counter_evidence:
+  - 该行内容为“# 第二部分：对象的种类”，明确标识了“第二部分”，属于最高层级结构，根据部分-章节模式规则，必须分章。
+  keep_split: true
+- 'no': 759
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 该行内容为“# 4. 对象的模式和类型”，位于“第二部分”之下，序号“4”延续了一级章节的编号逻辑，应分章。
+  keep_split: true
+- 'no': 2188
+  overturn_probability: 0.0
+  alternative: 部分标题
+  counter_evidence:
+  - 该行内容为“# 第三部分 函数”，明确标识了“第三部分”，属于最高层级结构，必须分章。
+  keep_split: true
+- 'no': 2190
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 该行内容为“# 6. 打包函数”，位于“第三部分”之下。注意序号从4直接跳到了6（可能第5章在另一部分或前文缺失，但规则指出“如果候选序号明显跳跃...只需要划分新的章节，无视其它”），格式符合一级章节标题，应分章。
+  keep_split: true
+- 'no': 2927
+  overturn_probability: 0.0
+  alternative: 部分标题
+  counter_evidence:
+  - 该行内容为“# 第四部分：输入/输出与对象操作”，明确标识了“第四部分”，属于最高层级结构，必须分章。
+  keep_split: true
+- 'no': 2929
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 该行内容为“# 9. 导入与创建数据”，位于“第四部分”之下，格式符合一级章节标题，应分章。
+  keep_split: true

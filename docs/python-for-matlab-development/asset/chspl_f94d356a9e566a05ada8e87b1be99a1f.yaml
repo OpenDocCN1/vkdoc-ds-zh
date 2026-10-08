@@ -1,0 +1,19 @@
+chapter_starts:
+- 'no': 8
+  confidence: 1.0
+  reason: 前言、序言等正文前内容统一划分为一章
+- 'no': 24
+  confidence: 1.0
+  reason: 致谢属于正文前内容，且与前言/作者信息等分开，通常作为独立章节处理
+- 'no': 70
+  confidence: 0.95
+  reason: Markdown 一级标题 `# 1. 引言`，符合大章序号特征，且后续包含 1.1, 1.2 等子节
+- 'no': 230
+  confidence: 0.95
+  reason: Markdown 一级标题 `# 2. 安装`，符合大章序号特征
+- 'no': 574
+  confidence: 0.95
+  reason: Markdown 一级标题 `# 3. 语言基础`，符合大章序号特征
+- 'no': 1898
+  confidence: 0.95
+  reason: Markdown 一级标题 `# 4. 数据容器`，符合大章序号特征

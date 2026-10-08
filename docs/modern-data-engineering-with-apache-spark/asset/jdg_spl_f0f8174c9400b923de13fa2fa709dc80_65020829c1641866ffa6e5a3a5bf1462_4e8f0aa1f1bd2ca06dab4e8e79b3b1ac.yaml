@@ -1,0 +1,37 @@
+chapter_starts:
+- 'no': 3092
+  confidence: 0.98
+  final_reason: 双方一致。前文为第5章总结，该行为H1标题且编号为6，符合最高层级章节特征。
+  accepted_evidence:
+  - 格式为 '# 6. ...'，H1级别
+  - 前文（3082-3088）为第5章小结，符合章节结束特征
+  - 后文开始新章节介绍
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4346
+  confidence: 0.98
+  final_reason: 双方一致。前文为第6章总结，该行为H1标题且编号为7，符合最高层级章节特征。
+  accepted_evidence:
+  - 格式为 '# 7. ...'，H1级别
+  - 前文（4338-4344）为第6章总结，符合章节结束特征
+  - 编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5435
+  confidence: 0.95
+  final_reason: 双方一致。规则明确规定若存在“第X部分”标题，需划分新章。该行为H1标题“第二部分”。
+  accepted_evidence:
+  - 规则：遇到“第 X 部分”时，都要划分新章
+  - 语义上标志大的结构转变
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5437
+  confidence: 0.98
+  final_reason: 双方一致。紧随“第二部分”之后，该行为H1标题且编号为8，是第二部分的第一章。
+  accepted_evidence:
+  - 格式为 '# 8. ...'，H1级别
+  - 编号8承接前文逻辑（第5、6、7章后为第8章）
+  - 后文开始第8章具体内容
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

@@ -1,0 +1,248 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 第一部分
+  - 最高层级结构
+  - 部分-章节模式
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 1. 团队与分工
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 71
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 2. 招聘
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 163
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 3. 技能提升
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 239
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 4. 人员管理
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 341
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 5. 奖励与认可
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 399
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 6. 人员流程
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 452
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 7. 仪式
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 518
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 第二部分
+  - 最高层级结构
+  - 部分-章节模式
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 520
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 8. 目标与关键成果
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 568
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 9. 设定 OKR
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 761
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 第三部分
+  - 最高层级结构
+  - 部分-章节模式
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 763
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 13. 人与流程
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 933
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 14. 原型设计
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1203
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 第四部分
+  - 最高层级结构
+  - 部分-章节模式
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1318
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 17. 技术栈
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1671
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 19. 业务分析及其在规模化与执行中的重要性
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1892
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 第五部分
+  - 最高层级结构
+  - 部分-章节模式
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1894
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 20. 数据安全
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2002
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 21. 企业为何会失败？
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2113
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 22. 流程的例外情况：好还是坏？
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2231
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 23. 流程：是加速器，而非减速器
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2317
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 24. 流程是神圣不可侵犯的吗？
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2407
+  confidence: 0.98
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 25. 结论
+  - 一级章节编号
+  - 格式标准
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2491
+  confidence: 0.95
+  final_reason: 双方一致 + 排版语义均符合
+  accepted_evidence:
+  - 索引
+  - 文末索引
+  - 统一划分为一章
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 637
+  reason: 复核方指出其为正文小标题，判断方无有力反驳
+  need_human_review: false
+- 'no': 680
+  reason: 复核方指出其为正文小标题，判断方无有力反驳
+  need_human_review: false
+- 'no': 723
+  reason: 复核方指出其为正文小标题，判断方无有力反驳
+  need_human_review: false
+- 'no': 1049
+  reason: 复核方指出其为正文小标题，判断方无有力反驳
+  need_human_review: false
+- 'no': 1055
+  reason: 复核方指出其为正文小标题，判断方无有力反驳
+  need_human_review: false
+- 'no': 1205
+  reason: 复核方指出其为正文小标题，判断方无有力反驳
+  need_human_review: false
+- 'no': 1520
+  reason: 复核方指出其为正文小标题，判断方无有力反驳
+  need_human_review: false

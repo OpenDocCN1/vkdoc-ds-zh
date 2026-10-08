@@ -1,0 +1,99 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 双方一致认定为前置内容章节。根据规则，版权信息、引言等正文前的内容统一划分为一章。
+  accepted_evidence:
+  - 判断方与复核方均认为行0是前置内容的起点
+  - 规则规定前言、序言等前置内容划分为一章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 20
+  confidence: 0.95
+  final_reason: 双方一致认定为前置内容章节。行20为‘# 引言’，位于正文开始前，属于书籍前置部分，应独立成章。
+  accepted_evidence:
+  - 判断方与复核方均认为行20是引言章节
+  - 引言属于前置内容，根据规则应分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 52
+  confidence: 0.95
+  final_reason: 双方一致认定为第一部分标题。根据规则，若存在‘第X部分’，则部分和章均需分章。
+  accepted_evidence:
+  - 判断方与复核方均认为行52是部分标题
+  - 内容明确为‘# 第一部分 R 语言基础’，属于最高层级结构
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 54
+  confidence: 0.95
+  final_reason: 双方一致认定为第1章标题。格式‘1. 标题’符合一级章节特征，且序号连贯。
+  accepted_evidence:
+  - 判断方与复核方均认为行54是第1章
+  - 位于第一部分之下，序号为1，符合章节编号逻辑
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 206
+  confidence: 0.95
+  final_reason: 双方一致认定为第2章标题。格式符合一级章节特征，序号与前一章连贯。
+  accepted_evidence:
+  - 判断方与复核方均认为行206是第2章
+  - 序号2紧接第1章，逻辑连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 296
+  confidence: 0.95
+  final_reason: 双方一致认定为第3章标题。格式符合一级章节特征，序号与前一章连贯。
+  accepted_evidence:
+  - 判断方与复核方均认为行296是第3章
+  - 序号3紧接第2章，逻辑连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 757
+  confidence: 0.95
+  final_reason: 双方一致认定为第二部分标题。根据部分-章节模式规则，部分标题需分章。
+  accepted_evidence:
+  - 判断方与复核方均认为行757是部分标题
+  - 内容明确为‘# 第二部分：对象的种类’，属于最高层级结构
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 759
+  confidence: 0.95
+  final_reason: 双方一致认定为第4章标题。格式符合一级章节特征，序号延续全书章节编号逻辑。
+  accepted_evidence:
+  - 判断方与复核方均认为行759是第4章
+  - 位于第二部分之下，序号4延续了一级章节的编号
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2188
+  confidence: 0.95
+  final_reason: 双方一致认定为第三部分标题。根据部分-章节模式规则，部分标题需分章。
+  accepted_evidence:
+  - 判断方与复核方均认为行2188是部分标题
+  - 内容明确为‘# 第三部分 函数’，属于最高层级结构
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2190
+  confidence: 0.95
+  final_reason: 双方一致认定为第6章标题。尽管序号从4跳至6，但根据规则，序号跳跃不影响分章判定，格式仍符合一级章节特征。
+  accepted_evidence:
+  - 判断方与复核方均认为行2190是第6章
+  - 位于第三部分之下，格式为‘6. 标题’，符合一级章节特征
+  rejected_evidence:
+  - 序号跳跃（4到6）不构成不分章的理由，规则明确指出无需关注缺失序号
+  need_human_review: false
+- 'no': 2927
+  confidence: 0.95
+  final_reason: 双方一致认定为第四部分标题。根据部分-章节模式规则，部分标题需分章。
+  accepted_evidence:
+  - 判断方与复核方均认为行2927是部分标题
+  - 内容明确为‘# 第四部分：输入/输出与对象操作’，属于最高层级结构
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2929
+  confidence: 0.95
+  final_reason: 双方一致认定为第9章标题。格式符合一级章节特征，位于第四部分之下。
+  accepted_evidence:
+  - 判断方与复核方均认为行2929是第9章
+  - 格式为‘9. 标题’，符合一级章节特征
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

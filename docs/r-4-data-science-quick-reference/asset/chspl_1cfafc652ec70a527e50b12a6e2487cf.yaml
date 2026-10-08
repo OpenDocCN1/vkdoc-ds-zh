@@ -1,0 +1,26 @@
+chapter_starts:
+- 'no': 3615
+  confidence: 0.95
+  reason: 标题 '# 列操作：select() 与 filter()' 以 Markdown H1 格式（#）开头，长度适中，语义上统领后续关于 dplyr
+    包中 select 和 filter 函数详细用法的内容，且位于代码示例段落之后，符合新章节起始特征。
+- 'no': 4071
+  confidence: 0.95
+  reason: 标题 '# 数据操作：筛选、排序与修改' 以 H1 格式出现，概括了后续关于 arrange, mutate, summarise 等数据操作的核心内容，属于顶层章节标题。
+- 'no': 4594
+  confidence: 0.95
+  reason: 标题 '# 数据分组' 以 H1 格式出现，作为 '数据操作' 章节下或平级的深入讨论部分，专门讨论 group_by 和相关汇总逻辑，符合章节划分标准。
+- 'no': 4664
+  confidence: 0.95
+  reason: 标题 '# 连接表' 以 H1 格式出现，开启关于 dplyr 中连接操作（join）的新章节，语义独立且统领性强。
+- 'no': 4762
+  confidence: 0.95
+  reason: 标题 '# R语言数据连接详解' 以 H1 格式出现，是对连接表主题的进一步详细阐述或新章节的开始，结构上与前面的 '# 连接表' 并列或深入，视为新章节起始。
+- 'no': 5149
+  confidence: 0.98
+  reason: 标题 '# 9. 字符串处理：`stringr`' 包含明确的序号 '9.' 和 H1 标记，这是全书最高层级的章标题，明确指示第9章的开始。
+- 'no': 5710
+  confidence: 0.95
+  reason: 标题 '# 处理因子：`forcats`' 以 H1 格式出现，紧随第9章内容之后，开启关于 forcats 包的新章节，语义独立。
+- 'no': 5794
+  confidence: 0.95
+  reason: 标题 '# 因子操作详解' 以 H1 格式出现，是对 forcats 相关内容的深入章节划分，符合顶层章节特征。

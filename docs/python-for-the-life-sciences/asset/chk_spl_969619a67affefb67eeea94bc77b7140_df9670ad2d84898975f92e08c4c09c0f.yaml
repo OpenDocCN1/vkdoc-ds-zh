@@ -1,0 +1,66 @@
+reviews:
+- 'no': 1
+  overturn_probability: 0.0
+  alternative: 正文前言/元数据部分（封面、版权、赞誉、序言等），统一划分为一章。
+  counter_evidence:
+  - 原判断符合“前言、序言...统一划分为一章”的规则
+  - 该行内容确实是图书的起始部分，而非正文内容
+  keep_split: true
+- 'no': 240
+  overturn_probability: 0.0
+  alternative: 正文第一章起始，标题“# Python 入门”为最高层级章标题。
+  counter_evidence:
+  - 原判断符合“#”为最高层级章标题的Markdown格式规则
+  - 该标题独立成行，且后续内容为章节正文
+  keep_split: true
+- 'no': 456
+  overturn_probability: 0.95
+  alternative: 该标题实际应为“## 2. 实验室中的 Python”或类似二级标题（##），因Markdown渲染问题被误读为二级标题。
+  counter_evidence:
+  - 原判断理由称其为正文第二章，但实际行内容为“## 实验室中的 Python”。在Markdown中，“##”是二级标题，通常不作为全书最高层级章标题。
+  - 对比其他章节（如924行的“# 3. 理解序列”使用“#”一级标题），此处使用“##”暗示其可能隶属于某个更大的章节或排版错误。
+  - 根据规则“只划分全书最高层级的大章”，如果“#”是最高层级，那么“##”不应分章。
+  keep_split: false
+- 'no': 924
+  overturn_probability: 0.0
+  alternative: 正文第三章起始，标题“# 3. 理解序列”带有明确章序号。
+  counter_evidence:
+  - 原判断符合“#”为最高层级章标题的Markdown格式规则
+  - 该标题带有明确序号“3.”，且独立成行
+  keep_split: true
+- 'no': 1553
+  overturn_probability: 0.0
+  alternative: 正文第四章起始，标题“# 4. 统计学插曲”带有明确章序号。
+  counter_evidence:
+  - 原判断符合“#”为最高层级章标题的Markdown格式规则
+  - 该标题带有明确序号“4.”，且独立成行
+  keep_split: true
+- 'no': 1748
+  overturn_probability: 0.0
+  alternative: 正文第五章起始，标题“# 5. 打开数据之门”带有明确章序号。
+  counter_evidence:
+  - 原判断符合“#”为最高层级章标题的Markdown格式规则
+  - 该标题带有明确序号“5.”，且独立成行
+  keep_split: true
+- 'no': 2087
+  overturn_probability: 0.0
+  alternative: 正文第六章起始，标题“# 6. 在数据堆中寻找“针””带有明确章序号。
+  counter_evidence:
+  - 原判断符合“#”为最高层级章标题的Markdown格式规则
+  - 该标题带有明确序号“6.”，且独立成行
+  keep_split: true
+- 'no': 2393
+  overturn_probability: 0.0
+  alternative: 正文第七章起始，标题“# 7. 对象课程”带有明确章序号。
+  counter_evidence:
+  - 原判断符合“#”为最高层级章标题的Markdown格式规则
+  - 该标题带有明确序号“7.”，且独立成行
+  keep_split: true
+- 'no': 2929
+  overturn_probability: 0.95
+  alternative: 该标题实际应为“# 8. 基因组的剪切与拼接”，但因Markdown渲染或OCR错误，丢失了“#”前缀，或误读为纯文本行。
+  counter_evidence:
+  - 原判断理由称其带有明确章序号，但实际行内容为“8. 基因组的剪切与拼接”，没有“#”前缀。在严格的Markdown格式中，没有“#”前缀的文本通常不作为标题，而视为正文或列表项。
+  - 对比其他章节（如924行的“# 3. 理解序列”），此处缺少Markdown标题标记，格式不一致，可能是排版噪声。
+  - 根据规则“真正的章标题通常单独成行...格式特征”，缺少“#”标记使其不符合标准Markdown章节标题特征。
+  keep_split: false

@@ -1,0 +1,146 @@
+chapter_starts:
+- 'no': 6
+  confidence: 0.95
+  final_reason: 前置部分'关于作者'的起始，规则规定统一划分为一章。
+  accepted_evidence:
+  - '规则: 前言、序言、致谢、关于作者等正文之前的内容，统一划分为一章。'
+  - '格式: 位于正文前，内容独立。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 22
+  confidence: 0.95
+  final_reason: 前置部分'前言'的起始，独立于'关于作者'。
+  accepted_evidence:
+  - '规则: 前言属于正文前内容。'
+  - '上下文: 前有作者介绍结束，后有新主题开始。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 52
+  confidence: 0.95
+  final_reason: 前置部分'引言'的起始，通常作为独立的Introduction章。
+  accepted_evidence:
+  - '规则: 引言属于正文前内容。'
+  - '格式: Markdown一级标题 #。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 124
+  confidence: 0.95
+  final_reason: 正文第一章起始，标准#级标题，下辖多个##子节。
+  accepted_evidence:
+  - '格式: # 标题，长度为''数据如何让我们更聪明''。'
+  - '结构: 后续包含 ''## 个人健康监测...'' 等子节。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 295
+  confidence: 0.9
+  final_reason: 尽管与291行紧密相连，但295行'大数据的真正价值'统领了后续包含##子节（如490行）的完整章节结构，符合章特征；291行因内容过短被视为其首节或误标。
+  accepted_evidence:
+  - '复核方证据: 295行下包含二级标题490行，结构更符合章。'
+  - '语义: ''大数据的真正价值''概括性强。'
+  rejected_evidence:
+  - 291行仅3行内容即遇下一#标题，不符合章的体量，故291归入295章内。
+  need_human_review: false
+- 'no': 817
+  confidence: 0.95
+  final_reason: 标准#级标题，'大数据面临的挑战与解决方案'，下辖多个##子节。
+  accepted_evidence:
+  - '格式: # 标题。'
+  - '结构: 后续有 ''## 查询数据'', ''## 数据可视化'' 等。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 985
+  confidence: 0.95
+  final_reason: 标准#级标题，'工作中的大数据：数据如何指导设计'，下辖多个##子节。
+  accepted_evidence:
+  - '格式: # 标题。'
+  - '结构: 后续有 ''## Facebook 如何以数据指导设计'' 等。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1218
+  confidence: 0.95
+  final_reason: 标准#级标题，'一图胜千言'，下辖多个##子节。
+  accepted_evidence:
+  - '格式: # 标题。'
+  - '结构: 后续有 ''## 大数据如何讲述故事'' 等。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1544
+  confidence: 0.95
+  final_reason: 标准#级标题，'大数据、移动与云计算的交汇'，下辖多个##子节。
+  accepted_evidence:
+  - '格式: # 标题。'
+  - '结构: 后续有 ''## 应用开发的福音'' 等。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1781
+  confidence: 0.95
+  final_reason: 标准#级标题，'开展大数据项目'，下辖多个##子节。
+  accepted_evidence:
+  - '格式: # 标题。'
+  - '结构: 后续有 ''## 以终为始'' 等。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2143
+  confidence: 0.95
+  final_reason: 标准#级标题，'下一个十亿美元 IPO：大数据创业精神'，下辖多个##子节。
+  accepted_evidence:
+  - '格式: # 标题。'
+  - '结构: 后续有 ''## 像比利·比恩一样驾驭数据'' 等。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2385
+  confidence: 0.85
+  final_reason: 开启新的主题域'利用更好的数据（和产品）触达更多客户'，虽内部有多个#标记的子主题，但作为该部分的起始大章予以划分。
+  accepted_evidence:
+  - '语义: 独立的大主题。'
+  - '上下文: 位于前一部分脚注结束之后。'
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2609
+  confidence: 0.85
+  final_reason: 开启新的主题域'大数据如何改变我们的生活方式'，统领后续关于健康、疾病、零售等子话题。
+  accepted_evidence:
+  - '语义: 独立的大主题，覆盖面广。'
+  - '格式: # 标题。'
+  rejected_evidence:
+  - 后续2701, 2749等被视为本章下的子节，不单独分章。
+  need_human_review: false
+- 'no': 2826
+  confidence: 0.95
+  final_reason: 标准#级标题，'教育领域的大数据机遇'，下辖多个##子节。
+  accepted_evidence:
+  - '格式: # 标题。'
+  - '结构: 后续有 ''## 大数据学习分析的兴起'' 等。'
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 14
+  reason: 位于'关于作者'前置部分内部，属于该章的子节，非全书最高层级大章。
+  need_human_review: false
+- 'no': 291
+  reason: 内容与后续第295行标题紧密相连且篇幅极短（仅3行），结合结构判断，更可能是第295章（'大数据的真正价值'）下的首节或排版误标，故不作为独立章起始。
+  need_human_review: false
+- 'no': 2416
+  reason: 位于第2385章内部，作为子主题出现，缺乏独立的章体量及下级结构支持，视为小节。
+  need_human_review: false
+- 'no': 2420
+  reason: 位于第2385章内部，具体案例标题，视为小节。
+  need_human_review: false
+- 'no': 2462
+  reason: 位于第2385章内部，具体流程标题，视为小节。
+  need_human_review: false
+- 'no': 2701
+  reason: 位于第2609章（'大数据如何改变我们的生活方式'）内部，作为'疾病治疗'子话题，视为小节。
+  need_human_review: false
+- 'no': 2749
+  reason: 位于第2609章内部，作为'生活环境'子话题，视为小节。
+  need_human_review: false
+- 'no': 2763
+  reason: 位于第2609章内部，作为'零售业'子话题，视为小节。
+  need_human_review: false
+- 'no': 2773
+  reason: 位于第2609章内部，作为'金融业'子话题，且文本排版异常（标题含正文），视为小节或排版错误。
+  need_human_review: false
+- 'no': 2777
+  reason: 位于第2609章内部，作为'移动化未来'子话题，视为小节。
+  need_human_review: false

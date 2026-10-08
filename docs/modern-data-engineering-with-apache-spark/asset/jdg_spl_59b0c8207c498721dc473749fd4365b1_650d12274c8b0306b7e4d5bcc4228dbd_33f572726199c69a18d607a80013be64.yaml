@@ -1,0 +1,36 @@
+chapter_starts:
+- 'no': 6287
+  confidence: 0.95
+  final_reason: 双方一致确认为章节起始。行6287为Markdown一级标题“# 流处理入门”，虽无数字编号，但语义上承接前文第8章小结（行6283-6285），开启第9章内容，符合全书最高层级章节划分规则。
+  accepted_evidence:
+  - 使用 Markdown 一级标题（#）格式，通常对应最高层级章节
+  - 前文行6283-6285为“## 小结”，总结第8章内容
+  - 后续内容（行6289起）引入流处理新主题，提及第9章图表（如行6347图9-1）
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6689
+  confidence: 0.98
+  final_reason: 双方一致确认为章节起始。行6689包含明确的全书最高层级编号“10.”，标题为“编写结构化流式处理应用的模式”，符合编号特征及语义统领性。
+  accepted_evidence:
+  - 包含明确的序号“10.”，属于最高层级编号
+  - 标题具有概括性，后续内容介绍本章学习目标（行6695起）
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7720
+  confidence: 0.98
+  final_reason: 双方一致确认为章节起始。行7720包含明确的全书最高层级编号“11.”，标题为“Apache Kafka 与 Spark Structured
+    Streaming”，前文行7718预告下一章内容，此处即为该章开始。
+  accepted_evidence:
+  - 包含明确的序号“11.”，属于最高层级编号
+  - 前文行7718提及“在下一章中...”，与此处标题呼应
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 8768
+  confidence: 0.98
+  final_reason: 双方一致确认为章节起始。行8768包含明确的全书最高层级编号“12.”，标题为“分析处理与洞察”，前文行8766预告下一章内容，此处即为该章开始。
+  accepted_evidence:
+  - 包含明确的序号“12.”，属于最高层级编号
+  - 前文行8766提及“在下一章中...重点放在更高级的聚合和分析处理上”，与此处标题呼应
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []
