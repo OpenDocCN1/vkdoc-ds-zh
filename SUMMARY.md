@@ -111,7 +111,7 @@
 +   [MATLAB 秘籍](docs/matlab-recipes/README.md)
 +   [R 元编程](docs/metaprogramming-in-r/README.md)
 +   [Metrics 如何改善关键业务成果](docs/metrics-how-to-improve-key-business-results/README.md)
-+   [Models to Code 翻译为“模型到代码”](docs/models-to-code/README.md)
++   [模型到代码](docs/models-to-code/README.md)
 +   [Apache Spark 现代数据工程](docs/modern-data-engineering-with-apache-spark/README.md)
 +   [下一代大数据教程](docs/next-gen-bigdata/README.md)
 +   [Numerical Methods 使用指南](docs/numerical-methods-using-java/README.md)
@@ -178,4 +178,3 @@
 +   [R 统计使用指南](docs/using-r-for-statistics/README.md)
 +   [大数据真实性](docs/veracity-of-big-data/README.md)
 +   [R4 数据可视化教程](docs/vis-data-r4/README.md)
-+   [Streamlit Web 应用开发](docs/web-application-development-with-streamlit/README.md)
