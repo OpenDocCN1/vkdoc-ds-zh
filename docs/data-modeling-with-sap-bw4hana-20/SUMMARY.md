@@ -2,7 +2,7 @@
 +   [引言](data-modeling-with-sap-bw4hana-20_1.md)
 +   [1. SAP BW/4HANA 建模对象](data-modeling-with-sap-bw4hana-20_2.md)
 +   [2. 建模概念](data-modeling-with-sap-bw4hana-20_3.md)
-+   [通过 BW/4HANA 发布 HANA 对象](data-modeling-with-sap-bw4hana-20_4.md)
++   [3. 通过 BW/4HANA 发布 HANA 对象](data-modeling-with-sap-bw4hana-20_4.md)
 +   [4. 创建基于字段的 BW/4HANA 模型](data-modeling-with-sap-bw4hana-20_5.md)
 +   [5. 创建混合数据模型](data-modeling-with-sap-bw4hana-20_6.md)
 +   [6. 将 SAP 和非 SAP 数据集成到单个数据模型中](data-modeling-with-sap-bw4hana-20_7.md)
