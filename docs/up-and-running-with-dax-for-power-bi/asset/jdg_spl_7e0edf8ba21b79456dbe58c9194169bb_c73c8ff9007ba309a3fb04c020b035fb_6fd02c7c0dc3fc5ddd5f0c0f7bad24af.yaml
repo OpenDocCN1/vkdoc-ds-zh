@@ -1,0 +1,133 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 双方一致：前言/版权页起始，属于非正文部分，统一划分为一章。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：语义特征：前言类内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 13
+  confidence: 0.95
+  final_reason: 双方一致：Markdown 一级标题“# 引言”，属于前言部分，语义明确，独立成行。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：语义特征：前言类内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 56
+  confidence: 0.95
+  final_reason: 双方一致：Markdown 一级标题“# 致谢”，属于前言/正文前内容，独立章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：语义特征：致谢类内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 64
+  confidence: 0.95
+  final_reason: 双方一致：Markdown 一级标题“# 关于作者”，属于前言部分。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：语义特征：关于作者类内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 66
+  confidence: 0.95
+  final_reason: 双方一致：Markdown 一级标题“# 关于技术审校”，属于前言部分。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：语义特征：关于技术审校类内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 68
+  confidence: 0.95
+  final_reason: 双方一致：Markdown 一级标题“# 脚注”，属于前言/附录部分。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：语义特征：脚注类内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 72
+  confidence: 1.0
+  final_reason: 双方一致：Markdown 一级标题“# 1. 让我看看数据”，符合“X. ”编号特征，为全书最高层级章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：编号特征：第1章，编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 241
+  confidence: 1.0
+  final_reason: 双方一致：Markdown 一级标题“# 2. DAX 对象、语法与格式”，符合“X. ”编号特征，为全书最高层级章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：编号特征：第2章，编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 360
+  confidence: 1.0
+  final_reason: 双方一致：Markdown 一级标题“# 3. 计算列和度量值”，符合“X. ”编号特征，为全书最高层级章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：编号特征：第3章，编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 754
+  confidence: 1.0
+  final_reason: 双方一致：Markdown 一级标题“# 4. 计值上下文”，符合“X. ”编号特征，为全书最高层级章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：编号特征：第4章，编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 920
+  confidence: 1.0
+  final_reason: 双方一致：Markdown 一级标题“# 5. 迭代器”，符合“X. ”编号特征，为全书最高层级章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：编号特征：第5章，编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1111
+  confidence: 1.0
+  final_reason: 双方一致：Markdown 一级标题“# 6. `CALCULATE` 函数”，符合“X. ”编号特征，为全书最高层级章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：编号特征：第6章，编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1738
+  confidence: 1.0
+  final_reason: 双方一致：Markdown 一级标题“# 8. ALL 函数及其所有变体”，符合“X. ”编号特征，为全书最高层级章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：编号特征：第8章，编号连贯（虽缺第7章，但本章本身确为最高层级标题）
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2287
+  confidence: 1.0
+  final_reason: 双方一致：Markdown 一级标题“# 9. 日期计算：使用 DAX 时间智能”，符合“X. ”编号特征，为全书最高层级章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：编号特征：第9章，编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2649
+  confidence: 1.0
+  final_reason: 双方一致：Markdown 一级标题“# 10. 空值与零”，符合“X. ”编号特征，为全书最高层级章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：编号特征：第10章，编号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2819
+  confidence: 1.0
+  final_reason: 双方一致：Markdown 一级标题“# 11. 使用变量：让我们的代码更具可读性”，符合“X. ”编号特征，为全书最高层级章节。
+  accepted_evidence:
+  - 双方一致：Markdown 一级标题，排版特征符合
+  - 双方一致：编号特征：第11章，编号连贯
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 1236
+  reason: 判断方提出为“# DAX 中的虚拟表与筛选器”，但复核方指出序号不连贯（前为第6章，后为第8章，缺第7章），且该标题下内容（FILTER函数等）在逻辑上可能是第7章的缺失标题。然而，根据“宁可漏分，不可误分”原则，且该行缺少明确编号，存在排版错误或内容归属模糊的风险。更关键的是，复核方认为其可能是第6章的延续或排版噪声。鉴于该行为一级标题，但缺乏编号，且上下章节编号跳跃，无法100%确定其为独立新章而非第6章的子节或第7章的误标。按照规则，若无明确编号，需强证据。此处语义虽独立，但格式异常，且复核方提供了强有力的反方证据（序号跳跃），故倾向于不分章，或标记需人工审查。但根据“误报代价更高”和复核方建议，若视为非标准章节，可能误分。考虑到全书其他章节均有编号，此异常标题更可能是转换错误。若必须裁定，结合复核方的推翻理由（序号不连贯，可能为排版错误），且规则强调“序号连贯性”，若中间缺章，通常意味着此处可能是缺失的第7章，但标题本身无编号。在不确定其是否应分章时，遵循“宁可漏分”原则，将其视为潜在误报点，拒绝分章，或标记审查。在此处，依据复核方证据，倾向于拒绝。
+  need_human_review: true

@@ -1,0 +1,22 @@
+chapter_starts:
+- 'no': 6769
+  confidence: 0.98
+  final_reason: 双方一致。该行为一号标题 '# 6. 数据可视化元素'，前文为第5章结论，序号连贯，语义统领后续内容，确认为新章起始。
+  accepted_evidence:
+  - Markdown一级标题标记 `#`
+  - 包含章序号 `6.`
+  - 前文第6765行为第5章的 '## 结论'
+  - 后文包含子节 '## 条形图' 等，结构清晰
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7110
+  confidence: 0.98
+  final_reason: 双方一致。该行为一号标题 '# 7. 示例'，前文为第6章结论，序号紧接第6章，语义统领后续计算器、家谱等示例，确认为新章起始。
+  accepted_evidence:
+  - Markdown一级标题标记 `#`
+  - 包含章序号 `7.`
+  - 前文第7104行为第6章的 '## 结论'
+  - 后文包含子节 '## 计算器' 等，符合章节结构
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

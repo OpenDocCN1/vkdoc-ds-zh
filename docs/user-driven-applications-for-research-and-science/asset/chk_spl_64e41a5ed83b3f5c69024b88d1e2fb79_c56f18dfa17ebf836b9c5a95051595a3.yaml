@@ -1,0 +1,57 @@
+reviews:
+- 'no': 9426
+  overturn_probability: 0.1
+  alternative: 正文小标题或排版断行
+  counter_evidence:
+  - 该行位于代码块（行9424）和解释性文本（行9428）之间，前文紧接关于移动器逻辑的代码演示，缺乏‘章’标题常见的概括性引言段落。
+  - 在技术文档中，`#` 有时被误用于次级标题，且其长度（9个字）较简短，可能只是小节标题。
+  keep_split: true
+- 'no': 10002
+  overturn_probability: 0.1
+  alternative: 正文小标题
+  counter_evidence:
+  - 紧跟其后的行10004是二级标题 `## 家庭树应用程序`，这种‘# 标题’下立即出现同名或相关二级标题的情况，可能是Markdown转换错误，原意可能只是强调段落。
+  - 语义上，‘家庭树’与‘函数查看器’是并列的具体示例功能，可能同属于上一大章的子部分，而非全书最高层级的‘章’。
+  keep_split: true
+- 'no': 10085
+  overturn_probability: 0.15
+  alternative: 正文小标题
+  counter_evidence:
+  - 前文行10082-10083是文件/菜单位置的元数据，这通常标志着一个新示例的开始，而不是新章。
+  - 该标题内容为‘Function Viewer 的设计与实现’，在编程书籍中常作为附录或详细案例的子章节，层级可能低于‘第X章’。
+  keep_split: true
+- 'no': 10476
+  overturn_probability: 0.4
+  alternative: 正文小标题或排版噪声
+  counter_evidence:
+  - 该行位于‘棱镜实验’（行10465）和‘三角棱镜中射出的七色光锥’（行10474）之间，上下文处于物理光学的具体现象描述中，语义连贯，插入一个一级标题显得突兀。
+  - 没有章节编号，且前后没有明显的章节结束标志（如总结、习题），更像是排版过程中误将加粗或大字号文本识别为 `#` 标题。
+  keep_split: true
+- 'no': 10398
+  overturn_probability: 0.4
+  alternative: 正文小标题
+  counter_evidence:
+  - 前文行10395-10396是标准的示例元数据（文件名、菜单位置），通常位于章节内部。
+  - '标题‘水族箱中的光线路径’是一个具体场景描述，作为最高层级章标题（#）显得过于具体，更像二级或三级标题（## 或 ###）。'
+  keep_split: true
+- 'no': 10510
+  overturn_probability: 0.0
+  alternative: 索引分节
+  counter_evidence:
+  - 根据规则，文末索引划分为一章。虽然这是索引的一部分，但通常索引整体视为一个独立章节。即使视为分节，其作为独立部分（# 索引）的开始，分章是合理的。
+  - 无强有力反方证据，这是典型的非正文结构标记。
+  keep_split: true
+- 'no': 11191
+  overturn_probability: 0.05
+  alternative: 附录分节
+  counter_evidence:
+  - ‘术语表’通常作为独立章节或附录存在。
+  - 无强有力反方证据，其独立性高。
+  keep_split: true
+- 'no': 11449
+  overturn_probability: 0.2
+  alternative: 索引重复或排版错误
+  counter_evidence:
+  - 行10510已经出现 `# 索引`，此处再次出现 `# 索引` 极有可能是排版错误、索引部分的重复标记，或者是索引内部的某个子节被错误标记为一级标题。
+  - 如果之前已经分了‘索引’章，这里再分一章会导致索引被拆分成两章，不符合常规逻辑。
+  keep_split: false

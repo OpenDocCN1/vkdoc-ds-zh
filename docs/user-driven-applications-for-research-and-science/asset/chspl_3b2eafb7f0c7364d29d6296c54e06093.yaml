@@ -1,0 +1,13 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.9
+  reason: 封面及版权信息（ISBN、版权页），属于正文前的前置内容，统一划分为第一章。
+- 'no': 22
+  confidence: 0.95
+  reason: 一级标题“# 前言”，属于正文前的前言部分，按规则应划分为独立章节。
+- 'no': 60
+  confidence: 0.95
+  reason: 一级标题“# 引言”，属于正文前的引言部分，按规则应划分为独立章节。
+- 'no': 232
+  confidence: 0.95
+  reason: 一级标题“# 1. 基础”，对应第1章，是全书最高层级的大章起始。

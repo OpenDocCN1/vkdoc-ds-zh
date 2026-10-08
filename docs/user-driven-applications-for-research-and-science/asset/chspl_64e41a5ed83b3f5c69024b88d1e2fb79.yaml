@@ -1,0 +1,25 @@
+chapter_starts:
+- 'no': 9426
+  confidence: 0.95
+  reason: Markdown一级标题（# 家谱应用程序设计与实现），且独立成行，作为章节分隔。
+- 'no': 10002
+  confidence: 0.95
+  reason: Markdown一级标题（# 家庭树应用程序与函数查看器），且独立成行。
+- 'no': 10085
+  confidence: 0.95
+  reason: Markdown一级标题（# Function Viewer 的设计与实现），且独立成行。
+- 'no': 10476
+  confidence: 0.9
+  reason: Markdown一级标题（# 光的色散与彩虹），尽管后续内容有插值，但符合最高层级章标题格式。
+- 'no': 10398
+  confidence: 0.9
+  reason: Markdown一级标题（# 水族箱中的光线路径），且独立成行。
+- 'no': 10510
+  confidence: 1.0
+  reason: Markdown一级标题（# 索引），为全书索引部分，应划分为新章。
+- 'no': 11191
+  confidence: 1.0
+  reason: Markdown一级标题（# 术语表），为术语解释部分，应划分为新章。
+- 'no': 11449
+  confidence: 1.0
+  reason: Markdown一级标题（# 索引），为文末索引，应划分为新章。

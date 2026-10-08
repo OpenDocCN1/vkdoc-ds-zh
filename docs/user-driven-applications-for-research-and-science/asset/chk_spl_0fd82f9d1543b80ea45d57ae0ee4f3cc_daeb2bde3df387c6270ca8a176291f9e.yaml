@@ -1,0 +1,22 @@
+reviews:
+- 'no': 3909
+  overturn_probability: 0.05
+  alternative: 章节标题
+  counter_evidence:
+  - 该行包含 Markdown 一级标题标记 '#'，且内容为 '3. 复杂对象'，符合书中章节编号（第三章）和标题的格式特征。
+  - 上下文显示前文（第 3903-3908 行）是第二部分的结束或脚注，后续内容（第 3911 行起）开始讨论复杂对象的概念，与标题语义一致，确认为新的顶级章节。
+  keep_split: true
+- 'no': 4808
+  overturn_probability: 0.05
+  alternative: 章节标题
+  counter_evidence:
+  - 该行包含 Markdown 一级标题标记 '#'，内容为 '4. 组'，符合第四章的编号特征。
+  - 前文（第 4802-4807 行）是上一章的结论和脚注，后续内容（第 4810 行起）开始介绍“组”的概念，逻辑上开启新章。
+  keep_split: true
+- 'no': 5038
+  overturn_probability: 0.05
+  alternative: 章节标题
+  counter_evidence:
+  - 该行包含 Markdown 一级标题标记 '#'，内容为 '5. 普通控件的图形化模拟'，符合第五章的编号特征。
+  - 后续内容（第 5040 行起）开始讨论标准控件的图形化替换，与标题语义紧密相关，确认为新章节开始。
+  keep_split: true
