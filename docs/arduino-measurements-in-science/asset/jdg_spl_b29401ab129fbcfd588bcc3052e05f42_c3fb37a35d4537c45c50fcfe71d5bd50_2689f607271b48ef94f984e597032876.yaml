@@ -1,0 +1,24 @@
+chapter_starts:
+- 'no': 9057
+  confidence: 0.98
+  final_reason: 双方一致 + 编号特征明确（'11.'为最高层级） + 上下文佐证（前文提及'在第11章中'，后文为电源相关内容）
+  accepted_evidence:
+  - 格式特征：'# 11. 为实验供电'符合最高层级章节编号模式
+  - 上下文特征：第9055行提到'在第11章中...'，直接指向该标题为第11章起始
+  - 语义特征：'为实验供电'统领后续关于电池、光伏、风力等电源技术的长篇内容
+  - '复核方确认：''keep_split'': true，反方证据较弱'
+  rejected_evidence:
+  - 复核方提到的格式混淆可能性（认为可能是子标题），但被上下文中的章节引用证据压倒
+  need_human_review: false
+- 'no': 9911
+  confidence: 0.95
+  final_reason: 双方一致 + 规则明确（'文末索引也划分为一章'） + 结构佐证（后续为A-Z索引列表）
+  accepted_evidence:
+  - 规则指令：'文末索引也划分为一章'，该行'# 索引'位于文档末尾，完全符合该规则
+  - 结构特征：后续出现的'## A', '## B'等字母标题是典型的索引结构
+  - 上下文特征：位于'## 总结'章节之后，是正文内容的结束和索引部分的开始
+  - '复核方确认：''overturn_probability'': 0.0，''keep_split'': true'
+  rejected_evidence:
+  - 无有效反方证据
+  need_human_review: false
+rejected_lines: []

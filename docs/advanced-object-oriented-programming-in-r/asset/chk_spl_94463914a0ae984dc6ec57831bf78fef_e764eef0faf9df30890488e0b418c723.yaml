@@ -1,0 +1,51 @@
+reviews:
+- 'no': 3221
+  overturn_probability: 0.0
+  alternative: 一级章节标题
+  counter_evidence:
+  - 该行格式为 `# 8. 结论`，符合 Markdown 一级标题特征，且以数字序号 `8.` 开头，属于全书最高层级的大章。
+  - 其前文（如 R6 类讨论）已经结束，后文为总结性段落，且紧邻索引，符合章标题的上下文特征。
+  keep_split: true
+- 'no': 3231
+  overturn_probability: 0.0
+  alternative: 文末索引章节
+  counter_evidence:
+  - 该行内容为 `## 索引`，后续内容为标准的词汇表或索引列表。根据规则，“文末索引也划分为一章”。
+  keep_split: true
+- 'no': 3313
+  overturn_probability: 0.1
+  alternative: 章节标题（序号异常）
+  counter_evidence:
+  - 该行为 `# 2. 类层次结构`，是一级 Markdown 标题。
+  - 但其序号 `2.` 与前文的 `# 8. 结论` 不连贯（从 8 跳回 2），且后文紧接着出现了 `## 接口与实现` 等子标题，说明这是一个完整的章节结构。
+  - 尽管序号跳跃可能暗示这是另一部分的开始或文档重组导致的错位，但根据“遇到章标题时，应当划分为一个新章”以及“无视其它”的连续性规则，它依然具备章标题的形态和语义特征。
+  keep_split: true
+- 'no': 4354
+  overturn_probability: 0.0
+  alternative: 一级章节标题
+  counter_evidence:
+  - 该行格式为 `# 5. 运算符重载`，具备明确的一级标题标识和序号。
+  - 其前文结束了关于拟合模型对象的讨论，后文开始介绍运算符重载的基础知识，符合章标题的统领性语义。
+  keep_split: true
+- 'no': 4726
+  overturn_probability: 0.0
+  alternative: 一级章节标题
+  counter_evidence:
+  - 该行为 `# S4 类`，虽然未带数字序号，但作为一级 Markdown 标题，其层级高于后续的 `## 定义 S4 类` 等二级标题。
+  - 它引入了一个新的主要主题（S4 系统），与前文的 S3 运算符重载内容有明显界限，符合无序号章标题的判断标准。
+  keep_split: true
+- 'no': 5359
+  overturn_probability: 0.0
+  alternative: 一级章节标题
+  counter_evidence:
+  - 该行为 `# 结合 S3 与 S4 类系统`，是一级 Markdown 标题。
+  - 它标志着从单纯介绍 S4 系统转向介绍两种系统的混合使用，是一个新的主要话题领域，具备章标题的概括性。
+  keep_split: true
+- 'no': 5838
+  overturn_probability: 0.1
+  alternative: 文末索引章节（层级异常）
+  counter_evidence:
+  - 该行为 `### 索引`，使用的是三级 Markdown 标题（`###`），而非一级或二级。
+  - '在之前的文本中（如行 3231），索引使用的是二级标题 `## 索引`。这种层级降级（从 ## 变成 ###）可能是排版错误或非标准的层级映射。'
+  - 尽管它确实是文末的索引部分，根据规则“文末索引也划分为一章”，其内容性质决定了它应该独立成章。
+  keep_split: true

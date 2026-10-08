@@ -1,0 +1,22 @@
+chapter_starts:
+- 'no': 3221
+  confidence: 0.95
+  reason: Markdown 一级标题，带有章节序号 '8.'，语义为结论，符合章标题特征。
+- 'no': 3231
+  confidence: 0.9
+  reason: 标题为 '索引'，根据规则，文末索引划分为一章。
+- 'no': 3313
+  confidence: 0.85
+  reason: Markdown 一级标题，带有章节序号 '2.'，虽序号与前文不连贯，但具备独立章标题特征。
+- 'no': 4354
+  confidence: 0.95
+  reason: Markdown 一级标题，带有章节序号 '5.'，语义完整。
+- 'no': 4726
+  confidence: 0.9
+  reason: Markdown 一级标题，虽无数字序号，但 'S4 类' 是核心主题，层级高于后续子节。
+- 'no': 5359
+  confidence: 0.9
+  reason: Markdown 一级标题，语义为 '结合 S3 与 S4 类系统'，统领后续内容。
+- 'no': 5838
+  confidence: 0.85
+  reason: 标题为 '索引'，位于文本末尾，根据规则划分为一章。

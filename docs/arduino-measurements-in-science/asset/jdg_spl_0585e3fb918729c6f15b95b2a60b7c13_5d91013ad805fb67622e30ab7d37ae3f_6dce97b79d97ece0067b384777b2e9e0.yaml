@@ -1,0 +1,29 @@
+chapter_starts:
+- 'no': 6388
+  confidence: 0.98
+  final_reason: Markdown一级标题格式，带有序号8，且前后空行表明章节边界清晰，双方一致同意分章。
+  accepted_evidence:
+  - 该行格式为 `# 8. ...`，符合最高层级章节标题特征
+  - 前文有脚注及大量空行，标志第7章结束
+  - 后续内容以二级标题 `##` 开始，符合章节后跟随子节的结构
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6509
+  confidence: 0.98
+  final_reason: Markdown一级标题格式，带有序号9，且前后空行表明章节边界清晰，双方一致同意分章。
+  accepted_evidence:
+  - 该行格式为 `# 9. ...`，符合最高层级章节标题特征
+  - 前文有脚注及大量空行，标志第8章结束
+  - 后续内容直接开始正文，符合新章节起始特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7763
+  confidence: 0.98
+  final_reason: Markdown一级标题格式，带有序号10，且前后空行表明章节边界清晰，双方一致同意分章。
+  accepted_evidence:
+  - 该行格式为 `# 10. ...`，符合最高层级章节标题特征
+  - 前文为代码清单部分，标志第9章结束
+  - 后续内容开始新的正文段落，符合新章节起始特征
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

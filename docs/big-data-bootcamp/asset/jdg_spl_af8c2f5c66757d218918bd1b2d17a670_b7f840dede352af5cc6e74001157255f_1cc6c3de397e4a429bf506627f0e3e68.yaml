@@ -1,0 +1,68 @@
+chapter_starts:
+- 'no': 2972
+  confidence: 0.95
+  final_reason: 双方一致认为是章标题。该行使用 Markdown 一级标记 '#'，在本书片段中，'##' 标记（如 2962, 3023）通常作为节或子标题，而
+    '#' 标记（如 2972, 3012, 3074）间隔较大且统领后续内容，符合最高层级章标题特征。
+  accepted_evidence:
+  - Markdown 一级标题 '# 影响远不止于此'
+  - 上下文中 2962 行为 '##'，2972 行为 '#'，层级更高
+  - 标题简短，无句号，具有独立语义
+  rejected_evidence:
+  - 复核方提出的‘可能仅为过渡标题’证据较弱，鉴于其使用的是比周围内容更高级别的 Markdown 标记，且与其他确认的章标题标记一致，故不予采纳
+  need_human_review: false
+- 'no': 3012
+  confidence: 0.95
+  final_reason: 双方一致认为是章标题。该行使用 Markdown 一级标记 '#'，语义统领性强，覆盖后续关于大数据过滤信息的论述，且与前后其他 '#'
+    标题层级一致。
+  accepted_evidence:
+  - Markdown 一级标题 '# 应对数据过载：大数据如何帮助消化和过滤信息'
+  - 位于 2972（#）和 3074（#）之间，作为独立章节存在
+  - 格式符合章标题特征
+  rejected_evidence:
+  - 复核方提出的‘章节密集’疑虑不成立，因为中间间隔包含大量正文和脚注，符合正常章节长度
+  need_human_review: false
+- 'no': 3074
+  confidence: 0.95
+  final_reason: 双方一致认为是章标题。该行使用 Markdown 一级标记 '#'，后续紧跟 '##' 级别的子标题（3076行），层级结构清晰，符合‘章-节’结构。
+  accepted_evidence:
+  - Markdown 一级标题 '# 顶石案例研究：大数据邂逅爱情'
+  - 后续出现 '## 产品、服务与爱情...' 等二级标题，证实 '#' 为父级
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3172
+  confidence: 0.85
+  final_reason: 双方倾向于分章。虽然语义上可能属于前文案例的一部分，但该行使用了 Markdown 一级标记 '#'，而前后文及其他主要章节（2972,
+    3012, 3074）均使用 '#' 标记章标题。为保持一致性，且遵循‘最高层级’规则，将其划分为新章。
+  accepted_evidence:
+  - Markdown 一级标题 '# 戈特曼论亲密关系'
+  - 与全书其他章标题使用相同的 '#' 标记
+  rejected_evidence:
+  - 复核方提出的‘语义范围窄’和‘可能是误用标记’证据存在，但鉴于缺乏全书其他部分的上下文来证明其为子章节，且标记级别高于同级内容中的 '##'，优先采纳形式特征
+  need_human_review: false
+- 'no': 3317
+  confidence: 0.9
+  final_reason: 双方一致认为是章标题（附录部分）。虽然前一行 3315 是 '## 附录 A'，但 3317 是 '# 大数据资源'。在 Markdown
+    中，'#' 是最高级别。根据规则‘文末索引/附录等也划分为一章’，且 '#' 标记通常对应顶级章节，故分章。
+  accepted_evidence:
+  - Markdown 一级标题 '# 大数据资源'
+  - 位于附录部分，属于书末独立内容
+  rejected_evidence:
+  - '层级看似反转（## 在 # 前），但在无完整目录结构的情况下，以最高标记 ''#'' 作为分章点符合保守原则'
+  need_human_review: false
+- 'no': 3401
+  confidence: 0.95
+  final_reason: 双方一致认为是章标题。规则明确‘文末索引也划分为一章’。尽管标记为 '##'，但其作为索引的开始，具有独立的章节地位。
+  accepted_evidence:
+  - 标题 '## 索引'
+  - 规则强制要求索引独立成章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4016
+  confidence: 0.85
+  final_reason: 双方一致认为是章标题。位于全书末尾的推荐书目列表，属于非正文的附录性内容，通常作为独立章节处理。
+  accepted_evidence:
+  - 标题 '## 其他您会感兴趣的新兴出版社商业书籍'
+  - 位于文末，后续为书籍列表表格
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

@@ -1,0 +1,98 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 双方一致。存在“第一部分”标题，符合“部分-章节”模式规则，且为文档起始，应划分为新章。
+  accepted_evidence:
+  - 行内容为 '# 第一部分'
+  - 后续紧跟第 1 章，结构连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6
+  confidence: 0.95
+  final_reason: 双方一致。包含明确序号“第 1 章”，且处于章节起始位置，符合章标题特征。
+  accepted_evidence:
+  - 行内容为 '### 第 1 章'
+  - 前文为部分标题或前言，后文为章节正文
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 209
+  confidence: 0.95
+  final_reason: 双方一致。包含明确序号“第 2 章”，前文为上一章总结，后文为章节正文，符合章标题特征。
+  accepted_evidence:
+  - 行内容为 '# 第 2 章'
+  - 前文（205-208）为第 1 章的总结
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 520
+  confidence: 0.95
+  final_reason: 双方一致。包含明确序号“第 3 章”，前文为上一章小结，后文为章节正文，符合章标题特征。
+  accepted_evidence:
+  - 行内容为 '## 第 3 章'
+  - 前文（516-519）为第 2 章的小结
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 780
+  confidence: 0.95
+  final_reason: 双方一致。包含明确序号“第 4 章”，前文为上一章总结，后文为章节正文，符合章标题特征。
+  accepted_evidence:
+  - 行内容为 '## 第 4 章'
+  - 前文（774-779）为第 3 章的总结
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1283
+  confidence: 0.95
+  final_reason: 双方一致。包含明确序号“第 5 章”，前文为上一章总结，后文为章节正文，符合章标题特征。
+  accepted_evidence:
+  - 行内容为 '## 第 5 章'
+  - 前文（1279-1282）为第 4 章的总结
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1796
+  confidence: 0.95
+  final_reason: 双方一致。包含明确序号“第 6 章”，前文为上一章总结，后文为章节正文，符合章标题特征。
+  accepted_evidence:
+  - 行内容为 '# 第 6 章'
+  - 前文（1790-1795）为第 5 章的总结
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2191
+  confidence: 0.95
+  final_reason: 双方一致。包含明确序号“Chapter 7”（英文），前文为上一章 Summary，后文为章节正文，符合章标题特征。
+  accepted_evidence:
+  - 行内容为 '# Chapter 7'
+  - 前文（2187-2190）为第 6 章的 Summary
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2533
+  confidence: 0.95
+  final_reason: 双方一致。存在“第二部分”标题，符合“部分-章节”模式规则，应划分为新章。
+  accepted_evidence:
+  - 行内容为 '## 第二部分'
+  - 后续（2539）紧跟第 8 章，结构合理
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2539
+  confidence: 0.95
+  final_reason: 双方一致。包含明确序号“第 8 章”，前文为部分标题及副标题，后文为章节正文，符合章标题特征。
+  accepted_evidence:
+  - 行内容为 '## 第 8 章'
+  - 前文（2537）为章节副标题，序号连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2736
+  confidence: 0.95
+  final_reason: 双方一致。包含明确序号“第 9 章”，前文为上一章总结，后文为章节正文，符合章标题特征。
+  accepted_evidence:
+  - 行内容为 '## 第 9 章'
+  - 前文（2732-2735）为第 8 章的总结
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2994
+  confidence: 0.95
+  final_reason: 双方一致。包含明确序号“第 10 章”，前文为上一章小结，后文为章节正文，符合章标题特征。
+  accepted_evidence:
+  - 行内容为 '# 第 10 章'
+  - 前文（2988-2993）为第 9 章的小结
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

@@ -1,0 +1,51 @@
+reviews:
+- 'no': 25
+  overturn_probability: 0.0
+  alternative: 正文小标题（前言/引言部分的标题）
+  counter_evidence:
+  - 该行内容为“引言”，使用一级标题标记（#），且位于正文之前，根据规则“前言、序言、致谢等正文之前的内容，统一划分为一章”，其作为独立章节起始的判断是正确的，不存在误报。
+  keep_split: true
+- 'no': 81
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行为“1. 类与泛型函数”，使用一级标题（#）且序号为1。在目录（行53）中明确列为“第 1 章”，格式符合“Y. ”这种最高层级编号特征，且后续有二级标题（##），判断正确。
+  keep_split: true
+- 'no': 650
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行为“2. 类层次结构”，使用一级标题（#）且序号为2，紧随第1章之后，序号连贯。目录（行54）中对应“第 2 章”，判断正确。
+  keep_split: true
+- 'no': 954
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行为“3. 实现复用”，使用一级标题（#）且序号为3，目录（行55）对应“第 3 章”，判断正确。
+  keep_split: true
+- 'no': 1193
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行为“4. 统计模型”，使用一级标题（#）且序号为4，目录（行56）对应“第 4 章”，判断正确。
+  keep_split: true
+- 'no': 1757
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行为“5. 运算符重载”，使用一级标题（#）且序号为5，目录（行57）对应“第 5 章”，判断正确。
+  keep_split: true
+- 'no': 2127
+  overturn_probability: 0.1
+  alternative: 排版噪声或正文大段标题
+  counter_evidence:
+  - 该行内容为“S4 类”，使用一级标题（#），但缺乏数字序号（如“6.”）。虽然目录（行58）显示为“第 6 章：S4 类”，但正文标题未体现序号，可能被误判为正文中的某个大段落标题而非章节标题。然而，考虑到其内容独立性和后续结构，分章判断依然合理。
+  - 与第5章结尾（行1755）的总结语气相比，行2127开启了一个全新的主题领域（S4系统），符合章节特征。
+  keep_split: true
+- 'no': 2825
+  overturn_probability: 0.1
+  alternative: 排版噪声或正文大段标题
+  counter_evidence:
+  - 该行内容为“R6 类”，使用一级标题（#），同样缺乏数字序号。目录（行59）显示为“第 7 章：R6 类”。虽然格式上不完美，但语义上确实是独立章节。
+  - 行2825前的行2823是上一节的结束，行2825后跟随新的大主题介绍，符合章节起始特征。
+  keep_split: true

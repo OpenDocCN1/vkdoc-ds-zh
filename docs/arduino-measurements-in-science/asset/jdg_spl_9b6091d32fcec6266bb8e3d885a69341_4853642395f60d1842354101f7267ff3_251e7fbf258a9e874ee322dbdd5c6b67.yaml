@@ -1,0 +1,77 @@
+chapter_starts:
+- 'no': 5
+  confidence: 0.95
+  final_reason: 前置内容中的独立板块，双方一致认可分章。
+  accepted_evidence:
+  - 一级标题
+  - 位于文档开头
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 85
+  confidence: 0.9
+  final_reason: 前置内容中的独立主题板块，双方一致认可分章。
+  accepted_evidence:
+  - 一级标题
+  - 语义统领性
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 97
+  confidence: 0.9
+  final_reason: 前置内容中的独立主题板块，双方一致认可分章。
+  accepted_evidence:
+  - 一级标题
+  - 独立语义单元
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 103
+  confidence: 0.9
+  final_reason: 前置内容中的独立主题板块，双方一致认可分章。
+  accepted_evidence:
+  - 一级标题
+  - 独立语义单元
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 176
+  confidence: 0.9
+  final_reason: 前置内容中的独立主题板块，双方一致认可分章。
+  accepted_evidence:
+  - 一级标题
+  - 独立语义单元
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 280
+  confidence: 0.95
+  final_reason: 典型的法律/安全前置章节，双方一致认可分章。
+  accepted_evidence:
+  - 一级标题
+  - 免责声明特性
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 334
+  confidence: 1.0
+  final_reason: 带有明确数字编号'1.'，为全书第一章，双方一致。
+  accepted_evidence:
+  - 编号特征 '1.'
+  - 顶级章节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1146
+  confidence: 1.0
+  final_reason: 带有明确数字编号'2.'，为全书第二章，双方一致。
+  accepted_evidence:
+  - 编号特征 '2.'
+  - 顶级章节
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1655
+  confidence: 1.0
+  final_reason: 带有明确数字编号'3.'，为全书第三章，双方一致。
+  accepted_evidence:
+  - 编号特征 '3.'
+  - 顶级章节
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 410
+  reason: 复核方指出其虽为H1但缺乏数字编号，位于第1章和第2章之间，语义上属于第1章的子部分或实验章节，不构成新的顶级章节。采纳复核方证据。
+  need_human_review: false

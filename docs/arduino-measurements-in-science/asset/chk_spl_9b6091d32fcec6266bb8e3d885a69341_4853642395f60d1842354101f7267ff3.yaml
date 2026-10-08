@@ -1,0 +1,72 @@
+reviews:
+- 'no': 5
+  overturn_probability: 0.05
+  alternative: 正文小标题
+  counter_evidence:
+  - 该标题位于文档开头，且后续没有正文编号章节，符合“前言、序言等正文之前的内容，统一划分为一章”的规则。
+  - 作为前置部分，它是一个独立的语义单元。
+  keep_split: true
+- 'no': 85
+  overturn_probability: 0.1
+  alternative: 正文小标题
+  counter_evidence:
+  - 该标题为一级标题（#），单独成行，无句号，长度适中。
+  - 它位于“前言”部分之后，作为前置内容的一个独立板块，语义上具有统领性。
+  keep_split: true
+- 'no': 97
+  overturn_probability: 0.1
+  alternative: 正文小标题
+  counter_evidence:
+  - 一级标题，单独成行。
+  - 内容是关于软件脚本编写的指南，属于前置部分的一个独立主题。
+  keep_split: true
+- 'no': 103
+  overturn_probability: 0.1
+  alternative: 正文小标题
+  counter_evidence:
+  - 一级标题，单独成行。
+  - 内容是关于SMT技术的介绍，属于前置部分的一个独立主题。
+  keep_split: true
+- 'no': 176
+  overturn_probability: 0.1
+  alternative: 正文小标题
+  counter_evidence:
+  - 一级标题，单独成行。
+  - 内容是关于测量物理参数的一般性介绍，属于前置部分。
+  keep_split: true
+- 'no': 280
+  overturn_probability: 0.05
+  alternative: 正文小标题
+  counter_evidence:
+  - 一级标题，单独成行。
+  - “免责声明”是典型的法律/安全前置章节。
+  keep_split: true
+- 'no': 334
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 带有明确的数字编号“1.”，符合顶级章节的编号特征。
+  - 后续内容都是围绕“电容与电荷”展开。
+  keep_split: true
+- 'no': 410
+  overturn_probability: 0.8
+  alternative: 正文小标题（第1章的子标题）
+  counter_evidence:
+  - 虽然使用了“#”一级标题符号，但缺乏数字编号（如“1.1”或“2.”）。
+  - 根据规则“只划分全书最高层级的大章（如‘第 X 章’、‘Y. ’）”，非编号的H1标题可能只是排版错误或子章节。
+  - 从上下文看，第334行是“1. 电容与电荷”，第1146行是“2. 电流”。第410行“电容测量与监测”位于两者之间，语义上是第1章的具体实验部分，而非独立的全书顶级章节。
+  keep_split: false
+- 'no': 1146
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 带有明确的数字编号“2.”，符合顶级章节的编号特征。
+  - 后续内容都是围绕“电流”展开。
+  keep_split: true
+- 'no': 1655
+  overturn_probability: 0.0
+  alternative: 正文小标题
+  counter_evidence:
+  - 带有明确的数字编号“3.”，符合顶级章节的编号特征。
+  - 后续内容都是围绕“热量与温度”展开。
+  keep_split: true

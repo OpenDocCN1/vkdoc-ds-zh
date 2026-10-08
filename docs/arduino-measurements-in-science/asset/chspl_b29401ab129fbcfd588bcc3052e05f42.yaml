@@ -1,0 +1,7 @@
+chapter_starts:
+- 'no': 9057
+  confidence: 0.98
+  reason: “# 11. 为实验供电”符合Markdown一级标题格式，且序号为11，属于全书最高层级章节，语义上统领后续关于电源的内容。
+- 'no': 9911
+  confidence: 0.95
+  reason: “# 索引”为Markdown一级标题，根据规则“文末索引也划分为一章”，此处应划分为新章。

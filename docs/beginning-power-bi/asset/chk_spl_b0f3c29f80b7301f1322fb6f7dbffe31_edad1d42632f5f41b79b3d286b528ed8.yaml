@@ -1,0 +1,98 @@
+reviews:
+- 'no': 0
+  overturn_probability: 0.0
+  alternative: 正文小标题/部分标题
+  counter_evidence:
+  - 行内容为 '# 第一部分'，符合 Markdown 一级标题格式。
+  - 根据题目给定的判断规则，若存在“部分”标题，则视为“部分-章节”模式，部分标题需划分为新章。
+  - 后续紧跟第 1 章，结构连贯，无明显排版噪声特征。
+  keep_split: true
+- 'no': 6
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '### 第 1 章'，明确包含章节序号。
+  - 上下文中行 4 为部分/大节标题，行 8-10 开始介绍 Power Pivot 背景，符合章节起始特征。
+  - 虽然 Markdown 级别为三级（###），但语义上它是全书的第 1 章，序号连贯。
+  keep_split: true
+- 'no': 209
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '# 第 2 章'，明确包含章节序号。
+  - 前一行（205-208）为第 1 章的总结，符合章节结尾特征。
+  - 后续内容为“将数据导入 Power Pivot”，与标题语义一致。
+  keep_split: true
+- 'no': 520
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '## 第 3 章'，明确包含章节序号。
+  - 前文（516-519）为第 2 章的小结。
+  - 后续内容（524）为“创建数据模型”，语义连贯。
+  keep_split: true
+- 'no': 780
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '## 第 4 章'，明确包含章节序号。
+  - 前文（774-779）为第 3 章的总结。
+  - 后续内容（784）为“使用 DAX 创建计算”，语义连贯。
+  keep_split: true
+- 'no': 1283
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '## 第 5 章'，明确包含章节序号。
+  - 前文（1279-1282）为第 4 章的总结。
+  - 后续内容（1287）为“使用 DAX 创建度量值”，语义连贯。
+  keep_split: true
+- 'no': 1796
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '# 第 6 章'，明确包含章节序号。
+  - 前文（1790-1795）为第 5 章的总结。
+  - 后续内容（1800）为“融入时间智能”，语义连贯。
+  keep_split: true
+- 'no': 2191
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '# Chapter 7'，明确包含章节序号（英文）。
+  - 前文（2187-2190）为第 6 章的 Summary。
+  - 后续内容（2195）为“使用数据透视表和图表进行数据分析”，语义连贯。
+  - 注意：原文此处从中文切换为英文标题，但结构层级未变，仍为章标题。
+  keep_split: true
+- 'no': 2533
+  overturn_probability: 0.0
+  alternative: 部分标题
+  counter_evidence:
+  - 行内容为 '## 第二部分'，符合部分标题特征。
+  - 根据规则，部分标题在“部分-章节”模式下应划分新章。
+  - 后续（2539）紧跟第 8 章，结构合理。
+  keep_split: true
+- 'no': 2539
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '## 第 8 章'，明确包含章节序号。
+  - 前文（2537）为第 8 章的副标题/章节名“使用 Power View 构建交互式报表和仪表板”，通常主章节序号行作为划分点更准确。
+  - 后续内容为该章正文。
+  keep_split: true
+- 'no': 2736
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '## 第 9 章'，明确包含章节序号。
+  - 前文（2732-2735）为第 8 章的总结。
+  - 后续内容（2740）为“使用 Power View 创建标准可视化”，语义连贯。
+  keep_split: true
+- 'no': 2994
+  overturn_probability: 0.0
+  alternative: 章节标题
+  counter_evidence:
+  - 行内容为 '# 第 10 章'，明确包含章节序号。
+  - 前文（2988-2993）为第 9 章的小结。
+  - 后续内容（2998）为“使用 Power View 创建交互式仪表板”，语义连贯。
+  keep_split: true

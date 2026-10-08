@@ -1,0 +1,22 @@
+chapter_starts:
+- 'no': 2994
+  confidence: 0.95
+  reason: 明确的章标题 '第 10 章'，且后续内容 '使用 Power View 创建交互式仪表板' 为该章的具体主题，符合新章起始特征。
+- 'no': 3157
+  confidence: 0.9
+  reason: 存在 '第 X 部分' 标题，根据规则，部分标题需划分新章。'第三部分' 统领后续第 11、12 章。
+- 'no': 3163
+  confidence: 0.95
+  reason: 明确的章标题 '第 11 章'，后续内容 '使用 Power Query 进行数据发现' 为该章主题。
+- 'no': 3388
+  confidence: 0.95
+  reason: 明确的章标题 '第 12 章'，后续内容 '使用 Power Map 进行地理空间分析' 为该章主题。
+- 'no': 3606
+  confidence: 0.95
+  reason: 明确的章标题 '第 13 章'，后续内容 '使用 Excel 挖掘数据' 为该章主题。
+- 'no': 3815
+  confidence: 0.95
+  reason: 明确的章标题 '第 14 章'，后续内容 '构建完整解决方案' 为该章主题。
+- 'no': 4166
+  confidence: 0.9
+  reason: ' ''索引'' 属于文末附录，根据规则统一划分为一章。'

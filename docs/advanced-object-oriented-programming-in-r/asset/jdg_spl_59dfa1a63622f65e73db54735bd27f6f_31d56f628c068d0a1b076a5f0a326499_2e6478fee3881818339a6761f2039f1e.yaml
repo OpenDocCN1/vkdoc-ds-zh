@@ -1,0 +1,5 @@
+chapter_starts: []
+rejected_lines:
+- 'no': 5900
+  reason: 复核方指出该行为目录或索引列表项，后续行均为缩进的Markdown列表结构，且内容呈字母顺序排列，符合索引特征，非章标题。
+  need_human_review: false
