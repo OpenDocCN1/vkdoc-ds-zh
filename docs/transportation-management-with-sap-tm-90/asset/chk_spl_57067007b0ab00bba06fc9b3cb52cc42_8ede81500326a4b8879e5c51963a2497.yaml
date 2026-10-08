@@ -1,0 +1,148 @@
+reviews:
+- 'no': 3071
+  overturn_probability: 0.9
+  alternative: 排版断行/OCR噪声/正文小标题
+  counter_evidence:
+  - 该行是二级标题 '## 定义运输组'，但在此之前的第 3072 行是空行，第 3064 行已有 '### 定义运输组' 且其下紧接着表格数据（第 3066-3076
+    行内容完整，包含表头和数据）。
+  - 第 3069 行出现了 '# SAP 运输管理配置指南'，这明显是页眉或章节大标题的残留/误识别，紧接着的 3071 行 '## 定义运输组' 极有可能是文档结构混乱或OCR错误导致的重复/层级错误，而非真正的独立大章节起始。真正的章节划分应依据最高层级标题，而此处上下文显示它是
+    '定义运输组' 这一小节内部的重复或误植。
+  - 规则指出只划分全书最高层级的大章。在此上下文中，'定义运输组' 只是附录中众多配置项之一，层级为 '##'，但结合前文 '###' 的存在，它更像是子标题的误级或排版噪声。
+  keep_split: false
+- 'no': 3089
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 该行 '## 定义产品' 是二级标题。在此之前的第 3087 行 '以相同方式定义其余的运输组。' 是上一小节的结尾。
+  - 虽然 '##' 通常被视为章节，但在此类SAP配置指南中，'定义产品'、'定义设备组' 等通常是同一级配置步骤的子项。如果没有明确的 '第X章' 或 'Part
+    X' 结构，这些 '##' 标题更可能是文档大纲中的二级节点，而非独立的“大章”。
+  - 观察整体结构，这些 '##' 标题（如 3136, 3213, 3240 等）密集出现，且内容均为“定义XXX”，它们更像是同一附录章节下的并列小节，而非整个书的独立大章。根据规则“只划分全书最高层级的大章”，如果全书最高层级是
+    'Part' 或 'Chapter'，那么 '##' 属于子层级，不应分章。即使没有显式更高层级，这种密集的小节标题也不宜每个都作为“章”切分，否则粒度太细。
+  keep_split: false
+- 'no': 3136
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 同上，'## 定义设备组和设备类型' 是配置步骤的小标题。
+  - 前文第 3134-3135 行是上一节 '定义产品' 的结尾（'以此方式，定义其余的运输段类型。' 实际上是上一节结尾，等等，仔细看 3136 前文是 3135
+    '...运输段类型'，不对，3136前是3135 '以此方式，定义其余的运输段类型。' 这是 3240 节的结尾。3136 前是 3135? 不，3136
+    前是 3135? 看文本：3135 是 '以此方式，定义其余的运输段类型。' 不对，那是 3240 结尾。3136 是 '## 定义设备组和设备类型'。它前面是
+    3135 '以此方式，定义其余的运输段类型。' 这里文本行号有跳跃或我读错了。让我们看提供的文本：3135 是 '以此方式，定义其余的运输段类型。' 这是属于
+    3240 '定义运输段类型' 的结尾？不，3240 是 '## 定义运输段类型'。3136 是 '## 定义设备组和设备类型'。它的前文 3135 是 '以此方式，定义其余的运输段类型。'
+    这说明 3136 之前有一个 '定义运输段类型' 的章节？不，3240 才是 '定义运输段类型'。看来文本中 '##' 标题之间穿插了很多 '###' 子标题。
+  - 关键点：'##' 标题在此书中作为配置项的标题，密度极高。每个 '##' 仅包含 1-2 页的表格和操作步骤。将它们划分为“章”会导致章节过多且过短，不符合通常“章”的语义（统领性、概括性）。它们更像是“节”或“小节”。
+  keep_split: false
+- 'no': 3213
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义运输服务等级代码' 是一个具体的配置步骤，属于小标题层级。
+  keep_split: false
+- 'no': 3240
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义运输段类型' 是配置步骤小标题。
+  keep_split: false
+- 'no': 3266
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义运输方式类型' 是配置步骤小标题。
+  keep_split: false
+- 'no': 3369
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义运输类型' 是配置步骤小标题。
+  keep_split: false
+- 'no': 3404
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义地理选择属性' 是配置步骤小标题。
+  keep_split: false
+- 'no': 3453
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义时间相关选择属性' 是配置步骤小标题。
+  keep_split: false
+- 'no': 3495
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义附加选择属性' 是配置步骤小标题。
+  keep_split: false
+- 'no': 3672
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义承运商选择设置' 是配置步骤小标题。
+  keep_split: false
+- 'no': 3727
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义货运结算单据的编号范围间隔' 是配置步骤小标题。
+  keep_split: false
+- 'no': 3756
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义货运结算单据类型' 是配置步骤小标题。
+  keep_split: false
+- 'no': 3796
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义运费结算单据的编号范围间隔' 是配置步骤小标题。
+  keep_split: false
+- 'no': 4398
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 为货运订单类型分配项目类型' 是配置步骤小标题。
+  keep_split: false
+- 'no': 4425
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义运输阶段的默认货运单据类型' 是配置步骤小标题。
+  keep_split: false
+- 'no': 4458
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义计划的编号范围区间' 是配置步骤小标题。
+  keep_split: false
+- 'no': 4485
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义航次的编号范围区间' 是配置步骤小标题。
+  keep_split: false
+- 'no': 4962
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义费率表' 是配置步骤小标题。
+  keep_split: false
+- 'no': 5076
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义费率' 是配置步骤小标题。
+  keep_split: false
+- 'no': 5524
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义计算单' 是配置步骤小标题。
+  keep_split: false
+- 'no': 5843
+  overturn_probability: 0.85
+  alternative: 正文小标题
+  counter_evidence:
+  - 理由同 3136。'## 定义协议编号范围间隔' 是配置步骤小标题。
+  keep_split: false

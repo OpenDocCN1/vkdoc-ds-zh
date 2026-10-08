@@ -1,0 +1,19 @@
+chapter_starts:
+- 'no': 3621
+  confidence: 0.98
+  reason: 标题为“# 14. 处理表之间的多重关系”，符合第X章编号特征，且为最高层级标题，前文为上一章结尾总结。
+- 'no': 3792
+  confidence: 0.98
+  reason: 标题为“# 15. 理解上下文转换”，符合第X章编号特征，且为最高层级标题。
+- 'no': 4536
+  confidence: 0.98
+  reason: 标题为“# 16. 善用上下文转换”，符合第X章编号特征，且为最高层级标题。
+- 'no': 4948
+  confidence: 0.98
+  reason: 标题为“# 虚拟关系：`LOOKUPVALUE` 和 `TREATAS` 函数”，虽未显式编号，但根据上下文（前章为16章，后章为18章）及Markdown一级标题格式，判定为第17章。
+- 'no': 5128
+  confidence: 0.98
+  reason: 标题为“# 18. 表扩展”，符合第X章编号特征，且为最高层级标题。
+- 'no': 5627
+  confidence: 0.98
+  reason: 标题为“# 19. CALCULATETABLE 函数”，符合第X章编号特征，且为最高层级标题。

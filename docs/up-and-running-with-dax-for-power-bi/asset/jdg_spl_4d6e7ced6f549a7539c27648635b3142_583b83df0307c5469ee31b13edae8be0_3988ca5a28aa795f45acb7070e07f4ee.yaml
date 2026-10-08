@@ -1,0 +1,50 @@
+chapter_starts:
+- 'no': 3621
+  confidence: 0.98
+  final_reason: 双方一致确认，标题包含一级标题标记及章节编号“# 14.”，且位于第13章内容之后，符合最高层级章节划分规则。
+  accepted_evidence:
+  - 行首标记为 '# 14.'，符合“第 X 章”的编号特征
+  - 前文（no. 3620）为空白，后续内容进入新主题，上下文符合章节起始特征
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 3792
+  confidence: 0.98
+  final_reason: 双方一致确认，标题包含一级标题标记及章节编号“# 15.”，是典型的最高层级章节标题。
+  accepted_evidence:
+  - 行首标记为 '# 15.'，序号连贯（承接第14章）
+  - 标题语义“理解上下文转换”具有统领性，覆盖后续大量内容
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4536
+  confidence: 0.98
+  final_reason: 双方一致确认，标题包含一级标题标记及章节编号“# 16.”，为新的最高层级章节。
+  accepted_evidence:
+  - 行首标记为 '# 16.'，符合章节编号规范
+  - 前文结束了第15章的内容，此处开启新章节“善用上下文转换”
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 4948
+  confidence: 0.95
+  final_reason: 双方一致确认，虽无显式数字“17”，但格式为一级标题“#”，且位于第16章与第18章之间，语义独立，推断为第17章。
+  accepted_evidence:
+  - Markdown一级标题“# 虚拟关系...”，无编号但层级最高
+  - 上下文位置介于第16章和第18章之间，逻辑上补全了章节序列
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5128
+  confidence: 0.98
+  final_reason: 双方一致确认，标题包含一级标题标记及章节编号“# 18.”，为新的最高层级章节。
+  accepted_evidence:
+  - 行首标记为 '# 18.'，序号连贯（承接推断的第17章）
+  - 标题“表扩展”为核心概念，作为独立章节合适
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 5627
+  confidence: 0.98
+  final_reason: 双方一致确认，标题包含一级标题标记及章节编号“# 19.”，为全书最后一章。
+  accepted_evidence:
+  - 行首标记为 '# 19.'，序号连贯
+  - 前文提到“最后一章”，此处确实为末尾技术章节
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines: []

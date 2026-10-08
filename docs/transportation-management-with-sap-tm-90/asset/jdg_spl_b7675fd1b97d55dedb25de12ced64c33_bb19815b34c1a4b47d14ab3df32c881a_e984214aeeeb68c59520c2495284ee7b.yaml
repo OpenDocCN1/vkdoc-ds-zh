@@ -1,0 +1,108 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.95
+  final_reason: 作为书籍前置内容（封面、版权页、目录等）的起始点，根据“前言、序言...统一划分为一章”的规则，将其标记为前置部分章节的起点是合理的。复核方也认可此处理逻辑。
+  accepted_evidence:
+  - 行0是封面图片引用，标志文档开始。
+  - 后续行包含作者、版权、目录等前置元数据，直到行483第一个正文章节标题。
+  - 复核方确认keep_split=true。
+  rejected_evidence:
+  - 行0本身不是文本标题，但作为块起始标记符合常规分章逻辑。
+  need_human_review: false
+- 'no': 483
+  confidence: 0.95
+  final_reason: H1级标题，对应目录中的“第 1 章”，语义统领后续内容，且前文（行482及之前）为目录/前置内容，本章为正文第一章。
+  accepted_evidence:
+  - 行483为 `# 运输行业概览：第三方物流视角`。
+  - 目录中明确列为第1章。
+  - 后续内容（行485起）为章节介绍和正文，符合章节起始特征。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 586
+  confidence: 0.95
+  final_reason: 虽然Markdown标记为H2，但带有“2.”序号，且对应目录“第 2 章”。在本书结构中，最高层级章节有时被标记为H2（如行586），而子节为H3/H4。前文（行582）为上一章总结，符合章节交替规律。
+  accepted_evidence:
+  - 行586为 `## 2. 为何需要运输管理系统...`，带有序号。
+  - 目录对应第2章。
+  - 上下文特征明显：前行为总结，后行为本章概览。
+  rejected_evidence:
+  - Markdown级别为H2而非H1，但依据“编号特征”优先，确认为大章。
+  need_human_review: false
+- 'no': 699
+  confidence: 0.95
+  final_reason: H1级标题，带有序号“3.”，对应目录“第 3 章”，格式清晰无歧义。
+  accepted_evidence:
+  - 行699为 `# 3. TMS 产品全景...`。
+  - 目录对应第3章。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 800
+  confidence: 0.95
+  final_reason: H1级标题，虽缺显式序号“4.”，但语义上对应目录“第 4 章”（SAP TM：概述、架构、路线图）。前文（行798）为上一章总结，本章开始于行800，结构连贯。
+  accepted_evidence:
+  - 行800为 `# SAP TM：概述、架构、路线图`。
+  - 目录对应第4章。
+  - 上下文衔接自然。
+  rejected_evidence:
+  - 缺乏行内序号，但目录和上下文证据充分。
+  need_human_review: false
+- 'no': 1098
+  confidence: 0.95
+  final_reason: H1级标题，带有序号“5.”，对应目录“第 5 章”。
+  accepted_evidence:
+  - 行1098为 `# 5. TMS 选型框架`。
+  - 目录对应第5章。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1179
+  confidence: 0.95
+  final_reason: H1级标题，虽缺显式序号，但语义对应目录“第 6 章”（SAP TM 实施、推广和维护的行业最佳实践）。前文（行1173-1177）为上一章总结和过渡语，本章开始于行1179。
+  accepted_evidence:
+  - 行1179为 `# SAP TM 实施、推广和维护的行业最佳实践`。
+  - 目录对应第6章。
+  - 上下文衔接自然。
+  rejected_evidence:
+  - 缺乏行内序号，但目录和上下文证据充分。
+  need_human_review: false
+- 'no': 1666
+  confidence: 0.95
+  final_reason: H1级标题，带有序号“7.”，对应目录“第 7 章”。
+  accepted_evidence:
+  - 行1666为 `# 7. 运输管理参与所需的团队组成和技能矩阵...`。
+  - 目录对应第7章。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1890
+  confidence: 0.95
+  final_reason: H1级标题，带有序号“8.”，对应目录“第 8 章”。
+  accepted_evidence:
+  - 行1890为 `# 8. SAP TM 实施的转型影响`。
+  - 目录对应第8章。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 1963
+  confidence: 0.95
+  final_reason: H1级标题，带有序号“9.”，对应目录“第 9 章”。
+  accepted_evidence:
+  - 行1963为 `# 9. 新维度产品：HANA、移动性和分析...`。
+  - 目录对应第9章。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2062
+  confidence: 0.95
+  final_reason: H1级标题，带有序号“10.”，对应目录“第 10 章”。
+  accepted_evidence:
+  - 行2062为 `# 10. 端到端货运生命周期场景的流程映射`。
+  - 目录对应第10章。
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 2321
+  confidence: 0.9
+  final_reason: H1级标题，对应目录“附录 A”。附录内容篇幅巨大且独立性强，单独划分为一章符合技术书籍的处理惯例，便于读者定位配置实施指南。
+  accepted_evidence:
+  - 行2321为 `# 配置与实施 SAP TM 9.0 的分步指南`。
+  - 目录中列为附录A，且后续大量内容（至行2999+）均为附录细节。
+  rejected_evidence:
+  - “附录”严格来说不等同于“章”，但作为独立大块内容，分章处理更合理。
+  need_human_review: false
+rejected_lines: []

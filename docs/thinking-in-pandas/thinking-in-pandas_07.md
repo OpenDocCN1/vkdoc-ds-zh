@@ -1,4 +1,4 @@
-# NumPy 与 pandas 性能基础
+# 4. NumPy 与 pandas 性能基础
 
 清单 3-12 展示了包含三个无符号 8 位整数的 `ndarray`。
 

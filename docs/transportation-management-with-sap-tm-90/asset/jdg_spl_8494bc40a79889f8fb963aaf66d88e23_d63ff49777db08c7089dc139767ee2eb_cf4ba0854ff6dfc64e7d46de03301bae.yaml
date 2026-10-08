@@ -1,0 +1,134 @@
+chapter_starts:
+- 'no': 6232
+  confidence: 0.95
+  final_reason: 双方一致，且复核方确认其为独立配置主题（成本分摊参数文件）的起始，符合格式与语义特征。
+  accepted_evidence:
+  - Markdown 二级标题，在全书层级中视为最高层级章节
+  - 位于前一章节（内部协议）操作闭环之后，开启新配置主题
+  - 后续内容包含表格定义及操作步骤，具有统领性
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6258
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为独立配置主题（计算参数文件）的起始。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 承接上一主题结束，开启“计算参数文件”新主题，语义连贯
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6288
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为独立配置主题（结算参数文件）的起始。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 位于“定义计算参数文件”章节结束后，开启新主题
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6317
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为独立配置主题（常规设置）的起始。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 开启“定义常规设置”新主题，与前一主题界限清晰
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6338
+  confidence: 0.9
+  final_reason: 双方一致保留分章。虽然6317和6338都叫“定义常规设置”，但根据规则“宁可漏分，不可误分”及复核方意见，二者可能为同一逻辑单元的拆分（概述
+    vs 操作），但鉴于它们各自独立成段且复核方建议维持原判断，故均保留。此处保留6338为第二章起始，因6317已划分为一章。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 复核方认为虽逻辑上与6317相关，但原文结构将其分开，且6338前有完整闭环，维持分章
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6352
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为独立配置主题（运输段默认协议方角色）的起始。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 开启新主题，独立于前面的常规设置
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6381
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为SAP ERP集成配置章节的起始，主题跨度大。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 开启与SAP ERP集成相关的新配置领域，结构重大转折
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6626
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为从配置部分转向流程部分的重大结构转折。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 开启“运力采购”流程，标志着从主数据配置进入端到端流程演示
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6713
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为“订单管理”流程章节的起始。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 开启“订单管理”流程，与前一流程并列
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 6870
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为“计划与转包”流程章节的起始。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 开启“计划与转包”流程，主题独立
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7026
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为“货运执行与监控”流程章节的起始。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 开启“货运执行与监控”流程，主题独立
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7092
+  confidence: 0.85
+  final_reason: 双方一致保留。复核方虽指出其语义上可能隶属于7026，但依据“##视为最高层级”的全书规则，且其后跟随###子标题，结构上自洽，故维持分章。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 全书规则将##视为顶级章节，且7092后跟随###子章节，结构完整
+  rejected_evidence:
+  - 复核方提示其可能为7026的子部分，但缺乏强证据推翻“##即顶级”的一致性规则
+  need_human_review: false
+- 'no': 7230
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为处理进口单据的新流程部分。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 开启“处理货运委托（进口）和货运预订（进口）”新流程
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7388
+  confidence: 0.95
+  final_reason: 双方一致，复核方确认其为“客户开票与运费结算”流程章节的起始。
+  accepted_evidence:
+  - Markdown 二级标题
+  - 开启“客户开票与运费结算”流程，主题独立
+  rejected_evidence: []
+  need_human_review: false
+- 'no': 7502
+  confidence: 0.99
+  final_reason: 双方一致，索引章节根据规则必须单独划分为一章。
+  accepted_evidence:
+  - Markdown 一级标题 `# 索引`
+  - 规则明确规定“文末索引也划分为一章”
+  rejected_evidence: []
+  need_human_review: false
+rejected_lines:
+- 'no': 6190
+  reason: 复核方指出其为页眉残留或排版噪声：位于正文段落中间，使用一级标题#（与其他章节##不一致），且后续内容未中断当前操作流（仍为定义内部协议的操作步骤）。判断方无有力反驳，倾向不分章。
+  need_human_review: false
+- 'no': 7394
+  reason: 复核方指出其为子步骤标题误标或排版错误：位于“客户开票与运费结算”（7388）内部，前后均有更高级别的###子标题（7392, 7410），语义上属于该大章的子步骤，不应划分为顶级章节。
+  need_human_review: false
+- 'no': 7498
+  reason: 复核方指出其为非实质性标题：其后无实质章节内容，直接跳至索引（7502），且后续文本（7500）为上一章节的尾注，属于排版残留或未完成标题，不应独立分章。
+  need_human_review: false

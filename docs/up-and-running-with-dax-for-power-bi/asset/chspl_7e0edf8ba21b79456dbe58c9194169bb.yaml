@@ -1,0 +1,52 @@
+chapter_starts:
+- 'no': 0
+  confidence: 0.9
+  reason: 版权页/封面起始，属于前言类非正文内容，统一划分为一章。
+- 'no': 13
+  confidence: 0.95
+  reason: Markdown一级标题“# 引言”，属于前言部分，语义明确，独立成行。
+- 'no': 56
+  confidence: 0.95
+  reason: Markdown一级标题“# 致谢”，属于前言/正文前内容，独立章节。
+- 'no': 64
+  confidence: 0.95
+  reason: Markdown一级标题“# 关于作者”，属于前言部分。
+- 'no': 66
+  confidence: 0.95
+  reason: Markdown一级标题“# 关于技术审校”，属于前言部分。
+- 'no': 68
+  confidence: 0.95
+  reason: Markdown一级标题“# 脚注”，属于前言/附录部分。
+- 'no': 72
+  confidence: 1.0
+  reason: Markdown一级标题“# 1. 让我看看数据”，符合“X. ”编号特征，为全书最高层级章节。
+- 'no': 241
+  confidence: 1.0
+  reason: Markdown一级标题“# 2. DAX 对象、语法与格式”，符合“X. ”编号特征，为全书最高层级章节。
+- 'no': 360
+  confidence: 1.0
+  reason: Markdown一级标题“# 3. 计算列和度量值”，符合“X. ”编号特征，为全书最高层级章节。
+- 'no': 754
+  confidence: 1.0
+  reason: Markdown一级标题“# 4. 计值上下文”，符合“X. ”编号特征，为全书最高层级章节。
+- 'no': 920
+  confidence: 1.0
+  reason: Markdown一级标题“# 5. 迭代器”，符合“X. ”编号特征，为全书最高层级章节。
+- 'no': 1111
+  confidence: 1.0
+  reason: Markdown一级标题“# 6. `CALCULATE` 函数”，符合“X. ”编号特征，为全书最高层级章节。
+- 'no': 1236
+  confidence: 1.0
+  reason: Markdown一级标题“# DAX 中的虚拟表与筛选器”，虽无数字编号，但使用一级标题格式，且语义上为独立的大章（后续内容围绕表函数展开，与第6章CALCULATE紧密相关但作为独立章节处理，通常这类无编号一级标题视为新章）。
+- 'no': 1738
+  confidence: 1.0
+  reason: Markdown一级标题“# 8. ALL 函数及其所有变体”，符合“X. ”编号特征，为全书最高层级章节。
+- 'no': 2287
+  confidence: 1.0
+  reason: Markdown一级标题“# 9. 日期计算：使用 DAX 时间智能”，符合“X. ”编号特征，为全书最高层级章节。
+- 'no': 2649
+  confidence: 1.0
+  reason: Markdown一级标题“# 10. 空值与零”，符合“X. ”编号特征，为全书最高层级章节。
+- 'no': 2819
+  confidence: 1.0
+  reason: Markdown一级标题“# 11. 使用变量：让我们的代码更具可读性”，符合“X. ”编号特征，为全书最高层级章节。
