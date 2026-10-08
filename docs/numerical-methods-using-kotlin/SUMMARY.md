@@ -10,7 +10,7 @@
 +   [8. 偏微分方程](numerical-methods-using-kotlin_2_6.md)
 +   [9. 无约束优化](numerical-methods-using-kotlin_2_7.md)
 +   [10. 约束优化](numerical-methods-using-kotlin_3.md)
-+   [11.1 罚函数法](numerical-methods-using-kotlin_4.md)
++   [11. 启发式算法](numerical-methods-using-kotlin_4.md)
 +   [12. 基础统计学](numerical-methods-using-kotlin_5_0.md)
 +   [13. 随机数与模拟](numerical-methods-using-kotlin_5_1.md)
 +   [14. 线性回归](numerical-methods-using-kotlin_6.md)
