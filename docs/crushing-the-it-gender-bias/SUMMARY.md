@@ -7,4 +7,4 @@
 +   [5. 如何寻找导师并获取赞助](crushing-the-it-gender-bias_06.md)
 +   [6. 以光速前行](crushing-the-it-gender-bias_07.md)
 +   [7. 一线故事](crushing-the-it-gender-bias_08.md)
-+   [结束与新的开始](crushing-the-it-gender-bias_09.md)
++   [8. 结束与新的开始](crushing-the-it-gender-bias_09.md)
