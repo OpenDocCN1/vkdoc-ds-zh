@@ -3,7 +3,7 @@
 +   [关于技术审校者](quantum-computing-solutions_02_fmt.md)
 +   [第一部分 引言](quantum-computing-solutions_03_fmt.md)
 +   [1. 量子解决方案概述](quantum-computing-solutions_04_fmt.md)
-+   [量子计算背后的数学](quantum-computing-solutions_05_fmt.md)
++   [2. 量子计算背后的数学](quantum-computing-solutions_05_fmt.md)
 +   [第二部分 量子计算基础](quantum-computing-solutions_06_fmt.md)
 +   [3. 量子子系统与性质](quantum-computing-solutions_07_fmt.md)
 +   [4. 量子信息处理框架](quantum-computing-solutions_08_fmt.md)
